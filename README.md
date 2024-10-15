@@ -9,7 +9,7 @@ Até o momento, o projeto atende apenas as linhas de ônibus municipais da cidad
 ## Funcionalidades
 
 - Buscar por uma linha
-- Visualizar seus horários de partida
+- Visualizar os horários de partida da linha
   - Os horários podem ter itinerários diferentes, por isso é necessário visualizar as observações dos horários de partida.
 - Visualizar os dados da linha:
   - Nome
