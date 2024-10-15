@@ -1,8 +1,29 @@
-# React + Vite
+# Mobilidade
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto de mobilidade.
 
-Currently, two official plugins are available:
+## Escopo de abrangência
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Até o momento, o projeto atende apenas as linhas de ônibus municipais da cidade de Sabará-MG.
+
+## Funcionalidades
+
+- Buscar por uma linha
+- Visualizar seus horários de partida
+  - Os horários podem ter itinerários diferentes, por isso é necessário visualizar as observações dos horários de partida.
+- Visualizar os dados da linha:
+  - Nome
+  - Local de partida e destino
+  - Tarifa
+  - Tipo (coletivo, executivo, etc.)
+  - Abrangência (municipal, metropolitano, rodoviário, etc.)
+  - Se possui integração ou não
+  - Concessionária
+- Visualizar os pontos de recarga da linha
+- Visualizar os pontos de parada da linha
+
+## Tecnologias
+
+- React
+- MySQL, MySQL Workbench, PHPMyAdmin
+- React-bootstrap
