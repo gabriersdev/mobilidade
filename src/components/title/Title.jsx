@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./titles.css";
+import "./title.css";
 
 const Title = ({ type, title, color }) => {
   return React.createElement(type, { class: `title-${type}`, style: `color: ${color}` }, title)
