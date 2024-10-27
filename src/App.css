@@ -1,0 +1,22 @@
+:root {
+  --red: #DF0A0A;
+  --naval-blue: #3959D9;
+  --green-sheets: #538504;
+  --purple: #6434F4;
+}
+
+.red {
+  color: var(--red);
+}
+
+.naval-blue {
+  color: var(--naval-blue);
+}
+
+.green-sheets {
+  color: var(--green-sheets);
+}
+
+.purple {
+  color: var(--purple);
+}

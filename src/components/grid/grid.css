@@ -1,0 +1,6 @@
+.grid {
+  display: grid;
+  /* TODO - Test */
+  grid-template-columns: repeat(auto-fill, minmax(322px, 1fr));
+  grid-gap: 1rem;
+}

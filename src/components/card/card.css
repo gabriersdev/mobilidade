@@ -1,0 +1,19 @@
+.card {
+  border-color: #4C4C4C50;
+  padding: 1rem;
+
+  .card-header {
+    background-color: inherit;
+    padding: 0;
+    margin: 0;
+  }
+
+  .card-body {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.card h3 {
+  margin-bottom: 0.5rem;
+}
