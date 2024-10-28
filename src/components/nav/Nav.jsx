@@ -6,21 +6,13 @@ const Nav = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container className="my-3">
-        <Link to="/">
-          <Navbar.Brand href="">mobilidade</Navbar.Brand>
-        </Link>
+        <Navbar.Brand as={Link} to="./mobilidade/">mobilidade</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <BootstrapNav className="me-auto">
-            <Link to="/">
-              <BootstrapNav.Link>Home</BootstrapNav.Link>
-            </Link>
-            <Link to="/lines">
-              <BootstrapNav.Link>Linhas</BootstrapNav.Link>
-            </Link>
-            <Link to="/search">
-              <BootstrapNav.Link>Pesquisar</BootstrapNav.Link>
-            </Link>
+            <BootstrapNav.Link as={Link} to="./mobilidade/">Home</BootstrapNav.Link>
+            <BootstrapNav.Link as={Link} to="./mobilidade/lines">Linhas</BootstrapNav.Link>
+            <BootstrapNav.Link as={Link} to="./mobilidade/search">Pesquisar</BootstrapNav.Link>
           </BootstrapNav>
         </Navbar.Collapse>
       </Container>

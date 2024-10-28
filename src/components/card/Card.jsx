@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 import "./card.css";
 
-const Card = ({ title, subtitle, text }) => {
+const Card = ({ title = "Card Title", subtitle = "Subtitle", children }) => {
   return (
     <BootstrapCard>
       <BootstrapCard.Header>
@@ -13,7 +13,7 @@ const Card = ({ title, subtitle, text }) => {
       </BootstrapCard.Header>
       <BootstrapCard.Body>
         <Title type="h3" title={subtitle} color="#4C4C4C" />
-        <BootstrapCard.Text>{text}</BootstrapCard.Text>
+        <BootstrapCard.Text>{children}</BootstrapCard.Text>
       </BootstrapCard.Body>
     </BootstrapCard>
   )
@@ -22,7 +22,7 @@ const Card = ({ title, subtitle, text }) => {
 Card.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
+  children: PropTypes.node.isRequired
 }
 
 export default Card;

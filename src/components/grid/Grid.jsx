@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 
 import "./Grid.css";
 
-const Grid = ({ childrens }) => {
-  return <div className="grid">{childrens}</div>;
+const Grid = ({ children }) => {
+  return <div className="grid">{children}</div>;
 }
 
 Grid.propTypes = {
-  childrens: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Grid;
