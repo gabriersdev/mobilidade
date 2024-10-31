@@ -20,3 +20,7 @@
 .purple {
   color: var(--purple);
 }
+
+.gap-2rem {
+  gap: 2rem;
+}
