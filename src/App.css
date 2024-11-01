@@ -33,3 +33,19 @@
   line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+
+.content-text {
+  &.column {
+    column-count: 2;
+    column-gap: 2rem;
+
+    @media screen and (max-width: 768px) {
+      column-count: 1;
+
+    }
+  }
+}
+
+.content-text p {
+  line-height: 1.75;
+}
