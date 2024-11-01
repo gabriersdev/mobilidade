@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./title.css";
 
-const Title = ({ type = "h1", title = "Title", color = "#000", classX = "" }, children) => {
-  return React.createElement(type || children, { className: `title-${type}` + classX, style: { color: color } }, title)
+const Title = ({ type = "h1", title, color = "#000", classX = "", children }) => {
+  return React.createElement(type, { className: `title-${type}` + classX, style: { color: color }, title: title ? title.replace(/->/g, 'para') : "" }, title || children)
 }
 
 Title.propTypes = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   title: PropTypes.string,
   color: PropTypes.string,
   classX: PropTypes.string,
