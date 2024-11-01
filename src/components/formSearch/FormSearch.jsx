@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { Form, FormGroup, Button } from "react-bootstrap";
 
+import './formSearch.css';
 
 const FormSearch = ({ formTitle, inputPlaceholder }) => {
   let count = 0;
@@ -15,9 +16,9 @@ const FormSearch = ({ formTitle, inputPlaceholder }) => {
     <form>
       <FormGroup>
         <Form.Label htmlFor={`input-search-${count}`}>
-          <Title title={formTitle} />
+          <Title title={formTitle} color="#212529" />
         </Form.Label>
-        <Form.Control type="search" id={`input-search-${count}`} placeholder={inputPlaceholder} className="w-100" />
+        <Form.Control type="search" id={`input-search-${count}`} placeholder={inputPlaceholder} className="w-100 fs-5" />
         <Button variant="primary" style={{ display: 'none' }} type="submit" aria-hidden="true">Search</Button>
       </FormGroup>
     </form>

@@ -1,5 +1,10 @@
 .main {
   margin-top: 4rem;
   margin-bottom: 4rem;
-  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.container>div {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import PropTypes from "prop-types";
+
 import "./main.css";
 
 const Main = ({ children }) => {

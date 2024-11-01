@@ -7,12 +7,17 @@ import Card from "../../components/card/Card";
 const Home = () => {
   return (
     <div>
-      <FormSearch formTitle="Para onde vamos?" inputPlaceholder="belo horizonte..." />
+      <FormSearch formTitle="Para onde vamos?" inputPlaceholder="digite o destino..." />
 
-      <Title title="Principais Linhas" />
-      <Grid>
-        <Card title="Linha 400C" subtitle="Santos -> São Paulo">Linha de ônibus de Santos para São Paulo via Avenida Professor Girafales. Partidas de segunda à sexta-feira a partir das 04h05.</Card>
-      </Grid>
+      <div>
+        <Title title="Principais Linhas" color="#212529" />
+        <Grid classes="mt-3">
+          <Card title="400C" subtitle="Santos -> São Paulo">Linha de ônibus de Santos para São Paulo via Avenida Professor Girafales. Partidas de segunda à sexta-feira a partir das 04h05.</Card>
+          {/* <Card title="400C" subtitle="Santos -> São Paulo">Linha de ônibus de Santos para São Paulo via Avenida Professor Girafales. Partidas de segunda à sexta-feira a partir das 04h05.</Card>
+          <Card title="400C" subtitle="Santos -> São Paulo">Linha de ônibus de Santos para São Paulo via Avenida Professor Girafales. Partidas de segunda à sexta-feira a partir das 04h05.</Card>
+          <Card title="400C" subtitle="Santos -> São Paulo">Linha de ônibus de Santos para São Paulo via Avenida Professor Girafales. Partidas de segunda à sexta-feira a partir das 04h05.</Card> */}
+        </Grid>
+      </div>
     </div>
   );
 }
