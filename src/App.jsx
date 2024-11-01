@@ -21,7 +21,7 @@ function App() {
       <Main>
         <Routes>
           <Route path="/mobilidade/" element={<Home />} />
-          <Route path="/mobilidade/lines" element={<Lines />} />
+          <Route path="/mobilidade/lines/id=?" element={<Lines />} />
           <Route path="/mobilidade/search" element={<Search />} />
           <Route path="/mobilidade/development" element={<Development />} />
           <Route path="/mobilidade/terms-of-service" element={<TermsOfService />} />
