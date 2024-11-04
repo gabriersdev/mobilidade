@@ -6,7 +6,7 @@ import { Accordion as BootstrapAccordion } from 'react-bootstrap';
 function Accordion({ title, key }, childrens) {
   return (
     <BootstrapAccordion defaultActiveKey={key} aria-description={title}>
-      ${childrens}
+      {childrens}
     </BootstrapAccordion>
   );
 }
