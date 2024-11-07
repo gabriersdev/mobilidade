@@ -32,11 +32,11 @@ const LineIdentification = ({ line }) => {
 }
 
 LineIdentification.propTypes = {
-  line: {
+  line: PropTypes.shape({
     number: PropTypes.string.isRequired,
     start: PropTypes.string.isRequired,
-    finish: PropTypes.string.isRequired,
-  }
+    finish: PropTypes.string.isRequired
+  }).isRequired
 }
 
 export default LineIdentification;

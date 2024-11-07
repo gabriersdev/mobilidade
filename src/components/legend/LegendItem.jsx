@@ -26,3 +26,5 @@ LegendItem.propTypes = {
   },
   key: PropTypes.number.isRequired
 }
+
+export default LegendItem;
