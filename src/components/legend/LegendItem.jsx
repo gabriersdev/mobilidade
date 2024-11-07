@@ -4,27 +4,23 @@ import { Badge } from "react-bootstrap";
 
 import data from "../../data.js";
 
-const LegendItem = ({ item, key }) => {
-  const count = useRef(-1);
+const LegendItem = ({ item, i }) => {
   const bootstrapBGColors = data.bootstrap.bg.colors;
-  count.current = count.current === bootstrapBGColors.length - 1 ? 0 : count.current + 1
-
-  console.log(count.current);
-
+  console.log(i);
   return (
-    <div key={key} className="d-flex align-items-center flex-wrap gap-1">
-      <span><Badge bg={bootstrapBGColors.at(count) || 'text-bg-primary'}>{item.abrev}</Badge></span>
+    <div className="d-flex align-items-center flex-wrap gap-1">
+      <span><Badge bg={bootstrapBGColors.at(i) || 'primary'}>{item.abrev}</Badge></span>
       <span>{item.label}</span>
     </div>
   )
 }
 
 LegendItem.propTypes = {
-  item: {
+  item: PropTypes.shape({
     abrev: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired
-  },
-  key: PropTypes.number.isRequired
+  }).isRequired,
+  i: PropTypes.number.isRequired
 }
 
 export default LegendItem;

@@ -11,6 +11,8 @@ import Accordion from "../../components/accordion/Accordion"
 import AccordionItem from "../../components/accordion/AccordionItem"
 import Legend from "../../components/legend/Legend"
 
+import { Alert } from "react-bootstrap";
+
 const Lines = () => {
   const checkIsValid = (id) => {
     if (!id) return false
@@ -49,13 +51,28 @@ const Lines = () => {
 
               <section>
                 <Title type="h3" color="#212529">Horários de partidas</Title>
-                <Accordion>
-                  <AccordionItem title="Item 1">
+                <Accordion defaultEventKey={['0']}>
+                  <AccordionItem title="Item 1" eventKey="0">
                     <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis explicabo, quidem quod et rem modi provident neque culpa expedita veritatis voluptas quo veniam dolorem iste accusantium esse vitae molestias autem!</span>
 
-                    {/* <Legend items={[{ abrev: 'SC', label: 'Santa Casa' }, { abrev: 'SP', label: 'São Paulo' }]} /> */}
+                    <Legend items={[{ abrev: 'SC', label: 'Santa Casa' }, { abrev: 'SP', label: 'São Paulo' }]} />
+                  </AccordionItem>
+                  <AccordionItem title="Item 1" eventKey="1">
+                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis explicabo, quidem quod et rem modi provident neque culpa expedita veritatis voluptas quo veniam dolorem iste accusantium esse vitae molestias autem!</span>
+
+                    <Legend items={[{ abrev: 'SC', label: 'Santa Casa' }, { abrev: 'SP', label: 'São Paulo' }]} />
+                  </AccordionItem>
+                  <AccordionItem title="Item 1" eventKey="2">
+                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis explicabo, quidem quod et rem modi provident neque culpa expedita veritatis voluptas quo veniam dolorem iste accusantium esse vitae molestias autem!</span>
+
+                    <Legend items={[{ abrev: 'SC', label: 'Santa Casa' }, { abrev: 'SP', label: 'São Paulo' }]} />
                   </AccordionItem>
                 </Accordion>
+
+                <Alert key={'alert-line-hour-info'} variant={'info'} className="d-flex gap-2">
+                  <i className="bi bi-exclamation-circle"></i>
+                  <span>Não localizamos horários para esta linha.</span>
+                </Alert>
               </section>
 
               <section>

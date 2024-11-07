@@ -6,7 +6,7 @@ import LegendItem from "./LegendItem";
 const Legend = ({ items }) => {
   return (
     <div className="d-flex flex-wrap align-items-center gap-2">
-      {items.map((item, index) => LegendItem(item, index))}
+      {items.map((item, index) => <LegendItem key={index} i={index} item={item} />)}
     </div>
   )
 };
