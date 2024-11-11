@@ -54,7 +54,7 @@ const Lines = () => {
                 <Title type="h3" color="#212529">Horários de partidas</Title>
                 <Accordion defaultEventKey={['0']}>
                   <AccordionItem title="Item 1" eventKey="0">
-                    <Table content={{ head: ['A', 'B', 'C'], data: [1, 2, 3] }} />
+                    <Table content={{ data: Array.from({ length: 25, }, (_, i) => "00:" + ("00" + i).slice(-2)) }} />
 
                     <Legend items={[{ abrev: 'SC', label: 'Santa Casa' }, { abrev: 'SP', label: 'São Paulo' }]} />
                   </AccordionItem>
