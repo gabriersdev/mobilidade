@@ -6,7 +6,6 @@ import data from "../../data.js";
 
 const LegendItem = ({ item, i }) => {
   const bootstrapBGColors = data.bootstrap.bg.colors;
-  console.log(i);
   return (
     <div className="d-flex align-items-center flex-wrap gap-1">
       <span><Badge bg={bootstrapBGColors.at(i) || 'primary'}>{item.abrev}</Badge></span>

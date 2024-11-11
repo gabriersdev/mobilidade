@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Title from "../../components/title/Title";
 import Grid from "../../components/grid/Grid";
 import Card from "../../components/card/Card";
-import { If, Else } from "../../components/if/If"
+import Table from "../../components/table/Table";
 import Util from "../../assets/util";
 
 import LineIdentification from "../../components/lineIdentification/LineIdentification";
@@ -11,6 +11,7 @@ import Accordion from "../../components/accordion/Accordion"
 import AccordionItem from "../../components/accordion/AccordionItem"
 import Legend from "../../components/legend/Legend"
 
+import "./lines.css";
 import { Alert } from "react-bootstrap";
 
 const Lines = () => {
@@ -53,23 +54,13 @@ const Lines = () => {
                 <Title type="h3" color="#212529">Horários de partidas</Title>
                 <Accordion defaultEventKey={['0']}>
                   <AccordionItem title="Item 1" eventKey="0">
-                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis explicabo, quidem quod et rem modi provident neque culpa expedita veritatis voluptas quo veniam dolorem iste accusantium esse vitae molestias autem!</span>
-
-                    <Legend items={[{ abrev: 'SC', label: 'Santa Casa' }, { abrev: 'SP', label: 'São Paulo' }]} />
-                  </AccordionItem>
-                  <AccordionItem title="Item 1" eventKey="1">
-                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis explicabo, quidem quod et rem modi provident neque culpa expedita veritatis voluptas quo veniam dolorem iste accusantium esse vitae molestias autem!</span>
-
-                    <Legend items={[{ abrev: 'SC', label: 'Santa Casa' }, { abrev: 'SP', label: 'São Paulo' }]} />
-                  </AccordionItem>
-                  <AccordionItem title="Item 1" eventKey="2">
-                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis explicabo, quidem quod et rem modi provident neque culpa expedita veritatis voluptas quo veniam dolorem iste accusantium esse vitae molestias autem!</span>
+                    <Table content={{ head: ['A', 'B', 'C'], data: [1, 2, 3] }} />
 
                     <Legend items={[{ abrev: 'SC', label: 'Santa Casa' }, { abrev: 'SP', label: 'São Paulo' }]} />
                   </AccordionItem>
                 </Accordion>
 
-                <Alert key={'alert-line-hour-info'} variant={'info'} className="d-flex gap-2">
+                <Alert key={'alert-line-hour-info'} variant={'info'} className="d-flex gap-2 mt-3">
                   <i className="bi bi-exclamation-circle"></i>
                   <span>Não localizamos horários para esta linha.</span>
                 </Alert>
@@ -77,12 +68,37 @@ const Lines = () => {
 
               <section>
                 <Title type="h3" color="#212529">Pontos de paradas</Title>
-                <span>...</span>
+                <Accordion defaultEventKey={['0']}>
+                  <AccordionItem title="Sentido ida (Santos -> São Paulo)" eventKey="0">
+                    <ul className="list-line-content">
+                      <li>Rua XYC, N. 151 - Hospital São José</li>
+                      <li>Rua XYC, N. 151 - Hospital São José</li>
+                      <li>Rua XYC, N. 151 - Hospital São José</li>
+                    </ul>
+                  </AccordionItem>
+                  <AccordionItem title="Sentido volta (São Paulo -> Santos)" eventKey="1">
+                    <ul className="list-line-content">
+                      <li>Rua XYC, N. 151 - Hospital São José</li>
+                      <li>Rua XYC, N. 151 - Hospital São José</li>
+                      <li>Rua XYC, N. 151 - Hospital São José</li>
+                    </ul>
+                  </AccordionItem>
+                </Accordion>
               </section>
 
               <section>
                 <Title type="h3" color="#212529">Pontos de recarga</Title>
-                <span>...</span>
+                <Grid>
+                  <Card title="Quiosque Centro" subtitle="Avenida dos Andradas, 1000">
+                    Horário de funcionamento: seg. à sexta das 09h às 21h. Sábados, domingos e feriados das 09h às 18h.
+                  </Card>
+                  <Card title="Quiosque Centro" subtitle="Avenida dos Andradas, 1000">
+                    Horário de funcionamento: seg. à sexta das 09h às 21h. Sábados, domingos e feriados das 09h às 18h.
+                  </Card>
+                  <Card title="Quiosque Centro" subtitle="Avenida dos Andradas, 1000">
+                    Horário de funcionamento: seg. à sexta das 09h às 21h. Sábados, domingos e feriados das 09h às 18h.
+                  </Card>
+                </Grid>
               </section>
             </div>
         }
