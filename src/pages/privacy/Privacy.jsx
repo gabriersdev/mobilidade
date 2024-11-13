@@ -10,7 +10,7 @@ const Privacy = () => {
   return (
     <div>
       <div>
-        <Title title="Privacidade" color="#212529" />
+        <Title title="Privacidade" id="topo" color="#212529" />
         <p>Última atualização: 13<span className="arial">/</span>11<span className="arial">/</span>2024</p>
       </div>
 
