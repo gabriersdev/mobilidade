@@ -1,6 +1,7 @@
 import express from 'express';
 import mysql from 'mysql2/promise';
 import cors from 'cors';
+import { stat } from 'node:fs/promises';
 
 const app = express();
 const port = 3001;
@@ -94,6 +95,35 @@ app.get('/api/departure_times_observations/:id', async (req, res) => {
     res.status(500).json({ error: `Erro ao consultar o banco de dados. ${error.message}` });
   }
 })
+
+app.get('/api/file-date/:filename', async (req, res) => {
+  const filename = req.params.filename;
+  const filePath = `caminho/para/seus/arquivos/${filename}`;
+
+  try {
+    const stats = await stat(filePath);
+    const mtime = new Date(stats.mtimeMs);
+
+    // Envia o timestamp como JSON
+    res.json({ mtime: stats.mtimeMs });
+
+    // Formatando a data (opcional)
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+    };
+
+    const formattedDate = mtime.toLocaleDateString(undefined, options);
+    console.log("Data formatada:", formattedDate);
+  } catch (error) {
+    console.error("Erro ao obter informações do arquivo:", error);
+    res.status(500).json({ error: 'Erro ao obter a data do arquivo' });
+  }
+});
 
 // 
 

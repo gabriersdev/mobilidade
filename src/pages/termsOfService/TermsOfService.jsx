@@ -39,7 +39,7 @@ const TermsOfService = () => {
 
         <section id="isencao-responsabilidade">
           <Title type='h2'>5. Isenção de Responsabilidade</Title>
-          <p>Este site e seus conteúdos são fornecidos "como estão" e "conforme disponíveis". Não nos responsabilizamos por qualquer dano direto ou indireto, perda de dados ou outros prejuízos resultantes do uso das informações fornecidas no site.</p>
+          <p>Este site e seus conteúdos são fornecidos &quot;como estão&quot; e &quot;conforme disponíveis&quot;. Não nos responsabilizamos por qualquer dano direto ou indireto, perda de dados ou outros prejuízos resultantes do uso das informações fornecidas no site.</p>
         </section>
 
         <section id="direitos-autorais">
