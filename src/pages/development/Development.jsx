@@ -12,20 +12,49 @@ const Development = () => {
       <Title title="Desenvolvimento" color="#212529" />
 
       <section className="content-text column">
-        <Title type='h2'>What is Lorem Ipsum?</Title>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard  dummy text ever since the 1500s, when an unknown printer took a galley  of type and scrambled it to make a type specimen book. It has survived  not only five centuries, but also the leap into electronic typesetting,  remaining essentially unchanged. It was popularised in the 1960s with  the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of  using Lorem Ipsum is that it has a more-or-less normal distribution of  letters, as opposed to using.
-        </p>
+        <section id="introducao">
+          <Title type='h2'>Introdução ao Projeto</Title>
+          <p>Nosso projeto de mobilidade urbana busca fornecer dados precisos e atualizados sobre as linhas de transporte público da cidade. Acreditamos que, ao facilitar o acesso a essas informações, estamos promovendo uma mobilidade mais eficiente e acessível para todos.</p>
+        </section>
 
-        <Title type='h2'>What is Lorem Ipsum?</Title>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard  dummy text ever since the 1500s, when an unknown printer took a galley  of type and scrambled it to make a type specimen book. It has survived  not only five centuries, but also the leap into electronic typesetting,  remaining essentially unchanged. It was popularised in the 1960s with  the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of  using Lorem Ipsum is that it has a more-or-less normal distribution of  letters, as opposed to using.
-        </p>
+        <section id="objetivo">
+          <Title type='h2'>Objetivo do Projeto</Title>
+          <p>Nosso principal objetivo é melhorar a experiência de uso do transporte público. Com dados confiáveis e detalhados, queremos facilitar o planejamento dos usuários, promovendo uma mobilidade urbana mais inteligente e sustentável.</p>
+        </section>
 
-        <Title type='h2'>What is Lorem Ipsum?</Title>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard  dummy text ever since the 1500s, when an unknown printer took a galley  of type and scrambled it to make a type specimen book. It has survived  not only five centuries, but also the leap into electronic typesetting,  remaining essentially unchanged. It was popularised in the 1960s with  the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of  using Lorem Ipsum is that it has a more-or-less normal distribution of  letters, as opposed to using.
-        </p>
+        <section id="funcionalidades">
+          <Title type='h2'>Funcionalidades Principais</Title>
+          <ul>
+            <li><strong>Pesquisa de Linhas e Roteiros:</strong> Encontre as linhas de ônibus e outros meios de transporte disponíveis para sua rota de forma prática e rápida.</li>
+            <li><strong>Informações em Tempo Real:</strong> Receba atualizações ao vivo sobre os horários de chegada e saída, além de informações sobre a lotação e atrasos.</li>
+            <li><strong>Mapas Interativos:</strong> Acompanhe visualmente as rotas e os pontos de parada no mapa da cidade, facilitando o entendimento dos trajetos.</li>
+            <li><strong>Alertas e Notificações:</strong> Saiba em tempo real sobre alterações nas linhas, obras, eventos e outras situações que possam impactar o seu trajeto.</li>
+          </ul>
+        </section>
+
+        <section id="como-utilizar">
+          <Title type='h2'>Como Utilizar o Sistema</Title>
+          <p>Para utilizar o sistema, basta acessar a página inicial e pesquisar pelo número da linha ou pelo nome do local de destino. Em instantes, você verá as opções disponíveis com informações detalhadas sobre horários, roteiros e paradas.</p>
+          <p>Navegar pelo nosso sistema é fácil e intuitivo: digite o número da linha ou a localização desejada, e o sistema retornará as melhores opções de trajeto para o seu percurso.</p>
+        </section>
+
+        <section id="beneficios">
+          <Title type='h2'>Benefícios para a Comunidade</Title>
+          <p>Com informações atualizadas e acessíveis, ajudamos os cidadãos a planejar seus deslocamentos de maneira mais inteligente, reduzindo o tempo de espera e promovendo uma cidade mais conectada.</p>
+          <p>Nosso sistema contribui para uma cidade mais sustentável, incentivando o uso do transporte público e, assim, diminuindo o tráfego e a poluição.</p>
+        </section>
+
+        <section id="tecnologia">
+          <Title type='h2'>Tecnologia e Parcerias</Title>
+          <p>Este projeto conta com o apoio de diversas empresas e órgãos públicos comprometidos em melhorar a mobilidade urbana da cidade. Utilizamos tecnologias de última geração para garantir uma experiência rápida e confiável para os usuários.</p>
+          <p>Desenvolvido com tecnologias modernas, nosso sistema se adapta a diferentes dispositivos e integra APIs para fornecer dados em tempo real, garantindo uma experiência fluida e confiável.</p>
+        </section>
+
+        <section id="feedback">
+          <Title type='h2'>Feedback e Suporte</Title>
+          <p>Estamos sempre buscando melhorias! Sua opinião é importante para nós. Envie sugestões e informe sobre problemas encontrados para que possamos aprimorar o sistema.</p>
+          <p>Se precisar de ajuda ou tiver dúvidas sobre o uso do sistema, entre em contato conosco através do nosso suporte. Nossa equipe está à disposição para ajudar.</p>
+        </section>
       </section>
     </div >
   );

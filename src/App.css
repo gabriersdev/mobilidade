@@ -25,6 +25,10 @@
   gap: 2rem;
 }
 
+.arial {
+  font-family: Arial, sans-serif;
+}
+
 .text-ellipsis-2 {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -41,11 +45,14 @@
 
     @media screen and (max-width: 768px) {
       column-count: 1;
-
     }
+  }
+
+  ul li {
+    list-style-type: square;
   }
 }
 
-.content-text p {
+.content-text * {
   line-height: 1.75;
 }
