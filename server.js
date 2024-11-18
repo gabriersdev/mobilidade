@@ -26,6 +26,7 @@ const setHeaderHTTP = (res, protocols) => {
 }
 
 // Consulta a tabela de linhas
+// Consulta a quantidade de linhas (podem estar ativas ou não)
 app.get('/api/lines/count', async (req, res) => {
   try {
     setHeaderHTTP(res, 'GET');
@@ -39,6 +40,7 @@ app.get('/api/lines/count', async (req, res) => {
   }
 })
 
+// Lista todas as linhas ativas, incluindo o nome da empresa responsável
 app.get('/api/lines/', async (req, res) => {
   try {
     setHeaderHTTP(res, 'GET');
@@ -52,6 +54,7 @@ app.get('/api/lines/', async (req, res) => {
   }
 })
 
+// Consulta uma linha específica
 app.get('/api/lines/:id', async (req, res) => {
   try {
     setHeaderHTTP(res, 'GET');
@@ -82,13 +85,13 @@ app.get('/api/departure_times/', async (req, res) => {
   }
 })
 
-// Consulta observações de acordo com o id do horário de partida
+// Consulta observações conforme o id do horário de partida
 app.get('/api/departure_times_observations/:id', async (req, res) => {
   try {
     setHeaderHTTP(res, 'GET');
 
     const connection = await pool.getConnection();
-    const [rows] = await connection.execute('SELECT departure_times_observations.departure_time_id, observation_name, observation_abrev FROM observations, departure_times_observations WHERE departure_times_observations.observation_id = observations.observation_id AND departure_times_observations.departure_time_id = ?;');
+    const [rows] = await connection.execute('SELECT departure_times_observations.departure_time_id, observation_name, observation_abrev FROM observations, departure_times_observations WHERE departure_times_observations.observation_id = observations.observation_id AND departure_times_observations.departure_time_id = ?;', [req.params.id]);
     connection.release();
     res.json(rows);
   } catch (error) {
@@ -96,9 +99,53 @@ app.get('/api/departure_times_observations/:id', async (req, res) => {
   }
 })
 
-app.get('/api/file-date/:filename', async (req, res) => {
-  const filename = req.params.filename;
-  const filePath = `caminho/para/seus/arquivos/${filename}`;
+// Consulta os pontos de parada de uma linha
+app.get('/api/departure_points/:id', async (req, res) => {
+  try {
+    setHeaderHTTP(res, 'GET');
+
+    const connection = await pool.getConnection();
+    const [rows] = await connection.execute('SELECT departure_point_id, point_name, direction, address, observations FROM departure_points WHERE line_id = ? ORDER BY order_departure_point, direction;', [req.params.id]);
+    connection.release();
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: `Erro ao consultar o banco de dados. ${error.message}` });
+  }
+})
+
+// Consulta os pontos de recarga de um sistema
+app.get('/api/recharge_points/:id', async (req, res) => {
+  try {
+    setHeaderHTTP(res, 'GET');
+
+    const connection = await pool.getConnection();
+    const [rows] = await connection.execute('SELECT point_name, address, observations FROM recharge_points WHERE system_id = ? ORDER BY point_name, address;', [req.params.id]);
+    connection.release();
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: `Erro ao consultar o banco de dados. ${error.message}` });
+  }
+})
+
+// Insere dados de logs de acesso
+app.post('/api/logs/', async (req, res) => {
+  try {
+    setHeaderHTTP(res, 'POST');
+
+    const { event_type, event_details, os, browser, ip_address, user_agent } = req.body;
+
+    const connection = await pool.getConnection();
+    await connection.execute('INSERT INTO bus_system.logs (origin, event_type, event_details, os, browser, ip_address, user_agent) VALUES (`application-node-web`, ?, ?, ?, ?, ?, ?);', [event_type, event_details, os, browser, ip_address, user_agent]);
+    connection.release();
+    res.json({ success: 'Log inserido com sucesso' });
+  } catch (error) {
+    res.status(500).json({ error: `Erro ao inserir dados no banco de dados. ${error.message}` });
+  }
+})
+
+// Consulta a data de modificação de um arquivo
+app.get('/api/file_date/:filename', async (req, res) => {
+  const filePath = res.params.filePath;
 
   try {
     const stats = await stat(filePath);
@@ -119,14 +166,14 @@ app.get('/api/file-date/:filename', async (req, res) => {
 
     const formattedDate = mtime.toLocaleDateString(undefined, options);
     console.log("Data formatada:", formattedDate);
+    res.json({ date: formattedDate });
   } catch (error) {
     console.error("Erro ao obter informações do arquivo:", error);
     res.status(500).json({ error: 'Erro ao obter a data do arquivo' });
   }
 });
 
-// 
-
+// Inicia o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
