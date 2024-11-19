@@ -10,7 +10,7 @@ const LineIdentification = ({ line }) => {
       <hgroup className="d-flex align-items-center gap-2 flex-wrap">
         <Title type="h2" classX="d-inline">Linha {line.number}</Title>
         <span style={{ color: '#4C4C4C', fontSize: '20px' }} className="mb-1">|</span>
-        <Title type="h3" classX="d-inline" color="#4C4C4C">{line.start} -{">"} {line.finish}</Title>
+        <Title type="h2" classX="d-inline" color="#4C4C4C">{line.start} -{">"} {line.finish}</Title>
       </hgroup>
       <div>
         <div className="d-flex align-items-center gap-3 flex-wrap mb-3">

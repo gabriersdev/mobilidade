@@ -62,7 +62,7 @@ const ListLines = () => {
         <div style={{ marginTop: '1rem' }}>
           <Grid>
             {data.map((line) => (
-              <Card key={line.line_id} title={`Linha ${line.line_number}`} subtitle={line.line_name} link={`/mobilidade/lines/${line.line_id}`} >Linha de ônibus de Santos para São Paulo via Avenida Professor Girafales. Partidas de segunda à sexta-feira a partir das 04h05.</Card>
+              <Card key={line.line_id} title={`Linha ${line.line_number}`} subtitle={`${line.departure_location} -> ${line.destination_location}`} link={`/mobilidade/lines/${line.line_id}`} >Linha de ônibus de Santos para São Paulo via Avenida Professor Girafales. Partidas de segunda à sexta-feira a partir das 04h05.</Card>
             ))}
           </Grid>
         </div>

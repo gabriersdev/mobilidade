@@ -11,9 +11,9 @@ const Card = ({ title = "Card Title", subtitle = "Subtitle", link, children }) =
     <>
       <BootstrapCard.Header>
         <Title type="h2" title={title} />
+        <Title type="h2" title={subtitle} color="#4C4C4C" />
       </BootstrapCard.Header>
       <BootstrapCard.Body className="text-ellipsis-2" style={{ flex: '0 0 auto' }}>
-        <Title type="h2" title={subtitle} color="#4C4C4C" />
         <BootstrapCard.Text className="mt-2 text-ellipsis-2">{children}</BootstrapCard.Text>
       </BootstrapCard.Body>
     </>
@@ -36,7 +36,7 @@ const Card = ({ title = "Card Title", subtitle = "Subtitle", link, children }) =
 
 Card.propTypes = {
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
   link: PropTypes.string,
   children: PropTypes.node.isRequired,
 }
