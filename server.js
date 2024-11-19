@@ -2,6 +2,7 @@ import express from 'express';
 import mysql from 'mysql2/promise';
 import cors from 'cors';
 import { stat } from 'node:fs/promises';
+import {useParams} from "react-router-dom";
 
 const app = express();
 const port = 3001;
@@ -48,7 +49,7 @@ app.get('/api/lines/', async (req, res) => {
     res = setHeaderHTTP(res, 'GET');
 
     const connection = await pool.getConnection();
-    const [rows] = await connection.execute('SELECT line_id, line_number, line_name, departure_location, destination_location, fare, `lines`.company_id, `companies`.company_name, system_id, `mode`, has_integration, observations, `type`, scope FROM `lines`, `companies` WHERE `lines`.company_id = `companies`.company_id AND `lines`.active = 1;');
+    const [rows] = await connection.execute('SELECT line_id, line_number, line_name, departure_location, destination_location FROM `lines`, `companies` WHERE `lines`.company_id = `companies`.company_id AND `lines`.active = 1;');
     connection.release();
     res.json(rows);
   } catch (error) {
@@ -57,12 +58,13 @@ app.get('/api/lines/', async (req, res) => {
 })
 
 // Consulta uma linha específica
-app.get('/api/lines/:id', async (req, res) => {
+app.post('/api/lines/', async (req, res) => {
   try {
-    res = setHeaderHTTP(res, 'GET');
+    res = setHeaderHTTP(res, 'POST');
+    const { id } = req.body
 
     const connection = await pool.getConnection();
-    const [rows] = await connection.execute('SELECT line_id, line_number, line_name, departure_location, destination_location, fare, `lines`.company_id, `companies`.company_name, system_id, `mode`, has_integration, observations, `type`, scope FROM `lines`, `companies` WHERE `lines`.company_id = `companies`.company_id AND `lines`.active = 1 AND line_id = ?;');
+    const [rows] = await connection.execute('SELECT line_id, line_number, line_name, departure_location, destination_location, fare, `lines`.company_id, `companies`.company_name, system_id, `mode`, is_public, has_integration, observations, `type`, scope FROM `lines`, `companies` WHERE `lines`.company_id = `companies`.company_id AND `lines`.active = 1 AND line_id = ?;', [id]);
     connection.release();
     res.json(rows);
   } catch (error) {
@@ -71,7 +73,7 @@ app.get('/api/lines/:id', async (req, res) => {
 })
 
 // Consulta horários de partida das linhas
-app.get('/api/departure_times/', async (req, res) => {
+app.post('/api/departure_times/', async (req, res) => {
   try {
     setHeaderHTTP(res, 'POST');
 

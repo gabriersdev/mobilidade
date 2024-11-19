@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import { Link } from "react-router-dom";
 import Title from "../title/Title.jsx";
 import Grid from "../grid/Grid.jsx";
 import Card from "../card/Card.jsx";
