@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+
 import Title from "../../components/title/Title";
 import Grid from "../../components/grid/Grid";
 import Card from "../../components/card/Card";
+import ListLines from "../../components/listLines/ListLines";
 import Table from "../../components/table/Table";
 import Util from "../../assets/util";
-
 import LineIdentification from "../../components/lineIdentification/LineIdentification";
 import Accordion from "../../components/accordion/Accordion"
 import AccordionItem from "../../components/accordion/AccordionItem"
@@ -15,35 +16,25 @@ import "./lines.css";
 import { Alert } from "react-bootstrap";
 
 const Lines = () => {
+
+  const { id } = useParams()
+
   const checkIsValid = (id) => {
     if (!id) return false
     if (!id.length) return false
     return id.match(/\d/g)
   }
 
-  const { id } = useParams()
-
   useEffect(() => {
     Util.updateActiveLink()
-  }, [])
+  }, []);
 
   return (
     <div>
       <div>
         {
           !checkIsValid(id) ?
-            <>
-              <Title>Linhas</Title>
-
-              <div style={{ marginTop: '1rem' }}>
-                <Grid>
-                  <Card title="400C" subtitle="Santos -> São Paulo">Linha de ônibus de Santos para São Paulo via Avenida Professor Girafales. Partidas de segunda à sexta-feira a partir das 04h05.</Card>
-                  <Card title="400C" subtitle="Santos -> São Paulo">Linha de ônibus de Santos para São Paulo via Avenida Professor Girafales. Partidas de segunda à sexta-feira a partir das 04h05.</Card>
-                  <Card title="400C" subtitle="Santos -> São Paulo">Linha de ônibus de Santos para São Paulo via Avenida Professor Girafales. Partidas de segunda à sexta-feira a partir das 04h05.</Card>
-                  <Card title="400C" subtitle="Santos -> São Paulo">Linha de ônibus de Santos para São Paulo via Avenida Professor Girafales. Partidas de segunda à sexta-feira a partir das 04h05.</Card>
-                </Grid>
-              </div>
-            </>
+            <ListLines/>
 
             :
 

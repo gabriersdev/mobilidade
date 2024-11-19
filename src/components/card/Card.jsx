@@ -1,13 +1,14 @@
 import React from "react";
 import Title from "../title/Title";
+import {Link} from "react-router-dom";
 import { Card as BootstrapCard } from 'react-bootstrap';
 import PropTypes from "prop-types";
 
 import "./card.css";
 
-const Card = ({ title = "Card Title", subtitle = "Subtitle", children }) => {
-  return (
-    <BootstrapCard>
+const Card = ({ title = "Card Title", subtitle = "Subtitle", link, children }) => {
+  const content = (
+    <>
       <BootstrapCard.Header>
         <Title type="h2" title={title} />
       </BootstrapCard.Header>
@@ -15,6 +16,20 @@ const Card = ({ title = "Card Title", subtitle = "Subtitle", children }) => {
         <Title type="h2" title={subtitle} color="#4C4C4C" />
         <BootstrapCard.Text className="mt-2 text-ellipsis-2">{children}</BootstrapCard.Text>
       </BootstrapCard.Body>
+    </>
+  )
+
+  if (link) {
+    return (
+      <BootstrapCard as={Link} to={link}>
+        {content}
+      </BootstrapCard>
+    )
+  }
+
+  return (
+    <BootstrapCard>
+      {content}
     </BootstrapCard>
   )
 }
@@ -22,6 +37,7 @@ const Card = ({ title = "Card Title", subtitle = "Subtitle", children }) => {
 Card.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
+  link: PropTypes.string,
   children: PropTypes.node.isRequired,
 }
 

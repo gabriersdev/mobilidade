@@ -20,16 +20,18 @@ const pool = mysql.createPool(dbConfig);
 const originRequest = 'http://localhost:5173';
 
 const setHeaderHTTP = (res, protocols) => {
-  res.setHeader('Access-Control-Allow-Origin', originRequest);
-  res.setHeader('Access-Control-Allow-Methods', protocols);
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  const response = res;
+  response.setHeader('Access-Control-Allow-Origin', originRequest);
+  response.setHeader('Access-Control-Allow-Methods', protocols);
+  response.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  return response;
 }
 
 // Consulta a tabela de linhas
 // Consulta a quantidade de linhas (podem estar ativas ou não)
 app.get('/api/lines/count', async (req, res) => {
   try {
-    setHeaderHTTP(res, 'GET');
+    res = setHeaderHTTP(res, 'GET');
 
     const connection = await pool.getConnection();
     const [rows] = await connection.execute('SELECT COUNT(*) AS count FROM `lines`');
@@ -43,7 +45,7 @@ app.get('/api/lines/count', async (req, res) => {
 // Lista todas as linhas ativas, incluindo o nome da empresa responsável
 app.get('/api/lines/', async (req, res) => {
   try {
-    setHeaderHTTP(res, 'GET');
+    res = setHeaderHTTP(res, 'GET');
 
     const connection = await pool.getConnection();
     const [rows] = await connection.execute('SELECT line_id, line_number, line_name, departure_location, destination_location, fare, `lines`.company_id, `companies`.company_name, system_id, `mode`, has_integration, observations, `type`, scope FROM `lines`, `companies` WHERE `lines`.company_id = `companies`.company_id AND `lines`.active = 1;');
@@ -57,7 +59,7 @@ app.get('/api/lines/', async (req, res) => {
 // Consulta uma linha específica
 app.get('/api/lines/:id', async (req, res) => {
   try {
-    setHeaderHTTP(res, 'GET');
+    res = setHeaderHTTP(res, 'GET');
 
     const connection = await pool.getConnection();
     const [rows] = await connection.execute('SELECT line_id, line_number, line_name, departure_location, destination_location, fare, `lines`.company_id, `companies`.company_name, system_id, `mode`, has_integration, observations, `type`, scope FROM `lines`, `companies` WHERE `lines`.company_id = `companies`.company_id AND `lines`.active = 1 AND line_id = ?;');
@@ -88,7 +90,7 @@ app.get('/api/departure_times/', async (req, res) => {
 // Consulta observações conforme o id do horário de partida
 app.get('/api/departure_times_observations/:id', async (req, res) => {
   try {
-    setHeaderHTTP(res, 'GET');
+    res = setHeaderHTTP(res, 'GET');
 
     const connection = await pool.getConnection();
     const [rows] = await connection.execute('SELECT departure_times_observations.departure_time_id, observation_name, observation_abrev FROM observations, departure_times_observations WHERE departure_times_observations.observation_id = observations.observation_id AND departure_times_observations.departure_time_id = ?;', [req.params.id]);
@@ -102,7 +104,7 @@ app.get('/api/departure_times_observations/:id', async (req, res) => {
 // Consulta os pontos de parada de uma linha
 app.get('/api/departure_points/:id', async (req, res) => {
   try {
-    setHeaderHTTP(res, 'GET');
+    res = setHeaderHTTP(res, 'GET');
 
     const connection = await pool.getConnection();
     const [rows] = await connection.execute('SELECT departure_point_id, point_name, direction, address, observations FROM departure_points WHERE line_id = ? ORDER BY order_departure_point, direction;', [req.params.id]);
@@ -116,7 +118,7 @@ app.get('/api/departure_points/:id', async (req, res) => {
 // Consulta os pontos de recarga de um sistema
 app.get('/api/recharge_points/:id', async (req, res) => {
   try {
-    setHeaderHTTP(res, 'GET');
+    res = setHeaderHTTP(res, 'GET');
 
     const connection = await pool.getConnection();
     const [rows] = await connection.execute('SELECT point_name, address, observations FROM recharge_points WHERE system_id = ? ORDER BY point_name, address;', [req.params.id]);
