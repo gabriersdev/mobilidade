@@ -17,7 +17,7 @@ const dbConfig = {
 };
 
 const pool = mysql.createPool(dbConfig);
-const originRequest = 'http://localhost:4153';
+const originRequest = 'http://localhost:5173';
 
 const setHeaderHTTP = (res, protocols) => {
   res.setHeader('Access-Control-Allow-Origin', originRequest);
