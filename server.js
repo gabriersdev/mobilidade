@@ -18,7 +18,7 @@ const dbConfig = {
 };
 
 const pool = mysql.createPool(dbConfig);
-const originRequest = 'http://localhost:5173';
+const originRequest = 'http://localhost:5176';
 
 const setHeaderHTTP = (res, protocols) => {
   const response = res;
@@ -118,12 +118,14 @@ app.get('/api/departure_points/:id', async (req, res) => {
 })
 
 // Consulta os pontos de recarga de um sistema
-app.get('/api/recharge_points/:id', async (req, res) => {
+app.post('/api/recharge_points/', async (req, res) => {
   try {
-    res = setHeaderHTTP(res, 'GET');
+    res = setHeaderHTTP(res, 'POST');
+    const { id_company } = req.body;
+    console.log(id_company)
 
     const connection = await pool.getConnection();
-    const [rows] = await connection.execute('SELECT point_name, address, observations FROM recharge_points WHERE system_id = ? ORDER BY point_name, address;', [req.params.id]);
+    const [rows] = await connection.execute('SELECT point_name, `address`, `observations` FROM recharge_points WHERE system_id = ? ORDER BY point_name, `address`;', [id_company]);
     connection.release();
     res.json(rows);
   } catch (error) {

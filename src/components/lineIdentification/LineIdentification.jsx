@@ -54,7 +54,6 @@ const LineIdentification = ({ line }) => {
     }).format(line.fare);
   }
 
-
   return (
     <div className="d-flex flex-column gap-3">
       <hgroup className="d-flex align-items-center gap-2 flex-wrap">
