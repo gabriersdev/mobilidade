@@ -14,7 +14,6 @@ const Nav = () => {
           <BootstrapNav className="me-auto">
             <BootstrapNav.Link as={Link} to="./mobilidade/">Início</BootstrapNav.Link>
             <BootstrapNav.Link as={Link} to="./mobilidade/lines">Linhas</BootstrapNav.Link>
-            <BootstrapNav.Link as={Link} to="./mobilidade/search">Pesquisar</BootstrapNav.Link>
           </BootstrapNav>
         </Navbar.Collapse>
       </Container>

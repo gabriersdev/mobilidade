@@ -8,6 +8,7 @@ import Util from "../../assets/util";
 const Search = () => {
   useEffect(() => {
     Util.updateActiveLink()
+    window.location.replace("/")
   }, [])
 
   return (

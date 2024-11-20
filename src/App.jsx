@@ -9,7 +9,6 @@ import Footer from './components/footer/Footer'
 
 import Home from './pages/home/Home'
 import Lines from './pages/lines/Lines.jsx'
-import Search from './pages/search/Search.jsx'
 import Development from './pages/development/Development.jsx'
 import TermsOfService from './pages/termsOfService/TermsOfService.jsx'
 import Privacy from './pages/privacy/Privacy.jsx'
@@ -22,7 +21,6 @@ function App() {
         <Routes>
           <Route path="/mobilidade/" element={<Home />} />
           <Route path="/mobilidade/lines/:id?" element={<Lines />} />
-          <Route path="/mobilidade/search" element={<Search />} />
           <Route path="/mobilidade/development" element={<Development />} />
           <Route path="/mobilidade/terms-of-service" element={<TermsOfService />} />
           <Route path="/mobilidade/privacy" element={<Privacy />} />
