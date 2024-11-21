@@ -49,4 +49,18 @@ export default class Util {
 
     return `Linha de ${modal} de ${departure_location} para ${destination_location}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'} a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.`
   }
+
+  static isSameDomain(url) {
+    if (url.startsWith('/')) return true;
+
+    try {
+      const currentOrigin = new URL(window.location.href).origin;
+      const linkOrigin = new URL(url).origin;
+      // console.log(currentOrigin, linkOrigin)
+      return currentOrigin === linkOrigin;
+    } catch (error) {
+      // URL inválida, assumimos que não é do mesmo domínio
+      return false;
+    }
+  }
 }

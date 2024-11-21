@@ -139,7 +139,7 @@ app.post('/api/recharge_points/', async (req, res) => {
     console.log(id_company)
 
     const connection = await pool.getConnection();
-    const [rows] = await connection.execute('SELECT point_name, `address`, `observations` FROM recharge_points WHERE system_id = ? ORDER BY point_name, `address`;', [id_company]);
+    const [rows] = await connection.execute('SELECT point_name, `address`, `observations`, `link_google_maps` FROM recharge_points WHERE company_id = ? ORDER BY point_name, `address`;', [id_company]);
     connection.release();
     res.json(rows);
   } catch (error) {

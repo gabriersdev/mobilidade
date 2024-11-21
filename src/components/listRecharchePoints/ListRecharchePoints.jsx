@@ -48,10 +48,10 @@ const ListRecharchePoints = ({id_company, company_name}) => {
     return (
       <Grid>
         {
-          data.map((recharchePoint) => {
+          data.map((recharchePoint, index) => {
             return (
-              <Card key={recharchePoint.recharge_point_id} title={recharchePoint.point_name} subtitle={recharchePoint.address}>
-                <p>Horário de funcionamento: {recharchePoint.observations || "Não há informações sobre este ponto de recarga."}</p>
+              <Card key={index} title={recharchePoint.point_name} subtitle={recharchePoint.address} link={recharchePoint.link_google_maps}>
+                {recharchePoint.observations || "Não há informações sobre este ponto de recarga."}
               </Card>
             )
           })
