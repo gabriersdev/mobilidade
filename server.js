@@ -18,7 +18,7 @@ const dbConfig = {
 };
 
 const pool = mysql.createPool(dbConfig);
-const originRequest = 'http://localhost:5176';
+const originRequest = 'http://localhost:5173';
 
 const setHeaderHTTP = (res, protocols) => {
   const response = res;
@@ -78,7 +78,7 @@ app.get('/api/lines/main', async (req, res) => {
     res = setHeaderHTTP(res, 'GET');
 
     const connection = await pool.getConnection();
-    const [rows] = await connection.execute(';');
+    const [rows] = await connection.execute('SELECT line_id, line_number, line_name, departure_location, destination_location FROM `lines`, `companies` WHERE `lines`.company_id = `companies`.company_id AND `lines`.active = 1 ORDER BY line_name LIMIT 9;');
     connection.release();
     res.json(rows);
   } catch (error) {
@@ -196,4 +196,5 @@ app.get('/api/file_date/:filename', async (req, res) => {
 // Inicia o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
+  console.log(`URL habilitada para a origem: ${originRequest}`);
 });
