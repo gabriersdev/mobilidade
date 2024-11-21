@@ -4,6 +4,7 @@ import axios from "axios";
 
 import LineIdentification from "../lineIdentification/LineIdentification";
 import ListRecharchePoints from "../listRecharchePoints/ListRecharchePoints";
+import ListDepartureTimes from "../listDepartureTimes/ListDepartureTimes";
 import Title from "../title/Title.jsx";
 import Accordion from "../accordion/Accordion.jsx";
 import AccordionItem from "../accordion/AccordionItem.jsx";
@@ -61,43 +62,28 @@ const Line = ({ id }) => {
 
         <section>
           <Title type="h3" color="#212529">Horários de partidas</Title>
-          <Accordion defaultEventKey={['0']}>
-            <AccordionItem title="Item 1" eventKey="0">
-              <Table content={{data: Array.from({length: 25,}, (_, i) => "00:" + ("00" + i).slice(-2))}}/>
-
-              <Legend items={[{abrev: 'SC', label: 'Santa Casa'}, {abrev: 'SP', label: 'São Paulo'}]}/>
-            </AccordionItem>
-          </Accordion>
-
-          <Alert key={'alert-line-hour-info'} variant={'info'} className="d-flex gap-2 mt-3">
-            <i className="bi bi-exclamation-circle"></i>
-            <span>Não localizamos horários para esta linha.</span>
-          </Alert>
+          <ListDepartureTimes line_id={data[0].line_id}/>
         </section>
 
         <section>
           <Title type="h3" color="#212529">Pontos de paradas</Title>
-          <Accordion defaultEventKey={['0']}>
-            <AccordionItem title="Sentido ida (Santos -> São Paulo)" eventKey="0">
-              <ul className="list-line-content">
-                <li>Rua XYC, N. 151 - Hospital São José</li>
-                <li>Rua XYC, N. 151 - Hospital São José</li>
-                <li>Rua XYC, N. 151 - Hospital São José</li>
-              </ul>
-            </AccordionItem>
-            <AccordionItem title="Sentido volta (São Paulo -> Santos)" eventKey="1">
-              <ul className="list-line-content">
-                <li>Rua XYC, N. 151 - Hospital São José</li>
-                <li>Rua XYC, N. 151 - Hospital São José</li>
-                <li>Rua XYC, N. 151 - Hospital São José</li>
-              </ul>
-            </AccordionItem>
-          </Accordion>
 
-          <Alert key={'alert-line-hour-info'} variant={'info'} className="d-flex gap-2 mt-3">
-            <i className="bi bi-exclamation-circle"></i>
-            <span>Não localizamos pontos de parada para esta linha.</span>
-          </Alert>
+          <Accordion defaultEventKey={['0']}>
+                  <AccordionItem title="Sentido ida (Santos -> São Paulo)" eventKey="0">
+                    <ul className="list-line-content">
+                      <li>Rua XYC, N. 151 - Hospital São José</li>
+                      <li>Rua XYC, N. 151 - Hospital São José</li>
+                      <li>Rua XYC, N. 151 - Hospital São José</li>
+                    </ul>
+                  </AccordionItem>
+                  <AccordionItem title="Sentido volta (São Paulo -> Santos)" eventKey="1">
+                    <ul className="list-line-content">
+                      <li>Rua XYC, N. 151 - Hospital São José</li>
+                      <li>Rua XYC, N. 151 - Hospital São José</li>
+                      <li>Rua XYC, N. 151 - Hospital São José</li>
+                    </ul>
+                  </AccordionItem>
+                </Accordion>
         </section>
 
         <section>

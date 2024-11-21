@@ -87,7 +87,7 @@ app.get('/api/lines/main', async (req, res) => {
 })
 
 // Consulta horários de partida das linhas
-app.post('/api/departure_times/', async (req, res) => {
+app.post('/api/departure_times/filter_direction', async (req, res) => {
   try {
     setHeaderHTTP(res, 'POST');
 
@@ -96,6 +96,22 @@ app.post('/api/departure_times/', async (req, res) => {
 
     const connection = await pool.getConnection();
     const [rows] = await connection.execute('SELECT schedule_id, `day`, departure_time, (SELECT COUNT(*) FROM departure_times_observations WHERE departure_time_id = schedule_id) AS has_observation FROM departure_times WHERE active = 1 AND line_id = ? AND direction = ? ORDER BY day, departure_time;', [line_id, direction]);
+    connection.release();
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: `Erro ao consultar o banco de dados. ${error.message}` });
+  }
+})
+
+app.post('/api/departure_times/', async (req, res) => {
+  try {
+    setHeaderHTTP(res, 'POST');
+
+    // Recebe via POST o id da linha e o sentido da viagem
+    const { line_id } = req.body;
+
+    const connection = await pool.getConnection();
+    const [rows] = await connection.execute('SELECT schedule_id, `day`, departure_time, (SELECT COUNT(*) FROM departure_times_observations WHERE departure_time_id = schedule_id) AS has_observation FROM departure_times WHERE active = 1 AND line_id = ? ORDER BY day, departure_time;', [line_id]);
     connection.release();
     res.json(rows);
   } catch (error) {
