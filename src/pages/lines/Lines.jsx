@@ -6,6 +6,7 @@ import Line from "../../components/line/Line.jsx";
 import Util from "../../assets/util";
 
 import "./lines.css";
+import Title from "../../components/title/Title.jsx";
 
 const Lines = () => {
 
@@ -26,7 +27,10 @@ const Lines = () => {
       <div>
         {
           !checkIsValid(id) ?
-            <ListLines/>
+            <>
+              <Title>Linhas</Title>
+              <ListLines/>
+            </>
 
             :
 

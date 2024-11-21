@@ -72,6 +72,20 @@ app.post('/api/lines/', async (req, res) => {
   }
 })
 
+// Linhas principais
+app.get('/api/lines/main', async (req, res) => {
+  try {
+    res = setHeaderHTTP(res, 'GET');
+
+    const connection = await pool.getConnection();
+    const [rows] = await connection.execute(';');
+    connection.release();
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: `Erro ao consultar o banco de dados. ${error.message}` });
+  }
+})
+
 // Consulta horários de partida das linhas
 app.post('/api/departure_times/', async (req, res) => {
   try {
