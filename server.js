@@ -134,12 +134,13 @@ app.get('/api/departure_times_observations/:id', async (req, res) => {
 })
 
 // Consulta os pontos de parada de uma linha
-app.get('/api/departure_points/:id', async (req, res) => {
+app.post('/api/departure_points/', async (req, res) => {
   try {
-    res = setHeaderHTTP(res, 'GET');
+    res = setHeaderHTTP(res, 'POST');
+    const { line_id } = req.body;
 
     const connection = await pool.getConnection();
-    const [rows] = await connection.execute('SELECT departure_point_id, point_name, direction, address, observations FROM departure_points WHERE line_id = ? ORDER BY order_departure_point, direction;', [req.params.id]);
+    const [rows] = await connection.execute('SELECT departure_point_id, point_name, direction, address, observations FROM departure_points WHERE line_id = ? ORDER BY order_departure_point, direction;', [line_id]);
     connection.release();
     res.json(rows);
   } catch (error) {

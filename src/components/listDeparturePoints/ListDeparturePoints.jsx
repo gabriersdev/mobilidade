@@ -4,16 +4,14 @@ import axios from "axios";
 import { Alert } from "react-bootstrap";
 import Accordion from "../accordion/Accordion";
 import AccordionItem from "../accordion/AccordionItem";
-import Table from "../table/Table.jsx";
-import Legend from "../legend/Legend.jsx";
 
-const ListDepartureTimes = ({ line_id }) => {
+const ListDeparturePoints = ({ line_id }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
 
   useEffect(() => {
-    const searchDepartureTimes = async () => {
+    const searchDeparturePoints = async () => {
       try {
         const response = await axios.post(`http://localhost:3001/api/departure_times/`, { line_id: line_id }); // URL completa da sua API
         setData(response.data);
@@ -26,7 +24,7 @@ const ListDepartureTimes = ({ line_id }) => {
       }
     };
 
-    searchDepartureTimes()
+    searchDeparturePoints()
   }, []);
 
   if (isLoaded) {
@@ -38,25 +36,34 @@ const ListDepartureTimes = ({ line_id }) => {
     return (
       <Alert key={'alert-line-hour-info'} variant={'info'} className="d-flex gap-2 mt-3">
         <i className="bi bi-exclamation-circle"></i>
-        <span>Não localizamos horários para esta linha.</span>
+        <span>Não localizamos pontos de parada para esta linha.</span>
       </Alert>
     )
   } else {
     return (
-      // TODO - Implementar a listagem dos horários de partida
+      // TODO - Implementar a listagem dos pontos de parada
       <Accordion defaultEventKey={['0']}>
-        <AccordionItem title="Item 1" eventKey="0">
-          <Table content={{data: Array.from({length: 25,}, (_, i) => "00:" + ("00" + i).slice(-2))}}/>
-
-          <Legend items={[{abrev: 'SC', label: 'Santa Casa'}, {abrev: 'SP', label: 'São Paulo'}]}/>
+        <AccordionItem title="Sentido ida (Santos -> São Paulo)" eventKey="0">
+          <ul className="list-line-content">
+            <li>Rua XYC, N. 151 - Hospital São José</li>
+            <li>Rua XYC, N. 151 - Hospital São José</li>
+            <li>Rua XYC, N. 151 - Hospital São José</li>
+          </ul>
+        </AccordionItem>
+        <AccordionItem title="Sentido volta (São Paulo -> Santos)" eventKey="1">
+          <ul className="list-line-content">
+            <li>Rua XYC, N. 151 - Hospital São José</li>
+            <li>Rua XYC, N. 151 - Hospital São José</li>
+            <li>Rua XYC, N. 151 - Hospital São José</li>
+          </ul>
         </AccordionItem>
       </Accordion>
     )
   }
 }
 
-ListDepartureTimes.propTypes = {
+ListDeparturePoints.propTypes = {
   line_id: PropTypes.number.isRequired
 }
 
-export default ListDepartureTimes;
+export default ListDeparturePoints;
