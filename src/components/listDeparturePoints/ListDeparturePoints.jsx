@@ -13,7 +13,7 @@ const ListDeparturePoints = ({ line_id }) => {
   useEffect(() => {
     const searchDeparturePoints = async () => {
       try {
-        const response = await axios.post(`http://localhost:3001/api/departure_times/`, { line_id: line_id }); // URL completa da sua API
+        const response = await axios.post(`http://localhost:3001/api/departure_points/`, { line_id: line_id }); // URL completa da sua API
         setData(response.data);
         console.log('Dados carregados com sucesso:', response.data);
       } catch (error) {
@@ -40,24 +40,30 @@ const ListDeparturePoints = ({ line_id }) => {
       </Alert>
     )
   } else {
+    console.log(data)
     return (
       // TODO - Implementar a listagem dos pontos de parada
-      <Accordion defaultEventKey={['0']}>
-        <AccordionItem title="Sentido ida (Santos -> São Paulo)" eventKey="0">
-          <ul className="list-line-content">
-            <li>Rua XYC, N. 151 - Hospital São José</li>
-            <li>Rua XYC, N. 151 - Hospital São José</li>
-            <li>Rua XYC, N. 151 - Hospital São José</li>
-          </ul>
-        </AccordionItem>
-        <AccordionItem title="Sentido volta (São Paulo -> Santos)" eventKey="1">
-          <ul className="list-line-content">
-            <li>Rua XYC, N. 151 - Hospital São José</li>
-            <li>Rua XYC, N. 151 - Hospital São José</li>
-            <li>Rua XYC, N. 151 - Hospital São José</li>
-          </ul>
-        </AccordionItem>
-      </Accordion>
+      <Alert key={'alert-line-departuere-points-info'} variant={'info'} className={'d-flex gap-2 mt-3'}>
+        <i className={'bi bi-exclamation-circle'}></i>
+        <span>Esta linha possui pontos de paradas, porém a visualização<b>ainda não está disponível</b></span>
+      </Alert>
+
+      // <Accordion defaultEventKey={['0']}>
+      //   <AccordionItem title="Sentido ida (Santos -> São Paulo)" eventKey="0">
+      //     <ul className="list-line-content">
+      //       <li>Rua XYC, N. 151 - Hospital São José</li>
+      //       <li>Rua XYC, N. 151 - Hospital São José</li>
+      //       <li>Rua XYC, N. 151 - Hospital São José</li>
+      //     </ul>
+      //   </AccordionItem>
+      //   <AccordionItem title="Sentido volta (São Paulo -> Santos)" eventKey="1">
+      //     <ul className="list-line-content">
+      //       <li>Rua XYC, N. 151 - Hospital São José</li>
+      //       <li>Rua XYC, N. 151 - Hospital São José</li>
+      //       <li>Rua XYC, N. 151 - Hospital São José</li>
+      //     </ul>
+      //   </AccordionItem>
+      // </Accordion>
     )
   }
 }

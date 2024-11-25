@@ -89,6 +89,7 @@ const ListDepartureTimes = ({ line_id, departure_location, destination_location 
           })
         }
 
+        {/* Exemplo com legenda */}
         {/*<AccordionItem title="Item 1" eventKey="0">*/}
         {/*  <Table content={{data: Array.from({length: 25,}, (_, i) => "00:" + ("00" + i).slice(-2))}}/>*/}
 
