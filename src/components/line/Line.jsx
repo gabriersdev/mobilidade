@@ -59,7 +59,7 @@ const Line = ({ id }) => {
 
         <section>
           <Title type="h3" color="#212529">Horários de partidas</Title>
-          <ListDepartureTimes line_id={data[0].line_id} />
+          <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location} />
         </section>
 
         <section>

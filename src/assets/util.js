@@ -21,7 +21,6 @@ export default class Util {
   }
 
   static formatTime(time, format) {
-    // TODO install moment.js
     return new Moment(time).format(format)
   }
 
@@ -62,5 +61,31 @@ export default class Util {
       // URL inválida, assumimos que não é do mesmo domínio
       return false;
     }
+  }
+
+  static formatString(text, format) {
+    // Remove non-numeric characters from the text if the format only contains #, otherwise keeps the original characters
+    const cleanText = format.includes('#') && !format.includes('?') ? text.replace(/\D/g, '') : text;
+
+    let result = '';
+    let textIndex = 0;
+
+    for (let i = 0; i < format.length; i++) {
+      if (format[i] === '#') {
+        if (textIndex < cleanText.length) {
+          result += cleanText[textIndex];
+          textIndex++;
+        }
+      } else if (format[i] === '?') { // Wildcard character, inserts if there is a character in the text
+        if (textIndex < cleanText.length) {
+          result += cleanText[textIndex];
+          textIndex++;
+        }
+      } else {
+        result += format[i];
+      }
+    }
+
+    return result;
   }
 }

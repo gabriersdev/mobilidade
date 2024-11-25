@@ -111,7 +111,7 @@ app.post('/api/departure_times/', async (req, res) => {
     const { line_id } = req.body;
 
     const connection = await pool.getConnection();
-    const [rows] = await connection.execute('SELECT schedule_id, `day`, departure_time, (SELECT COUNT(*) FROM departure_times_observations WHERE departure_time_id = schedule_id) AS has_observation FROM departure_times WHERE active = 1 AND line_id = ? ORDER BY day, departure_time;', [line_id]);
+    const [rows] = await connection.execute('SELECT schedule_id, `day`, departure_time, (SELECT COUNT(*) FROM departure_times_observations WHERE departure_time_id = schedule_id) AS has_observation, direction FROM departure_times WHERE active = 1 AND line_id = ? ORDER BY day, departure_time;', [line_id]);
     connection.release();
     res.json(rows);
   } catch (error) {
