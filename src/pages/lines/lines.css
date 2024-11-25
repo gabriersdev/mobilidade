@@ -1,0 +1,10 @@
+.table-line-content td {
+  border-bottom: unset !important;
+}
+
+.list-line-content {
+  padding: 0;
+  margin: 0;
+  margin-left: 1rem;
+  line-height: 2;
+}

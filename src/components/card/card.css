@@ -1,0 +1,35 @@
+.card {
+  border-color: #4C4C4C50;
+  padding: 1rem;
+
+  justify-content: space-between;
+  align-content: center;
+
+  .card-header {
+    background-color: inherit;
+    padding: 0;
+    margin: 0;
+    border: unset;
+  }
+
+  .card-body {
+    padding: 0;
+    margin: 0;
+  }
+
+  .title-h2 {
+    color: #212529;
+    font-weight: normal;
+  }
+
+  .title-h2,
+  .title-h3 {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+a.card {
+  text-decoration: none;
+  color: inherit;
+}

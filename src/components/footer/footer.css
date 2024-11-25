@@ -1,0 +1,19 @@
+.footer {
+  padding: 4rem 0;
+}
+
+.footer-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-link-list-item {
+  text-decoration: none;
+  color: #3959D9 !important;
+
+  &:hover,
+  &:focus {
+    color: #1F39A3 !important;
+  }
+}
