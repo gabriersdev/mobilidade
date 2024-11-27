@@ -53,7 +53,7 @@ const ListDeparturePoints = ({ line_id }) => {
       // TODO - Implementar a listagem dos pontos de parada
       <Alert key={'alert-line-departuere-points-info'} variant={'info'} className={'d-flex gap-2 mt-3'}>
         <i className={'bi bi-exclamation-circle'}></i>
-        <span>Esta linha possui pontos de paradas, porém a visualização<b>ainda não está disponível</b></span>
+        <span>Esta linha possui pontos de paradas, porém a visualização <b>ainda não está disponível</b></span>
       </Alert>
 
       // <Accordion defaultEventKey={['0']}>
