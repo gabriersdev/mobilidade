@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Grid from "../grid/Grid.jsx";
 import Card from "../card/Card.jsx";
 import axios from "axios";
+import Util from "../../assets/util.js";
 
 const ListLines = ({ variant }) => {
   const [data, setData] = useState([]);
@@ -54,11 +55,12 @@ const ListLines = ({ variant }) => {
       </Grid>
     )
   } else {
+    console.log(data)
     return (
       <div style={{ marginTop: '1rem' }}>
         <Grid>
           {data.map((line) => (
-            <Card key={line.line_id} title={`Linha ${line.line_number}`} subtitle={`${line.departure_location} -> ${line.destination_location}`} link={`/mobilidade/lines/${line.line_id}`} >Linha de ônibus de Santos para São Paulo via Avenida Professor Girafales. Partidas de segunda à sexta-feira a partir das 04h05.</Card>
+            <Card key={line.line_id} title={`Linha ${line.line_number}`} subtitle={`${line.departure_location} -> ${line.destination_location}`} link={`/mobilidade/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}</Card>
           ))}
         </Grid>
       </div>
