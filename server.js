@@ -49,8 +49,11 @@ app.get('/api/lines/', async (req, res) => {
     res = setHeaderHTTP(res, 'GET');
 
     const connection = await pool.getConnection();
-    const [rows] = await connection.execute('SELECT line_id, line_number, line_name, departure_location, destination_location FROM `lines`, `companies` WHERE `lines`.company_id = `companies`.company_id AND `lines`.active = 1;');
+    const [rows] = await connection.execute('SELECT line_id, line_number, line_name, departure_location, destination_location, modal, `companies`.company_name, (SELECT dp.departure_time FROM departure_times AS dp, `lines` AS l WHERE dp.line_id = l.line_id AND l.line_id = `lines`.line_id AND dp.direction = 1 LIMIT 1) AS `time_first_start` FROM `lines`, `companies` WHERE `lines`.company_id = `companies`.company_id AND `lines`.active = 1;');
     connection.release();
+
+    // TODO - Implementar a recuperação dos dias da semana a partir do banco de dados
+
     res.json(rows);
   } catch (error) {
     res.status(500).json({ error: `Erro ao consultar o banco de dados. ${error.message}` });
