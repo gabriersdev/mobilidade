@@ -26,11 +26,25 @@ export default class Util {
 
   static resumeInfoLine({ modal, departure_location, destination_location, operation_days, time_first_start }) {
     if (modal === 1) modal = 'ônibus'
+    else if (modal === 2) modal = 'metrô'
+    else modal = 'transporte público'
 
-    const newoperation_days = operation_days.sort()
+    let newoperation_days = Array.isArray((operation_days)) ? operation_days.sort() : [1, 2, 3, 4]
+
+    // Seguindo lógica do sistema, para o caso de todos os dias da semana, não é necessário informar os dias, apenas o número conforme o banco de dados
+    if (Util.arraysEqual(newoperation_days, [5, 6, 7])) {
+      newoperation_days = Util.createArray(7)
+    } else if (Util.arraysEqual(newoperation_days, [5, 6])) {
+      newoperation_days = Util.createArray(6)
+    } else if (Util.arraysEqual(newoperation_days, [5])) {
+      newoperation_days = Util.createArray(5)
+    }
+
     const dayNames = ["segunda", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado", "domingo"]
     let operationDayNames = []
     let qualifiedStarts;
+
+    time_first_start = [...["2020-01-01"], time_first_start || "00:00:00"].join(" ")
 
     if (Util.arraysEqual(Util.createArray(7), newoperation_days)) {
       operationDayNames.concat(dayNames)
