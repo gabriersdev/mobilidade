@@ -6,7 +6,7 @@ import { Form, FormGroup, Button } from "react-bootstrap";
 import './formSearch.css';
 
 // TODO - Implemenar lógica funcional para atualizar os dados da página
-const FormSearch = ({ formTitle, inputPlaceholder, updatePageData }) => {
+const FormSearch = ({ formTitle, inputPlaceholder }) => {
   let count = 0;
 
   useEffect(() => {
@@ -18,13 +18,6 @@ const FormSearch = ({ formTitle, inputPlaceholder, updatePageData }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Lógica de pesquisa
-    // Pode pesquisar por um nome de bairro, cidade, linha, estação ou rua
-    // No BD procurar linhas que possuem parte do nome igual ao valor de search e
-    // Linhas que possuem pontos de paradas que possuem parte do nome igual ao valor de search
-    // - O nome de cidade pode retornar as linhas que abrangem a cidade
-    // Sanitizar o valor de search para evitar SQL Injection
 
     if (search.trim().length === 0) {
       setFeedback('O campo de pesquisa não pode estar vazio.');
@@ -55,7 +48,6 @@ const FormSearch = ({ formTitle, inputPlaceholder, updatePageData }) => {
 FormSearch.propTypes = {
   formTitle: PropTypes.string.isRequired,
   inputPlaceholder: PropTypes.string.isRequired,
-  updatePageData: PropTypes.func.isRequired
 }
 
 export default FormSearch;

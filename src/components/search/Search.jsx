@@ -2,19 +2,25 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-const Search = ({ value, updatePageData }) => {
+// Lógica de pesquisa
+// Pode pesquisar por um nome de bairro, cidade, linha, estação ou rua
+// No BD procurar linhas que possuem parte do nome igual ao valor de search e
+// Linhas que possuem pontos de paradas que possuem parte do nome igual ao valor de search
+// - O nome de cidade pode retornar as linhas que abrangem a cidade
+// Sanitizar o valor de search para evitar SQL Injection
+
+const Search = ({ value }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
 
-  const searchSanitized = search.trim().replace(/[^a-zA-Z0-9À-Ú\s]/gi, '');
-      searchDatabase(searchSanitized)
+  const searchSanitized = value.trim().replace(/[^a-zA-Z0-9À-Ú\s]/gi, '');
 
   useEffect(() => {
-    const searchDatabase = async (text) => {
+    const searchDatabase = async () => {
       try {
         // TODO - Link de pesquisa
-        const response = await axios.post('#', {text: text}); // URL completa da sua API
+        const response = await axios.post('http://localhost:3001/api/lines/search/', {search: searchSanitized}); // URL completa da sua API
         setData(response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
@@ -24,7 +30,7 @@ const Search = ({ value, updatePageData }) => {
       }
     }
 
-    searchDatabase(value)
+    searchDatabase()
   }, []);
 
   if (isLoaded) {
@@ -51,9 +57,10 @@ const Search = ({ value, updatePageData }) => {
       <div>
         {
           data.map((item, index) => {
+            console.log(index, item)
             return (
               <div key={index}>
-                <p>{item.name}</p>
+                <p>ITEM</p>
               </div>
             )
           })
