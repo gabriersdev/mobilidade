@@ -156,7 +156,6 @@ app.post('/api/recharge_points/', async (req, res) => {
   try {
     res = setHeaderHTTP(res, 'POST');
     const { id_company } = req.body;
-    console.log(id_company)
 
     const connection = await pool.getConnection();
     const [rows] = await connection.execute('SELECT point_name, `address`, `observations`, `link_google_maps` FROM recharge_points WHERE company_id = ? ORDER BY point_name, `address`;', [id_company]);
@@ -228,7 +227,6 @@ app.get('/api/file_date/:filename', async (req, res) => {
     };
 
     const formattedDate = mtime.toLocaleDateString(undefined, options);
-    console.log("Data formatada:", formattedDate);
     res.json({ date: formattedDate });
   } catch (error) {
     console.error("Erro ao obter informações do arquivo:", error);

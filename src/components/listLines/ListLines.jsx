@@ -72,7 +72,7 @@ const ListLines = ({variant, content}) => {
       </div>
     )
   } else {
-    console.log(data)
+    // console.log(data)
     return (
       <div style={{marginTop: '1rem'}}>
         <Grid>

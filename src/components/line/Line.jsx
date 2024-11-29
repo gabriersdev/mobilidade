@@ -19,7 +19,7 @@ const Line = ({ id }) => {
       try {
         const response = await axios.post(`http://localhost:3001/api/lines/`, { id: id }); // URL completa da sua API
         setData(response.data);
-        console.log('Dados carregados com sucesso:', response.data);
+        // console.log('Dados carregados com sucesso:', response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
         setError(error);

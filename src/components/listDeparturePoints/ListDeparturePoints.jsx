@@ -15,7 +15,7 @@ const ListDeparturePoints = ({ line_id }) => {
       try {
         const response = await axios.post(`http://localhost:3001/api/departure_points/`, { line_id: line_id }); // URL completa da sua API
         setData(response.data);
-        console.log('Dados carregados com sucesso:', response.data);
+        // console.log('Dados carregados com sucesso:', response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
         setError(error);
@@ -46,8 +46,6 @@ const ListDeparturePoints = ({ line_id }) => {
     const uniqueDirections = data.map((item) => item.direction).filter((value, index, self) => self.indexOf(value) === index);
 
     const departurePointsByDirection = uniqueDirections.map((direction) => { departurePoints.filter((item) => item.direction === direction) });
-
-    console.log(departurePointsByDirection);
 
     return (
       // TODO - Implementar a listagem dos pontos de parada

@@ -66,7 +66,7 @@ const Search = ({value}) => {
       </div>
     )
   } else {
-    console.log(data)
+    // console.log(data)
     return (
       <div style={{marginTop: '1rem'}}>
         <Grid>
