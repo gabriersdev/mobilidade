@@ -44,25 +44,32 @@ const ListLines = ({variant, content}) => {
 
   if (isLoaded) {
     return (
-      <Grid>
-        <Card title="Carregando" subtitle="Aguarde...">Estamos conectando ao banco de dados. Esse processo geralmente é
-          rápido. Por favor, aguarde alguns instantes.</Card>
-      </Grid>
+      <div style={{marginTop: '1rem'}}>
+        <Grid>
+          <Card title="Carregando" subtitle="Aguarde...">Estamos conectando ao banco de dados. Esse processo geralmente
+            é
+            rápido. Por favor, aguarde alguns instantes.</Card>
+        </Grid>
+      </div>
     )
   } else if (error) {
     console.log(error)
     return (
-      <Grid>
-        <Card title="Erro" subtitle="Não foi possível carregar as linhas">Houve um erro ao carregar as linhas. Por
-          favor, tente novamente mais tarde.</Card>
-      </Grid>
+      <div style={{marginTop: '1rem'}}>
+        <Grid>
+          <Card title="Erro" subtitle="Não foi possível carregar as linhas">Houve um erro ao carregar as linhas. Por
+            favor, tente novamente mais tarde.</Card>
+        </Grid>
+      </div>
     )
   } else if (data.length === 0) {
     return (
-      <Grid>
-        <Card title="Nenhuma linha encontrada" subtitle="Não há linhas cadastradas">Não encontramos nenhuma linha
-          cadastrada. Por favor, tente novamente mais tarde.</Card>
-      </Grid>
+      <div style={{marginTop: '1rem'}}>
+        <Grid>
+          <Card title="Nenhuma linha encontrada" subtitle="Não há linhas cadastradas">Não encontramos nenhuma linha
+            cadastrada. Por favor, tente novamente mais tarde.</Card>
+        </Grid>
+      </div>
     )
   } else {
     console.log(data)
