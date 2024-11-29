@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import Grid from "../grid/Grid.jsx";
+import Card from "../card/Card.jsx";
+import Util from "../../assets/util.js";
 
 // Lógica de pesquisa
 // Pode pesquisar por um nome de bairro, cidade, linha, estação ou rua
@@ -9,7 +12,7 @@ import axios from "axios";
 // - O nome de cidade pode retornar as linhas que abrangem a cidade
 // Sanitizar o valor de search para evitar SQL Injection
 
-const Search = ({ value }) => {
+const Search = ({value}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
@@ -35,38 +38,39 @@ const Search = ({ value }) => {
 
   if (isLoaded) {
     return (
-      <div>
-        <p>Carregando...</p>
-      </div>
+      <Grid>
+        <Card title="Carregando" subtitle="Aguarde...">Estamos conectando ao banco de dados. Esse processo geralmente é
+          rápido. Por favor, aguarde alguns instantes.</Card>
+      </Grid>
     )
   } else if (error) {
     console.log(error)
     return (
-      <div>
-        <p>Erro ao carregar os dados.</p>
-      </div>
+      <Grid>
+        <Card title="Erro" subtitle="Não foi possível carregar as linhas">Houve um erro ao carregar as linhas. Por
+          favor, tente novamente mais tarde.</Card>
+      </Grid>
     )
   } else if (data.length === 0) {
     return (
-      <div>
-        <p>Nenhum resultado encontrado.</p>
-      </div>
+      <Grid>
+        <Card title="Nenhuma linha encontrada" subtitle="Não há linhas cadastradas">Não encontramos nenhuma linha
+          cadastrada. Por favor, tente novamente mais tarde.</Card>
+      </Grid>
     )
   } else {
+    console.log(data)
     return (
-      <div>
-        {
-          data.map((item, index) => {
-            console.log(index, item)
-            return (
-              <div key={index}>
-                <p>ITEM</p>
-              </div>
-            )
-          })
-        }
+      <div style={{marginTop: '1rem'}}>
+        <Grid>
+          {data.map((line) => (
+            <Card key={line.line_id} title={`Linha ${line.line_number}`}
+                  subtitle={`${line.departure_location} -> ${line.destination_location}`}
+                  link={`/mobilidade/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}</Card>
+          ))}
+        </Grid>
       </div>
-    )
+    );
   }
 }
 

@@ -5,7 +5,8 @@ import Card from "../card/Card.jsx";
 import axios from "axios";
 import Util from "../../assets/util.js";
 
-const ListLines = ({ variant }) => {
+// TODO - Verificar necessidade da propriedade content
+const ListLines = ({variant, content}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
@@ -30,37 +31,48 @@ const ListLines = ({ variant }) => {
       } finally {
         setIsLoaded(false);
       }
-      };
+    };
 
-    searchLines()
+    if (!content) {
+      searchLines()
+    } else {
+      setData(content)
+      setIsLoaded(false)
+    }
+
   }, []);
 
   if (isLoaded) {
     return (
       <Grid>
-        <Card title="Carregando" subtitle="Aguarde...">Estamos conectando ao banco de dados. Esse processo geralmente é rápido. Por favor, aguarde alguns instantes.</Card>
+        <Card title="Carregando" subtitle="Aguarde...">Estamos conectando ao banco de dados. Esse processo geralmente é
+          rápido. Por favor, aguarde alguns instantes.</Card>
       </Grid>
     )
   } else if (error) {
     console.log(error)
     return (
       <Grid>
-        <Card title="Erro" subtitle="Não foi possível carregar as linhas">Houve um erro ao carregar as linhas. Por favor, tente novamente mais tarde.</Card>
+        <Card title="Erro" subtitle="Não foi possível carregar as linhas">Houve um erro ao carregar as linhas. Por
+          favor, tente novamente mais tarde.</Card>
       </Grid>
     )
   } else if (data.length === 0) {
     return (
       <Grid>
-        <Card title="Nenhuma linha encontrada" subtitle="Não há linhas cadastradas">Não encontramos nenhuma linha cadastrada. Por favor, tente novamente mais tarde.</Card>
+        <Card title="Nenhuma linha encontrada" subtitle="Não há linhas cadastradas">Não encontramos nenhuma linha
+          cadastrada. Por favor, tente novamente mais tarde.</Card>
       </Grid>
     )
   } else {
     console.log(data)
     return (
-      <div style={{ marginTop: '1rem' }}>
+      <div style={{marginTop: '1rem'}}>
         <Grid>
           {data.map((line) => (
-            <Card key={line.line_id} title={`Linha ${line.line_number}`} subtitle={`${line.departure_location} -> ${line.destination_location}`} link={`/mobilidade/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}</Card>
+            <Card key={line.line_id} title={`Linha ${line.line_number}`}
+                  subtitle={`${line.departure_location} -> ${line.destination_location}`}
+                  link={`/mobilidade/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}</Card>
           ))}
         </Grid>
       </div>
@@ -70,6 +82,7 @@ const ListLines = ({ variant }) => {
 
 ListLines.propTypes = {
   variant: PropTypes.string,
+  content: PropTypes.array
 }
 
 export default ListLines;
