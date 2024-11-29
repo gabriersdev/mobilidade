@@ -76,7 +76,6 @@ const Search = ({value}) => {
 
 Search.propTypes = {
   value: PropTypes.string.isRequired,
-  updatePageData: PropTypes.func.isRequired
 }
 
 export default Search;
