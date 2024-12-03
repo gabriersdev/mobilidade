@@ -2,7 +2,6 @@ import express from 'express';
 import mysql from 'mysql2/promise';
 import cors from 'cors';
 import { stat } from 'node:fs/promises';
-import {useParams} from "react-router-dom";
 
 const app = express();
 const port = 3001;
@@ -233,6 +232,24 @@ app.get('/api/file_date/:filename', async (req, res) => {
     res.status(500).json({ error: 'Erro ao obter a data do arquivo' });
   }
 });
+
+// Inserção de dados no banco de dados
+app.post('/api/departure_points/insert/', async (req, res) => {
+  try {
+    setHeaderHTTP(res, 'POST');
+
+    const { line_id, direction, order_departure_point, point_name, address, city_id, state_id, observations } = req.body;
+
+    const connection = await pool.getConnection();
+
+    const [rows] = await connection.execute('INSERT INTO departure_points (line_id, direction, order_departure_point, point_name, address, city_id, state_id, observations) VALUES (?, ?, ?, ?, ?, ?, ?, ?);', [line_id, direction, order_departure_point, point_name, address, city_id, state_id, observations]);
+
+    connection.release();
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: `Erro ao inserir dados no banco de dados. ${error.message}` });
+  }
+})
 
 // Inicia o servidor
 app.listen(port, () => {

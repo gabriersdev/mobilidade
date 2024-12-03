@@ -1,7 +1,7 @@
 import './App.css'
 
 import React from 'react'
-import { Routes, Route } from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 
 import Nav from './components/nav/Nav'
 import Main from './components/main/Main'
@@ -19,17 +19,17 @@ const obj = {}
 function App() {
   return (
     <Context.Provider value={obj}>
-      <Nav />
+      <Nav/>
       <Main>
         <Routes>
-          <Route path="/mobilidade/" element={<Home />} />
-          <Route path="/mobilidade/lines/:id?" element={<Lines />} />
-          <Route path="/mobilidade/development" element={<Development />} />
-          <Route path="/mobilidade/terms-of-service" element={<TermsOfService />} />
-          <Route path="/mobilidade/privacy" element={<Privacy />} />
-        </Routes >
+          <Route path="/mobilidade/" element={<Home/>}/>
+          <Route path="/mobilidade/lines/:id?" element={<Lines/>}/>
+          <Route path="/mobilidade/development" element={<Development/>}/>
+          <Route path="/mobilidade/terms-of-service" element={<TermsOfService/>}/>
+          <Route path="/mobilidade/privacy" element={<Privacy/>}/>
+        </Routes>
       </Main>
-      <Footer />
+      <Footer/>
     </Context.Provider>
   )
 }
