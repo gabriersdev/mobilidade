@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { Alert } from "react-bootstrap";
+import {Alert} from "react-bootstrap";
 import Accordion from "../accordion/Accordion";
 import AccordionItem from "../accordion/AccordionItem";
 
-const ListDeparturePoints = ({ line_id }) => {
+const ListDeparturePoints = ({line_id, departure_location, destination_location}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
@@ -13,7 +13,7 @@ const ListDeparturePoints = ({ line_id }) => {
   useEffect(() => {
     const searchDeparturePoints = async () => {
       try {
-        const response = await axios.post(`http://localhost:3001/api/departure_points/`, { line_id: line_id }); // URL completa da sua API
+        const response = await axios.post(`http://localhost:3001/api/departure_points/`, {line_id: line_id}); // URL completa da sua API
         setData(response.data);
         // console.log('Dados carregados com sucesso:', response.data);
       } catch (error) {
@@ -41,41 +41,52 @@ const ListDeparturePoints = ({ line_id }) => {
     )
   } else {
     // Ordena os pontos de parada por direção e ordem
-    const departurePoints = data.toSorted((a ,b) => a.direction - b.direction).toSorted((a, b) => a.order_departure_point - b.order_departure_point);
+    const departurePoints = data.toSorted((a, b) => a.direction - b.direction).toSorted((a, b) => a.order_departure_point - b.order_departure_point);
 
     const uniqueDirections = data.map((item) => item.direction).filter((value, index, self) => self.indexOf(value) === index);
 
-    const departurePointsByDirection = uniqueDirections.map((direction) => { departurePoints.filter((item) => item.direction === direction) });
+    const departurePointsByDirection = uniqueDirections.map((direction) => {
+      return departurePoints.filter((item) => item.direction === direction);
+    });
+
+    console.log(departurePointsByDirection[0].length, departurePointsByDirection[1].length)
 
     return (
       // TODO - Implementar a listagem dos pontos de parada
-      <Alert key={'alert-line-departuere-points-info'} variant={'info'} className={'d-flex gap-2 mt-3'}>
-        <i className={'bi bi-exclamation-circle'}></i>
-        <span>Esta linha possui pontos de paradas, porém a visualização <b>ainda não está disponível</b></span>
-      </Alert>
-
-      // <Accordion defaultEventKey={['0']}>
-      //   <AccordionItem title="Sentido ida (Santos -> São Paulo)" eventKey="0">
-      //     <ul className="list-line-content">
-      //       <li>Rua XYC, N. 151 - Hospital São José</li>
-      //       <li>Rua XYC, N. 151 - Hospital São José</li>
-      //       <li>Rua XYC, N. 151 - Hospital São José</li>
-      //     </ul>
-      //   </AccordionItem>
-      //   <AccordionItem title="Sentido volta (São Paulo -> Santos)" eventKey="1">
-      //     <ul className="list-line-content">
-      //       <li>Rua XYC, N. 151 - Hospital São José</li>
-      //       <li>Rua XYC, N. 151 - Hospital São José</li>
-      //       <li>Rua XYC, N. 151 - Hospital São José</li>
-      //     </ul>
-      //   </AccordionItem>
-      // </Accordion>
+      <Accordion defaultEventKey={['0']}>
+        {
+          uniqueDirections.map((direction, uniqueDirectionsIndex) => {
+            return (
+              <AccordionItem
+                key={uniqueDirectionsIndex}
+                title={direction == 1 ? `Sentido ida - ${departure_location} -> ${destination_location}` : `Sentido volta - ${destination_location} -> ${departure_location}`}
+                eventKey={uniqueDirectionsIndex.toString()}>
+                <ul className="list-line-content">
+                  {
+                    departurePointsByDirection.map((pointsByDirection) => {
+                      return pointsByDirection.map((point, index) => {
+                        return (
+                          <li key={index}>
+                            <span>{point.address + (point.point_name ?  " - " + point.point_name : "")} </span>
+                          </li>
+                        )
+                      })
+                    })
+                  }
+                </ul>
+              </AccordionItem>
+            )
+          })
+        }
+      </Accordion>
     )
   }
 }
 
 ListDeparturePoints.propTypes = {
-  line_id: PropTypes.number.isRequired
+  line_id: PropTypes.number.isRequired,
+  departure_location: PropTypes.string.isRequired,
+  destination_location: PropTypes.string.isRequired
 }
 
 export default ListDeparturePoints;
