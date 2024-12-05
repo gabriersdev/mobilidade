@@ -17,7 +17,7 @@ const dbConfig = {
 };
 
 const pool = mysql.createPool(dbConfig);
-const originRequest = 'http://localhost:5174';
+const originRequest = 'http://localhost:5173';
 
 const setHeaderHTTP = (res, protocols) => {
   const response = res;
