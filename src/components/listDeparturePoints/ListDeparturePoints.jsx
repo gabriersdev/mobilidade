@@ -49,8 +49,6 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
       return departurePoints.filter((item) => item.direction === direction);
     });
 
-    console.log(departurePointsByDirection[0].length, departurePointsByDirection[1].length)
-
     return (
       // TODO - Implementar a listagem dos pontos de parada
       <Accordion defaultEventKey={['0']}>
