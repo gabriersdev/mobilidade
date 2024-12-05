@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import axios from "axios";
 
 import LineIdentification from "../lineIdentification/LineIdentification";
-import ListRecharchePoints from "../listRecharchePoints/ListRecharchePoints";
+import ListRechargePoints from "../listRecharchePoints/ListRecharchePoints";
 import ListDepartureTimes from "../listDepartureTimes/ListDepartureTimes";
 import Title from "../title/Title.jsx";
-import { Alert } from "react-bootstrap";
+import Alert from "../alert/Alert";
 import ListDeparturePoints from "../listDeparturePoints/ListDeparturePoints.jsx";
 
 const Line = ({ id }) => {
@@ -38,8 +38,7 @@ const Line = ({ id }) => {
     return <div>Erro: {error.message}</div>;
   } else if (data.length === 0) {
     return (
-      <Alert key={'alert-line-not-found'} variant={'danger'} className="d-flex gap-2 mt-3">
-        <i className="bi bi-exclamation-circle"></i>
+      <Alert key={'alert-line-not-found'} variant={'danger'} margin={"mt-0"}>
         <span>Linha não encontrada.</span>
       </Alert>
     );
@@ -49,8 +48,7 @@ const Line = ({ id }) => {
         <section>
           <LineIdentification line={data[0]} />
           {data[0].observations ? (
-            <Alert key={'alert-line-not-found'} variant={'secondary'} className="d-flex gap-2 mt-4">
-              <i className="bi bi-exclamation-circle"></i>
+            <Alert key={'alert-line-not-found'} variant={'secondary'}>
               <span>{data[0].observations}</span>
             </Alert>)
             : ""
@@ -69,7 +67,7 @@ const Line = ({ id }) => {
 
         <section>
           <Title type="h3" color="#212529">Pontos de recarga</Title>
-          <ListRecharchePoints id_company={data[0].company_id} company_name={data[0].company_name} />
+          <ListRechargePoints id_company={data[0].company_id} company_name={data[0].company_name} />
         </section>
       </div>
     )

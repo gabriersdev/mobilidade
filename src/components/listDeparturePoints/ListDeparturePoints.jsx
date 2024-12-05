@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import {Alert} from "react-bootstrap";
+import Alert from "../alert/Alert";
 import Accordion from "../accordion/Accordion";
 import AccordionItem from "../accordion/AccordionItem";
 
@@ -34,8 +34,7 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
     return <div>Erro: {error.message}</div>;
   } else if (data.length === 0) {
     return (
-      <Alert key={'alert-line-hour-info'} variant={'info'} className="d-flex gap-2 mt-3">
-        <i className="bi bi-exclamation-circle"></i>
+      <Alert key={'alert-line-hour-info'} variant={"info"}>
         <span>Não localizamos pontos de parada para esta linha.</span>
       </Alert>
     )
@@ -53,19 +52,19 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
       // TODO - Implementar a listagem dos pontos de parada
       <Accordion defaultEventKey={['0']}>
         {
-          uniqueDirections.map((direction, uniqueDirectionsIndex) => {
+          uniqueDirections.map((direction, i) => {
             return (
               <AccordionItem
-                key={uniqueDirectionsIndex}
-                title={direction == 1 ? `Sentido ida - ${departure_location} -> ${destination_location}` : `Sentido volta - ${destination_location} -> ${departure_location}`}
-                eventKey={uniqueDirectionsIndex.toString()}>
+                key={i}
+                title={direction === 1 ? `Sentido ida - ${departure_location} -> ${destination_location}` : `Sentido volta - ${destination_location} -> ${departure_location}`}
+                eventKey={i.toString()}>
                 <ul className="list-line-content">
                   {
                     departurePointsByDirection.map((pointsByDirection) => {
-                      return pointsByDirection.map((point, index) => {
+                      return pointsByDirection.map((point, j) => {
                         return (
-                          <li key={index}>
-                            <span>{point.address + (point.point_name ?  " - " + point.point_name : "")} </span>
+                          <li key={j}>
+                            <span>{point.address + (point.point_name ? " - " + point.point_name : "")} </span>
                           </li>
                         )
                       })

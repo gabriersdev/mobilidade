@@ -122,12 +122,15 @@ app.post('/api/departure_times/', async (req, res) => {
 })
 
 // Consulta observações conforme o id do horário de partida
-app.get('/api/departure_times_observations/:id', async (req, res) => {
+app.post('/api/departure_times_observations/', async (req, res) => {
   try {
-    res = setHeaderHTTP(res, 'GET');
+    res = setHeaderHTTP(res, 'POST');
+
+    // Recebe id da linha
+    const { line_id } = req.body;
 
     const connection = await pool.getConnection();
-    const [rows] = await connection.execute('SELECT departure_times_observations.departure_time_id, observation_name, observation_abrev FROM observations, departure_times_observations WHERE departure_times_observations.observation_id = observations.observation_id AND departure_times_observations.departure_time_id = ?;', [req.params.id]);
+    const [rows] = await connection.execute('SELECT l.line_name, dt.direction, dp.departure_time_id, dp.observation_id, o.observation_name, o.observation_abrev FROM departure_times_observations AS dp LEFT JOIN departure_times AS dt ON dp.departure_time_id = dt.schedule_id LEFT JOIN `lines` AS l ON l.line_id = dt.line_id LEFT JOIN observations AS o ON dp.observation_id = o.observation_id WHERE l.line_id = ? AND l.active = 1 AND dt.active = 1 ORDER BY l.line_id;', [line_id]);
     connection.release();
     res.json(rows);
   } catch (error) {
