@@ -140,7 +140,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
                         observations={observations}
                       />
 
-                      {observations ? <Legend items={observations}/> : ""}
+                      {observations.length ? <Legend items={observations}/> : ""}
                     </AccordionItem>
                   )
                 })}
