@@ -1,6 +1,6 @@
 import './App.css'
 
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Routes, Route} from 'react-router-dom';
 
 import Nav from './components/nav/Nav'
@@ -17,6 +17,15 @@ const Context = React.createContext()
 const obj = {}
 
 function App() {
+  useEffect(() => {
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/mobilidade/service-worker.js")
+          .then(() => console.log("Service Worker registrado com sucesso!"))
+          .catch((err) => console.error("Erro ao registrar o Service Worker:", err));
+      }
+    }, []);
+
   return (
     <Context.Provider value={obj}>
       <Nav/>
