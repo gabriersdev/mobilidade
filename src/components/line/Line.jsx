@@ -38,7 +38,7 @@ const Line = ({ id }) => {
     return <div>Erro: {error.message}</div>;
   } else if (data.length === 0) {
     return (
-      <Alert key={'alert-line-not-found'} variant={'danger'} margin={"mt-0"}>
+      <Alert variant={'danger'} margin={"mt-0"}>
         <span>Linha não encontrada.</span>
       </Alert>
     );
@@ -48,7 +48,7 @@ const Line = ({ id }) => {
         <section>
           <LineIdentification line={data[0]} />
           {data[0].observations ? (
-            <Alert key={'alert-line-not-found'} variant={'secondary'}>
+            <Alert variant={'secondary'}>
               <span>{data[0].observations}</span>
             </Alert>)
             : ""

@@ -21,6 +21,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
 
         // Obtendo as observações dos horários de partida
         searchDepartureTimesObservations(response.data).then((obsData) => {
+          // Definindo as observações dos horários de partida
           setObservations(
             obsData.data.filter(o => o.observation !== null).reduce((accumulator, observation) => {
               const existingObservation = accumulator.find(item => item.label === observation.observation_name);
@@ -36,9 +37,6 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
             }, [])
           )
 
-          console.log(observations)
-
-          // Definindo as observações dos horários de partida
           setData(
             response.data.map((item) => {
               const observation = obsData.data.find((observation) => observation.departure_time_id === item.schedule_id)
@@ -79,7 +77,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
     return <div>Erro: {error.message}</div>;
   } else if (data.length === 0) {
     return (
-      <Alert key={'alert-line-hour-info'} variant={'info'}>
+      <Alert variant={'info'}>
         <span>Não localizamos horários para esta linha.</span>
       </Alert>
     )
@@ -136,7 +134,9 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
                               observation: item.observation ? item.observation : null
                             }
                           })
-                        }}/>
+                        }}
+                        observations={observations}
+                      />
 
                       {observations ? <Legend items={observations}/> : ""}
                     </AccordionItem>
@@ -146,13 +146,6 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
             </AccordionItem>
           )
         })}
-
-        {/* Exemplo com legenda */}
-        {/*<AccordionItem title="Item 1" eventKey="0">*/}
-        {/*  <Table content={{data: Array.from({length: 25,}, (_, i) => "00:" + ("00" + i).slice(-2))}}/>*/}
-
-        {/*  <Legend items={[{abrev: 'SC', label: 'Santa Casa'}, {abrev: 'SP', label: 'São Paulo'}]}/>*/}
-        {/*</AccordionItem>*/}
       </Accordion>)
   }
 }

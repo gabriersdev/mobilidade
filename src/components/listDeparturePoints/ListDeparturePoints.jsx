@@ -34,7 +34,7 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
     return <div>Erro: {error.message}</div>;
   } else if (data.length === 0) {
     return (
-      <Alert key={'alert-line-hour-info'} variant={"info"}>
+      <Alert variant={"info"}>
         <span>Não localizamos pontos de parada para esta linha.</span>
       </Alert>
     )
