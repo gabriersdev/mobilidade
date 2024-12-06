@@ -40,7 +40,7 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
     )
   } else {
     // Ordena os pontos de parada por direção e ordem
-    const departurePoints = data.toSorted((a, b) => a.direction - b.direction).toSorted((a, b) => a.order_departure_point - b.order_departure_point);
+    const departurePoints = data.toSorted((a, b) => a.order_departure_point - b.order_departure_point);
 
     const uniqueDirections = data.map((item) => item.direction).filter((value, index, self) => self.indexOf(value) === index);
 

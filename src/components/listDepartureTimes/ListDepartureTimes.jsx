@@ -108,7 +108,9 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
     }
 
     // Ordena os horários de partida por dia e horário
-    const departureTimes = data.toSorted((a, b) => a.day - b.day).toSorted((a, b) => a.departure_time.localeCompare(b.departure_time))
+    const departureTimes = data.toSorted((a, b) => a.day - b.day)
+
+    console.log(departureTimes)
 
     const uniqueDirections = departureTimes.map((item) => item.direction).filter((value, index, self) => self.indexOf(value) === index)
 
