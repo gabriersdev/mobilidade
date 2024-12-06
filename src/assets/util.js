@@ -72,6 +72,7 @@ export default class Util {
       // console.log(currentOrigin, linkOrigin)
       return currentOrigin === linkOrigin;
     } catch (error) {
+      console.log('Um erro ocorreu: %s', error.message)
       // URL inválida, assumimos que não é do mesmo domínio
       return false;
     }

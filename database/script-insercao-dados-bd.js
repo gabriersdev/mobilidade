@@ -35,3 +35,5 @@ const insertDeparturesPoints = (line_id, direction, dp) => {
     console.error('Inseridos %d de %d dados.', success, data.length)
   }
 }
+
+insertDeparturesPoints(1, 1, '')

@@ -1,12 +1,12 @@
+import React, {useState} from "react";
 import Title from "../title/Title";
 import PropTypes from "prop-types";
-import {useEffect, useState} from "react";
-import { Form, FormGroup, Button } from "react-bootstrap";
+import {Form, FormGroup, Button} from "react-bootstrap";
 
 import './formSearch.css';
 
 // TODO - Testar a lógica implementada para atualizar os dados da página
-const FormSearch = ({ formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermSearch }) => {
+const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermSearch}) => {
   const [search, setSearch] = useState('');
   const [feedback, setFeedback] = useState('');
 
@@ -35,10 +35,11 @@ const FormSearch = ({ formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTerm
     <form onSubmit={handleSubmit}>
       <FormGroup>
         <Form.Label htmlFor={`input-search`}>
-          <Title title={formTitle} color="#212529" />
+          <Title title={formTitle} color="#212529"/>
         </Form.Label>
-        <Form.Control type="search" id={`input-search`} placeholder={inputPlaceholder} className="w-100 fs-5" value={search} onChange={(e) => setSearch(e.target.value)} />
-        <Button variant="primary" style={{ display: 'none' }} type="submit" aria-hidden="true">Search</Button>
+        <Form.Control type="search" id={`input-search`} placeholder={inputPlaceholder} className="w-100 fs-5"
+                      value={search} onChange={(e) => setSearch(e.target.value)}/>
+        <Button variant="primary" style={{display: 'none'}} type="submit" aria-hidden="true">Search</Button>
       </FormGroup>
       <span className={"d-block mt-2 text-danger"}>{feedback}</span>
     </form>
