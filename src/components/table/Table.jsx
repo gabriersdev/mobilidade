@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {Table as BootstrapTable} from 'react-bootstrap';
+import {Badge, Table as BootstrapTable} from 'react-bootstrap';
+import data from "../../data.js";
 
-const listItems = (data) => {
-  const newData = [...data];
+const listItems = (listData) => {
+  const newData = [...listData];
   const itemsPerLine = 12;
   const rows = [];
 
@@ -12,11 +13,13 @@ const listItems = (data) => {
     rows.push(<tr key={rows.length}>
       {
         newData.splice(0, itemsPerLine).map((item, i) => {
+          const bootstrapBGColors = data.bootstrap.bg.colors;
+           console.log(item)
           return (
             <td key={`${rows.length}-${i}`} className={"d-inline-flex gap-1 align-items-center"}>
               {item.departure_time}
               {/*TODO - Usar tooltip*/}
-              {item.observation ? <span className="badge bg-secondary" title={item.observation[1]} >{item.observation[0]}</span> : ''}
+              {item.observation ? <Badge bg={bootstrapBGColors.at(item.observation[2]) || 'primary'} title={item.observation[1]}>{item.observation[0]}</Badge> : ''}
             </td>
           )
         })

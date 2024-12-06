@@ -12,6 +12,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
+  const [observations, setObservations] = useState([]);
 
   useEffect(() => {
     const searchDepartureTimes = async () => {
@@ -20,13 +21,38 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
 
         // Obtendo as observações dos horários de partida
         searchDepartureTimesObservations(response.data).then((obsData) => {
+          setObservations(
+            obsData.data.filter(o => o.observation !== null).reduce((accumulator, observation) => {
+              const existingObservation = accumulator.find(item => item.label === observation.observation_name);
+
+              if (!existingObservation) {
+                accumulator.push({
+                  label: observation.observation_name,
+                  abrev: observation.observation_abrev
+                });
+              }
+
+              return accumulator;
+            }, [])
+          )
+
+          console.log(observations)
+
           // Definindo as observações dos horários de partida
           setData(
             response.data.map((item) => {
               const observation = obsData.data.find((observation) => observation.departure_time_id === item.schedule_id)
+
               return {
                 ...item,
-                observation: observation ? [observation.observation_abrev, observation.observation_name] : ''
+                observation:
+                // Se observação estiver definida, cria um array, com a abreviação, o nome ou label da abreviação e o índice para que depois o compotente defina uma cor para a observação
+                  observation ? [
+                      observation.observation_abrev,
+                      observation.observation_name,
+                      observations.findIndex((o) => o.abrev === observation.observation_abrev)
+                    ]
+                    : null,
               }
             })
           )
@@ -111,6 +137,8 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
                             }
                           })
                         }}/>
+
+                      {observations ? <Legend items={observations}/> : ""}
                     </AccordionItem>
                   )
                 })}
