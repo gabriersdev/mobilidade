@@ -56,7 +56,11 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
             return (
               <AccordionItem
                 key={i}
-                title={direction === 1 ? `Sentido ida - ${departure_location} -> ${destination_location}` : `Sentido volta - ${destination_location} -> ${departure_location}`}
+                title={
+                  direction === 1 ? (`Sentido ida - ${departure_location} -> ${destination_location}`) :
+                    direction === 0 ? (`Sentido único - ${departure_location} <-> ${destination_location} (ida e volta)`) :
+                      direction === 2 ? (`Sentido volta - ${destination_location} -> ${departure_location}`) : ""
+                }
                 eventKey={i.toString()}>
                 <ul className="list-line-content">
                   {
