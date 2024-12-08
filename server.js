@@ -193,9 +193,9 @@ app.post('/api/lines/search', async (req, res) => {
 
     const connection = await pool.getConnection();
 
-    const [row1] = await connection.execute('SELECT line_id, line_number, line_name, departure_location, destination_location FROM `lines` AS l WHERE l.`active` = 1 AND (UPPER(line_name) LIKE UPPER(?) OR UPPER(departure_location) LIKE UPPER(?) OR UPPER(destination_location) LIKE UPPER(?)) ORDER BY l.line_name LIMIT 30;', [`%${search}%`, `%${search}%`, `%${search}%`]);
+    const [row1] = await connection.execute('', [`%${search}%`, `%${search}%`, `%${search}%`]);
 
-    const [row2] = await connection.execute('SELECT l.line_id, l.line_number, l.line_name, l.departure_location, l.destination_location FROM departure_points AS dp LEFT JOIN `lines` AS l ON dp.line_id = l.line_id WHERE l.`active` = 1 AND (UPPER(dp.`address`) LIKE UPPER(?) OR UPPER(dp.observations) LIKE UPPER(?)) ORDER BY l.line_name LIMIT 30;', [`%${search}%`, `%${search}%`]);
+    const [row2] = await connection.execute('SELECT l.line_id, l.line_number, l.line_name, l.departure_location, l.destination_location, (SELECT dp.departure_time FROM departure_times AS dp WHERE dp.line_id = l.line_id AND dp.direction = 1 ORDER BY dp.departure_time LIMIT 1) AS time_first_start FROM `lines` AS l LEFT JOIN departure_points AS dp ON dp.line_id = l.line_id WHERE l.`active` = 1 AND (UPPER(dp.`address`) LIKE UPPER(?) OR UPPER(dp.observations) LIKE UPPER(?)) ORDER BY l.line_name LIMIT 30;', [`%${search}%`, `%${search}%`]);
 
     // Remove linhas duplicadas por id
     const rows = row1.concat(row2).filter((value, index, self) => self.findIndex((t) => (t.line_id === value.line_id)) === index);

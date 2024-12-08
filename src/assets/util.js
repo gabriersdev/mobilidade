@@ -60,7 +60,11 @@ export default class Util {
       qualifiedStarts = operationDayNames.join(', ')
     }
 
-    return `Linha de ${modal} de ${departure_location} para ${destination_location}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'} a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.`
+    console.log(operation_days, operationDayNames)
+
+    const x = `Linha de ${modal} de ${departure_location} para ${destination_location}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'} a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.`;
+    console.log(x)
+    return x;
   }
 
   static isSameDomain(url) {
