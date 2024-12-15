@@ -74,7 +74,7 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
         {/* Offcanvas */}
         <Offcanvas show={show} onHide={handleClose} placement="start">
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title className={"fw-light text-muted"}>Ponto de parada</Offcanvas.Title>
+            <Offcanvas.Title className={"fs-6 fw-light text-muted m-0 p-0"}>Ponto de parada</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body className={"d-flex flex-column gap-3"}>
             <h3 className={"fs-3 m-0 p-0"}>
@@ -135,6 +135,8 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
                                  points_lenght: pointsByDirection.length,
                                  point_ordenation: j
                                })}
+                               className={"text-black"}
+                               style={{textDecoration: 'none'}}
                             >
                               {point.address + (point.point_name ? " - " + point.point_name : "")}
                             </a>
