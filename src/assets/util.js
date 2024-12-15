@@ -16,15 +16,15 @@ export default class Util {
   }
 
   static createArray(length, add) {
-    if (!add) return Array.from({ length: length }, (_, i) => i)
-    return Array.from({ length: length }, (_, i) => i + add)
+    if (!add) return Array.from({length: length}, (_, i) => i)
+    return Array.from({length: length}, (_, i) => i + add)
   }
 
   static formatTime(time, format) {
     return new Moment(time).format(format)
   }
 
-  static resumeInfoLine({ modal, departure_location, destination_location, operation_days, time_first_start }) {
+  static resumeInfoLine({modal, departure_location, destination_location, operation_days, time_first_start}) {
     if (modal === 1) modal = 'ônibus'
     else if (modal === 2) modal = 'metrô'
     else modal = 'transporte público'
@@ -60,11 +60,7 @@ export default class Util {
       qualifiedStarts = operationDayNames.join(', ')
     }
 
-    console.log(operation_days, operationDayNames)
-
-    const x = `Linha de ${modal} de ${departure_location} para ${destination_location}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'} a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.`;
-    console.log(x)
-    return x;
+    return `Linha de ${modal} de ${departure_location} para ${destination_location}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'} a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.`;
   }
 
   static isSameDomain(url) {
@@ -106,5 +102,12 @@ export default class Util {
     }
 
     return result;
+  }
+
+  static convertToSafeText(title) {
+    let sanitize = title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\u0100-\u1EFF]/g, "")
+    sanitize = sanitize.toLowerCase().replace(/\s/g, "-")
+    sanitize = sanitize.toLowerCase().replace(/^\w]/g, "");
+    return sanitize.replace(/-{2,}/g, '-');
   }
 }

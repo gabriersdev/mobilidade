@@ -5,10 +5,30 @@ import Alert from "../alert/Alert";
 import Accordion from "../accordion/Accordion";
 import AccordionItem from "../accordion/AccordionItem";
 
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import Util from "../../assets/util.js";
+
 const ListDeparturePoints = ({line_id, departure_location, destination_location}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
+
+  const [show, setShow] = useState(false);
+  const [pointDataOffcanvas, setPointDataOffcanvas] = useState({});
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handlePointClick = (e, {address, point_name, points_lenght, point_ordenation}) => {
+    e.preventScroll = true;
+    setPointDataOffcanvas({
+      address: address,
+      point_name: point_name,
+      points_lenght: points_lenght,
+      point_ordenation: point_ordenation
+    });
+    handleShow();
+  }
 
   useEffect(() => {
     const searchDeparturePoints = async () => {
@@ -51,6 +71,46 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
     return (
       // TODO - Implementar a listagem dos pontos de parada
       <Accordion defaultEventKey={['0']}>
+        {/* Offcanvas */}
+        <Offcanvas show={show} onHide={handleClose} placement="start">
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title className={"fw-light text-muted"}>Ponto de parada</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body className={"d-flex flex-column gap-3"}>
+            <h3 className={"fs-3 m-0 p-0"}>
+              {pointDataOffcanvas.point_name ? `${pointDataOffcanvas.point_name} - ${pointDataOffcanvas.address}` : pointDataOffcanvas.address}
+            </h3>
+
+            <section>
+              <iframe
+                width="100%"
+                height="450"
+                style={{border: 0}}
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDLVLgUmpHx7VfSA0qTMhYdKW1SVXKFTak&q=${Util.convertToSafeText(pointDataOffcanvas.point_name ? `${pointDataOffcanvas.point_name} - ${pointDataOffcanvas.address}` : pointDataOffcanvas.address)}`}>
+              </iframe>
+              <a className={"link-opacity-100 d-flex gap-1 align-items-center mt-1"} style={{textDecoration: 'none'}}
+                 href={`https://www.google.com/maps/search/?api=1&query=${Util.convertToSafeText(pointDataOffcanvas.point_name ? `${pointDataOffcanvas.point_name} - ${pointDataOffcanvas.address}` : pointDataOffcanvas.address)}`}
+                 rel={"noreferrer noopener"} target={"_blank"}
+              >
+                <span>Abrir no Maps</span>
+                <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px"
+                     fill={"#7BBEFE"}>
+                  <path
+                    d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/>
+                </svg>
+              </a>
+            </section>
+
+            <p className={"text-muted fw-light"}>
+              Este é o ponto de parada
+              n.º {pointDataOffcanvas.point_ordenation + 1} de {pointDataOffcanvas.points_lenght} do sentido
+            </p>
+          </Offcanvas.Body>
+        </Offcanvas>
+
         {
           uniqueDirections.map((direction, i) => {
             return (
@@ -68,7 +128,16 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
                       return pointsByDirection.map((point, j) => {
                         return (
                           <li key={j}>
-                            <span>{point.address + (point.point_name ? " - " + point.point_name : "")} </span>
+                            <a href={'#'}
+                               onClick={e => handlePointClick(e, {
+                                 address: point.address,
+                                 point_name: point.point_name,
+                                 points_lenght: pointsByDirection.length,
+                                 point_ordenation: j
+                               })}
+                            >
+                              {point.address + (point.point_name ? " - " + point.point_name : "")}
+                            </a>
                           </li>
                         )
                       })
