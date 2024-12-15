@@ -107,6 +107,7 @@ export default class Util {
   static convertToSafeText(title) {
     let sanitize = title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\u0100-\u1EFF]/g, "")
     sanitize = sanitize.toLowerCase().replace(/\s/g, "-")
+    sanitize = sanitize.replace(/[,.]/g, '')
     sanitize = sanitize.toLowerCase().replace(/^\w]/g, "");
     return sanitize.replace(/-{2,}/g, '-');
   }
