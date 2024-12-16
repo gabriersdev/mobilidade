@@ -1,0 +1,20 @@
+{
+  "name": "Mobilidade",
+  "short_name": "Mobilidade",
+  "start_url": "./mobilidade",
+  "display": "standalone",
+  "background_color": "#F6F6F6",
+  "theme_color": "#3959D9",
+  "icons": [
+    {
+      "src": "/images/icon-blue-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/icon-blue-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
