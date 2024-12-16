@@ -1,6 +1,6 @@
 // Nome do cache
-const CACHE_NAME = 'mobilidade-app';
-// Arquivos para cache
+const CURRENT_CACHE_NAME = 'mobilidade-app';
+
 const urlsToCache = [
   '/mobilidade',
   '/manifest.json',
@@ -9,35 +9,40 @@ const urlsToCache = [
   '/images/icon-blue-512x512.png'
 ];
 
-// Instala o Service Worker
+// Evento de instalação (opcional: apenas se quiser pré-carregar arquivos)
 self.addEventListener('install', (event) => {
+  console.log('Service Worker instalado.');
   event.waitUntil(
-    caches.open(CACHE_NAME)
+    caches.open(CURRENT_CACHE_NAME)
       .then((cache) => cache.addAll(urlsToCache))
   );
+  self.skipWaiting(); // Ativa imediatamente
 });
 
-// Atualiza o Service Worker e limpa caches antigos
-self.addEventListener("activate", (event) => {
+// Evento de ativação: Remove caches antigos
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) =>
-      Promise.all(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
         cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            console.log("Removendo cache antigo:", cache);
-            return caches.delete(cache);
+          if (cache !== CURRENT_CACHE_NAME) {
+            console.log('Limpando cache antigo:', cache);
+            return caches.delete(cache); // Remove caches que não são o atual
           }
         })
-      )
-    )
+      );
+    })
   );
+  // Faz com que o novo service worker controle as páginas imediatamente
+  event.waitUntil(clients.claim());
 });
 
-// Intercepta requisições para servir do cache
+// Intercepta requisições (opcional: apenas se você estiver lidando com caching)
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request)
-      .then((response) => response || fetch(event.request))
+    caches.match(event.request).then((response) => {
+      // Serve do cache ou faz uma requisição de rede
+      return response || fetch(event.request);
+    })
   );
 });
-
