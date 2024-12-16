@@ -20,6 +20,9 @@ const ListLines = ({variant, content}) => {
   }
 
   useEffect(() => {
+    // Altera o título da página
+    document.title = "Mobilidade - Linhas";
+
     const searchLines = async () => {
 
       try {

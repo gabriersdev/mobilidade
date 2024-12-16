@@ -5,6 +5,7 @@ import Util from "../../assets/util";
 const Development = () => {
   useEffect(() => {
     Util.updateActiveLink()
+    document.title = "Mobilidade - Desenvolvimento";
   }, [])
 
   return (

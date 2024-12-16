@@ -4,6 +4,8 @@ import Util from "../../assets/util";
 
 const Privacy = () => {
   useEffect(() => {
+    // Altera o título da página
+    document.title = "Mobilidade - Privacidade";
     Util.updateActiveLink()
   }, [])
 

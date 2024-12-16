@@ -15,6 +15,9 @@ const Line = ({ id }) => {
   const [isLoaded, setIsLoaded] = useState(true);
 
   useEffect(() => {
+    // Altera o título da página
+    document.title = "Mobilidade - Consulta Linha";
+
     const searchLine = async (id) => {
       try {
         const response = await axios.post(`http://localhost:3001/api/lines/`, { id: id }); // URL completa da sua API
@@ -43,6 +46,9 @@ const Line = ({ id }) => {
       </Alert>
     );
   } else {
+    // Altera o título da página
+    document.title = `Linha ${data[0].line_number} | ${data[0].departure_location} - ${data[0].destination_location}`;
+
     return (
       <div className="d-flex flex-column" style={{ gap: '4rem' }}>
         <section>

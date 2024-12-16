@@ -4,6 +4,8 @@ import Util from "../../assets/util";
 
 const TermsOfService = () => {
   useEffect(() => {
+    // Altera o título da página
+    document.title = "Mobilidade - Termos de Serviço";
     Util.updateActiveLink()
   }, [])
 
