@@ -10,6 +10,8 @@ const Home = () => {
   const [ termSearch, setTermSearch ] = useState(null)
 
   useEffect(() => {
+    // Atualiza o título do documento
+    document.title = 'Mobilidade - Home'
     Util.updateActiveLink()
   }, [])
 
