@@ -21,7 +21,6 @@ const Home = () => {
                   fnSetIsValidSearch={setIsValidSearch} fnSetTermSearch={setTermSearch}/>
 
       <div>
-
         {
           (isValidSearch && termSearch) ? (
             <>

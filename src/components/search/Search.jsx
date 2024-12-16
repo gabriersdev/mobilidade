@@ -5,13 +5,6 @@ import Grid from "../grid/Grid.jsx";
 import Card from "../card/Card.jsx";
 import Util from "../../assets/util.js";
 
-// Lógica de pesquisa
-// Pode pesquisar por um nome de bairro, cidade, linha, estação ou rua
-// No BD procurar linhas que possuem parte do nome igual ao valor de search e
-// Linhas que possuem pontos de paradas que possuem parte do nome igual ao valor de search
-// - O nome de cidade pode retornar as linhas que abrangem a cidade
-// Sanitizar o valor de search para evitar SQL Injection
-
 const Search = ({value}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
