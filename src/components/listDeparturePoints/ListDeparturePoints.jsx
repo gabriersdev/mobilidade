@@ -89,10 +89,15 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
                 loading="lazy"
                 allowFullScreen
                 referrerPolicy="no-referrer-when-downgrade"
-                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDLVLgUmpHx7VfSA0qTMhYdKW1SVXKFTak&q=${Util.convertToSafeText(pointDataOffcanvas.point_name ? `${pointDataOffcanvas.point_name} - ${pointDataOffcanvas.address}` : pointDataOffcanvas.address)}`}>
+                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDLVLgUmpHx7VfSA0qTMhYdKW1SVXKFTak&q=${Util.convertToSafeText(pointDataOffcanvas.address)}`}>
               </iframe>
+              <Alert variant={"warning"} className={"mt-2"}>
+                <span className={"fw-light"}>
+                  A localização do Maps pode não corresponder ao endereço do ponto de parada. Use com cautela.
+                </span>
+              </Alert>
               <a className={"link-opacity-100 d-flex gap-1 align-items-center mt-1"} style={{textDecoration: 'none'}}
-                 href={`https://www.google.com/maps/search/?api=1&query=${Util.convertToSafeText(pointDataOffcanvas.point_name ? `${pointDataOffcanvas.point_name} - ${pointDataOffcanvas.address}` : pointDataOffcanvas.address)}`}
+                 href={`https://www.google.com/maps/search/?api=1&query=${Util.convertToSafeText(pointDataOffcanvas.address)}`}
                  rel={"noreferrer noopener"} target={"_blank"}
               >
                 <span>Abrir no Maps</span>
