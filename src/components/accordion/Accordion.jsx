@@ -5,7 +5,7 @@ import { Accordion as BootstrapAccordion } from 'react-bootstrap';
 
 function Accordion({ defaultEventKey, title, children }) {
   return (
-    <BootstrapAccordion defaultActiveKey={defaultEventKey} aria-description={title | ''} alwaysOpen>
+    <BootstrapAccordion defaultActiveKey={defaultEventKey} aria-description={title ? title.trim() : ''} alwaysOpen>
       {children}
     </BootstrapAccordion>
   );
