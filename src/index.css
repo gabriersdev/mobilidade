@@ -1,12 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter+Inter:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 body * {
   font-size: 16px;
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter Tight', 'Inter', sans-serif;
+}
+
+.inter {
+  font-family: 'Inter', sans-serif;
 }
 
 main {
