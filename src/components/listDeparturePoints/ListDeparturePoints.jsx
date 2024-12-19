@@ -132,18 +132,20 @@ const ListDeparturePoints = ({ line_id, departure_location, destination_location
                     departurePointsByDirection[i].map((point, j) => {
                       return (
                         <li key={j}>
-                          <a href={'#'}
+                          <button
                             onClick={e => handlePointClick(e, {
                               address: point.address,
                               point_name: point.point_name,
                               points_lenght: departurePointsByDirection[i].length,
                               point_ordenation: j
                             })}
-                            className={"text-black"}
+                            className={"text-black p-0 border-0 bg-transparent"}
+                            role={"link"}
+                            tabIndex={-1}
                             style={{ textDecoration: 'none' }}
                           >
                             {point.address + (point.point_name ? " - " + point.point_name : "")}
-                          </a>
+                          </button>
                         </li>
                       )
                     })
