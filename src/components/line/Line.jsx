@@ -50,8 +50,8 @@ const Line = ({ id }) => {
     document.title = `Linha ${data[0].line_number} | ${data[0].departure_location} - ${data[0].destination_location}`;
 
     return (
-      <div className="d-flex flex-column" style={{ gap: '4rem' }}>
-        <section>
+      <div className="d-flex flex-column" style={{ gap: '3rem' }}>
+        <section id={"id"}>
           <LineIdentification line={data[0]} />
           {data[0].observations ? (
             <Alert variant={'secondary'}>
@@ -61,18 +61,18 @@ const Line = ({ id }) => {
           }
         </section>
 
-        <section>
-          <Title type="h3" color="#212529">Horários de partidas</Title>
+        <section id={"partidas"} className={"pt-3"}>
+          <Title type="h3" color="#212529" classX={" pb-2"}>Horários de partidas</Title>
           <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location} />
         </section>
 
-        <section>
-          <Title type="h3" color="#212529">Pontos de paradas</Title>
+        <section id={"paradas"} className={"pt-3"}>
+          <Title type="h3" color="#212529" classX={" pb-2"}>Pontos de paradas</Title>
           <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location} />
         </section>
 
-        <section>
-          <Title type="h3" color="#212529">Pontos de recarga</Title>
+        <section id={"pontos-de-recarga"} className={"pt-3"}>
+          <Title type="h3" color="#212529" classX={" pb-2"}>Pontos de recarga</Title>
           <ListRechargePoints id_company={data[0].company_id} company_name={data[0].company_name} />
         </section>
       </div>
