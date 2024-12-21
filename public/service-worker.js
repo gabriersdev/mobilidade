@@ -2,7 +2,7 @@
 const CURRENT_CACHE_NAME = 'mobilidade-app';
 
 const urlsToCache = [
-  '/mobilidade',
+  '/',
   '/manifest.json',
   '/favicon.svg',
   '/images/icon-blue-192x192.png',
