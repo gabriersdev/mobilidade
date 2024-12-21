@@ -7,6 +7,7 @@ import AccordionItem from "../accordion/AccordionItem";
 import Table from "../table/Table.jsx";
 import Legend from "../legend/Legend.jsx";
 import Util from "../../assets/util.js";
+import config from "../../config";
 
 const ListDepartureTimes = ({line_id, departure_location, destination_location}) => {
   const [data, setData] = useState([]);
@@ -17,7 +18,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
   useEffect(() => {
     const searchDepartureTimes = async () => {
       try {
-        const response = await axios.post(`http://localhost:3001/api/departure_times/`, {line_id: line_id});
+        const response = await axios.post(`${config.host}/api/departure_times/`, {line_id: line_id});
 
         // Obtendo as observações dos horários de partida
         searchDepartureTimesObservations(response.data).then((obsData) => {
@@ -64,7 +65,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
     };
 
     const searchDepartureTimesObservations = async () => {
-      return await axios.post(`http://localhost:3001/api/departure_times_observations/`, {line_id: line_id});
+      return await axios.post(`${config.host}/api/departure_times_observations/`, {line_id: line_id});
     };
 
     searchDepartureTimes()

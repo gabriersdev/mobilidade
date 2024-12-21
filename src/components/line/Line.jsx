@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-
 import LineIdentification from "../lineIdentification/LineIdentification";
 import ListRechargePoints from "../listRecharchePoints/ListRecharchePoints";
 import ListDepartureTimes from "../listDepartureTimes/ListDepartureTimes";
 import Title from "../title/Title.jsx";
 import Alert from "../alert/Alert";
 import ListDeparturePoints from "../listDeparturePoints/ListDeparturePoints.jsx";
+import config from "../../config";
 
 const Line = ({ id }) => {
   const [data, setData] = useState([]);
@@ -20,7 +20,7 @@ const Line = ({ id }) => {
 
     const searchLine = async (id) => {
       try {
-        const response = await axios.post(`http://localhost:3001/api/lines/`, { id: id }); // URL completa da sua API
+        const response = await axios.post(`${config.host}/api/lines/`, { id: id }); // URL completa da sua API
         setData(response.data);
         // console.log('Dados carregados com sucesso:', response.data);
       } catch (error) {

@@ -4,6 +4,7 @@ import Grid from "../grid/Grid.jsx";
 import Card from "../card/Card.jsx";
 import axios from "axios";
 import Util from "../../assets/util.js";
+import config from "../../config";
 
 // TODO - Verificar necessidade da propriedade content
 const ListLines = ({variant, content}) => {
@@ -11,11 +12,11 @@ const ListLines = ({variant, content}) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
 
-  let apiURL = 'http://localhost:3001/api/lines'
+  let apiURL = `${config.host}/api/lines`
   let sortFn = (a, b) => a.line_number - b.line_number
 
   if (variant === 'main') {
-    apiURL = 'http://localhost:3001/api/lines/main'
+    apiURL = `${config.host}/api/lines/main`
     sortFn = (a, b) => a.line_name - b.line_name
   }
 
@@ -26,7 +27,7 @@ const ListLines = ({variant, content}) => {
     const searchLines = async () => {
 
       try {
-        const response = await axios.get(apiURL); // URL completa da sua API
+        const response = await axios.get(apiURL);
         setData(response.data.toSorted(sortFn));
       } catch (error) {
         console.error('Erro ao buscar dados:', error);

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import Grid from "../grid/Grid.jsx";
 import Card from "../card/Card.jsx";
+import config from "../../config";
 
 const ListRecharchePoints = ({id_company, company_name}) => {
   const [data, setData] = useState([]);
@@ -12,7 +13,7 @@ const ListRecharchePoints = ({id_company, company_name}) => {
   useEffect(() => {
     const searchRecharchePoints = async () => {
       try {
-        const response = await axios.post('http://localhost:3001/api/recharge_points/', {id_company: id_company}); // URL completa da sua API
+        const response = await axios.post(`${config.host}/api/recharge_points/`, {id_company: id_company}); // URL completa da sua API
         setData(response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);

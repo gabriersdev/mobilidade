@@ -4,6 +4,7 @@ import axios from "axios";
 import Grid from "../grid/Grid.jsx";
 import Card from "../card/Card.jsx";
 import Util from "../../assets/util.js";
+import config from "../../config";
 
 const Search = ({value}) => {
   const [data, setData] = useState([]);
@@ -16,7 +17,7 @@ const Search = ({value}) => {
     const searchDatabase = async () => {
       try {
         // TODO - Link de pesquisa
-        const response = await axios.post('http://localhost:3001/api/lines/search/', {search: searchSanitized}); // URL completa da sua API
+        const response = await axios.post(`${config.host}/api/lines/search/`, {search: searchSanitized}); // URL completa da sua API
         setData(response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);

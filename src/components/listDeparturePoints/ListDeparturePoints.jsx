@@ -4,9 +4,9 @@ import axios from "axios";
 import Alert from "../alert/Alert";
 import Accordion from "../accordion/Accordion";
 import AccordionItem from "../accordion/AccordionItem";
-
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Util from "../../assets/util.js";
+import config from "../../config";
 
 const ListDeparturePoints = ({ line_id, departure_location, destination_location }) => {
   const [data, setData] = useState([]);
@@ -33,7 +33,7 @@ const ListDeparturePoints = ({ line_id, departure_location, destination_location
   useEffect(() => {
     const searchDeparturePoints = async () => {
       try {
-        const response = await axios.post(`http://localhost:3001/api/departure_points/`, { line_id: line_id }); // URL completa da sua API
+        const response = await axios.post(`${config.host}/api/departure_points/`, { line_id: line_id }); // URL completa da sua API
         setData(response.data);
         // console.log('Dados carregados com sucesso:', response.data);
       } catch (error) {

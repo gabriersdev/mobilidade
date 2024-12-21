@@ -12,7 +12,7 @@ const insertDeparturesPoints = (line_id, direction, dp) => {
   let success = 0
 
   data.forEach((point, index) => {
-    axios.post('http://localhost:3001/api/departure_points/insert/', {
+    axios.post('#/api/departure_points/insert/', {
       line_id: line_id,
       direction: direction,
       order_departure_point: index + 1,
