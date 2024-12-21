@@ -10,7 +10,7 @@ const Development = () => {
 
   return (
     <div>
-      <Title title="Desenvolvimento" id="topo" color="#212529" />
+      <Title title="Desenvolvimento" id="topo" classX=" text-body-secondary" />
 
       <section className="content-text column">
         <section id="introducao">

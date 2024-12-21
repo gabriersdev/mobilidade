@@ -11,7 +11,7 @@ const TermsOfService = () => {
 
   return (
     <div>
-      <Title title="Termos de Serviço" id="topo" color="#212529" />
+      <Title title="Termos de Serviço" id="topo" classX=" text-body-secondary" />
 
       <section className="content-text">
         <section id="aceitacao">

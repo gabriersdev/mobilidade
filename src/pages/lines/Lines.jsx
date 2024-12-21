@@ -28,7 +28,7 @@ const Lines = () => {
         {
           !checkIsValid(id) ?
             <>
-              <Title>Linhas</Title>
+              <Title classX={" text-body-secondary"}>Linhas</Title>
               <ListLines/>
             </>
 

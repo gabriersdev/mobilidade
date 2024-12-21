@@ -24,12 +24,12 @@ const Home = () => {
         {
           (isValidSearch && termSearch) ? (
             <>
-              <Title title="Resultados" color="#212529"/>
+              <Title title="Resultados" classX={" text-body-secondary"}/>
               <Search value={termSearch}/>
             </>
           ) : (
             <>
-              <Title title="Principais Linhas" color="#212529"/>
+              <Title title="Principais Linhas" classX={" text-body-secondary"}/>
               <ListLines variant="main"/>
             </>
           )

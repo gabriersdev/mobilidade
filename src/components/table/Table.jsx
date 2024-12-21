@@ -18,7 +18,6 @@ const listItems = (listData, observations) => {
             <td key={`${rows.length}-${i}`}>
               <div className={"d-flex align-items-center"}>
                 {item.departure_time}
-                {/*TODO - Usar tooltip*/}
                 {item.observation ? <Badge
                   bg={bootstrapBGColors.at(observations.findIndex((o) => o.abrev === item.observation[0])) || 'primary'}
                   className={"ms-1 rounded-5"} title={item.observation[1]}>{item.observation[0]}</Badge> : ''}

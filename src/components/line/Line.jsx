@@ -62,17 +62,17 @@ const Line = ({ id }) => {
         </section>
 
         <section id={"partidas"} className={"pt-3"}>
-          <Title type="h3" color="#212529" classX={" pb-2"}>Horários de partidas</Title>
+          <Title type="h3" classX={" pb-2 text-body-secondary"}>Horários de partidas</Title>
           <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location} />
         </section>
 
         <section id={"paradas"} className={"pt-3"}>
-          <Title type="h3" color="#212529" classX={" pb-2"}>Pontos de paradas</Title>
+          <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>
           <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location} />
         </section>
 
         <section id={"pontos-de-recarga"} className={"pt-3"}>
-          <Title type="h3" color="#212529" classX={" pb-2"}>Pontos de recarga</Title>
+          <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de recarga</Title>
           <ListRechargePoints id_company={data[0].company_id} company_name={data[0].company_name} />
         </section>
       </div>
