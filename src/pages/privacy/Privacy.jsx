@@ -64,7 +64,7 @@ const Privacy = () => {
 
         <section id="contato">
           <Title type='h2'>8. Contato</Title>
-          <p>Se tiver dúvidas ou preocupações sobre esta Política de Privacidade, entre em contato conosco pelo e-mail: <a href="mailto:devgabrielribeiro@gmail.com">devgabrielribeiro@gmail.com</a>.</p>
+          <p>Se tiver dúvidas ou preocupações sobre esta Política de Privacidade, entre em contato conosco pelo e-mail: <a href="mailto:privacidade@mobilidadeurbana.com">privacidade@mobilidadeurbana.com</a>.</p>
         </section>
       </section>
     </div >
