@@ -127,7 +127,7 @@ const ListDeparturePoints = ({ line_id, departure_location, destination_location
                       direction === 2 ? (`Sentido volta - ${destination_location} -> ${departure_location}`) : ""
                 }
                 eventKey={i.toString()}>
-                <ul className="list-line-content">
+                <ul className="list-line-content list-group d-flex gap-2">
                   {
                     departurePointsByDirection[i].map((point, j) => {
                       return (
@@ -139,10 +139,10 @@ const ListDeparturePoints = ({ line_id, departure_location, destination_location
                               points_lenght: departurePointsByDirection[i].length,
                               point_ordenation: j
                             })}
-                            className={"text-black p-0 border-0 bg-transparent"}
+                            className={"p-0 border-0 bg-transparent list-group-item text-body"}
                             role={"link"}
                             tabIndex={-1}
-                            style={{ textDecoration: 'none' }}
+                            style={{ textDecoration: 'none', textAlign: 'left' }}
                           >
                             {point.address + (point.point_name ? " - " + point.point_name : "")}
                           </button>

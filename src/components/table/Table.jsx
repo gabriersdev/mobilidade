@@ -21,7 +21,7 @@ const listItems = (listData, observations) => {
                 {/*TODO - Usar tooltip*/}
                 {item.observation ? <Badge
                   bg={bootstrapBGColors.at(observations.findIndex((o) => o.abrev === item.observation[0])) || 'primary'}
-                  className={"ms-1"} title={item.observation[1]}>{item.observation[0]}</Badge> : ''}
+                  className={"ms-1 rounded-5"} title={item.observation[1]}>{item.observation[0]}</Badge> : ''}
               </div>
             </td>
           )

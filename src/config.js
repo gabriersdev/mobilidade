@@ -1,3 +1,3 @@
 export default {
-  host: 'https://mobilidade-server-production.up.railway.app'
+  host: 'http://localhost:3001',
 }
