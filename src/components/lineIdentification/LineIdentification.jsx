@@ -78,7 +78,7 @@ const LineIdentification = ({ line }) => {
             <i className="bi bi-cash-coin naval-blue"></i>
           </LineInfo>
           <LineInfo label={{ ref: 'Concessionária', value: line.company_name }}>
-            <i className="bi bi-handbag green-sheets"></i>
+            <i className="bi bi-buildings green-sheets"></i>
           </LineInfo>
         </div>
       </div>

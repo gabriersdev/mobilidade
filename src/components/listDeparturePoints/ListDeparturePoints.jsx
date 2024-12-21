@@ -70,7 +70,7 @@ const ListDeparturePoints = ({ line_id, departure_location, destination_location
 
     return (
       // TODO - Implementar a listagem dos pontos de parada
-      <Accordion defaultEventKey={['0']}>
+      <Accordion>
         {/* Offcanvas */}
         <Offcanvas show={show} onHide={handleClose} placement="start">
           <Offcanvas.Header closeButton>

@@ -1,17 +1,3 @@
 .navbar-brand {
   color: #4C4C4C !important;
 }
-
-.nav-link {
-  color: #3959D9 !important;
-
-  &:hover,
-  &:focus {
-    color: #1F39A3 !important;
-  }
-
-  &.active {
-    color: #1F39A3 !important;
-    font-weight: 600;
-  }
-}

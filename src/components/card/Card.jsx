@@ -10,7 +10,7 @@ import Util from "../../assets/util.js";
 const Card = ({ title = "Card Title", subtitle = "Subtitle", link, children }) => {
   const content = (
     <>
-      <BootstrapCard.Header className={"d-flex flex-column gap-2"}>
+      <BootstrapCard.Header className={"d-flex flex-column"}>
         <Title type="h2" title={title.trim()} classX={" text-ellipsis-2 text-body"} />
         <Title type="h2" title={subtitle ? subtitle.trim() : ""} classX={" text-ellipsis-2 text-body-secondary"} color="#4C4C4C" />
       </BootstrapCard.Header>
@@ -22,14 +22,14 @@ const Card = ({ title = "Card Title", subtitle = "Subtitle", link, children }) =
 
   if (link) {
     return (
-      <BootstrapCard className={"bg-body-tertiary"} as={Link} to={link ? link.trim() : ""} rel={"noreferrer noopener"} target={Util.isSameDomain(link ? link.trim() : "") ? "_self" : "_blank"}>
+      <BootstrapCard className={"bg-body-tertiary"} as={Link} to={link ? link.trim() : ""} rel={"noreferrer noopener"} target={Util.isSameDomain(link ? link.trim() : "") ? "_self" : "_blank"} style={{minHeight: '185px'}}>
         {content}
       </BootstrapCard>
     )
   }
 
   return (
-    <BootstrapCard className={"bg-body-tertiary"}>
+    <BootstrapCard className={"bg-body-tertiary"} style={{minHeight: '185px'}}>
       {content}
     </BootstrapCard>
   )

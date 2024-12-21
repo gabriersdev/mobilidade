@@ -10,10 +10,4 @@
 
 .footer-link-list-item {
   text-decoration: none;
-  color: #3959D9 !important;
-
-  &:hover,
-  &:focus {
-    color: #1F39A3 !important;
-  }
 }
