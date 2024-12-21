@@ -1,7 +1,7 @@
 import './App.css'
 
-import React from 'react'
-import { Routes, Route } from 'react-router-dom';
+import React, {useEffect} from 'react'
+import {Routes, Route} from 'react-router-dom';
 
 import Nav from './components/nav/Nav'
 import Main from './components/main/Main'
@@ -14,19 +14,28 @@ import TermsOfService from './pages/termsOfService/TermsOfService.jsx'
 import Privacy from './pages/privacy/Privacy.jsx'
 
 function App() {
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/mobilidade/service-worker.js")
+        .then(() => console.log("Service Worker registrado com sucesso!"))
+        .catch((err) => console.error("Erro ao registrar o Service Worker:", err));
+    }
+  }, []);
+
   return (
     <>
-      <Nav />
+      <Nav/>
       <Main>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/lines/:id?" element={<Lines />} />
-          <Route path="/development" element={<Development />} />
-          <Route path="/terms-of-service" element={<TermsOfService />} />
-          <Route path="/privacy" element={<Privacy />} />
-        </Routes >
+          <Route path="/" element={<Home/>}/>
+          <Route path="/lines/:id?" element={<Lines/>}/>
+          <Route path="/development" element={<Development/>}/>
+          <Route path="/terms-of-service" element={<TermsOfService/>}/>
+          <Route path="/privacy" element={<Privacy/>}/>
+        </Routes>
       </Main>
-      <Footer />
+      <Footer/>
     </>
   )
 }
