@@ -83,7 +83,7 @@ const ListLines = ({variant, content}) => {
           {data.map((line) => (
             <Card key={line.line_id} title={`Linha ${line.line_number}`}
                   subtitle={`${line.departure_location} -> ${line.destination_location}`}
-                  link={`/mobilidade/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}</Card>
+                  link={`/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}</Card>
           ))}
         </Grid>
       </div>

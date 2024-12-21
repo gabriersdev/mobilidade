@@ -19,11 +19,11 @@ function App() {
       <Nav />
       <Main>
         <Routes>
-          <Route path="/mobilidade/" element={<Home />} />
-          <Route path="/mobilidade/lines/:id?" element={<Lines />} />
-          <Route path="/mobilidade/development" element={<Development />} />
-          <Route path="/mobilidade/terms-of-service" element={<TermsOfService />} />
-          <Route path="/mobilidade/privacy" element={<Privacy />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/lines/:id?" element={<Lines />} />
+          <Route path="/development" element={<Development />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/privacy" element={<Privacy />} />
         </Routes >
       </Main>
       <Footer />

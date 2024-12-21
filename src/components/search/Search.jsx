@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import Grid from "../grid/Grid.jsx";
@@ -6,7 +6,7 @@ import Card from "../card/Card.jsx";
 import Util from "../../assets/util.js";
 import config from "../../config";
 
-const Search = ({value}) => {
+const Search = ({ value }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
@@ -17,7 +17,7 @@ const Search = ({value}) => {
     const searchDatabase = async () => {
       try {
         // TODO - Link de pesquisa
-        const response = await axios.post(`${config.host}/api/lines/search/`, {search: searchSanitized}); // URL completa da sua API
+        const response = await axios.post(`${config.host}/api/lines/search/`, { search: searchSanitized }); // URL completa da sua API
         setData(response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
@@ -32,7 +32,7 @@ const Search = ({value}) => {
 
   if (isLoaded) {
     return (
-      <div style={{marginTop: '1rem'}}>
+      <div style={{ marginTop: '1rem' }}>
         <Grid>
           <Card title="Carregando" subtitle="Aguarde...">Estamos conectando ao banco de dados. Esse processo geralmente
             é
@@ -43,7 +43,7 @@ const Search = ({value}) => {
   } else if (error) {
     console.log(error)
     return (
-      <div style={{marginTop: '1rem'}}>
+      <div style={{ marginTop: '1rem' }}>
         <Grid>
           <Card title="Erro" subtitle="Não foi possível carregar as linhas">Houve um erro ao carregar as linhas. Por
             favor, tente novamente mais tarde.</Card>
@@ -52,7 +52,7 @@ const Search = ({value}) => {
     )
   } else if (data.length === 0) {
     return (
-      <div style={{marginTop: '1rem'}}>
+      <div style={{ marginTop: '1rem' }}>
         <Grid>
           <Card title="Nenhuma linha encontrada" subtitle="Nenhum resultado">Não encontramos nenhuma linha
             que corresponda ao termo informado.</Card>
@@ -62,12 +62,12 @@ const Search = ({value}) => {
   } else {
     // console.log(data)
     return (
-      <div style={{marginTop: '1rem'}}>
+      <div style={{ marginTop: '1rem' }}>
         <Grid>
           {data.map((line) => (
             <Card key={line.line_id} title={`Linha ${line.line_number}`}
-                  subtitle={`${line.departure_location} -> ${line.destination_location}`}
-                  link={`/mobilidade/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}</Card>
+              subtitle={`${line.departure_location} -> ${line.destination_location}`}
+              link={`/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}</Card>
           ))}
         </Grid>
       </div>
