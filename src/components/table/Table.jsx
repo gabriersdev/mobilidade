@@ -8,10 +8,11 @@ const listItems = (data) => {
   const itemsPerLine = 12;
   const rows = [];
 
+  console.log('INIT ##')
   while (newData.length > 0) {
     rows.push(
       <tr key={rows.length}>
-        {newData.splice(0, itemsPerLine).map((item, i) => <td key={`${rows.length}-${i}`}>{item}</td>)}
+        {newData.splice(0, itemsPerLine).map((item, i) => <td key={`${rows.length}-${i}`}>{JSON.stringify(item)}</td>)}
       </tr>
     );
   }
@@ -20,6 +21,7 @@ const listItems = (data) => {
 }
 
 const Table = ({ content }) => {
+  console.log(content)
   return (
     <BootstrapTable responsive className="table-line-content">
       <tbody>
