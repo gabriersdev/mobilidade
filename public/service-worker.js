@@ -34,7 +34,6 @@ self.addEventListener('activate', (event) => {
     })
   );
   // Faz com que o novo service worker controle as páginas imediatamente
-  // eslint-disable-next-line
   event.waitUntil(clients.claim());
 });
 
