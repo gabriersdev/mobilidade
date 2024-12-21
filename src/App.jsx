@@ -13,6 +13,9 @@ import Development from './pages/development/Development.jsx'
 import TermsOfService from './pages/termsOfService/TermsOfService.jsx'
 import Privacy from './pages/privacy/Privacy.jsx'
 
+const Context = React.createContext()
+const obj = {}
+
 function App() {
   useEffect(() => {
     if ("serviceWorker" in navigator) {
@@ -24,7 +27,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <Context.Provider value={obj}>
       <Nav/>
       <Main>
         <Routes>
@@ -36,7 +39,7 @@ function App() {
         </Routes>
       </Main>
       <Footer/>
-    </>
+    </Context.Provider>
   )
 }
 
