@@ -15,7 +15,6 @@ const ListDeparturePoints = ({ line_id, departure_location, destination_location
 
   const [show, setShow] = useState(false);
   const [pointDataOffcanvas, setPointDataOffcanvas] = useState({});
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -69,7 +68,6 @@ const ListDeparturePoints = ({ line_id, departure_location, destination_location
     });
 
     return (
-      // TODO - Implementar a listagem dos pontos de parada
       <Accordion>
         {/* Offcanvas */}
         <Offcanvas show={show} onHide={handleClose} placement="start">

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {Badge, Table as BootstrapTable} from 'react-bootstrap';
 import data from "../../data.js";
 
-const listItems = (listData, observations) => {
+const listItems = (listData, observations, handlePointClick) => {
   const newData = [...listData];
   const itemsPerLine = 10;
   const rows = [];
@@ -15,7 +15,12 @@ const listItems = (listData, observations) => {
         newData.splice(0, itemsPerLine).map((item, i) => {
           const bootstrapBGColors = data.bootstrap.bg.colors;
           return (
-            <td key={`${rows.length}-${i}`}>
+            <td key={`${rows.length}-${i}`} onClick={e => handlePointClick(e, {
+              time: item.departure_time,
+              observations: item.observation ? [{abrev: item.observation[0], label: item.observation[1]}] : null,
+              time_ordernation: i,
+              times_lenght: listData.length
+            })}>
               <div className={"d-flex align-items-center"}>
                 {item.departure_time}
                 {item.observation ? <Badge
@@ -32,10 +37,10 @@ const listItems = (listData, observations) => {
   return rows;
 }
 
-const Table = ({content, observations}) => {
+const Table = ({content, observations, handlePointClick}) => {
   return (<BootstrapTable responsive className="table-line-content mb-0 pb-0">
     <tbody>
-    {listItems(content.data, observations)}
+    {listItems(content.data, observations, handlePointClick)}
     </tbody>
   </BootstrapTable>)
 }
@@ -44,7 +49,8 @@ Table.propTypes = {
   content: PropTypes.shape({
     data: PropTypes.array.isRequired,
   }).isRequired,
-  observations: PropTypes.array
+  observations: PropTypes.array,
+  handlePointClick: PropTypes.func.isRequired
 }
 
 export default Table;

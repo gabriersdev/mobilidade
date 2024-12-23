@@ -8,12 +8,29 @@ import Table from "../table/Table.jsx";
 import Legend from "../legend/Legend.jsx";
 import Util from "../../assets/util.js";
 import config from "../../config";
+import Offcanvas from "react-bootstrap/Offcanvas";
 
 const ListDepartureTimes = ({line_id, departure_location, destination_location}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
   const [observations, setObservations] = useState([]);
+
+  const [show, setShow] = useState(false);
+  const [departureTimeOffCanvas, setDepartureTimeOffCanvas] = useState({});
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handlePointClick = (e, {time, observations, time_ordernation, times_lenght}) => {
+    e.preventScroll = true;
+    setDepartureTimeOffCanvas({
+      time: time,
+      observations: observations,
+      time_ordernation: time_ordernation,
+      times_lenght: times_lenght
+    });
+    handleShow();
+  }
 
   useEffect(() => {
     const searchDepartureTimes = async () => {
@@ -115,9 +132,34 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
 
     const uniqueDaysForDirection = uniqueDirections.map((direction) => departureTimes.filter((item) => item.direction === direction).map((item) => item.day).filter((value, index, self) => self.indexOf(value) === index))
 
-    return (// TODO - Implementar a listagem dos horários de partida
-      // TODO - Implementar a listagem das observações dos horários de partida
+    return (
       <Accordion defaultEventKey={['0']}>
+        <Offcanvas show={show} onHide={handleClose} placement="start">
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title className={"fs-6 fw-light text-muted m-0 p-0"}>Horário de partida</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body className={"d-flex flex-column gap-3"}>
+            <h3 className={"fs-3 m-0 p-0"}>
+              {departureTimeOffCanvas.time}
+            </h3>
+
+            <section>
+              {departureTimeOffCanvas.observations ?
+                <>
+                  <h4 className={"fs-6 fw-bold my-2 p-0"}>Observações:</h4>
+                  <Legend items={departureTimeOffCanvas.observations} marginTop={"mt-0"}/>
+                </>
+                : ""
+              }
+            </section>
+
+            <p className={"text-muted fw-light"}>
+              Este é o ponto de parada
+              n.º {departureTimeOffCanvas.time_ordernation + 1} de {departureTimeOffCanvas.times_lenght} do sentido
+            </p>
+          </Offcanvas.Body>
+        </Offcanvas>
+
         {uniqueDirections.map((direction, i) => {
           return (
             <AccordionItem
@@ -136,6 +178,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
                             }
                           })
                         }}
+                        handlePointClick={handlePointClick}
                         observations={observations}
                       />
 
