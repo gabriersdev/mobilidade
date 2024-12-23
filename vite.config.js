@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
@@ -31,15 +31,16 @@ export default defineConfig({
             return 'vendor-moment';
           }
           if (id.includes('/src/components/')) {
-            return 'components'; // Agrupa componentes em um chunk
+            return 'components';
           }
           if (id.includes('/src/pages/')) {
-            return 'pages'; // Agrupa utilitários em um chunk
+            return 'pages';
           }
           if (id.includes('/src/assets/')) {
-            return 'assets'; // Agrupa os dados em um chunk
+            return 'assets';
           }
-        },
+        }
+        ,
       },
     },
   },
