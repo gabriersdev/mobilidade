@@ -12,7 +12,7 @@ function Accordion({ defaultEventKey, title, children }) {
 }
 
 Accordion.propTypes = {
-  defaultEventKey: PropTypes.array.isRequired,
+  defaultEventKey: PropTypes.array,
   title: PropTypes.string,
   children: PropTypes.node.isRequired
 }
