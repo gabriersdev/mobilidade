@@ -31,3 +31,7 @@ main {
   line-clamp: 1;
   -webkit-box-orient: vertical;
 }
+
+.offcanvas-body {
+  overflow: scroll !important;
+}
