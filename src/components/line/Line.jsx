@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import LineIdentification from "../lineIdentification/LineIdentification";
-import ListRechargePoints from "../listRecharchePoints/ListRecharchePoints";
+import ListRechargePoints from "../listRecharchePoints/ListRechargePoints.jsx";
 import ListDepartureTimes from "../listDepartureTimes/ListDepartureTimes";
 import Title from "../title/Title.jsx";
 import Alert from "../alert/Alert";

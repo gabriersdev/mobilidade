@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import "./card.css";
 import Util from "../../assets/util.js";
 
-const Card = ({ title = "Card Title", subtitle = "Subtitle", link, children }) => {
+const Card = ({ title = "Card Title", subtitle = "Subtitle", link, children, onclick }) => {
   const content = (
     <>
       <BootstrapCard.Header className={"d-flex flex-column"}>
@@ -28,6 +28,14 @@ const Card = ({ title = "Card Title", subtitle = "Subtitle", link, children }) =
     )
   }
 
+  if (typeof onclick === "function") {
+    return (
+      <BootstrapCard className={"bg-body-tertiary"} onClick={onclick} style={{minHeight: '185px'}}>
+        {content}
+      </BootstrapCard>
+    )
+  }
+
   return (
     <BootstrapCard className={"bg-body-tertiary"} style={{minHeight: '185px'}}>
       {content}
@@ -39,6 +47,7 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
   link: PropTypes.string,
+  onclick: PropTypes.func,
   children: PropTypes.node.isRequired,
 }
 
