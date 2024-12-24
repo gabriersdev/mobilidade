@@ -1,6 +1,17 @@
 .grid {
   display: grid;
-  /* TODO - Test */
   grid-template-columns: repeat(auto-fill, minmax(322px, 1fr));
   grid-gap: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
 }
