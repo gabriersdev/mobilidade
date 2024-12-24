@@ -56,10 +56,10 @@ const LineIdentification = ({ line }) => {
 
   return (
     <div className="d-flex flex-column gap-3">
-      <hgroup className="d-flex align-items-center gap-2 flex-wrap">
-        <Title type="h2" classX="d-inline text-body-emphasis">Linha {line.line_number}</Title>
-        <span className="mb-2 text-body-secondary">|</span>
-        <Title type="h2" classX="d-inline text-body-secondary">{line.departure_location} -{">"} {line.destination_location}</Title>
+      <hgroup className="d-flex align-items-center gap-2 flex-wrap mb-3">
+        <Title type="h2" classX=" fs-2 d-inline text-body-emphasis m-0 p-0">Linha {line.line_number}</Title>
+        <span className="text-body-secondary">|</span>
+        <Title type="h2" classX=" fs-2 d-inline text-body-secondary m-0 p-0">{line.departure_location} -{">"} {line.destination_location}</Title>
       </hgroup>
       <div>
         <div className="d-flex align-items-center gap-3 flex-wrap mb-3">
