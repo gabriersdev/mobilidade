@@ -1,48 +1,83 @@
-// Nome do cache
-const CURRENT_CACHE_NAME = 'mobilidade-app-3';
+const STATIC_CACHE_NAME = 'mobilidade-app-v4'; // Versão do cache (IMPORTANTE: altere a versão a cada atualização)
+const DYNAMIC_CACHE_NAME = 'dynamic-mobilidade-app-v1';
 
-const urlsToCache = [
+
+const staticUrlsToCache = [ // Arquivos estáticos que raramente mudam
   '/',
   '/manifest.json',
   '/favicon.svg',
   '/images/icon-blue-192x192.png',
-  '/images/icon-blue-512x512.png'
+  '/images/icon-blue-512x512.png',
 ];
 
-// Evento de instalação (opcional: apenas se quiser pré-carregar arquivos)
 self.addEventListener('install', (event) => {
   console.log('Service Worker instalado.');
   event.waitUntil(
-    caches.open(CURRENT_CACHE_NAME)
-      .then((cache) => cache.addAll(urlsToCache))
+    caches.open(STATIC_CACHE_NAME)
+      .then((cache) => cache.addAll(staticUrlsToCache))
   );
-  self.skipWaiting(); // Ativa imediatamente
+  self.skipWaiting();
 });
 
-// Evento de ativação: Remove caches antigos
+
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      // Stale-while-revalidate para recursos estáticos, network-first para dinâmicos
+      if (staticUrlsToCache.includes(event.request.url)) { // Cache estático
+        return staleWhileRevalidate(event);
+      } else { // Cache Dinâmico (API, etc.) - ajusta conforme necessário
+        return networkFirst(event);
+      }
+
+    })
+  );
+});
+
+
+// Função auxiliar para stale-while-revalidate
+function staleWhileRevalidate(event) {
+  return caches.open(STATIC_CACHE_NAME).then(cache => {
+    return cache.match(event.request).then(response => {
+      const fetchPromise = fetch(event.request).then(networkResponse => {
+        cache.put(event.request, networkResponse.clone());
+        return networkResponse;
+      });
+
+      return response || fetchPromise;
+    });
+  });
+}
+
+//Função auxiliar para network-first
+function networkFirst(event) {
+  return fetch(event.request).then(fetchRes => {
+    return caches.open(DYNAMIC_CACHE_NAME).then(cache => {
+      cache.put(event.request, fetchRes.clone());
+      return fetchRes;
+    })
+  }).catch(() => {
+    return caches.match(event.request)
+  })
+}
+
+
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CURRENT_CACHE_NAME) {
-            console.log('Limpando cache antigo:', cache);
-            return caches.delete(cache); // Remove caches que não são o atual
+        cacheNames.map((cacheName) => {
+          if (cacheName !== STATIC_CACHE_NAME && cacheName !== DYNAMIC_CACHE_NAME) {
+            console.log('Limpando cache antigo:', cacheName);
+            return caches.delete(cacheName);
           }
         })
       );
     })
   );
-  // Faz com que o novo service worker controle as páginas imediatamente
   event.waitUntil(clients.claim());
-});
-
-// Intercepta requisições (opcional: apenas se você estiver lidando com caching)
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      // Serve do cache ou faz uma requisição de rede
-      return response || fetch(event.request);
-    })
-  );
 });
