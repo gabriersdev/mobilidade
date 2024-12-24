@@ -5,6 +5,7 @@ import Card from "../card/Card.jsx";
 import axios from "axios";
 import Util from "../../assets/util.js";
 import config from "../../config";
+import {Badge} from "react-bootstrap";
 
 // TODO - Verificar necessidade da propriedade content
 const ListLines = ({variant, content}) => {
@@ -76,14 +77,19 @@ const ListLines = ({variant, content}) => {
       </div>
     )
   } else {
-    // console.log(data)
     return (
       <div style={{marginTop: '1rem'}}>
         <Grid>
           {data.map((line) => (
-            <Card key={line.line_id} title={`Linha ${line.line_number}`}
+            <Card key={line.line_id} title={`Linha`}
+                  badge={(
+                    <Badge variant="primary" className={"rounded-5 fw-light"} style={{letterSpacing: '0.5px'}}>
+                      N.º {line.line_number}
+                    </Badge>
+                  )}
                   subtitle={`${line.departure_location} -> ${line.destination_location}`}
-                  link={`/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}</Card>
+                  link={`/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}
+            </Card>
           ))}
         </Grid>
       </div>

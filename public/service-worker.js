@@ -1,5 +1,5 @@
 // Nome do cache
-const CURRENT_CACHE_NAME = 'mobilidade-app-2';
+const CURRENT_CACHE_NAME = 'mobilidade-app-3';
 
 const urlsToCache = [
   '/',

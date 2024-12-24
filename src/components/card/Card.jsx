@@ -7,11 +7,14 @@ import PropTypes from "prop-types";
 import "./card.css";
 import Util from "../../assets/util.js";
 
-const Card = ({ title = "Card Title", subtitle = "Subtitle", link, children, onclick }) => {
+const Card = ({ title = "Card Title", subtitle = "Subtitle", badge, link, children, onclick }) => {
   const content = (
     <>
       <BootstrapCard.Header className={"d-flex flex-column"}>
-        <Title type="h2" title={title.trim()} classX={" text-ellipsis-2 text-body"} />
+        <div className={'d-flex gap-2 flex-wrap align-items-center'}>
+          <Title type="h2" title={title.trim()} classX={" text-ellipsis-2 text-body"} />
+          {badge}
+        </div>
         <Title type="h2" title={subtitle ? subtitle.trim() : ""} classX={" text-ellipsis-2 text-body-secondary"} color="#4C4C4C" />
       </BootstrapCard.Header>
       <BootstrapCard.Body className="text-ellipsis-2" style={{ flex: '0 0 auto' }}>
@@ -47,6 +50,7 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
   link: PropTypes.string,
+  badge: PropTypes.node,
   onclick: PropTypes.func,
   children: PropTypes.node.isRequired,
 }
