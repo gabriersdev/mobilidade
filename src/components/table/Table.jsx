@@ -20,7 +20,9 @@ const listItems = (listData, observations, handlePointClick) => {
               observations: item.observation ? [{abrev: item.observation[0], label: item.observation[1]}] : null,
               time_ordernation: i,
               times_lenght: listData.length
-            })}>
+            })}
+                style={{cursor: 'pointer'}}
+            >
               <div className={"d-flex align-items-center"}>
                 {item.departure_time}
                 {item.observation ? <Badge

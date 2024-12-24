@@ -19,6 +19,7 @@ const ListRechargePoints = ({id_company, company_name}) => {
   const handleShow = () => setShow(true);
 
   const handlePointClick = (e, point_data) => {
+    e.stopPropagation();
     e.preventScroll = true;
     setRechargePointOffCanvas({
       ...point_data,
@@ -73,7 +74,8 @@ const ListRechargePoints = ({id_company, company_name}) => {
           <section>
             <div className={"d-flex flex-column gap-2 mb-3"}>
               <p className={"m-0 p-0"}>{rechargePointOffCanvas.address}</p>
-              <p className={"m-0 p-0"}>{rechargePointOffCanvas.observations || "Não há observações sobre este ponto de recarga."}</p>
+              <p
+                className={"m-0 p-0"}>{rechargePointOffCanvas.observations || "Não há observações sobre este ponto de recarga."}</p>
             </div>
             <iframe
               width="100%"
@@ -101,11 +103,15 @@ const ListRechargePoints = ({id_company, company_name}) => {
 
       <Grid>
         {data.map((recharchePoint, index) => {
-          return (<Card key={index} title={recharchePoint.point_name} subtitle={recharchePoint.address}
-                        onclick={(e) => handlePointClick(e, recharchePoint)}
-          >
-            {recharchePoint.observations || "Não há observações sobre este ponto de recarga."}
-          </Card>)
+          return (
+            <a key={index} style={{cursor: "pointer"}}>
+              <Card title={recharchePoint.point_name} subtitle={recharchePoint.address}
+                    onclick={(e) => handlePointClick(e, recharchePoint)}
+              >
+                {recharchePoint.observations || "Não há observações sobre este ponto de recarga."}
+              </Card>
+            </a>
+          )
         })}
       </Grid>
     </>)
