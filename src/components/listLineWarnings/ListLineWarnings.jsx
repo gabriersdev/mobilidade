@@ -19,14 +19,18 @@ const ListLineWarnings = ({line_id}) => {
         [].map((warning, i) => {
           return (
             <div className="alert alert-warning" role="alert" key={i}>
-              <h4 className="alert-heading">{warning.title || 'Aviso'}</h4>
-              <p>
-                {warning.text}
-              </p>
-              <hr/>
-              <p className="mb-0">
-                Para maiores informações, entre em contato com a Concessionária.
-              </p>
+              <details>
+                <summary>
+                  <h4 className="alert-heading fs-3">{warning.title || 'Aviso'}</h4>
+                </summary>
+                <p>
+                  {warning.text}
+                </p>
+                <hr/>
+                <p className="mb-0">
+                  Para maiores informações, entre em contato com a Concessionária.
+                </p>
+              </details>
             </div>
           )
         })
