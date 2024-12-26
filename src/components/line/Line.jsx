@@ -8,6 +8,7 @@ import Title from "../title/Title.jsx";
 import Alert from "../alert/Alert";
 import ListDeparturePoints from "../listDeparturePoints/ListDeparturePoints.jsx";
 import config from "../../config";
+import ListLineWarnings from "../listLineWarnings/ListLineWarnings.jsx";
 
 const Line = ({ id }) => {
   const [data, setData] = useState([]);
@@ -59,6 +60,8 @@ const Line = ({ id }) => {
             </Alert>)
             : ""
           }
+
+          <ListLineWarnings line_id={data[0].line_id} />
         </section>
 
         <section id={"partidas"} className={"pt-3"}>

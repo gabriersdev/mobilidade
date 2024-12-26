@@ -2,18 +2,23 @@
 
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
+import config from '../../config.js'
+import axios from 'axios'
+
+import './listLineWarnings.css'
 
 const ListLineWarnings = ({line_id}) => {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
+  const [propOpen, setPropOpen] = useState([])
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://api.com.br/line_warnings/${line_id}/`)
-        const data = await response.json()
-        setData(data)
+        const response = await axios.post(`${config.host}/api/line_warnings/`, {line_id: line_id})
+        setData(response.data)
       } catch (error) {
         setError(error)
       } finally {
@@ -33,8 +38,10 @@ const ListLineWarnings = ({line_id}) => {
     // Verifica se o aviso está dentro do período de validade
     return warnings.filter(warning => {
       const now = new Date()
+
       // Só precisa do horário, por isso o ano é definido pelo ano atual. A data fica algo assim: 20XX-01-01 HH:MM:SS
-      const timeNow = new Date(`${new Date().getFullYear()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`)
+      const timeNow = new Date(`${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`)
+
       const frequency = parseInt(warning.frequency, 10)
 
       // Só precisa do horário, por isso o ano é definido pelo ano atual. A data fica algo assim: 20XX-01-01 HH:MM:SS
@@ -54,16 +61,16 @@ const ListLineWarnings = ({line_id}) => {
       switch (frequency) {
         case 1:
           // Nenhuma frequência - aviso será exibido apenas uma vez
-          return now >= datetimeInit && now <= datetimeFinish
+          return now.getTime() >= datetimeInit.getTime() && now.getTime() <= datetimeFinish.getTime()
         case 2:
           // Frequência semanal - aviso será exibido semanalmente, entre os dias de inicio e fim
           return now.getDay() >= dayInit && now.getDay() <= dayFinish
         case 3:
           // Frequência anual - aviso será exibido anualmente, entre as datas de inicio e fim
-          return now >= dateInit && now <= dateFinish
+          return now.getTime() >= dateInit.getTime() && now.getTime() <= dateFinish.getTime()
         case 4:
           // Frequência diária - aviso será exibido diariamente, entre os horários de inicio e fim
-          return timeNow >= timeInit && timeNow <= timeFinish
+          return timeNow.getTime() >= timeInit.getTime() && timeNow.getTime() <= timeFinish.getTime()
         default:
           console.error('Frequência inválida:', frequency)
           return false
@@ -86,28 +93,24 @@ const ListLineWarnings = ({line_id}) => {
     }
 
     return (
-      <>
+      <div className={"mt-3 d-flex gap-3 flex-column"}>
         {
-          [].map((warning, i) => {
+          warnings.toSorted((a, b) => a.title.localeCompare(b.title)).map((warning, i) => {
             return (
-              <div className="alert alert-warning" role="alert" key={i}>
+              <div className="alert alert-warning m-0" role="alert" key={i}>
                 <details>
-                  <summary>
-                    <h4 className="alert-heading fs-3">{warning.title || 'Aviso'}</h4>
+                  <summary open={propOpen} onClick={e => setPropOpen(!propOpen)} className={"alert-warning-summary"}>
+                    <span className="alert-heading d-inline-block fw-bold mb-0">&nbsp;{warning.title || 'Aviso'}</span>
                   </summary>
-                  <p>
-                    {warning.text}
-                  </p>
-                  <hr/>
-                  <p className="mb-0">
-                    Para maiores informações, entre em contato com a Concessionária.
+                  <p className={"p-0 mt-1 mb-0"}>
+                    {warning.text.endsWith('.') ? warning.text : `${warning.text}.` }
                   </p>
                 </details>
               </div>
             )
           })
         }
-      </>
+      </div>
     )
   }
 }
@@ -117,4 +120,3 @@ ListLineWarnings.propTypes = {
 }
 
 export default ListLineWarnings;
-

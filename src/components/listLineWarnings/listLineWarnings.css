@@ -1,0 +1,11 @@
+.alert-warning-summary {
+  &::marker {
+    list-style-type: none;
+    font-family: 'bootstrap-icons', sans-serif;
+    content: "\F4FE";
+  }
+
+  &[open]::marker {
+    content: "\F2EA";
+  }
+}
