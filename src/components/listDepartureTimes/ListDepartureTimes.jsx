@@ -152,11 +152,6 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
                 : ""
               }
             </section>
-
-            <p className={"text-muted fw-light"}>
-              Este é o ponto de parada
-              n.º {departureTimeOffCanvas.time_ordernation + 1} de {departureTimeOffCanvas.times_lenght} do sentido
-            </p>
           </Offcanvas.Body>
         </Offcanvas>
 
