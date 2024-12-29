@@ -9,3 +9,9 @@
     content: "\F2EA";
   }
 }
+
+.hide-max-width-419 {
+  @media (max-width: 419px) {
+    display: none;
+  }
+}
