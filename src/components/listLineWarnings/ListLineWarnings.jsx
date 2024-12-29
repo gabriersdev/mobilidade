@@ -100,8 +100,10 @@ const ListLineWarnings = ({line_id}) => {
               <div className="alert alert-warning m-0" role="alert" key={i}>
                 <details>
                   <summary open={propOpen} onClick={e => setPropOpen(!propOpen)} className={"alert-warning-summary"}>
-                    <span className={'hide-max-width-419'}>&nbsp;</span>
-                    <span className="alert-heading d-inline-block fw-bold mb-0">{warning.title || 'Aviso'}</span>
+                    <p className="alert-heading d-inline-block fw-bold mb-0">
+                      <span className={'hide-max-width-419'}>&nbsp;</span>
+                      <span>{warning.title || 'Aviso'}</span>
+                    </p>
                   </summary>
                   <p className={"p-0 mt-1 mb-0"}>
                     {warning.text.endsWith('.') ? warning.text : `${warning.text}.` }
