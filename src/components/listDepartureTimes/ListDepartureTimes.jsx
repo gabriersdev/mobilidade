@@ -21,14 +21,9 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handlePointClick = (e, {time, observations, time_ordernation, times_lenght}) => {
+  const handlePointClick = (e, object) => {
     e.preventScroll = true;
-    setDepartureTimeOffCanvas({
-      time: time,
-      observations: observations,
-      time_ordernation: time_ordernation,
-      times_lenght: times_lenght
-    });
+    setDepartureTimeOffCanvas(object);
     handleShow();
   }
 
@@ -139,11 +134,15 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
             <Offcanvas.Title className={"fs-6 fw-light text-muted m-0 p-0"}>Horário de partida</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body className={"d-flex flex-column gap-3"}>
-            <h3 className={"fs-3 m-0 p-0"}>
-              {departureTimeOffCanvas.time}
-            </h3>
+            <section>
+              <span className={'text-muted d-block mb-3'}>{departureTimeOffCanvas.dayName}</span>
+              <h3 className={"fs-3 m-0 p-0"}>
+                {departureTimeOffCanvas.time}
+              </h3>
+            </section>
 
             <section>
+              <span className={'text-muted d-block'}>{departureTimeOffCanvas.directionName}</span>
               {departureTimeOffCanvas.observations ?
                 <>
                   <h4 className={"fs-6 fw-bold my-2 p-0"}>Observações:</h4>
@@ -156,9 +155,10 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
         </Offcanvas>
 
         {uniqueDirections.map((direction, i) => {
+          const directionName = direction === 1 ? `Sentido ida - ${departure_location} -> ${destination_location}` : `Sentido volta - ${destination_location} -> ${departure_location}`
           return (
             <AccordionItem
-              title={direction === 1 ? `Sentido ida - ${departure_location} -> ${destination_location}` : `Sentido volta - ${destination_location} -> ${departure_location}`}
+              title={directionName}
               eventKey={i.toString()} key={i}>
               <Accordion defaultEventKey={['0']}>
                 {uniqueDaysForDirection[i].map((day, j) => {
@@ -171,7 +171,9 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
                               departure_time: Util.formatTime(`2020-01-01 ${item.departure_time}`, 'HH:mm'),
                               observation: item.observation ? item.observation : null
                             }
-                          })
+                          }),
+                          directionName: directionName,
+                          dayName: convertNumberToDay(day)
                         }}
                         handlePointClick={handlePointClick}
                         observations={observations}
