@@ -33,7 +33,7 @@ const Line = ({ id }) => {
     };
 
     searchLine(id)
-  }, []);
+  }, [id]);
 
   if (isLoaded) {
     return <div>Carregando...</div>;

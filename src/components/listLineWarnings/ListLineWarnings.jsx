@@ -27,7 +27,7 @@ const ListLineWarnings = ({line_id}) => {
     }
 
     fetchData()
-  }, [])
+  }, [line_id])
 
   /**
    * Filtra os avisos válidos de acordo com a data e hora atual
@@ -99,7 +99,7 @@ const ListLineWarnings = ({line_id}) => {
             return (
               <div className="alert alert-warning m-0" role="alert" key={i}>
                 <details>
-                  <summary open={propOpen} onClick={e => setPropOpen(!propOpen)} className={"alert-warning-summary"}>
+                  <summary open={propOpen} onClick={() => setPropOpen(!propOpen)} className={"alert-warning-summary"}>
                     <p className="alert-heading d-inline-block fw-bold mb-0">
                       <span className={'hide-max-width-419'}>&nbsp;</span>
                       <span>{warning.title || 'Aviso'}</span>

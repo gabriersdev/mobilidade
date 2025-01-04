@@ -5,7 +5,6 @@ import Grid from "../grid/Grid.jsx";
 import Card from "../card/Card.jsx";
 import config from "../../config";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import Legend from "../legend/Legend.jsx";
 import Util from "../../assets/util.js";
 
 const ListRechargePoints = ({id_company, company_name}) => {
@@ -42,7 +41,7 @@ const ListRechargePoints = ({id_company, company_name}) => {
     }
 
     searchRecharchePoints()
-  }, []);
+  }, [id_company]);
 
   if (isLoaded) {
     return (<Grid>

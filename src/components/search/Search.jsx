@@ -28,7 +28,7 @@ const Search = ({ value }) => {
     }
 
     searchDatabase()
-  }, []);
+  }, [searchSanitized]);
 
   if (isLoaded) {
     return (

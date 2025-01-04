@@ -45,7 +45,7 @@ const ListLines = ({variant, content}) => {
       setIsLoaded(false)
     }
 
-  }, []);
+  }, [apiURL, content]);
 
   if (isLoaded) {
     return (

@@ -81,7 +81,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
     };
 
     searchDepartureTimes()
-  }, []);
+  }, [line_id, observations]);
 
   if (isLoaded) {
     return <div>Carregando...</div>;
