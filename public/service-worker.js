@@ -1,13 +1,13 @@
-const STATIC_CACHE_NAME = 'mobilidade-app-v4'; // Versão do cache (IMPORTANTE: altere a versão a cada atualização)
-const DYNAMIC_CACHE_NAME = 'dynamic-mobilidade-app-v1';
+const STATIC_CACHE_NAME = 'mobilidade-app-v5'; // Versão do cache (IMPORTANTE: altere a versão a cada atualização)
+const DYNAMIC_CACHE_NAME = 'dynamic-mobilidade-app-v2';
 
 
 const staticUrlsToCache = [ // Arquivos estáticos que raramente mudam
   '/',
   '/manifest.json',
   '/favicon.svg',
-  '/images/icon-blue-192x192.png',
-  '/images/icon-blue-512x512.png',
+  '/images/icon-white-192x192.png',
+  '/images/icon-white-512x512.png',
 ];
 
 self.addEventListener('install', (event) => {
