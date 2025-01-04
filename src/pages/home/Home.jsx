@@ -3,17 +3,22 @@ import Title from "../../components/title/Title";
 import FormSearch from "../../components/formSearch/FormSearch";
 import ListLines from "../../components/listLines/ListLines";
 import Util from "../../assets/util";
-import Search from "../../components/search/Search.jsx";
+import {useNavigate} from "react-router-dom";
 
 const Home = () => {
   const [isValidSearch, setIsValidSearch] = useState(false)
   const [termSearch, setTermSearch] = useState(null)
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Atualiza o título do documento
     document.title = 'Mobilidade - Home'
     Util.updateActiveLink()
   }, [])
+
+  if (isValidSearch && termSearch) {
+    navigate(`/search/?term=${termSearch}`)
+  }
 
   return (
     <div>
@@ -23,10 +28,7 @@ const Home = () => {
       <div>
         {
           (isValidSearch && termSearch) ? (
-            <>
-              <Title title="Resultados" classX={" text-body-secondary"}/>
-              <Search value={termSearch}/>
-            </>
+            <></>
           ) : (
             <>
               <Title title="Principais Linhas" classX={" text-body-secondary"}/>

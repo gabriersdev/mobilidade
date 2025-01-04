@@ -12,6 +12,7 @@ import Lines from './pages/lines/Lines.jsx'
 import Development from './pages/development/Development.jsx'
 import TermsOfService from './pages/termsOfService/TermsOfService.jsx'
 import Privacy from './pages/privacy/Privacy.jsx'
+import Search from "./pages/search/Search.jsx";
 
 const Context = React.createContext()
 const obj = {}
@@ -32,6 +33,7 @@ function App() {
       <Main>
         <Routes>
           <Route path="/" element={<Home/>}/>
+          <Route path="/search" element={<Search/>}/>
           <Route path="/lines/:id?" element={<Lines/>}/>
           <Route path="/development" element={<Development/>}/>
           <Route path="/terms-of-service" element={<TermsOfService/>}/>

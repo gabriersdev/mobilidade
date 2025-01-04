@@ -16,6 +16,7 @@ const Nav = () => {
           <BootstrapNav className="me-auto">
             <BootstrapNav.Link as={Link} className={"text-primary"} to="./">Início</BootstrapNav.Link>
             <BootstrapNav.Link as={Link} className={"text-primary"} to="./lines">Linhas</BootstrapNav.Link>
+            <BootstrapNav.Link as={Link} className={"text-primary"} to="./search">Pesquisa</BootstrapNav.Link>
           </BootstrapNav>
         </Navbar.Collapse>
       </Container>

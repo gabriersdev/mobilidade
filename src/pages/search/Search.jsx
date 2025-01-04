@@ -1,26 +1,67 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
+import {useLocation} from "react-router-dom";
 import Title from "../../components/title/Title";
 import FormSearch from "../../components/formSearch/FormSearch";
-import Grid from "../../components/grid/Grid";
-import Card from "../../components/card/Card";
 import Util from "../../assets/util";
+import ComponentSearch from "../../components/search/Search.jsx";
+import ListLines from "../../components/listLines/ListLines.jsx";
+import Grid from "../../components/grid/Grid.jsx";
+import Card from "../../components/card/Card.jsx";
 
 const Search = () => {
+  const [isValidSearch, setIsValidSearch] = useState(false)
+  const [termSearch, setTermSearch] = useState(null)
+  const location = useLocation()
+
   useEffect(() => {
+    // Atualiza o título do documento
+    document.title = 'Mobilidade - Pesquisa'
     Util.updateActiveLink()
-    window.location.replace("/")
   }, [])
+
+  useEffect(() => {
+    try {
+      let queryParams = null
+
+      if (location.search) queryParams = new URLSearchParams(location.search)
+
+      // Verificar se queryParams não é null, se o parâmetro 'or' existe e se ele contém 'freelancer'
+      if (queryParams) {
+        if (queryParams.get('term')) {
+          setTermSearch(queryParams.get('term'))
+          setIsValidSearch(true)
+        }
+      }
+
+    } catch (error) {
+      console.log('Ocorreu um erro ao tentar verificar os parâmetros passados. %s', error);
+    }
+  }, [location])
 
   return (
     <div>
-      <FormSearch formTitle="Pesquisa" inputPlaceholder="digite uma linha" />
+      <FormSearch formTitle="Para onde vamos?" inputPlaceholder="digite o destino..."
+                  fnSetIsValidSearch={setIsValidSearch} fnSetTermSearch={setTermSearch}/>
 
       <div>
-        <Title type="h3" title="1 resultado encontrado" color="#212529" />
-        <Grid classes="mt-1">
-          <Card title="400C" subtitle="Santos -> São Paulo">Linha de ônibus de Santos para São Paulo via Avenida Professor Girafales. Partidas de segunda à sexta-feira a partir das 04h05.</Card>
-          <Card title="Opa!" subtitle="Nenhum resultado encontrado">Tente outro termo e pesquise novamente.</Card>
-        </Grid>
+        {
+          (isValidSearch && termSearch) ? (
+              <>
+                <Title title="Resultados" classX={" text-body-secondary"}/>
+                <ComponentSearch value={termSearch}/>
+              </>
+            ) :
+            (
+              <>
+                <Title title="Nada encontrado..." classX={" text-body-secondary mb-3"}/>
+                <Grid>
+                  <Card title="Os resultados aparecem aqui" subtitle="">
+                    Digite um termo para pesquisar. Pode ser o nome de uma rua, de um bairro, de uma linha de ônibus, etc. A pesquisa é feita em tempo real.
+                  </Card>
+                </Grid>
+              </>
+            )
+        }
       </div>
     </div>
   );

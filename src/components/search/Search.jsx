@@ -54,8 +54,7 @@ const Search = ({ value }) => {
     return (
       <div style={{ marginTop: '1rem' }}>
         <Grid>
-          <Card title="Nenhuma linha encontrada" subtitle="Nenhum resultado">Não encontramos nenhuma linha
-            que corresponda ao termo informado.</Card>
+          <Card title="Nenhuma linha encontrada" subtitle="Nenhum resultado">Não encontramos nenhuma linha que, de alguma forma, corresponda ao termo.</Card>
         </Grid>
       </div>
     )
