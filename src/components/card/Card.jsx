@@ -18,7 +18,7 @@ const Card = ({ title = "Card Title", subtitle = "Subtitle", badge, link, childr
         <Title type="h2" title={subtitle ? subtitle.trim() : ""} classX={" text-ellipsis-2 text-body-secondary"} color="#4C4C4C" />
       </BootstrapCard.Header>
       <BootstrapCard.Body className="text-ellipsis-2" style={{ flex: '0 0 auto' }}>
-        <BootstrapCard.Text className="mt-3 text-ellipsis-2">{children}</BootstrapCard.Text>
+        <BootstrapCard.Text className="mt-3 text-ellipsis-2" title={String(children).replace(/[\r\n\b]/g, '').match(/<(\w+)>\s*\S*<\/\1>/g) || String(children).includes('[object Object]') ? "" : children}>{children}</BootstrapCard.Text>
       </BootstrapCard.Body>
     </>
   )
