@@ -1,7 +1,7 @@
 import './App.css'
 
 import React, {useEffect} from 'react'
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, useLocation} from 'react-router-dom';
 
 import Nav from './components/nav/Nav'
 import Main from './components/main/Main'
@@ -26,6 +26,21 @@ function App() {
         .catch((err) => console.error("Erro ao registrar o Service Worker:", err));
     }
   }, []);
+
+  try {
+    const location = useLocation();
+
+    // Verificar se #[id] existe e rolar a página até ele
+    if (location.hash) {
+      console.log(`Hash: ${location.hash}`);
+      const id = location.hash.replace('#', '')
+      const element = document.getElementById(id)
+      if (element) window.scrollTo({top: element.offsetTop, behavior: 'smooth'})
+      else window.scrollTo({top: 0, behavior: 'smooth'});
+    } else window.scrollTo({top: 0, behavior: 'smooth'});
+  } catch (error) {
+    console.log('Ocorreu um erro ao tentar verificar os parâmetros passados. %s', error);
+  }
 
   return (
     <Context.Provider value={obj}>
