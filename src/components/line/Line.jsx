@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import LineIdentification from "../lineIdentification/LineIdentification";
@@ -9,8 +9,11 @@ import Alert from "../alert/Alert";
 import ListDeparturePoints from "../listDeparturePoints/ListDeparturePoints.jsx";
 import config from "../../config";
 import ListLineWarnings from "../listLineWarnings/ListLineWarnings.jsx";
+import Card from "../card/Card.jsx";
+import Grid from "../grid/Grid.jsx";
+import FeedbackError from "../feedbackError/FeedbackError.jsx";
 
-const Line = ({ id }) => {
+const Line = ({id}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
@@ -21,7 +24,7 @@ const Line = ({ id }) => {
 
     const searchLine = async (id) => {
       try {
-        const response = await axios.post(`${config.host}/api/lines/`, { id: id }); // URL completa da sua API
+        const response = await axios.post(`${config.host}/api/lines/`, {id: id}); // URL completa da sua API
         setData(response.data);
         // console.log('Dados carregados com sucesso:', response.data);
       } catch (error) {
@@ -39,7 +42,11 @@ const Line = ({ id }) => {
     return <div>Carregando...</div>;
   } else if (error) {
     console.log(error)
-    return <div>Erro: {error.message}</div>;
+    let codeError = error.response ? error.response.status : 500;
+    // TODO - implementar um componente de erro nos outros componentes que fazem requisições
+    return (
+      <FeedbackError code={codeError} text={error.message} type={'card'}/>
+    );
   } else if (data.length === 0) {
     return (
       <Alert variant={'danger'} margin={"mt-0"}>
@@ -51,32 +58,34 @@ const Line = ({ id }) => {
     document.title = `Linha ${data[0].line_number} | ${data[0].departure_location} - ${data[0].destination_location}`;
 
     return (
-      <div className="d-flex flex-column" style={{ gap: '3rem' }}>
+      <div className="d-flex flex-column" style={{gap: '3rem'}}>
         <section id={"id"}>
-          <LineIdentification line={data[0]} />
+          <LineIdentification line={data[0]}/>
           {data[0].observations ? (
-            <Alert variant={'secondary'} margin={"mt-3 mb-0"}>
-              <span>{data[0].observations}</span>
-            </Alert>)
+              <Alert variant={'secondary'} margin={"mt-3 mb-0"}>
+                <span>{data[0].observations}</span>
+              </Alert>)
             : ""
           }
 
-          <ListLineWarnings line_id={data[0].line_id} />
+          <ListLineWarnings line_id={data[0].line_id}/>
         </section>
 
         <section id={"partidas"} className={"pt-3"}>
           <Title type="h3" classX={" pb-2 text-body-secondary"}>Horários de partidas</Title>
-          <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location} />
+          <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location}
+                              destination_location={data[0].destination_location}/>
         </section>
 
         <section id={"paradas"} className={"pt-3"}>
           <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>
-          <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location} />
+          <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location}
+                               destination_location={data[0].destination_location}/>
         </section>
 
         <section id={"pontos-de-recarga"} className={"pt-3"}>
           <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de recarga</Title>
-          <ListRechargePoints id_company={data[0].company_id} company_name={data[0].company_name} />
+          <ListRechargePoints id_company={data[0].company_id} company_name={data[0].company_name}/>
         </section>
       </div>
     )
