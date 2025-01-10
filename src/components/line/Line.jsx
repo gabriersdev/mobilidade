@@ -42,11 +42,7 @@ const Line = ({id}) => {
     return <div>Carregando...</div>;
   } else if (error) {
     console.log(error)
-    let codeError = error.response ? error.response.status : 500;
-    // TODO - implementar um componente de erro nos outros componentes que fazem requisições
-    return (
-      <FeedbackError code={codeError} text={error.message} type={'card'}/>
-    );
+    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;
   } else if (data.length === 0) {
     return (
       <Alert variant={'danger'} margin={"mt-0"}>

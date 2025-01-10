@@ -9,6 +9,7 @@ import Legend from "../legend/Legend.jsx";
 import Util from "../../assets/util.js";
 import config from "../../config";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import FeedbackError from "../feedbackError/FeedbackError.jsx";
 
 const ListDepartureTimes = ({line_id, departure_location, destination_location}) => {
   const [data, setData] = useState([]);
@@ -87,7 +88,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
     return <div>Carregando...</div>;
   } else if (error) {
     console.log(error)
-    return <div>Erro: {error.message}</div>;
+    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;
   } else if (data.length === 0) {
     return (
       <Alert variant={'info'}>
