@@ -4,7 +4,6 @@ import Title from "../../components/title/Title";
 import FormSearch from "../../components/formSearch/FormSearch";
 import Util from "../../assets/util";
 import ComponentSearch from "../../components/search/Search.jsx";
-import ListLines from "../../components/listLines/ListLines.jsx";
 import Grid from "../../components/grid/Grid.jsx";
 import Card from "../../components/card/Card.jsx";
 

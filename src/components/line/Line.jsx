@@ -9,8 +9,6 @@ import Alert from "../alert/Alert";
 import ListDeparturePoints from "../listDeparturePoints/ListDeparturePoints.jsx";
 import config from "../../config";
 import ListLineWarnings from "../listLineWarnings/ListLineWarnings.jsx";
-import Card from "../card/Card.jsx";
-import Grid from "../grid/Grid.jsx";
 import FeedbackError from "../feedbackError/FeedbackError.jsx";
 
 const Line = ({id}) => {
