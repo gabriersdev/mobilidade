@@ -17,7 +17,7 @@ const listItems = (listData, observations, handlePointClick, directionName, dayN
           return (
             <td key={`${rows.length}-${i}`} onClick={e => handlePointClick(e, {
               time: item.departure_time,
-              observations: item.observation ? [{abrev: item.observation[0], label: item.observation[1]}] : null,
+              // observations: item.observation ? [{abrev: item.observation[0], label: item.observation[1]}] : null,
               time_ordernation: i,
               times_lenght: listData.length,
               directionName: directionName,
@@ -27,9 +27,13 @@ const listItems = (listData, observations, handlePointClick, directionName, dayN
             >
               <div className={"d-flex align-items-center"}>
                 {item.departure_time}
-                {item.observation ? <Badge
-                  bg={bootstrapBGColors.at(observations.findIndex((o) => o.abrev === item.observation[0])) || 'primary'}
-                  className={"ms-1 rounded-5"} title={item.observation[1]}>{item.observation[0]}</Badge> : ''}
+                {item.observations ?
+                  item.observations.map((observation, i) => {
+                    return <Badge key={i} className="ms-1" bg={bootstrapBGColors[observation.index]}>
+                      {observation.abrev}
+                    </Badge>
+                  })
+                  : ''}
               </div>
             </td>
           )

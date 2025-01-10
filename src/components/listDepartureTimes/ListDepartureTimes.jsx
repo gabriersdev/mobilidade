@@ -35,7 +35,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
 
         // Obtendo as observações dos horários de partida
         searchDepartureTimesObservations(response.data).then((obsData) => {
-          // Definindo as observações dos horários de partida
+          // Definindo as observações da linha
           setObservations(
             obsData.data.filter(o => o.observation !== null).reduce((accumulator, observation) => {
               const existingObservation = accumulator.find(item => item.label === observation.observation_name);
@@ -53,18 +53,24 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
 
           setData(
             response.data.map((item) => {
-              const observation = obsData.data.find((observation) => observation.departure_time_id === item.schedule_id)
-
+              const observationsFilter = obsData.data.filter((observation) => observation.departure_time_id === item.schedule_id)
+              if (observationsFilter.length === 0) {
+                return {
+                  ...item,
+                  observations: null
+                }
+              }
               return {
                 ...item,
-                observation:
+                observations:
                 // Se observação estiver definida, cria um array, com a abreviação, o nome ou label da abreviação e o índice para que depois o compotente defina uma cor para a observação
-                  observation ? [
-                      observation.observation_abrev,
-                      observation.observation_name,
-                      observations.findIndex((o) => o.abrev === observation.observation_abrev)
-                    ]
-                    : null,
+                  observationsFilter.map((observation) => {
+                    return {
+                      abrev: observation.observation_abrev,
+                      label: observation.observation_name,
+                      index: observations.findIndex((o) => o.label === observation.observation_name)
+                    }
+                  })
               }
             })
           )
@@ -82,13 +88,14 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
     };
 
     searchDepartureTimes()
-  }, [line_id, observations]);
+  }, []);
 
   if (isLoaded) {
     return <div>Carregando...</div>;
   } else if (error) {
     console.log(error)
-    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;
+    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message}
+                          type={'card'}/>;
   } else if (data.length === 0) {
     return (
       <Alert variant={'info'}>
@@ -170,7 +177,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
                           data: departureTimes.filter((item) => item.day === day && item.direction === direction).map((item) => {
                             return {
                               departure_time: Util.formatTime(`2020-01-01 ${item.departure_time}`, 'HH:mm'),
-                              observation: item.observation ? item.observation : null
+                              observations: item.observations ? item.observations : null
                             }
                           }),
                           directionName: directionName,
