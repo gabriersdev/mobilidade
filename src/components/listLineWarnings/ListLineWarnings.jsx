@@ -105,7 +105,7 @@ const ListLineWarnings = ({line_id}) => {
                       <span>{warning.title || 'Aviso'}</span>
                     </p>
                   </summary>
-                  <p className={"p-0 mt-1 mb-0"}>
+                  <p className={"p-0 mt-2 mb-0"}>
                     {warning.text.endsWith('.') ? warning.text : `${warning.text}.` }
                   </p>
                 </details>
