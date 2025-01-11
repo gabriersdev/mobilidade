@@ -12,7 +12,7 @@ const ListLineWarnings = ({line_id}) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  const [propOpen, setPropOpen] = useState([])
+  const [propOpen, setPropOpen] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -99,7 +99,7 @@ const ListLineWarnings = ({line_id}) => {
             return (
               <div className="alert alert-warning m-0" role="alert" key={i}>
                 <details>
-                  <summary open={propOpen} onClick={() => setPropOpen(!propOpen)} className={"alert-warning-summary"}>
+                  <summary open={propOpen} onClick={() => {setPropOpen(!propOpen)}} className={"alert-warning-summary"}>
                     <p className="alert-heading d-inline-block fw-bold mb-0">
                       <span className={'hide-max-width-419'}>&nbsp;</span>
                       <span>{warning.title || 'Aviso'}</span>
