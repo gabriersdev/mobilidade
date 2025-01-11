@@ -96,8 +96,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
     return <div>Carregando...</div>;
   } else if (error) {
     console.log(error)
-    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message}
-                          type={'card'}/>;
+    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;
   } else if (data.length === 0) {
     return (
       <Alert variant={'info'}>
@@ -154,10 +153,10 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
             <section>
               <span className={'text-muted d-block'}>{departureTimeOffCanvas.directionName}</span>
               {departureTimeOffCanvas.observations ?
-                <>
+                <div className={'mt-3'}>
                   <h4 className={"fs-6 fw-bold my-2 p-0"}>Observações:</h4>
                   <Legend items={departureTimeOffCanvas.observations} marginTop={"mt-0"}/>
-                </>
+                </div>
                 : ""
               }
             </section>
