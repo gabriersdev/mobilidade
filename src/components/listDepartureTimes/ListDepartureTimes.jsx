@@ -66,7 +66,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
                 // Se observação estiver definida, cria um array, com a abreviação, o nome ou label da abreviação e o índice para que depois o compotente defina uma cor para a observação
                   observationsFilter.map((observation) => {
                     let index = observations.findIndex((o) => o.label === observation.observation_name)
-                    if (index === -1) { /* console.log('Observação não encontrada:', observation); */ index = Math.floor(Math.random() * 7) }
+                    // if (index === -1) { console.log('Observação não encontrada:', observation); index = 1 }
                     return {
                       abrev: observation.observation_abrev,
                       label: observation.observation_name,

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import config from "../../config.js";
+import Alert from "../alert/Alert.jsx";
 
 const Weather = () => {
   const [response, setResponse] = useState(null)
@@ -32,45 +33,37 @@ const Weather = () => {
     console.log('Erro ao buscar a previsão do tempo: %s', error)
     return <></>
   } else if (response) {
+    console.log(response.current)
+
     // Existe previsão de precipitação
-    if (response.current.precip_mm > 0) {
-      // Ranges de precipitação
-      if (response.current.precip_mm <= 2) {
-        setText('Previsão de chuva leve. Normalmente não causa transtornos ao trânsito ou atraso nos horários de partida.')
-        return
-      } else if (response.current.precip_mm <= 10) {
-        setText('Previsão de chuva moderada. Pode causar atrasos nos horários de partida.')
-        return
-      } else if (response.current.precip_mm <= 30) {
-        setText('Fique ligado! Previsão de chuva forte. Pode causar atrasos nos horários de partida e transtornos ao trânsito.')
-        return
-      } else {
-        setText('Atenção! Previsão de chuva muito forte/torrencial. O que deve causar atrasos nos horários de partida e transtornos ao trânsito. Se possível, evite sair de casa e fique em um local fechado e seguro.')
-        return
+    try {
+      if (response.current.precip_mm > 0) {
+        // Ranges de precipitação
+        if (response.current.precip_mm <= 2) {
+          setText('Previsão de chuva leve. Normalmente não causa transtornos ao trânsito ou atraso nos horários de partida.')
+        } else if (response.current.precip_mm <= 10) {
+          setText('Previsão de chuva moderada. Pode causar atrasos nos horários de partida.')
+        } else if (response.current.precip_mm <= 30) {
+          setText('Fique ligado! Previsão de chuva forte. Pode causar atrasos nos horários de partida e transtornos ao trânsito.')
+        } else {
+          setText('Atenção! Previsão de chuva muito forte/torrencial. O que deve causar atrasos nos horários de partida e transtornos ao trânsito. Se possível, evite sair de casa e fique em um local fechado e seguro.')
+        }
       }
+    } catch (e) {
+      console.log('Erro ao buscar a previsão do tempo: %s', e)
+      setText('Previsão de tempo estável. Não há previsão de chuva.')
     }
-
-    // TODO - Tratativa para outros tipos de condição climática e tradução para português
-    switch (response.current.condition.text.toLowerCase()) {
-      case 'partly cloudy':
-        setText('Tempo parcialmente nublado na região. Aproveite o dia!')
-        return
-      case 'cloudy':
-        setText('Tempo nublado na região. Leve um guarda-chuva e aproveite o dia!')
-        return
-      case 'sunny':
-        setText('Tempo ensolarado na região. Aproveite o dia e use protetor solar!')
-        return
-    }
-
-    setText(response.current.condition.text)
   }
 
-  return (
-    <>
-      {JSON.stringify(text || 'Texto vazio, nulo ou indefinido')}
-    </>
-  )
+  if (text) {
+    return (
+      <Alert variant={'weather'} margin={"mt-3"}>
+        <span>{text}</span>
+      </Alert>
+    )
+  }
+
+  return <></>
 }
 
 export default Weather;
