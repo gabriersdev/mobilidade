@@ -21,7 +21,13 @@ const listItems = (listData, observations, handlePointClick, directionName, dayN
               time_ordernation: i,
               times_lenght: listData.length,
               directionName: directionName,
-              dayName: dayName
+              dayName: dayName,
+              observations: item.observations ? item.observations.map(observation => {
+                return {
+                  abrev: observation.abrev,
+                  label: observation.label
+                }
+              }) : null
             })}
                 style={{cursor: 'pointer'}}
             >
