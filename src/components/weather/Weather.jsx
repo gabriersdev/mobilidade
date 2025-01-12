@@ -4,66 +4,63 @@ import config from "../../config.js";
 import Alert from "../alert/Alert.jsx";
 
 const Weather = () => {
-  const [response, setResponse] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [text, setText] = useState('')
+  const [weatherData, setWeatherData] = useState(null);
+  const [status, setStatus] = useState('loading'); // 'loading', 'success', 'error'
 
   useEffect(() => {
     const getWeather = async () => {
       try {
         const response = await axios.post(`${config.host}/api/weather/`, {
-          // TODO - Implementar: pode haver mais de uma cidade, dependendo do local de partida e destino da linha. Neste caso, é necessário receber o nome da cidade
           city_name: 'sabara-minas-gerais-brazil',
-        })
-        setResponse(response.data)
+        });
+        setWeatherData(response.data);
+        setStatus('success');
       } catch (error) {
-        setError(error)
-      } finally {
-        setLoading(false)
+        console.error('Erro ao buscar a previsão do tempo:', error);
+        setStatus('error');
       }
-    }
+    };
 
-    getWeather()
+    getWeather();
   }, []);
 
-  if (loading) {
-    return <></>
-  } else if (error) {
-    console.log('Erro ao buscar a previsão do tempo: %s', error)
-    return <></>
-  } else if (response) {
-    console.log(response.current)
+  if (status === 'loading') {
+    return <></>; // Ou um componente de loading mais visual
+  }
 
-    // Existe previsão de precipitação
-    try {
-      if (response.current.precip_mm > 0) {
-        // Ranges de precipitação
-        if (response.current.precip_mm <= 2) {
-          setText('Previsão de chuva leve. Normalmente não causa transtornos ao trânsito ou atraso nos horários de partida.')
-        } else if (response.current.precip_mm <= 10) {
-          setText('Previsão de chuva moderada. Pode causar atrasos nos horários de partida.')
-        } else if (response.current.precip_mm <= 30) {
-          setText('Fique ligado! Previsão de chuva forte. Pode causar atrasos nos horários de partida e transtornos ao trânsito.')
-        } else {
-          setText('Atenção! Previsão de chuva muito forte/torrencial. O que deve causar atrasos nos horários de partida e transtornos ao trânsito. Se possível, evite sair de casa e fique em um local fechado e seguro.')
-        }
+  if (status === 'error') {
+    return <></>; // Ou um componente de erro
+  }
+
+  if (!weatherData) { // Segurança adicional
+    return <></>;
+  }
+
+  let alertText
+
+  try {
+    if (weatherData.current.precip_mm > 0) {
+      if (weatherData.current.precip_mm <= 2) {
+        alertText = 'Previsão de chuva leve. Normalmente não causa transtornos ao trânsito ou atraso nos horários de partida.'
+      } else if (weatherData.current.precip_mm <= 10) {
+        alertText = 'Previsão de chuva moderada. Pode causar atrasos nos horários de partida.'
+      } else if (weatherData.current.precip_mm <= 30) {
+        alertText = 'Fique ligado! Previsão de chuva forte. Pode causar atrasos nos horários de partida e transtornos ao trânsito.'
+      } else {
+        alertText = 'Atenção! Previsão de chuva muito forte/torrencial. O que deve causar atrasos nos horários de partida e transtornos ao trânsito. Se possível, evite sair de casa e fique em um local fechado e seguro.'
       }
-    } catch (e) {
-      console.log('Erro ao buscar a previsão do tempo: %s', e)
-      setText('Previsão de tempo estável. Não há previsão de chuva.')
     }
+  } catch (e) {
+    console.error('Erro ao processar dados:', e);
+    // Manter o texto padrão caso haja erro no processamento dos dados
   }
 
-  if (text) {
-    return (
-      <Alert variant={'weather'} margin={"mt-3"}>
-        <span>{text}</span>
-      </Alert>
-    )
-  }
+  if (!alertText) return <></>
 
-  return <></>
-}
+  return (
+    <Alert variant={'weather'} margin={"mt-3"}>
+      <span>{alertText}</span>
+    </Alert>);
+};
 
 export default Weather;
