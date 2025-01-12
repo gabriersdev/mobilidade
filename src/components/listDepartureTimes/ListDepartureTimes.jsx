@@ -65,10 +65,12 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
                 observations:
                 // Se observação estiver definida, cria um array, com a abreviação, o nome ou label da abreviação e o índice para que depois o compotente defina uma cor para a observação
                   observationsFilter.map((observation) => {
+                    let index = observations.findIndex((o) => o.label === observation.observation_name)
+                    // if (index === -1) { console.log('Observação não encontrada:', observation); index = 1 }
                     return {
                       abrev: observation.observation_abrev,
                       label: observation.observation_name,
-                      index: observations.findIndex((o) => o.label === observation.observation_name)
+                      index: index
                     }
                   })
               }
@@ -94,8 +96,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
     return <div>Carregando...</div>;
   } else if (error) {
     console.log(error)
-    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message}
-                          type={'card'}/>;
+    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;
   } else if (data.length === 0) {
     return (
       <Alert variant={'info'}>
@@ -152,10 +153,10 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
             <section>
               <span className={'text-muted d-block'}>{departureTimeOffCanvas.directionName}</span>
               {departureTimeOffCanvas.observations ?
-                <>
+                <div className={'mt-3'}>
                   <h4 className={"fs-6 fw-bold my-2 p-0"}>Observações:</h4>
                   <Legend items={departureTimeOffCanvas.observations} marginTop={"mt-0"}/>
-                </>
+                </div>
                 : ""
               }
             </section>

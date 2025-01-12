@@ -14,6 +14,10 @@ const Alert = ({variant, margin, children}) => {
       icon = <i className="bi bi-info-circle"></i>
       break;
 
+    case 'weather':
+      icon = <i className="bi bi-cloud-sun"></i>
+      break;
+
     case 'info':
     default:
       icon = <i className="bi bi-exclamation-circle"></i>
@@ -21,7 +25,7 @@ const Alert = ({variant, margin, children}) => {
   }
 
   return (
-    <BootstrapAlert variant={variant} className={`d-flex gap-2 ${!margin ? 'mt-3' : margin}`} role="alert">
+    <BootstrapAlert variant={variant === 'weather' ? 'info' : variant} className={`d-flex gap-2 ${!margin ? 'mt-3' : margin}`} role="alert">
       {icon}
       {children}
     </BootstrapAlert>

@@ -10,6 +10,7 @@ import ListDeparturePoints from "../listDeparturePoints/ListDeparturePoints.jsx"
 import config from "../../config";
 import ListLineWarnings from "../listLineWarnings/ListLineWarnings.jsx";
 import FeedbackError from "../feedbackError/FeedbackError.jsx";
+import Weather from "../weather/Weather.jsx";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -62,6 +63,7 @@ const Line = ({id}) => {
             : ""
           }
 
+          <Weather />
           <ListLineWarnings line_id={data[0].line_id}/>
         </section>
 
