@@ -1,5 +1,5 @@
-const STATIC_CACHE_NAME = 'mobilidade-app-v6'; // Versão do cache (IMPORTANTE: altere a versão a cada atualização)
-const DYNAMIC_CACHE_NAME = 'dynamic-mobilidade-app-v6';
+const STATIC_CACHE_NAME = 'mobilidade-app-v7'; // Versão do cache (IMPORTANTE: altere a versão a cada atualização)
+const DYNAMIC_CACHE_NAME = 'dynamic-mobilidade-app-v7';
 
 
 const staticUrlsToCache = [ // Arquivos estáticos que raramente mudam
