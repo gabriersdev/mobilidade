@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import Alert from "../alert/Alert";
 import Grid from "../grid/Grid.jsx";
 import Card from "../card/Card.jsx";
-import React from "react";
 
 const FeedbackError = ({code, text, type}) => {
   if (text.toLowerCase().trim() === 'network error' && !type) {

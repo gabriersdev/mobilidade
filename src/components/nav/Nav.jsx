@@ -1,4 +1,3 @@
-import React from "react";
 import {Nav as BootstrapNav, Navbar, Container} from "react-bootstrap";
 import {Link} from "react-router-dom";
 

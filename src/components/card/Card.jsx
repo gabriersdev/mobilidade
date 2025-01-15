@@ -1,4 +1,3 @@
-import React from "react";
 import Title from "../title/Title";
 import {Link} from "react-router-dom";
 import { Card as BootstrapCard } from 'react-bootstrap';
