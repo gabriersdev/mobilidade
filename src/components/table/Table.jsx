@@ -69,4 +69,4 @@ Table.propTypes = {
   handlePointClick: PropTypes.func.isRequired
 }
 
-export default Table;
+export default React.memo(Table);

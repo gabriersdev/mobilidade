@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { Accordion as BootstrapAccordion } from 'react-bootstrap';
 
 function Accordion({ defaultEventKey, title, children }) {
+  console.log('render')
   return (
     <BootstrapAccordion defaultActiveKey={defaultEventKey} aria-description={title ? title.trim() : ''} alwaysOpen>
       {children}
@@ -17,4 +18,4 @@ Accordion.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-export default Accordion;
+export default React.memo(Accordion);

@@ -19,4 +19,4 @@ AccordionItem.propTypes = {
   eventKey: PropTypes.string.isRequired,
 }
 
-export default AccordionItem;
+export default React.memo(AccordionItem);
