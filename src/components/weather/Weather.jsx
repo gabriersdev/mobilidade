@@ -45,7 +45,7 @@ const Weather = () => {
       } else if (weatherData.current.precip_mm <= 10) {
         alertText = 'Previsão de chuva moderada para a região.. Pode causar atrasos nos horários de partida.'
       } else if (weatherData.current.precip_mm <= 30) {
-        alertText = 'Fique ligado! Previsão de chuva forte para a região.. Pode causar atrasos nos horários de partida e transtornos ao trânsito.'
+        alertText = 'Fique ligado! Previsão de chuva forte para a região. Pode causar atrasos nos horários de partida e transtornos ao trânsito.'
       } else {
         alertText = 'Atenção! Previsão de chuva muito forte/torrencial para a região. O que deve causar atrasos nos horários de partida e transtornos ao trânsito. Se possível, evite sair de casa e fique em um local fechado e seguro.'
       }
