@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 import Title from "../../components/title/Title";
 import FormSearch from "../../components/formSearch/FormSearch";
-import Util from "../../assets/util";
+import Util from "../../assets/Util.js";
 import ComponentSearch from "../../components/search/Search.jsx";
 import Grid from "../../components/grid/Grid.jsx";
 import Card from "../../components/card/Card.jsx";

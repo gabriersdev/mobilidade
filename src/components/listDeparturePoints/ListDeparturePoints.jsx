@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import Alert from "../alert/Alert";
 import Accordion from "../accordion/Accordion";
 import AccordionItem from "../accordion/AccordionItem";
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import Util from "../../assets/util.js";
+import Util from "../../assets/Util.js";
 import config from "../../config";
 
 const ListDeparturePoints = ({ line_id, departure_location, destination_location }) => {

@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import ListLines from "../../components/listLines/ListLines.jsx";
 import Line from "../../components/line/Line.jsx";
-import Util from "../../assets/util";
+import Util from "../../assets/Util.js";
 
 import "./lines.css";
 import Title from "../../components/title/Title.jsx";

@@ -1,18 +1,15 @@
 import PropTypes from 'prop-types';
 
-const If = ({ test, children }) => {
+const If = ({test, children}) => {
   const contentIf = children.filter(child => child.type.name !== 'Else');
   const contentElse = children.filter(child => child.type.name === 'Else');
 
-  if (test) {
-    return contentIf;
-  } else if (contentElse.length > 0) {
-    return contentElse;
-  }
+  if (test) return contentIf;
+  else if (contentElse.length > 0) return contentElse;
   return null;
 }
 
-const Else = ({ children }) => children;
+const Else = ({children}) => children;
 
 If.propTypes = {
   test: PropTypes.bool.isRequired,
@@ -23,4 +20,4 @@ Else.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-export { If, Else };
+export {If, Else};

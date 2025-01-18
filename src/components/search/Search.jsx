@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import Grid from "../grid/Grid.jsx";
 import Card from "../card/Card.jsx";
-import Util from "../../assets/util.js";
+import Util from "../../assets/Util.js";
 import config from "../../config";
 
 const Search = ({ value }) => {

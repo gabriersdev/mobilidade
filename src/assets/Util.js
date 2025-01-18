@@ -113,4 +113,29 @@ export default class Util {
     sanitize = sanitize.toLowerCase().replace(/^\w]/g, "");
     return sanitize.replace(/-{2,}/g, '-');
   }
+
+  static convertNumberToDay = (day) => {
+    switch (day) {
+      case 1:
+        return 'Dias úteis';
+      case 2:
+        return 'Sábado';
+      case 3:
+        return 'Domingo';
+      case 4:
+        return 'Domingos e feriados';
+      case 5:
+        return 'Dias úteis - atípico';
+      case 6:
+        return 'Sábados - atípico';
+      case 7:
+        return 'Domingos - atípico';
+      case 8:
+        return 'Dias úteis - férias';
+      case 9:
+        return 'Sábados - férias';
+      case 10:
+        return 'Domingos - férias';
+    }
+  }
 }

@@ -1,9 +1,9 @@
+import React from "react";
 import PropTypes from "prop-types";
 
-import { Accordion as BootstrapAccordion } from 'react-bootstrap';
+import {Accordion as BootstrapAccordion} from 'react-bootstrap';
 
-function Accordion({ defaultEventKey, title, children }) {
-  console.log('render')
+function Accordion({defaultEventKey, title, children}) {
   return (
     <BootstrapAccordion defaultActiveKey={defaultEventKey} aria-description={title ? title.trim() : ''} alwaysOpen>
       {children}

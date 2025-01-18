@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import Title from "../../components/title/Title";
 import FormSearch from "../../components/formSearch/FormSearch";
 import ListLines from "../../components/listLines/ListLines";
-import Util from "../../assets/util";
+import Util from "../../assets/Util.js";
 import {useNavigate} from "react-router-dom";
 
 const Home = () => {

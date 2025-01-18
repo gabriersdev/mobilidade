@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import LineIdentification from "../lineIdentification/LineIdentification";
-import ListRechargePoints from "../listRecharchePoints/ListRechargePoints.jsx";
-import ListDepartureTimes from "../listDepartureTimes/ListDepartureTimes";
-import Title from "../title/Title.jsx";
+import ListRechargePoints from "../listRecharchePoints/ListRechargePoints";
+import { ListDepartureTimes } from "../listDepartureTimes/ListDepartureTimes";
+import Title from "../title/Title";
 import Alert from "../alert/Alert";
-import ListDeparturePoints from "../listDeparturePoints/ListDeparturePoints.jsx";
+import ListDeparturePoints from "../listDeparturePoints/ListDeparturePoints";
 import config from "../../config";
-import ListLineWarnings from "../listLineWarnings/ListLineWarnings.jsx";
-import FeedbackError from "../feedbackError/FeedbackError.jsx";
-import Weather from "../weather/Weather.jsx";
+import ListLineWarnings from "../listLineWarnings/ListLineWarnings";
+import FeedbackError from "../feedbackError/FeedbackError";
+import Weather from "../weather/Weather";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);

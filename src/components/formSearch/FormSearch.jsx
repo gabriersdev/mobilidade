@@ -1,8 +1,8 @@
-import React, {useState} from "react";
-import Title from "../title/Title";
+import {useState} from "react";
 import PropTypes from "prop-types";
-import {Form, FormGroup, Button} from "react-bootstrap";
 
+import {Form, FormGroup, Button} from "react-bootstrap";
+import Title from "../title/Title";
 import './formSearch.css';
 
 // TODO - Testar a lógica implementada para atualizar os dados da página
@@ -35,7 +35,7 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
     <form onSubmit={handleSubmit}>
       <FormGroup>
         <Form.Label htmlFor={`input-search`} column={0}>
-          <Title title={formTitle} classX=" text-body-secondary" />
+          <Title title={formTitle} classX=" text-body-secondary"/>
         </Form.Label>
         <Form.Control type="search" id={`input-search`} placeholder={inputPlaceholder} className="w-100 fs-5"
                       value={search} onChange={(e) => setSearch(e.target.value)}/>
