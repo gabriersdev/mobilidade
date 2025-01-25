@@ -6,7 +6,7 @@ import ListRechargePoints from "../listRecharchePoints/ListRechargePoints";
 import { ListDepartureTimes } from "../listDepartureTimes/ListDepartureTimes";
 import Title from "../title/Title";
 import Alert from "../alert/Alert";
-import ListDeparturePoints from "../listDeparturePoints/ListDeparturePoints";
+import {ListDeparturePoints} from "../listDeparturePoints/ListDeparturePoints";
 import config from "../../config";
 import ListLineWarnings from "../listLineWarnings/ListLineWarnings";
 import FeedbackError from "../feedbackError/FeedbackError";

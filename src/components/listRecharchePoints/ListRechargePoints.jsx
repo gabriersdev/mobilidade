@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
@@ -7,15 +7,13 @@ import config from "../../config";
 import Grid from "../grid/Grid";
 import Card from "../card/Card";
 import OffcanvasRechargePoints from "./OffcanvasRechargePoints";
-import RecharchePointsContext from "./RecharchePointsContext";
-import {Theme} from "../themeContext/ThemeContext";
+import {RecharchePointsContext} from "./RecharchePointsContext";
+import ListPoints from "./ListPoints.jsx";
 
 const ListRechargePoints = ({id_company, company_name}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
-
-  const {handlePointClick} = useContext(Theme);
 
   useEffect(() => {
     const searchRecharchePoints = async () => {
@@ -50,17 +48,7 @@ const ListRechargePoints = ({id_company, company_name}) => {
     return (<>
       <RecharchePointsContext>
         <OffcanvasRechargePoints/>
-        <Grid>
-          {data.map((recharchePoint, index) => {
-            return (
-              <a key={index} style={{cursor: "pointer"}}>
-                <Card title={recharchePoint.point_name} subtitle={recharchePoint.address} onclick={(e) => handlePointClick(e, recharchePoint)}>
-                  {recharchePoint.observations || "Não há observações sobre este ponto de recarga."}
-                </Card>
-              </a>
-            )
-          })}
-        </Grid>
+        <ListPoints data={data}/>
       </RecharchePointsContext>
     </>)
   }

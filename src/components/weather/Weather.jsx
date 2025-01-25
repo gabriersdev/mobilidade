@@ -39,7 +39,7 @@ const Weather = () => {
   let alertText
 
   try {
-    if (weatherData.current.precip_mm > 0) {
+    if (weatherData.current.precip_mm > 0.1) {
       if (weatherData.current.precip_mm <= 2) {
         alertText = 'Previsão de chuva leve para a região. Normalmente não causa transtornos ao trânsito ou atraso nos horários de partida.'
       } else if (weatherData.current.precip_mm <= 10) {

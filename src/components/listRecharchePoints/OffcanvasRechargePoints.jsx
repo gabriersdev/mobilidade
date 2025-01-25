@@ -1,7 +1,7 @@
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Util from "../../assets/Util";
 
-import {Theme} from "../themeContext/ThemeContext";
+import {Theme} from "./RecharchePointsContext.jsx";
 import {useContext} from "react";
 
 const OffcanvasRechargePoints = () => {
