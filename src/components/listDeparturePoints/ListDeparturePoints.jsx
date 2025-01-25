@@ -5,7 +5,7 @@ import Alert from "../alert/Alert";
 import Accordion from "../accordion/Accordion";
 import config from "../../config";
 import {DeparturePointsContext} from "./DeparturePointsContext.jsx";
-import OffcanvasRechargePoints from "../listRecharchePoints/OffcanvasRechargePoints.jsx";
+import OffcanvasDeparturePoints from "./OffcanvasDeparturePoints.jsx";
 import {ThemeContext} from "../themeContext/ThemeContext.jsx";
 import ListPointsByDirections from "./ListPointsByDirections.jsx";
 
@@ -55,7 +55,7 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
     return (
       <DeparturePointsContext>
         <Accordion>
-          <OffcanvasRechargePoints/>
+          <OffcanvasDeparturePoints/>
           {/* Lista os sentidos da linha e os pontos de parada que correspondentes */}
           <ThemeContext value={Object.assign({}, {
             departure_location,
