@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import {useState} from "react";
+import {createContext, useState} from "react";
 
-import {ThemeContext} from "../themeContext/ThemeContext";
+const Theme = createContext();
 
 const RecharchePointsContext = ({children}) => {
   const [show, setShow] = useState(false);
@@ -20,9 +20,9 @@ const RecharchePointsContext = ({children}) => {
   }
 
   return (
-    <ThemeContext value={{show, handleClose, rechargePointOffCanvas, handlePointClick}}>
+    <Theme.Provider value={{show, handleClose, rechargePointOffCanvas, handlePointClick}}>
       {children}
-    </ThemeContext>
+    </Theme.Provider>
   )
 }
 
@@ -30,4 +30,4 @@ RecharchePointsContext.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-export default RecharchePointsContext;
+export {Theme, RecharchePointsContext};
