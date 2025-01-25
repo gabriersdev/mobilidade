@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import {createContext, useState} from "react";
 
-const Theme = createContext();
+const Theme = createContext({});
 
 const RecharchePointsContext = ({children}) => {
   const [show, setShow] = useState(false);

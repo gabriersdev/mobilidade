@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useContext} from "react";
 
 import {Theme} from "../themeContext/ThemeContext";
 import AccordionItem from "../accordion/AccordionItem";
