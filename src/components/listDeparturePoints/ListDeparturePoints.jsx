@@ -87,7 +87,7 @@ const ListDeparturePoints = ({ line_id, departure_location, destination_location
                 loading="lazy"
                 allowFullScreen
                 referrerPolicy="no-referrer-when-downgrade"
-                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDLVLgUmpHx7VfSA0qTMhYdKW1SVXKFTak&q=${Util.convertToSafeText(pointDataOffcanvas.address)}`}>
+                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDLVLgUmpHx7VfSA0qTMhYdKW1SVXKFTak&q=${Util.convertToSafeText(pointDataOffcanvas.address).replaceAll('-', '+')}`}>
               </iframe>
               <Alert variant={"warning"} className={"mt-2"}>
                 <span className={"fw-light"}>
