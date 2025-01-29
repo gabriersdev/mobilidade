@@ -83,7 +83,7 @@ const ListRechargePoints = ({id_company, company_name}) => {
               loading="lazy"
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
-              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDLVLgUmpHx7VfSA0qTMhYdKW1SVXKFTak&q=${Util.convertToSafeText(rechargePointOffCanvas.address)}`}>
+              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDLVLgUmpHx7VfSA0qTMhYdKW1SVXKFTak&q=${Util.convertToSafeText(rechargePointOffCanvas.address).replaceAll('-', '+')}`}>
             </iframe>
             <a className={"link-opacity-100 d-flex gap-1 align-items-center mt-2"} style={{textDecoration: 'none'}}
                href={rechargePointOffCanvas.link}
