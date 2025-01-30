@@ -32,7 +32,6 @@ function App() {
 
     // Verificar se #[id] existe e rolar a página até ele
     if (location.hash) {
-      console.log(`Hash: ${location.hash}`);
       const id = location.hash.replace('#', '')
       const element = document.getElementById(id)
       if (element) window.scrollTo({top: element.offsetTop, behavior: 'smooth'})
