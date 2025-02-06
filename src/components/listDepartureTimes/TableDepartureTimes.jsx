@@ -1,4 +1,4 @@
-import React, {useContext, useMemo} from "react";
+import React, {useContext, useEffect, useMemo} from "react";
 import PropTypes from "prop-types";
 
 import {Badge, Table as BootstrapTable} from 'react-bootstrap';
@@ -6,11 +6,21 @@ import data from "../../data";
 import {Theme} from "../themeContext/ThemeContext";
 import {Theme as DepartureTimeTheme} from "./DepartureTimeContext";
 
-const ITEMS_PER_LINE = 10;
+let ITEMS_PER_LINE = 10;
 
 const TableRow = ({row, directionName, dayName}) => {
   const {handlePointClick} = useContext(DepartureTimeTheme);
   const bootstrapBGColors = data.bootstrap.bg.colors;
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      const clientWidth = document.querySelector('html').clientWidth;
+      if (clientWidth < 360) ITEMS_PER_LINE = 2;
+      else if (clientWidth < 460) ITEMS_PER_LINE = 4;
+      else if (clientWidth < 768) ITEMS_PER_LINE = 5;
+      else ITEMS_PER_LINE = 10;
+    })
+  }, []);
 
   return (
     <tr>
