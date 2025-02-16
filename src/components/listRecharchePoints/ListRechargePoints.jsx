@@ -33,16 +33,19 @@ const ListRechargePoints = ({id_company, company_name}) => {
 
   if (isLoaded) {
     return (<Grid>
-      <Card title="Carregando" subtitle="Aguarde...">Estamos conectando ao banco de dados. Esse processo geralmente é rápido. Por favor, aguarde alguns instantes.</Card>
+      <Card title="Carregando" subtitle="Aguarde...">Estamos conectando ao banco de dados. Esse processo geralmente é
+        rápido. Por favor, aguarde alguns instantes.</Card>
     </Grid>)
   } else if (error) {
     console.log(error)
     return (<Grid>
-      <Card title="Erro" subtitle="Não foi possível carregar os pontos de recarga">Houve um erro ao carregar os pontos de recarga. Por favor, tente novamente mais tarde.</Card>
+      <Card title="Erro" subtitle="Não foi possível carregar os pontos de recarga">Houve um erro ao carregar os pontos
+        de recarga. Por favor, tente novamente mais tarde.</Card>
     </Grid>)
   } else if (data.length === 0) {
     return (<Grid>
-      <Card title="Opa!" subtitle={`Nenhum ponto de recarga encontrado`}>{`Não há pontos de recarga cadastrados para a concessionária ${company_name}.`}</Card>
+      <Card title="Opa!"
+            subtitle={`Nenhum ponto de recarga encontrado`}>{`Não há pontos de recarga cadastrados para a concessionária ${company_name}.`}</Card>
     </Grid>)
   } else {
     return (<>
