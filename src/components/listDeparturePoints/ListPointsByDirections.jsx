@@ -4,8 +4,14 @@ import {Theme as DeparturePointsTheme} from "./DeparturePointsContext.jsx";
 import {Theme} from "../themeContext/ThemeContext.jsx";
 
 const ListPointsByDirections = () => {
-  const {uniqueDirections, departure_location, destination_location, departurePointsByDirection} = useContext(Theme);
-  const {handlePointClick} = useContext(DeparturePointsTheme);
+  // const {uniqueDirections, departure_location, destination_location, departurePointsByDirection} = useContext(Theme);
+  // const {handlePointClick} = useContext(DeparturePointsTheme);
+
+  const uniqueDirections = [];
+  const departure_location = '';
+  const destination_location = '';
+  const departurePointsByDirection = [];
+  const handlePointClick = () => {};
 
   return (
     uniqueDirections.map((direction, i) => {

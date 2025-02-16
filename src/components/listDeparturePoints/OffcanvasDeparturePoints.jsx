@@ -5,7 +5,10 @@ import {useContext} from "react";
 import {Theme} from "./DeparturePointsContext.jsx";
 
 const OffcanvasDeparturePoints = () => {
-  const {show, pointDataOffcanvas, handleClose} = useContext(Theme)
+  // const {show, pointDataOffcanvas, handleClose} = useContext(Theme);
+  const show = false;
+  const pointDataOffcanvas = {};
+  const handleClose = () => {};
 
   return (
     <Offcanvas show={show} onHide={handleClose} placement="start">
