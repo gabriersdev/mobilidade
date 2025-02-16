@@ -1,4 +1,4 @@
-import React, {useContext, useMemo} from "react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
 import PropTypes from "prop-types";
 
 import {Badge, Table as BootstrapTable} from 'react-bootstrap';
@@ -6,7 +6,6 @@ import data from "../../data";
 import {Theme} from "../themeContext/ThemeContext";
 import {Theme as DepartureTimeTheme} from "./DepartureTimeContext";
 
-const ITEMS_PER_LINE = 10;
 
 const TableRow = ({row, directionName, dayName}) => {
   const {handlePointClick} = useContext(DepartureTimeTheme);
@@ -45,13 +44,23 @@ const TableRow = ({row, directionName, dayName}) => {
 };
 
 const TableDepartureTimes = ({content}) => {
+  const [itemsPerLine, setItemsPerLine] = useState(10);
+
+  useEffect(() => {
+    const clientWidth = document.querySelector('html').clientWidth;
+    if (clientWidth < 360) setItemsPerLine(2);
+    else if (clientWidth < 460) setItemsPerLine(4);
+    else if (clientWidth < 768) setItemsPerLine(5);
+    else setItemsPerLine(10);
+  }, []);
+
   const {directionName} = useContext(Theme);
   const {data: listData, dayName} = content;
 
   const rows = useMemo(() => {
     const chunkedData = [];
-    for (let i = 0; i < listData.length; i += ITEMS_PER_LINE) {
-      chunkedData.push(listData.slice(i, i + ITEMS_PER_LINE));
+    for (let i = 0; i < listData.length; i += itemsPerLine) {
+      chunkedData.push(listData.slice(i, i + itemsPerLine));
     }
     return chunkedData;
   }, [listData]);
