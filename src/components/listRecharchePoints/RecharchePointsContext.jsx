@@ -1,7 +1,7 @@
-import {createContext, useState} from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 
-const RechargeContext = createContext({});
+const RechargeContext = React.createContext({});
 
 const RecharchePointsContext = ({children}) => {
   const [show, setShow] = useState(false);

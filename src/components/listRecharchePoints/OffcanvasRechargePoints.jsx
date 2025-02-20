@@ -1,8 +1,7 @@
+import {useContext} from "react";
+import {RechargeContext} from "./RecharchePointsContext.jsx";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Util from "../../assets/Util";
-
-import {RechargeContext} from "./RecharchePointsContext.jsx";
-import {useContext} from "react";
 
 const OffcanvasRechargePoints = () => {
   const {show, handleClose, rechargePointOffCanvas} = useContext(RechargeContext);

@@ -1,7 +1,7 @@
-import {createContext} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
-const Theme = createContext({});
+const Theme = React.createContext({});
 
 function ThemeContext({value, children}) {
   return (

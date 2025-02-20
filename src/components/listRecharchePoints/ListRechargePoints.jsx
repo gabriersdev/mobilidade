@@ -1,14 +1,12 @@
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-
 import config from "../../config";
-
 import Grid from "../grid/Grid";
 import Card from "../card/Card";
 import OffcanvasRechargePoints from "./OffcanvasRechargePoints";
 import {RecharchePointsContext} from "./RecharchePointsContext";
-import ListPoints from "./ListPoints.jsx";
+import ListPoints from "./ListPoints";
 
 const ListRechargePoints = ({id_company, company_name}) => {
   const [data, setData] = useState([]);

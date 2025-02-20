@@ -1,5 +1,5 @@
-import AccordionItem from "../accordion/AccordionItem.jsx";
 import {useContext} from "react";
+import AccordionItem from "../accordion/AccordionItem.jsx";
 import {RechargeContext as DeparturePointsTheme} from "./DeparturePointsContext.jsx";
 import {Theme} from "../themeContext/ThemeContext.jsx";
 

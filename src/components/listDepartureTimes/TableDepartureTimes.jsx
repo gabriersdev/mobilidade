@@ -1,11 +1,9 @@
 import {useContext, useEffect, useState} from "react";
 import PropTypes from "prop-types";
-
 import {Badge, Table as BootstrapTable} from 'react-bootstrap';
 import data from "../../data";
 import {Theme} from "../themeContext/ThemeContext";
 import {TimeContext} from "./DepartureTimeContext";
-
 
 const TableRow = ({row, directionName, dayName}) => {
   const {handlePointClick} = useContext(TimeContext);

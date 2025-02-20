@@ -1,8 +1,7 @@
+import {useContext} from "react";
+import PropTypes from "prop-types";
 import Card from "../card/Card.jsx";
 import Grid from "../grid/Grid.jsx";
-import PropTypes from "prop-types";
-import {useContext} from "react";
-
 import {RechargeContext} from "./RecharchePointsContext.jsx";
 
 const ListPoints = ({data}) => {

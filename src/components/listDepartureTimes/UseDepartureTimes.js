@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import config from '../../config'; // Importe seu arquivo de configuração
+import config from '../../config';
 
 const useDepartureTimes = (line_id) => {
   const [data, setData] = useState([]);

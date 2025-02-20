@@ -1,13 +1,13 @@
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import config from "../../config";
 import Alert from "../alert/Alert";
 import Accordion from "../accordion/Accordion";
-import config from "../../config";
-import {DeparturePointsContext} from "./DeparturePointsContext.jsx";
 import OffcanvasDeparturePoints from "./OffcanvasDeparturePoints.jsx";
 import {ThemeContext} from "../themeContext/ThemeContext.jsx";
 import ListPointsByDirections from "./ListPointsByDirections.jsx";
+import {DeparturePointsContext} from "./DeparturePointsContext.jsx";
 
 const ListDeparturePoints = ({line_id, departure_location, destination_location}) => {
   const [data, setData] = useState([]);

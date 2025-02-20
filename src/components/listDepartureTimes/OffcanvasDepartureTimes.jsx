@@ -1,8 +1,7 @@
 import {useContext} from "react";
-
 import Offcanvas from "react-bootstrap/Offcanvas";
-import {TimeContext} from "./DepartureTimeContext.jsx";
-import Legend from "../legend/Legend.jsx";
+import {TimeContext} from "./DepartureTimeContext";
+import Legend from "../legend/Legend";
 
 const OffcanvasDepartureTimes = () => {
   const {show, handleClose, departureTimeOffCanvas} = useContext(TimeContext);

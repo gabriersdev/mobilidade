@@ -1,11 +1,10 @@
 import {useContext} from "react";
-
-import {Theme} from "../themeContext/ThemeContext";
-import AccordionItem from "../accordion/AccordionItem";
 import Util from "../../assets/Util";
+import AccordionItem from "../accordion/AccordionItem";
 import Table from "./TableDepartureTimes";
 import Legend from "../legend/Legend";
 import Accordion from "../accordion/Accordion";
+import {Theme} from "../themeContext/ThemeContext";
 
 const AccordionOperationDays = () => {
   const {departureTimes, uniqueDaysForDirection, index, direction, directionName, observations} = useContext(Theme)

@@ -1,14 +1,13 @@
 import PropTypes from "prop-types";
 import useDepartureTimes from "./UseDepartureTimes.js";
-
 import Alert from "../alert/Alert";
 import Accordion from "../accordion/Accordion";
 import AccordionItem from "../accordion/AccordionItem";
 import FeedbackError from "../feedbackError/FeedbackError";
-import {DepartureTimeContext} from "./DepartureTimeContext.jsx";
-import OffcanvasDepartureTimes from "./OffcanvasDepartureTimes.jsx";
-import {ThemeContext} from "../themeContext/ThemeContext.jsx";
-import AccordionOperationDays from "./AccordionOperationDays.jsx";
+import {DepartureTimeContext} from "./DepartureTimeContext";
+import OffcanvasDepartureTimes from "./OffcanvasDepartureTimes";
+import {ThemeContext} from "../themeContext/ThemeContext";
+import AccordionOperationDays from "./AccordionOperationDays";
 
 const ListDepartureTimes = ({line_id, departure_location, destination_location}) => {
   const {data, observations, error, isLoaded} = useDepartureTimes(line_id);

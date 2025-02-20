@@ -1,7 +1,7 @@
+import {useContext} from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Util from "../../assets/Util.js";
 import Alert from "../alert/Alert.jsx";
-import {useContext} from "react";
 import {RechargeContext} from "./DeparturePointsContext.jsx";
 
 const OffcanvasDeparturePoints = () => {
