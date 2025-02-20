@@ -4,8 +4,6 @@ import {createContext, useState} from "react";
 const Theme = createContext({});
 
 const RecharchePointsContext = ({children}) => {
-  return null;
-
   const [show, setShow] = useState(false);
   const [rechargePointOffCanvas, setRechargePointOffCanvas] = useState({});
   const handleClose = () => setShow(false);
