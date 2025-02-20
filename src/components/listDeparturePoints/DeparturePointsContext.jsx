@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import {useState, createContext} from "react";
 
-const Theme = createContext({});
+const RechargeContext  = createContext({});
 
 const DeparturePointsContext = ({children}) => {
   const [show, setShow] = useState(false);
@@ -21,9 +21,9 @@ const DeparturePointsContext = ({children}) => {
   }
 
   return (
-    <Theme.Provider value={Object.assign({}, {show,  pointDataOffcanvas, handleClose, handleShow, handlePointClick})}>
+    <RechargeContext.Provider value={Object.assign({}, {show,  pointDataOffcanvas, handleClose, handleShow, handlePointClick})}>
       {children}
-    </Theme.Provider>
+    </RechargeContext.Provider>
   )
 }
 
@@ -31,4 +31,4 @@ DeparturePointsContext.propTypes = {
   children: PropTypes.node
 }
 
-export {Theme, DeparturePointsContext};
+export {RechargeContext, DeparturePointsContext};

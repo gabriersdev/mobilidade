@@ -1,6 +1,6 @@
 import AccordionItem from "../accordion/AccordionItem.jsx";
 import {useContext} from "react";
-import {Theme as DeparturePointsTheme} from "./DeparturePointsContext.jsx";
+import {RechargeContext as DeparturePointsTheme} from "./DeparturePointsContext.jsx";
 import {Theme} from "../themeContext/ThemeContext.jsx";
 
 const ListPointsByDirections = () => {
