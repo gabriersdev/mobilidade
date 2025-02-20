@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
 import {createContext, useState} from "react";
+import PropTypes from "prop-types";
 
-const Theme = createContext({});
+const RechargeContext = createContext({});
 
 const RecharchePointsContext = ({children}) => {
   const [show, setShow] = useState(false);
@@ -20,9 +20,9 @@ const RecharchePointsContext = ({children}) => {
   }
 
   return (
-    <Theme.Provider value={{show, handleClose, rechargePointOffCanvas, handlePointClick}}>
+    <RechargeContext.Provider value={{show, handleClose, rechargePointOffCanvas, handlePointClick}}>
       {children}
-    </Theme.Provider>
+    </RechargeContext.Provider>
   )
 }
 
@@ -30,4 +30,4 @@ RecharchePointsContext.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-export {Theme, RecharchePointsContext};
+export {RechargeContext, RecharchePointsContext};

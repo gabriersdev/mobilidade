@@ -3,10 +3,10 @@ import Grid from "../grid/Grid.jsx";
 import PropTypes from "prop-types";
 import {useContext} from "react";
 
-import {Theme} from "./RecharchePointsContext.jsx";
+import {RechargeContext} from "./RecharchePointsContext.jsx";
 
 const ListPoints = ({data}) => {
-  const {handlePointClick} = useContext(Theme);
+  const {handlePointClick} = useContext(RechargeContext);
 
   return (
     <Grid>

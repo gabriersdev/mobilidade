@@ -1,11 +1,11 @@
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Util from "../../assets/Util";
 
-import {Theme} from "./RecharchePointsContext.jsx";
+import {RechargeContext} from "./RecharchePointsContext.jsx";
 import {useContext} from "react";
 
 const OffcanvasRechargePoints = () => {
-  const {show, handleClose, rechargePointOffCanvas} = useContext(Theme);
+  const {show, handleClose, rechargePointOffCanvas} = useContext(RechargeContext);
 
   return (
     <Offcanvas show={show} onHide={handleClose} placement="start">
