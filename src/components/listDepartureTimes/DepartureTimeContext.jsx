@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import {useState, createContext} from "react";
 
-const Theme = createContext({});
+const TimeContext = createContext({});
 
 const DepartureTimeContext = ({children}) => {
   const [show, setShow] = useState(false);
@@ -16,9 +16,9 @@ const DepartureTimeContext = ({children}) => {
   }
 
   return (
-    <Theme.Provider value={Object.assign({}, {show, departureTimeOffCanvas, handleClose, handleShow, handlePointClick})}>
+    <TimeContext.Provider value={Object.assign({}, {show, departureTimeOffCanvas, handleClose, handleShow, handlePointClick})}>
       {children}
-    </Theme.Provider>
+    </TimeContext.Provider>
   )
 }
 
@@ -26,4 +26,4 @@ DepartureTimeContext.propTypes = {
   children: PropTypes.node
 }
 
-export {Theme, DepartureTimeContext};
+export {TimeContext, DepartureTimeContext};

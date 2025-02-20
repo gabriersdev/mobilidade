@@ -1,11 +1,11 @@
 import {useContext} from "react";
 
 import Offcanvas from "react-bootstrap/Offcanvas";
-import {Theme} from "./DepartureTimeContext.jsx";
+import {TimeContext} from "./DepartureTimeContext.jsx";
 import Legend from "../legend/Legend.jsx";
 
 const OffcanvasDepartureTimes = () => {
-  const {show, handleClose, departureTimeOffCanvas} = useContext(Theme)
+  const {show, handleClose, departureTimeOffCanvas} = useContext(TimeContext);
 
   return (
     <Offcanvas show={show} onHide={handleClose} placement="start">

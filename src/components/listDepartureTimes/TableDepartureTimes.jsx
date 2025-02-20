@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 import {Badge, Table as BootstrapTable} from 'react-bootstrap';
 import data from "../../data";
 import {Theme} from "../themeContext/ThemeContext";
-import {Theme as DepartureTimeTheme} from "./DepartureTimeContext";
+import {TimeContext} from "./DepartureTimeContext";
 
 
 const TableRow = ({row, directionName, dayName}) => {
-  const {handlePointClick} = useContext(DepartureTimeTheme);
+  const {handlePointClick} = useContext(TimeContext);
   const bootstrapBGColors = data.bootstrap.bg.colors;
 
   return (
