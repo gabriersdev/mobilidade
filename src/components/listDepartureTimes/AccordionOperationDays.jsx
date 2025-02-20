@@ -8,13 +8,7 @@ import Legend from "../legend/Legend";
 import Accordion from "../accordion/Accordion";
 
 const AccordionOperationDays = () => {
-  // const {departureTimes, uniqueDaysForDirection, index, direction, directionName, observations} = useContext(Theme)
-  const departureTimes = [];
-  const uniqueDaysForDirection = [];
-  const index = 0;
-  const direction = '';
-  const directionName = '';
-  const observations = {};
+  const {departureTimes, uniqueDaysForDirection, index, direction, directionName, observations} = useContext(Theme)
   let defaultEventKey = ['0']
 
   const currDayName = () => {

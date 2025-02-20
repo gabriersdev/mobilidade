@@ -2,11 +2,11 @@ import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import LineIdentification from "../lineIdentification/LineIdentification";
-import ListRechargePoints from "../listRecharchePoints/ListRechargePoints";
-import { ListDepartureTimes } from "../listDepartureTimes/ListDepartureTimes";
 import Title from "../title/Title";
+// import { ListDepartureTimes } from "../listDepartureTimes/ListDepartureTimes";
+// import ListRechargePoints from "../listRecharchePoints/ListRechargePoints";
+// import {ListDeparturePoints} from "../listDeparturePoints/ListDeparturePoints";
 import Alert from "../alert/Alert";
-import {ListDeparturePoints} from "../listDeparturePoints/ListDeparturePoints";
 import config from "../../config";
 import ListLineWarnings from "../listLineWarnings/ListLineWarnings";
 import FeedbackError from "../feedbackError/FeedbackError";
@@ -67,22 +67,20 @@ const Line = ({id}) => {
           <ListLineWarnings line_id={data[0].line_id}/>
         </section>
 
-        <section id={"partidas"} className={"pt-3"}>
-          <Title type="h3" classX={" pb-2 text-body-secondary"}>Horários de partidas</Title>
-          <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location}
-                              destination_location={data[0].destination_location}/>
-        </section>
+        {/*<section id={"partidas"} className={"pt-3"}>*/}
+        {/*  <Title type="h3" classX={" pb-2 text-body-secondary"}>Horários de partidas</Title>*/}
+        {/*  <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>*/}
+        {/*</section>*/}
 
-        <section id={"paradas"} className={"pt-3"}>
-          <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>
-          <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location}
-                               destination_location={data[0].destination_location}/>
-        </section>
+        {/*<section id={"paradas"} className={"pt-3"}>*/}
+        {/*  <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>*/}
+        {/*  <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>*/}
+        {/*</section>*/}
 
-        <section id={"pontos-de-recarga"} className={"pt-3"}>
-          <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de recarga</Title>
-          <ListRechargePoints id_company={data[0].company_id} company_name={data[0].company_name}/>
-        </section>
+        {/*<section id={"pontos-de-recarga"} className={"pt-3"}>*/}
+        {/*  <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de recarga</Title>*/}
+        {/*  <ListRechargePoints id_company={data[0].company_id} company_name={data[0].company_name}/>*/}
+        {/*</section>*/}
       </div>
     )
   }

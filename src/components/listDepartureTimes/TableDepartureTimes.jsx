@@ -8,8 +8,7 @@ import {Theme as DepartureTimeTheme} from "./DepartureTimeContext";
 
 
 const TableRow = ({row, directionName, dayName}) => {
-  // const {handlePointClick} = useContext(DepartureTimeTheme);
-  const handlePointClick = () => {};
+  const {handlePointClick} = useContext(DepartureTimeTheme);
   const bootstrapBGColors = data.bootstrap.bg.colors;
 
   return (

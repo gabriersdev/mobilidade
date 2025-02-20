@@ -5,10 +5,7 @@ import {Theme} from "./DepartureTimeContext.jsx";
 import Legend from "../legend/Legend.jsx";
 
 const OffcanvasDepartureTimes = () => {
-  // const {show, handleClose, departureTimeOffCanvas} = useContext(Theme);
-  const show = false;
-  const handleClose = () => {};
-  const departureTimeOffCanvas = {};
+  const {show, handleClose, departureTimeOffCanvas} = useContext(Theme)
 
   return (
     <Offcanvas show={show} onHide={handleClose} placement="start">
