@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 
 import {Accordion as BootstrapAccordion} from 'react-bootstrap';
@@ -17,4 +16,4 @@ Accordion.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-export default React.memo(Accordion);
+export default Accordion;

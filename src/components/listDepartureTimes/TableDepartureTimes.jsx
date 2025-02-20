@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import PropTypes from "prop-types";
 
 import {Badge, Table as BootstrapTable} from 'react-bootstrap';
@@ -57,7 +57,7 @@ const TableDepartureTimes = ({content}) => {
   const {directionName} = useContext(Theme);
   const {data: listData, dayName} = content;
 
-  const rows = useMemo(() => {
+  const rows = (() => {
     const chunkedData = [];
     for (let i = 0; i < listData.length; i += itemsPerLine) {
       chunkedData.push(listData.slice(i, i + itemsPerLine));
@@ -94,4 +94,4 @@ TableRow.propTypes = {
   dayName: PropTypes.string.isRequired,
 }
 
-export default React.memo(TableDepartureTimes);
+export default TableDepartureTimes;

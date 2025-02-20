@@ -1,4 +1,3 @@
-import {useMemo} from 'react';
 import PropTypes from "prop-types";
 
 import Alert from "../alert/Alert";
@@ -7,7 +6,7 @@ import Card from "../card/Card";
 
 const FeedbackError = ({code, text, type}) => {
 
-  const errorComponent = useMemo(() => {
+  const errorComponent = (() => {
     const lowerCaseText = text ? text.toLowerCase().trim() : ''; // Lida com casos onde 'text' pode ser undefined/null
 
     if (lowerCaseText === 'network error' && !type) {
