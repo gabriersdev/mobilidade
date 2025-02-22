@@ -1,10 +1,9 @@
-import React from "react";
 import PropTypes from "prop-types";
 import {Alert as BootstrapAlert} from "react-bootstrap";
 
-const Alert = ({variant, margin, children}) => {
-  let icon = null
+let icon = null
 
+const Alert = ({variant, margin, children}) => {
   switch (variant) {
     case 'danger':
       icon = <i className="bi bi-exclamation-triangle-fill"></i>
@@ -25,7 +24,8 @@ const Alert = ({variant, margin, children}) => {
   }
 
   return (
-    <BootstrapAlert variant={variant === 'weather' ? 'info' : variant} className={`d-flex gap-2 ${!margin ? 'mt-3' : margin}`} role="alert">
+    <BootstrapAlert variant={variant === 'weather' ? 'info' : variant}
+                    className={`d-flex gap-2 ${!margin ? 'mt-3' : margin}`} role="alert">
       {icon}
       {children}
     </BootstrapAlert>
