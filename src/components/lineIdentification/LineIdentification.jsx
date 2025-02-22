@@ -4,6 +4,7 @@ import Title from "../title/Title";
 import LineInfo from "../lineInfo/LineInfo";
 
 const LineIdentification = ({ line }) => {
+  console.log(line);
   let [lineType, scope, hasIntegration, fare] = ['', '', ''];
 
   switch (line.type) {
@@ -55,11 +56,12 @@ const LineIdentification = ({ line }) => {
 
   return (
     <div className="d-flex flex-column gap-3">
-      <hgroup className="d-flex align-items-center gap-2 flex-wrap mb-3">
+      <hgroup className="d-flex align-items-center gap-2 flex-wrap mb-0">
         <Title type="h2" classX=" fs-2 d-inline text-body-emphasis m-0 p-0">Linha {line.line_number}</Title>
         <span className="text-body-secondary">|</span>
         <Title type="h2" classX=" fs-2 d-inline text-body-secondary m-0 p-0">{line.departure_location} -{">"} {line.destination_location}</Title>
       </hgroup>
+      <span className={"d-block mb-5 text-body-secondary"}>{line.line_name.replace(/\//, " -> ") || ""}</span>
       <div>
         <div className="d-flex align-items-center gap-3 flex-wrap mb-3">
           <LineInfo label={{ ref: 'Tipo da Linha', value: lineType }}>
@@ -88,6 +90,7 @@ const LineIdentification = ({ line }) => {
 LineIdentification.propTypes = {
   line: PropTypes.shape({
     line_number: PropTypes.string.isRequired,
+    line_name: PropTypes.string.isRequired,
     departure_location: PropTypes.string.isRequired,
     destination_location: PropTypes.string.isRequired,
     company_name: PropTypes.string.isRequired,
