@@ -4,7 +4,6 @@ import Title from "../title/Title";
 import LineInfo from "../lineInfo/LineInfo";
 
 const LineIdentification = ({ line }) => {
-  console.log(line);
   let [lineType, scope, hasIntegration, fare] = ['', '', ''];
 
   switch (line.type) {
