@@ -6,8 +6,8 @@ const LineInfo = ({ label, icon, children }) => {
   return (
     <div className="d-flex align-items-center gap-1">
       <span className="boostrap-icons">{icon || children}</span>
-      {['Tarifa', 'Concessionária'].includes(label.ref) ? <span className={label.ref === 'Tarifa' ? 'naval-blue' : 'green-sheets'}>{label.ref}:</span> : ''}
-      <span>{label.value}</span>
+      {['Tarifa', 'Companhia'].includes(label.ref) ? <span className={label.ref === 'Tarifa' ? 'naval-blue' : 'green-sheets'}>{label.ref}:</span> : ''}
+      <span className={"text-body"}>{label.value}</span>
     </div>
   )
 }

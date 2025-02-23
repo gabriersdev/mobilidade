@@ -13,6 +13,7 @@ import Development from './pages/development/Development.jsx'
 import TermsOfService from './pages/termsOfService/TermsOfService.jsx'
 import Privacy from './pages/privacy/Privacy.jsx'
 import Search from "./pages/search/Search.jsx";
+import Company from './pages/company/Company.jsx'
 
 const Context = React.createContext()
 const obj = {}
@@ -52,6 +53,7 @@ function App() {
           <Route path="/development" element={<Development/>}/>
           <Route path="/terms-of-service" element={<TermsOfService/>}/>
           <Route path="/privacy" element={<Privacy/>}/>
+          <Route path="/company/:id?" element={<Company/>}/>
         </Routes>
       </Main>
       <Footer/>

@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 
 import Title from "../title/Title";
 import LineInfo from "../lineInfo/LineInfo";
+import {Link} from "react-router-dom";
 
 const LineIdentification = ({ line }) => {
   let [lineType, scope, hasIntegration, fare] = ['', '', ''];
@@ -77,9 +78,11 @@ const LineIdentification = ({ line }) => {
           <LineInfo label={{ ref: 'Tarifa', value: fare }}>
             <i className="bi bi-cash-coin naval-blue"></i>
           </LineInfo>
-          <LineInfo label={{ ref: 'Concessionária', value: line.company_name }}>
-            <i className="bi bi-buildings green-sheets"></i>
-          </LineInfo>
+          <Link to={`/company/${line.company_id}`} className={"text-decoration-none"}>
+            <LineInfo label={{ ref: 'Companhia', value: line.company_name }}>
+              <i className="bi bi-buildings green-sheets"></i>
+            </LineInfo>
+          </Link>
         </div>
       </div>
     </div >
@@ -93,6 +96,7 @@ LineIdentification.propTypes = {
     departure_location: PropTypes.string.isRequired,
     destination_location: PropTypes.string.isRequired,
     company_name: PropTypes.string.isRequired,
+    company_id: PropTypes.number.isRequired,
     fare: PropTypes.string.isRequired,
     has_integration: PropTypes.number.isRequired,
     scope: PropTypes.number.isRequired,

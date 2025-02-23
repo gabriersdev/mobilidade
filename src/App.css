@@ -56,3 +56,7 @@
 .content-text * {
   line-height: 1.75;
 }
+
+.text-balance {
+  text-wrap: balance;
+}
