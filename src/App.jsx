@@ -1,6 +1,6 @@
 import './App.css'
 
-import React, {useEffect} from 'react'
+import {createContext, useEffect} from 'react'
 import {Routes, Route, useLocation} from 'react-router-dom';
 
 import Nav from './components/nav/Nav'
@@ -15,7 +15,7 @@ import Privacy from './pages/privacy/Privacy.jsx'
 import Search from "./pages/search/Search.jsx";
 import Company from './pages/company/Company.jsx'
 
-const Context = React.createContext()
+const Context = createContext()
 const obj = {}
 
 function App() {

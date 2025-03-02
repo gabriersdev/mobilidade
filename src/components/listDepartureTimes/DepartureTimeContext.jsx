@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import {createContext, useState} from "react";
 import PropTypes from "prop-types";
 
-const TimeContext = React.createContext({});
+const TimeContext = createContext({});
 
 const DepartureTimeContext = ({children}) => {
   const [show, setShow] = useState(false);

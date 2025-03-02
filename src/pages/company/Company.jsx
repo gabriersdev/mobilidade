@@ -39,8 +39,8 @@ const Company = () => {
       );
     }
 
-    getData(id);
-  }, [])
+    getData(id).then(() => {});
+  }, [id])
 
   if (loaded) {
     return <>Carregando...</>
