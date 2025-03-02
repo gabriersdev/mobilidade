@@ -38,7 +38,7 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
           <Title title={formTitle} classX=" text-body-secondary"/>
         </Form.Label>
         <Form.Control type="search" id={`input-search`} placeholder={inputPlaceholder} className="w-100 fs-5"
-                      value={search} onChange={(e) => setSearch(e.target.value)}/>
+                      value={search} onChange={(e) => setSearch(e.target.value)} autoComplete={"off"}/>
         <Button variant="primary" style={{display: 'none'}} type="submit" aria-hidden="true">Search</Button>
       </FormGroup>
       <span className={"d-block mt-2 text-danger"}>{feedback}</span>
