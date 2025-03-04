@@ -1,7 +1,8 @@
 import './App.css'
 
-import React, {useEffect} from 'react'
+import {createContext, useEffect, useState} from 'react'
 import {Routes, Route, useLocation} from 'react-router-dom';
+import axios from 'axios';
 
 import Nav from './components/nav/Nav'
 import Main from './components/main/Main'
@@ -14,11 +15,14 @@ import TermsOfService from './pages/termsOfService/TermsOfService.jsx'
 import Privacy from './pages/privacy/Privacy.jsx'
 import Search from "./pages/search/Search.jsx";
 import Company from './pages/company/Company.jsx'
+import config from "./config.js";
 
-const Context = React.createContext()
-const obj = {}
+const Context = createContext();
+const obj = {};
 
 function App() {
+  const [publicIp, setPublicIp] = useState(0);
+
   useEffect(() => {
     if ("serviceWorker" in navigator && window.location.hostname !== "localhost") {
       navigator.serviceWorker
@@ -26,7 +30,37 @@ function App() {
         .then(() => console.log("Service Worker registrado com sucesso!"))
         .catch((err) => console.error("Erro ao registrar o Service Worker:", err));
     }
+
+    fetch("https://api64.ipify.org?format=json")
+      .then(response => response.json())
+      .then(data => {
+        if (data && data.ip) setPublicIp(data.ip);
+      })
+      .catch(error => {
+        setPublicIp(1);
+        console.log("Erro ao obter IP:", error)
+      })
+
   }, []);
+
+  if (publicIp && window.location.hostname !== "localhost") {
+    try {
+      axios.post(`${config.host}/api/logs/`, {
+        event_type: 'Acesss page',
+        event_details: `Access URL: ${window.location.origin}${window.location.pathname}${window.location.search} ${new Date().getTime()}`,
+        os: navigator.userAgent.includes('Windows') ? 'Windows' : navigator.userAgent.includes('MacOS') ? 'MacOS' : navigator.userAgent.slice(0, 254),
+        browser: navigator.userAgent.slice(0, 254),
+        ip_address: publicIp,
+        user_agent: navigator.userAgent.slice(0, 254),
+        page: window.location.pathname,
+        line_id_access: window.location.pathname.includes("lines") ? !isNaN(parseInt(window.location.pathname.split('/').pop())) ? window.location.pathname.split('/').pop() : null : null,
+      }).then(() => {
+      })
+    } catch (error) {
+      console.log(`Ocorreu um erro ao registrar log.`);
+      if (window.location.hostname === "localhost") console.log(error);
+    }
+  }
 
   try {
     const location = useLocation();
