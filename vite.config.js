@@ -10,7 +10,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['react-bootstrap'],
-    exclude: ['react', 'react-dom'],
+    // exclude: ['react', 'react-dom'],
   },
   build: {
     minify: false,
