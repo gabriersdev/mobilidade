@@ -27,7 +27,7 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
         setFeedback('');
         fnSetIsValidSearch(true);
         fnSetTermSearch(search);
-        setFeedback(search);
+        setFeedback("");
       }
     }, 0)
   }
