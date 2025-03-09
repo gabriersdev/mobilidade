@@ -22,7 +22,7 @@ const Home = () => {
 
   return (
     <div>
-      <FormSearch formTitle="Para onde vamos?" inputPlaceholder="digite o destino..."
+      <FormSearch formTitle="Para onde vamos?" inputPlaceholder="digite o destino, nome ou número da linha..."
                   fnSetIsValidSearch={setIsValidSearch} fnSetTermSearch={setTermSearch}/>
 
       <div>
