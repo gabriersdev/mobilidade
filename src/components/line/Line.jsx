@@ -34,7 +34,7 @@ const Line = ({id}) => {
       }
     };
 
-    searchLine(id)
+    searchLine(id).then(() => {});
   }, [id]);
 
   if (isLoaded) {
@@ -49,6 +49,8 @@ const Line = ({id}) => {
       </Alert>
     );
   } else {
+    console.log(data);
+
     // Altera o título da página
     document.title = `Linha ${data[0].line_number} | ${data[0].departure_location} - ${data[0].destination_location}`;
 

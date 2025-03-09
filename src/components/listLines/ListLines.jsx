@@ -51,9 +51,15 @@ const ListLines = ({variant, content}) => {
     return (
       <div style={{marginTop: '1rem'}}>
         <Grid>
-          <Card title="Carregando" subtitle="Aguarde...">Estamos conectando ao banco de dados. Esse processo geralmente
-            é
-            rápido. Por favor, aguarde alguns instantes.</Card>
+          <Card title="Carregando" subtitle="Aguarde...">
+            Estamos conectando ao banco de dados. Esse processo geralmente é rápido. Por favor, aguarde alguns
+            instantes.
+          </Card>
+          {Array.from({length: 9}, (_, i) => i).map((_, key) => {
+            return (
+              <Card key={key} variant={"placeholder"}></Card>
+            )
+          })}
         </Grid>
       </div>
     )
@@ -80,17 +86,22 @@ const ListLines = ({variant, content}) => {
     return (
       <div style={{marginTop: '1rem'}}>
         <Grid>
-          {data.map((line) => (
-            <Card key={line.line_id} title={`Linha`}
-                  badge={(
-                    <Badge variant="primary" className={"rounded-5 fw-light"} style={{letterSpacing: '0.5px'}}>
-                      N.º {line.line_number}
-                    </Badge>
-                  )}
-                  subtitle={`${line.departure_location} -> ${line.destination_location}`}
-                  link={`/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}
-            </Card>
-          ))}
+          {data.map((line) => {
+            // console.log(line)
+            return (
+
+              <Card key={line.line_id} title={`Linha`}
+                    badge={(
+                      <Badge variant="primary" className={"rounded-5 fw-light"} style={{letterSpacing: '0.5px'}}>
+                        N.º {line.line_number}
+                      </Badge>
+                    )}
+                    c={"TODO - Nome da linha, caso seja diferente da partida e destino"}
+                    subtitle={`${line.departure_location} -> ${line.destination_location}`.trim()}
+                    link={`/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}
+              </Card>
+            )
+          })}
         </Grid>
       </div>
     );
@@ -99,7 +110,8 @@ const ListLines = ({variant, content}) => {
 
 ListLines.propTypes = {
   variant: PropTypes.string,
-  content: PropTypes.array
+  content:
+  PropTypes.array
 }
 
 export default ListLines;

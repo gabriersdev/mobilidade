@@ -3,6 +3,7 @@ import './App.css'
 import {createContext, useEffect, useState} from 'react'
 import {Routes, Route, useLocation} from 'react-router-dom';
 import axios from 'axios';
+import AOS from 'aos';
 
 import Nav from './components/nav/Nav'
 import Main from './components/main/Main'
@@ -40,8 +41,22 @@ function App() {
         setPublicIp(1);
         console.log("Erro ao obter IP:", error)
       })
-
   }, []);
+
+  useEffect(() => {
+    AOS.init();
+
+    AOS.init({
+      disable: false,
+      startEvent: 'DOMContentLoaded',
+      initClassName: 'aos-init',
+      animatedClassName: 'aos-animate',
+      useClassNames: false,
+      disableMutationObserver: false,
+      debounceDelay: 50,
+      throttleDelay: 99,
+    });
+  }, [])
 
   if (publicIp && window.location.hostname !== "localhost") {
     try {

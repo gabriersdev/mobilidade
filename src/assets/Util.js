@@ -24,7 +24,10 @@ export default class Util {
     return new Moment(time).format(format)
   }
 
+  // TODO - transformar em um componente
   static resumeInfoLine({modal, departure_location, destination_location, operation_days, time_first_start}) {
+    // console.log(modal, departure_location, destination_location, operation_days, time_first_start)
+
     if (modal === 1) modal = 'ônibus'
     else if (modal === 2) modal = 'metrô'
     else modal = 'transporte público'
