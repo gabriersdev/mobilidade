@@ -40,7 +40,7 @@ const Search = () => {
   return (
     <div>
       <FormSearch formTitle="Para onde vamos?" inputPlaceholder="digite o destino, nome ou número da linha..."
-                  fnSetIsValidSearch={setIsValidSearch} fnSetTermSearch={setTermSearch}/>
+                  fnSetIsValidSearch={setIsValidSearch} fnSetTermSearch={setTermSearch} focus={true}/>
 
       <div>
         {

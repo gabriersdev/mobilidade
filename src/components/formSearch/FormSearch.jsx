@@ -6,7 +6,7 @@ import Title from "../title/Title";
 import './formSearch.css';
 
 // TODO - Testar a lógica implementada para atualizar os dados da página
-const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermSearch}) => {
+const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermSearch, focus}) => {
   const [search, setSearch] = useState('');
   const [feedback, setFeedback] = useState('');
 
@@ -39,7 +39,7 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
           <Title title={formTitle} classX=" text-body-secondary"/>
         </Form.Label>
         <Form.Control type="search" id={`input-search`} placeholder={inputPlaceholder} className="w-100 fs-5"
-                      value={search} onChange={(e) => setSearch(e.target.value)} autoComplete={"off"}/>
+                      value={search} onChange={(e) => setSearch(e.target.value)} autoComplete={"off"} autoFocus={focus || false}/>
         <Button variant="primary" style={{display: 'none'}} type="submit" aria-hidden="true">Search</Button>
       </FormGroup>
       <span className={"d-block mt-2 text-danger"}>{feedback}</span>
@@ -51,7 +51,8 @@ FormSearch.propTypes = {
   formTitle: PropTypes.string.isRequired,
   inputPlaceholder: PropTypes.string.isRequired,
   fnSetIsValidSearch: PropTypes.func.isRequired,
-  fnSetTermSearch: PropTypes.func.isRequired
+  fnSetTermSearch: PropTypes.func.isRequired,
+  focus: PropTypes.bool
 }
 
 export default FormSearch;
