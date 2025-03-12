@@ -68,8 +68,9 @@ const ListLines = ({variant, content}) => {
     return (
       <div style={{marginTop: '1rem'}}>
         <Grid>
-          <Card title="Erro" subtitle="Não foi possível carregar as linhas">Houve um erro ao carregar as linhas. Por
-            favor, tente novamente mais tarde.</Card>
+          <Card title="Erro" subtitle="Não foi possível carregar as linhas">
+            Houve um erro ao carregar as linhas. Por favor, tente novamente mais tarde.
+          </Card>
         </Grid>
       </div>
     )
@@ -77,8 +78,9 @@ const ListLines = ({variant, content}) => {
     return (
       <div style={{marginTop: '1rem'}}>
         <Grid>
-          <Card title="Nenhuma linha encontrada" subtitle="Não há linhas cadastradas">Não encontramos nenhuma linha
-            cadastrada. Por favor, tente novamente mais tarde.</Card>
+          <Card title="Nenhuma linha encontrada" subtitle="Não há linhas cadastradas">
+            Não encontramos nenhuma linha cadastrada. Por favor, tente novamente mais tarde.
+          </Card>
         </Grid>
       </div>
     )
@@ -89,7 +91,6 @@ const ListLines = ({variant, content}) => {
           {data.map((line) => {
             // console.log(line)
             return (
-
               <Card key={line.line_id} title={`Linha`}
                     badge={(
                       <Badge variant="primary" className={"rounded-5 fw-light"} style={{letterSpacing: '0.5px'}}>
@@ -102,6 +103,9 @@ const ListLines = ({variant, content}) => {
               </Card>
             )
           })}
+
+          {/* TODO - separar em um componente */}
+          {variant === "main" ? (<Card title={"Para ver mais linhas"} subtitle={"clique aqui ->"} link={'/lines/'}></Card>) : ""}
         </Grid>
       </div>
     );
