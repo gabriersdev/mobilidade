@@ -6,6 +6,7 @@ import Util from "../../assets/Util.js";
 import ComponentSearch from "../../components/search/Search.jsx";
 import Grid from "../../components/grid/Grid.jsx";
 import Card from "../../components/card/Card.jsx";
+import FormValidSearch from "../../components/formValidSearch/FormValidSearch.jsx";
 
 const Search = () => {
   const [isValidSearch, setIsValidSearch] = useState(false)
@@ -14,8 +15,9 @@ const Search = () => {
 
   useEffect(() => {
     // Atualiza o título do documento
-    document.title = 'Mobilidade - Pesquisa'
-    Util.updateActiveLink()
+    document.title = 'Mobilidade - Pesquisa';
+    Util.updateActiveLink();
+
   }, [])
 
   useEffect(() => {
@@ -39,8 +41,7 @@ const Search = () => {
 
   return (
     <div>
-      <FormSearch formTitle="Para onde vamos?" inputPlaceholder="digite o destino, nome ou número da linha..."
-                  fnSetIsValidSearch={setIsValidSearch} fnSetTermSearch={setTermSearch} focus={true}/>
+      <FormValidSearch formTitle="Para onde vamos?" inputPlaceholder="digite o destino, nome ou número da linha..." focus={true}/>
 
       <div>
         {

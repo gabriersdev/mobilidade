@@ -17,6 +17,7 @@ import Privacy from './pages/privacy/Privacy.jsx'
 import Search from "./pages/search/Search.jsx";
 import Company from './pages/company/Company.jsx'
 import config from "./config.js";
+import BreadcrumbApp from "./components/breadcrumbApp/BreadcrumbApp.jsx";
 
 const Context = createContext();
 const obj = {};
@@ -79,7 +80,6 @@ function App() {
 
   try {
     const location = useLocation();
-
     // Verificar se #[id] existe e rolar a página até ele
     if (location.hash) {
       const id = location.hash.replace('#', '')
@@ -95,6 +95,7 @@ function App() {
     <Context.Provider value={obj}>
       <Nav/>
       <Main>
+        <BreadcrumbApp/>
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/search" element={<Search/>}/>
