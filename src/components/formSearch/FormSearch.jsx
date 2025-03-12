@@ -24,10 +24,9 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
         setFeedback('O termo para pesquisa deve conter pelo menos 3 caracteres.');
         fnSetIsValidSearch(false);
       } else {
-        setFeedback('');
+        setFeedback("");
         fnSetIsValidSearch(true);
         fnSetTermSearch(search);
-        setFeedback("");
       }
     }, 0)
   }
