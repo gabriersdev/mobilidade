@@ -1,14 +1,11 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import Title from "../../components/title/Title";
-import FormSearch from "../../components/formSearch/FormSearch";
 import ListLines from "../../components/listLines/ListLines";
 import Util from "../../assets/Util.js";
-import {useNavigate} from "react-router-dom";
+import FormValidSearch from "../../components/formValidSearch/FormValidSearch.jsx";
 
 const Home = () => {
-  const [isValidSearch, setIsValidSearch] = useState(false)
-  const [termSearch, setTermSearch] = useState(null)
-  const navigate = useNavigate();
+
 
   useEffect(() => {
     // Atualiza o título do documento
@@ -16,26 +13,15 @@ const Home = () => {
     Util.updateActiveLink()
   }, [])
 
-  if (isValidSearch && termSearch) {
-    navigate(`/search/?term=${termSearch}`)
-  }
 
   return (
     <div>
-      <FormSearch formTitle="Para onde vamos?" inputPlaceholder="digite o destino, nome ou número da linha..."
-                  fnSetIsValidSearch={setIsValidSearch} fnSetTermSearch={setTermSearch}/>
-
+      <FormValidSearch formTitle={"Para onde vamos?"} inputPlaceholder={"digite o destino, nome ou número da linha..."}/>
       <div>
-        {
-          (isValidSearch && termSearch) ? (
-            <></>
-          ) : (
-            <>
-              <Title title="Principais Linhas" classX={" text-body-secondary"}/>
-              <ListLines variant="main"/>
-            </>
-          )
-        }
+        <>
+          <Title title="Principais Linhas" classX={" text-body-secondary"}/>
+          <ListLines variant="main"/>
+        </>
       </div>
     </div>
   );

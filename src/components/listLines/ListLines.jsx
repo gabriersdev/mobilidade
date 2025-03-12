@@ -5,7 +5,25 @@ import Card from "../card/Card.jsx";
 import axios from "axios";
 import Util from "../../assets/Util.js";
 import config from "../../config";
-import {Badge} from "react-bootstrap";
+import {Badge, Button} from "react-bootstrap";
+
+// Separar responsabilidade nessa função
+const renderListLines = () => {
+  return null;
+}
+
+// Componente para o botão que chama algo para carregar mais linhas
+const getMoreLines = (add = 30) => {
+  // countLinesLoaded = 30
+  // countLinesLoaded + add
+  const existsMoreLines = false;
+  return (
+    // Lista de linhas
+    <Button variant={"dark"} className={"w-100 mt-5 bg-body-tertiary border-secondary-subtle"} disabled={!existsMoreLines}>
+      {existsMoreLines ? "Carregar +30" : "Todas as linha foram carregadas"}
+    </Button>
+  )
+}
 
 // TODO - Verificar necessidade da propriedade content
 const ListLines = ({variant, content}) => {
@@ -105,7 +123,8 @@ const ListLines = ({variant, content}) => {
           })}
 
           {/* TODO - separar em um componente */}
-          {variant === "main" ? (<Card title={"Para ver mais linhas"} subtitle={"clique aqui ->"} link={'/lines/'}></Card>) : ""}
+          {variant === "main" ? (
+            <Card title={"Para ver mais linhas"} subtitle={"clique aqui ->"} link={'/lines/'}></Card>) : ""}
         </Grid>
       </div>
     );
