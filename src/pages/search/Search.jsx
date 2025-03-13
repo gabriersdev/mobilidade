@@ -10,7 +10,7 @@ import FormValidSearch from "../../components/formValidSearch/FormValidSearch.js
 
 const Search = () => {
   const [isValidSearch, setIsValidSearch] = useState(false)
-  const [termSearch, setTermSearch] = useState(null)
+  const [termSearch, setTermSearch] = useState("")
   const location = useLocation()
 
   useEffect(() => {
@@ -23,7 +23,6 @@ const Search = () => {
   useEffect(() => {
     try {
       let queryParams = null
-
       if (location.search) queryParams = new URLSearchParams(location.search)
 
       // Verificar se queryParams não é null, se o parâmetro 'or' existe e se ele contém 'freelancer'
@@ -31,9 +30,15 @@ const Search = () => {
         if (queryParams.get('term')) {
           setTermSearch(queryParams.get('term'))
           setIsValidSearch(true)
+
+          const input = document.querySelector('input');
+          if (!input) return false;
+
+          input.value = queryParams.get('term');
+          const event = new Event("input", { bubbles: true });
+          input.dispatchEvent(event);
         }
       }
-
     } catch (error) {
       console.log('Ocorreu um erro ao tentar verificar os parâmetros passados. %s', error);
     }
@@ -42,7 +47,6 @@ const Search = () => {
   return (
     <div>
       <FormValidSearch formTitle="Para onde vamos?" inputPlaceholder="digite o destino, nome ou número da linha..." focus={true}/>
-
       <div>
         {
           (isValidSearch && termSearch) ? (
