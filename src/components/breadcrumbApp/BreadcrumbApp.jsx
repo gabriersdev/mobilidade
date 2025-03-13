@@ -35,8 +35,7 @@ const BreadcrumbItemFactory = ({path}) => {
   if (!path || !path.trim() || ["null", "undefined"].includes(path)) return null;
 
   return (
-    <BreadcrumbItem className={`bg-body text-capitalize`}
-                    href={path === location.pathname.split("/")[1] ? `../${path}` : path}>
+    <BreadcrumbItem className={`bg-body text-capitalize`} href={path === location.pathname.split("/")[1] ? `../${path}` : path}>
       {label}
     </BreadcrumbItem>
   );
@@ -55,20 +54,14 @@ const BreadcrumbApp = () => {
   useEffect(() => {
     ref.current = new Date().getTime();
     setPath({...path, current: location.pathname, date: ref.current});
-
-    setTimeout(() => {
-      console.log(path.current, location.pathname, window.location.pathname, ref.current);
-    }, 1000)
   }, [location.pathname, navigate, window.location.pathname, setPath]);
 
   if (path.current === "/") return null;
 
   return (
     <Breadcrumb className="bg-body mb-5">
-      {/*["Mobilidade"]*/}
       {
         ["../", ...path.current.split('/')].map((item, index) => {
-          console.log(ref.current)
           if (!item || !item.trim() || ["null", "undefined"].includes(item)) return null;
           return (<BreadcrumbItemFactory key={index} path={item}/>)
         })
