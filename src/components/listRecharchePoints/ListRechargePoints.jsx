@@ -1,3 +1,5 @@
+import './listRechargePoints.css';
+
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -7,6 +9,7 @@ import Card from "../card/Card";
 import OffcanvasRechargePoints from "./OffcanvasRechargePoints";
 import {RecharchePointsContext} from "./RecharchePointsContext";
 import ListPoints from "./ListPoints";
+import {FormGroup, FormLabel, FormSelect} from "react-bootstrap";
 
 const ListRechargePoints = ({id_company, company_name}) => {
   const [data, setData] = useState([]);
@@ -49,6 +52,12 @@ const ListRechargePoints = ({id_company, company_name}) => {
     return (<>
       <RecharchePointsContext>
         <OffcanvasRechargePoints/>
+        <FormGroup className={"mb-3"}>
+          <FormLabel column={"sm"} htmlFor={"#city-recharge"} className={"fs-6 text-body-tertiary"}>Cidade</FormLabel>
+          <FormSelect style={{width: "min(100%, 300px)"}} id={"city-recharge"} disabled={true}>
+            <option value={"1"} selected={true}>Sabará</option>
+          </FormSelect>
+        </FormGroup>
         <ListPoints data={data}/>
       </RecharchePointsContext>
     </>)
