@@ -139,6 +139,9 @@ export default class Util {
         return 'Sábados - férias';
       case 10:
         return 'Domingos - férias';
+      default:
+        console.error(`Dia ${day} não categorizado. Retornado: "Horário não mapeado".`);
+        return 'Horário não mapeado'
     }
   }
 }
