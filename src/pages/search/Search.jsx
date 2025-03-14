@@ -6,22 +6,23 @@ import Util from "../../assets/Util.js";
 import ComponentSearch from "../../components/search/Search.jsx";
 import Grid from "../../components/grid/Grid.jsx";
 import Card from "../../components/card/Card.jsx";
+import FormValidSearch from "../../components/formValidSearch/FormValidSearch.jsx";
 
 const Search = () => {
   const [isValidSearch, setIsValidSearch] = useState(false)
-  const [termSearch, setTermSearch] = useState(null)
+  const [termSearch, setTermSearch] = useState("")
   const location = useLocation()
 
   useEffect(() => {
     // Atualiza o título do documento
-    document.title = 'Mobilidade - Pesquisa'
-    Util.updateActiveLink()
+    document.title = 'Mobilidade - Pesquisa';
+    Util.updateActiveLink();
+
   }, [])
 
   useEffect(() => {
     try {
       let queryParams = null
-
       if (location.search) queryParams = new URLSearchParams(location.search)
 
       // Verificar se queryParams não é null, se o parâmetro 'or' existe e se ele contém 'freelancer'
@@ -29,9 +30,15 @@ const Search = () => {
         if (queryParams.get('term')) {
           setTermSearch(queryParams.get('term'))
           setIsValidSearch(true)
+
+          const input = document.querySelector('input');
+          if (!input) return false;
+
+          input.value = queryParams.get('term');
+          const event = new Event("input", { bubbles: true });
+          input.dispatchEvent(event);
         }
       }
-
     } catch (error) {
       console.log('Ocorreu um erro ao tentar verificar os parâmetros passados. %s', error);
     }
@@ -39,9 +46,7 @@ const Search = () => {
 
   return (
     <div>
-      <FormSearch formTitle="Para onde vamos?" inputPlaceholder="digite o destino, nome ou número da linha..."
-                  fnSetIsValidSearch={setIsValidSearch} fnSetTermSearch={setTermSearch} focus={true}/>
-
+      <FormValidSearch formTitle="Para onde vamos?" inputPlaceholder="digite o destino, nome ou número da linha..." focus={true}/>
       <div>
         {
           (isValidSearch && termSearch) ? (

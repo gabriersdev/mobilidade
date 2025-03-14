@@ -10,7 +10,7 @@ const Company = () => {
   const {id} = useParams();
   const [error, setError] = useState(null);
   const [loaded, setIsLoaded] = useState(true);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([{company_name: "", count_lines_actives: 0, contact: null}]);
 
   const checkIsValid = (id) => {
     if (!id) return false
@@ -39,14 +39,20 @@ const Company = () => {
       );
     }
 
-    getData(id).then(() => {});
+    getData(id).then(() => {
+    });
   }, [id])
+
+  useEffect(() => {
+    document.title = "Mobilidade - Companhia";
+  }, [])
 
   if (loaded) {
     return <>Carregando...</>
   } else if (error) {
     console.error(error);
-    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;
+    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message}
+                          type={'card'}/>;
   } else if (data.length === 0) {
     return (
       <Alert variant={'danger'} margin={"mt-0"}>
@@ -54,25 +60,30 @@ const Company = () => {
       </Alert>
     );
   } else {
+    document.title = `Mobilidade - Compangha ${data[0].company_name}`;
     const countLines = data[0].count_lines_actives;
-    return <>
-      <span className={"text-body-secondary"}>Companhia</span>
-      <Title type="h2" classX=" fs-2 d-inline text-body-emphasis mt-1 p-0 d-block">
+    return (
+      <>
+        <span className={"text-body-secondary"}>Companhia</span>
+        <Title type="h2" classX=" fs-2 d-inline text-body-emphasis mt-1 p-0 d-block">
         <span className="text-balance" style={{fontSize: "inherit"}}>
           {data[0].company_name}
         </span>
-      </Title>
-      <section className={"d-flex gap-5 mt-5 flex-column"}>
-        <div className="d-flex flex-column gap-1">
-          <span className={"text-body-tertiary"}>Contato</span>
-          <span className={""}>{data[0].contact || 'Informação não cadastrada.'}</span>
-        </div>
-        <div className="d-flex flex-column gap-1">
-          <span className={"text-body-tertiary"}>Observações</span>
-          <span className={""}>{countLines ? `${countLines} ${countLines > 0 ? "linhas" : "linha"} operadas pela companhia.` : 'Opera linhas de transporte público no estado de Minas Gerais.'}</span>
-        </div>
-      </section>
-    </>;
+        </Title>
+        <section className={"d-flex gap-5 mt-5 flex-column"}>
+          <div className="d-flex flex-column gap-1">
+            <span className={"text-body-tertiary"}>Contato</span>
+            <span className={""}>{data[0].contact || 'Informação não cadastrada.'}</span>
+          </div>
+          <div className="d-flex flex-column gap-1">
+            <span className={"text-body-tertiary"}>Observações</span>
+            <span className={""}>
+              {countLines ? `${countLines} ${countLines > 0 ? "linhas" : "linha"} operadas pela companhia.` : 'Opera linhas de transporte público no estado de Minas Gerais.'}
+            </span>
+          </div>
+        </section>
+      </>
+    );
   }
 }
 

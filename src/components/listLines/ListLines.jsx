@@ -5,7 +5,25 @@ import Card from "../card/Card.jsx";
 import axios from "axios";
 import Util from "../../assets/Util.js";
 import config from "../../config";
-import {Badge} from "react-bootstrap";
+import {Badge, Button} from "react-bootstrap";
+
+// Separar responsabilidade nessa função
+const renderListLines = () => {
+  return null;
+}
+
+// Componente para o botão que chama algo para carregar mais linhas
+const getMoreLines = (add = 30) => {
+  // countLinesLoaded = 30
+  // countLinesLoaded + add
+  const existsMoreLines = false;
+  return (
+    // Lista de linhas
+    <Button variant={"dark"} className={"w-100 mt-5 bg-body-tertiary border-secondary-subtle"} disabled={!existsMoreLines}>
+      {existsMoreLines ? "Carregar +30" : "Todas as linha foram carregadas"}
+    </Button>
+  )
+}
 
 // TODO - Verificar necessidade da propriedade content
 const ListLines = ({variant, content}) => {
@@ -51,9 +69,15 @@ const ListLines = ({variant, content}) => {
     return (
       <div style={{marginTop: '1rem'}}>
         <Grid>
-          <Card title="Carregando" subtitle="Aguarde...">Estamos conectando ao banco de dados. Esse processo geralmente
-            é
-            rápido. Por favor, aguarde alguns instantes.</Card>
+          <Card title="Carregando" subtitle="Aguarde...">
+            Estamos conectando ao banco de dados. Esse processo geralmente é rápido. Por favor, aguarde alguns
+            instantes.
+          </Card>
+          {Array.from({length: 9}, (_, i) => i).map((_, key) => {
+            return (
+              <Card key={key} variant={"placeholder"}></Card>
+            )
+          })}
         </Grid>
       </div>
     )
@@ -62,8 +86,9 @@ const ListLines = ({variant, content}) => {
     return (
       <div style={{marginTop: '1rem'}}>
         <Grid>
-          <Card title="Erro" subtitle="Não foi possível carregar as linhas">Houve um erro ao carregar as linhas. Por
-            favor, tente novamente mais tarde.</Card>
+          <Card title="Erro" subtitle="Não foi possível carregar as linhas">
+            Houve um erro ao carregar as linhas. Por favor, tente novamente mais tarde.
+          </Card>
         </Grid>
       </div>
     )
@@ -71,8 +96,9 @@ const ListLines = ({variant, content}) => {
     return (
       <div style={{marginTop: '1rem'}}>
         <Grid>
-          <Card title="Nenhuma linha encontrada" subtitle="Não há linhas cadastradas">Não encontramos nenhuma linha
-            cadastrada. Por favor, tente novamente mais tarde.</Card>
+          <Card title="Nenhuma linha encontrada" subtitle="Não há linhas cadastradas">
+            Não encontramos nenhuma linha cadastrada. Por favor, tente novamente mais tarde.
+          </Card>
         </Grid>
       </div>
     )
@@ -80,17 +106,25 @@ const ListLines = ({variant, content}) => {
     return (
       <div style={{marginTop: '1rem'}}>
         <Grid>
-          {data.map((line) => (
-            <Card key={line.line_id} title={`Linha`}
-                  badge={(
-                    <Badge variant="primary" className={"rounded-5 fw-light"} style={{letterSpacing: '0.5px'}}>
-                      N.º {line.line_number}
-                    </Badge>
-                  )}
-                  subtitle={`${line.departure_location} -> ${line.destination_location}`}
-                  link={`/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}
-            </Card>
-          ))}
+          {data.map((line) => {
+            // console.log(line)
+            return (
+              <Card key={line.line_id} title={`Linha`}
+                    badge={(
+                      <Badge variant="primary" className={"rounded-5 fw-light"} style={{letterSpacing: '0.5px'}}>
+                        N.º {line.line_number}
+                      </Badge>
+                    )}
+                    c={"TODO - Nome da linha, caso seja diferente da partida e destino"}
+                    subtitle={`${line.departure_location} -> ${line.destination_location}`.trim()}
+                    link={`/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}
+              </Card>
+            )
+          })}
+
+          {/* TODO - separar em um componente */}
+          {variant === "main" ? (
+            <Card title={"Para ver mais linhas"} subtitle={"clique aqui ->"} link={'/lines/'}></Card>) : ""}
         </Grid>
       </div>
     );
@@ -99,7 +133,8 @@ const ListLines = ({variant, content}) => {
 
 ListLines.propTypes = {
   variant: PropTypes.string,
-  content: PropTypes.array
+  content:
+  PropTypes.array
 }
 
 export default ListLines;

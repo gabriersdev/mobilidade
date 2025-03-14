@@ -3,6 +3,7 @@ import './App.css'
 import {createContext, useEffect, useState} from 'react'
 import {Routes, Route, useLocation} from 'react-router-dom';
 import axios from 'axios';
+import AOS from 'aos';
 
 import Nav from './components/nav/Nav'
 import Main from './components/main/Main'
@@ -16,6 +17,7 @@ import Privacy from './pages/privacy/Privacy.jsx'
 import Search from "./pages/search/Search.jsx";
 import Company from './pages/company/Company.jsx'
 import config from "./config.js";
+import BreadcrumbApp from "./components/breadcrumbApp/BreadcrumbApp.jsx";
 
 const Context = createContext();
 const obj = {};
@@ -40,8 +42,22 @@ function App() {
         setPublicIp(1);
         console.log("Erro ao obter IP:", error)
       })
-
   }, []);
+
+  useEffect(() => {
+    AOS.init();
+
+    AOS.init({
+      disable: false,
+      startEvent: 'DOMContentLoaded',
+      initClassName: 'aos-init',
+      animatedClassName: 'aos-animate',
+      useClassNames: false,
+      disableMutationObserver: false,
+      debounceDelay: 50,
+      throttleDelay: 99,
+    });
+  }, [])
 
   if (publicIp && window.location.hostname !== "localhost") {
     try {
@@ -64,7 +80,6 @@ function App() {
 
   try {
     const location = useLocation();
-
     // Verificar se #[id] existe e rolar a página até ele
     if (location.hash) {
       const id = location.hash.replace('#', '')
@@ -80,6 +95,7 @@ function App() {
     <Context.Provider value={obj}>
       <Nav/>
       <Main>
+        <BreadcrumbApp/>
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/search" element={<Search/>}/>

@@ -6,8 +6,8 @@ import Title from "../title/Title";
 import './formSearch.css';
 
 // TODO - Testar a lógica implementada para atualizar os dados da página
-const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermSearch, focus}) => {
-  const [search, setSearch] = useState('');
+const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermSearch, focus, initialValue = ""}) => {
+  const [search, setSearch] = useState(initialValue || '');
   const [feedback, setFeedback] = useState('');
 
   const handleSubmit = (e) => {
@@ -24,7 +24,7 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
         setFeedback('O termo para pesquisa deve conter pelo menos 3 caracteres.');
         fnSetIsValidSearch(false);
       } else {
-        setFeedback('');
+        setFeedback("");
         fnSetIsValidSearch(true);
         fnSetTermSearch(search);
       }
@@ -51,7 +51,8 @@ FormSearch.propTypes = {
   inputPlaceholder: PropTypes.string.isRequired,
   fnSetIsValidSearch: PropTypes.func.isRequired,
   fnSetTermSearch: PropTypes.func.isRequired,
-  focus: PropTypes.bool
+  focus: PropTypes.bool,
+  initialValue: PropTypes.string
 }
 
 export default FormSearch;
