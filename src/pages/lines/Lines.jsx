@@ -30,7 +30,7 @@ const Lines = () => {
           !checkIsValid(id) ?
             <>
               <Title classX={" text-body-secondary d-none"}>Linhas</Title>
-              <div className={"mb-lg-5"}><FormValidSearch formTitle={"Procurando uma linha?"} inputPlaceholder={""}/></div>
+              <div className={"mb-lg-5"}><FormValidSearch formTitle={"Procurando uma linha?"} inputPlaceholder={" "}/></div>
               <ListLines/>
             </>
 
