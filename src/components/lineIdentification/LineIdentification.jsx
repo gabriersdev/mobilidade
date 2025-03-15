@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import {Badge} from "react-bootstrap";
 
 const LineIdentification = ({line}) => {
-  let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact] = ['', '', '', 0, ''];
+  let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact, datetimeLastModify] = ['', '', '', 0, '', ''];
 
   switch (line.type) {
     case 1:
@@ -57,6 +57,7 @@ const LineIdentification = ({line}) => {
 
   if (line.count_departure_times) countDepartureTimes = line.count_departure_times;
   if (line.report_contact) reportContact = line.report_contact;
+  if (line.datetime_last_modify) datetimeLastModify = new Date(line.datetime_last_modify || '2021-01-01T00:00:00Z');
 
   return (
     <div className="d-flex flex-column gap-3">
@@ -82,7 +83,8 @@ const LineIdentification = ({line}) => {
             reportContact ? (
               <div>
                 <Badge className={"fw-normal rounded-5 bg-warning p-0"}>
-                  <Link className={"px-2 py-1 d-inline-block text-black text-decoration-none"} to={reportContact || "#"} target="_blank" rel="noopener noreferrer">
+                  <Link className={"px-2 py-1 d-inline-block text-black text-decoration-none"} to={reportContact || "#"}
+                        target="_blank" rel="noopener noreferrer">
                     <span className={"me-1"}>Reclamar</span>
                     <i className="bi bi-arrow-up-right-square"></i>
                   </Link>
@@ -91,7 +93,7 @@ const LineIdentification = ({line}) => {
             ) : ""
           }
         </div>
-        <div className="d-flex align-items-center gap-3 flex-wrap">
+        <div className="d-flex align-items-center gap-3 mb-3">
           <LineInfo label={{ref: 'Tarifa', value: fare}}>
             <i className="bi bi-cash-coin naval-blue"></i>
           </LineInfo>
@@ -102,9 +104,30 @@ const LineIdentification = ({line}) => {
           </Link>
           <LineInfo label={{ref: "Horários", value: ""}}>
             <i className="bi bi-calendar-date"></i>
-            <span className={"ms-2"}>{countDepartureTimes.toLocaleString()} partidas</span>
+            <span
+              className={"ms-2"}>{countDepartureTimes.toLocaleString() || "Nenhuma"} {countDepartureTimes > 1 ? "partidas" : "partida"}
+            </span>
           </LineInfo>
         </div>
+        {
+          datetimeLastModify ? (
+              <div className={"d-flex align-items-center gap-3 flex-wrap"}>
+                <LineInfo label={{ref: 'Última atualização', value: ""}}>
+                  <i className="bi bi-stopwatch"></i>
+                  <span className={"ms-1"}>
+                    Atualizado em:{" "}
+                    {
+                      [
+                        (0 + datetimeLastModify.toLocaleString('pt-BR', {day: 'numeric'})).slice(-2),
+                        datetimeLastModify.toLocaleString('pt-BR', {month: 'long'}),
+                        (0 + datetimeLastModify.toLocaleString('pt-BR', {year: 'numeric'})).slice(-4),
+                      ].join(" de ")
+                    }
+                  </span>
+                </LineInfo>
+              </div>
+            )
+            : ""}
       </div>
     </div>
   )
@@ -123,7 +146,8 @@ LineIdentification.propTypes = {
     scope: PropTypes.number.isRequired,
     type: PropTypes.number.isRequired,
     count_departure_times: PropTypes.number.isRequired,
-    report_contact: PropTypes.string
+    report_contact: PropTypes.string,
+    datetime_last_modify: PropTypes.string,
   }).isRequired
 }
 

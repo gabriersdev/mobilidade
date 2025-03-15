@@ -55,7 +55,7 @@ const ListRechargePoints = ({id_company, company_name}) => {
         <FormGroup className={"mb-4"}>
           <FormLabel column={"sm"} htmlFor={"#city-recharge"} className={"fs-6 text-body-tertiary"}>Cidade</FormLabel>
           <FormSelect style={{width: "min(100%, 300px)"}} id={"city-recharge"} disabled={true}>
-            <option value={"1"} selected={true}>Sabará</option>
+            <option value={"1"} defaultValue={"1"}>Sabará</option>
           </FormSelect>
         </FormGroup>
         <ListPoints data={data}/>
