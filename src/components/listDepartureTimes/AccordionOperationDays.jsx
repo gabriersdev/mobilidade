@@ -5,6 +5,7 @@ import Table from "./TableDepartureTimes";
 import Legend from "../legend/Legend";
 import Accordion from "../accordion/Accordion";
 import {Theme} from "../themeContext/ThemeContext";
+import Alert from "../alert/Alert.jsx";
 
 const AccordionOperationDays = () => {
   const {departureTimes, uniqueDaysForDirection, index, direction, directionName, observations} = useContext(Theme)
@@ -26,23 +27,26 @@ const AccordionOperationDays = () => {
   }
 
   const content = uniqueDaysForDirection[index].map((day, j) => {
-    if (Util.convertNumberToDay(day).toLowerCase().includes(currDayName().toLowerCase())) defaultEventKey = [j.toString()];
+    const departureTimesDay = departureTimes.filter((item) => item.day === day && item.direction === direction);
+    const dayConverted = Util.convertNumberToDay(day);
+    if (dayConverted.toLowerCase().includes(currDayName().toLowerCase())) defaultEventKey = [j.toString()];
     return (
-      <AccordionItem title={Util.convertNumberToDay(day)} eventKey={j.toString()} key={j}>
+      <AccordionItem title={dayConverted} eventKey={j.toString()} key={j}>
         <Table
           content={{
-            data: departureTimes.filter((item) => item.day === day && item.direction === direction).map((item) => {
+            data: departureTimesDay.map((item) => {
               return {
                 departureTime: Util.formatTime(`2020-01-01 ${item.departure_time}`, 'HH:mm'),
                 observations: item.observations ? item.observations : null
               }
             }),
             directionName: directionName,
-            dayName: Util.convertNumberToDay(day)
+            dayName: dayConverted
           }}
           observations={observations}
         />
         {observations.length ? <Legend items={observations}/> : ""}
+        <span className={"d-inline-block text-muted mt-3"}>{departureTimesDay.length.toLocaleString()} horários de partidas em {dayConverted.toLowerCase()}.</span>
       </AccordionItem>
     )
   })
