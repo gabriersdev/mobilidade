@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Title from "../title/Title";
 import LineInfo from "../lineInfo/LineInfo";
 import {Link} from "react-router-dom";
+import {Badge} from "react-bootstrap";
 
 const LineIdentification = ({line}) => {
   let [lineType, scope, hasIntegration, fare, countDepartureTimes] = ['', '', '', 0];
@@ -76,6 +77,14 @@ const LineIdentification = ({line}) => {
           <LineInfo label={{ref: 'Integração com outras Linhas ou Modais', value: hasIntegration}}>
             <i className="bi bi-train-front-fill purple"></i>
           </LineInfo>
+          <div>
+            <Badge className={"fw-normal rounded-5 bg-warning p-0"}>
+              <a className={"px-2 py-1 d-inline-block text-black text-decoration-none"} href="#">
+                <span className={"me-1"}>Reclamar</span>
+                <i className="bi bi-arrow-up-right-square"></i>
+              </a>
+            </Badge>
+          </div>
         </div>
         <div className="d-flex align-items-center gap-3 flex-wrap">
           <LineInfo label={{ref: 'Tarifa', value: fare}}>
