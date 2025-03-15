@@ -59,6 +59,11 @@ function App() {
     });
   }, [])
 
+  // Define um REL para os links da página
+  useEffect(() => {
+    document.querySelectorAll('a').forEach(link => link.setAttribute('rel', 'noopener noreferrer'));
+  }, []);
+
   if (publicIp && window.location.hostname !== "localhost") {
     try {
       axios.post(`${config.host}/api/logs/`, {

@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import {Badge} from "react-bootstrap";
 
 const LineIdentification = ({line}) => {
-  let [lineType, scope, hasIntegration, fare, countDepartureTimes] = ['', '', '', 0];
+  let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact] = ['', '', '', 0, ''];
 
   switch (line.type) {
     case 1:
@@ -56,6 +56,7 @@ const LineIdentification = ({line}) => {
   }
 
   if (line.count_departure_times) countDepartureTimes = line.count_departure_times;
+  if (line.report_contact) reportContact = line.report_contact;
 
   return (
     <div className="d-flex flex-column gap-3">
@@ -77,14 +78,18 @@ const LineIdentification = ({line}) => {
           <LineInfo label={{ref: 'Integração com outras Linhas ou Modais', value: hasIntegration}}>
             <i className="bi bi-train-front-fill purple"></i>
           </LineInfo>
-          <div>
-            <Badge className={"fw-normal rounded-5 bg-warning p-0"}>
-              <a className={"px-2 py-1 d-inline-block text-black text-decoration-none"} href="#">
-                <span className={"me-1"}>Reclamar</span>
-                <i className="bi bi-arrow-up-right-square"></i>
-              </a>
-            </Badge>
-          </div>
+          {
+            reportContact ? (
+              <div>
+                <Badge className={"fw-normal rounded-5 bg-warning p-0"}>
+                  <Link className={"px-2 py-1 d-inline-block text-black text-decoration-none"} to={reportContact || "#"} target="_blank" rel="noopener noreferrer">
+                    <span className={"me-1"}>Reclamar</span>
+                    <i className="bi bi-arrow-up-right-square"></i>
+                  </Link>
+                </Badge>
+              </div>
+            ) : ""
+          }
         </div>
         <div className="d-flex align-items-center gap-3 flex-wrap">
           <LineInfo label={{ref: 'Tarifa', value: fare}}>
@@ -118,6 +123,7 @@ LineIdentification.propTypes = {
     scope: PropTypes.number.isRequired,
     type: PropTypes.number.isRequired,
     count_departure_times: PropTypes.number.isRequired,
+    report_contact: PropTypes.string
   }).isRequired
 }
 
