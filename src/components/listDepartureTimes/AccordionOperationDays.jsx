@@ -46,7 +46,7 @@ const AccordionOperationDays = () => {
           observations={observations}
         />
         {observations.length ? <Legend items={observations}/> : ""}
-        <span className={"d-inline-block text-muted mt-3"}>{departureTimesDay.length.toLocaleString()} horários de partidas em {dayConverted.toLowerCase()}.</span>
+        <span className={"d-inline-block text-muted mt-4"}>{departureTimesDay.length.toLocaleString()} horários de partidas no horário de {dayConverted.toLowerCase()}.</span>
       </AccordionItem>
     )
   })

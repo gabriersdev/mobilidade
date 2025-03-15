@@ -46,7 +46,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
                   observations
                 })}>
                   <AccordionOperationDays/>
-                  <span className={"d-inline-block text-muted mt-3"}>{departureTimes.length.toLocaleString()} horários de partidas neste sentido.</span>
+                  <span className={"d-inline-block text-muted mt-4"}>{departureTimes.length.toLocaleString()} horários de partidas neste sentido.</span>
                 </ThemeContext>
               </AccordionItem>
             )
