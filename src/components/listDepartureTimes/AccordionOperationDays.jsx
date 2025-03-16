@@ -28,7 +28,7 @@ const AccordionOperationDays = () => {
 
   const content = uniqueDaysForDirection[index].map((day, j) => {
     const departureTimesDay = departureTimes.filter((item) => item.day === day && item.direction === direction);
-    const dayConverted = Util.convertNumberToDay(day);
+    const dayConverted = Util.convertNumberToDay(day) || "-1";
     if (dayConverted.toLowerCase().includes(currDayName().toLowerCase())) defaultEventKey = [j.toString()];
     return (
       <AccordionItem title={dayConverted} eventKey={j.toString()} key={j}>

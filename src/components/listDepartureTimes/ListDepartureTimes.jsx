@@ -8,6 +8,7 @@ import {DepartureTimeContext} from "./DepartureTimeContext";
 import OffcanvasDepartureTimes from "./OffcanvasDepartureTimes";
 import {ThemeContext} from "../themeContext/ThemeContext";
 import AccordionOperationDays from "./AccordionOperationDays";
+import Util from "../../assets/Util.js";
 
 const ListDepartureTimes = ({line_id, departure_location, destination_location}) => {
   const {data, observations, error, isLoaded} = useDepartureTimes(line_id);
@@ -23,7 +24,16 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
     // Ordena os horários de partida por dia e horário
     const departureTimes = data.toSorted((a, b) => a.day - b.day)
     const uniqueDirections = departureTimes.map((item) => item.direction).filter((value, index, self) => self.indexOf(value) === index)
-    const uniqueDaysForDirection = uniqueDirections.map((direction) => departureTimes.filter((item) => item.direction === direction).map((item) => item.day).filter((value, index, self) => self.indexOf(value) === index))
+    let uniqueDaysForDirection = uniqueDirections.map((direction) => departureTimes.filter((item) => item.direction === direction).map((item) => item.day).filter((value, index, self) => self.indexOf(value) === index))
+
+    // Ordenando os dias converte o nome deles convertidos, depois alterando a variavel uniqueDaysForDirection com os itens ordenados pelos nomes
+    uniqueDaysForDirection = uniqueDaysForDirection.map(directionItems => {
+      return [
+        ...directionItems.map(i => [i, Util.convertNumberToDay(i)])
+          .sort((a, b) => a[1].localeCompare(b[1]))
+          .map(is => is[0])
+      ]
+    })
 
     return (
       <DepartureTimeContext>
