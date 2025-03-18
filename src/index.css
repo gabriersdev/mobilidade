@@ -35,3 +35,7 @@ main {
 .offcanvas-body {
   overflow: scroll !important;
 }
+
+.resize-none {
+  resize: none !important;
+}

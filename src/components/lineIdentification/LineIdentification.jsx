@@ -4,6 +4,7 @@ import Title from "../title/Title";
 import LineInfo from "../lineInfo/LineInfo";
 import {Link} from "react-router-dom";
 import {Badge} from "react-bootstrap";
+import ReportModal from "../report/ReportModal.jsx";
 
 const LineIdentification = ({line}) => {
   let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact, datetimeLastModify] = ['', '', '', 0, '', ''];
@@ -92,6 +93,7 @@ const LineIdentification = ({line}) => {
               </div>
             ) : ""
           }
+          <ReportModal/>
         </div>
         <div className="d-flex align-items-center gap-3 mb-3">
           <LineInfo label={{ref: 'Tarifa', value: fare}}>
