@@ -1,6 +1,8 @@
 import {Alert, Button, Form, FormControl, FormGroup, FormLabel as BSFormLabel, FormSelect} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
+import axios from "axios";
+import config from "../../config.js";
 
 const FormLabel = ({props, children}) => {
   return <BSFormLabel component="label" column="sm" className="fs-6 m-0 p-0 mb-2" {...props}>{children}</BSFormLabel>
@@ -15,13 +17,15 @@ const ReportForm = ({handleCloseModal}) => {
   const [email, setEmail] = useState("");
   const [typeError, setTypeError] = useState("");
   const [message, setMessage] = useState("");
-  const [feedback, setFeedback] = useState("XXXXXXXXX");
+  const [error, setError] = useState("");
+  const [feedback, setFeedback] = useState(null);
 
   const [propsInput] = useState({
     autoComplete: "off",
   });
 
   useEffect(() => {
+    setError("");
     setFeedback("");
   }, [email, typeError, message]);
 
@@ -29,11 +33,24 @@ const ReportForm = ({handleCloseModal}) => {
     e.preventDefault();
 
     // Validar informações
+    // TODO - Substituir o código do tipo de erro pelo nome do erro
     if (!email.trim() || !typeError.trim() || !message.trim()) {
-      setFeedback("Você precisa preencher todos os dados.");
+      setError("Você precisa preencher todos os dados.");
     } else {
       // Lógica do envio dos dados
-      alert("Enviado!")
+      axios.post(`http://localhost:8001/api/send-mail`, {
+        recipientEmail: email.trim(),
+        subject: typeError.trim(),
+        codeMessage: "A4981412B7E1540091",
+        body: `Tipo de erro: ${typeError.trim()}. Mensagem: ${message.trim()}`
+      }).then(res => {
+        console.log(res);
+        setFeedback(<Alert className={"bg-success mb-0"}>Mensagem enviada com sucesso!</Alert>)
+      }).catch(e => {
+        console.error(e);
+        alert("Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.")
+        setFeedback(<Alert className={"bg-danger mb-0"}>Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.</Alert>)
+      });
     }
 
   }
@@ -65,14 +82,14 @@ const ReportForm = ({handleCloseModal}) => {
       </FormGroup>
 
       {
-        feedback ? (
-          <Alert bsStyle="danger" className={"m-0 alert-danger"}>
-            {feedback}
+        error ? (
+          <Alert className={"m-0 alert-danger"}>
+            {error}
           </Alert>
         ) : ""
       }
 
-      <div className={"mb-0 d-flex justify-content-end gap-1"}>
+      <div className={"mb-0 d-flex justify-content-end gap-2"}>
         <Button type={"button"} variant="secondary" className={"px-3 py-1"} onClick={handleCloseModal}>
           Cancelar
         </Button>
@@ -80,6 +97,8 @@ const ReportForm = ({handleCloseModal}) => {
           Enviar
         </Button>
       </div>
+
+      {feedback ? feedback : ""}
     </Form>
   )
 }

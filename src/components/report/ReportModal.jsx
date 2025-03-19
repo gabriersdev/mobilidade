@@ -1,7 +1,6 @@
 import {useState} from 'react';
 import {
   Badge,
-  Button,
   Modal
 } from 'react-bootstrap';
 
