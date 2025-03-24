@@ -8,6 +8,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 const BreadcrumbItemFactory = ({path}) => {
   const location = useLocation();
   let label = "";
+  let isLinePage = "";
 
   switch (path) {
     case "../":
@@ -34,8 +35,11 @@ const BreadcrumbItemFactory = ({path}) => {
 
   if (!path || !path.trim() || ["null", "undefined"].includes(path)) return null;
 
+  const matchId = location.pathname.match(/\/lines\/(?<id>.)/i);
+  if (matchId && path.match(/\b\d\b/)) isLinePage = matchId.groups.id;
+
   return (
-    <BreadcrumbItem className={`bg-body text-capitalize`} href={path === location.pathname.split("/")[1] ? `../${path}` : path}>
+    <BreadcrumbItem className={`bg-body text-capitalize ${isLinePage ? "breadcrumb-i data-line-id" : ""}`} href={path === location.pathname.split("/")[1] ? `../${path}` : path}>
       {label}
     </BreadcrumbItem>
   );
