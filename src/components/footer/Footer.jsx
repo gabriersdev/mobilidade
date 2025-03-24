@@ -31,7 +31,7 @@ const Footer = () => {
           <Link to="./terms-of-service#topo" className="footer-link-list-item">Termos de serviços</Link>
           <Link to="./privacy#topo" className="footer-link-list-item">Privacidade</Link>
         </ul>
-        <p className={"text-body-secondary"}>Versão: {version || "1.0.0"} | Cachê: {cacheVersion || "V11"} </p>
+        <p className={"text-body-secondary"}>Versão: {version || "1.0.0"} | Cache: {cacheVersion || "V11"} </p>
       </Container>
     </footer>
   )
