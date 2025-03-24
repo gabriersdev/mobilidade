@@ -68,7 +68,14 @@ const LineIdentification = ({line}) => {
         <Title type="h2"
                classX=" fs-2 d-inline text-body-secondary m-0 p-0">{line.departure_location} -{">"} {line.destination_location}</Title>
       </hgroup>
-      <span className={"d-block mb-5 text-body-secondary"}>{line.line_name.replace(/\//, " -> ") || ""}</span>
+      {
+        line.line_name.toLowerCase() !== line.departure_location.toLowerCase() + "/" + line.destination_location.toLowerCase() ? (
+          <span className={"d-block mb-5 text-body-secondary"}>{line.line_name.replace(/\//, " -> ") || ""}</span>
+        ) : (
+          <div className={"my-2"}></div>
+        )
+      }
+
       <div>
         <div className="d-flex align-items-center gap-3 flex-wrap mb-3">
           <LineInfo label={{ref: 'Tipo da Linha', value: lineType}}>
