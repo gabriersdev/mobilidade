@@ -51,8 +51,10 @@ const Line = ({id}) => {
   } else {
     // console.log(data);
 
-    // Altera o título da página
+    // Altera o título da página =
     document.title = `Linha ${data[0].line_number} | ${data[0].departure_location} - ${data[0].destination_location}`;
+    const dataLineId = document.querySelectorAll('.breadcrumb-i.data-line-id')
+    if (dataLineId) dataLineId.forEach((item) => {item.querySelector('a').textContent = `${data[0].line_number} - ${data[0].departure_location} -> ${data[0].destination_location}`;});
 
     return (
       <div className="d-flex flex-column" style={{gap: '3rem'}}>
