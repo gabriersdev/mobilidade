@@ -8,7 +8,7 @@ import ReportModal from "../report/ReportModal.jsx";
 
 const LineIdentification = ({line}) => {
   let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact, datetimeLastModify] = ['', '', '', 0, '', ''];
-
+  
   switch (line.type) {
     case 1:
       lineType = "Coletivo Urbano";
@@ -25,7 +25,7 @@ const LineIdentification = ({line}) => {
     default:
       lineType = "Não informado";
   }
-
+  
   switch (line.scope) {
     case 1:
       scope = "Municipal";
@@ -42,10 +42,10 @@ const LineIdentification = ({line}) => {
     default:
       scope = "Não informado";
   }
-
+  
   if (line.has_integration === 1) hasIntegration = "Possui integração";
   else hasIntegration = "Não possui integração";
-
+  
   if (parseFloat(line.fare) === 0) {
     fare = "Não informado";
   } else {
@@ -55,11 +55,11 @@ const LineIdentification = ({line}) => {
       minimumFractionDigits: 2,
     }).format(line.fare);
   }
-
+  
   if (line.count_departure_times) countDepartureTimes = line.count_departure_times;
   if (line.report_contact) reportContact = line.report_contact;
   if (line.datetime_last_modify) datetimeLastModify = new Date(line.datetime_last_modify || '2021-01-01T00:00:00Z');
-
+  
   return (
     <div className="d-flex flex-column gap-3">
       <hgroup className="d-flex align-items-center gap-2 flex-wrap mb-0">
@@ -75,7 +75,7 @@ const LineIdentification = ({line}) => {
           <div className={"my-2"}></div>
         )
       }
-
+      
       <div>
         <div className="d-flex align-items-center gap-3 flex-wrap mb-3">
           <LineInfo label={{ref: 'Tipo da Linha', value: lineType}}>
@@ -112,7 +112,7 @@ const LineIdentification = ({line}) => {
             </LineInfo>
           </Link>
           <LineInfo label={{ref: "Horários", value: ""}}>
-            <i className="bi bi-calendar-date"></i>
+            <i className="bi bi-calendar-date d-inline-block"></i>
             <span
               className={"ms-2"}>{countDepartureTimes.toLocaleString() || "Nenhuma"} {countDepartureTimes > 1 ? "partidas" : "partida"}
             </span>

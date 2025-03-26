@@ -4,10 +4,10 @@ import './lineInfo.css'
 
 const LineInfo = ({ label, icon, children }) => {
   return (
-    <div className="d-flex align-items-center gap-1">
+    <div className="d-flex align-items-center gap-1 flex-wrap">
       <span className="boostrap-icons">{icon || children}</span>
-      {['Tarifa', 'Companhia'].includes(label.ref) ? <span className={label.ref === 'Tarifa' ? 'naval-blue' : 'green-sheets'}>{label.ref}:</span> : ''}
-      <span className={"text-body"}>{label.value}</span>
+      {['Tarifa', 'Companhia'].includes(label.ref) ? <span className={`line-clamp-1 ${label.ref === 'Tarifa' ? 'naval-blue' : 'green-sheets'}`}>{label.ref}:</span> : ''}
+      {label.value ? (<span className={"text-body line-clamp-1"}>{label.value}</span>) : ""}
     </div>
   )
 }

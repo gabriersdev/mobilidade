@@ -1,13 +1,14 @@
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import LineIdentification from "../lineIdentification/LineIdentification";
+import config from "../../config";
+
 import Title from "../title/Title";
+import LineIdentification from "../lineIdentification/LineIdentification";
 import { ListDepartureTimes } from "../listDepartureTimes/ListDepartureTimes";
 import ListRechargePoints from "../listRecharchePoints/ListRechargePoints";
 import {ListDeparturePoints} from "../listDeparturePoints/ListDeparturePoints";
 import Alert from "../alert/Alert";
-import config from "../../config";
 import ListLineWarnings from "../listLineWarnings/ListLineWarnings";
 import FeedbackError from "../feedbackError/FeedbackError";
 import Weather from "../weather/Weather";
