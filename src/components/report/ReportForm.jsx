@@ -25,8 +25,10 @@ const ReportForm = ({handleCloseModal}) => {
   const [codeIsSent, setCodeIsSent] = useState(false);
   const [messageId, setMessageId] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [allOK, setAllOK] = useState(false);
   
   const btnCancel = useRef(null);
+  const inputVerificationCode = useRef(null);
   
   const [propsInput] = useState({
     autoComplete: "off",
@@ -68,6 +70,7 @@ const ReportForm = ({handleCloseModal}) => {
           alert(successMess);
           
           setVerificationCode("");
+          setAllOK(true);
           
           setTimeout(() => {
             setEmail("");
@@ -84,8 +87,7 @@ const ReportForm = ({handleCloseModal}) => {
       }).catch(e => {
         console.error(e);
         alert("Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.")
-        setFeedback(<Alert className={"alert-danger mb-0"}>Não foi possível enviar a sua requisição. Tente novamente ou
-          contacte o administrador.</Alert>)
+        setFeedback(<Alert className={"alert-danger mb-0"}>Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.</Alert>)
       }).finally(() => setIsLoading(false));
       
       return;
@@ -109,11 +111,11 @@ const ReportForm = ({handleCloseModal}) => {
         setFeedback(<Alert className={"alert-info mb-0"}>Um código foi enviado para o seu e-mail.</Alert>)
         setMessageId(res.data.insertId)
         setCodeIsSent(true)
+        if (inputVerificationCode.current) inputVerificationCode.current.focus();
       }).catch(e => {
         console.error(e);
         alert("Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.")
-        setFeedback(<Alert className={"alert-danger mb-0"}>Não foi possível enviar a sua requisição. Tente novamente ou
-          contacte o administrador.</Alert>)
+        setFeedback(<Alert className={"alert-danger mb-0"}>Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.</Alert>)
         setCodeIsSent(false)
       }).finally(() => setIsLoading(false));
     }
@@ -126,8 +128,7 @@ const ReportForm = ({handleCloseModal}) => {
           <>
             <FormGroup>
               <FormLabel props={{htmlFor: "type-error"}}>Qual o erro?</FormLabel>
-              <FormSelect required={true} id={"type-error"} value={typeError}
-                          onChange={(e) => setTypeError(e.target.value)}>
+              <FormSelect required={true} id={"type-error"} value={typeError} onChange={(e) => setTypeError(e.target.value)}>
                 <option value="">Selecione</option>
                 <option value={1}>Horário errado</option>
                 <option value={2}>Itinerário (pontos de paradas) errado</option>
@@ -147,14 +148,15 @@ const ReportForm = ({handleCloseModal}) => {
               <Form.Control as="textarea" className={"resize-none"} rows={"5"} id={"error-message"} value={message} onChange={(e) => setMessage(e.target.value)} maxLength={200}/>
             </FormGroup>
           </>
-        ) : (
-          <>
-            <FormGroup>
-              <FormLabel props={{htmlFor: "verification-code"}}>Código de verificação</FormLabel>
-              <FormControl type={"number"} id={"verification-code"} {...propsInput} value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} mask={"999999"} {...propsInput}/>
-            </FormGroup>
-          </>
-        )
+        ) :
+          !setAllOK ? (
+            <>
+              <FormGroup>
+                <FormLabel props={{htmlFor: "verification-code"}}>Código de verificação</FormLabel>
+                <FormControl type={"number"} id={"verification-code"} {...propsInput} value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} mask={"999999"} {...propsInput} ref={inputVerificationCode}/>
+              </FormGroup>
+            </>
+          ) : ""
       }
       
       <div className={"mb-0 d-flex flex-column justify-content-end gap-2"}>
@@ -164,11 +166,15 @@ const ReportForm = ({handleCloseModal}) => {
       
       <div className={"mb-0 d-flex justify-content-end gap-2"}>
         <Button type={"button"} variant="secondary" className={"px-3 py-1"} onClick={handleCloseModal} ref={btnCancel}>
-          Cancelar
+          {!allOK ? "Cancelar" : "Fechar"}
         </Button>
-        <Button type={"submit"} variant="primary" className={`px-3 py-1`} disabled={isLoading}>
-          {!codeIsSent ? "Próximo" : "Enviar"}
-        </Button>
+        {
+          !allOK ? (
+            <Button type={"submit"} variant="primary" className={`px-3 py-1`} disabled={isLoading}>
+              {!codeIsSent ? "Próximo" : "Enviar"}
+            </Button>
+          ) : ""
+        }
       </div>
     </Form>
   )
