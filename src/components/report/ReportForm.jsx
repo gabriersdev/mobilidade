@@ -149,7 +149,7 @@ const ReportForm = ({handleCloseModal}) => {
             </FormGroup>
           </>
         ) :
-          !setAllOK ? (
+          !allOK ? (
             <>
               <FormGroup>
                 <FormLabel props={{htmlFor: "verification-code"}}>Código de verificação</FormLabel>
