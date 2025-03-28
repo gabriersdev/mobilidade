@@ -1,3 +1,24 @@
 ol.breadcrumb {
   background: unset !important;
+  overflow-x: scroll;
+  flex-wrap: nowrap;
+
+  .breadcrumb-item {
+    display: inline-block;
+    text-wrap: nowrap;
+
+    &:last-child {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    &:before {
+      font-family: 'Arial', sans-serif;
+    }
+  }
+
+  * {
+    text-decoration: none;
+  }
 }

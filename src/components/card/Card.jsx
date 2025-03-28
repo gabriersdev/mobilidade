@@ -1,17 +1,26 @@
+import "./card.css";
+
 import PropTypes from "prop-types";
+import {useState} from "react";
+
 import {Card as BootstrapCard} from 'react-bootstrap';
 import {Link} from "react-router-dom";
+import {AnimatePresence} from "framer-motion";
 
-import "./card.css";
 import Title from "../title/Title";
 import Util from "../../assets/Util";
+import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
 
 const Card = ({title = "Card Title", subtitle = "Subtitle", badge, link, children, onclick, variant}) => {
-  let content;
+  let content, returnCard;
 
   const setContent = (newContent) => {
     content = newContent;
   }
+
+  const setReturnCard = (newReturnCard) => {
+    returnCard = newReturnCard;
+  };
 
   if (variant === "placeholder") {
     setContent(
@@ -46,7 +55,7 @@ const Card = ({title = "Card Title", subtitle = "Subtitle", badge, link, childre
   }
 
   if (link) {
-    return (
+    setReturnCard (
       <BootstrapCard className={"bg-body-tertiary"} as={Link} to={link ? link.trim() : ""} rel={"noreferrer noopener"}
                      target={Util.isSameDomain(link ? link.trim() : "") ? "_self" : "_blank"}
                      style={{minHeight: '185px'}} data-aos={"fade-up"}>
@@ -54,7 +63,7 @@ const Card = ({title = "Card Title", subtitle = "Subtitle", badge, link, childre
       </BootstrapCard>
     )
   } else if (typeof onclick === "function") {
-    return (
+    setReturnCard (
       <BootstrapCard className={"bg-body-tertiary"} onClick={onclick} style={{minHeight: '185px'}}>
         {content}
       </BootstrapCard>
@@ -62,9 +71,19 @@ const Card = ({title = "Card Title", subtitle = "Subtitle", badge, link, childre
   }
 
   return (
-    <BootstrapCard className={"bg-body-tertiary"} style={{minHeight: '185px'}}>
-      {content}
-    </BootstrapCard>
+    <AnimatePresence mode={"wait"}>
+      <AnimatedComponent>
+        {
+          returnCard ? (
+           returnCard
+          ) : (
+            <BootstrapCard className={"bg-body-tertiary"} style={{minHeight: '185px'}}>
+          {content}
+        </BootstrapCard>
+          )
+        }
+      </AnimatedComponent>
+    </AnimatePresence>
   )
 }
 

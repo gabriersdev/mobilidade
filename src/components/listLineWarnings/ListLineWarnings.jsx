@@ -26,7 +26,7 @@ const ListLineWarnings = ({line_id}) => {
       }
     }
 
-    fetchData()
+    fetchData().then()
   }, [line_id])
 
   /**

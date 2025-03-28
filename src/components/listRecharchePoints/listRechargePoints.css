@@ -1,0 +1,7 @@
+.form-select {
+  --bs-form-select-bg-img: url("#") !important;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}

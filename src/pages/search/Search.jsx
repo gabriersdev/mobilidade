@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 import Title from "../../components/title/Title";
-import FormSearch from "../../components/formSearch/FormSearch";
 import Util from "../../assets/Util.js";
 import ComponentSearch from "../../components/search/Search.jsx";
 import Grid from "../../components/grid/Grid.jsx";
@@ -30,13 +29,14 @@ const Search = () => {
         if (queryParams.get('term')) {
           setTermSearch(queryParams.get('term'))
           setIsValidSearch(true)
-
-          const input = document.querySelector('input');
-          if (!input) return false;
-
-          input.value = queryParams.get('term');
-          const event = new Event("input", { bubbles: true });
-          input.dispatchEvent(event);
+          
+          setTimeout(() => {
+            const input = document.querySelector('input');
+            if (!input) return false;
+            input.value = queryParams.get('term');
+            const event = new Event("input", { bubbles: true });
+            input.dispatchEvent(event);
+          }, 1000)
         }
       }
     } catch (error) {
@@ -46,7 +46,7 @@ const Search = () => {
 
   return (
     <div>
-      <FormValidSearch formTitle="Para onde vamos?" inputPlaceholder="digite o destino, nome ou número da linha..." focus={true}/>
+      <FormValidSearch formTitle="Para onde vamos?" inputPlaceholder="digite o destino, nome ou número da linha..." focus={Object.keys(new URLSearchParams(location.search)).length > 0}/>
       <div>
         {
           (isValidSearch && termSearch) ? (

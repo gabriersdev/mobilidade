@@ -118,30 +118,39 @@ export default class Util {
   }
 
   static convertNumberToDay = (day) => {
-    switch (day) {
-      case 1:
-        return 'Dias úteis';
-      case 2:
-        return 'Sábado';
-      case 3:
-        return 'Domingo';
-      case 4:
-        return 'Domingos e feriados';
-      case 5:
-        return 'Dias úteis - atípico';
-      case 6:
-        return 'Sábados - atípico';
-      case 7:
-        return 'Domingos - atípico';
-      case 8:
-        return 'Dias úteis - férias';
-      case 9:
-        return 'Sábados - férias';
-      case 10:
-        return 'Domingos - férias';
-      default:
-        console.error(`Dia ${day} não categorizado. Retornado: "Horário não mapeado".`);
-        return 'Horário não mapeado'
+    const table = [
+      [1, 'Dias úteis'],
+      [2, 'Sábado'],
+      [3, 'Domingos e feriados'],
+      [4, 'Domingos e feriados'],
+      [5, 'Dias úteis - atípico'],
+      [6, 'Sábados - atípico'],
+      [7, 'Domingos e feriados - atípico'],
+      [8, 'Dias úteis - férias'],
+      [9, 'Sábados - férias'],
+      [10, 'Domingos - férias'],
+      [11, 'Dias úteis - PC1'],
+      [12, 'Sábados - PC2'],
+      [13, 'Domingos e feriados - PC2'],
+      [14, 'Quartas-feiras - PC1'],
+      [15, 'Quartas-feiras - PC2'],
+      [16, 'Quintas-feiras - PC1'],
+      [17, 'Quintas-feiras - PC2'],
+      [18, 'Sexta-feiras - PC1'],
+      [19, 'Sexta-feiras - PC2'],
+      [20, 'Segundas-feiras - PC1'],
+      [21, 'Segundas-feiras - PC2'],
+      [22, 'Terças-feiras - PC1'],
+      [23, 'Terças-feiras - PC2'],
+    ]
+
+    const find = table.find((item) => item[0] === parseInt(day, 10))
+
+    if (!find) {
+      console.error(`Dia ${day} não categorizado. Retornado: "Horário não mapeado".`);
+      return 'Horário não mapeado'
     }
+
+    return find[1]
   }
 }

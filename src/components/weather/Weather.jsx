@@ -21,7 +21,7 @@ const Weather = () => {
       }
     };
 
-    getWeather();
+    getWeather().then();
   }, []);
 
   if (status === 'loading' || status === 'error' || !weatherData) return <></>;

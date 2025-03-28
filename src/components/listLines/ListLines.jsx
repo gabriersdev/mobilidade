@@ -57,7 +57,7 @@ const ListLines = ({variant, content}) => {
     };
 
     if (!content) {
-      searchLines()
+      searchLines().then()
     } else {
       setData(content)
       setIsLoaded(false)

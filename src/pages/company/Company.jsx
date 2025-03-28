@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import Alert from "../../components/alert/Alert.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
@@ -10,7 +10,7 @@ const Company = () => {
   const {id} = useParams();
   const [error, setError] = useState(null);
   const [loaded, setIsLoaded] = useState(true);
-  const [data, setData] = useState([{company_name: "", count_lines_actives: 0, contact: null}]);
+  const [data, setData] = useState([{company_name: "", count_lines_actives: 0, contact: null, report_contact: null}]);
 
   const checkIsValid = (id) => {
     if (!id) return false
@@ -74,6 +74,10 @@ const Company = () => {
           <div className="d-flex flex-column gap-1">
             <span className={"text-body-tertiary"}>Contato</span>
             <span className={""}>{data[0].contact || 'Informação não cadastrada.'}</span>
+          </div>
+          <div className="d-flex flex-column gap-1">
+            <span className="text-body-tertiary">Canal de reclamações</span>
+            <Link to={data[0].report_contact} rel={"noreferrer noopener"}>{new URL(data[0].report_contact).origin || "Informação não cadastrada."}</Link>
           </div>
           <div className="d-flex flex-column gap-1">
             <span className={"text-body-tertiary"}>Observações</span>

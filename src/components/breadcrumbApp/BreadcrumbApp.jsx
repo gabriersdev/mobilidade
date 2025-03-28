@@ -8,10 +8,11 @@ import {useLocation, useNavigate} from 'react-router-dom';
 const BreadcrumbItemFactory = ({path}) => {
   const location = useLocation();
   let label = "";
+  let isLinePage = "";
 
-  switch (path) {
+  switch (path.toLowerCase()) {
     case "../":
-      label = "Home"
+      label = "Mobilidade"
       break;
     case "lines":
       label = "Linhas"
@@ -22,20 +23,26 @@ const BreadcrumbItemFactory = ({path}) => {
     case "search":
       label = "Pesquisa"
       break;
-    case "terms-of-services":
+    case "terms-of-service":
       label = "Termos de Serviço"
+      break;
+    case "privacy":
+      label = "Privacidade"
       break;
     case "development":
       label = "Desenvolvimento"
       break;
     default:
-      label = path;
+      label = (<span className={"text-capitalize"}>{path}</span>);
   }
 
   if (!path || !path.trim() || ["null", "undefined"].includes(path)) return null;
 
+  const matchId = location.pathname.match(/\/lines\/(?<id>.)/i);
+  if (matchId && path.match(/\b\d+\b/)) isLinePage = matchId.groups.id;
+
   return (
-    <BreadcrumbItem className={`bg-body text-capitalize`} href={path === location.pathname.split("/")[1] ? `../${path}` : path}>
+    <BreadcrumbItem className={`bg-body ${isLinePage ? "breadcrumb-i data-line-id" : ""}`} href={path === location.pathname.split("/")[1] ? `../${path}` : path}>
       {label}
     </BreadcrumbItem>
   );

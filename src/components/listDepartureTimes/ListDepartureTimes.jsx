@@ -8,6 +8,9 @@ import {DepartureTimeContext} from "./DepartureTimeContext";
 import OffcanvasDepartureTimes from "./OffcanvasDepartureTimes";
 import {ThemeContext} from "../themeContext/ThemeContext";
 import AccordionOperationDays from "./AccordionOperationDays";
+import Util from "../../assets/Util.js";
+import {AnimatePresence} from "framer-motion";
+import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
 
 const ListDepartureTimes = ({line_id, departure_location, destination_location}) => {
   const {data, observations, error, isLoaded} = useDepartureTimes(line_id);
@@ -23,35 +26,52 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
     // Ordena os horários de partida por dia e horário
     const departureTimes = data.toSorted((a, b) => a.day - b.day)
     const uniqueDirections = departureTimes.map((item) => item.direction).filter((value, index, self) => self.indexOf(value) === index)
-    const uniqueDaysForDirection = uniqueDirections.map((direction) => departureTimes.filter((item) => item.direction === direction).map((item) => item.day).filter((value, index, self) => self.indexOf(value) === index))
+    let uniqueDaysForDirection = uniqueDirections.map((direction) => departureTimes.filter((item) => item.direction === direction).map((item) => item.day).filter((value, index, self) => self.indexOf(value) === index))
+
+    // Ordenando os dias converte o nome deles convertidos, depois alterando a variavel uniqueDaysForDirection com os itens ordenados pelos nomes
+    uniqueDaysForDirection = uniqueDaysForDirection.map(directionItems => {
+      return [
+        ...directionItems.map(i => [i, Util.convertNumberToDay(i)])
+          .sort((a, b) => a[1].localeCompare(b[1]))
+          .map(is => is[0])
+      ]
+    })
 
     return (
-      <DepartureTimeContext>
-        {/* Accordion principal, que permite acesso aos horários das direções disponíveis */}
-        <Accordion defaultEventKey={['0']}>
-          <OffcanvasDepartureTimes/>
-          {uniqueDirections.map((direction, i) => {
-            const directionName = direction === 1 ? `Sentido ida - ${departure_location} -> ${destination_location}` : `Sentido volta - ${destination_location} -> ${departure_location}`
-            return (
-              <AccordionItem
-                title={directionName}
-                eventKey={i.toString()} key={i}>
-                {/* Accordion secundário, de dias */}
-                <ThemeContext value={Object.assign({}, {
-                  departureTimes,
-                  uniqueDaysForDirection,
-                  index: i,
-                  direction,
-                  directionName,
-                  observations
-                })}>
-                  <AccordionOperationDays/>
-                </ThemeContext>
-              </AccordionItem>
-            )
-          })}
-        </Accordion>
-      </DepartureTimeContext>
+      <AnimatePresence mode={"wait"}>
+        <AnimatedComponent>
+          <DepartureTimeContext>
+            {/* Accordion principal, que permite acesso aos horários das direções disponíveis */}
+            <Accordion defaultEventKey={['0']}>
+              <OffcanvasDepartureTimes/>
+              {uniqueDirections.map((direction, i) => {
+                const directionName =
+                  direction === 1 ? (`Sentido ida - ${departure_location} -> ${destination_location}`) :
+                    direction === 0 ? (`Sentido único - ${departure_location} <-> ${destination_location} (ida e volta)`) :
+                      direction === 2 ? (`Sentido volta - ${destination_location} -> ${departure_location}`) : ""
+                return (
+                  <AccordionItem
+                    title={directionName}
+                    eventKey={i.toString()} key={i}>
+                    {/* Accordion secundário, de dias */}
+                    <ThemeContext value={Object.assign({}, {
+                      departureTimes,
+                      uniqueDaysForDirection,
+                      index: i,
+                      direction,
+                      directionName,
+                      observations
+                    })}>
+                      <AccordionOperationDays/>
+                      <span className={"d-inline-block text-muted mt-4"}>{departureTimes.length.toLocaleString()} horários de partidas neste sentido.</span>
+                    </ThemeContext>
+                  </AccordionItem>
+                )
+              })}
+            </Accordion>
+          </DepartureTimeContext>
+        </AnimatedComponent>
+      </AnimatePresence>
     )
   }
 }

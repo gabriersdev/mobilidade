@@ -1,26 +1,31 @@
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
+import {AnimatePresence} from "framer-motion";
+
 import axios from "axios";
-import LineIdentification from "../lineIdentification/LineIdentification";
+import config from "../../config";
+
 import Title from "../title/Title";
-import { ListDepartureTimes } from "../listDepartureTimes/ListDepartureTimes";
+import LineIdentification from "../lineIdentification/LineIdentification";
+import {ListDepartureTimes} from "../listDepartureTimes/ListDepartureTimes";
 import ListRechargePoints from "../listRecharchePoints/ListRechargePoints";
 import {ListDeparturePoints} from "../listDeparturePoints/ListDeparturePoints";
 import Alert from "../alert/Alert";
-import config from "../../config";
 import ListLineWarnings from "../listLineWarnings/ListLineWarnings";
 import FeedbackError from "../feedbackError/FeedbackError";
 import Weather from "../weather/Weather";
+import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
+import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
-
+  
   useEffect(() => {
     // Altera o título da página
     document.title = "Mobilidade - Consulta Linha";
-
+    
     const searchLine = async (id) => {
       try {
         const response = await axios.post(`${config.host}/api/lines/`, {id: id}); // URL completa da sua API
@@ -33,15 +38,17 @@ const Line = ({id}) => {
         setIsLoaded(false);
       }
     };
-
-    searchLine(id).then(() => {});
+    
+    searchLine(id).then(() => {
+    });
   }, [id]);
-
+  
   if (isLoaded) {
     return <div>Carregando...</div>;
   } else if (error) {
     console.log(error)
-    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;
+    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message}
+                          type={'card'}/>;
   } else if (data.length === 0) {
     return (
       <Alert variant={'danger'} margin={"mt-0"}>
@@ -49,40 +56,48 @@ const Line = ({id}) => {
       </Alert>
     );
   } else {
-    console.log(data);
-
-    // Altera o título da página
+    // console.log(data);
+    
+    // Altera o título da página =
     document.title = `Linha ${data[0].line_number} | ${data[0].departure_location} - ${data[0].destination_location}`;
-
+    const dataLineId = document.querySelectorAll('.breadcrumb-i.data-line-id')
+    if (dataLineId) dataLineId.forEach((item) => {
+      item.querySelector('a').textContent = `${data[0].line_number} - ${data[0].departure_location} -> ${data[0].destination_location}`;
+    });
+    
     return (
       <div className="d-flex flex-column" style={{gap: '3rem'}}>
-        <section id={"id"}>
-          <LineIdentification line={data[0]}/>
-          {data[0].observations ? (
-              <Alert variant={'secondary'} margin={"mt-3 mb-0"}>
-                <span>{data[0].observations}</span>
-              </Alert>)
-            : ""
-          }
-
-          <Weather />
-          <ListLineWarnings line_id={data[0].line_id}/>
-        </section>
-
-        <section id={"partidas"} className={"pt-3"}>
-          <Title type="h3" classX={" pb-2 text-body-secondary"}>Horários de partidas</Title>
-          <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>
-        </section>
-
-        <section id={"paradas"} className={"pt-3"}>
-          <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>
-          <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>
-        </section>
-
-        <section id={"pontos-de-recarga"} className={"pt-3"}>
-          <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de recarga</Title>
-          <ListRechargePoints id_company={data[0].company_id} company_name={data[0].company_name}/>
-        </section>
+        <AnimatedComponents>
+          <section id={"id"}>
+            <LineIdentification line={data[0]}/>
+            {data[0].observations ? (
+                <Alert variant={'secondary'} margin={"mt-3 mb-0"}>
+                  <span>{data[0].observations}</span>
+                </Alert>)
+              : ""
+            }
+            
+            <Weather/>
+            <ListLineWarnings line_id={data[0].line_id}/>
+          </section>
+          
+          <section id={"partidas"} className={"pt-3"}>
+            <Title type="h3" classX={" pb-2 text-body-secondary"}>Horários de partidas</Title>
+            <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location}
+                                destination_location={data[0].destination_location}/>
+          </section>
+          
+          <section id={"paradas"} className={"pt-3"}>
+            <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>
+            <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location}
+                                 destination_location={data[0].destination_location}/>
+          </section>
+          
+          <section id={"pontos-de-recarga"} className={"pt-3"}>
+            <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de recarga</Title>
+            <ListRechargePoints id_company={data[0].company_id} company_name={data[0].company_name}/>
+          </section>
+        </AnimatedComponents>
       </div>
     )
   }
