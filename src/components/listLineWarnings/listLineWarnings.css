@@ -2,11 +2,13 @@
   &::marker {
     list-style-type: none;
     font-family: 'bootstrap-icons', sans-serif;
-    content: "\F4FE";
+    content: "";
   }
 
   &[open]::marker {
-    content: "\F2EA";
+    list-style-type: none;
+    font-family: 'bootstrap-icons', sans-serif;
+    content: "";
   }
 }
 
