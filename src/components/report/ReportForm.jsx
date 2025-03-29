@@ -72,12 +72,6 @@ const ReportForm = ({handleCloseModal}) => {
           setVerificationCode("");
           setAllOK(true);
           
-          setTimeout(() => {
-            setEmail("");
-            setTypeError("");
-            setMessage("");
-          }, 2000);
-          
           if (btnCancel.current) btnCancel.current.focus();
           
           return;
