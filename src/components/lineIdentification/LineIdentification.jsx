@@ -102,7 +102,7 @@ const LineIdentification = ({line}) => {
           }
           <ReportModal/>
         </div>
-        <div className="d-flex align-items-center gap-3 mb-3">
+        <div className="d-flex align-items-center gap-3 flex-wrap mb-3">
           <LineInfo label={{ref: 'Tarifa', value: fare}}>
             <i className="bi bi-cash-coin naval-blue"></i>
           </LineInfo>
