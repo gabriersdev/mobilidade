@@ -69,16 +69,18 @@ const Line = ({id}) => {
       <div className="d-flex flex-column" style={{gap: '3rem'}}>
         <AnimatedComponents>
           <section id={"id"}>
-            <LineIdentification line={data[0]}/>
-            {data[0].observations ? (
-                <Alert variant={'secondary'} margin={"mt-3 mb-0"}>
-                  <span>{data[0].observations}</span>
-                </Alert>)
-              : ""
-            }
-            
-            <Weather/>
-            <ListLineWarnings line_id={data[0].line_id}/>
+            <AnimatedComponents>
+              <LineIdentification line={data[0]}/>
+              {data[0].observations ? (
+                  <Alert variant={'secondary'} margin={"mt-3 mb-0"}>
+                    <span>{data[0].observations}</span>
+                  </Alert>)
+                : ""
+              }
+              
+              <Weather/>
+              <ListLineWarnings line_id={data[0].line_id}/>
+            </AnimatedComponents>
           </section>
           
           <section id={"partidas"} className={"pt-3"}>
