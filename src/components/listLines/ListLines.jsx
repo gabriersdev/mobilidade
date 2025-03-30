@@ -117,7 +117,8 @@ const ListLines = ({variant, content}) => {
                     )}
                     c={"TODO - Nome da linha, caso seja diferente da partida e destino"}
                     subtitle={`${line.departure_location} -> ${line.destination_location}`.trim()}
-                    link={`/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}
+                    link={`/lines/${line.line_id}`}>
+                {Util.resumeInfoLine(line)}
               </Card>
             )
           })}
