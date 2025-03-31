@@ -2,11 +2,14 @@ import {useEffect, useState} from 'react';
 import axios from "axios";
 import config from "../../config.js";
 import Alert from "../alert/Alert.jsx";
+import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
+import {AnimatePresence} from "framer-motion";
+import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
 
 const Weather = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [status, setStatus] = useState('loading'); // 'loading', 'success', 'error'
-
+  
   useEffect(() => {
     const getWeather = async () => {
       try {
@@ -20,13 +23,13 @@ const Weather = () => {
         setStatus('error');
       }
     };
-
+    
     getWeather().then();
   }, []);
-
+  
   if (status === 'loading' || status === 'error' || !weatherData) return <></>;
   let alertText;
-
+  
   try {
     if (weatherData.current.precip_mm > 1) {
       if (weatherData.current.precip_mm <= 2) alertText = 'Previsão de chuva leve para a região. Normalmente não causa transtornos ao trânsito ou atraso nos horários de partida.'
@@ -37,13 +40,18 @@ const Weather = () => {
   } catch (e) {
     console.error('Erro ao processar dados:', e);
   }
-
+  
   if (!alertText) return <></>
-
+  
   return (
-    <Alert variant={'weather'} margin={"mt-3"}>
-      <span>{alertText}</span>
-    </Alert>);
+    <AnimatePresence mode={"wait"}>
+      <AnimatedComponent>
+        <Alert variant={'weather'} margin={"mt-3"}>
+          <span>{alertText}</span>
+        </Alert>
+      </AnimatedComponent>
+    </AnimatePresence>
+  );
 };
 
 export default Weather;
