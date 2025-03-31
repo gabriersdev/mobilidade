@@ -73,6 +73,7 @@ const ReportForm = ({handleCloseModal}) => {
           setAllOK(true);
           
           if (btnCancel.current) btnCancel.current.focus();
+          [1, 2, 3, 4].map(x => x * 2)
           
           return;
         }
