@@ -6,52 +6,19 @@ import {Link} from "react-router-dom";
 import {Badge} from "react-bootstrap";
 import ReportModal from "../report/ReportModal.jsx";
 import Util from "../../assets/Util.js";
+import Convert from "./convert.js";
 
 const LineIdentification = ({line}) => {
   let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact, datetimeLastModify] = ['', '', '', 0, '', ''];
   
-  switch (line.type) {
-    case 1:
-      lineType = "Coletivo Urbano";
-      break
-    case 2:
-      lineType = "Executivo Urbano";
-      break
-    case 3:
-      lineType = "Executivo Rodoviário";
-      break
-    case 4:
-      lineType = "Coletivo Rodoviário";
-      break
-    default:
-      lineType = "Não informado";
-  }
-  
-  switch (line.scope) {
-    case 1:
-      scope = "Municipal";
-      break
-    case 2:
-      scope = "Metropolitano";
-      break
-    case 3:
-      scope = "Rodoviário";
-      break
-    case 4:
-      scope = "Intermunicipal";
-      break
-    default:
-      scope = "Não informado";
-  }
+  lineType = Convert.lineType(line.type);
+  scope = Convert.theScope(line.scope);
   
   if (line.has_integration === 1) hasIntegration = "Possui integração";
   else hasIntegration = "Não possui integração";
   
-  if (parseFloat(line.fare) === 0) {
-    fare = "Não informado";
-  } else {
-    fare = Util.formatMoney(line.fare);
-  }
+  if (parseFloat(line.fare) === 0) fare = "Não informado";
+  else fare = Util.formatMoney(line.fare);
   
   if (line.count_departure_times) countDepartureTimes = line.count_departure_times;
   if (line.report_contact) reportContact = line.report_contact;

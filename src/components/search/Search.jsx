@@ -6,6 +6,7 @@ import Card from "../card/Card.jsx";
 import Util from "../../assets/Util.js";
 import config from "../../config";
 import {Badge} from "react-bootstrap";
+import ListLines from "../listLines/ListLines.jsx";
 
 const Search = ({value}) => {
   const [data, setData] = useState([]);
@@ -62,22 +63,7 @@ const Search = ({value}) => {
     )
   } else {
     // console.log(data)
-    return (
-      <div style={{marginTop: '1rem'}}>
-        <Grid>
-          {data.map((line) => (
-            <Card key={line.line_id} title={`Linha`}
-                  badge={(
-                    <Badge variant="primary" className={"rounded-5 fw-light"} style={{letterSpacing: '0.5px'}}>
-                      N.º {line.line_number}
-                    </Badge>
-                  )}
-                  subtitle={`${line.departure_location} -> ${line.destination_location}`}
-                  link={`/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}</Card>
-          ))}
-        </Grid>
-      </div>
-    );
+    return <ListLines data={data}/>;
   }
 }
 

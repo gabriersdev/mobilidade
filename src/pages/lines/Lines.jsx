@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {useParams} from "react-router-dom";
 
-import ListLines from "../../components/listLines/ListLines.jsx";
+import GetAndListLines from "../../components/getAndListLines/GetAndListLines.jsx";
 import Line from "../../components/line/Line.jsx";
 import Util from "../../assets/Util.js";
 
@@ -32,7 +32,7 @@ const Lines = () => {
             <>
               <Title classX={" text-body-secondary d-none"}>Linhas</Title>
               <div className={"mb-lg-5"}><FormValidSearch formTitle={"Procurando uma linha?"} inputPlaceholder={" "}/></div>
-              <ListLines/>
+              <GetAndListLines/>
             </>
 
             :
