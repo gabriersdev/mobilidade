@@ -29,12 +29,13 @@ const Weather = () => {
   
   if (status === 'loading' || status === 'error' || !weatherData) return <></>;
   let alertText;
+  const precipMM = weatherData.current.precip_mm || 0;
   
   try {
-    if (weatherData.current.precip_mm > 1) {
-      if (weatherData.current.precip_mm <= 2) alertText = 'Previsão de chuva leve para a região. Normalmente não causa transtornos ao trânsito ou atraso nos horários de partida.'
-      else if (weatherData.current.precip_mm <= 10) alertText = 'Previsão de chuva moderada para a região.. Pode causar atrasos nos horários de partida.'
-      else if (weatherData.current.precip_mm <= 30) alertText = 'Fique ligado! Previsão de chuva forte para a região. Pode causar atrasos nos horários de partida e transtornos ao trânsito.'
+    if (precipMM > 1) {
+      if (precipMM <= 2) alertText = 'Previsão de chuva leve para a região. Normalmente não causa transtornos ao trânsito ou atraso nos horários de partida.'
+      else if (precipMM <= 10) alertText = 'Previsão de chuva moderada para a região. Pode causar atrasos nos horários de partida.'
+      else if (precipMM <= 30) alertText = 'Fique ligado! Previsão de chuva forte para a região. Pode causar atrasos nos horários de partida e transtornos ao trânsito.'
       else alertText = 'Atenção! Previsão de chuva muito forte/torrencial para a região. O que deve causar atrasos nos horários de partida e transtornos ao trânsito. Se possível, evite sair de casa e fique em um local fechado e seguro.'
     }
   } catch (e) {
@@ -47,7 +48,7 @@ const Weather = () => {
     <AnimatePresence mode={"wait"}>
       <AnimatedComponent>
         <Alert variant={'weather'} margin={"mt-3"}>
-          <span>{alertText}</span>
+          <span>{alertText} Precipitação de {new Intl.NumberFormat("pt-BR").format(precipMM.toFixed(2))} milímetros.</span>
         </Alert>
       </AnimatedComponent>
     </AnimatePresence>
