@@ -29,6 +29,9 @@ const BreadcrumbItemFactory = ({path}) => {
     case "privacy":
       label = "Privacidade"
       break;
+    case "company":
+      label = "Compania"
+      break;
     case "development":
       label = "Desenvolvimento"
       break;
