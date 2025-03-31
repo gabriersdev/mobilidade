@@ -9,6 +9,7 @@ import "./lines.css";
 import Title from "../../components/title/Title.jsx";
 import FormSearch from "../../components/formSearch/FormSearch.jsx";
 import FormValidSearch from "../../components/formValidSearch/FormValidSearch.jsx";
+import AnimatedComponents from "../../components/animatedComponent/AnimatedComponents.jsx";
 
 const Lines = () => {
   const {id} = useParams()
@@ -35,7 +36,9 @@ const Lines = () => {
             </>
 
             :
-            <Line id={id}/>
+            <AnimatedComponents>
+              <Line id={id}/>
+            </AnimatedComponents>
         }
       </div>
     </div>

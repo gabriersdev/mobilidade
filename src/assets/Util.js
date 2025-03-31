@@ -153,4 +153,12 @@ export default class Util {
 
     return find[1]
   }
+  
+  static formatMoney(value) {
+    return Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2,
+    }).format(value)
+  }
 }

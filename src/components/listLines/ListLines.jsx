@@ -19,7 +19,8 @@ const getMoreLines = (add = 30) => {
   const existsMoreLines = false;
   return (
     // Lista de linhas
-    <Button variant={"dark"} className={"w-100 mt-5 bg-body-tertiary border-secondary-subtle"} disabled={!existsMoreLines}>
+    <Button variant={"dark"} className={"w-100 mt-5 bg-body-tertiary border-secondary-subtle"}
+            disabled={!existsMoreLines}>
       {existsMoreLines ? "Carregar +30" : "Todas as linha foram carregadas"}
     </Button>
   )
@@ -30,21 +31,21 @@ const ListLines = ({variant, content}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
-
+  
   let apiURL = `${config.host}/api/lines`
   let sortFn = (a, b) => a.line_number - b.line_number
-
+  
   if (variant === 'main') {
     apiURL = `${config.host}/api/lines/main`
     sortFn = (a, b) => a.line_name - b.line_name
   }
-
+  
   useEffect(() => {
     // Altera o título da página
     document.title = "Mobilidade - Linhas";
-
+    
     const searchLines = async () => {
-
+      
       try {
         const response = await axios.get(apiURL);
         setData(response.data.toSorted(sortFn));
@@ -55,16 +56,16 @@ const ListLines = ({variant, content}) => {
         setIsLoaded(false);
       }
     };
-
+    
     if (!content) {
       searchLines().then()
     } else {
       setData(content)
       setIsLoaded(false)
     }
-
+    
   }, [apiURL, content]);
-
+  
   if (isLoaded) {
     return (
       <div style={{marginTop: '1rem'}}>
@@ -111,9 +112,29 @@ const ListLines = ({variant, content}) => {
             return (
               <Card key={line.line_id} title={`Linha`}
                     badge={(
-                      <Badge variant="primary" className={"rounded-5 fw-light"} style={{letterSpacing: '0.5px'}}>
-                        N.º {line.line_number}
-                      </Badge>
+                      <div className="d-flex flex-wrap gap-1">
+                        <Badge
+                          className={"bg-primary rounded-5 text-white fw-normal"}
+                          style={{letterSpacing: '0.5px'}}>
+                          N.º {line.line_number}
+                        </Badge>
+                        
+                        {
+                          parseFloat(line.fare) > 0 ? (
+                            <Badge
+                              className={"bg-primary-subtle rounded-5 text-primary-emphasis fw-normal"}
+                              style={{letterSpacing: '0.5px'}}>
+                              {Util.formatMoney(line.fare)}
+                            </Badge>
+                          ) : ""
+                        }
+                        
+                        <Badge
+                          className={"bg-secondary-subtle rounded-5 text-secondary-emphasis fw-normal"}
+                          style={{letterSpacing: '0.5px'}}>
+                          Coletivo
+                        </Badge>
+                      </div>
                     )}
                     c={"TODO - Nome da linha, caso seja diferente da partida e destino"}
                     subtitle={`${line.departure_location} -> ${line.destination_location}`.trim()}
@@ -121,7 +142,7 @@ const ListLines = ({variant, content}) => {
               </Card>
             )
           })}
-
+          
           {/* TODO - separar em um componente */}
           {variant === "main" ? (
             <Card title={"Para ver mais linhas"} subtitle={"clique aqui ->"} link={'/lines/'}></Card>) : ""}

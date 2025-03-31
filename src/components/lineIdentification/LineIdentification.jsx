@@ -5,6 +5,7 @@ import LineInfo from "../lineInfo/LineInfo";
 import {Link} from "react-router-dom";
 import {Badge} from "react-bootstrap";
 import ReportModal from "../report/ReportModal.jsx";
+import Util from "../../assets/Util.js";
 
 const LineIdentification = ({line}) => {
   let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact, datetimeLastModify] = ['', '', '', 0, '', ''];
@@ -49,11 +50,7 @@ const LineIdentification = ({line}) => {
   if (parseFloat(line.fare) === 0) {
     fare = "Não informado";
   } else {
-    fare = Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 2,
-    }).format(line.fare);
+    fare = Util.formatMoney(line.fare);
   }
   
   if (line.count_departure_times) countDepartureTimes = line.count_departure_times;
