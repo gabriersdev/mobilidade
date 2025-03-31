@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import Title from "../../components/title/Title";
-import ListLines from "../../components/listLines/ListLines";
+import GetAndListLines from "../../components/getAndListLines/GetAndListLines.jsx";
 import Util from "../../assets/Util.js";
 import FormValidSearch from "../../components/formValidSearch/FormValidSearch.jsx";
 
@@ -20,7 +20,7 @@ const Home = () => {
       <div>
         <>
           <Title title="Principais Linhas" classX={" text-body-secondary"}/>
-          <ListLines variant="main"/>
+          <GetAndListLines variant="main"/>
         </>
       </div>
     </div>
