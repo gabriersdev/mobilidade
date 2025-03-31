@@ -3,7 +3,6 @@
   grid-template-columns: repeat(auto-fill, minmax(322px, 1fr));
   grid-gap: 1rem;
   align-items: center;
-  justify-items: center;
 }
 
 @media screen and (max-width: 768px) {
