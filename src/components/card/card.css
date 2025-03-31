@@ -1,5 +1,6 @@
 .card {
   padding: 1rem;
+  min-height: 200px !important;
 
   justify-content: space-between;
   align-content: center;
@@ -13,6 +14,7 @@
     padding: 0;
     margin: 0;
     border: unset;
+    gap: 1rem;
   }
 
   .card-body {
