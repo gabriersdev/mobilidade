@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {AnimatePresence} from "framer-motion";
 
 import axios from "axios";
 import config from "../../config";
@@ -14,7 +13,6 @@ import Alert from "../alert/Alert";
 import ListLineWarnings from "../listLineWarnings/ListLineWarnings";
 import FeedbackError from "../feedbackError/FeedbackError";
 import Weather from "../weather/Weather";
-import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 
 const Line = ({id}) => {
