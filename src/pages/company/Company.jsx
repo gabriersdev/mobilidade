@@ -5,23 +5,28 @@ import axios from "axios";
 import config from "../../config.js";
 import FeedbackError from "../../components/feedbackError/FeedbackError.jsx";
 import Title from "../../components/title/Title.jsx";
+import {Badge} from "react-bootstrap";
 
-const Company = () => {
+const RenderCompany = () => {
   const {id} = useParams();
   const [error, setError] = useState(null);
   const [loaded, setIsLoaded] = useState(true);
   const [data, setData] = useState([{company_name: "", count_lines_actives: 0, contact: null, report_contact: null}]);
-
+  const [linesData, setLinesData] = useState([]);
+  
   const checkIsValid = (id) => {
     if (!id) return false
     if (!id.length) return false
     return id.match(/\d/g)
   }
-
+  
   const getData = async (id) => {
     try {
       const response = await axios.post(`${config.host}/api/company/`, {company_id: id});
+      const lines = await axios.post(`${config.host}/api/company/lines`, {company_id: id});
+      
       setData(response.data);
+      setLinesData(lines.data);
     } catch (error) {
       console.error('Erro ao buscar dados:', error);
       setError(error);
@@ -29,7 +34,7 @@ const Company = () => {
       setIsLoaded(false);
     }
   }
-
+  
   useEffect(() => {
     if (!checkIsValid(id)) {
       return (
@@ -38,30 +43,29 @@ const Company = () => {
         </Alert>
       );
     }
-
+    
     getData(id).then(() => {
     });
   }, [id])
-
+  
   useEffect(() => {
     document.title = "Mobilidade - Companhia";
   }, [])
-
+  
   if (loaded) {
     return <>Carregando...</>
   } else if (error) {
     console.error(error);
-    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message}
-                          type={'card'}/>;
+    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;
   } else if (data.length === 0) {
-    return (
-      <Alert variant={'danger'} margin={"mt-0"}>
-        <span>Companhia não encontrada.</span>
-      </Alert>
-    );
+    return <Alert variant={'danger'} margin={"mt-0"}><span>Companhia não encontrada.</span></Alert>;
   } else {
     document.title = `Mobilidade - Compangha ${data[0].company_name}`;
     const countLines = data[0].count_lines_actives;
+    
+    const dataCompanyId = document.querySelector('.breadcrumb-item:nth-child(3)')
+    if (dataCompanyId) dataCompanyId.querySelector('a').textContent = `${data[0].company_name}`;
+    
     return (
       <>
         <span className={"text-body-secondary"}>Companhia</span>
@@ -85,10 +89,25 @@ const Company = () => {
               {countLines ? `${countLines} ${countLines > 0 ? "linhas" : "linha"} operadas pela companhia.` : 'Opera linhas de transporte público no estado de Minas Gerais.'}
             </span>
           </div>
+          <div className="d-flex flex-column gap-1">
+            <span className={"text-body-tertiary"}></span>
+            <div className={"d-flex flex-wrap column-gap-2 row-gap-3"}>
+              {linesData ? linesData.map((line, index) => (
+                <Badge key={index} variant="primary" className={"rounded-5 fw-light text-decoration-none"} style={{letterSpacing: '0.5px'}} as={Link} to={`/lines/${line.line_id}`}>
+                  N.º {line.line_number}
+                </Badge>
+              )) : ""}
+            </div>
+          </div>
         </section>
       </>
     );
   }
+}
+
+const Company = () => {
+  if (!useParams()["id"]) return <Alert variant={'danger'} margin={"mt-0"}><span>O id da companhia precisa ser informado.</span></Alert>;
+  return <RenderCompany/>
 }
 
 export default Company;
