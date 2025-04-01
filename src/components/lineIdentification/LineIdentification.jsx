@@ -64,7 +64,48 @@ const LineIdentification = ({line}) => {
               </div>
             ) : ""
           }
+          
           <ReportModal/>
+          
+          
+          <div>
+            <Badge className={"fw-normal rounded-5 bg-primary-subtle p-0"}>
+              <button
+                className={"btn m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2"}
+                style={{lineHeight: "normal"}}
+                onClick={async () => {
+                  if (navigator.share) {
+                    try {
+                      await navigator.share({
+                        title: document.title || `Linha ${line.line_number} | ${line.line_name}`,
+                        text: "Confira as informações da linha: horários de partida, pontos de recarga e parada, valor da tarifa, integração, compania entre outros.",
+                        url: window.location.href
+                      });
+                      console.log("Conteúdo compartilhado com sucesso!");
+                    } catch (error) {
+                      alert("Erro ao compartilhar:" + error);
+                    }
+                  } else {
+                    await navigator.clipboard.writeText(window.location.href);
+                    
+                    if (Notification.permission === "granted") {
+                      new Notification("Link copiado!");
+                    } else if (Notification.permission !== "denied") {
+                      Notification.requestPermission().then(permission => {
+                        if (permission === "granted") {
+                          new Notification("Link copiado!");
+                        }
+                      });
+                    }
+                  }
+                }}
+              >
+                <i className="bi bi-share"></i>
+                <span className={"me-1"}>Compartilhar</span>
+              </button>
+            </Badge>
+          </div>
+        
         </div>
         <div className="d-flex align-items-center gap-3 flex-wrap mb-3">
           <LineInfo label={{ref: 'Tarifa', value: fare}}>
