@@ -1,6 +1,5 @@
 ol.breadcrumb {
   background: unset !important;
-  overflow-x: scroll;
   flex-wrap: nowrap;
 
   .breadcrumb-item {

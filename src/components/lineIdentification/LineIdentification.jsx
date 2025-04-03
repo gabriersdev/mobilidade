@@ -5,56 +5,20 @@ import LineInfo from "../lineInfo/LineInfo";
 import {Link} from "react-router-dom";
 import {Badge} from "react-bootstrap";
 import ReportModal from "../report/ReportModal.jsx";
+import Util from "../../assets/Util.js";
+import Convert from "./convert.js";
 
 const LineIdentification = ({line}) => {
   let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact, datetimeLastModify] = ['', '', '', 0, '', ''];
   
-  switch (line.type) {
-    case 1:
-      lineType = "Coletivo Urbano";
-      break
-    case 2:
-      lineType = "Executivo Urbano";
-      break
-    case 3:
-      lineType = "Executivo Rodoviário";
-      break
-    case 4:
-      lineType = "Coletivo Rodoviário";
-      break
-    default:
-      lineType = "Não informado";
-  }
-  
-  switch (line.scope) {
-    case 1:
-      scope = "Municipal";
-      break
-    case 2:
-      scope = "Metropolitano";
-      break
-    case 3:
-      scope = "Rodoviário";
-      break
-    case 4:
-      scope = "Intermunicipal";
-      break
-    default:
-      scope = "Não informado";
-  }
+  lineType = Convert.lineType(line.type);
+  scope = Convert.theScope(line.scope);
   
   if (line.has_integration === 1) hasIntegration = "Possui integração";
   else hasIntegration = "Não possui integração";
   
-  if (parseFloat(line.fare) === 0) {
-    fare = "Não informado";
-  } else {
-    fare = Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 2,
-    }).format(line.fare);
-  }
+  if (parseFloat(line.fare) === 0) fare = "Não informado";
+  else fare = Util.formatMoney(line.fare);
   
   if (line.count_departure_times) countDepartureTimes = line.count_departure_times;
   if (line.report_contact) reportContact = line.report_contact;
@@ -100,9 +64,50 @@ const LineIdentification = ({line}) => {
               </div>
             ) : ""
           }
+          
           <ReportModal/>
+          
+          
+          <div>
+            <Badge className={"fw-normal rounded-5 bg-primary-subtle p-0"}>
+              <button
+                className={"btn m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2"}
+                style={{lineHeight: "normal"}}
+                onClick={async () => {
+                  if (navigator.share) {
+                    try {
+                      await navigator.share({
+                        title: document.title || `Linha ${line.line_number} | ${line.line_name}`,
+                        text: "Confira as informações da linha: horários de partida, pontos de recarga e parada, valor da tarifa, integração, compania entre outros.",
+                        url: window.location.href
+                      });
+                      console.log("Conteúdo compartilhado com sucesso!");
+                    } catch (error) {
+                      alert("Erro ao compartilhar:" + error);
+                    }
+                  } else {
+                    await navigator.clipboard.writeText(window.location.href);
+                    
+                    if (Notification.permission === "granted") {
+                      new Notification("Link copiado!");
+                    } else if (Notification.permission !== "denied") {
+                      Notification.requestPermission().then(permission => {
+                        if (permission === "granted") {
+                          new Notification("Link copiado!");
+                        }
+                      });
+                    }
+                  }
+                }}
+              >
+                <i className="bi bi-share"></i>
+                <span className={"me-1"}>Compartilhar</span>
+              </button>
+            </Badge>
+          </div>
+        
         </div>
-        <div className="d-flex align-items-center gap-3 mb-3">
+        <div className="d-flex align-items-center gap-3 flex-wrap mb-3">
           <LineInfo label={{ref: 'Tarifa', value: fare}}>
             <i className="bi bi-cash-coin naval-blue"></i>
           </LineInfo>

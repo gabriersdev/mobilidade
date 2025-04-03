@@ -1,7 +1,6 @@
 import "./card.css";
 
 import PropTypes from "prop-types";
-import {useState} from "react";
 
 import {Card as BootstrapCard} from 'react-bootstrap';
 import {Link} from "react-router-dom";

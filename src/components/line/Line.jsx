@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {AnimatePresence} from "framer-motion";
 
 import axios from "axios";
 import config from "../../config";
@@ -14,7 +13,6 @@ import Alert from "../alert/Alert";
 import ListLineWarnings from "../listLineWarnings/ListLineWarnings";
 import FeedbackError from "../feedbackError/FeedbackError";
 import Weather from "../weather/Weather";
-import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 
 const Line = ({id}) => {
@@ -47,8 +45,7 @@ const Line = ({id}) => {
     return <div>Carregando...</div>;
   } else if (error) {
     console.log(error)
-    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message}
-                          type={'card'}/>;
+    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;
   } else if (data.length === 0) {
     return (
       <Alert variant={'danger'} margin={"mt-0"}>
@@ -69,16 +66,18 @@ const Line = ({id}) => {
       <div className="d-flex flex-column" style={{gap: '3rem'}}>
         <AnimatedComponents>
           <section id={"id"}>
-            <LineIdentification line={data[0]}/>
-            {data[0].observations ? (
-                <Alert variant={'secondary'} margin={"mt-3 mb-0"}>
-                  <span>{data[0].observations}</span>
-                </Alert>)
-              : ""
-            }
-            
-            <Weather/>
-            <ListLineWarnings line_id={data[0].line_id}/>
+            <AnimatedComponents>
+              <LineIdentification line={data[0]}/>
+              {data[0].observations ? (
+                  <Alert variant={'secondary'} margin={"mt-3 mb-0"}>
+                    <span>{data[0].observations}</span>
+                  </Alert>)
+                : ""
+              }
+              
+              <Weather/>
+              <ListLineWarnings line_id={data[0].line_id}/>
+            </AnimatedComponents>
           </section>
           
           <section id={"partidas"} className={"pt-3"}>

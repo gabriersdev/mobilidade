@@ -90,8 +90,16 @@ function App() {
       const id = location.hash.replace('#', '')
       const element = document.getElementById(id)
       if (element) window.scrollTo({top: element.offsetTop, behavior: 'smooth'})
-      else window.scrollTo({top: 0, behavior: 'smooth'});
-    } else window.scrollTo({top: 0, behavior: 'smooth'});
+      else {
+        setTimeout(() => {
+          window.scrollTo({top: 0, behavior: 'smooth'})
+        }, 100)
+      };
+    } else {
+      setTimeout(() => {
+        window.scrollTo({top: 0, behavior: 'smooth'})
+      }, 100);
+    };
   } catch (error) {
     console.log('Ocorreu um erro ao tentar verificar os parâmetros passados. %s', error);
   }
