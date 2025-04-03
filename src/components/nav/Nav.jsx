@@ -42,9 +42,7 @@ const Nav = () => {
   useEffect(() => {
     window.addEventListener("resize", () => {
       setWidth(document.body.offsetWidth);
-      console.log(document.body.offsetWidth);
     })
-      console.log(document.body.offsetWidth)
   }, []);
   
   return (
