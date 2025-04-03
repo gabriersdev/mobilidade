@@ -24,7 +24,7 @@ const BarInfo = () => {
   }, []);
   
   return infos.map(({title, message}, index) => (
-    <div className={`py-4 bg-danger-subtle ${!show ? "position-sticky" : ""} top-0 border-bottom border-danger-subtle`} style={infos.length - 1 === index ? {zIndex: 100} : {}} key={index}>
+    <div className={`py-4 bg-danger-subtle border-bottom border-danger-subtle`} style={infos.length - 1 === index ? {zIndex: 100} : {}} key={index}>
       <details className={"container"} open={show}>
         <summary className={"fs-6 mb-0 fw-bold text-danger text-balance bar-info-summary sm-text-center"}>
           <i className="bi bi-exclamation-triangle-fill me-2"></i>
