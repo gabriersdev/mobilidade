@@ -108,9 +108,9 @@ const ListLineWarnings = ({line_id}) => {
                           <span className={'hide-max-width-419'}>&nbsp;</span>
                           <span>{warning.title.endsWith('.') ? warning.title : `${warning.title}.`}</span>
                           <span className={"ms-1"}>Saiba mais</span>
-                          <div className={"ms-1 d-inline-flex"} style={{transform: "rotate(180deg)"}}>
+                          <span className={"ms-1 d-inline-flex"} style={{transform: "rotate(180deg)"}}>
                             <i className="bi bi-arrow-up-short"></i>
-                          </div>
+                          </span>
                         </p>
                       </summary>
                       <p className={"p-0 mt-2 mb-0 text-balance"}>

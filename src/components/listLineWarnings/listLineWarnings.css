@@ -1,4 +1,4 @@
-.alert-warning-summary {
+.alert-warning-summary, .bar-info-summary {
   &::marker {
     list-style-type: none;
     font-family: 'bootstrap-icons', sans-serif;
@@ -9,6 +9,12 @@
     list-style-type: none;
     font-family: 'bootstrap-icons', sans-serif;
     content: "";
+  }
+}
+
+.sm-text-center {
+  @media screen and (max-width: 500px) {
+    text-align: center;
   }
 }
 
