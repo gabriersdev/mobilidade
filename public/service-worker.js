@@ -1,4 +1,4 @@
-const cacheVersion = "v18"
+const cacheVersion = "v19"
 const STATIC_CACHE_NAME = `mobilidade-app-${cacheVersion}`;
 const DYNAMIC_CACHE_NAME = `dynamic-mobilidade-app-${cacheVersion}`;
 
