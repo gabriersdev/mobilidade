@@ -41,7 +41,12 @@
 
 <body>
 <div id="root"></div>
-<script type="module" src="/src/main.jsx"></script>
+<script>
+  const script = document.createElement('script');
+  script.src = `/src/main.jsx?v=${new Date().getTime()}`;
+  script.type = 'module';
+  document.body.appendChild(script);
+</script>
 </body>
 
 </html>

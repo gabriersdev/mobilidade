@@ -6,14 +6,14 @@ import {useEffect, useState} from "react";
 const Footer = () => {
   const [version, setVersion] = useState("1.0.0");
   const [cacheVersion, setCacheVersion] = useState("V11");
-
+  
   useEffect(() => {
     fetch("package.json").then((res) => {
       return res.json();
     }).then(data => {
       if (data && data.version) setVersion(data.version);
     })
-
+    
     fetch("service-worker.js").then((res) => {
       return res.text();
     }).then(data => {
@@ -21,7 +21,7 @@ const Footer = () => {
       if (match && match[1]) setCacheVersion(match[1].toUpperCase());
     })
   }, []);
-
+  
   return (
     <footer className="footer border-top bg-body-tertiary">
       <Container className="d-flex flex-column gap-2rem">
@@ -31,7 +31,20 @@ const Footer = () => {
           <Link to="./terms-of-service#topo" className="footer-link-list-item">Termos de serviços</Link>
           <Link to="./privacy#topo" className="footer-link-list-item">Privacidade</Link>
         </ul>
-        <p className={"text-body-secondary"}>Versão: {version || "1.0.0"} | Cache: {cacheVersion || "V11"} </p>
+        <div className="d-flex gap-1 flex-wrap">
+          <p className={"text-body-secondary"}>Versão: {version || "1.0.0"} | Cache: {cacheVersion || "V11"} </p>
+          <button className={"btn text-start p-0 m-0 text-primary-emphasis"} onClick={() => {
+            if ('serviceWorker' in navigator) {
+              caches.keys().then(function (names) {
+                for (let name of names) caches.delete(name);
+              });
+            }
+            window.location.reload();
+          }}>
+            <span className={"me-1"}>Limpar cache</span>
+            <i className="bi bi-database-fill-x"></i>
+          </button>
+        </div>
       </Container>
     </footer>
   )
