@@ -33,7 +33,7 @@ const Footer = () => {
         </ul>
         <div className="d-flex gap-1 flex-wrap">
           <p className={"text-body-secondary"}>Versão: {version || "1.0.0"} | Cache: {cacheVersion || "V11"} </p>
-          <button className={"btn text-start p-0 m-0 text-primary-emphasis"} onClick={() => {
+          <button className={"btn text-start p-0 m-0 text-primary-emphasis border-0"} onClick={() => {
             if ('serviceWorker' in navigator) {
               caches.keys().then(function (names) {
                 for (let name of names) caches.delete(name);
