@@ -64,6 +64,24 @@ function App() {
     document.querySelectorAll('a').forEach(link => link.setAttribute('rel', 'noopener noreferrer'));
   }, []);
 
+  // Define um parametro para o import do script que forçará a atualizar a versão do cache
+  useEffect(() => {
+    let [tent, matched] = [0, false]
+    
+    while (tent < 5 && matched === false) {
+      setTimeout(() => {
+        const scripts = Array.from(document.querySelectorAll("script"))
+        if (scripts) {
+          const script = scripts.find(s => s.type === "module" && s.src.match(/\/assets\/index\.\w*\.js/))
+          console.log(script)
+          if (script) script.src = script.src + "?v=" + new Date().getTime();
+          matched = true
+        }
+      }, tent > 0 ? 1000 * tent : 1000)
+      tent += 1
+    }
+  }, [])
+  
   if (publicIp && window.location.hostname !== "localhost") {
     try {
       axios.post(`${config.host}/api/logs/`, {
