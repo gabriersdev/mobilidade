@@ -85,7 +85,7 @@ const Line = ({id}) => {
             <div className={"d-flex flex-wrap justify-content-between align-items-start mb-2"}>
               <Title type="h3" classX={" pb-2 text-body-secondary"}>Horários de partidas</Title>
               <Button variant={"primary"} className={"btn-sm d-flex align-items-center justify-content-center"} onClick={() => {
-                fetch(``, {
+                fetch(`${config.host}/api/render-pdf`, {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({ html: '<h1>OI</h1>', css: 'body {font-family: "Inter", sans-serif !important; font-size: 16px;}' }),
