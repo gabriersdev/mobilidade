@@ -3,12 +3,15 @@ import {Link} from "react-router-dom";
 
 import "./nav.css";
 import {useEffect, useState} from "react";
+import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 
 const infos = [
   {
     title: "Linhas afetadas pela redução do quadro de horários",
     message: (<>Redução afeta as linhas 03, 04, 05 e 07 do transporte público municipal de Sabará-MG, operadas pela
-      Vinscol. Válido a partir de quinta-feira, 03<span className={"arial"}>/</span>04</>)
+      Vinscol. Válido a partir de quinta-feira, 03<span className={"arial"}>/</span>04</>),
+    init: "2025-04-03T00:00:00-03:00",
+    finish: "2025-04-13T00:00:00-03:00",
   }
 ]
 
@@ -23,7 +26,12 @@ const BarInfo = () => {
     })
   }, []);
   
-  return infos.map(({title, message}, index) => (
+  const isValidInfos = infos.filter(i => {
+    return new Date().getTime() >= new Date(i.init).getTime() &&
+    new Date().getTime() <= new Date(i.finish).getTime()
+  })
+  
+  return isValidInfos.map(({title, message}, index) => (
     <div className={`py-4 bg-danger-subtle border-bottom border-danger-subtle`} style={infos.length - 1 === index ? {zIndex: 100} : {}} key={index}>
       <details className={"container"} open={show}>
         <summary className={"fs-6 mb-0 fw-bold text-danger text-balance bar-info-summary sm-text-center"}>
@@ -46,7 +54,7 @@ const Nav = () => {
   }, []);
   
   return (
-    <>
+    <AnimatedComponents>
       <BarInfo/>
       <Navbar expand="lg" className={`bg-body-tertiary border-bottom ${width > 766 ? "position-sticky top-0" : ""}`} style={width > 766 ? {zIndex: 101} : {zIndex: 99}}>
         <Container className="my-1 d-flex justify-content-between align-items-center w-100 flex-wrap">
@@ -63,7 +71,7 @@ const Nav = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    </>
+    </AnimatedComponents>
   )
 }
 
