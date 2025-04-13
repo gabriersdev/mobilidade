@@ -87,8 +87,8 @@ const Line = ({id}) => {
               <Button variant={"primary"} className={"btn-sm d-flex align-items-center justify-content-center"} onClick={() => {
                 fetch(`${config.host}/api/render-pdf`, {
                   method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ html: '<h1>OI</h1>', css: 'body {font-family: "Inter", sans-serif !important; font-size: 16px;}' }),
+                  headers: {'Content-Type': 'application/json'},
+                  body: JSON.stringify({html: '<h1>OI</h1>', css: 'body {font-family: "Inter", sans-serif !important; font-size: 16px;}'}),
                 })
                   .then(res => res.json())
                   .then(data => {
@@ -113,7 +113,8 @@ const Line = ({id}) => {
           <section id={"paradas"} className={"pt-3"}>
             <div className={"d-flex flex-wrap justify-content-between align-items-start mb-2"}>
               <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>
-              <Button variant={"primary"} className={"btn-sm d-flex align-items-center justify-content-center"} onClick={() => {}}>
+              <Button variant={"primary"} className={"btn-sm d-flex align-items-center justify-content-center"} onClick={() => {
+              }}>
                 <span className={"me-2"}>Imprimir</span>
                 <i className="bi bi-printer-fill"></i>
               </Button>
