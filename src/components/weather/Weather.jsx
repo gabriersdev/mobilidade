@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react';
 import axios from "axios";
 import config from "../../config.js";
 import Alert from "../alert/Alert.jsx";
-import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 import {AnimatePresence} from "framer-motion";
 import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
 

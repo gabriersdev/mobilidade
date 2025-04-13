@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import Grid from "../grid/Grid.jsx";
 import Card from "../card/Card.jsx";
-import Util from "../../assets/Util.js";
 import config from "../../config";
-import {Badge} from "react-bootstrap";
 import ListLines from "../listLines/ListLines.jsx";
 
 const Search = ({value}) => {
