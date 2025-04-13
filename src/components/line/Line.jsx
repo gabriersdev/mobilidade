@@ -15,6 +15,7 @@ import FeedbackError from "../feedbackError/FeedbackError";
 import Weather from "../weather/Weather";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 import {Button} from "react-bootstrap";
+import Print from "../print/Print.jsx";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -84,30 +85,9 @@ const Line = ({id}) => {
           <section id={"partidas"} className={"pt-3"}>
             <div className={"d-flex flex-wrap justify-content-between align-items-start mb-2"}>
               <Title type="h3" classX={" pb-2 text-body-secondary"}>Horários de partidas</Title>
-              <Button variant={"primary"} className={"btn-sm d-flex align-items-center justify-content-center"} onClick={() => {
-                fetch(`${config.host}/api/render-pdf`, {
-                  method: 'POST',
-                  headers: {'Content-Type': 'application/json'},
-                  body: JSON.stringify({html: '<h1>OI</h1>', css: 'body {font-family: "Inter", sans-serif !important; font-size: 16px;}'}),
-                })
-                  .then(res => res.json())
-                  .then(data => {
-                    const link = document.createElement('a');
-                    link.href = `data:application/pdf;base64,${data}`;
-                    link.download = 'document.pdf';
-                    document.body.appendChild(link);
-                    setTimeout(() => {
-                      link.click();
-                    }, 500)
-                    link.remove();
-                  });
-              }}>
-                <span className={"me-2"}>Imprimir</span>
-                <i className="bi bi-printer-fill"></i>
-              </Button>
+              <Print variant={"departure_times"}/>
             </div>
-            <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location}
-                                destination_location={data[0].destination_location}/>
+            <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>
           </section>
           
           <section id={"paradas"} className={"pt-3"}>

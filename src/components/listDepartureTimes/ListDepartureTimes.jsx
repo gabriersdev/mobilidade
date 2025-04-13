@@ -36,7 +36,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
           .map(is => is[0])
       ]
     })
-
+    
     return (
       <AnimatePresence mode={"wait"}>
         <AnimatedComponent>
