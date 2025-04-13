@@ -3,30 +3,8 @@ import PropTypes from "prop-types";
 import Grid from "../grid/Grid.jsx";
 import Card from "../card/Card.jsx";
 import axios from "axios";
-import Util from "../../assets/Util.js";
 import config from "../../config";
-import {Badge, Button} from "react-bootstrap";
-import Convert from "../lineIdentification/convert.js";
 import ListLines from "../listLines/ListLines.jsx";
-
-// Separar responsabilidade nessa função
-const renderListLines = () => {
-  return null;
-}
-
-// Componente para o botão que chama algo para carregar mais linhas
-const getMoreLines = (add = 30) => {
-  // countLinesLoaded = 30
-  // countLinesLoaded + add
-  const existsMoreLines = false;
-  return (
-    // Lista de linhas
-    <Button variant={"dark"} className={"w-100 mt-5 bg-body-tertiary border-secondary-subtle"}
-            disabled={!existsMoreLines}>
-      {existsMoreLines ? "Carregar +30" : "Todas as linha foram carregadas"}
-    </Button>
-  )
-}
 
 // TODO - Verificar necessidade da propriedade content
 const GetAndListLines = ({variant, content}) => {

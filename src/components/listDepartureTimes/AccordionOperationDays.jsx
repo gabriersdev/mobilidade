@@ -5,7 +5,6 @@ import Table from "./TableDepartureTimes";
 import Legend from "../legend/Legend";
 import Accordion from "../accordion/Accordion";
 import {Theme} from "../themeContext/ThemeContext";
-import Alert from "../alert/Alert.jsx";
 
 const AccordionOperationDays = () => {
   const {departureTimes, uniqueDaysForDirection, index, direction, directionName, observations} = useContext(Theme)

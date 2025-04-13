@@ -40,8 +40,8 @@ const LineIdentification = ({line}) => {
         )
       }
       
-      <div>
-        <div className="d-flex align-items-center gap-3 flex-wrap mb-3">
+      <div className={"d-flex flex-column"}>
+        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-0">
           <LineInfo label={{ref: 'Tipo da Linha', value: lineType}}>
             <i className="bi bi-record-circle red"></i>
           </LineInfo>
@@ -51,6 +51,8 @@ const LineIdentification = ({line}) => {
           <LineInfo label={{ref: 'Integração com outras Linhas ou Modais', value: hasIntegration}}>
             <i className="bi bi-train-front-fill purple"></i>
           </LineInfo>
+        </div>
+        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-3">
           {
             reportContact ? (
               <div>
@@ -89,7 +91,7 @@ const LineIdentification = ({line}) => {
                     await navigator.clipboard.writeText(window.location.href);
                     
                     if (Notification.permission === "granted") {
-                      new Notification("Link copiado!");
+                      alert("Link copiado!");
                     } else if (Notification.permission !== "denied") {
                       Notification.requestPermission().then(permission => {
                         if (permission === "granted") {
@@ -105,9 +107,8 @@ const LineIdentification = ({line}) => {
               </button>
             </Badge>
           </div>
-        
         </div>
-        <div className="d-flex align-items-center gap-3 flex-wrap mb-3">
+        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-1">
           <LineInfo label={{ref: 'Tarifa', value: fare}}>
             <i className="bi bi-cash-coin naval-blue"></i>
           </LineInfo>
@@ -123,25 +124,27 @@ const LineIdentification = ({line}) => {
             </span>
           </LineInfo>
         </div>
-        {
-          datetimeLastModify ? (
-              <div className={"d-flex align-items-center gap-3 flex-wrap"}>
-                <LineInfo label={{ref: 'Última atualização', value: ""}}>
-                  <i className="bi bi-stopwatch"></i>
-                  <span className={"ms-1"}>
+        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-2">
+          {
+            datetimeLastModify ? (
+                <div className={"d-flex align-items-center gap-3 flex-wrap"}>
+                  <LineInfo label={{ref: 'Última atualização', value: ""}}>
+                    <i className="bi bi-stopwatch"></i>
+                    <span className={"ms-1"}>
                     Atualizado em:{" "}
-                    {
-                      [
-                        (0 + datetimeLastModify.toLocaleString('pt-BR', {day: 'numeric'})).slice(-2),
-                        datetimeLastModify.toLocaleString('pt-BR', {month: 'long'}),
-                        (0 + datetimeLastModify.toLocaleString('pt-BR', {year: 'numeric'})).slice(-4),
-                      ].join(" de ")
-                    }
+                      {
+                        [
+                          (0 + datetimeLastModify.toLocaleString('pt-BR', {day: 'numeric'})).slice(-2),
+                          datetimeLastModify.toLocaleString('pt-BR', {month: 'long'}),
+                          (0 + datetimeLastModify.toLocaleString('pt-BR', {year: 'numeric'})).slice(-4),
+                        ].join(" de ")
+                      }
                   </span>
-                </LineInfo>
-              </div>
-            )
-            : ""}
+                  </LineInfo>
+                </div>
+              )
+              : ""}
+        </div>
       </div>
     </div>
   )

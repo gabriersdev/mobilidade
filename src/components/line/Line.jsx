@@ -14,6 +14,8 @@ import ListLineWarnings from "../listLineWarnings/ListLineWarnings";
 import FeedbackError from "../feedbackError/FeedbackError";
 import Weather from "../weather/Weather";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
+import {Button} from "react-bootstrap";
+import Print from "../print/Print.jsx";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -81,13 +83,22 @@ const Line = ({id}) => {
           </section>
           
           <section id={"partidas"} className={"pt-3"}>
-            <Title type="h3" classX={" pb-2 text-body-secondary"}>Horários de partidas</Title>
-            <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location}
-                                destination_location={data[0].destination_location}/>
+            <div className={"d-flex flex-wrap justify-content-between align-items-start mb-2"}>
+              <Title type="h3" classX={" pb-2 text-body-secondary"}>Horários de partidas</Title>
+              <Print variant={"departure_times"}/>
+            </div>
+            <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>
           </section>
           
           <section id={"paradas"} className={"pt-3"}>
-            <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>
+            <div className={"d-flex flex-wrap justify-content-between align-items-start mb-2"}>
+              <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>
+              <Button variant={"primary"} className={"btn-sm d-flex align-items-center justify-content-center"} onClick={() => {
+              }}>
+                <span className={"me-2"}>Imprimir</span>
+                <i className="bi bi-printer-fill"></i>
+              </Button>
+            </div>
             <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location}
                                  destination_location={data[0].destination_location}/>
           </section>
