@@ -28,7 +28,7 @@ const BarInfo = () => {
   
   const isValidInfos = infos.filter(i => {
     return new Date().getTime() >= new Date(i.init).getTime() &&
-    new Date().getTime() <= new Date(i.finish).getTime()
+      new Date().getTime() <= new Date(i.finish).getTime()
   })
   
   return isValidInfos.map(({title, message}, index) => (
@@ -54,24 +54,26 @@ const Nav = () => {
   }, []);
   
   return (
-    <AnimatedComponents>
-      <BarInfo/>
-      <Navbar expand="lg" className={`bg-body-tertiary border-bottom ${width > 766 ? "position-sticky top-0" : ""}`} style={width > 766 ? {zIndex: 101} : {zIndex: 99}}>
-        <Container className="my-1 d-flex justify-content-between align-items-center w-100 flex-wrap">
-          <Navbar.Brand as={Link} to="./" className={"text-body-secondary"} style={{letterSpacing: '-0.75px'}}>
-            <img src={'./images/logo-transparent.png'} alt={'Logo'} className={'me-2'} style={{height: '3rem'}}/>
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-          <Navbar.Collapse id="basic-navbar-nav">
-            <BootstrapNav className="me-auto">
-              <BootstrapNav.Link as={Link} className={"text-primary"} to="./">Início</BootstrapNav.Link>
-              <BootstrapNav.Link as={Link} className={"text-primary"} to="./lines">Linhas</BootstrapNav.Link>
-              <BootstrapNav.Link as={Link} className={"text-primary"} to="./search">Pesquisa</BootstrapNav.Link>
-            </BootstrapNav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </AnimatedComponents>
+    <div className={"position-sticky top-0"} style={width > 766 ? {zIndex: 200} : {zIndex: 99}}>
+      <AnimatedComponents>
+        <BarInfo/>
+        <Navbar expand="lg" className={`bg-body-tertiary border-bottom ${width > 766 ? "position-sticky top-0" : ""}`}>
+          <Container className="my-1 d-flex justify-content-between align-items-center w-100 flex-wrap">
+            <Navbar.Brand as={Link} to="./" className={"text-body-secondary"} style={{letterSpacing: '-0.75px'}}>
+              <img src={'./images/logo-transparent.png'} alt={'Logo'} className={'me-2'} style={{height: '3rem'}}/>
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+            <Navbar.Collapse id="basic-navbar-nav">
+              <BootstrapNav className="me-auto">
+                <BootstrapNav.Link as={Link} className={"text-primary"} to="./">Início</BootstrapNav.Link>
+                <BootstrapNav.Link as={Link} className={"text-primary"} to="./lines">Linhas</BootstrapNav.Link>
+                <BootstrapNav.Link as={Link} className={"text-primary"} to="./search">Pesquisa</BootstrapNav.Link>
+              </BootstrapNav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      </AnimatedComponents>
+    </div>
   )
 }
 
