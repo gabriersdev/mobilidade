@@ -50,9 +50,9 @@ const Weather = () => {
       <AnimatedComponent>
         <Alert variant={'weather'} margin={"mt-3"}>
           <span>
-            <p className={"m-0 p-0 d-inline-block"}>{alertText}</p>
-            <span>Precipitação de {new Intl.NumberFormat("pt-BR").format(precipMM.toFixed(2))} milímetros.</span>
-            <a className={"text-info-emphasis fw-semibold ps-1 d-inline-block"} href={urlSabara} rel={"noreferrer noopener"} target={"_blank"}>
+            <p className={"m-0 p-0 d-inline-block"}>{alertText}</p>{" "}
+            {/*<span>Precipitação de {new Intl.NumberFormat("pt-BR").format(precipMM.toFixed(2))} milímetros.</span>{" "}*/}
+            <a className={"text-info-emphasis fw-semibold d-inline-block"} href={urlSabara} rel={"noreferrer noopener"} target={"_blank"}>
               Saiba mais e veja a previsão do tempo para os próximos dias.
             </a>
           </span>
