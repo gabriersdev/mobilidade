@@ -93,11 +93,7 @@ const Line = ({id}) => {
           <section id={"paradas"} className={"pt-3"}>
             <div className={"d-flex flex-wrap justify-content-between align-items-start mb-2"}>
               <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>
-              <Button variant={"primary"} className={"btn-sm d-flex align-items-center justify-content-center"} onClick={() => {
-              }}>
-                <span className={"me-2"}>Imprimir</span>
-                <i className="bi bi-printer-fill"></i>
-              </Button>
+              <Print variant={"departure_points"}/>
             </div>
             <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location}
                                  destination_location={data[0].destination_location}/>

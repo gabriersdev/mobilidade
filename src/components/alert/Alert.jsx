@@ -27,7 +27,9 @@ const Alert = ({variant, margin, children}) => {
     <BootstrapAlert variant={variant === 'weather' ? 'info' : variant}
                     className={`d-flex gap-2 ${!margin ? 'mt-3' : margin}`} role="alert">
       {icon}
-      {children}
+      <div className={`text-balance`}>
+        {children}
+      </div>
     </BootstrapAlert>
   );
 }
