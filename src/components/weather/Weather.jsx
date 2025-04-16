@@ -30,6 +30,7 @@ const Weather = () => {
   let alertText;
   const precipMM = weatherData.current.precip_mm || 0;
   const codition = weatherData.current.condition.text || null
+  const urlSabara = "https://weather.com/pt-BR/clima/hoje/l/646250a76bd16287c123337146826b2b02f52060e24a29adb2c9b6fb33965539"
   
   try {
     if (precipMM >= 1) {
@@ -48,7 +49,13 @@ const Weather = () => {
     <AnimatePresence mode={"wait"}>
       <AnimatedComponent>
         <Alert variant={'weather'} margin={"mt-3"}>
-          <span>{alertText} Precipitação de {new Intl.NumberFormat("pt-BR").format(precipMM.toFixed(2))} milímetros.</span>
+          <span>
+            <p className={"m-0 p-0 d-inline-block"}>{alertText}</p>
+            <span>Precipitação de {new Intl.NumberFormat("pt-BR").format(precipMM.toFixed(2))} milímetros.</span>
+            <a className={"text-info-emphasis fw-semibold ps-1 d-inline-block"} href={urlSabara} rel={"noreferrer noopener"} target={"_blank"}>
+              Saiba mais e veja a previsão do tempo para os próximos dias.
+            </a>
+          </span>
         </Alert>
       </AnimatedComponent>
     </AnimatePresence>
