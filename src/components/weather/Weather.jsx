@@ -31,8 +31,6 @@ const Weather = () => {
   const precipMM = weatherData.current.precip_mm || 0;
   const codition = weatherData.current.condition.text || null
   
-  console.log(precipMM, weatherData.current);
-  
   try {
     if (precipMM >= 1) {
       if (precipMM <= 2) alertText = 'Previsão de chuva leve para a região. Normalmente não causa transtornos ao trânsito ou atraso nos horários de partida.'
