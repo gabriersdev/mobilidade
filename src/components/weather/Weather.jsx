@@ -37,9 +37,7 @@ const Weather = () => {
       else if (precipMM <= 10) alertText = 'Previsão de chuva moderada para a região. Pode causar atrasos nos horários de partida.'
       else if (precipMM <= 30) alertText = 'Fique ligado! Previsão de chuva forte para a região. Pode causar atrasos nos horários de partida e transtornos ao trânsito.'
       else alertText = 'Atenção! Previsão de chuva muito forte/torrencial para a região. O que deve causar atrasos nos horários de partida e transtornos ao trânsito. Se possível, evite sair de casa e fique em um local fechado e seguro.'
-    } else if (codition.toLowerCase().includes('rain')) {
-      alertText = 'Chuva na região. Saia mais cedo e com guarda-chuvas. A chuva pode atrasar os horários de partida e causar transtornos no trânsito.'
-    }
+    } else if (codition.toLowerCase().includes('rain')) alertText = 'Chuva na região. Saia mais cedo e com guarda-chuvas. A chuva pode atrasar os horários de partida e causar transtornos no trânsito.'
   } catch (e) {
     console.error('Erro ao processar dados:', e);
   }
