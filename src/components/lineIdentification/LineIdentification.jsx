@@ -51,7 +51,7 @@ const LineIdentification = ({line}) => {
             <i className="bi bi-train-front-fill purple"></i>
           </LineInfo>
         </div>
-        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-3">
+        <div className="d-flex align-items-center gap-2 flex-wrap mb-3 order-3">
           {
             reportContact ? (
               <div>
@@ -68,6 +68,20 @@ const LineIdentification = ({line}) => {
           
           <ReportModal/>
           
+          <div>
+            <Badge className={"fw-normal rounded-5 bg-primary-subtle p-0"}>
+              <button
+                className={"btn m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2"}
+                style={{lineHeight: "normal"}}
+                onClick={async () => {
+                
+                }}
+              >
+                <span>Acompanhar</span>
+                <i className="bi bi-bell"></i>
+              </button>
+            </Badge>
+          </div>
           
           <div>
             <Badge className={"fw-normal rounded-5 bg-primary-subtle p-0"}>
@@ -101,8 +115,8 @@ const LineIdentification = ({line}) => {
                   }
                 }}
               >
+                <span>Compartilhar</span>
                 <i className="bi bi-share"></i>
-                <span className={"me-1"}>Compartilhar</span>
               </button>
             </Badge>
           </div>
