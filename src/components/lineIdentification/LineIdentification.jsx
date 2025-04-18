@@ -20,6 +20,29 @@ const LineIdentification = ({line}) => {
   if (parseFloat(line.fare) === 0) fare = "Não informado";
   else fare = Util.formatMoney(line.fare);
   
+  const clientNotificate = async () => {
+    if (!("Notification" in window) || !("serviceWorker" in navigator)) {
+      alert("Navegador não suporta notificações ou service worker");
+      return;
+    }
+    
+    const permission = await Notification.requestPermission();
+    if (permission !== "granted") {
+      alert("Permissão de notificação negada");
+      return;
+    }
+    
+    const registration = await navigator.serviceWorker.ready;
+    
+    registration.showNotification("Aviso do app", {
+      body: "Essa notificação foi enviada via Service Worker direto.",
+      icon: "/images/icon-white-192x192.png",
+      badge: "/images/icon-white-192x192.png",
+      tag: "notificacao-teste",
+      renotify: true,
+    });
+  };
+  
   if (line.count_departure_times) countDepartureTimes = line.count_departure_times;
   if (line.report_contact) reportContact = line.report_contact;
   if (line.datetime_last_modify) datetimeLastModify = new Date(line.datetime_last_modify || '2021-01-01T00:00:00Z');
@@ -29,7 +52,7 @@ const LineIdentification = ({line}) => {
       <hgroup className="d-flex align-items-center gap-2 flex-wrap mb-0">
         <Title type="h2" classX=" fs-2 d-inline text-body-emphasis m-0 p-0">Linha {line.line_number}</Title>
         <span className="text-body-secondary">|</span>
-        <Title type="h2" classX=" fs-2 d-inline text-body-secondary m-0 p-0 text-balance lh-sm">{line.departure_location} -{">"} {line.destination_location}</Title>
+        <Title type="h2" classX=" fs-2 d-inline text-body-secondary m-0 p-0 lh-sm">{line.departure_location} -{">"} {line.destination_location}</Title>
       </hgroup>
       {
         line.line_name.toLowerCase() !== line.departure_location.toLowerCase() + "/" + line.destination_location.toLowerCase() ? (
@@ -69,13 +92,14 @@ const LineIdentification = ({line}) => {
           <ReportModal/>
           
           <div>
+            {/*TODO - separar em um componente a parte e alterar para ativar a notificacao por e-mail*/}
             <Badge className={"fw-normal rounded-5 bg-primary-subtle p-0"}>
               <button
                 className={"btn m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2"}
                 style={{lineHeight: "normal"}}
-                onClick={async () => {
-                
-                }}
+                onClick={() => (async () => {
+                  await clientNotificate()
+                })()}
               >
                 <span>Acompanhar</span>
                 <i className="bi bi-bell"></i>
