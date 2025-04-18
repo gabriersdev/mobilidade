@@ -7,7 +7,7 @@ function Accordion({defaultEventKey, title, children}) {
   useEffect(() => {
     // Define o titulo do accordion com text-balance
     document.querySelectorAll('.lh-base.accordion-header button').forEach(el => {
-      el.classList.add('text-nx');
+      el.classList.add('text-balance');
     })
   }, []);
   
