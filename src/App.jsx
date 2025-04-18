@@ -27,21 +27,24 @@ function App() {
 
   useEffect(() => {
     if ("serviceWorker" in navigator && window.location.hostname !== "localhost") {
+    // if ("serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("/service-worker.js")
         .then(() => console.log("Service Worker registrado com sucesso!"))
         .catch((err) => console.error("Erro ao registrar o Service Worker:", err));
     }
 
-    fetch("https://api64.ipify.org?format=json")
-      .then(response => response.json())
-      .then(data => {
-        if (data && data.ip) setPublicIp(data.ip);
-      })
-      .catch(error => {
-        setPublicIp(1);
-        console.log("Erro ao obter IP:", error)
-      })
+    if (window.location.hostname !== "localhost") {
+      fetch("https://api64.ipify.org?format=json")
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.ip) setPublicIp(data.ip);
+        })
+        .catch(error => {
+          setPublicIp(1);
+          console.log("Erro ao obter IP:", error)
+        })
+    }
   }, []);
 
   useEffect(() => {
@@ -73,7 +76,6 @@ function App() {
         const scripts = Array.from(document.querySelectorAll("script"))
         if (scripts) {
           const script = scripts.find(s => s.type === "module" && s.src.match(/\/assets\/index\.\w*\.js/))
-          console.log(script)
           if (script) script.src = script.src + "?v=" + new Date().getTime();
           matched = true
         }
