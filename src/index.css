@@ -39,3 +39,7 @@ main {
 .resize-none {
   resize: none !important;
 }
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
