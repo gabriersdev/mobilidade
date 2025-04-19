@@ -1,4 +1,4 @@
-const cacheVersion = "v21"
+const cacheVersion = "v22"
 const STATIC_CACHE_NAME = `mobilidade-app-${cacheVersion}`;
 const DYNAMIC_CACHE_NAME = `dynamic-mobilidade-app-${cacheVersion}`;
 
@@ -80,5 +80,27 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
+  console.log('Service Worker ativado.');
   event.waitUntil(clients.claim());
+});
+
+self.addEventListener('push', event => {
+  const options = {
+    body: event.data.text(), // Corpo da notificação
+    icon: 'https://example.com/icon.png', // Ícone opcional
+    badge: 'https://example.com/badge.png' // Badge opcional
+  };
+  
+  event.waitUntil(
+    self.registration.showNotification('Notificação via Service Worker', options)
+  );
+});
+
+// Evento de clique na notificação
+self.addEventListener('notificationclick', event => {
+  console.log("Notificação clicada");
+  event.notification.close(); // Fecha a notificação quando clicada
+  event.waitUntil(
+    clients.openWindow("/")
+  );
 });

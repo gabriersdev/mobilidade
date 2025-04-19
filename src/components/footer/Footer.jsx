@@ -1,11 +1,13 @@
 import {Link} from "react-router-dom";
 import {Container} from "react-bootstrap";
 import "./footer.css";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 const Footer = () => {
   const [version, setVersion] = useState("1.0.0");
   const [cacheVersion, setCacheVersion] = useState("V11");
+  
+  const [theme, setTheme] = useState("default");
   
   useEffect(() => {
     fetch("package.json").then((res) => {
@@ -14,13 +16,51 @@ const Footer = () => {
       if (data && data.version) setVersion(data.version);
     })
     
-    fetch("service-worker.js").then((res) => {
+    fetch("/service-worker.js").then((res) => {
       return res.text();
     }).then(data => {
       const match = data.match(/const cacheVersion = "(\w*\d{1,})"/);
       if (match && match[1]) setCacheVersion(match[1].toUpperCase());
     })
   }, []);
+  
+  useEffect(() => {
+    if (!("localStorage" in window)) {
+      console.log("Navegador não suporta localStorage");
+    } else {
+      let ls
+      
+      try {
+        ls = JSON.parse(localStorage.getItem("mobilidade-app"));
+        if (ls && ls["theme"]) handleTheme(ls["theme"]);
+      } catch (err) {
+        console.log(err.message)
+      }
+    }
+  }, [])
+  
+  const handleTheme = useCallback((theme) => {
+    if (!["default", "light", "dark"].includes(theme)) {
+      throw new Error(`Theme "${theme}" is not supported`);
+    }
+    
+    if ("localStorage" in window) {
+      try {
+        let ls = JSON.parse(localStorage.getItem("mobilidade-app"));
+        if (ls && ls["theme"]) {
+          localStorage.setItem("mobilidade-app", JSON.stringify({
+            ...ls,
+            theme: theme
+          }));
+        }
+        ;
+        setTheme(theme)
+        document.querySelector('html').dataset.bsTheme = theme
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  }, [])
   
   return (
     <footer className="footer border-top bg-body-tertiary">
@@ -31,8 +71,8 @@ const Footer = () => {
           <Link to="./terms-of-service#topo" className="footer-link-list-item">Termos de serviços</Link>
           <Link to="./privacy#topo" className="footer-link-list-item">Privacidade</Link>
         </ul>
-        <div className="d-flex gap-1 flex-wrap">
-          <p className={"text-body-secondary"}>Versão: {version || "1.0.0"} | Cache: {cacheVersion || "V11"} </p>
+        <div className="d-flex gap-3 flex-wrap">
+          <p className={"text-body-secondary p-0 m-0"}>Versão: {version || "1.0.0"} | Cache: {cacheVersion || "Não definido"} </p>
           <button className={"btn text-start p-0 m-0 text-primary-emphasis border-0"} onClick={() => {
             if ('serviceWorker' in navigator) {
               caches.keys().then(function (names) {
@@ -44,6 +84,16 @@ const Footer = () => {
             <span className={"me-1"}>Limpar cache</span>
             <i className="bi bi-database-fill-x"></i>
           </button>
+          {/*TODO - separar em um componente a parte*/}
+          <div className="dropdown mt-1">
+            <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Tema
+            </button>
+            <ul className="dropdown-menu">
+              <li><a className={"dropdown-item cursor-pointer" + (["default", "light"].includes(theme) ? " active" : "")} onClick={() => handleTheme("light")}>Claro</a></li>
+              <li><a className={"dropdown-item cursor-pointer" + ((theme === "dark") ? " active" : "")} onClick={() => handleTheme("dark")}>Escuro</a></li>
+            </ul>
+          </div>
         </div>
       </Container>
     </footer>
