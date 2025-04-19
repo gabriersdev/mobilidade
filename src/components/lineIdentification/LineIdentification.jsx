@@ -91,7 +91,7 @@ const LineIdentification = ({line}) => {
           
           <ReportModal/>
           
-          <div>
+          <div class="d-none">
             {/*TODO - separar em um componente a parte e alterar para ativar a notificacao por e-mail*/}
             <Badge className={"fw-normal rounded-5 bg-primary-subtle p-0"}>
               <button
@@ -126,7 +126,8 @@ const LineIdentification = ({line}) => {
                     }
                   } else {
                     await navigator.clipboard.writeText(window.location.href);
-                    
+
+                    {/*REVIEW - esse código aqui não faz sentido*/}
                     if (Notification.permission === "granted") {
                       alert("Link copiado!");
                     } else if (Notification.permission !== "denied") {
