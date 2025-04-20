@@ -6,9 +6,9 @@ import './index.css'
 
 // Import Bootstrap CSS e JS
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/js/bootstrap.bundle.min'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
-//  Impor Bootstrap Icons
+//  Import Bootstrap Icons
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
 createRoot(document.getElementById('root')).render(

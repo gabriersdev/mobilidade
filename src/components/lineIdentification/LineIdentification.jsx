@@ -91,7 +91,7 @@ const LineIdentification = ({line}) => {
           
           <ReportModal/>
           
-          <div class="d-none">
+          <div className="d-none">
             {/*TODO - separar em um componente a parte e alterar para ativar a notificacao por e-mail*/}
             <Badge className={"fw-normal rounded-5 bg-primary-subtle p-0"}>
               <button
