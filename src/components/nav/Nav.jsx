@@ -1,9 +1,10 @@
-import {Nav as BootstrapNav, Navbar, Container} from "react-bootstrap";
+import {Nav as BootstrapNav, Navbar, Container, Button} from "react-bootstrap";
 import {Link, useLocation} from "react-router-dom";
 
 import "./nav.css";
 import {useCallback, useEffect, useRef, useState} from "react";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
+import InstallPWAButton from "../installPWAButton/InstallPWAButton.jsx";
 
 const infos = [
   {
@@ -146,12 +147,14 @@ const Nav = () => {
         <AnimatedComponents>
           <Navbar expand="lg" className={`bg-body-tertiary border-bottom ${width > 766 ? "position-sticky top-0" : ""}`}>
             <Container className="my-1 d-flex justify-content-between align-items-center w-100 flex-wrap">
-              <Navbar.Brand as={Link} to="./" className={"text-body-secondary"} style={{letterSpacing: '-0.75px'}}>
+              <Navbar.Brand as={Link} to="./" className={"text-body-secondary me-5"} style={{letterSpacing: '-0.75px'}}>
                 <img src={'./images/logo-transparent.png'} alt={'Logo'} className={'me-2'} style={{height: '3rem'}}/>
+                <span className={"text-primary"} style={{fontFamily: "'Inter', 'Inter Tight', sans-serif"}}>Mobilidade</span>
               </Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav"/>
               <Navbar.Collapse id="basic-navbar-nav">
                 <BootstrapNav className="me-auto w-100">
+                  <div className={"me-2"}><InstallPWAButton/></div>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./">Início</BootstrapNav.Link>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./lines">Linhas</BootstrapNav.Link>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./search">Pesquisa</BootstrapNav.Link>

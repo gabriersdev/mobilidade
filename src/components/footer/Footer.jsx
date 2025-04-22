@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 import {Container} from "react-bootstrap";
 import "./footer.css";
 import {useCallback, useEffect, useState} from "react";
+import InstallPWAButton from "../installPWAButton/InstallPWAButton.jsx";
 
 const Footer = () => {
   const [version, setVersion] = useState("1.0.0");
@@ -86,7 +87,7 @@ const Footer = () => {
           </button>
           {/*TODO - separar em um componente a parte*/}
           <div className="dropdown mt-1">
-            <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button className="btn btn-secondary dropdown-toggle rounded-pill px-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               Tema
             </button>
             <ul className="dropdown-menu">
@@ -94,6 +95,7 @@ const Footer = () => {
               <li><a className={"dropdown-item cursor-pointer" + ((theme === "dark") ? " active" : "")} onClick={() => handleTheme("dark")}>Escuro</a></li>
             </ul>
           </div>
+          <InstallPWAButton/>
         </div>
       </Container>
     </footer>
