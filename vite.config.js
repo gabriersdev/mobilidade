@@ -9,8 +9,7 @@ export default defineConfig({
     historyApiFallback: true
   },
   optimizeDeps: {
-    include: ['react-bootstrap'],
-    // exclude: ['react', 'react-dom'],
+    include: ['react-bootstrap', 'bootstrap/dist/js/bootstrap.bundle.min.js'],
   },
   build: {
     minify: false,
@@ -32,8 +31,10 @@ export default defineConfig({
         format: 'es',
       },
       treeshake: {
-        moduleSideEffects: false,
-      },
+        moduleSideEffects: id => {
+          return id.includes('bootstrap/dist/js/bootstrap.bundle');
+        }
+      }
     }
   },
   resolve: {

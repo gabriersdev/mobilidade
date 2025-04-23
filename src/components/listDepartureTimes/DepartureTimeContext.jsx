@@ -8,13 +8,13 @@ const DepartureTimeContext = ({children}) => {
   const [departureTimeOffCanvas, setDepartureTimeOffCanvas] = useState({});
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  
   const handlePointClick = (e, object) => {
     e.preventScroll = true;
     setDepartureTimeOffCanvas(object);
     handleShow();
   }
-
+  
   return (
     <TimeContext.Provider value={Object.assign({}, {show, departureTimeOffCanvas, handleClose, handleShow, handlePointClick})}>
       {children}

@@ -1,12 +1,29 @@
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import AccordionItem from "../accordion/AccordionItem.jsx";
 import {RechargeContext as DeparturePointsTheme} from "./DeparturePointsContext.jsx";
 import {Theme} from "../themeContext/ThemeContext.jsx";
+import {Context as LineContext} from "../line/LineContext.jsx";
 
 const ListPointsByDirections = () => {
   const {uniqueDirections, departure_location, destination_location, departurePointsByDirection} = useContext(Theme);
   const {handlePointClick} = useContext(DeparturePointsTheme);
+  const {setFirstPointByDirection} = useContext(LineContext);
 
+  useEffect(() => {
+    let direction;
+    
+    // Adiciona o primeiro ponto de parada do sentido para que seja usado como referência para o usuário saber de onde o ônibus sai
+    for (direction in uniqueDirections) {
+      const firstPoint = departurePointsByDirection[direction][0]
+      if (firstPoint) {
+        setFirstPointByDirection((prev) => ({
+          ...prev,
+          [uniqueDirections[direction]]: firstPoint,
+        }))
+      }
+    }
+  }, [])
+  
   return (
     uniqueDirections.map((direction, i) => {
       return (
