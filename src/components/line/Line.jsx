@@ -14,8 +14,8 @@ import ListLineWarnings from "../listLineWarnings/ListLineWarnings";
 import FeedbackError from "../feedbackError/FeedbackError";
 import Weather from "../weather/Weather";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
-import {Button} from "react-bootstrap";
 import Print from "../print/Print.jsx";
+import {LineContext} from "./LineContext.jsx";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -66,44 +66,45 @@ const Line = ({id}) => {
     
     return (
       <div className="d-flex flex-column" style={{gap: '3rem'}}>
-        <AnimatedComponents>
-          <section id={"id"}>
-            <AnimatedComponents>
-              <LineIdentification line={data[0]}/>
-              {data[0].observations ? (
-                  <Alert variant={'secondary'} margin={"mt-3 mb-0"}>
-                    <span>{data[0].observations}</span>
-                  </Alert>)
-                : ""
-              }
-              
-              <Weather/>
-              <ListLineWarnings line_id={data[0].line_id}/>
-            </AnimatedComponents>
-          </section>
-          
-          <section id={"partidas"} className={"pt-3"}>
-            <div className={"d-flex flex-wrap justify-content-between align-items-start mb-2"}>
-              <Title type="h3" classX={" pb-2 text-body-secondary"}>Horários de partidas</Title>
-              <Print variant={"departure_times"}/>
-            </div>
-            <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>
-          </section>
-          
-          <section id={"paradas"} className={"pt-3"}>
-            <div className={"d-flex flex-wrap justify-content-between align-items-start mb-2"}>
-              <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>
-              <Print variant={"departure_points"}/>
-            </div>
-            <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location}
-                                 destination_location={data[0].destination_location}/>
-          </section>
-          
-          <section id={"pontos-de-recarga"} className={"pt-3"}>
-            <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de recarga</Title>
-            <ListRechargePoints id_company={data[0].company_id} company_name={data[0].company_name}/>
-          </section>
-        </AnimatedComponents>
+        <LineContext>
+          <AnimatedComponents>
+            <section id={"id"}>
+              <AnimatedComponents>
+                <LineIdentification line={data[0]}/>
+                {data[0].observations ? (
+                    <Alert variant={'secondary'} margin={"mt-3 mb-0"}>
+                      <span>{data[0].observations}</span>
+                    </Alert>)
+                  : ""
+                }
+                
+                <Weather/>
+                <ListLineWarnings line_id={data[0].line_id}/>
+              </AnimatedComponents>
+            </section>
+            
+            <section id={"partidas"} className={"pt-3"}>
+              <div className={"d-flex flex-wrap justify-content-between align-items-start mb-2"}>
+                <Title type="h3" classX={" pb-2 text-body-secondary"}>Horários de partidas</Title>
+                <Print variant={"departure_times"}/>
+              </div>
+              <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>
+            </section>
+            
+            <section id={"paradas"} className={"pt-3"}>
+              <div className={"d-flex flex-wrap justify-content-between align-items-start mb-2"}>
+                <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>
+                <Print variant={"departure_points"}/>
+              </div>
+              <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>
+            </section>
+            
+            <section id={"pontos-de-recarga"} className={"pt-3"}>
+              <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de recarga</Title>
+              <ListRechargePoints id_company={data[0].company_id} company_name={data[0].company_name}/>
+            </section>
+          </AnimatedComponents>
+        </LineContext>
       </div>
     )
   }

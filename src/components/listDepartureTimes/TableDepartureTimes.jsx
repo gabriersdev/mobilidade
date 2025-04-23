@@ -5,7 +5,7 @@ import data from "../../data";
 import { Theme } from "../themeContext/ThemeContext";
 import { TimeContext } from "./DepartureTimeContext";
 
-const TableRow = ({ row, directionName, dayName }) => {
+const TableRow = ({ row, directionName, direction, dayName }) => {
   const { handlePointClick } = useContext(TimeContext);
   const bootstrapBGColors = data.bootstrap.bg.colors;
 
@@ -20,6 +20,7 @@ const TableRow = ({ row, directionName, dayName }) => {
               timeOrder,
               timeLength: row.length,
               directionName,
+              direction,
               dayName,
               observations: item.observations?.map((observation) => ({
                 abrev: observation.abrev,
@@ -45,7 +46,7 @@ const TableRow = ({ row, directionName, dayName }) => {
 
 const TableDepartureTimes = ({ content }) => {
   const [groupedData, setGroupedData] = useState([]);
-  const { directionName } = useContext(Theme);
+  const { directionName, direction } = useContext(Theme);
   const { data: listData, dayName } = content;
 
   useEffect(() => {
@@ -75,6 +76,7 @@ const TableDepartureTimes = ({ content }) => {
           key={index}
           row={row}
           directionName={directionName}
+          direction={direction}
           dayName={dayName}
         />
       ))}
@@ -93,6 +95,7 @@ TableDepartureTimes.propTypes = {
 TableRow.propTypes = {
   row: PropTypes.array.isRequired,
   directionName: PropTypes.string.isRequired,
+  direction: PropTypes.number.isRequired,
   dayName: PropTypes.string.isRequired,
 };
 
