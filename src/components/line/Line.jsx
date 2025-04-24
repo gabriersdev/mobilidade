@@ -16,6 +16,7 @@ import Weather from "../weather/Weather";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 import Print from "../print/Print.jsx";
 import {LineContext} from "./LineContext.jsx";
+import RouteMap from "../routeMap/RouteMap.jsx";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -96,6 +97,7 @@ const Line = ({id}) => {
                 <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>
                 <Print variant={"departure_points"}/>
               </div>
+              <RouteMap/>
               <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>
             </section>
             
