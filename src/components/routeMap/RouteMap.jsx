@@ -56,7 +56,7 @@ const RouteMap = () => {
   if (!points.length) return null;
   
   return (
-    <div className={"mb-4"}>
+    <div className={"mb-4 d-none"}>
       <AnimatedComponents>
         <figure className={"m-0 p-0"}>
           <MapContainer center={[-19.88, -43.80]} zoom={11} style={{height: '300px'}} className={"border-1"}>
