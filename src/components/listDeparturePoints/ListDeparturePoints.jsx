@@ -8,6 +8,7 @@ import OffcanvasDeparturePoints from "./OffcanvasDeparturePoints.jsx";
 import {ThemeContext} from "../themeContext/ThemeContext.jsx";
 import ListPointsByDirections from "./ListPointsByDirections.jsx";
 import {DeparturePointsContext} from "./DeparturePointsContext.jsx";
+import RouteMap from "../routeMap/RouteMap.jsx";
 
 const ListDeparturePoints = ({line_id, departure_location, destination_location}) => {
   const [data, setData] = useState([]);
@@ -63,6 +64,7 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
             uniqueDirections,
             departurePointsByDirection
           })}>
+            <RouteMap/>
             <ListPointsByDirections/>
           </ThemeContext>
         </Accordion>

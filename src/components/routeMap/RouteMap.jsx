@@ -1,20 +1,11 @@
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {MapContainer, TileLayer, Polyline, Marker, useMap, Popup} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import PropTypes from "prop-types";
 import config from "../../config.js";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
-
-// Endereços recebidos do componente de Departure Points, organizados pelo número da ordem que foram registrados no banco de dados e pelo sentido
-// Primeiro o sentido de ida e depois o de volta, ou apenas ida quando o de volta não existir
-// Se for sentido único, apenas exibir o sentido único
-const addresses = [
-  "Av. Paulista, 250, São Paulo, SP",
-  "Praça da Sé, 100, São Paulo, SP",
-  "Rua Vergueiro, 100, São Paulo, SP",
-  "Avenida Brigadeiro Faria Lima, 150, São Paulo, SP",
-];
+import {Theme} from "../themeContext/ThemeContext.jsx";
 
 function RenderView({points}) {
   const map = useMap();
@@ -32,7 +23,35 @@ RenderView.propTypes = {
 }
 
 const RouteMap = () => {
+  // Recupera os endereços separados por direçao
+  const {departurePointsByDirection} = useContext(Theme)
+  
+  // Endereços recebidos do componente de Departure Points, organizados pelo número da ordem que foram registrados no banco de dados e pelo sentido
+  // Primeiro o sentido de ida e depois o de volta, ou apenas ida quando o de volta não existir
+  // Se for sentido único, apenas exibir o sentido único
+  const [addresses, setAddresses] = useState([
+    // "Av. Paulista, 250, São Paulo, SP",
+    // "Praça da Sé, 100, São Paulo, SP",
+    // "Rua Vergueiro, 100, São Paulo, SP",
+    // "Avenida Brigadeiro Faria Lima, 150, São Paulo, SP",
+  ]);
+  
   const [points, setPoints] = useState([]);
+  
+  useEffect(() => {
+    if (departurePointsByDirection && Object.values(departurePointsByDirection).length > 0) {
+      let direction;
+      for (direction in departurePointsByDirection) {
+        if (parseInt(direction) === 1 || parseInt(direction) === 2) setAddresses((prev) => [...prev, departurePointsByDirection[`${direction}`]]);
+        else if (parseInt(direction) === 0 && addresses.length === 0) setAddresses([departurePointsByDirection[`${direction}`]])
+        else {
+          alert("Algo não ocorreu bem! Contate o administrador!")
+          console.log(addresses, departurePointsByDirection, direction);
+          console.warn("Se nesta os pontos de parada linha possuem direção única não faz sentido possuir, também, direção ida ou volta")
+        }
+      }
+    }
+  }, [departurePointsByDirection]);
   
   useEffect(() => {
     if (points.length > 0) {
@@ -56,7 +75,7 @@ const RouteMap = () => {
   if (!points.length) return null;
   
   return (
-    <div className={"mb-4 d-none"}>
+    <div className={"mb-4"}>
       <AnimatedComponents>
         <figure className={"m-0 p-0"}>
           <MapContainer center={[-19.88, -43.80]} zoom={11} style={{height: '300px'}} className={"border-1"}>
