@@ -97,16 +97,20 @@ const RouteMap = () => {
         <figure className={"m-0 p-0"}>
           <MapContainer center={[-19.88, -43.80]} zoom={11} style={{height: '300px'}} className={"border-1"}>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-            {points.map((p, i) => (
-              <Marker key={i} position={[p.lat, p.lng]}>
-                <Popup className="">
-                  <div>
-                    <h4 className="fs-6 fw-bold mb-2 text-center text-white">Nome do ponto de parada</h4>
-                    <p className="m-0 p-0 text-center text-body-secondary">Rua ABCDEFG, N.º 4954</p>
-                  </div>
-                </Popup>
-              </Marker>
-            ))}
+            {points.map((p, i) => {
+              if (!p) return null
+              return (
+                <Marker key={i} position={[p.lat, p.lng]}>
+                  <Popup className="">
+                    <div>
+                      {/*TODO - obter as props de ponto de parada*/}
+                      <h4 className="fs-6 fw-bold mb-2 text-center text-secondary">Nome do ponto de parada</h4>
+                      <p className="m-0 p-0 text-center text-secondary">Rua ABCDEFG, N.º 4954</p>
+                    </div>
+                  </Popup>
+                </Marker>
+              )
+            })}
             {points.length > 1 && (
               <Polyline positions={points.map(p => [p.lat, p.lng])} color="blue" weight={4}/>
             )}

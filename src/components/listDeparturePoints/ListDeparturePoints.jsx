@@ -14,7 +14,7 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
-
+  
   useEffect(() => {
     const searchDeparturePoints = async () => {
       try {
@@ -28,10 +28,10 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
         setIsLoaded(false);
       }
     };
-
+    
     searchDeparturePoints();
   }, [line_id]);
-
+  
   if (isLoaded) {
     return <div>Carregando...</div>;
   } else if (error) {
@@ -46,28 +46,28 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
   } else {
     // Ordena os pontos de parada por direção e ordem
     const departurePoints = data.toSorted((a, b) => a.order_departure_point - b.order_departure_point);
-
+    
     const uniqueDirections = data.map((item) => item.direction).filter((value, index, self) => self.indexOf(value) === index);
-
+    
     const departurePointsByDirection = uniqueDirections.map((direction) => {
       return departurePoints.filter((item) => item.direction === direction);
     });
-
+    
     return (
       <DeparturePointsContext>
-        <Accordion>
-          <OffcanvasDeparturePoints/>
-          {/* Lista os sentidos da linha e os pontos de parada que correspondentes */}
-          <ThemeContext value={Object.assign({}, {
-            departure_location,
-            destination_location,
-            uniqueDirections,
-            departurePointsByDirection
-          })}>
-            <RouteMap/>
+        {/* Lista os sentidos da linha e os pontos de parada que correspondentes */}
+        <ThemeContext value={Object.assign({}, {
+          departure_location,
+          destination_location,
+          uniqueDirections,
+          departurePointsByDirection
+        })}>
+          <RouteMap/>
+          <Accordion>
+            <OffcanvasDeparturePoints/>
             <ListPointsByDirections/>
-          </ThemeContext>
-        </Accordion>
+          </Accordion>
+        </ThemeContext>
       </DeparturePointsContext>
     )
   }
