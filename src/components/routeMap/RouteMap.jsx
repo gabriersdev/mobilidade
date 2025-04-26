@@ -6,8 +6,6 @@ import PropTypes from "prop-types";
 import config from "../../config.js";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 import {Theme} from "../themeContext/ThemeContext.jsx";
-import {isArray} from "leaflet/src/core/Util.js";
-import {i} from "framer-motion/m";
 
 function RenderView({points}) {
   const map = useMap();
@@ -38,7 +36,7 @@ const RouteMap = () => {
     // "Avenida Brigadeiro Faria Lima, 150, São Paulo, SP",
   ]);
   
-  const [points] = useState([]);
+  const [points, setPoints] = useState([]);
   
   useEffect(() => {
     let directions = [];
@@ -56,7 +54,7 @@ const RouteMap = () => {
         else if (parseInt(direction) === 0) setAddresses([...departurePointsByDirection[`${direction}`]])
         else {
           // alert("Algo não ocorreu bem! Contate o administrador!")
-          // console.warn("Se nesta os pontos de parada linha possuem direção única não faz sentido possuir, também, direção ida ou volta")
+          console.warn("Se nesta os pontos de parada linha possuem direção única não faz sentido possuir, também, direção ida ou volta")
         }
       }
     }
@@ -71,21 +69,24 @@ const RouteMap = () => {
   }, [points]);
   
   useEffect(() => {
+    let sanitizeAddresses = []
     if (addresses && addresses.length > 0) {
-      let sanitizeAddresses = []
       // Formata os endereços do jeito que deve ser passado para o back-end
-      sanitizeAddresses = [...addresses.map(a => a.address.trim() + (a.point_name.trim() ? " " + a.point_name.trim() : ""))];
+      sanitizeAddresses = [...addresses.map(a => a.address.trim() + (a.point_name.trim() ? " - " + a.point_name.trim() : ""))];
       console.log(sanitizeAddresses);
+    } else {
+      // console.log("Nenhum endereço recebido. Addresses: " + sanitizeAddresses);
+      return
     }
     
-    // fetch(`${config.host}/api/geocode/`, {
-    //   method: 'POST',
-    //   headers: {'Content-Type': 'application/json'},
-    //   body: JSON.stringify({addresses: addresses.slice(0, 200)}),
-    // })
-    //   .then(res => res.json())
-    //   .then(setPoints)
-    //   .catch(console.error);
+    fetch(`${config.host}/api/geocode/`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({addresses: sanitizeAddresses.slice(0, 200)}),
+    })
+      .then(res => res.json())
+      .then(setPoints)
+      .catch(console.error);
   }, [addresses]);
   
   if (!points.length) return null;
