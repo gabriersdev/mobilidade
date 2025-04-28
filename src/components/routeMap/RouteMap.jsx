@@ -29,12 +29,7 @@ const RouteMap = () => {
   // Endereços recebidos do componente de Departure Points, organizados pelo número da ordem que foram registrados no banco de dados e pelo sentido
   // Primeiro o sentido de ida e depois o de volta, ou apenas ida quando o de volta não existir
   // Se for sentido único, apenas exibir o sentido único
-  const [addresses, setAddresses] = useState([
-    // "Av. Paulista, 250, São Paulo, SP",
-    // "Praça da Sé, 100, São Paulo, SP",
-    // "Rua Vergueiro, 100, São Paulo, SP",
-    // "Avenida Brigadeiro Faria Lima, 150, São Paulo, SP",
-  ]);
+  const [addresses, setAddresses] = useState([]);
   
   const [points, setPoints] = useState([]);
   
@@ -72,12 +67,14 @@ const RouteMap = () => {
     let sanitizeAddresses = []
     if (addresses && addresses.length > 0) {
       // Formata os endereços do jeito que deve ser passado para o back-end
-      sanitizeAddresses = [...addresses.map(a => a.address.trim() + (a.point_name.trim() ? " - " + a.point_name.trim() : ""))];
-      console.log(sanitizeAddresses);
-    } else {
-      // console.log("Nenhum endereço recebido. Addresses: " + sanitizeAddresses);
-      return
-    }
+      sanitizeAddresses = [...addresses.map(a => {
+        return {
+          address: a.address.trim() + (a.point_name.trim() ? " - " + a.point_name.trim() : "") + ", Sabará - MG",
+          name: a.point_name.trim(),
+          obj: a
+        }
+      })];
+    } else return null
     
     fetch(`${config.host}/api/geocode/`, {
       method: 'POST',
@@ -101,13 +98,16 @@ const RouteMap = () => {
               if (!p) return null
               return (
                 <Marker key={i} position={[p.lat, p.lng]}>
-                  <Popup className="">
-                    <div>
-                      {/*TODO - obter as props de ponto de parada*/}
-                      <h4 className="fs-6 fw-bold mb-2 text-center text-secondary">Nome do ponto de parada</h4>
-                      <p className="m-0 p-0 text-center text-secondary">Rua ABCDEFG, N.º 4954</p>
-                    </div>
-                  </Popup>
+                  {
+                    (p.name && p.address) ? (
+                      <Popup className="">
+                        <div>
+                          <h4 className="fs-6 fw-bold mb-2 text-center text-secondary">{p.name}</h4>
+                          <p className="m-0 p-0 text-center text-secondary">{p.address}</p>
+                        </div>
+                      </Popup>
+                    ) : ""
+                  }
                 </Marker>
               )
             })}
