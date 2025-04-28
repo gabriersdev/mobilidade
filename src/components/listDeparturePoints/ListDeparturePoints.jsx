@@ -62,7 +62,6 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
           uniqueDirections,
           departurePointsByDirection
         })}>
-          <RouteMap/>
           <Accordion>
             <OffcanvasDeparturePoints/>
             <ListPointsByDirections/>
