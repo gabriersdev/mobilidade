@@ -1,11 +1,11 @@
 .main {
   margin-top: 4rem;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
   /* min-height: calc(100vh - 7rem - 75px); */
 }
 
 .container>div {
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 3rem;
 }

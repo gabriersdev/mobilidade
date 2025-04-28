@@ -46,7 +46,7 @@ const Search = () => {
 
   return (
     <div>
-      <FormValidSearch formTitle="Para onde vamos?" inputPlaceholder="digite o destino, nome ou número da linha..." focus={Object.keys(new URLSearchParams(location.search)).length > 0}/>
+      <FormValidSearch formTitle="Para onde vamos?" inputPlaceholder="" focus={Object.keys(new URLSearchParams(location.search)).length > 0}/>
       <div>
         {
           (isValidSearch && termSearch) ? (

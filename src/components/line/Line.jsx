@@ -97,7 +97,6 @@ const Line = ({id}) => {
                 <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>
                 <Print variant={"departure_points"}/>
               </div>
-              <RouteMap/>
               <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>
             </section>
             

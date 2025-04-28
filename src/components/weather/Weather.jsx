@@ -28,6 +28,12 @@ const Weather = () => {
   
   if (status === 'loading' || status === 'error' || !weatherData) return <></>;
   let alertText;
+  
+  if (!weatherData.current) {
+    console.warn("Properties \"current\" in \"weatherData\" doesn't exist");
+    return null;
+  }
+  
   const precipMM = weatherData.current.precip_mm || 0;
   const codition = weatherData.current.condition.text || null
   const urlSabara = "https://weather.com/pt-BR/clima/hoje/l/646250a76bd16287c123337146826b2b02f52060e24a29adb2c9b6fb33965539"

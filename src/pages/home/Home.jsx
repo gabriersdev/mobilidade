@@ -16,7 +16,7 @@ const Home = () => {
 
   return (
     <div>
-      <FormValidSearch formTitle={"Para onde vamos?"} inputPlaceholder={"digite o destino, nome ou número da linha..."}/>
+      <FormValidSearch formTitle={"Para onde vamos?"} inputPlaceholder={""}/>
       <div>
         <>
           <Title title="Principais Linhas" classX={" text-body-secondary"}/>

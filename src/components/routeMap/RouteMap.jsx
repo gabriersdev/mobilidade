@@ -1,20 +1,11 @@
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {MapContainer, TileLayer, Polyline, Marker, useMap, Popup} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import PropTypes from "prop-types";
 import config from "../../config.js";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
-
-// Endereços recebidos do componente de Departure Points, organizados pelo número da ordem que foram registrados no banco de dados e pelo sentido
-// Primeiro o sentido de ida e depois o de volta, ou apenas ida quando o de volta não existir
-// Se for sentido único, apenas exibir o sentido único
-const addresses = [
-  "Av. Paulista, 250, São Paulo, SP",
-  "Praça da Sé, 100, São Paulo, SP",
-  "Rua Vergueiro, 100, São Paulo, SP",
-  "Avenida Brigadeiro Faria Lima, 150, São Paulo, SP",
-];
+import {Theme} from "../themeContext/ThemeContext.jsx";
 
 function RenderView({points}) {
   const map = useMap();
@@ -32,7 +23,37 @@ RenderView.propTypes = {
 }
 
 const RouteMap = () => {
+  // Recupera os endereços separados por direçao
+  const {departurePointsByDirection} = useContext(Theme)
+  
+  // Endereços recebidos do componente de Departure Points, organizados pelo número da ordem que foram registrados no banco de dados e pelo sentido
+  // Primeiro o sentido de ida e depois o de volta, ou apenas ida quando o de volta não existir
+  // Se for sentido único, apenas exibir o sentido único
+  const [addresses, setAddresses] = useState([]);
+  
   const [points, setPoints] = useState([]);
+  
+  useEffect(() => {
+    let directions = [];
+    setAddresses([])
+    
+    departurePointsByDirection.forEach((ps) => {
+      const uniqueIndexes = ps.map((p) => p.direction).filter((p, i, s) => s.indexOf(p) === i)
+      directions.push(uniqueIndexes[0]);
+    })
+    
+    if (departurePointsByDirection && Object.values(departurePointsByDirection).length > 0) {
+      let direction;
+      for (direction in directions) {
+        if (parseInt(direction) === 1 || parseInt(direction) === 2) setAddresses((prev) => [...prev, ...departurePointsByDirection[`${direction}`]]);
+        else if (parseInt(direction) === 0) setAddresses([...departurePointsByDirection[`${direction}`]])
+        else {
+          // alert("Algo não ocorreu bem! Contate o administrador!")
+          console.warn("Se nesta os pontos de parada linha possuem direção única não faz sentido possuir, também, direção ida ou volta")
+        }
+      }
+    }
+  }, [departurePointsByDirection]);
   
   useEffect(() => {
     if (points.length > 0) {
@@ -43,34 +64,53 @@ const RouteMap = () => {
   }, [points]);
   
   useEffect(() => {
+    let sanitizeAddresses = []
+    if (addresses && addresses.length > 0) {
+      // Formata os endereços do jeito que deve ser passado para o back-end
+      sanitizeAddresses = [...addresses.map(a => {
+        return {
+          address: a.address.trim() + (a.point_name.trim() ? " - " + a.point_name.trim() : "") + ", Sabará - MG",
+          name: a.point_name.trim(),
+          obj: a
+        }
+      })];
+    } else return null
+    
     fetch(`${config.host}/api/geocode/`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({addresses: addresses.slice(0, 200)}),
+      body: JSON.stringify({addresses: sanitizeAddresses.slice(0, 200)}),
     })
       .then(res => res.json())
       .then(setPoints)
       .catch(console.error);
-  }, []);
+  }, [addresses]);
   
   if (!points.length) return null;
   
   return (
-    <div className={"mb-4 d-none"}>
+    <div className={"mb-4"}>
       <AnimatedComponents>
         <figure className={"m-0 p-0"}>
           <MapContainer center={[-19.88, -43.80]} zoom={11} style={{height: '300px'}} className={"border-1"}>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-            {points.map((p, i) => (
-              <Marker key={i} position={[p.lat, p.lng]}>
-                <Popup className="">
-                  <div>
-                    <h4 className="fs-6 fw-bold mb-2 text-center text-white">Nome do ponto de parada</h4>
-                    <p className="m-0 p-0 text-center text-body-secondary">Rua ABCDEFG, N.º 4954</p>
-                  </div>
-                </Popup>
-              </Marker>
-            ))}
+            {points.map((p, i) => {
+              if (!p) return null
+              return (
+                <Marker key={i} position={[p.lat, p.lng]}>
+                  {
+                    (p.name && p.address) ? (
+                      <Popup className="">
+                        <div>
+                          <h4 className="fs-6 fw-bold mb-2 text-center text-secondary">{p.name}</h4>
+                          <p className="m-0 p-0 text-center text-secondary">{p.address}</p>
+                        </div>
+                      </Popup>
+                    ) : ""
+                  }
+                </Marker>
+              )
+            })}
             {points.length > 1 && (
               <Polyline positions={points.map(p => [p.lat, p.lng])} color="blue" weight={4}/>
             )}
