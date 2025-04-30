@@ -18,6 +18,9 @@ const GetAndListLines = ({variant, content}) => {
   if (variant === 'main') {
     apiURL = `${config.host}/api/lines/main`
     sortFn = (a, b) => a.line_name - b.line_name
+  } else if (variant == 'similar-lines') {
+    apiURL = `${config.host}/api/lines/similar-lines`
+    sortFn = (a, b) => a.line_name - b.line_name
   }
   
   useEffect(() => {

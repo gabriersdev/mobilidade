@@ -17,6 +17,7 @@ import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 import Print from "../print/Print.jsx";
 import {LineContext} from "./LineContext.jsx";
 import RouteMap from "../routeMap/RouteMap.jsx";
+import GetAndListLines from "../getAndListLines/GetAndListLines.jsx";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -103,6 +104,11 @@ const Line = ({id}) => {
             <section id={"pontos-de-recarga"} className={"pt-3"}>
               <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de recarga</Title>
               <ListRechargePoints id_company={data[0].company_id} company_name={data[0].company_name}/>
+            </section>
+            
+            <section id={"linhas-similares"} className={"pt-3"}>
+              <Title type="h3" classX={" text-body-secondary"}>Linhas similares</Title>
+              <GetAndListLines variant="similar-lines"/>
             </section>
           </AnimatedComponents>
         </LineContext>
