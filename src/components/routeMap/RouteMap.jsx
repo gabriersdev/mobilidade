@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import config from "../../config.js";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 import {Theme} from "../themeContext/ThemeContext.jsx";
+import {address} from "framer-motion/m";
 
 function RenderView({points}) {
   const map = useMap();
@@ -37,25 +38,32 @@ const RouteMap = () => {
     let directions = [];
     setAddresses([])
     
-    departurePointsByDirection.forEach((ps) => {
-      const uniqueIndexes = ps.map((p) => p.direction).filter((p, i, s) => s.indexOf(p) === i)
-      directions.push(uniqueIndexes[0]);
-    })
+    console.log(departurePointsByDirection);
     
-    if (departurePointsByDirection && Object.values(departurePointsByDirection).length > 0) {
-      let direction;
-      for (direction in directions) {
-        if (parseInt(direction) === 1 || parseInt(direction) === 2) setAddresses((prev) => [...prev, ...departurePointsByDirection[`${direction}`]]);
-        else if (parseInt(direction) === 0) setAddresses([...departurePointsByDirection[`${direction}`]])
-        else {
-          // alert("Algo não ocorreu bem! Contate o administrador!")
-          console.warn("Se nesta os pontos de parada linha possuem direção única não faz sentido possuir, também, direção ida ou volta")
+    if (departurePointsByDirection) {
+      departurePointsByDirection.forEach((ps) => {
+        const uniqueIndexes = ps.map((p) => p.direction).filter((p, i, s) => s.indexOf(p) === i)
+        directions.push(uniqueIndexes[0]);
+      })
+      
+      if (departurePointsByDirection && Object.values(departurePointsByDirection).length > 0) {
+        let direction;
+        if (directions.length) {
+          for (direction in directions) {
+            if (parseInt(direction) === 1 || parseInt(direction) === 2) setAddresses((prev) => [...prev, ...departurePointsByDirection[`${direction}`]]);
+            else if (parseInt(direction) === 0) setAddresses([...departurePointsByDirection[`${direction}`]])
+            else {
+              // alert("Algo não ocorreu bem! Contate o administrador!")
+              console.warn("Se nesta os pontos de parada linha possuem direção única não faz sentido possuir, também, direção ida ou volta")
+            }
+          }
         }
       }
     }
   }, [departurePointsByDirection]);
   
   useEffect(() => {
+    console.log(points)
     if (points.length > 0) {
       document.querySelector('.leaflet-pane.leaflet-map-pane').style.zIndex = 50;
       document.querySelector('.leaflet-control-zoom.leaflet-bar.leaflet-control').style.zIndex = 60;
@@ -69,12 +77,21 @@ const RouteMap = () => {
       // Formata os endereços do jeito que deve ser passado para o back-end
       sanitizeAddresses = [...addresses.map(a => {
         return {
-          address: a.address.trim() + (a.point_name.trim() ? " - " + a.point_name.trim() : "") + ", Sabará - MG",
+          address: a.address.trim() + (a.point_name.trim() ? " - " + a.point_name.trim().replace(/\//, " - ") : ""),
           name: a.point_name.trim(),
           obj: a
         }
       })];
-    } else return null
+      
+      // Remove os endereços que não tem número algum
+      sanitizeAddresses = sanitizeAddresses.filter(a => a.address.match(/\d/));
+      
+      // Remove endereços duplicados ou vazios
+      sanitizeAddresses = sanitizeAddresses.filter((d, i, self) => d && self.indexOf(d) === i)
+      
+      // Adiciona "Sabará - MG" nos endereços que não tem este dado
+      sanitizeAddresses = sanitizeAddresses.map(d => !d.address.toLowerCase().includes("sabará") ? {...d, address: "Brasil, Minas Gerais, Sabará - " + d.address } : {...d, address: d.address + ", Brasil"})
+    }
     
     fetch(`${config.host}/api/geocode/`, {
       method: 'POST',
@@ -86,24 +103,28 @@ const RouteMap = () => {
       .catch(console.error);
   }, [addresses]);
   
+  useEffect(() => {
+    console.log("Called")
+  }, [])
+  
   if (!points.length) return null;
   
   return (
     <div className={"mb-4"}>
       <AnimatedComponents>
         <figure className={"m-0 p-0"}>
-          <MapContainer center={[-19.88, -43.80]} zoom={11} style={{height: '300px'}} className={"border-1"}>
+          <MapContainer center={[-19.88, -43.80]} zoom={13} style={{height: '300px'}} className={"border-1"}>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
             {points.map((p, i) => {
               if (!p) return null
               return (
                 <Marker key={i} position={[p.lat, p.lng]}>
                   {
-                    (p.name && p.address) ? (
+                    (p.name || p.address) ? (
                       <Popup className="">
                         <div>
-                          <h4 className="fs-6 fw-bold mb-2 text-center text-secondary">{p.name}</h4>
-                          <p className="m-0 p-0 text-center text-secondary">{p.address}</p>
+                          <h4 className="fs-6 fw-bold mb-2 text-center text-secondary">{p.name ? p.name.replaceAll("/", " - ") : ""}</h4>
+                          <p className="m-0 p-0 text-center text-secondary">{p.address ? p.address.replaceAll("/", " - ") : ""}</p>
                         </div>
                       </Popup>
                     ) : ""

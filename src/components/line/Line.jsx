@@ -16,7 +16,6 @@ import Weather from "../weather/Weather";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 import Print from "../print/Print.jsx";
 import {LineContext} from "./LineContext.jsx";
-import RouteMap from "../routeMap/RouteMap.jsx";
 import GetAndListLines from "../getAndListLines/GetAndListLines.jsx";
 
 const Line = ({id}) => {
