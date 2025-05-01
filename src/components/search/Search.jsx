@@ -14,10 +14,14 @@ const Search = ({value}) => {
   const searchSanitized = value.trim().replace(/[^a-zA-Z0-9À-Ú\s]/gi, '');
 
   useEffect(() => {
+    // console.log("Recebido para pesquisa: " + value)
+    // console.log("Sanitizado: " + searchSanitized);
+    
     const searchDatabase = async () => {
+      setIsLoaded(true);
       try {
-        // TODO - Link de pesquisa
-        const response = await axios.post(`${config.host}/api/lines/search/`, {search: searchSanitized}); // URL completa da sua API
+        const response = await axios.post(`${config.host}/api/lines/search/`, {search: searchSanitized});
+        console.log("Response: ", response);
         setData(response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);

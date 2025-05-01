@@ -23,6 +23,7 @@ const Search = () => {
     try {
       let queryParams = null
       if (location.search) queryParams = new URLSearchParams(location.search)
+      // console.log("Alteração no location: " + queryParams)
 
       // Verificar se queryParams não é null, se o parâmetro 'or' existe e se ele contém 'freelancer'
       if (queryParams) {
