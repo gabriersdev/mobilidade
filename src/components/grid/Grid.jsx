@@ -6,7 +6,7 @@ const Grid = ({classes, children, variant}) => {
 }
 
 Grid.propTypes = {
-  classes: PropTypes.string, children: PropTypes.node.isRequired,
+  classes: PropTypes.string, children: PropTypes.node,
   variant: PropTypes.string
 };
 
