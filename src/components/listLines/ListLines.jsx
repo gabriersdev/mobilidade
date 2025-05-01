@@ -11,7 +11,7 @@ const ScrollX = ({children}) => {
 }
 
 ScrollX.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 }
 
 const ListLines = ({data, variant}) => {
