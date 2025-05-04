@@ -37,7 +37,7 @@ const MonitorModal = () => {
   
   return (
     <>
-      <div>
+      <div className={"d-none"}>
         <Badge className={"fw-normal rounded-5 bg-primary-subtle p-0"}>
           <button
             className={"btn m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2"}
