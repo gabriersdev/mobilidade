@@ -17,6 +17,7 @@ import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 import Print from "../print/Print.jsx";
 import {LineContext} from "./LineContext.jsx";
 import GetAndListLines from "../getAndListLines/GetAndListLines.jsx";
+import Util from "../../assets/Util.js";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -108,6 +109,13 @@ const Line = ({id}) => {
             <section id={"linhas-similares"} className={"pt-3"}>
               <Title type="h3" classX={" text-body-secondary"}>Linhas similares</Title>
               <GetAndListLines variant="similar-lines"/>
+            </section>
+            
+            <section id={"resume"} className={"pt-3"}>
+              <Title type="h3" classX={" text-body-secondary"}>Sobre esta linha</Title>
+              <div className={"mt-3"}>
+                {Util.resumeInfoLine({})}
+              </div>
             </section>
           </AnimatedComponents>
         </LineContext>
