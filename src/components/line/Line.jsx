@@ -129,7 +129,7 @@ const Line = ({id}) => {
               </div>
               <details className={"text-muted d-inline-block mt-3 mb-0 "}>
                 <summary>Informações carregadas em {renderText(moment().format("DD/MM/YYYY"))} às {moment().format("HH") + "h" + moment().format("mm") + "m"}.</summary>
-                <p className={"mb-0 text-black-50"}>{renderText(moment().format("DD/MM/YYYY HH:mm:ss"))} {"- Horário de Brasília"}</p>
+                <p className={"mb-0 text-body-tertiary"}>{renderText(moment().format("DD/MM/YYYY HH:mm:ss"))} {"- Horário de Brasília"}</p>
               </details>
             </section>
           </AnimatedComponents>
