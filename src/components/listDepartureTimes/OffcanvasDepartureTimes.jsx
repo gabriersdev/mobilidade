@@ -4,6 +4,7 @@ import {TimeContext} from "./DepartureTimeContext";
 import Legend from "../legend/Legend";
 import Alert from "../alert/Alert.jsx";
 import {Context as LineContext} from "../line/LineContext.jsx";
+import {Badge} from "react-bootstrap";
 
 const OffcanvasDepartureTimes = () => {
   const {show, handleClose, departureTimeOffCanvas} = useContext(TimeContext);
@@ -49,6 +50,11 @@ const OffcanvasDepartureTimes = () => {
           <section>
             <div className={"mt-3"}>
               <h4 className={"fs-6 fw-bold my-2 p-0"}>De onde saí o ônibus?</h4>
+              
+              <div className={"my-2 d-flex align-items-center gap-1"}>
+                <Badge className={"rounded-pill"}><i className="bi bi-geo-alt-fill small"></i></Badge>
+                <p className={"mb-0"}>{dataFirstPointByDirection.address || ""}</p>
+              </div>
               
               <div>
                 <iframe
