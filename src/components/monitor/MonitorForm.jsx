@@ -90,7 +90,7 @@ const MonitorForm = ({handleCloseModal}) => {
       setIsLoading(true);
       
       // Lógica do envio dos dados
-      axios.post(`${config.host}/api/monitor/`, {
+      axios.post(`${config.host}/api/follow/add`, {
         email: email.trim(),
         page: window.location.pathname
       }).then(res => {
