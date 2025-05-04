@@ -16,6 +16,7 @@ FormLabel.propTypes = {
 
 const MonitorForm = ({handleCloseModal}) => {
   const [email, setEmail] = useState("");
+  const refMail = useRef(null);
   
   const [error, setError] = useState("");
   const [feedback, setFeedback] = useState(null);
@@ -35,6 +36,10 @@ const MonitorForm = ({handleCloseModal}) => {
     setError("");
     setFeedback("");
   }, [email]);
+  
+  useEffect(() => {
+    if (refMail.current) refMail.current.focus();
+  }, [refMail])
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -109,7 +114,7 @@ const MonitorForm = ({handleCloseModal}) => {
           <>
             <FormGroup>
               <FormLabel props={{htmlFor: "mail"}}>E-mail</FormLabel>
-              <FormControl type={"email"} id={"mail"} className={"mb-0"} required={true} value={email} onChange={(e) => setEmail(e.target.value)} {...propsInput} maxLength={100}/>
+              <FormControl type={"email"} id={"mail"} className={"mb-0"} required={true} value={email} onChange={(e) => setEmail(e.target.value)} {...propsInput} maxLength={100} ref={refMail}/>
             </FormGroup>
           </>
         ) :

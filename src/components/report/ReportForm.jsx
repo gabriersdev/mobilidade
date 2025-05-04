@@ -18,6 +18,7 @@ const ReportForm = ({handleCloseModal}) => {
   const [email, setEmail] = useState("");
   const [typeError, setTypeError] = useState("");
   const [message, setMessage] = useState("");
+  const refTypeError = useRef(null);
   
   const [error, setError] = useState("");
   const [feedback, setFeedback] = useState(null);
@@ -38,6 +39,11 @@ const ReportForm = ({handleCloseModal}) => {
     setError("");
     setFeedback("");
   }, [email, typeError, message]);
+  
+  useEffect(() => {
+    if (refTypeError.current) refTypeError.current.focus();
+    if (inputVerificationCode.current) inputVerificationCode.current.focus();
+  }, [refTypeError, inputVerificationCode]);
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -106,7 +112,6 @@ const ReportForm = ({handleCloseModal}) => {
         setFeedback(<Alert className={"alert-info mb-0"}>Um código foi enviado para o seu e-mail.</Alert>)
         setMessageId(res.data.insertId)
         setCodeIsSent(true)
-        if (inputVerificationCode.current) inputVerificationCode.current.focus();
       }).catch(e => {
         console.error(e);
         alert("Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.")
@@ -123,7 +128,7 @@ const ReportForm = ({handleCloseModal}) => {
           <>
             <FormGroup>
               <FormLabel props={{htmlFor: "type-error"}}>Qual o erro?</FormLabel>
-              <FormSelect required={true} id={"type-error"} value={typeError} onChange={(e) => setTypeError(e.target.value)}>
+              <FormSelect required={true} id={"type-error"} value={typeError} onChange={(e) => setTypeError(e.target.value)} ref={refTypeError}>
                 <option value="">Selecione</option>
                 <option value={1}>Horário errado</option>
                 <option value={2}>Itinerário (pontos de paradas) errado</option>
