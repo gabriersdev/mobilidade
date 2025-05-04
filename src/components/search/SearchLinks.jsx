@@ -21,8 +21,8 @@ const SearchLinks = () => {
       }
       <span className={"text-body-tertiary fw-light"}>|</span>
       {
-        [...[4999, 4997, 4993, 4992, 4991, 4988, 4987, 4986, 4970, 4925, 4676, 4600].map(i => [i])].map((item, index) => (
-          <Link key={index} to={(item[0].toString().match(/\d/g)) ? ((item[0].toString().match(/\d/g).join('').length === item[0].toString().length) ? "/search/?term=" + item[0] : "/search/?term: " + item[0].toLowerCase()) : "/search/?term=tag: " + item[0].toLowerCase()} className={"cursor-pointer"}>
+        [...["Pompeu", "Morada da Serra", "Paciência", 4999, 4997, 4993, 4992, 4991, 4988, 4987, 4986, 4970, 4925, 4676, 4600].map(i => [i])].map((item, index) => (
+          <Link key={index} to={(item[0].toString().match(/\d/g)) ? ((item[0].toString().match(/\d/g).join('').length === item[0].toString().length) ? "/search/?term=" + item[0] : "/search/?term=" + item[0].toLowerCase()) : "/search/?term=" + item[0].toLowerCase()} className={"cursor-pointer"}>
             <Badge className={"rounded-pill fw-normal d-inline-block inter fs-6 " + (item[1] ? item[1] : "bg-primary-subtle text-primary-emphasis")}>{item[0]}</Badge>
           </Link>
         ))
