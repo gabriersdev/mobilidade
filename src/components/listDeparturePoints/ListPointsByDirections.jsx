@@ -59,6 +59,7 @@ const ListPointsByDirections = () => {
               })
             }
           </ul>
+          <span className={"d-inline-block text-muted mt-3"}>{departurePointsByDirection[i].length.toLocaleString()} pontos de paradas neste sentido.</span>
         </AccordionItem>
       )
     })
