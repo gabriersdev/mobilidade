@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import PropTypes from "prop-types";
 
 import axios from "axios";
@@ -18,11 +18,22 @@ import Print from "../print/Print.jsx";
 import {LineContext} from "./LineContext.jsx";
 import GetAndListLines from "../getAndListLines/GetAndListLines.jsx";
 import Util from "../../assets/Util.js";
+import moment from "moment";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
+  
+  const renderText = useCallback((text) => {
+    // Usa regex para encontrar todas as barras e as envolve em spans
+    return text.split(/(\/)/).map((part, index) => {
+      if (part === "/") {
+        return <span key={index} style={{fontSize: 'inherit', fontFamily: "'Arial', sans-serif"}}>/</span>; // Adiciona uma key para o React
+      }
+      return part;
+    });
+  }, [])
   
   useEffect(() => {
     // Altera o título da página
@@ -116,6 +127,10 @@ const Line = ({id}) => {
               <div className={"mt-3"}>
                 {Util.resumeInfoLine({})}
               </div>
+              <details className={"text-muted d-inline-block mt-3 mb-0 "}>
+                <summary>Informações carregadas em {renderText(moment().format("DD/MM/YYYY"))} às {moment().format("HH") + "h" + moment().format("mm") + "m"}.</summary>
+                <p className={"mb-0 text-black-50"}>{renderText(moment().format("DD/MM/YYYY HH:mm:ss"))} {"- Horário de Brasília"}</p>
+              </details>
             </section>
           </AnimatedComponents>
         </LineContext>
