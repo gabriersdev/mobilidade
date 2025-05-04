@@ -26,6 +26,8 @@ const Footer = () => {
   }, []);
   
   useEffect(() => {
+    console.log("Run!")
+    
     if (!("localStorage" in window)) {
       console.log("Navegador não suporta localStorage");
     } else {
@@ -40,9 +42,10 @@ const Footer = () => {
     }
   }, [])
   
-  const handleTheme = useCallback((theme) => {
-    if (!["default", "light", "dark"].includes(theme)) {
-      throw new Error(`Theme "${theme}" is not supported`);
+  const handleTheme = useCallback((themeParam) => {
+    
+    if (!["default", "light", "dark"].includes(themeParam)) {
+      throw new Error(`Theme "${themeParam}" is not supported`);
     }
     
     if ("localStorage" in window) {
@@ -51,11 +54,12 @@ const Footer = () => {
         if (ls && ls["theme"]) {
           localStorage.setItem("mobilidade-app", JSON.stringify({
             ...ls,
-            theme: theme
+            theme: themeParam
           }));
         }
         ;
-        setTheme(theme)
+        setTheme(themeParam)
+        console.log("Theme: ", themeParam);
         document.querySelector('html').dataset.bsTheme = theme
       } catch (error) {
         console.log(error.message);
