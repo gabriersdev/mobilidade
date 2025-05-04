@@ -1,4 +1,4 @@
-.alert-warning-summary, .bar-info-summary {
+.alert-warning-summary, .bar-info-summary, summary {
   &::marker {
     list-style-type: none;
     font-family: 'bootstrap-icons', sans-serif;

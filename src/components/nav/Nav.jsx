@@ -1,4 +1,4 @@
-import {Nav as BootstrapNav, Navbar, Container, Button} from "react-bootstrap";
+import {Nav as BootstrapNav, Navbar, Container} from "react-bootstrap";
 import {Link, useLocation} from "react-router-dom";
 
 import "./nav.css";

@@ -26,7 +26,7 @@ const ReportModal = () => {
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton className={"border-0"}>
-          <Modal.Title style={{fontSize: "1.65rem"}}>Informar um erro</Modal.Title>
+          <Modal.Title className={"fw-semibold"} style={{fontSize: "1.35rem"}}>Informar um erro</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ReportForm handleCloseModal={handleCloseModal}/>

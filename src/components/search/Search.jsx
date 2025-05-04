@@ -34,6 +34,8 @@ const Search = ({value}) => {
     searchDatabase().then();
   }, [searchSanitized]);
 
+  // TODO - usar os componentes de animacao nos retornos avulsos
+  
   if (isLoaded) {
     return (
       <div style={{marginTop: '1rem'}}>

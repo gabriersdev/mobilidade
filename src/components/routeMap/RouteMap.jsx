@@ -63,7 +63,6 @@ const RouteMap = () => {
   }, [departurePointsByDirection]);
   
   useEffect(() => {
-    console.log(points)
     if (points.length > 0) {
       document.querySelector('.leaflet-pane.leaflet-map-pane').style.zIndex = 50;
       document.querySelector('.leaflet-control-zoom.leaflet-bar.leaflet-control').style.zIndex = 60;
@@ -102,10 +101,6 @@ const RouteMap = () => {
       .then(setPoints)
       .catch(console.error);
   }, [addresses]);
-  
-  useEffect(() => {
-    console.log("Called")
-  }, [])
   
   if (!points.length) return null;
   

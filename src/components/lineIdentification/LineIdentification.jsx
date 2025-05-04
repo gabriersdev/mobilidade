@@ -7,6 +7,7 @@ import {Badge} from "react-bootstrap";
 import ReportModal from "../report/ReportModal.jsx";
 import Util from "../../assets/Util.js";
 import Convert from "./convert.js";
+import MonitorModal from "../monitor/MonitorModal.jsx";
 
 const LineIdentification = ({line}) => {
   let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact, datetimeLastModify] = ['', '', '', 0, '', ''];
@@ -19,29 +20,6 @@ const LineIdentification = ({line}) => {
   
   if (parseFloat(line.fare) === 0) fare = "Não informado";
   else fare = Util.formatMoney(line.fare);
-  
-  const clientNotificate = async () => {
-    if (!("Notification" in window) || !("serviceWorker" in navigator)) {
-      alert("Navegador não suporta notificações ou service worker");
-      return;
-    }
-    
-    const permission = await Notification.requestPermission();
-    if (permission !== "granted") {
-      alert("Permissão de notificação negada");
-      return;
-    }
-    
-    const registration = await navigator.serviceWorker.ready;
-    
-    registration.showNotification("Aviso do app", {
-      body: "Essa notificação foi enviada via Service Worker direto.",
-      icon: "/images/icon-white-192x192.png",
-      badge: "/images/icon-white-192x192.png",
-      tag: "notificacao-teste",
-      renotify: true,
-    });
-  };
   
   if (line.count_departure_times) countDepartureTimes = line.count_departure_times;
   if (line.report_contact) reportContact = line.report_contact;
@@ -90,22 +68,7 @@ const LineIdentification = ({line}) => {
           }
           
           <ReportModal/>
-          
-          <div className="d-none">
-            {/*TODO - separar em um componente a parte e alterar para ativar a notificacao por e-mail*/}
-            <Badge className={"fw-normal rounded-5 bg-primary-subtle p-0"}>
-              <button
-                className={"btn m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2"}
-                style={{lineHeight: "normal"}}
-                onClick={() => (async () => {
-                  await clientNotificate()
-                })()}
-              >
-                <span>Acompanhar</span>
-                <i className="bi bi-bell"></i>
-              </button>
-            </Badge>
-          </div>
+          <MonitorModal/>
           
           <div>
             <Badge className={"fw-normal rounded-5 bg-primary-subtle p-0"}>
