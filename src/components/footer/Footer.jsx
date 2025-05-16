@@ -8,7 +8,7 @@ const Footer = () => {
   const [version, setVersion] = useState("1.0.0");
   const [cacheVersion, setCacheVersion] = useState("V11");
   
-  const [theme, setTheme] = useState("default");
+  const [theme, setTheme] = useState("light");
   
   useEffect(() => {
     fetch("package.json").then((res) => {
@@ -34,6 +34,7 @@ const Footer = () => {
       try {
         ls = JSON.parse(localStorage.getItem("mobilidade-app"));
         if (ls && ls["theme"]) handleTheme(ls["theme"]);
+        else if (!ls) localStorage.setItem("mobilidade-app", JSON.stringify({theme: theme}));
       } catch (err) {
         console.log(err.message)
       }
