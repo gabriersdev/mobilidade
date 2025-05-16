@@ -51,7 +51,7 @@ const OffcanvasDepartureTimes = () => {
             <div className={"mt-3"}>
               <h4 className={"fs-6 fw-bold my-2 p-0"}>De onde saí o ônibus?</h4>
               
-              <div className={"my-2 d-flex align-items-center gap-1"}>
+              <div className={"mb-2 mt-3 d-flex align-items-center gap-1"}>
                 <Badge className={"rounded-pill"}><i className="bi bi-geo-alt-fill small"></i></Badge>
                 <p className={"mb-0"}>{dataFirstPointByDirection.address || ""}</p>
               </div>

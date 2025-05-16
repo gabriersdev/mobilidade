@@ -36,9 +36,7 @@ const RouteMap = () => {
   
   useEffect(() => {
     let directions = [];
-    setAddresses([])
-    
-    console.log(departurePointsByDirection);
+    setAddresses([]);
     
     if (departurePointsByDirection) {
       departurePointsByDirection.forEach((ps) => {
