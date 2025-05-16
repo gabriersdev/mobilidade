@@ -26,8 +26,6 @@ const Footer = () => {
   }, []);
   
   useEffect(() => {
-    console.log("Run!")
-    
     if (!("localStorage" in window)) {
       console.log("Navegador não suporta localStorage");
     } else {
@@ -43,7 +41,6 @@ const Footer = () => {
   }, [])
   
   const handleTheme = useCallback((themeParam) => {
-    
     if (!["default", "light", "dark"].includes(themeParam)) {
       throw new Error(`Theme "${themeParam}" is not supported`);
     }
@@ -56,16 +53,14 @@ const Footer = () => {
             ...ls,
             theme: themeParam
           }));
-        }
-        ;
+        };
         setTheme(themeParam)
-        console.log("Theme: ", themeParam);
-        document.querySelector('html').dataset.bsTheme = theme
+        document.querySelector('html').dataset.bsTheme = themeParam;
       } catch (error) {
         console.log(error.message);
       }
     }
-  }, [])
+  }, [theme])
   
   return (
     <footer className="footer border-top bg-body-tertiary">
