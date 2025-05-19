@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 
 import {Accordion as BootstrapAccordion} from 'react-bootstrap';
-import {useEffect} from "react";
 
 function Accordion({defaultEventKey, title, children}) {
   return (

@@ -3,6 +3,7 @@ import {Container} from "react-bootstrap";
 import "./footer.css";
 import {useCallback, useEffect, useState} from "react";
 import InstallPWAButton from "../installPWAButton/InstallPWAButton.jsx";
+import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 
 const Footer = () => {
   const [version, setVersion] = useState("1.0.0");
@@ -54,7 +55,8 @@ const Footer = () => {
             ...ls,
             theme: themeParam
           }));
-        };
+        }
+        ;
         setTheme(themeParam)
         document.querySelector('html').dataset.bsTheme = themeParam;
       } catch (error) {
@@ -64,41 +66,43 @@ const Footer = () => {
   }, [theme])
   
   return (
-    <footer className="footer border-top bg-body-tertiary">
-      <Container className="d-flex flex-column gap-2rem">
-        <p className="mb-0 text-body-secondary">&copy; {new Date().getFullYear() || '2024'} Mobilidade</p>
-        <ul className="d-flex flex-column g-3 m-0 p-0 footer-link-list">
-          <Link to={"./development#topo"} className="footer-link-list-item">Desenvolvimento</Link>
-          <Link to="./terms-of-service#topo" className="footer-link-list-item">Termos de serviços</Link>
-          <Link to="./privacy#topo" className="footer-link-list-item">Privacidade</Link>
-        </ul>
-        <div className="d-flex gap-3 flex-wrap">
-          <p className={"text-body-secondary p-0 m-0"}>Versão: {version || "1.0.0"} | Cache: {cacheVersion || "Não definido"} </p>
-          <button className={"btn text-start p-0 m-0 text-primary-emphasis border-0"} onClick={() => {
-            if ('serviceWorker' in navigator) {
-              caches.keys().then(function (names) {
-                for (let name of names) caches.delete(name);
-              });
-            }
-            window.location.reload();
-          }}>
-            <span className={"me-1"}>Limpar cache</span>
-            <i className="bi bi-database-fill-x"></i>
-          </button>
-          {/*TODO - separar em um componente a parte*/}
-          <div className="dropdown mt-1">
-            <button className="btn btn-secondary dropdown-toggle rounded-pill px-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Tema
+    <AnimatedComponents>
+      <footer className="footer border-top bg-body-tertiary">
+        <Container className="d-flex flex-column gap-2rem">
+          <p className="mb-0 text-body-secondary">&copy; {new Date().getFullYear() || '2024'} Mobilidade</p>
+          <ul className="d-flex flex-column g-3 m-0 p-0 footer-link-list">
+            <Link to={"./development#topo"} className="footer-link-list-item">Desenvolvimento</Link>
+            <Link to="./terms-of-service#topo" className="footer-link-list-item">Termos de serviços</Link>
+            <Link to="./privacy#topo" className="footer-link-list-item">Privacidade</Link>
+          </ul>
+          <div className="d-flex gap-3 flex-wrap">
+            <p className={"text-body-secondary p-0 m-0"}>Versão: {version || "1.0.0"} | Cache: {cacheVersion || "Não definido"} </p>
+            <button className={"btn text-start p-0 m-0 text-primary-emphasis border-0"} onClick={() => {
+              if ('serviceWorker' in navigator) {
+                caches.keys().then(function (names) {
+                  for (let name of names) caches.delete(name);
+                });
+              }
+              window.location.reload();
+            }}>
+              <span className={"me-1"}>Limpar cache</span>
+              <i className="bi bi-database-fill-x"></i>
             </button>
-            <ul className="dropdown-menu">
-              <li><a className={"dropdown-item cursor-pointer" + (["default", "light"].includes(theme) ? " active" : "")} onClick={() => handleTheme("light")}>Claro</a></li>
-              <li><a className={"dropdown-item cursor-pointer" + ((theme === "dark") ? " active" : "")} onClick={() => handleTheme("dark")}>Escuro</a></li>
-            </ul>
+            {/*TODO - separar em um componente a parte*/}
+            <div className="dropdown mt-1">
+              <button className="btn btn-secondary dropdown-toggle rounded-pill px-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Tema
+              </button>
+              <ul className="dropdown-menu">
+                <li><a className={"dropdown-item cursor-pointer" + (["default", "light"].includes(theme) ? " active" : "")} onClick={() => handleTheme("light")}>Claro</a></li>
+                <li><a className={"dropdown-item cursor-pointer" + ((theme === "dark") ? " active" : "")} onClick={() => handleTheme("dark")}>Escuro</a></li>
+              </ul>
+            </div>
+            <InstallPWAButton/>
           </div>
-          <InstallPWAButton/>
-        </div>
-      </Container>
-    </footer>
+        </Container>
+      </footer>
+    </AnimatedComponents>
   )
 }
 

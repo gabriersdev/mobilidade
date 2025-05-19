@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import config from "../../config.js";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 import {Theme} from "../themeContext/ThemeContext.jsx";
-import {address} from "framer-motion/m";
 
 function RenderView({points}) {
   const map = useMap();

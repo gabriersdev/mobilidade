@@ -1,9 +1,8 @@
 import {useState} from "react";
 import PropTypes from "prop-types";
 
-import {Form, FormGroup, Button, Badge} from "react-bootstrap";
+import {Form, FormGroup, Button} from "react-bootstrap";
 import Title from "../title/Title";
-import {Link} from "react-router-dom";
 import './formSearch.css';
 import SearchLinks from "../search/SearchLinks.jsx";
 
