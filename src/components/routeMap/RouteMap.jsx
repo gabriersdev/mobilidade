@@ -89,10 +89,14 @@ const RouteMap = () => {
       sanitizeAddresses = sanitizeAddresses.map(d => !d.address.toLowerCase().includes("sabará") ? {...d, address: "Brasil, Minas Gerais, Sabará - " + d.address } : {...d, address: d.address + ", Brasil"})
     }
     
+    const firsts200 = sanitizeAddresses.slice(0, 200);
+    console.log(firsts200[0], firsts200[firsts200.length - 1]);
+    
+    // Requerendo apenas os locais de partida e fim
     fetch(`${config.host}/api/geocode/`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({addresses: sanitizeAddresses.slice(0, 200)}),
+      body: JSON.stringify({addresses: [firsts200[0], firsts200[firsts200.length - 1]]}),
     })
       .then(res => res.json())
       .then(setPoints)
@@ -129,7 +133,7 @@ const RouteMap = () => {
             )}
             <RenderView points={points}/>
           </MapContainer>
-          <figcaption className={"text-muted d-inline-block mt-2"}>Itinerário da linha</figcaption>
+          <figcaption className={"text-muted d-inline-block mt-2 d-none"}>Itinerário da linha</figcaption>
         </figure>
       </AnimatedComponents>
     </div>
