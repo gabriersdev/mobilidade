@@ -26,6 +26,10 @@ const Weather = () => {
     getWeather().then();
   }, []);
   
+  useEffect(() => {
+    console.log(weatherData);
+  }, [weatherData])
+  
   if (status === 'loading' || status === 'error' || !weatherData) return <></>;
   let alertText;
   
@@ -35,7 +39,7 @@ const Weather = () => {
   }
   
   const precipMM = weatherData.current.precip_mm || 0;
-  const codition = weatherData.current.condition.text || null
+  const condition = weatherData.current.condition.text || null
   const urlSabara = "https://weather.com/pt-BR/clima/hoje/l/646250a76bd16287c123337146826b2b02f52060e24a29adb2c9b6fb33965539"
   
   try {
@@ -44,7 +48,8 @@ const Weather = () => {
       else if (precipMM <= 10) alertText = 'Previsão de chuva moderada para a região. Pode causar atrasos nos horários de partida.'
       else if (precipMM <= 30) alertText = 'Fique ligado! Previsão de chuva forte para a região. Pode causar atrasos nos horários de partida e transtornos ao trânsito.'
       else alertText = 'Atenção! Previsão de chuva muito forte/torrencial para a região. O que deve causar atrasos nos horários de partida e transtornos ao trânsito. Se possível, evite sair de casa e fique em um local fechado e seguro.'
-    } else if (codition.toLowerCase().includes('rain')) alertText = 'Chuva na região. Saia mais cedo e com guarda-chuvas. A chuva pode atrasar os horários de partida e causar transtornos no trânsito.'
+    } else if (condition === "Patchy rain nearby") alertText = 'Chuva nas proximidades.'
+    else if (condition.toLowerCase().includes('rain')) alertText = 'Chuva na região. Saia mais cedo e com guarda-chuvas. A chuva pode atrasar os horários de partida e causar transtornos no trânsito.'
   } catch (e) {
     console.error('Erro ao processar dados:', e);
   }

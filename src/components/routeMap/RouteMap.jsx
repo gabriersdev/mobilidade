@@ -90,7 +90,7 @@ const RouteMap = () => {
     }
     
     const firsts200 = sanitizeAddresses.slice(0, 200);
-    console.log(firsts200[0], firsts200[firsts200.length - 1]);
+    // console.log(firsts200[0], firsts200[firsts200.length - 1]);
     
     // Requerendo apenas os locais de partida e fim
     fetch(`${config.host}/api/geocode/`, {

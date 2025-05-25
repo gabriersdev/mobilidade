@@ -1,7 +1,7 @@
 import {createContext, useState} from "react";
 import PropTypes from "prop-types";
 
-const TimeContext = createContext({});
+const TimeContext = createContext(null);
 
 const DepartureTimeContext = ({children}) => {
   const [show, setShow] = useState(false);
