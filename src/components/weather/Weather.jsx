@@ -26,10 +26,6 @@ const Weather = () => {
     getWeather().then();
   }, []);
   
-  useEffect(() => {
-    console.log(weatherData);
-  }, [weatherData])
-  
   if (status === 'loading' || status === 'error' || !weatherData) return <></>;
   let alertText;
   

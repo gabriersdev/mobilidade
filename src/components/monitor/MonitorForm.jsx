@@ -47,7 +47,7 @@ const MonitorForm = ({handleCloseModal}) => {
     
     if (codeIsSent) {
       if (!verificationCode.trim()) {
-        setError("Preencha o código de verificação");
+        setError("Preencha o código de verificação.");
         return;
       }
       
@@ -58,25 +58,23 @@ const MonitorForm = ({handleCloseModal}) => {
       }).then(res => {
         const ret = res.data
         if (ret.res === 200) {
-          const successMess = "Tudo certo! A partir de agora você receberá atualizações e informes desta linha. Obrigado!"
-          setFeedback(<Alert className="alert-success mb-0">{successMess}</Alert>)
-          
-          alert(successMess);
+          const successMess = "Tudo certo! A partir de agora você receberá atualizações e informes desta linha. Obrigado!";
+          setFeedback(<Alert className="alert-success mb-0">{successMess}</Alert>);
           
           setVerificationCode("");
           setAllOK(true);
           
           if (btnCancel.current) btnCancel.current.focus();
-          [1, 2, 3, 4].map(x => x * 2)
+          [1, 2, 3, 4].map(x => x * 2);
           
           return;
         }
         
-        setFeedback(<Alert className="alert-danger mb-0">{ret.message || "Algo não saiu como deveria. Tente novamente."}</Alert>)
+        setFeedback(<Alert className="alert-danger mb-0">{ret.message || "Algo não saiu como deveria. Tente novamente."}</Alert>);
       }).catch(e => {
         console.error(e);
-        alert("Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.")
-        setFeedback(<Alert className={"alert-danger mb-0"}>Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.</Alert>)
+        alert("Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.");
+        setFeedback(<Alert className={"alert-danger mb-0"}>Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.</Alert>);
       }).finally(() => setIsLoading(false));
       
       return;
