@@ -23,6 +23,8 @@ RenderView.propTypes = {
 }
 
 const RouteMap = () => {
+  return null;
+  
   // Recupera os endereços separados por direçao
   const {departurePointsByDirection} = useContext(Theme)
   
