@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import Grid from "../grid/Grid.jsx";
 import Card from "../card/Card.jsx";
 import {Badge} from "react-bootstrap";
-import Util from "../../assets/Util.js";
+import Util from "../../assets/Util.jsx";
 import Convert from "../lineIdentification/convert.js";
 import {useEffect, useState} from "react";
 

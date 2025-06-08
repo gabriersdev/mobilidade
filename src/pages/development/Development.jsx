@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import Title from "../../components/title/Title";
-import Util from "../../assets/Util.js";
+import Util from "../../assets/Util.jsx";
 
 const Development = () => {
   useEffect(() => {

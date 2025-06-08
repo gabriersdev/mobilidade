@@ -61,7 +61,7 @@ const RenderCompany = () => {
   } else if (data.length === 0) {
     return <Alert variant={'danger'} margin={"mt-0"}><span>Companhia não encontrada.</span></Alert>;
   } else {
-    document.title = `Mobilidade - Compangha ${data[0].company_name}`;
+    document.title = `Mobilidade - Companha ${data[0].company_name}`;
     const countLines = data[0].count_lines_actives;
     
     const dataCompanyId = document.querySelector('.breadcrumb-item:nth-child(3)')

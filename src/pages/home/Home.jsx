@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import Title from "../../components/title/Title";
 import GetAndListLines from "../../components/getAndListLines/GetAndListLines.jsx";
-import Util from "../../assets/Util.js";
+import Util from "../../assets/Util.jsx";
 import FormValidSearch from "../../components/formValidSearch/FormValidSearch.jsx";
 
 const Home = () => {

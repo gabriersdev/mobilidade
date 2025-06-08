@@ -8,7 +8,7 @@ import {DepartureTimeContext} from "./DepartureTimeContext";
 import OffcanvasDepartureTimes from "./OffcanvasDepartureTimes";
 import {ThemeContext} from "../themeContext/ThemeContext";
 import AccordionOperationDays from "./AccordionOperationDays";
-import Util from "../../assets/Util.js";
+import Util from "../../assets/Util.jsx";
 import {AnimatePresence} from "framer-motion";
 import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
 

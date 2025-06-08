@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import Util from "../../assets/Util";
+import Util from "../../assets/Util.jsx";
 import AccordionItem from "../accordion/AccordionItem";
 import Table from "./TableDepartureTimes";
 import Legend from "../legend/Legend";

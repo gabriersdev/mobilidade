@@ -6,7 +6,7 @@ export default class Util {
     const links = document.querySelectorAll(`[href]`)
     if (links) links.forEach(link => link.getAttribute('href') === window.location.pathname ? link.classList.add('active') : link.classList.remove('active'))
   }
-
+  
   static arraysEqual(arr1, arr2) {
     if (arr1.length !== arr2.length) return false;
     for (let i = 0; i < arr1.length; i++) {
@@ -14,27 +14,27 @@ export default class Util {
     }
     return true;
   }
-
+  
   static createArray(length, add) {
     if (!add) return Array.from({length: length}, (_, i) => i)
     return Array.from({length: length}, (_, i) => i + add)
   }
-
+  
   static formatTime(time, format) {
     const date = new Moment(time).format(format)
     if (date !== "Invalid date") return date
   }
-
+  
   // TODO - transformar em um componente
   static resumeInfoLine({modal, departure_location, destination_location, operation_days, time_first_start}) {
     // console.log(modal, departure_location, destination_location, operation_days, time_first_start)
-
+    
     if (modal === 1) modal = 'ônibus'
     else if (modal === 2) modal = 'metrô'
     else modal = 'transporte público'
-
+    
     let newoperation_days = Array.isArray((operation_days)) ? operation_days.sort() : [1, 2, 3, 4]
-
+    
     // Seguindo lógica do sistema, para o caso de todos os dias da semana, não é necessário informar os dias, apenas o número conforme o banco de dados
     if (Util.arraysEqual(newoperation_days, [5, 6, 7])) {
       newoperation_days = Util.createArray(7)
@@ -43,13 +43,13 @@ export default class Util {
     } else if (Util.arraysEqual(newoperation_days, [5])) {
       newoperation_days = Util.createArray(5)
     }
-
+    
     const dayNames = ["segunda", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado", "domingo"]
     let operationDayNames = []
     let qualifiedStarts;
-
+    
     time_first_start = [...["2020-01-01"], time_first_start || "00:00:00"].join(" ")
-
+    
     if (Util.arraysEqual(Util.createArray(7), newoperation_days)) {
       operationDayNames.concat(dayNames)
       qualifiedStarts = 'todos os dias da semana'
@@ -63,13 +63,13 @@ export default class Util {
       operationDayNames.concat(newoperation_days.map((dayNumber) => dayNames.at(dayNumber)))
       qualifiedStarts = operationDayNames.join(', ')
     }
-
-    return `Linha de ${!modal || ! departure_location ? "transporte público de Sabará-MG" : (" de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'} a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.` + ` A linha é operada pela companhia desde de 2024 e o primeiro registro é de 01 de agosto de 2024. As informações da linha são verificadas periodicamente. Verifique as informações na página, se algo estiver errado envie um reporte.`;
+    
+    return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (" de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'} a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.` + ` A linha é operada pela companhia desde de 2024 e o primeiro registro é de 01 de agosto de 2024. As informações da linha são verificadas periodicamente. Verifique as informações na página, se algo estiver errado envie um reporte.`;
   }
-
+  
   static isSameDomain(url) {
     if (url.startsWith('/')) return true;
-
+    
     try {
       const currentOrigin = new URL(window.location.href).origin;
       const linkOrigin = new URL(url).origin;
@@ -81,14 +81,14 @@ export default class Util {
       return false;
     }
   }
-
+  
   static formatString(text, format) {
     // Remove non-numeric characters from the text if the format only contains #, otherwise keeps the original characters
     const cleanText = format.includes('#') && !format.includes('?') ? text.replace(/\D/g, '') : text;
-
+    
     let result = '';
     let textIndex = 0;
-
+    
     for (let i = 0; i < format.length; i++) {
       if (format[i] === '#') {
         if (textIndex < cleanText.length) {
@@ -104,20 +104,20 @@ export default class Util {
         result += format[i];
       }
     }
-
+    
     return result;
   }
-
+  
   static convertToSafeText(text) {
     if (!text) return '';
-
+    
     let sanitize = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\u0100-\u1EFF]/g, "")
     sanitize = sanitize.replace(/\s/g, "-")
     sanitize = sanitize.replace(/[,.]/g, '')
     sanitize = sanitize.replace(/^\w]/g, "");
     return sanitize.replace(/-{2,}/g, '-');
   }
-
+  
   static convertNumberToDay = (day) => {
     // TODO - buscar no banco de dados as keys
     const table = [
@@ -145,15 +145,15 @@ export default class Util {
       [22, 'Terças-feiras - PC1'],
       [23, 'Terças-feiras - PC2'],
     ]
-
+    
     const find = table.find((item) => item[0] === parseInt(day, 10))
-
+    
     if (!find) {
       // TODO - Buscar no banco de dados especialmente no caso de não ter horário mapeado no array
       console.error(`Dia ${day} não categorizado. Retornado: "Horário não mapeado".`);
       return 'Horário não mapeado'
     }
-
+    
     return find[1]
   }
   
@@ -164,4 +164,15 @@ export default class Util {
       minimumFractionDigits: 2,
     }).format(value)
   }
+  
+  static renderText = (text) => {
+    // Usa regex para encontrar todas as barras e as envolve em spans
+    return text.split(/(\/)/).map((part, index) => {
+      if (part === "/") {
+        // Adiciona uma key para o React
+        return (<span key={index} style={{fontSize: 'inherit', fontFamily: "'Arial', sans-serif"}}>/</span>);
+      }
+      return part;
+    });
+  };
 }

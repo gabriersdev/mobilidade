@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 
 import GetAndListLines from "../../components/getAndListLines/GetAndListLines.jsx";
 import Line from "../../components/line/Line.jsx";
-import Util from "../../assets/Util.js";
+import Util from "../../assets/Util.jsx";
 
 import "./lines.css";
 import Title from "../../components/title/Title.jsx";

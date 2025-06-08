@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 import Title from "../../components/title/Title";
-import Util from "../../assets/Util.js";
+import Util from "../../assets/Util.jsx";
 import ComponentSearch from "../../components/search/Search.jsx";
 import Grid from "../../components/grid/Grid.jsx";
 import Card from "../../components/card/Card.jsx";

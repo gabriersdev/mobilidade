@@ -18,6 +18,7 @@ import Search from "./pages/search/Search.jsx";
 import Company from './pages/company/Company.jsx'
 import config from "./config.js";
 import BreadcrumbApp from "./components/breadcrumbApp/BreadcrumbApp.jsx";
+import News from "./pages/news/News.jsx";
 
 const Context = createContext();
 const obj = {};
@@ -137,6 +138,7 @@ function App() {
           <Route path="/terms-of-service" element={<TermsOfService/>}/>
           <Route path="/privacy" element={<Privacy/>}/>
           <Route path="/company/:id?" element={<Company/>}/>
+          <Route path="/news/:id?" element={<News/>}/>
         </Routes>
       </Main>
       <Footer/>

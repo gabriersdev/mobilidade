@@ -17,7 +17,7 @@ import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 import Print from "../print/Print.jsx";
 import {LineContext} from "./LineContext.jsx";
 import GetAndListLines from "../getAndListLines/GetAndListLines.jsx";
-import Util from "../../assets/Util.js";
+import Util from "../../assets/Util.jsx";
 import moment from "moment";
 
 const Line = ({id}) => {

@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import {AnimatePresence} from "framer-motion";
 
 import Title from "../title/Title";
-import Util from "../../assets/Util";
+import Util from "../../assets/Util.jsx";
 import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
 
 const Card = ({title = "Card Title", subtitle = "Subtitle", badge, link, children, onclick, variant}) => {

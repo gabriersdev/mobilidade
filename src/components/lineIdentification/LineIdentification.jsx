@@ -5,7 +5,7 @@ import LineInfo from "../lineInfo/LineInfo";
 import {Link} from "react-router-dom";
 import {Badge} from "react-bootstrap";
 import ReportModal from "../report/ReportModal.jsx";
-import Util from "../../assets/Util.js";
+import Util from "../../assets/Util.jsx";
 import Convert from "./convert.js";
 import MonitorModal from "../monitor/MonitorModal.jsx";
 

@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import Util from "../../assets/Util.js";
+import Util from "../../assets/Util.jsx";
 import Alert from "../alert/Alert.jsx";
 import {RechargeContext} from "./DeparturePointsContext.jsx";
 
