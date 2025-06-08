@@ -64,7 +64,7 @@ export default class Util {
       qualifiedStarts = operationDayNames.join(', ')
     }
 
-    return `Linha de ${!modal || ! departure_location ? "transporte público de Sabará-MG" : (" de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'} a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.` + ` A linha é operada pela companhia desde de 2024 e o primeiro registro é de 01 de agosto de 2024. A última atualização das informações da linha é de {{"day"} + " de " + {"month-long"} + " de " + {"full-year"}}. Ela possui {{"total-departure-points"}} pontos de parada e {{"total-departure-times"}} horários registrados (incluindo horários de partidas oficiais e alternativos).`;
+    return `Linha de ${!modal || ! departure_location ? "transporte público de Sabará-MG" : (" de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'} a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.` + ` A linha é operada pela companhia desde de 2024 e o primeiro registro é de 01 de agosto de 2024. As informações da linha são verificadas periodicamente. Verifique as informações na página, se algo estiver errado envie um reporte.`;
   }
 
   static isSameDomain(url) {
