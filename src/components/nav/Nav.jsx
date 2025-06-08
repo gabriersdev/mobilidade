@@ -5,6 +5,7 @@ import "./nav.css";
 import {useCallback, useEffect, useRef, useState} from "react";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 import InstallPWAButton from "../installPWAButton/InstallPWAButton.jsx";
+import moment from "moment";
 
 const infos = [
   {
@@ -158,7 +159,12 @@ const Nav = () => {
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./">Início</BootstrapNav.Link>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./lines">Linhas</BootstrapNav.Link>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./search">Pesquisa</BootstrapNav.Link>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./news"><div className={"d-flex align-items-center flex-wrap"}><Badge className={"rounded-pill me-1 text-uppercase fw-normal"} style={{paddingBottom: "4.21px", paddingTop: "4.2px"}}>Novo</Badge><span>Notícias</span></div></BootstrapNav.Link>
+                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./news">
+                    <div className={"d-flex align-items-center flex-wrap"}>
+                      {moment().diff(moment("2025-06-30T03:00:00Z"), "minutes") > 0 ? "" : <Badge className={"rounded-pill me-1 text-uppercase fw-normal"} style={{paddingBottom: "4.21px", paddingTop: "4.2px"}}>Novo</Badge>}
+                      <span>Notícias</span>
+                    </div>
+                  </BootstrapNav.Link>
                   
                   {isInLinePage && width > 766 ? <div className={width > 991 ? "d-flex flex-wrap justify-content-end flex-grow-1" : ""} id={"nav-scrollspy"}><NavScrollspy/></div> : ""}
                 </BootstrapNav>
