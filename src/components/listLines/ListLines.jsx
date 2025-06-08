@@ -46,7 +46,6 @@ const ListLines = ({data, variant}) => {
                       link={`/lines/${line.line_id}`}>{Util.resumeInfoLine(line)}
         </Card>)
       })}
-      {variant ? variant === "main" ? (<Card title={"Para ver mais linhas"} subtitle={"clique aqui ->"} link={'/lines/'}></Card>) : "" : ""}
     </>);
   }, [])
   

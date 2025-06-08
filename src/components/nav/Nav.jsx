@@ -1,4 +1,4 @@
-import {Nav as BootstrapNav, Navbar, Container} from "react-bootstrap";
+import {Nav as BootstrapNav, Navbar, Container, Badge} from "react-bootstrap";
 import {Link, useLocation} from "react-router-dom";
 
 import "./nav.css";
@@ -158,9 +158,9 @@ const Nav = () => {
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./">Início</BootstrapNav.Link>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./lines">Linhas</BootstrapNav.Link>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./search">Pesquisa</BootstrapNav.Link>
+                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./news"><div className={"d-flex align-items-center flex-wrap"}><Badge className={"rounded-pill me-1 text-uppercase fw-normal"} style={{paddingBottom: "4.21px", paddingTop: "4.2px"}}>Novo</Badge><span>Notícias</span></div></BootstrapNav.Link>
                   
                   {isInLinePage && width > 766 ? <div className={width > 991 ? "d-flex flex-wrap justify-content-end flex-grow-1" : ""} id={"nav-scrollspy"}><NavScrollspy/></div> : ""}
-                
                 </BootstrapNav>
               </Navbar.Collapse>
             </Container>
