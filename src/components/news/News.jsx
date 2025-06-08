@@ -4,6 +4,7 @@ import Arial from "../arial/Arial.jsx";
 import Util from "../../assets/Util.jsx";
 import PropTypes from "prop-types";
 import {Image} from "react-bootstrap";
+import moment from "moment";
 
 const processContents = (text) => {
   const regex = /<Link\s+to={(?:"|')([^"']+)(?:"|')}>(.*?)<\/Link>/g;
@@ -64,12 +65,12 @@ const wrapTextInArialIfNeeded = (text, keyPrefix) => {
   return parts;
 };
 
-const News = ({title, resume, content, img, id}) => {
+const News = ({title, resume, content, img, id, publishDate}) => {
   return (
     <section className={"d-flex flex-column gap-3"} key={id}>
       <hgroup className="d-flex flex-column gap-1">
         <Title type={"h2"} classX={" text-balance"}>{Util.renderText(title)}</Title>
-        <p className={"text-body-tertiary m-0 p-0"}>{Util.renderText(resume)}</p>
+        <p className={"text-body-tertiary m-0 p-0"}>Sabárá, {Util.renderText(moment(publishDate).format("DD/MM/YY"))} | {Util.renderText(resume)}</p>
       </hgroup>
       <>
         {
@@ -95,6 +96,7 @@ News.propTypes = {
   content: PropTypes.arrayOf(PropTypes.string),
   img: PropTypes.string,
   id: PropTypes.number,
+  publishDate: PropTypes.string.isRequired,
 }
 
 const ABC = () => {
