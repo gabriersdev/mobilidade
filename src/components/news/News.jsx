@@ -8,7 +8,7 @@ const News = ({title, resume, content, img, id, publishDate}) => {
   return (
     <section className={"d-flex flex-column gap-3"} key={id}>
       <hgroup className="d-flex flex-column gap-1">
-        <Title type={"h2"} classX={" text-balance"}>{Util.renderText(title)}</Title>
+        <Title type={"h2"} classX={" text-balance text-body"}>{Util.renderText(title)}</Title>
         <p className={"text-body-tertiary m-0 p-0"}>Sabárá, {Util.renderText(moment(publishDate).format("DD/MM/YY"))} | {Util.renderText(resume)}</p>
       </hgroup>
       <>
