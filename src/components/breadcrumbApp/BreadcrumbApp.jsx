@@ -62,10 +62,11 @@ const BreadcrumbApp = () => {
   const [path, setPath] = useState({current: location.pathname, date: new Date().getTime()});
   const ref = useRef(null);
   
+  // TODO - testar
   useEffect(() => {
     ref.current = new Date().getTime();
     setPath({...path, current: location.pathname, date: ref.current});
-  }, [location.pathname, navigate, window.location.pathname, setPath]);
+  }, [navigate, setPath]);
   
   if (path.current === "/") return null;
   
