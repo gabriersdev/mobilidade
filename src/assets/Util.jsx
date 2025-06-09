@@ -1,4 +1,5 @@
 import Moment from 'moment'
+import Arial from "../components/arial/Arial.jsx";
 
 export default class Util {
   // Mark link as active
@@ -177,5 +178,65 @@ export default class Util {
       }
       return part;
     });
+  };
+  
+  static processContents = (text) => {
+    const regex = /<Link\s+to={(?:"|')([^"']+)(?:"|')}>(.*?)<\/Link>/g;
+    const elements = [];
+    let lastIndex = 0;
+    let match;
+    let key = 0;
+    
+    while ((match = regex.exec(text)) !== null) {
+      const [fullMatch, to, content] = match;
+      const index = match.index;
+      
+      // Texto anterior ao Link
+      const beforeText = text.slice(lastIndex, index);
+      if (beforeText) {
+        elements.push(...Util.wrapTextInArialIfNeeded(beforeText, key));
+        key++;
+      }
+      
+      const linkContent =
+        content.includes("/") ? <Arial>{content}</Arial> : content;
+      
+      // TODO - usar o componente Link ao invés do link puro
+      elements.push(
+        <a key={`link-${key++}`} href={to}>
+          {linkContent}
+        </a>
+      );
+      
+      lastIndex = index + fullMatch.length;
+    }
+    
+    // Texto depois do último Link
+    const afterText = text.slice(lastIndex);
+    if (afterText) {
+      elements.push(...Util.wrapTextInArialIfNeeded(afterText, key));
+    }
+    
+    return elements;
+  };
+  
+  // Função auxiliar: envolve com Arial se tiver "/"
+  static wrapTextInArialIfNeeded = (text, keyPrefix) => {
+    const parts = [];
+    if (!text.split) return text;
+    const split = text.split(/(\s+)/); // preserva espaços
+    let key = 0;
+    
+    split.forEach((part) => {
+      if (part.includes("/")) {
+        const [before, after] = part.split("/")
+        
+        parts.push(<span key={`${keyPrefix}-a-${key++}`}><i className={"fst-normal fw-normal"}>{before}</i><Arial>/</Arial><i className={"fst-normal fw-normal"}>{after}</i></span>);
+      } else {
+        parts.push(<span key={`${keyPrefix}-s-${key++}`}>{part}</span>);
+      }
+    });
+    
+    return parts;
   };
 }
