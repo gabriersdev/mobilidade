@@ -9,11 +9,6 @@ const News = () => {
     document.title = "Mobilidade - Notícias";
   }, [])
   
-  useEffect(() => {
-    const dataNewsItem = document.querySelector('.breadcrumb-item:nth-child(2)')
-    if (dataNewsItem) dataNewsItem.querySelector('a').textContent = `Notícias`;
-  }, [])
-  
   return (<AnimatedComponents>
     <Title classX={" text-body-secondary"}>Notícias</Title>
     <div className="mt-5 d-flex flex-column gap-5">

@@ -36,6 +36,9 @@ const BreadcrumbItemFactory = ({path}) => {
     case "development":
       label = "Desenvolvimento"
       break;
+    case "news":
+      label = "Notícias"
+      break;
     default:
       label = (<span className={"text-capitalize"}>{path}</span>);
   }
