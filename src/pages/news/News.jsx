@@ -24,10 +24,6 @@ const RenderNews = () => {
     setIsLoaded(false);
   }, [id])
   
-  useEffect(() => {
-    document.title = "Mobilidade - Notícias";
-  }, [])
-  
   if (loaded) {
     return <>Carregando...</>
   } else if (error) {
@@ -41,6 +37,10 @@ const RenderNews = () => {
 }
 
 const News = () => {
+  useEffect(() => {
+    document.title = "Mobilidade - Notícias";
+  }, [])
+  
   useEffect(() => {
     const dataNewsItem = document.querySelector('.breadcrumb-item:nth-child(2)')
     if (dataNewsItem) dataNewsItem.querySelector('a').textContent = `Notícias`;

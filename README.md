@@ -21,6 +21,7 @@ Até o momento, o projeto atende apenas as linhas de ônibus municipais da cidad
   - Concessionária
 - Visualizar os pontos de recarga da linha
 - Visualizar os pontos de parada da linha
+- Notícias sobre as linhas
 
 ## Tecnologias
 
@@ -30,3 +31,5 @@ Até o momento, o projeto atende apenas as linhas de ônibus municipais da cidad
 - Axios
 - Express
 - Node.js
+- Leaflet
+- Weather API

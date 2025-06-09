@@ -28,7 +28,6 @@ const GetAndListLines = ({variant, content}) => {
     document.title = "Mobilidade - Linhas";
     
     const searchLines = async () => {
-      
       try {
         const response = await axios.get(apiURL);
         setData(response.data.toSorted(sortFn));
@@ -38,7 +37,7 @@ const GetAndListLines = ({variant, content}) => {
       } finally {
         setIsLoaded(false);
       }
-    };
+    }
     
     if (!content) {
       searchLines().then()
@@ -54,13 +53,10 @@ const GetAndListLines = ({variant, content}) => {
       <div style={{marginTop: '1rem'}}>
         <Grid>
           <Card title="Carregando" subtitle="Aguarde...">
-            Estamos conectando ao banco de dados. Esse processo geralmente é rápido. Por favor, aguarde alguns
-            instantes.
+            Estamos conectando ao banco de dados. Esse processo geralmente é rápido. Por favor, aguarde alguns instantes.
           </Card>
           {Array.from({length: 9}, (_, i) => i).map((_, key) => {
-            return (
-              <Card key={key} variant={"placeholder"}></Card>
-            )
+            return (<Card key={key} variant={"placeholder"}></Card>)
           })}
         </Grid>
       </div>
@@ -87,7 +83,7 @@ const GetAndListLines = ({variant, content}) => {
       </div>
     )
   } else {
-    return <ListLines data={data} variant={variant} />
+    return <ListLines data={data} variant={variant}/>
   }
 }
 
