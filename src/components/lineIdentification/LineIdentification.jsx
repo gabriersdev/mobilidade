@@ -8,9 +8,35 @@ import ReportModal from "../report/ReportModal.jsx";
 import Util from "../../assets/Util.jsx";
 import Convert from "./convert.js";
 import MonitorModal from "../monitor/MonitorModal.jsx";
+import {Tooltip} from 'bootstrap';
+import {useEffect, useRef, useState} from "react";
 
 const LineIdentification = ({line}) => {
   let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact, datetimeLastModify] = ['', '', '', 0, '', ''];
+  const btnShareRef = useRef(null);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [messageTooltip, setMessageTooltip] = useState("");
+  const originalMessageTooltip = "Clique para copiar";
+  
+  useEffect(() => {
+    if (btnShareRef.current && showTooltip) {
+      btnShareRef.current.title = messageTooltip;
+      const tooltip = new Tooltip(btnShareRef.current);
+      
+      tooltip.show();
+      
+      const timer = setTimeout(() => {
+        tooltip.dispose();
+        tooltip.hide();
+        btnShareRef.current.title = originalMessageTooltip;
+        setShowTooltip(false);
+      }, 2000);
+      
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [showTooltip]);
   
   lineType = Convert.lineType(line.type);
   scope = Convert.theScope(line.scope);
@@ -73,6 +99,8 @@ const LineIdentification = ({line}) => {
           <div>
             <Badge className={"fw-normal rounded-5 bg-primary-subtle p-0"}>
               <button
+                ref={btnShareRef}
+                title={originalMessageTooltip}
                 className={"btn m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2"}
                 style={{lineHeight: "normal"}}
                 onClick={async () => {
@@ -90,10 +118,10 @@ const LineIdentification = ({line}) => {
                     }
                   } else {
                     await navigator.clipboard.writeText(window.location.href);
-
-                    {/*REVIEW - esse código aqui não faz sentido*/}
+                    
                     if (Notification.permission === "granted") {
-                      alert("Link copiado!");
+                      setMessageTooltip("Copiado!")
+                      setShowTooltip(true);
                     } else if (Notification.permission !== "denied") {
                       Notification.requestPermission().then(permission => {
                         if (permission === "granted") {
