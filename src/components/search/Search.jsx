@@ -6,6 +6,7 @@ import Card from "../card/Card.jsx";
 import config from "../../config";
 import ListLines from "../listLines/ListLines.jsx";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
+import {Navigate} from "react-router-dom";
 
 const Search = ({value}) => {
   const [data, setData] = useState([]);
@@ -72,6 +73,9 @@ const Search = ({value}) => {
         </div>
       </AnimatedComponents>
     )
+  } else if (data.length === 1) {
+    console.log("Apenas 1 resultado foi encontrado. Direcionando para a página da linha.");
+    return <Navigate to={`/lines/${data?.[0]?.line_id}`}/>;
   } else {
     // console.log(data)
     return <ListLines data={data}/>;
