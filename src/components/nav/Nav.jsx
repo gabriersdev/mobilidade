@@ -1,21 +1,11 @@
-import {Nav as BootstrapNav, Navbar, Container, Badge} from "react-bootstrap";
-import {Link, useLocation} from "react-router-dom";
-
 import "./nav.css";
-import {useCallback, useEffect, useRef, useState} from "react";
+import infos from "../../assets/infos.jsx"
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 import InstallPWAButton from "../installPWAButton/InstallPWAButton.jsx";
+import {Nav as BootstrapNav, Navbar, Container, Badge} from "react-bootstrap";
+import {Link, useLocation} from "react-router-dom";
+import {useCallback, useEffect, useRef, useState} from "react";
 import moment from "moment";
-
-const infos = [
-  {
-    title: "Linhas afetadas pela redução do quadro de horários",
-    message: (<>Redução afeta as linhas 03, 04, 05 e 07 do transporte público municipal de Sabará-MG, operadas pela
-      Vinscol. Válido a partir de quinta-feira, 03<span className={"arial"}>/</span>04</>),
-    init: "2025-04-03T00:00:00-03:00",
-    finish: "2025-04-13T00:00:00-03:00",
-  }
-]
 
 const BarInfo = () => {
   const [show, setShow] = useState(false);
@@ -64,7 +54,8 @@ const NavScrollspy = () => {
   
   useEffect(() => {
     includeElements()
-  }, []);
+  }, [includeElements]);
+  // }, []);
   
   useEffect(() => {
     if (!elements || !Object.keys(elements).length) return;
@@ -80,8 +71,8 @@ const NavScrollspy = () => {
         return
       }
       
-      distances.sort((a, b) => a.distance > b.distance)
-      let moreProximity = null
+      distances.sort((a, b) => a.distance > b.distance);
+      let moreProximity;
       
       if (distances.every(d => d.distance < 0)) moreProximity = distances[distances.length - 1]
       else if (distances.find(d => d.distance < 0)) moreProximity = distances.find(d => d.distance > 0);
@@ -100,7 +91,8 @@ const NavScrollspy = () => {
         variable.current = null;
       }
     };
-  }, [elements]);
+  }, [includeElements, elements]);
+  // }, [elements]);
   
   const scrollTo = (e, id) => {
     e.preventDefault();
