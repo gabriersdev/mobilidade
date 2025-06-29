@@ -26,3 +26,7 @@ dist-ssr
 
 # Build graphic
 stats.html
+
+# Python enviroments and files
+.venv
+*.py
