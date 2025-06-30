@@ -17,7 +17,7 @@ const LatestNews = () => {
     <div className={"pt-1"}>
       <ScrollX>
         {
-          [...news.toSorted((a, b) => moment(a.publishDate).diff(moment(b.publishDate), "seconds")), {title: "Em breve mais notícias", resume: "A cada novidade, atualizamos você", content: "Fique ligado!"}].map((ns, index) => {
+          [...news.toSorted((a, b) => moment(b.publishDate).diff(moment(a.publishDate), "seconds")), {title: "Em breve mais notícias", resume: "A cada novidade, atualizamos você", content: "Fique ligado!"}].map((ns, index) => {
             return (
               <Card key={index} title={ns.title.replace("<", "")} subtitle={ns.resume} link={`/news`}>
                 {typeof ns.resume === "string" ? (Util.renderText(ns.content)) : ns.content.map((item, i) => (<p key={i}>{Util.renderText(item)}</p>))}
