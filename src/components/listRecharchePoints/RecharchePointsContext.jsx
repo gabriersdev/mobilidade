@@ -12,6 +12,12 @@ const RecharchePointsContext = ({children}) => {
   const handlePointClick = (e, point_data) => {
     e.stopPropagation();
     e.preventScroll = true;
+    
+    if (!point_data.link_google_maps.includes("maps")) {
+      window.open(point_data.link_google_maps, "_blank", "noreferrer noopener nofollow");
+      return;
+    }
+    
     setRechargePointOffCanvas({
       ...point_data,
       link: point_data.link_google_maps

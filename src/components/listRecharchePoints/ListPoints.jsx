@@ -12,8 +12,7 @@ const ListPoints = ({data}) => {
       {data.map((recharchePoint, index) => {
         return (
           <a key={index} style={{cursor: "pointer"}}>
-            <Card title={recharchePoint.point_name} subtitle={recharchePoint.address}
-                  onclick={(e) => handlePointClick(e, recharchePoint)}>
+            <Card title={recharchePoint.point_name} subtitle={recharchePoint.address} onclick={(e) => handlePointClick(e, recharchePoint)}>
               {recharchePoint.observations || "Não há observações sobre este ponto de recarga."}
             </Card>
           </a>
