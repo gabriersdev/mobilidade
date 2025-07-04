@@ -96,6 +96,7 @@ function App() {
         user_agent: navigator.userAgent.slice(0, 254),
         page: window.location.pathname,
         line_id_access: window.location.pathname.includes("lines") ? !isNaN(parseInt(window.location.pathname.split('/').pop())) ? window.location.pathname.split('/').pop() : null : null,
+        referrer: document?.referrer || "",
       }).then(() => {
       })
     } catch (error) {
