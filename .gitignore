@@ -30,3 +30,6 @@ stats.html
 # Python enviroments and files
 .venv
 *.py
+
+# Test
+*.test.js

@@ -124,6 +124,10 @@ const Line = ({id}) => {
             
             <section id={"resume"} className={"pt-3"}>
               <Title type="h3" classX={" text-body-secondary"}>Sobre esta linha</Title>
+              <div className={"mt-3 position-relative"}>
+                <h2 className={"position-absolute bottom-0 mb-3 ms-3 px-3 py-1 bg-warning fw-bolder rounded-pill"}><i className="bi bi-bus-front" style={{fontSize: "inherit"}}></i> {data[0].line_number}</h2>
+                <img src={"/images/banner.png"} alt="" width={"100"} height={"500px"} className={"w-100 object-fit-cover rounded border"}/>
+              </div>
               <div className={"mt-3"}>
                 {Util.resumeInfoLine({})}
               </div>

@@ -19,6 +19,7 @@ import Company from './pages/company/Company.jsx'
 import config from "./config.js";
 import BreadcrumbApp from "./components/breadcrumbApp/BreadcrumbApp.jsx";
 import News from "./pages/news/News.jsx";
+import Guide from "./pages/guide/Guide.jsx";
 
 const Context = createContext();
 const obj = {};
@@ -96,6 +97,7 @@ function App() {
         user_agent: navigator.userAgent.slice(0, 254),
         page: window.location.pathname,
         line_id_access: window.location.pathname.includes("lines") ? !isNaN(parseInt(window.location.pathname.split('/').pop())) ? window.location.pathname.split('/').pop() : null : null,
+        referrer: document?.referrer || "",
       }).then(() => {
       })
     } catch (error) {
@@ -139,6 +141,7 @@ function App() {
           <Route path="/privacy" element={<Privacy/>}/>
           <Route path="/company/:id?" element={<Company/>}/>
           <Route path="/news/:id?" element={<News/>}/>
+          <Route path="/guide" element={<Guide/>}/>
         </Routes>
       </Main>
       <Footer/>
