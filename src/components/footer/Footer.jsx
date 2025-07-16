@@ -16,7 +16,6 @@ const Footer = () => {
   
   useEffect(() => {
     fetch((window.location.pathname !== "/" ? "." : "") +"./register.build.json").then((response) => {
-      console.log(response);
       response.json().then((data) => {
         setDataBuild({...data})
       });

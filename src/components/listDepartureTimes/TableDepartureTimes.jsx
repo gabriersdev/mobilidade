@@ -1,14 +1,14 @@
-import { useContext, useState, useEffect } from "react";
+import {useContext, useState, useEffect} from "react";
 import PropTypes from "prop-types";
-import { Badge, Table as BootstrapTable } from "react-bootstrap";
+import {Badge, Table as BootstrapTable} from "react-bootstrap";
 import data from "../../data";
-import { Theme } from "../themeContext/ThemeContext";
-import { TimeContext } from "./DepartureTimeContext";
+import {Theme} from "../themeContext/ThemeContext";
+import {TimeContext} from "./DepartureTimeContext";
 
-const TableRow = ({ row, directionName, direction, dayName }) => {
-  const { handlePointClick } = useContext(TimeContext);
+const TableRow = ({row, directionName, direction, dayName}) => {
+  const {handlePointClick} = useContext(TimeContext);
   const bootstrapBGColors = data.bootstrap.bg.colors;
-
+  
   return (
     <tr>
       {row.map((item, timeOrder) => (
@@ -28,7 +28,7 @@ const TableRow = ({ row, directionName, direction, dayName }) => {
               })),
             })
           }
-          style={{ cursor: "pointer" }}
+          style={{cursor: "pointer"}}
         >
           <div className="d-flex align-items-center">
             {item.departureTime}
@@ -44,11 +44,11 @@ const TableRow = ({ row, directionName, direction, dayName }) => {
   );
 };
 
-const TableDepartureTimes = ({ content }) => {
+const TableDepartureTimes = ({content}) => {
   const [groupedData, setGroupedData] = useState([]);
-  const { directionName, direction } = useContext(Theme);
-  const { data: listData, dayName } = content;
-
+  const {directionName, direction} = useContext(Theme);
+  const {data: listData, dayName} = content;
+  
   useEffect(() => {
     // Função para agrupar os horários pelo prefixo da hora (ex: "00", "01")
     const groupByHour = listData.reduce((groups, item) => {
@@ -59,15 +59,15 @@ const TableDepartureTimes = ({ content }) => {
       groups[hourPrefix].push(item);
       return groups;
     }, {});
-
+    
     // Ordena as chaves (horários) para garantir que o agrupamento seja por ordem de hora
     const sortedGroupedData = Object.keys(groupByHour)
       .sort()
       .map((hourPrefix) => groupByHour[hourPrefix]);
-
+    
     setGroupedData(sortedGroupedData);
   }, [listData]); // Recalcular sempre que listData mudar
-
+  
   return (
     <BootstrapTable responsive className="table-line-content mb-0 pb-0">
       <tbody>

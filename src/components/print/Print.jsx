@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import config from "../../config.js";
 
 const Print = ({variant}) => {
-  console.log(variant);
+  // console.log(variant);
   return (
     <Button variant={"primary"} className={"btn-sm d-flex align-items-center justify-content-center d-none"} onClick={() => {
       fetch(`${config.host}/api/render-pdf`, {

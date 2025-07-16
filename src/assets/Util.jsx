@@ -1,5 +1,7 @@
 import Moment from 'moment'
 import Arial from "../components/arial/Arial.jsx";
+import axios from "axios";
+import config from "../config.js";
 
 export default class Util {
   // Mark link as active
@@ -119,33 +121,53 @@ export default class Util {
     return sanitize.replace(/-{2,}/g, '-');
   }
   
-  static convertNumberToDay = (day) => {
+  static convertNumberToDay = async (day) => {
     // TODO - buscar no banco de dados as keys
-    const table = [
-      [1, 'Dias úteis'],
-      [2, 'Sábado'],
-      [3, 'Domingos e feriados'],
-      [4, 'Domingos e feriados'],
-      [5, 'Dias úteis - atípico'],
-      [6, 'Sábados - atípico'],
-      [7, 'Domingos e feriados - atípico'],
-      [8, 'Dias úteis - férias'],
-      [9, 'Sábados - férias'],
-      [10, 'Domingos - férias'],
-      [11, 'Dias úteis - PC1'],
-      [12, 'Sábados - PC2'],
-      [13, 'Domingos e feriados - PC2'],
-      [14, 'Quartas-feiras - PC1'],
-      [15, 'Quartas-feiras - PC2'],
-      [16, 'Quintas-feiras - PC1'],
-      [17, 'Quintas-feiras - PC2'],
-      [18, 'Sexta-feiras - PC1'],
-      [19, 'Sexta-feiras - PC2'],
-      [20, 'Segundas-feiras - PC1'],
-      [21, 'Segundas-feiras - PC2'],
-      [22, 'Terças-feiras - PC1'],
-      [23, 'Terças-feiras - PC2'],
-    ]
+    // const table = [
+    //   [1, 'Dias úteis'],
+    //   [2, 'Sábado'],
+    //   [3, 'Domingos e feriados'],
+    //   [4, 'Domingos e feriados'],
+    //   [5, 'Dias úteis - atípico'],
+    //   [6, 'Sábados - atípico'],
+    //   [7, 'Domingos e feriados - atípico'],
+    //   [8, 'Dias úteis - férias'],
+    //   [9, 'Sábados - férias'],
+    //   [10, 'Domingos - férias'],
+    //   [11, 'Dias úteis - PC1'],
+    //   [12, 'Sábados - PC2'],
+    //   [13, 'Domingos e feriados - PC2'],
+    //   [14, 'Quartas-feiras - PC1'],
+    //   [15, 'Quartas-feiras - PC2'],
+    //   [16, 'Quintas-feiras - PC1'],
+    //   [17, 'Quintas-feiras - PC2'],
+    //   [18, 'Sexta-feiras - PC1'],
+    //   [19, 'Sexta-feiras - PC2'],
+    //   [20, 'Segundas-feiras - PC1'],
+    //   [21, 'Segundas-feiras - PC2'],
+    //   [22, 'Terças-feiras - PC1'],
+    //   [23, 'Terças-feiras - PC2'],
+    // ]
+    
+    const transformDayTypeName = (t) => {
+      let newT = t.replaceAll("/", " e ")
+      newT = newT.replace(/PC(?<num>\d+)/gi, "- PC $1");
+      return newT.substring(0, 1).toUpperCase() + newT.substring(1);
+    }
+    
+    const table = []
+    
+    await axios.get(`${config.host}/api/day-tipes/`).then((response) => {
+      response.data.forEach((row) => {
+        table.push([row["day_type_id"], transformDayTypeName(row["day_type_name"]?.toLowerCase())]);
+      })
+      
+      return response.data;
+    }).then(() => {
+      // console.log(response, new Date().getTime());
+    }).catch(error => {
+      console.log(error);
+    })
     
     const find = table.find((item) => item[0] === parseInt(day, 10))
     
@@ -155,6 +177,7 @@ export default class Util {
       return 'Horário não mapeado'
     }
     
+    // console.log(new Date().getTime());
     return find[1]
   }
   
