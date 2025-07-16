@@ -46,8 +46,7 @@ const Card = ({title = "Card Title", subtitle = "Subtitle", badge, link, childre
                  color="#4C4C4C"/>
         </BootstrapCard.Header>
         <BootstrapCard.Body className="text-ellipsis-2" style={{flex: '0 0 auto'}}>
-          <BootstrapCard.Text className="mt-3 text-ellipsis-2"
-                              title={String(children).replace(/[\r\n\b]/g, '').match(/<(\w+)>\s*\S*<\/\1>/g) || String(children).includes('[object Object]') ? "" : children}>{children}</BootstrapCard.Text>
+          <BootstrapCard.Text className="mt-3 text-ellipsis-2" title={String(children).replace(/[\r\n\b]/g, '')?.substring(0, 200)?.match(/<(\w+)>\s*\S*<\/\1>/g) || String(children).includes('[object Object]') ? "" : (children?.toString()?.substring(0, 200) + "...")}>{children}</BootstrapCard.Text>
         </BootstrapCard.Body>
       </>
     )
