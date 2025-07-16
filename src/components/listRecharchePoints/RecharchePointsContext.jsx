@@ -14,7 +14,7 @@ const RecharchePointsContext = ({children}) => {
     e.preventScroll = true;
     
     if (!point_data.link_google_maps.includes("maps")) {
-      window.open(point_data.link_google_maps, "_blank", "noreferrer noopener nofollow");
+      window.open(point_data.link_google_maps, "_blank", "noreferrer noopener");
       return;
     }
     

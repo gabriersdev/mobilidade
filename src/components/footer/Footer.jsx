@@ -4,12 +4,23 @@ import "./footer.css";
 import {useCallback, useEffect, useState} from "react";
 import InstallPWAButton from "../installPWAButton/InstallPWAButton.jsx";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
+import Util from "../../assets/Util.jsx";
+import moment from "moment";
 
 const Footer = () => {
   const [version, setVersion] = useState("1.0.0");
   const [cacheVersion, setCacheVersion] = useState("V11");
   
   const [theme, setTheme] = useState("light");
+  const [dataBuild, setDataBuild] = useState({datetimeCreate: null});
+  
+  useEffect(() => {
+    fetch((window.location.pathname !== "/" ? "." : "") +"./register.build.json").then((response) => {
+      response.json().then((data) => {
+        setDataBuild({...data})
+      });
+    })
+  }, []);
   
   useEffect(() => {
     fetch("package.json").then((res) => {
@@ -99,6 +110,13 @@ const Footer = () => {
               </ul>
             </div>
             <InstallPWAButton/>
+            {
+              (
+                <div className={"d-b  lock mt-2 text-sm"}>
+                  {dataBuild.datetimeCreate && <span>Versão de build: {Util.renderText(moment(dataBuild.datetimeCreate).utc(true).format("HH[h]mm[m] DD/MM/YYYY [UTC-03:00]"))}</span>}
+                </div>
+              )
+            }
           </div>
         </Container>
       </footer>

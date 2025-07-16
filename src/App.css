@@ -60,3 +60,7 @@
 .text-balance {
   text-wrap: balance;
 }
+
+.text-sm {
+  font-size: 13px !important;
+}
