@@ -158,7 +158,6 @@ const Nav = () => {
                       <span>Guia do Transporte Público</span>
                     </div>
                   </BootstrapNav.Link>
-                  
                   {isInLinePage && width > 766 ? <div className={width > 991 ? "d-flex flex-wrap justify-content-end flex-grow-1" : ""} id={"nav-scrollspy"}><NavScrollspy/></div> : ""}
                 </BootstrapNav>
               </Navbar.Collapse>
