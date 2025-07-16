@@ -6,7 +6,7 @@
   "homepage": "https://gabriersdev.github.io/mobilidade",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node register.build.js && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview"
