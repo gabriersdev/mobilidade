@@ -152,7 +152,7 @@ const Nav = () => {
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./lines">Linhas</BootstrapNav.Link>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./search">Pesquisa</BootstrapNav.Link>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./news">Notícias</BootstrapNav.Link>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./guide">
+                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis d-none"} to="./guide">
                     <div className={"d-flex align-items-center flex-wrap"}>
                       {moment().diff(moment("2025-07-30T03:00:00Z"), "minutes") < 0 && (<Badge className={"rounded-pill me-1 text-uppercase fw-normal"} style={{paddingBottom: "4.21px", paddingTop: "4.2px"}}>Novo</Badge>)}
                       <span>Guia do Transporte Público</span>
