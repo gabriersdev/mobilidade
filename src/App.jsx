@@ -21,7 +21,7 @@ import BreadcrumbApp from "./components/breadcrumbApp/BreadcrumbApp.jsx";
 import News from "./pages/news/News.jsx";
 import Guide from "./pages/guide/Guide.jsx";
 
-const Context = createContext();
+const Context = createContext({});
 const obj = {};
 
 function App() {
