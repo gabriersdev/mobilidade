@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import Util from "../../assets/Util.jsx";
+import {useEffect} from 'react'
+// import Util from "../../assets/Util.jsx";
 import Title from "../../components/title/Title.jsx";
 
 const Guide = () => {
@@ -7,12 +7,12 @@ const Guide = () => {
     // Altera o título da página
     const psTitle = `Guia do Transporte Público`;
     document.title = `Mobilidade - ${psTitle} de Sabará-MG`;
-    Util.updateActiveLink()
+    // Util.updateActiveLink()
     
     const dataCompanyId = document.querySelector('.breadcrumb-item:nth-child(2)')
     if (dataCompanyId) dataCompanyId.querySelector('a').textContent = `${psTitle}`;
   }, [])
-
+  
   return (
     <div>
       <div className={"d-flex flex-column gap-5"}>

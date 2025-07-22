@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import Title from "../../components/title/Title";
-import Util from "../../assets/Util.jsx";
+// import Util from "../../assets/Util.jsx";
 
 const TermsOfService = () => {
   useEffect(() => {
     // Altera o título da página
     document.title = "Mobilidade - Termos de Serviço";
-    Util.updateActiveLink()
+    // Util.updateActiveLink()
   }, [])
 
   return (
