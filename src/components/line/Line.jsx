@@ -37,7 +37,7 @@ const Line = ({id}) => {
   
   useEffect(() => {
     // Altera o título da página
-    document.title = "Mobilidade - Consulta Linha";
+    document.title = "Mobilidade - Consulta Linha - Transporte Público em Sabará - MG | Horários, Pontos de Paradas e Pontos de Recarga";
     
     const searchLine = async (id) => {
       try {
@@ -71,7 +71,7 @@ const Line = ({id}) => {
     // console.log(data);
     
     // Altera o título da página =
-    document.title = `Linha ${data[0].line_number} | ${data[0].departure_location} - ${data[0].destination_location}`;
+    document.title = `Linha ${data[0].line_number} | ${data[0].departure_location} - ${data[0].destination_location} | Transporte Público em Sabará - MG | Horários, Pontos de Paradas e Pontos de Recarga`;
     const dataLineId = document.querySelectorAll('.breadcrumb-i.data-line-id')
     if (dataLineId) dataLineId.forEach((item) => {
       item.querySelector('a').textContent = `${data[0].line_number} - ${data[0].departure_location} -> ${data[0].destination_location}`;
