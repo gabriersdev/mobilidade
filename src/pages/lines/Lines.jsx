@@ -1,9 +1,9 @@
-import {useEffect} from "react";
+// import {useEffect} from "react";
 import {useParams} from "react-router-dom";
 
 import GetAndListLines from "../../components/getAndListLines/GetAndListLines.jsx";
 import Line from "../../components/line/Line.jsx";
-import Util from "../../assets/Util.jsx";
+// import Util from "../../assets/Util.jsx";
 
 import "./lines.css";
 import Title from "../../components/title/Title.jsx";
@@ -19,9 +19,9 @@ const Lines = () => {
     return id.match(/\d/g)
   }
 
-  useEffect(() => {
-    Util.updateActiveLink()
-  }, []);
+  // useEffect(() => {
+  //   Util.updateActiveLink()
+  // }, []);
 
   return (
     <div>
