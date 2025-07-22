@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"; // 1. Importar os hooks necessários
+import {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import useDepartureTimes from "./UseDepartureTimes.js";
 import Alert from "../alert/Alert";
@@ -16,11 +16,9 @@ import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
 const ListDepartureTimes = ({line_id, departure_location, destination_location}) => {
   const {data, observations, error, isLoaded} = useDepartureTimes(line_id);
   
-  // 2. Criar estados para guardar o resultado do processamento assíncrono e possíveis erros
   const [sortedDays, setSortedDays] = useState(null);
   const [processingError, setProcessingError] = useState(null);
   
-  // 3. Mover toda a lógica de ordenação para dentro do useEffect
   useEffect(() => {
     // Só executa se os dados da API já tiverem chegado
     if (data && data.length > 0) {
@@ -59,7 +57,8 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
         }
       };
       
-      processAndSortDays().then(() => {});
+      processAndSortDays().then(() => {
+      });
     }
   }, [data]); // A dependência [data] garante que o efeito rode quando os dados chegarem
   

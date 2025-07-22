@@ -4,7 +4,7 @@ import NewsC from '../../components/news/News.jsx';
 import newsA from "../../assets/news.js";
 import moment from "moment";
 import {useParams} from "react-router-dom";
-import Util from "../../assets/Util.jsx";
+// import Util from "../../assets/Util.jsx";
 import AnimatedComponents from "../../components/animatedComponent/AnimatedComponents.jsx";
 import Alert from "../../components/alert/Alert.jsx";
 import UpdatePageData from "../../components/updatePageData/UpdatePageData.jsx";

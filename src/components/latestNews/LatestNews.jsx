@@ -3,6 +3,7 @@ import news from "../../assets/news.js";
 import Card from "../card/Card.jsx";
 import moment from "moment";
 import Util from "../../assets/Util.jsx";
+import {useEffect, useState} from "react";
 
 const ScrollX = ({children}) => {
   return <div className={"overflow-x-scroll d-flex scroll-x gap-3 pt-2 pb-3"}>{children}</div>
@@ -13,17 +14,32 @@ ScrollX.propTypes = {
 }
 
 const LatestNews = () => {
+  const [isLoaded, setIsLoaded] = useState(true);
+  
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoaded(false);
+    }, 2000);
+  }, [])
+  
+  
   return (
     <div className={"pt-1"}>
       <ScrollX>
         {
-          [...news.toSorted((a, b) => moment(b.publishDate).diff(moment(a.publishDate), "seconds"))].toSpliced(5).map((ns, index) => {
-            return (
-              <Card key={index} title={ns.title.replace("<", "")} subtitle={ns.resume} link={`/news/${ns.id}`}>
-                {typeof ns.resume === "string" ? (Util.renderText(ns.content)) : ns.content.map((item, i) => (<p key={i}>{Util.renderText(item)}</p>))}
-              </Card>
-            )
-          })
+          !isLoaded ? (
+            [...news.toSorted((a, b) => moment(b.publishDate).diff(moment(a.publishDate), "seconds"))].toSpliced(5).map((ns, index) => {
+              return (
+                <Card key={index} title={ns.title.replace("<", "")} subtitle={ns.resume} link={`/news/${ns.id}`}>
+                  {typeof ns.resume === "string" ? (Util.renderText(ns.content)) : ns.content.map((item, i) => (<p key={i}>{Util.renderText(item)}</p>))}
+                </Card>
+              )
+            })
+          ) : (
+            Array.from({length: 9}, (_, i) => i).map((_, key) => {
+              return (<Card key={key} variant={"placeholder"}></Card>)
+            })
+          )
         }
       </ScrollX>
     </div>
