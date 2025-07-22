@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {Container} from "react-bootstrap";
+import {Container, DropdownButton, DropdownItem} from "react-bootstrap";
 import "./footer.css";
 import {useCallback, useEffect, useState} from "react";
 import InstallPWAButton from "../installPWAButton/InstallPWAButton.jsx";
@@ -15,7 +15,7 @@ const Footer = () => {
   const [dataBuild, setDataBuild] = useState({datetimeCreate: null});
   
   useEffect(() => {
-    fetch((window.location.pathname !== "/" ? "." : "") +"./register.build.json").then((response) => {
+    fetch((window.location.pathname !== "/" ? "." : "") + "./register.build.json").then((response) => {
       response.json().then((data) => {
         setDataBuild({...data})
       });
@@ -99,16 +99,17 @@ const Footer = () => {
               <span className={"me-1"}>Limpar cache</span>
               <i className="bi bi-database-fill-x"></i>
             </button>
+            
             {/*TODO - separar em um componente a parte*/}
-            <div className="dropdown mt-1">
-              <button className="btn btn-secondary dropdown-toggle rounded-pill px-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Tema
-              </button>
-              <ul className="dropdown-menu">
-                <li><a className={"dropdown-item cursor-pointer" + (["default", "light"].includes(theme) ? " active" : "")} onClick={() => handleTheme("light")}>Claro</a></li>
-                <li><a className={"dropdown-item cursor-pointer" + ((theme === "dark") ? " active" : "")} onClick={() => handleTheme("dark")}>Escuro</a></li>
-              </ul>
-            </div>
+            <DropdownButton id="dropdown-basic-button" title="Tema" variant="secondary" className="mt-1 rounded-circle">
+              <DropdownItem active={["default", "light"].includes(theme)} onClick={() => handleTheme("light")}>
+                Claro
+              </DropdownItem>
+              <DropdownItem active={theme === "dark"} onClick={() => handleTheme("dark")}>
+                Escuro
+              </DropdownItem>
+            </DropdownButton>
+            
             <InstallPWAButton/>
             {
               (
