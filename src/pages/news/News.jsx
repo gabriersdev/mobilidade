@@ -28,7 +28,8 @@ const News = () => {
         !checkIsValid(id) ? (
           <>
             <Title classX={" text-body-secondary"}>Notícias</Title>
-            <div className="d-flex flex-column gap-5">
+            <div className="d-flex flex-column align-items-start gap-5">
+              <Alert variant={"info"}>As notícias estão ordenadas das mais recentes para as mais antigas</Alert>
               <AnimatedComponents>
                 {[...newsA].toSorted((a, b) => moment(a.publishDate) < moment(b.publishDate)).map((item, index) => (
                   <div className={"border-bottom border-secondary-subtle pb-5"} key={index}>
