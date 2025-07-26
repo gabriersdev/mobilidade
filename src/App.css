@@ -61,6 +61,15 @@
   text-wrap: balance;
 }
 
-.text-sm {
+.text-sml {
   font-size: 13px !important;
+}
+
+.fs-inherit {
+  font-size: inherit !important;
+}
+
+p * {
+  font-size: inherit !important;
+  color: inherit !important;
 }

@@ -18,15 +18,12 @@ const GetAndListLines = ({variant, content}) => {
   if (variant === 'main') {
     apiURL = `${config.host}/api/lines/main`
     sortFn = (a, b) => a.line_name - b.line_name
-  } else if (variant == 'similar-lines') {
+  } else if (variant === 'similar-lines') {
     apiURL = `${config.host}/api/lines/similar-lines`
     sortFn = (a, b) => a.line_name - b.line_name
   }
   
   useEffect(() => {
-    // Altera o título da página
-    document.title = "Mobilidade - Linhas";
-    
     const searchLines = async () => {
       try {
         const response = await axios.get(apiURL);

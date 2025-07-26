@@ -1,4 +1,4 @@
-// import {useEffect} from "react";
+import {useEffect} from "react";
 import {useParams} from "react-router-dom";
 
 import GetAndListLines from "../../components/getAndListLines/GetAndListLines.jsx";
@@ -19,9 +19,9 @@ const Lines = () => {
     return id.match(/\d/g)
   }
 
-  // useEffect(() => {
-  //   Util.updateActiveLink()
-  // }, []);
+  useEffect(() => {
+    document.title = `Mobilidade - Linhas de Transporte Público`
+  }, []);
 
   return (
     <div>

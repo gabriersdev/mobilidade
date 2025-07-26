@@ -16,14 +16,13 @@ const Search = ({value}) => {
   const searchSanitized = value.trim().replace(/[^a-zA-Z0-9À-Ú\s]/gi, '');
   
   useEffect(() => {
-    // console.log("Recebido para pesquisa: " + value)
-    // console.log("Sanitizado: " + searchSanitized);
+    if (searchSanitized && searchSanitized.length > 1) document.title = `Mobilidade - Resultados para "${searchSanitized.substring(0, 1).toUpperCase() + searchSanitized.substring(1)}"`;
     
     const searchDatabase = async () => {
       setIsLoaded(true);
       try {
         const response = await axios.post(`${config.host}/api/lines/search/`, {search: searchSanitized});
-        console.log("Response: ", response);
+        // console.log("Response: ", response);
         setData(response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
@@ -37,15 +36,14 @@ const Search = ({value}) => {
   }, [searchSanitized]);
   
   // TODO - usar os componentes de animacao nos retornos avulsos
-  
   if (isLoaded) {
     return (
       <AnimatedComponents>
         <div style={{marginTop: '1rem'}}>
           <Grid>
-            <Card title="Carregando" subtitle="Aguarde...">Estamos conectando ao banco de dados. Esse processo geralmente
-              é
-              rápido. Por favor, aguarde alguns instantes.</Card>
+            <Card title="Carregando" subtitle="Aguarde...">
+              Estamos conectando ao banco de dados. Esse processo geralmente é rápido. Por favor, aguarde alguns instantes.
+            </Card>
           </Grid>
         </div>
       </AnimatedComponents>
@@ -56,8 +54,9 @@ const Search = ({value}) => {
       <AnimatedComponents>
         <div style={{marginTop: '1rem'}}>
           <Grid>
-            <Card title="Erro" subtitle="Não foi possível carregar as linhas">Houve um erro ao carregar as linhas. Por
-              favor, tente novamente mais tarde.</Card>
+            <Card title="Erro" subtitle="Não foi possível carregar as linhas">
+              Houve um erro ao carregar as linhas. Por favor, tente novamente mais tarde.
+            </Card>
           </Grid>
         </div>
       </AnimatedComponents>
@@ -67,17 +66,17 @@ const Search = ({value}) => {
       <AnimatedComponents>
         <div style={{marginTop: '1rem'}}>
           <Grid>
-            <Card title="Nenhuma linha encontrada" subtitle="Nenhum resultado">Não encontramos nenhuma linha que, de
-              alguma forma, corresponda ao termo.</Card>
+            <Card title="Nenhuma linha encontrada" subtitle="Nenhum resultado">
+              Não encontramos nenhuma linha que, de alguma forma, corresponda ao termo.
+            </Card>
           </Grid>
         </div>
       </AnimatedComponents>
     )
   } else if (data.length === 1) {
-    console.log("Apenas 1 resultado foi encontrado. Direcionando para a página da linha.");
+    // Apenas 1 resultado foi encontrado. Direciona para a página da linha.
     return <Navigate to={`/lines/${data?.[0]?.line_id}`}/>;
   } else {
-    // console.log(data)
     return <ListLines data={data}/>;
   }
 }
