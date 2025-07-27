@@ -8,7 +8,7 @@ import LatestNews from "../../components/latestNews/LatestNews.jsx";
 const Home = () => {
   useEffect(() => {
     // Atualiza o título do documento
-    document.title = 'Mobilidade - Home'
+    document.title = 'Mobilidade - Transporte Público em Sabará - MG | Horários, Pontos de Paradas e Pontos de Recarga'
     // Util.updateActiveLink()
   }, [])
   

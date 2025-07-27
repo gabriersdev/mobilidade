@@ -33,16 +33,11 @@ const AccordionOperationDays = () => {
         return;
       }
       
-      console.log(uniqueDaysForDirection);
       const daysForDirection = uniqueDaysForDirection[index];
-      
-      // 3. Resolve todas as conversões de nome de dia de uma só vez com Promise.all
-      console.log(daysForDirection);
       const convertedDayNames = await Promise.all(
         daysForDirection.map(day => Util.convertNumberToDay(day))
       );
       
-      // 4. Com os nomes prontos, execute a lógica síncrona
       const currentDayName = getCurrentDayGroupName();
       const defaultIndex = convertedDayNames.findIndex(name =>
         name.toLowerCase().includes(currentDayName.toLowerCase())
@@ -53,7 +48,6 @@ const AccordionOperationDays = () => {
         setDefaultEventKey([defaultIndex.toString()]);
       }
       
-      // 5. Crie os elementos JSX agora que não há mais 'await' necessário
       const content = daysForDirection.map((day, j) => {
         const dayConverted = convertedDayNames[j] || "Dia inválido";
         const departureTimesDay = departureTimes.filter((item) => item.day === day && item.direction === direction);
@@ -79,15 +73,14 @@ const AccordionOperationDays = () => {
         );
       });
       
-      // 6. Atualize o estado para acionar a re-renderização com o conteúdo pronto
       setAccordionItems(content);
     };
     
-    generateContent().then(() => {});
+    generateContent().then(() => {
+    });
     // A dependência garante que o efeito rode quando os dados do contexto mudarem
   }, [departureTimes, uniqueDaysForDirection, index, direction, directionName, observations]);
   
-  // 7. Renderize um estado de carregamento enquanto o conteúdo é gerado
   if (!accordionItems) {
     return <div>Carregando dias de operação...</div>;
   }

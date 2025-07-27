@@ -32,8 +32,9 @@ const Footer = () => {
     fetch("/service-worker.js").then((res) => {
       return res.text();
     }).then(data => {
-      const match = data.match(/const cacheVersion = "(\w*\d{1,})"/);
-      if (match && match[1]) setCacheVersion(match[1].toUpperCase());
+      const match = data.match(/const cacheNumber = (\d+)/g);
+      const cacheN = match.toString().split(" ")[match.toString().split(" ").length - 1];
+      if (match && cacheN) setCacheVersion(`V${cacheN}`);
     })
   }, []);
   
@@ -87,7 +88,6 @@ const Footer = () => {
             <Link to="./privacy#topo" className="footer-link-list-item">Privacidade</Link>
           </ul>
           <div className="d-flex gap-3 flex-wrap">
-            <p className={"text-body-secondary p-0 m-0"}>Versão: {version || "1.0.0"} | Cache: {cacheVersion || "Não definido"} </p>
             <button className={"btn text-start p-0 m-0 text-primary-emphasis border-0"} onClick={() => {
               if ('serviceWorker' in navigator) {
                 caches.keys().then(function (names) {
@@ -113,8 +113,9 @@ const Footer = () => {
             <InstallPWAButton/>
             {
               (
-                <div className={"d-b  lock mt-2 text-sm"}>
-                  {dataBuild.datetimeCreate && <span>Versão de build: {Util.renderText(moment(dataBuild.datetimeCreate).utc(true).format("HH[h]mm[m] DD/MM/YYYY [UTC-03:00]"))}</span>}
+                <div className={"d-b lock mt-2 text-sml d-flex flex-column gap-1"}>
+                  <p className={"text-body-secondary p-0 m-0 fs-inherit"}>Versão: {version || "1.0.0"} | Cache: {cacheVersion || "Não definido"} </p>
+                  <p className={"text-body-secondary p-0 m-0 fs-inherit"}>{dataBuild.datetimeCreate && <span>Versão de build: {Util.renderText(moment(dataBuild.datetimeCreate).utc(true).format("HH[h]mm[m] DD/MM/YYYY [GMT-03:00]"))}</span>}</p>
                 </div>
               )
             }

@@ -1,8 +1,39 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 // import Util from "../../assets/Util.jsx";
 import Title from "../../components/title/Title.jsx";
+import axios from "axios";
+import config from "../../config.js";
+import Alert from "../../components/alert/Alert.jsx";
+import Accordion from "../../components/accordion/Accordion.jsx";
+import AccordionItem from "../../components/accordion/AccordionItem.jsx";
+import {Link} from "react-router-dom";
+import AnimatedComponents from "../../components/animatedComponent/AnimatedComponents.jsx";
+import {FormControl, InputGroup} from "react-bootstrap";
 
 const Guide = () => {
+  const [data, setData] = useState({});
+  const [originalData, setOriginalData] = useState({});
+  
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [content, setContent] = useState(<></>);
+  const [term, setTerm] = useState(null);
+  const [message, setMessage] = useState("");
+  
+  const fetchData = async () => {
+    setLoading(true);
+    
+    try {
+      const response = await axios.get(`${config.host}/api/guide`);
+      setData(response.data);
+      setOriginalData(response.data);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+  
   useEffect(() => {
     // Altera o título da página
     const psTitle = `Guia do Transporte Público`;
@@ -11,32 +42,97 @@ const Guide = () => {
     
     const dataCompanyId = document.querySelector('.breadcrumb-item:nth-child(2)')
     if (dataCompanyId) dataCompanyId.querySelector('a').textContent = `${psTitle}`;
+    
+    fetchData().then(() => {
+    });
   }, [])
+  
+  useEffect(() => {
+    if (loading) setContent(<>Carregando...</>)
+    else if (error) setContent(<Alert variant={"danger"}>{error}</Alert>);
+    else if (data) {
+      setMessage("");
+      const uniqueLetters = Object.keys(data).map(key => key[0]).filter((v, i, self) => self.indexOf(v) === i).toSorted();
+      
+      setContent(
+        <div className={"d-flex flex-column gap-5"}>
+          {
+            uniqueLetters.map((letter, i) => {
+              return (
+                <div key={i} id={`index-letter-${letter}`}>
+                  <div className={"d-inline-flex justify-content-between gap-2 flex-wrap"}>
+                    <Title type={"h3"} classX={" fs-6 fw-bold"}>{letter}</Title>
+                    {uniqueLetters[uniqueLetters.indexOf(letter) + 1] && <Link to={`#index-letter-${uniqueLetters[uniqueLetters.indexOf(letter) + 1]}`} className={"text-decoration-none text-sml text-body-tertiary"}>Ir para a próxima letra do índice</Link>}
+                  </div>
+                  
+                  <Accordion defaultEventKey={["0"]}>
+                    {
+                      Object.entries(data).filter(([k]) => k[0] === letter).map(([key, value], index) => {
+                        return (
+                          <AccordionItem title={key.replace(/\//, " -> ")} key={index} eventKey={index.toString()}>
+                            <ul className="ps-3 m-0" style={{lineHeight: 1.75}}>
+                              {
+                                value.map((line, i) => {
+                                  return (
+                                    <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replace(/\//, " -> ")}</Link></li>
+                                  )
+                                })
+                              }
+                            </ul>
+                          </AccordionItem>
+                        )
+                      })
+                    }
+                  </Accordion>
+                </div>
+              )
+            })
+          }
+        </div>
+      )
+    } else setContent(<div>Conteúdo não mapeado</div>)
+  }, [loading, error, data]);
+  
+  useEffect(() => {
+    if (term) {
+      const sanitizeTerm = term.trim();
+      setMessage("");
+      
+      const results = Object.keys(originalData).filter(key => {
+        return (key.toLowerCase().substring(0, sanitizeTerm.length) === sanitizeTerm.toLowerCase()) ||
+          (key.toLowerCase().includes(sanitizeTerm.toLowerCase()));
+      });
+      
+      let objResults = {};
+      
+      for (let result of results) objResults[result] = originalData[result];
+      
+      if (Object.keys(objResults).length === 0) {
+        setMessage("Nenhum endereço ou local encontrado que correspondesse a sua pesquisa.");
+        setData(originalData);
+      } else setData(objResults);
+    } else {
+      setData(originalData);
+    }
+  }, [term, originalData])
   
   return (
     <div>
       <div className={"d-flex flex-column gap-5"}>
         <Title title="Guia do Transporte Público de Sabará-MG" id="topo" classX=" text-body-secondary"/>
         <section>
-          <div className="accordion" id="accordionExample">
-            <div className="accordion-item">
-              <span className="accordion-header">
-                <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Rua Central
-                </button>
-              </span>
-              <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                <div className="accordion-body">
-                  <ul className="ps-3 m-0" style={{lineHeight: 1.75}}>
-                    <li>- 12345678901</li>
-                    <li>- 12345678901</li>
-                    <li>- 12345678901</li>
-                    <li>- 12345678901</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+          <AnimatedComponents>
+            <form className="mb-5" onSubmit={(e) => {
+              e.preventDefault()
+            }}>
+              <InputGroup>
+                <FormControl type={"text"} as={"input"} placeholder={"Pesquise"} onChange={(e) => setTerm(e.target.value)}/>
+              </InputGroup>
+              {(message) && <span className="text-danger d-block mt-1">{message}</span>}
+            </form>
+            
+            {content}
+          </AnimatedComponents>
         </section>
       </div>
     </div>
