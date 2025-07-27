@@ -141,6 +141,7 @@ function App() {
           <Route path="/privacy" element={<Privacy/>}/>
           <Route path="/company/:id?" element={<Company/>}/>
           <Route path="/news/:id?" element={<News/>}/>
+          <Route path="/guide" element={<Guide/>}/>
         </Routes>
       </Main>
       <Footer/>

@@ -23,11 +23,20 @@ const GetAndListLines = ({variant, content}) => {
     sortFn = (a, b) => a.line_name - b.line_name
   }
   
+  const shuffleArray = (array) => {
+    const copy = [...array];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+  
   useEffect(() => {
     const searchLines = async () => {
       try {
         const response = await axios.get(apiURL);
-        setData(response.data.toSorted(sortFn));
+        setData(shuffleArray(response.data.toSorted(sortFn)));
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
         setError(error);
