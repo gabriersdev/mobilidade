@@ -12,11 +12,7 @@ const News = ({title, resume, content, img, id, publishDate}) => {
         <p className={"text-body-tertiary m-0 p-0"}>Sabárá, {Util.renderText(moment(publishDate).format("DD/MM/YY"))} | {Util.renderText(resume)}</p>
       </hgroup>
       <>
-        {
-          img && (
-            <Image src={img} className={"h-50 object-fit-contain rounded-3"} alt={`Imagem da notícia ${title}`}/>
-          )
-        }
+        {img && <Image src={img} className={"h-50 object-fit-contain rounded-3 w-auto"} style={{maxWidth: "100%"}} alt={`Imagem da notícia ${title}`}/>}
       </>
       {
         [...content].map((item, index) => (

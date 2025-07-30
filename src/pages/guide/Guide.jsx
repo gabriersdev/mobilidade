@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 // import Util from "../../assets/Util.jsx";
 import Title from "../../components/title/Title.jsx";
 import axios from "axios";
@@ -21,7 +21,7 @@ const Guide = () => {
   const [message, setMessage] = useState("");
   const [indiceLetters, setIndiceLetters] = useState([]);
   
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     
     try {
@@ -33,7 +33,7 @@ const Guide = () => {
     } finally {
       setLoading(false);
     }
-  }
+  }, [])
   
   useEffect(() => {
     // Altera o título da página
@@ -46,7 +46,7 @@ const Guide = () => {
     
     fetchData().then(() => {
     });
-  }, [])
+  }, [fetchData])
   
   useEffect(() => {
     if (loading) setContent(<>Carregando...</>)

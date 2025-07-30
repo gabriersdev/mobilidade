@@ -20,22 +20,23 @@ import config from "./config.js";
 import BreadcrumbApp from "./components/breadcrumbApp/BreadcrumbApp.jsx";
 import News from "./pages/news/News.jsx";
 import Guide from "./pages/guide/Guide.jsx";
+import {Button} from "react-bootstrap";
 
 const Context = createContext({});
 const obj = {};
 
 function App() {
   const [publicIp, setPublicIp] = useState(0);
-
+  
   useEffect(() => {
     if ("serviceWorker" in navigator && window.location.hostname !== "localhost") {
-    // if ("serviceWorker" in navigator) {
+      // if ("serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("/service-worker.js")
         .then(() => console.log("Service Worker registrado com sucesso!"))
         .catch((err) => console.error("Erro ao registrar o Service Worker:", err));
     }
-
+    
     if (window.location.hostname !== "localhost") {
       fetch("https://api64.ipify.org?format=json")
         .then(response => response.json())
@@ -48,10 +49,10 @@ function App() {
         })
     }
   }, []);
-
+  
   useEffect(() => {
     AOS.init();
-
+    
     AOS.init({
       disable: false,
       startEvent: 'DOMContentLoaded',
@@ -63,12 +64,12 @@ function App() {
       throttleDelay: 99,
     });
   }, [])
-
+  
   // Define um REL para os links da página
   useEffect(() => {
     document.querySelectorAll('a').forEach(link => link.setAttribute('rel', 'noopener noreferrer'));
   }, []);
-
+  
   // Define um parametro para o import do script que forçará a atualizar a versão do cache
   useEffect(() => {
     let [tent, matched] = [0, false]
@@ -105,7 +106,7 @@ function App() {
       if (window.location.hostname === "localhost") console.log(error);
     }
   }
-
+  
   try {
     const location = useLocation();
     // Verificar se #[id] existe e rolar a página até ele
@@ -117,34 +118,43 @@ function App() {
         setTimeout(() => {
           window.scrollTo({top: 0, behavior: 'smooth'})
         }, 100)
-      };
+      }
+      ;
     } else {
       setTimeout(() => {
         window.scrollTo({top: 0, behavior: 'smooth'})
       }, 100);
-    };
+    }
   } catch (error) {
     console.log('Ocorreu um erro ao tentar verificar os parâmetros passados. %s', error);
   }
-
+  
   return (
     <Context.Provider value={obj}>
-      <Nav/>
-      <Main>
-        <BreadcrumbApp/>
-        <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/search" element={<Search/>}/>
-          <Route path="/lines/:id?" element={<Lines/>}/>
-          <Route path="/development" element={<Development/>}/>
-          <Route path="/terms-of-service" element={<TermsOfService/>}/>
-          <Route path="/privacy" element={<Privacy/>}/>
-          <Route path="/company/:id?" element={<Company/>}/>
-          <Route path="/news/:id?" element={<News/>}/>
-          <Route path="/guide" element={<Guide/>}/>
-        </Routes>
-      </Main>
-      <Footer/>
+      <div className={'position-relative'}>
+        <Nav/>
+        <Main>
+          <BreadcrumbApp/>
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/search" element={<Search/>}/>
+            <Route path="/lines/:id?" element={<Lines/>}/>
+            <Route path="/development" element={<Development/>}/>
+            <Route path="/terms-of-service" element={<TermsOfService/>}/>
+            <Route path="/privacy" element={<Privacy/>}/>
+            <Route path="/company/:id?" element={<Company/>}/>
+            <Route path="/news/:id?" element={<News/>}/>
+            <Route path="/guide" element={<Guide/>}/>
+          </Routes>
+        </Main>
+        <Footer/>
+        <Button onClick={(e) => {
+          e.preventDefault()
+          window.scrollTo({top: 0, behavior: 'smooth'})
+        }} className={"position-fixed border-secondary-subtle rounded-2 z-2 bg-body text-body-secondary"} style={{right: "1rem", bottom: "1rem"}}>
+          <span>Subir</span>{" "}<i className="bi bi-arrow-up-square"></i>
+        </Button>
+      </div>
     </Context.Provider>
   )
 }
