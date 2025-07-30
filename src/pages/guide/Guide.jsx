@@ -113,9 +113,7 @@ const Guide = () => {
         setMessage("Nenhum endereço ou local encontrado que correspondesse a sua pesquisa.");
         setData(originalData);
       } else setData(objResults);
-    } else {
-      setData(originalData);
-    }
+    } else setData(originalData);
   }, [term, originalData])
   
   return (
@@ -143,16 +141,21 @@ const Guide = () => {
                     <CardTitle className={"fs-6 px-3 py-3 m-0 border-bottom border-secondary-subtle"}>Índice de letras</CardTitle>
                   </CardHeader>
                   <CardBody className={"p-3"}>
-                    <ListGroup className={"bg-body"}>
-                      {indiceLetters?.map((letter, i) => {
-                        return (
-                          <ListGroupItem as={"a"} key={i} className={"bg-body text-primary border-secondary-subtle"} href={`#index-letter-${letter}`}>
-                            <AnimatedComponents>
-                              <span className={"d-block py-1"}>{letter}</span>
-                            </AnimatedComponents>
-                          </ListGroupItem>)
-                      })}
-                    </ListGroup>
+                    {
+                      loading ? (<>Carregando...</>) : (
+                        <ListGroup className={"bg-body"}>
+                          {indiceLetters?.map((letter, i) => {
+                            return (
+                              <ListGroupItem as={"a"} key={i} className={"bg-body text-primary border-secondary-subtle"} href={`#index-letter-${letter}`}>
+                                <AnimatedComponents>
+                                  <span className={"d-block py-1"}>{letter}</span>
+                                </AnimatedComponents>
+                              </ListGroupItem>
+                            )
+                          })}
+                        </ListGroup>
+                      )
+                    }
                   </CardBody>
                 </Card>
               </div>
