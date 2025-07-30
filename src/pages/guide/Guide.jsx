@@ -8,7 +8,7 @@ import Accordion from "../../components/accordion/Accordion.jsx";
 import AccordionItem from "../../components/accordion/AccordionItem.jsx";
 import {Link} from "react-router-dom";
 import AnimatedComponents from "../../components/animatedComponent/AnimatedComponents.jsx";
-import {FormControl, InputGroup} from "react-bootstrap";
+import {Card, CardBody, CardHeader, CardTitle, FormControl, InputGroup, ListGroup, ListGroupItem} from "react-bootstrap";
 
 const Guide = () => {
   const [data, setData] = useState({});
@@ -19,6 +19,7 @@ const Guide = () => {
   const [content, setContent] = useState(<></>);
   const [term, setTerm] = useState(null);
   const [message, setMessage] = useState("");
+  const [indiceLetters, setIndiceLetters] = useState([]);
   
   const fetchData = async () => {
     setLoading(true);
@@ -53,6 +54,7 @@ const Guide = () => {
     else if (data) {
       setMessage("");
       const uniqueLetters = Object.keys(data).map(key => key[0]).filter((v, i, self) => self.indexOf(v) === i).toSorted();
+      setIndiceLetters(uniqueLetters);
       
       setContent(
         <div className={"d-flex flex-column gap-5"}>
@@ -69,12 +71,12 @@ const Guide = () => {
                     {
                       Object.entries(data).filter(([k]) => k[0] === letter).map(([key, value], index) => {
                         return (
-                          <AccordionItem title={key.replace(/\//, " -> ")} key={index} eventKey={index.toString()}>
+                          <AccordionItem title={key.replace("/", " -> ").replaceAll("/", " - ")} key={index} eventKey={index.toString()}>
                             <ul className="ps-3 m-0" style={{lineHeight: 1.75}}>
                               {
                                 value.map((line, i) => {
                                   return (
-                                    <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replace(/\//, " -> ")}</Link></li>
+                                    <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replaceAll("/", " -> ")}</Link></li>
                                   )
                                 })
                               }
@@ -131,7 +133,30 @@ const Guide = () => {
               {(message) && <span className="text-danger d-block mt-1">{message}</span>}
             </form>
             
-            {content}
+            <div className="row">
+              <div className="col-lg-8">
+                {content}
+              </div>
+              <div className="col-lg-4">
+                <Card className="p-0 position-sticky" style={{top: "6rem"}}>
+                  <CardHeader className="bg-body-secondary">
+                    <CardTitle className={"fs-6 px-3 py-3 m-0 border-bottom border-secondary-subtle"}>Índice de letras</CardTitle>
+                  </CardHeader>
+                  <CardBody className={"p-3"}>
+                    <ListGroup className={"bg-body"}>
+                      {indiceLetters?.map((letter, i) => {
+                        return (
+                          <ListGroupItem as={"a"} key={i} className={"bg-body text-primary border-secondary-subtle"} href={`#index-letter-${letter}`}>
+                            <AnimatedComponents>
+                              <span className={"d-block py-1"}>{letter}</span>
+                            </AnimatedComponents>
+                          </ListGroupItem>)
+                      })}
+                    </ListGroup>
+                  </CardBody>
+                </Card>
+              </div>
+            </div>
           </AnimatedComponents>
         </section>
       </div>
