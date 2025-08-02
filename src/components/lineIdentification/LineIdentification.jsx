@@ -83,7 +83,7 @@ const LineIdentification = ({line}) => {
             reportContact ? (
               <div>
                 <Badge className={"fw-normal rounded-5 bg-warning p-0"}>
-                  <Link className={"px-2 py-1 d-inline-block text-black text-decoration-none"} to={reportContact || "#"}
+                  <Link className={"btn py-0 d-inline-block text-black text-decoration-none"} to={reportContact || "#"}
                         target="_blank" rel="noopener noreferrer">
                     <span className={"me-1"}>Reclamar</span>
                     <i className="bi bi-arrow-up-right-square"></i>
