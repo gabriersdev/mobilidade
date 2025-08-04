@@ -204,6 +204,7 @@ const Print = ({variant, prevContentTarget}) => {
         .then(data => {
           const link = document.createElement('a');
           link.href = `data:application/pdf;base64,${data}`;
+          link.target = '_target';
           link.download = `${fileTitle}.pdf`;
           document.body.appendChild(link);
           setTimeout(() => {

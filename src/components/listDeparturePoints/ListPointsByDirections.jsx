@@ -35,7 +35,7 @@ const ListPointsByDirections = () => {
                 direction === 2 ? (`Sentido volta - ${destination_location} -> ${departure_location}`) : ""
           }
           eventKey={i.toString()}>
-          <ul className="list-line-content list-group d-flex gap-2">
+          <ul className="list-line-content list-group d-flex gap-2 ms-3">
             {
               departurePointsByDirection[i].map((point, j) => {
                 return (
