@@ -19,6 +19,7 @@ import {LineContext} from "./LineContext.jsx";
 import GetAndListLines from "../getAndListLines/GetAndListLines.jsx";
 import Util from "../../assets/Util.jsx";
 import moment from "moment";
+import GuideBanner from "../guideBanner/GuideBanner.jsx";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -131,7 +132,10 @@ const Line = ({id}) => {
               <div className={"mt-3"}>
                 {Util.resumeInfoLine({})}
               </div>
-              <details className={"text-muted d-inline-block mt-3 mb-0 "}>
+              <div className={"mt-5"}>
+                <GuideBanner/>
+              </div>
+              <details className={"mt-5 text-muted d-inline-block mb-0 "}>
                 <summary>Informações carregadas em {renderText(moment().format("DD/MM/YYYY"))} às {moment().format("HH") + "h" + moment().format("mm") + "m"}.</summary>
                 <p className={"mb-0 text-body-tertiary"}>{renderText(moment().format("DD/MM/YYYY HH:mm:ss"))} {"- Horário de Brasília"}</p>
               </details>
