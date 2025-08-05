@@ -1,9 +1,10 @@
-import {Button} from "react-bootstrap";
+import {Spinner, Button} from "react-bootstrap";
 import PropTypes from "prop-types";
 import config from "../../config.js";
 import moment from "moment";
 import {useCallback, useEffect, useRef, useState} from "react";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
+import ToastComponent from "../toast/Toast.jsx";
 
 const Print = ({variant, prevContentTarget}) => {
   const [htmlContent, setHtmlContent] = useState("");
@@ -11,6 +12,7 @@ const Print = ({variant, prevContentTarget}) => {
   const [fileTitle, setFileTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const [printableAreaExists, setPrintableAreaExists] = useState(false);
+  const [show, setshow] = useState(false);
   
   // Conteúdo dos arquivos index.css e App.css, usados para estilizar elementos que o framework nao estiliza
   const cssContent = useRef(`
@@ -153,11 +155,11 @@ const Print = ({variant, prevContentTarget}) => {
       if (isDepartureTimes) {
         title = "<h1 class='mt-3 mb-2 fs-2'>Horários de partidas da</h1>";
         element = document.getElementById(`departure-times-data`);
-        setFileTitle("linha-XXXX-horarios-de-partida");
+        setFileTitle("horarios-de-partida");
       } else {
         title = "<h1 class='mt-3 mb-2 fs-2'>Pontos de parada da</h1>";
         element = document.getElementById(`departure-points-data`)
-        setFileTitle("linha-XXXX-pontos-de-parada");
+        setFileTitle("pontos-de-parada");
       }
       
       if (element) {
@@ -211,6 +213,7 @@ const Print = ({variant, prevContentTarget}) => {
             link.click();
           }, 500)
           link.remove();
+          setshow(true)
         })
         .catch(error => console.log(error))
         .finally(() => {
@@ -222,12 +225,28 @@ const Print = ({variant, prevContentTarget}) => {
   
   if (printableAreaExists) {
     return (
-      <AnimatedComponents>
-        <Button variant={"primary"} className={"btn-sm d-flex align-items-center justify-content-center " + (loading ? "disabled cursor-not-allowed" : "")} onClick={handleClick} disabled={loading}>
-          <span className={"me-2"}>Imprimir</span>
-          <i className="bi bi-printer-fill"></i>
-        </Button>
-      </AnimatedComponents>
+      <div>
+        <ToastComponent show={show} setShow={setshow} title={"Mobilidade"} time={"agora"} content={(<span className={"text-success"}>Arquivo para impressão gerado e baixado com sucesso!</span>)} />
+        <AnimatedComponents>
+          <Button variant={"primary"} className={"btn-sm d-flex align-items-center justify-content-center " + (loading ? "cursor-not-allowed opacity-75" : "")} onClick={handleClick}>
+            {
+              loading ? (
+                <div>
+                  <span className={"me-2"}>Imprimindo</span>
+                  <Spinner animation="border" role="status" size={"sm"}>
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
+                </div>
+              ) : (
+                <div>
+                  <span className={"me-2"}>Imprimir</span>
+                  <i className="bi bi-printer-fill"></i>
+                </div>
+              )
+            }
+          </Button>
+        </AnimatedComponents>
+      </div>
     )
   } else {
     return null;
