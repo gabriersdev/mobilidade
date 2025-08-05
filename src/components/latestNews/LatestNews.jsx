@@ -19,7 +19,7 @@ const LatestNews = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoaded(false);
-    }, 2000);
+    }, 3000);
   }, [])
   
   

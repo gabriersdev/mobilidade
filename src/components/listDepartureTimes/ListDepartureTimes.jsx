@@ -86,11 +86,12 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
   const departureTimes = data.toSorted((a, b) => a.day - b.day);
   const uniqueDirections = departureTimes.map((item) => item.direction).filter((value, index, self) => self.indexOf(value) === index);
   
+	// TODO - usar a funcao que procura algum dia correspondente para usar no defaultEventKey
   return (
     <AnimatePresence mode={"wait"}>
       <AnimatedComponent>
         <DepartureTimeContext>
-          <Accordion defaultEventKey={['0']}>
+          <Accordion defaultEventKey={['0']} id={"departure-times-data"}>
             <OffcanvasDepartureTimes/>
             {uniqueDirections.map((direction, i) => {
               const directionName =

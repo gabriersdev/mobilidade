@@ -19,6 +19,7 @@ import {LineContext} from "./LineContext.jsx";
 import GetAndListLines from "../getAndListLines/GetAndListLines.jsx";
 import Util from "../../assets/Util.jsx";
 import moment from "moment";
+import GuideBanner from "../guideBanner/GuideBanner.jsx";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -99,7 +100,7 @@ const Line = ({id}) => {
             <section id={"partidas"} className={"pt-3"}>
               <div className={"d-flex flex-wrap justify-content-between align-items-start mb-2"}>
                 <Title type="h3" classX={" pb-2 text-body-secondary"}>Horários de partidas</Title>
-                <Print variant={"departure_times"}/>
+                <Print variant={"departure-times"} prevContentTarget={"id"}/>
               </div>
               <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>
             </section>
@@ -107,7 +108,7 @@ const Line = ({id}) => {
             <section id={"paradas"} className={"pt-3"}>
               <div className={"d-flex flex-wrap justify-content-between align-items-start mb-2"}>
                 <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>
-                <Print variant={"departure_points"}/>
+                <Print variant={"departure-points"} prevContentTarget={"id"}/>
               </div>
               <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>
             </section>
@@ -131,7 +132,10 @@ const Line = ({id}) => {
               <div className={"mt-3"}>
                 {Util.resumeInfoLine({})}
               </div>
-              <details className={"text-muted d-inline-block mt-3 mb-0 "}>
+              <div className={"mt-5"}>
+                <GuideBanner/>
+              </div>
+              <details className={"mt-5 text-muted d-inline-block mb-0 "}>
                 <summary>Informações carregadas em {renderText(moment().format("DD/MM/YYYY"))} às {moment().format("HH") + "h" + moment().format("mm") + "m"}.</summary>
                 <p className={"mb-0 text-body-tertiary"}>{renderText(moment().format("DD/MM/YYYY HH:mm:ss"))} {"- Horário de Brasília"}</p>
               </details>
