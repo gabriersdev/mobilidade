@@ -81,15 +81,12 @@ const LineIdentification = ({line}) => {
         <div className="d-flex align-items-center gap-2 flex-wrap mb-3 order-3">
           {
             reportContact ? (
-              <div>
-                <Badge className={"fw-normal rounded-5 bg-warning p-0"}>
-                  <Link className={"btn py-0 d-inline-block text-black text-decoration-none"} to={reportContact || "#"}
-                        target="_blank" rel="noopener noreferrer">
-                    <span className={"me-1"}>Reclamar</span>
-                    <i className="bi bi-arrow-up-right-square"></i>
-                  </Link>
-                </Badge>
-              </div>
+              <Badge className={"fw-normal rounded-5 bg-warning p-0"}>
+                <Link className={"btn pv-05 d-inline-block text-black text-decoration-none border-0 outline-none"} to={reportContact || "#"} target="_blank" rel="noopener noreferrer">
+                  <span className={"me-1"}>Reclamar</span>
+                  <i className="bi bi-arrow-up-right-square"></i>
+                </Link>
+              </Badge>
             ) : ""
           }
           
@@ -101,7 +98,7 @@ const LineIdentification = ({line}) => {
               <button
                 ref={btnShareRef}
                 title={originalMessageTooltip}
-                className={"btn m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2"}
+                className={"btn pv-05 m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2 border-0 outline-none"}
                 style={{lineHeight: "normal"}}
                 onClick={async () => {
                   if (navigator.share) {

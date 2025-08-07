@@ -1,4 +1,4 @@
-import {Link, useParams} from "react-router-dom";
+import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
 import Alert from "../../components/alert/Alert.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
@@ -37,13 +37,7 @@ const RenderCompany = () => {
   }
   
   useEffect(() => {
-    if (!checkIsValid(id)) {
-      return (
-        <Alert variant={'danger'} margin={"mt-0"}>
-          <span>ID da companhia não informado.</span>
-        </Alert>
-      );
-    }
+    if (!checkIsValid(id)) return <Alert variant={'danger'} margin={"mt-0"}>O id da companhia não foi informado.</Alert>
     
     getData(id).then(() => {
     });
@@ -59,7 +53,7 @@ const RenderCompany = () => {
     console.error(error);
     return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;
   } else if (data.length === 0) {
-    return <Alert variant={'danger'} margin={"mt-0"}><span>Companhia não encontrada.</span></Alert>;
+    return <Alert variant={'danger'} margin={"mt-0"}>Companhia não localizada.</Alert>;
   } else {
     document.title = `Mobilidade - Companha ${data[0].company_name}`;
     const countLines = data[0].count_lines_actives;
@@ -110,7 +104,11 @@ const RenderCompany = () => {
 }
 
 const Company = () => {
-  if (!useParams()["id"]) return <Alert variant={'danger'} margin={"mt-0"}><span>O id da companhia precisa ser informado.</span></Alert>;
+  if (!useParams()["id"]) {
+    return <Navigate to="/" replace/>;
+    // return <Alert variant={'danger'} margin={"mt-0"}><span>O id da companhia precisa ser informado.</span></Alert>;
+  }
+  
   return <RenderCompany/>
 }
 

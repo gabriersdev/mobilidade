@@ -21,7 +21,7 @@ ToastComponent.propTypes = {
   setShow: PropTypes.func.isRequired,
   show: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  time: PropTypes.number.isRequired,
+  time: PropTypes.string.isRequired,
   content: PropTypes.any.isRequired,
 }
 

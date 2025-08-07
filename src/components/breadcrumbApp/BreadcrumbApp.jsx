@@ -1,13 +1,25 @@
 import './breadcrumbApp.css';
 
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import {Breadcrumb, BreadcrumbItem} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {useLocation, useNavigate} from 'react-router-dom';
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 
-const BreadcrumbItemFactory = ({path}) => {
+const pages = [
+  "lines",
+  "search",
+  "terms-of-service",
+  "privacy",
+  "company",
+  "development",
+  "news",
+  "guide"
+]
+
+const BreadcrumbItemFactory = ({path, affirmationPath}) => {
   const location = useLocation();
+  const navigate = useNavigate();
   let label = "";
   let isLinePage = "";
   
@@ -17,9 +29,6 @@ const BreadcrumbItemFactory = ({path}) => {
       break;
     case "lines":
       label = "Linhas"
-      break;
-    case "pages":
-      label = "Pages"
       break;
     case "search":
       label = "Pesquisa"
@@ -39,9 +48,16 @@ const BreadcrumbItemFactory = ({path}) => {
     case "news":
       label = "Notícias"
       break;
+    case "guide":
+      label = "Guia"
+      break;
     default:
       label = (<span className={"text-capitalize"}>{path}</span>);
   }
+  
+  useEffect(() => {
+    console.log("path", path);
+  }, [path]);
   
   if (!path || !path.trim() || ["null", "undefined"].includes(path)) return null;
   
@@ -49,14 +65,20 @@ const BreadcrumbItemFactory = ({path}) => {
   if (matchId && path.match(/\b\d+\b/)) isLinePage = matchId.groups.id;
   
   return (
-    <BreadcrumbItem className={`bg-body ${isLinePage ? "breadcrumb-i data-line-id" : ""}`} href={path === location.pathname.split("/")[1] ? `../${path}` : path}>
+    <BreadcrumbItem className={`bg-body ${isLinePage ? "breadcrumb-i data-line-id" : ""}`} onClick={(e) => {
+      e.preventDefault();
+      // console.log(path === location.pathname.split("/")[1] ? `/${path}` : `${path}`)
+      const replaceUrl =  path === "../" ? "/" : pages.includes(path) ? `/${path}` : affirmationPath;
+      navigate(replaceUrl, {replace: true});
+    }}>
       {label}
     </BreadcrumbItem>
   );
 }
 
 BreadcrumbItemFactory.propTypes = {
-  path: PropTypes.string.isRequired
+  path: PropTypes.string.isRequired,
+  affirmationPath: PropTypes.string.isRequired,
 }
 
 const BreadcrumbApp = () => {
@@ -72,6 +94,7 @@ const BreadcrumbApp = () => {
   }, [navigate, setPath]);
   
   if (path.current === "/") return null;
+  const affirmationPath = path.current;
   
   return (
     <AnimatedComponents>
@@ -79,7 +102,7 @@ const BreadcrumbApp = () => {
         {
           ["../", ...path.current.split('/')].map((item, index) => {
             if (!item || !item.trim() || ["null", "undefined"].includes(item)) return null;
-            return (<BreadcrumbItemFactory key={index} path={item}/>)
+            return (<BreadcrumbItemFactory key={index} path={item} affirmationPath={affirmationPath}/>)
           })
         }
       </Breadcrumb>

@@ -183,7 +183,7 @@ const Print = ({variant, prevContentTarget}) => {
     if (variant === "departure-times" || variant === "departure-points") {
       int = setTimeout(() => {
         const cond = document.getElementById(variant === "departure-times" ? "departure-times-data" : "departure-points-data")
-        console.log(cond, !!cond)
+        // console.log(cond, !!cond)
         setPrintableAreaExists(!!cond);
       }, 2000)
     }

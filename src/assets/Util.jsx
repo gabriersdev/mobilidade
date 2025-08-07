@@ -226,7 +226,7 @@ export default class Util {
       
       // TODO - usar o componente Link ao invés do link puro
       elements.push(
-        <a key={`link-${key++}`} href={to}>
+        <a key={`link-${key++}`} href={to} target={"_blank"}>
           {linkContent}
         </a>
       );
