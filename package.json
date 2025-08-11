@@ -33,7 +33,7 @@
     "react-dom": "^18.2.0",
     "react-input-mask": "^2.0.4",
     "react-leaflet": "^4.2.1",
-    "react-router-dom": "^7.7.1",
+    "react-router-dom": "^7.8.0",
     "rollup-plugin-terser": "^7.0.2"
   },
   "devDependencies": {
