@@ -12,6 +12,8 @@ import AccordionOperationDays from "./AccordionOperationDays";
 import Util from "../../assets/Util.jsx";
 import {AnimatePresence} from "framer-motion";
 import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 const ListDepartureTimes = ({line_id, departure_location, destination_location}) => {
   const {data, observations, error, isLoaded} = useDepartureTimes(line_id);
@@ -62,7 +64,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
     }
   }, [data]); // A dependência [data] garante que o efeito rode quando os dados chegarem
   
-  // -- Lógica de Renderização --
+  // Lógica de Renderização
   
   if (isLoaded) {
     return <div>Carregando...</div>;
@@ -112,7 +114,12 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
                     observations
                   }}>
                     <AccordionOperationDays/>
-                    <span className={"d-inline-block text-muted mt-4"}>{departureTimes.length.toLocaleString()} horários de partidas neste sentido.</span>
+                    <div className={"d-flex gap-2 flex-wrap align-items-center mt-4"}>
+                      <OverlayTrigger overlay={<Tooltip>Não houve alteração no quadro de horários</Tooltip>}>
+                        <span><i className="bi bi-dash-circle-fill text-primary"></i></span>
+                      </OverlayTrigger>
+                      <span className={"d-inline-block text-muted"}> {departureTimes.length.toLocaleString()} horários de partidas neste sentido.</span>
+                    </div>
                   </ThemeContext>
                 </AccordionItem>
               )
