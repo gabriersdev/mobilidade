@@ -1,4 +1,4 @@
-import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
+import {Link, Navigate, useParams} from "react-router-dom";
 import Alert from "../../components/alert/Alert.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
