@@ -78,7 +78,7 @@ const RenderCompany = () => {
             </div>
             <div className="d-flex flex-column gap-1">
               <span className="text-body-tertiary">Canal de reclamações</span>
-              <Link to={data[0].report_contact} rel={"noreferrer noopener"}>{new URL(data[0].report_contact).origin || "Informação não cadastrada."}</Link>
+              <Link to={data[0].report_contact} rel={"noreferrer noopener"}>{new URL(data[0].report_contact).origin?.replace(/(https:\/\/)|\//g, "") || "Informação não cadastrada."}</Link>
             </div>
             <div className="d-flex flex-column gap-1">
               <span className={"text-body-tertiary"}>Observações</span>
