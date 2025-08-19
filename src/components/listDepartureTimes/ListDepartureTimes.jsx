@@ -2,18 +2,12 @@ import {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import useDepartureTimes from "./UseDepartureTimes.js";
 import Alert from "../alert/Alert";
-import Accordion from "../accordion/Accordion";
-import AccordionItem from "../accordion/AccordionItem";
 import FeedbackError from "../feedbackError/FeedbackError";
 import {DepartureTimeContext} from "./DepartureTimeContext";
-import OffcanvasDepartureTimes from "./OffcanvasDepartureTimes";
-import {ThemeContext} from "../themeContext/ThemeContext";
-import AccordionOperationDays from "./AccordionOperationDays";
 import Util from "../../assets/Util.jsx";
 import {AnimatePresence} from "framer-motion";
 import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
+import Intermediate from "./Intermediate.jsx";
 
 const ListDepartureTimes = ({line_id, departure_location, destination_location}) => {
   const {data, observations, error, isLoaded} = useDepartureTimes(line_id);
@@ -66,65 +60,19 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
   
   // Lógica de Renderização
   
-  if (isLoaded) {
-    return <div>Carregando...</div>;
-  }
-  if (error) { // Erro vindo do hook useDepartureTimes
-    return <FeedbackError code={error.response?.status || 500} text={error.message} type={'card'}/>;
-  }
-  if (processingError) { // Erro vindo do nosso processamento interno
-    return <Alert variant={'danger'}><span>Ocorreu um erro ao organizar os horários. Tente novamente mais tarde.</span></Alert>
-  }
-  if (data.length === 0) {
-    return <Alert variant={'info'}><span>Não localizamos horários para esta linha.</span></Alert>
-  }
+  if (isLoaded) return <div>Carregando...</div>;
+  if (error) return <FeedbackError code={error.response?.status || 500} text={error.message} type={'card'}/>;
+  if (processingError) return <Alert variant={'danger'}><span>Ocorreu um erro ao organizar os horários. Tente novamente mais tarde.</span></Alert>
+  if (data.length === 0) return <Alert variant={'info'}><span>Não localizamos horários para esta linha.</span></Alert>
   
   // 6. Enquanto os dias estão sendo ordenados, mostramos uma mensagem
-  if (!sortedDays) {
-    return <div>Organizando horários...</div>;
-  }
+  if (!sortedDays) return <div>Organizando horários...</div>;
   
-  // Se tudo correu bem, renderiza o conteúdo final
-  const departureTimes = data.toSorted((a, b) => a.day - b.day);
-  const uniqueDirections = departureTimes.map((item) => item.direction).filter((value, index, self) => self.indexOf(value) === index);
-  
-	// TODO - usar a funcao que procura algum dia correspondente para usar no defaultEventKey
   return (
     <AnimatePresence mode={"wait"}>
       <AnimatedComponent>
         <DepartureTimeContext>
-          <Accordion defaultEventKey={['0']} id={"departure-times-data"}>
-            <OffcanvasDepartureTimes/>
-            {uniqueDirections.map((direction, i) => {
-              const directionName =
-                direction === 1 ? (`Sentido ida - ${departure_location} -> ${destination_location}`) :
-                  direction === 0 ? (`Sentido único - ${departure_location} <-> ${destination_location} (ida e volta)`) :
-                    direction === 2 ? (`Sentido volta - ${destination_location} -> ${departure_location}`) : "";
-              return (
-                <AccordionItem
-                  title={directionName}
-                  eventKey={i.toString()} key={i}>
-                  <ThemeContext value={{
-                    departureTimes,
-                    // 7. Usa o estado 'sortedDays' com os dados corretos e ordenados
-                    uniqueDaysForDirection: sortedDays,
-                    index: i,
-                    direction,
-                    directionName,
-                    observations
-                  }}>
-                    <AccordionOperationDays/>
-                    <div className={"d-flex gap-2 flex-wrap align-items-center mt-4"}>
-                      <OverlayTrigger overlay={<Tooltip>Não houve alteração no quadro de horários</Tooltip>}>
-                        <span><i className="bi bi-dash-circle-fill text-primary"></i></span>
-                      </OverlayTrigger>
-                      <span className={"d-inline-block text-muted"}> {departureTimes.length.toLocaleString()} horários de partidas neste sentido.</span>
-                    </div>
-                  </ThemeContext>
-                </AccordionItem>
-              )
-            })}
-          </Accordion>
+          <Intermediate data={data} observations={observations} departure_location={departure_location} destination_location={destination_location} sortedDays={sortedDays} />
         </DepartureTimeContext>
       </AnimatedComponent>
     </AnimatePresence>

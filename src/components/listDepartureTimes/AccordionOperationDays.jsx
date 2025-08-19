@@ -5,6 +5,7 @@ import Table from "./TableDepartureTimes";
 import Legend from "../legend/Legend";
 import Accordion from "../accordion/Accordion";
 import {Theme} from "../themeContext/ThemeContext";
+import {TimeContext} from "./DepartureTimeContext.jsx";
 
 // Função helper para obter o nome do dia atual (pode ficar fora do componente)
 const getCurrentDayGroupName = () => {
@@ -19,19 +20,17 @@ const getCurrentDayGroupName = () => {
 };
 
 const AccordionOperationDays = () => {
+  const {defaultEventKey, setDefaultEventKey} = useContext(TimeContext);
   const {departureTimes, uniqueDaysForDirection, index, direction, directionName, observations} = useContext(Theme);
   
   // 1. Criar estados para o conteúdo assíncrono e a chave padrão do accordion
   const [accordionItems, setAccordionItems] = useState(null);
-  const [defaultEventKey, setDefaultEventKey] = useState(['0']);
   
   // 2. Usar useEffect para processar os dados de forma assíncrona
   useEffect(() => {
     const generateContent = async () => {
       // Garante que os dados do contexto já chegaram
-      if (!uniqueDaysForDirection?.[index]) {
-        return;
-      }
+      if (!uniqueDaysForDirection?.[index]) return;
       
       const daysForDirection = uniqueDaysForDirection[index];
       const convertedDayNames = await Promise.all(
@@ -44,12 +43,12 @@ const AccordionOperationDays = () => {
       );
       
       // Define a chave do accordion que deve vir aberta
-      if (defaultIndex !== -1) {
-        setDefaultEventKey([defaultIndex.toString()]);
-      }
+      if (defaultIndex !== -1) setDefaultEventKey([defaultIndex.toString()]);
+      // const daysConv = []
       
       const content = daysForDirection.map((day, j) => {
         const dayConverted = convertedDayNames[j] || "Dia inválido";
+        // daysConv.push(dayConverted)
         const departureTimesDay = departureTimes.filter((item) => item.day === day && item.direction === direction);
         
         return (
@@ -73,6 +72,7 @@ const AccordionOperationDays = () => {
         );
       });
       
+      // Util.getDefaultEventKey(daysConv);
       setAccordionItems(content);
     };
     

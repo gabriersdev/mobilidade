@@ -2,6 +2,7 @@ import Moment from 'moment'
 import Arial from "../components/arial/Arial.jsx";
 import axios from "axios";
 import config from "../config.js";
+import moment from "moment";
 
 export default class Util {
   // Mark link as active
@@ -28,7 +29,6 @@ export default class Util {
     if (date !== "Invalid date") return date
   }
   
-  // TODO - transformar em um componente
   static resumeInfoLine({modal, departure_location, destination_location, operation_days, time_first_start}) {
     // console.log(modal, departure_location, destination_location, operation_days, time_first_start)
     
@@ -114,41 +114,18 @@ export default class Util {
   static convertToSafeText(text) {
     if (!text) return '';
     
-    let sanitize = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\u0100-\u1EFF]/g, "")
-    sanitize = sanitize.replace(/\s/g, "-")
-    sanitize = sanitize.replace(/[,.]/g, '')
+    let sanitize = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\u0100-\u1EFF]/g, "");
+    sanitize = sanitize.replace(/\s/g, "-");
+    sanitize = sanitize.replace(/[,.]/g, '');
     sanitize = sanitize.replace(/^\w]/g, "");
     return sanitize.replace(/-{2,}/g, '-');
   }
   
+  static normalize(text) {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\u0100-\u1EFF]/g, "");
+  }
+  
   static convertNumberToDay = async (day) => {
-    // TODO - buscar no banco de dados as keys
-    // const table = [
-    //   [1, 'Dias úteis'],
-    //   [2, 'Sábado'],
-    //   [3, 'Domingos e feriados'],
-    //   [4, 'Domingos e feriados'],
-    //   [5, 'Dias úteis - atípico'],
-    //   [6, 'Sábados - atípico'],
-    //   [7, 'Domingos e feriados - atípico'],
-    //   [8, 'Dias úteis - férias'],
-    //   [9, 'Sábados - férias'],
-    //   [10, 'Domingos - férias'],
-    //   [11, 'Dias úteis - PC1'],
-    //   [12, 'Sábados - PC2'],
-    //   [13, 'Domingos e feriados - PC2'],
-    //   [14, 'Quartas-feiras - PC1'],
-    //   [15, 'Quartas-feiras - PC2'],
-    //   [16, 'Quintas-feiras - PC1'],
-    //   [17, 'Quintas-feiras - PC2'],
-    //   [18, 'Sexta-feiras - PC1'],
-    //   [19, 'Sexta-feiras - PC2'],
-    //   [20, 'Segundas-feiras - PC1'],
-    //   [21, 'Segundas-feiras - PC2'],
-    //   [22, 'Terças-feiras - PC1'],
-    //   [23, 'Terças-feiras - PC2'],
-    // ]
-    
     const transformDayTypeName = (t) => {
       let newT = t.replaceAll("/", " e ")
       newT = newT.replace(/PC(?<num>\d+)/gi, "- PC $1");
@@ -262,4 +239,25 @@ export default class Util {
     
     return parts;
   };
+  
+  // Procura algum dia correspondente para usar no defaultEventKey
+  static getDefaultEventKey = (daysConv) => {
+    const days = {
+      "sabado": [6],
+      "domingo": [0],
+      "segunda": [1],
+      "terca": [2],
+      "quarta": [3],
+      "quinta": [4],
+      "sexta": [5],
+      "dias uteis": [1, 2, 3, 4, 5],
+      "dia util": [1, 2, 3, 4, 5],
+    }
+    
+    const now = moment();
+    const daysConvNormalized= daysConv.map((d) => Util.normalize(d).toLowerCase().replace(/-\s*PC\s*\d*/gi, "").trimEnd());
+    const dayMatched = days.map((d) => Util.normalize(d).toLowerCase().replace(/-\s*PC\s*\d*/gi, "").trimEnd());
+    
+    console.log(now.weekday(), daysConvNormalized, dayMatched);
+  }
 }
