@@ -8,7 +8,7 @@ import Accordion from "../../components/accordion/Accordion.jsx";
 import AccordionItem from "../../components/accordion/AccordionItem.jsx";
 import {Link} from "react-router-dom";
 import AnimatedComponents from "../../components/animatedComponent/AnimatedComponents.jsx";
-import {Card, CardBody, CardHeader, CardTitle, FormControl, InputGroup, ListGroup, ListGroupItem} from "react-bootstrap";
+import {Button, Card, CardBody, CardHeader, CardTitle, FormControl, InputGroup, ListGroup, ListGroupItem} from "react-bootstrap";
 
 const Guide = () => {
   const [data, setData] = useState({});
@@ -127,6 +127,8 @@ const Guide = () => {
             }}>
               <InputGroup>
                 <FormControl type={"text"} as={"input"} placeholder={"Pesquise"} onChange={(e) => setTerm(e.target.value)}/>
+                <Button variant="default" className={"border text-body-tertiary px-3"} type="reset" aria-hidden="true"><i className="bi bi-x-lg"></i></Button>
+                <Button variant="default" className={"border text-body-tertiary px-3"} type="submit" aria-hidden="true"><i className="bi bi-search"></i></Button>
               </InputGroup>
               {(message) && <span className="text-danger d-block mt-1">{message}</span>}
             </form>

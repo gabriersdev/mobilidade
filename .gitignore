@@ -34,3 +34,4 @@ stats.html
 # Test
 *.test.js
 *.test.*
+.vercel

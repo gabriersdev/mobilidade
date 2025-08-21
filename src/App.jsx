@@ -87,6 +87,11 @@ function App() {
     }
   }, [])
   
+  // Oculta loader
+  useEffect(() => {
+    document.querySelector('.overlay-mobi').style.display = 'none';
+  }, [])
+  
   if (publicIp && window.location.hostname !== "localhost") {
     try {
       axios.post(`${config.host}/api/logs/`, {

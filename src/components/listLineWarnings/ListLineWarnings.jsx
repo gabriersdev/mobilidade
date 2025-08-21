@@ -8,6 +8,7 @@ import axios from 'axios'
 import './listLineWarnings.css'
 import {AnimatePresence} from "framer-motion";
 import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
+import moment from "moment";
 
 const ListLineWarnings = ({line_id}) => {
   const [data, setData] = useState([])
@@ -40,6 +41,7 @@ const ListLineWarnings = ({line_id}) => {
     // Verifica se o aviso está dentro do período de validade
     return warnings.filter(warning => {
       const now = new Date()
+      const mNow = moment()
 
       // Só precisa do horário, por isso o ano é definido pelo ano atual. A data fica algo assim: 20XX-01-01 HH:MM:SS
       const timeNow = new Date(`${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`)
@@ -59,14 +61,19 @@ const ListLineWarnings = ({line_id}) => {
 
       const datetimeInit = new Date(warning.datetime_init)
       const datetimeFinish = new Date(warning.datetime_finish)
-
+      
+      const createDateTimeToHours = (content) => {
+        const datetime = new Date(content)
+        return moment(`${moment().format("YYYY-MM-DD")}T${('0' + datetime.getHours()).slice(-2)}:${('0' + datetime.getMinutes()).slice(-2)}:${('0' + datetime.getSeconds()).slice(-2)}`)
+      }
+      
       switch (frequency) {
         case 1:
           // Nenhuma frequência - aviso será exibido apenas uma vez
           return now.getTime() >= datetimeInit.getTime() && now.getTime() <= datetimeFinish.getTime()
         case 2:
           // Frequência semanal - aviso será exibido semanalmente, entre os dias de inicio e fim
-          return now.getDay() >= dayInit && now.getDay() <= dayFinish
+          return (now.getDay() >= dayInit && now.getDay() <= dayFinish) && (createDateTimeToHours(timeInit).diff(mNow, "seconds") <= 0 && createDateTimeToHours(timeFinish).diff(mNow, "seconds") >= 0)
         case 3:
           // Frequência anual - aviso será exibido anualmente, entre as datas de inicio e fim
           return now.getTime() >= dateInit.getTime() && now.getTime() <= dateFinish.getTime()

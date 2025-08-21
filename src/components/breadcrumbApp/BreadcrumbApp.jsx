@@ -55,10 +55,6 @@ const BreadcrumbItemFactory = ({path, affirmationPath}) => {
       label = (<span className={"text-capitalize"}>{path}</span>);
   }
   
-  useEffect(() => {
-    console.log("path", path);
-  }, [path]);
-  
   if (!path || !path.trim() || ["null", "undefined"].includes(path)) return null;
   
   const matchId = location.pathname.match(/\/lines\/(?<id>.)/i);

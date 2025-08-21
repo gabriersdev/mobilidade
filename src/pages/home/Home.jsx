@@ -4,6 +4,7 @@ import GetAndListLines from "../../components/getAndListLines/GetAndListLines.js
 // import Util from "../../assets/Util.jsx";
 import FormValidSearch from "../../components/formValidSearch/FormValidSearch.jsx";
 import LatestNews from "../../components/latestNews/LatestNews.jsx";
+import GuideBanner from "../../components/guideBanner/GuideBanner.jsx";
 
 const Home = () => {
   useEffect(() => {
@@ -26,6 +27,7 @@ const Home = () => {
           </div>
         </>
       </div>
+      <GuideBanner/>
     </div>
   );
 }

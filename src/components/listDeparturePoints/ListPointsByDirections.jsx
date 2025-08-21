@@ -3,12 +3,14 @@ import AccordionItem from "../accordion/AccordionItem.jsx";
 import {RechargeContext as DeparturePointsTheme} from "./DeparturePointsContext.jsx";
 import {Theme} from "../themeContext/ThemeContext.jsx";
 import {Context as LineContext} from "../line/LineContext.jsx";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const ListPointsByDirections = () => {
   const {uniqueDirections, departure_location, destination_location, departurePointsByDirection} = useContext(Theme);
   const {handlePointClick} = useContext(DeparturePointsTheme);
   const {setFirstPointByDirection} = useContext(LineContext);
-
+  
   useEffect(() => {
     let direction;
     
@@ -59,7 +61,12 @@ const ListPointsByDirections = () => {
               })
             }
           </ul>
-          <span className={"d-inline-block text-muted mt-3"}>{departurePointsByDirection[i].length.toLocaleString()} pontos de paradas neste sentido.</span>
+          <div className={"d-flex gap-2 flex-wrap align-items-center mt-4"}>
+            <OverlayTrigger overlay={<Tooltip>Não houve alteração nos pontos de paradas</Tooltip>}>
+              <span><i className="bi bi-dash-circle-fill text-primary"></i></span>
+            </OverlayTrigger>
+            <span className={"d-inline-block text-muted"}>{departurePointsByDirection[i].length.toLocaleString()} pontos de paradas neste sentido.</span>
+          </div>
         </AccordionItem>
       )
     })

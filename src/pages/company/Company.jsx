@@ -1,4 +1,4 @@
-import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import Alert from "../../components/alert/Alert.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
@@ -7,6 +7,8 @@ import FeedbackError from "../../components/feedbackError/FeedbackError.jsx";
 import Title from "../../components/title/Title.jsx";
 import {Badge} from "react-bootstrap";
 import AnimatedComponents from "../../components/animatedComponent/AnimatedComponents.jsx";
+import Card from "../../components/card/Card.jsx";
+import Grid from "../../components/grid/Grid.jsx";
 
 const RenderCompany = () => {
   const {id} = useParams();
@@ -55,7 +57,7 @@ const RenderCompany = () => {
   } else if (data.length === 0) {
     return <Alert variant={'danger'} margin={"mt-0"}>Companhia não localizada.</Alert>;
   } else {
-    document.title = `Mobilidade - Companha ${data[0].company_name}`;
+    document.title = `Mobilidade - Companhia ${data[0].company_name}`;
     const countLines = data[0].count_lines_actives;
     
     const dataCompanyId = document.querySelector('.breadcrumb-item:nth-child(3)')
@@ -64,10 +66,10 @@ const RenderCompany = () => {
     return (
       <AnimatedComponents>
         <span className={"text-body-secondary"}>Companhia</span>
-        <Title type="h2" classX=" fs-2 d-inline text-body-emphasis mt-1 p-0 d-block">
-        <span className="text-balance" style={{fontSize: "inherit"}}>
-          {data[0].company_name}
-        </span>
+        <Title classX=" fs-3 d-inline text-body-emphasis mt-1 p-0 d-block">
+          <span className="text-balance" style={{fontSize: "inherit"}}>
+            {data[0].company_name}
+          </span>
         </Title>
         
         <section className={"d-flex gap-5 mt-5 flex-column"}>
@@ -78,7 +80,7 @@ const RenderCompany = () => {
             </div>
             <div className="d-flex flex-column gap-1">
               <span className="text-body-tertiary">Canal de reclamações</span>
-              <Link to={data[0].report_contact} rel={"noreferrer noopener"}>{new URL(data[0].report_contact).origin || "Informação não cadastrada."}</Link>
+              <Link to={data[0].report_contact} rel={"noreferrer noopener"}>{new URL(data[0].report_contact).origin?.replace(/(https:\/\/)|\/|www\./g, "") || "Informação não cadastrada."}</Link>
             </div>
             <div className="d-flex flex-column gap-1">
               <span className={"text-body-tertiary"}>Observações</span>
@@ -104,9 +106,31 @@ const RenderCompany = () => {
 }
 
 const Company = () => {
+  document.title = `Mobilidade - Companhias`;
+  
+  const dataPageName = document.querySelector('.breadcrumb-item:nth-child(2)')
+  if (dataPageName) dataPageName.querySelector('a').textContent = `Companhias`;
+  
   if (!useParams()["id"]) {
-    return <Navigate to="/" replace/>;
-    // return <Alert variant={'danger'} margin={"mt-0"}><span>O id da companhia precisa ser informado.</span></Alert>;
+    // return <Navigate to="/" replace/>;
+    // return <Alert variant={'warning'} margin={"mt-0"}><span>O id da companhia precisa ser informado.</span></Alert>;
+    return (
+      <div className={"d-flex flex-column gap-5"}>
+        <Title title="Companhias" id="topo" classX=" text-body-secondary"/>
+        <Grid>
+          {
+            [
+              ["3", "Vinscol", "Viação Nossa Senhora da Conceição", "A companhia Vinscol opera no transporte público dentro da cidade de Sabará-MG."],
+              ["4", "Transporte Coletivo Metropolitano", "Transporte Coletivo Metropolitano", "A companhia Transporte Coletivo Metropolitano - MG opera no transporte público da RMBH."],
+            ].map((cmp, index) => (
+              <Card title={cmp[1]} subtitle={cmp[2]} link={`/company/${cmp[0]}`} key={index}>
+                {cmp[3]}
+              </Card>
+            ))
+          }
+        </Grid>
+      </div>
+    )
   }
   
   return <RenderCompany/>
