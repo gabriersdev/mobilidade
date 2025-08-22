@@ -89,8 +89,10 @@ function App() {
   
   // Oculta loader
   useEffect(() => {
-    document.querySelector('.overlay-mobi').style.display = 'none';
-  }, [])
+    setTimeout(() => {
+      document.querySelector('.overlay-mobi').style.display = 'none';
+    }, 1000);
+  }, []);
   
   if (publicIp && window.location.hostname !== "localhost") {
     try {
