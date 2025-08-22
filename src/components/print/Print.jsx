@@ -233,7 +233,7 @@ const Print = ({variant, prevContentTarget}) => {
               loading ? (
                 <div>
                   <span className={"me-2"}>Imprimindo</span>
-                  <Spinner animation="border" role="status" size={"sm"}>
+                  <Spinner animation="grow" role="status" size={"sm"}>
                     <span className="visually-hidden">Loading...</span>
                   </Spinner>
                 </div>
