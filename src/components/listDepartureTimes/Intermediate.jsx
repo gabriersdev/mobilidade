@@ -20,7 +20,7 @@ export default function Intermediate({data = [], observations, departure_locatio
   }, [defaultEventKey]);
   
   return (
-    <Accordion defaultEventKey={defaultEventKey || ["0"]} id={"departure-times-data"}>
+    <Accordion defaultEventKey={["0"]} id={"departure-times-data"}>
       <OffcanvasDepartureTimes/>
       {uniqueDirections.map((direction, i) => {
         const directionName =

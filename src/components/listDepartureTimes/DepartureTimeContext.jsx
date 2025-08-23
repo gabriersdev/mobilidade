@@ -6,7 +6,7 @@ const TimeContext = createContext(null);
 const DepartureTimeContext = ({children}) => {
   const [show, setShow] = useState(false);
   const [departureTimeOffCanvas, setDepartureTimeOffCanvas] = useState({});
-  const [defaultEventKey, setDefaultEventKey] = useState(['0']);
+  const [defaultEventKey, setDefaultEventKey] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   
