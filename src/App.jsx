@@ -21,6 +21,7 @@ import BreadcrumbApp from "./components/breadcrumbApp/BreadcrumbApp.jsx";
 import News from "./pages/news/News.jsx";
 import Guide from "./pages/guide/Guide.jsx";
 import {Button} from "react-bootstrap";
+import NotFound from "./pages/404/404.jsx";
 
 const Context = createContext({});
 const obj = {};
@@ -89,8 +90,10 @@ function App() {
   
   // Oculta loader
   useEffect(() => {
-    document.querySelector('.overlay-mobi').style.display = 'none';
-  }, [])
+    setTimeout(() => {
+      document.querySelector('.overlay-mobi').style.display = 'none';
+    }, 1000);
+  }, []);
   
   if (publicIp && window.location.hostname !== "localhost") {
     try {
@@ -141,6 +144,8 @@ function App() {
         <Main>
           <BreadcrumbApp/>
           <Routes>
+            <Route path="*" element={<NotFound />} />
+            <Route path="/404" element={<NotFound />} />
             <Route path="/" element={<Home/>}/>
             <Route path="/search" element={<Search/>}/>
             <Route path="/lines/:id?" element={<Lines/>}/>

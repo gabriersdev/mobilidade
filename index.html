@@ -41,6 +41,7 @@
   <style>
     .overlay-mobi * {
       font-size: 16px !important;
+      font-family: 'Inter', sans-serif !important;
     }
     
     .overlay-mobi {
@@ -54,28 +55,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-    
-    .spinner-first-load-mobi {
-      width: 40px !important;
-      height: 40px !important;
-      border-radius: 50% !important;
-      border: 6px solid #00000026 !important;
-      border-right-color: #0D6EFDFF !important;
-      animation: spinner-mobi 1.2s infinite linear;
-    }
-    
-    @keyframes spinner-mobi {
-      to {
-        transform: rotate(1turn);
-      }
+      color: #0D6EFDFF;
     }
   </style>
 </head>
 
 <body>
 <div class="overlay-mobi">
-  <div class="spinner-first-load-mobi"></div>
+  <div>...</div>
 </div>
 
 <div id="root"></div>

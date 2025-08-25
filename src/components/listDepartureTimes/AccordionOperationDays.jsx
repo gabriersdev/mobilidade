@@ -11,11 +11,11 @@ import {TimeContext} from "./DepartureTimeContext.jsx";
 const getCurrentDayGroupName = () => {
   switch (new Date().getDay()) {
     case 0:
-      return 'domingos';
+      return 'domingo';
     case 6:
-      return 'sábados';
+      return 'sábado';
     default:
-      return 'dias úteis';
+      return 'dia útil';
   }
 };
 
@@ -39,7 +39,7 @@ const AccordionOperationDays = () => {
       
       const currentDayName = getCurrentDayGroupName();
       const defaultIndex = convertedDayNames.findIndex(name =>
-        name.toLowerCase().includes(currentDayName.toLowerCase())
+        Util.normalize(name.toLowerCase()).includes(Util.normalize(currentDayName.toLowerCase()))
       );
       
       // Define a chave do accordion que deve vir aberta
@@ -63,6 +63,7 @@ const AccordionOperationDays = () => {
                 dayName: dayConverted
               }}
               observations={observations}
+              tableIndex={j}
             />
             {observations.length > 0 && <Legend items={observations}/>}
             <span className={"d-inline-block text-muted mt-4"}>
@@ -79,7 +80,8 @@ const AccordionOperationDays = () => {
     generateContent().then(() => {
     });
     // A dependência garante que o efeito rode quando os dados do contexto mudarem
-  }, [departureTimes, uniqueDaysForDirection, index, direction, directionName, observations]);
+  }, [uniqueDaysForDirection, direction, directionName]);
+  // deps: uniqueDaysForDirection, direction, directionName, index, setDefaultEventKey, departureTimes, observations
   
   if (!accordionItems) {
     return <div>Carregando dias de operação...</div>;
@@ -87,7 +89,7 @@ const AccordionOperationDays = () => {
   
   // Renderize o accordion com os dados do estado
   return (
-    <Accordion defaultEventKey={defaultEventKey}>
+    <Accordion defaultEventKey={defaultEventKey || ["0"]}>
       {accordionItems}
     </Accordion>
   );

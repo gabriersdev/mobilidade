@@ -1,9 +1,8 @@
 import {useEffect} from "react";
-import {useParams} from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 
 import GetAndListLines from "../../components/getAndListLines/GetAndListLines.jsx";
 import Line from "../../components/line/Line.jsx";
-// import Util from "../../assets/Util.jsx";
 
 import "./lines.css";
 import Title from "../../components/title/Title.jsx";
@@ -11,7 +10,7 @@ import FormValidSearch from "../../components/formValidSearch/FormValidSearch.js
 import AnimatedComponents from "../../components/animatedComponent/AnimatedComponents.jsx";
 
 const Lines = () => {
-  const {id} = useParams()
+  const {id} = useParams();
 
   const checkIsValid = (id) => {
     if (!id) return false
@@ -22,6 +21,8 @@ const Lines = () => {
   useEffect(() => {
     document.title = `Mobilidade - Linhas de Transporte Público`
   }, []);
+  
+  if (id && !checkIsValid(id)) return <Navigate to="/404" replace />;
 
   return (
     <div>
@@ -35,6 +36,7 @@ const Lines = () => {
             </>
 
             :
+            
             <AnimatedComponents>
               <Line id={id}/>
             </AnimatedComponents>
