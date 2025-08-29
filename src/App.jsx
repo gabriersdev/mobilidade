@@ -28,6 +28,7 @@ const obj = {};
 
 function App() {
   const [publicIp, setPublicIp] = useState(0);
+  const location = useLocation();
   
   useEffect(() => {
     if ("serviceWorker" in navigator && window.location.hostname !== "localhost") {
@@ -95,47 +96,55 @@ function App() {
     }, 1000);
   }, []);
   
-  if (publicIp && window.location.hostname !== "localhost") {
-    try {
-      axios.post(`${config.host}/api/logs/`, {
-        event_type: 'Acesss page',
-        event_details: `Access URL: ${window.location.origin}${window.location.pathname}${window.location.search} ${new Date().getTime()}`,
-        os: navigator.userAgent.includes('Windows') ? 'Windows' : navigator.userAgent.includes('MacOS') ? 'MacOS' : navigator.userAgent.slice(0, 254),
-        browser: navigator.userAgent.slice(0, 254),
-        ip_address: publicIp,
-        user_agent: navigator.userAgent.slice(0, 254),
-        page: window.location.pathname,
-        line_id_access: window.location.pathname.includes("lines") ? !isNaN(parseInt(window.location.pathname.split('/').pop())) ? window.location.pathname.split('/').pop() : null : null,
-        referrer: document?.referrer || "",
-      }).then(() => {
-      })
-    } catch (error) {
-      console.log(`Ocorreu um erro ao registrar log.`);
-      if (window.location.hostname === "localhost") console.log(error);
+  useEffect(() => {
+    if (publicIp && window.location.hostname !== "localhost") {
+      try {
+        axios.post(`${config.host}/api/logs/`, {
+          event_type: 'Acesss page',
+          event_details: `Access URL: ${window.location.origin}${window.location.pathname}${window.location.search} ${new Date().getTime()}`,
+          os: navigator.userAgent.includes('Windows') ? 'Windows' : navigator.userAgent.includes('MacOS') ? 'MacOS' : navigator.userAgent.slice(0, 254),
+          browser: navigator.userAgent.slice(0, 254),
+          ip_address: publicIp,
+          user_agent: navigator.userAgent.slice(0, 254),
+          page: window.location.pathname,
+          line_id_access: window.location.pathname.includes("lines") ? !isNaN(parseInt(window.location.pathname.split('/').pop())) ? window.location.pathname.split('/').pop() : null : null,
+          referrer: document?.referrer || "",
+        }).then(() => {
+        })
+      } catch (error) {
+        console.log(`Ocorreu um erro ao registrar log.`);
+        if (window.location.hostname === "localhost") console.log(error);
+      }
     }
-  }
-  
-  try {
-    const location = useLocation();
-    // Verificar se #[id] existe e rolar a página até ele
-    if (location.hash) {
-      const id = location.hash.replace('#', '')
-      const element = document.getElementById(id)
-      if (element) window.scrollTo({top: element.offsetTop, behavior: 'smooth'})
-      else {
+    
+    try {
+      // Verificar se #[id] existe e rolar a página até ele
+      if (location.hash) {
+        const id = location.hash.replace('#', '')
+        const element = document.getElementById(id)
+        if (element) window.scrollTo({top: element.offsetTop, behavior: 'smooth'})
+        else {
+          setTimeout(() => {
+            window.scrollTo({top: 0, behavior: 'smooth'})
+          }, 100)
+        }
+        ;
+      } else {
         setTimeout(() => {
           window.scrollTo({top: 0, behavior: 'smooth'})
-        }, 100)
+        }, 100);
       }
-      ;
-    } else {
-      setTimeout(() => {
-        window.scrollTo({top: 0, behavior: 'smooth'})
-      }, 100);
+    } catch (error) {
+      console.log('Ocorreu um erro ao tentar verificar os parâmetros passados. %s', error);
     }
-  } catch (error) {
-    console.log('Ocorreu um erro ao tentar verificar os parâmetros passados. %s', error);
-  }
+    
+    // TODO - Verificar versão de SW salva no localStorage e a versão de SW atual
+    if ('serviceWorker' in navigator) {
+      caches.keys().then(function (names) {
+        for (let name of names) caches.delete(name);
+      });
+    }
+  }, []);
   
   return (
     <Context.Provider value={obj}>
