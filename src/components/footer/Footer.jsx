@@ -88,11 +88,7 @@ const Footer = () => {
           </ul>
           <div className="d-flex gap-3 flex-wrap">
             <button className={"btn text-start p-0 m-0 text-primary-emphasis border-0"} onClick={() => {
-              if ('serviceWorker' in navigator) {
-                caches.keys().then(function (names) {
-                  for (let name of names) caches.delete(name);
-                });
-              }
+              Util.clearServiceWorker();
               window.location.reload();
             }}>
               <span className={"me-1"}>Limpar cache</span>

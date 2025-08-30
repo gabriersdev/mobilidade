@@ -22,6 +22,7 @@ import News from "./pages/news/News.jsx";
 import Guide from "./pages/guide/Guide.jsx";
 import {Button} from "react-bootstrap";
 import NotFound from "./pages/404/404.jsx";
+import Util from "./assets/Util.jsx";
 
 const Context = createContext({});
 const obj = {};
@@ -137,13 +138,11 @@ function App() {
     } catch (error) {
       console.log('Ocorreu um erro ao tentar verificar os parâmetros passados. %s', error);
     }
-    
-    // TODO - Verificar versão de SW salva no localStorage e a versão de SW atual
-    if ('serviceWorker' in navigator) {
-      caches.keys().then(function (names) {
-        for (let name of names) caches.delete(name);
-      });
-    }
+  }, []);
+  
+  useEffect(() => {
+    // TODO - FN - Verificar versão de SW salva no localStorage e a versão de SW atual
+    Util.clearServiceWorker();
   }, []);
   
   return (

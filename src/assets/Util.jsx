@@ -260,4 +260,16 @@ export default class Util {
     
     console.log(now.weekday(), daysConvNormalized, dayMatched);
   }
+  
+  static clearServiceWorker() {
+    if ('serviceWorker' in navigator) {
+      caches.keys().then(function (names) {
+        console.log("SW Key: ", names);
+        for (let name of names) {
+          console.log("SW Key Item: ", name);
+          caches.delete(name);
+        }
+      });
+    }
+  }
 }
