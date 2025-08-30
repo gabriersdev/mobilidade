@@ -20,6 +20,7 @@ import GetAndListLines from "../getAndListLines/GetAndListLines.jsx";
 import Util from "../../assets/Util.jsx";
 import moment from "moment";
 import GuideBanner from "../guideBanner/GuideBanner.jsx";
+import NewsBanner from "../newsBanner/NewsBanner.jsx";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -132,8 +133,9 @@ const Line = ({id}) => {
               <div className={"mt-3"}>
                 {Util.resumeInfoLine({})}
               </div>
-              <div className={"mt-5"}>
+              <div className={"mt-5 d-flex flex-column gap-3"}>
                 <GuideBanner/>
+                <NewsBanner/>
               </div>
               <details className={"mt-5 text-muted d-inline-block mb-0 "}>
                 <summary>Informações carregadas em {renderText(moment().format("DD/MM/YYYY"))} às {moment().format("HH") + "h" + moment().format("mm") + "m"}.</summary>

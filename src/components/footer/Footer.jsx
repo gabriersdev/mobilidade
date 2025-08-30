@@ -52,7 +52,7 @@ const Footer = () => {
         console.log(err.message)
       }
     }
-  }, [])
+  }, [theme])
   
   const handleTheme = useCallback((themeParam) => {
     if (!["default", "light", "dark"].includes(themeParam)) {
@@ -68,8 +68,7 @@ const Footer = () => {
             theme: themeParam
           }));
         }
-        ;
-        setTheme(themeParam)
+        setTheme(themeParam);
         document.querySelector('html').dataset.bsTheme = themeParam;
       } catch (error) {
         console.log(error.message);
@@ -115,7 +114,7 @@ const Footer = () => {
               (
                 <div className={"d-b lock mt-2 text-sml d-flex flex-column gap-1"}>
                   <p className={"text-body-secondary p-0 m-0 fs-inherit"}>Versão: {version || "1.0.0"} | Cache: {cacheVersion || "Não definido"} </p>
-                    <p className={"text-body-secondary p-0 m-0 fs-inherit"}>{dataBuild.datetimeCreate && <span>Versão de build: {Util.renderText(moment(dataBuild.datetimeCreate).utc(true).format("HH[h]mm[m] DD/MM/YYYY [GMT-03:00]"))}</span>}</p>
+                  <p className={"text-body-secondary p-0 m-0 fs-inherit"}>{dataBuild.datetimeCreate && <span>Versão de build: {Util.renderText(moment(dataBuild.datetimeCreate).utc(true).format("HH[h]mm[m] DD/MM/YYYY [GMT-03:00]"))}</span>}</p>
                 </div>
               )
             }
