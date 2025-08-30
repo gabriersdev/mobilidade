@@ -66,7 +66,7 @@ function App() {
       debounceDelay: 50,
       throttleDelay: 99,
     });
-  }, [])
+  }, []);
   
   // Define um REL para os links da página
   useEffect(() => {
@@ -88,7 +88,7 @@ function App() {
       }, tent > 0 ? 1000 * tent : 1000)
       tent += 1
     }
-  }, [])
+  }, []);
   
   // Oculta loader
   useEffect(() => {
@@ -97,6 +97,7 @@ function App() {
     }, 1000);
   }, []);
   
+  // Sobe a página ou vai para o item #
   useEffect(() => {
     if (publicIp && window.location.hostname !== "localhost") {
       try {
@@ -140,6 +141,7 @@ function App() {
     }
   }, []);
   
+  // Limpeza de cache do SW
   useEffect(() => {
     // TODO - FN - Verificar versão de SW salva no localStorage e a versão de SW atual
     Util.clearServiceWorker();
