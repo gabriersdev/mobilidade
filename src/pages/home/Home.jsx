@@ -13,7 +13,6 @@ const Home = () => {
     // Util.updateActiveLink()
   }, [])
   
-  
   return (
     <div>
       <FormValidSearch formTitle={"Para onde vamos?"} inputPlaceholder={""}/>
@@ -22,7 +21,6 @@ const Home = () => {
           <Title title="Principais Linhas" classX={" text-body-secondary"}/>
           <GetAndListLines variant="main"/>
           <div style={{marginTop: '4rem'}}>
-            <Title title="Últimas Notícias" classX={" text-body-secondary"}/>
             <LatestNews/>
           </div>
         </>

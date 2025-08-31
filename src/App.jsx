@@ -1,28 +1,26 @@
 import './App.css'
-
 import {createContext, useEffect, useState} from 'react'
 import {Routes, Route, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import AOS from 'aos';
-
+import config from "./config.js";
+import {Button} from "react-bootstrap";
 import Nav from './components/nav/Nav'
 import Main from './components/main/Main'
 import Footer from './components/footer/Footer'
-
 import Home from './pages/home/Home'
 import Lines from './pages/lines/Lines.jsx'
 import Development from './pages/development/Development.jsx'
-import TermsOfService from './pages/termsOfService/TermsOfService.jsx'
+import Live from './pages/live/Live.jsx'
 import Privacy from './pages/privacy/Privacy.jsx'
 import Search from "./pages/search/Search.jsx";
 import Company from './pages/company/Company.jsx'
-import config from "./config.js";
 import BreadcrumbApp from "./components/breadcrumbApp/BreadcrumbApp.jsx";
 import News from "./pages/news/News.jsx";
 import Guide from "./pages/guide/Guide.jsx";
-import {Button} from "react-bootstrap";
 import NotFound from "./pages/404/404.jsx";
 import Util from "./assets/Util.jsx";
+import TermsOfService from "./pages/termsOfService/TermsOfService.jsx";
 
 const Context = createContext({});
 const obj = {};
@@ -73,7 +71,7 @@ function App() {
     document.querySelectorAll('a').forEach(link => link.setAttribute('rel', 'noopener noreferrer'));
   }, []);
   
-  // Define um parametro para o import do script que forçará a atualizar a versão do cache
+  // Define um parâmetro para o import do "script" que forçará a atualizar a versão do cache
   useEffect(() => {
     let [tent, matched] = [0, false]
     
@@ -139,7 +137,7 @@ function App() {
     } catch (error) {
       console.log('Ocorreu um erro ao tentar verificar os parâmetros passados. %s', error);
     }
-  }, []);
+  }, [location, publicIp]);
   
   // Limpeza de cache do SW
   useEffect(() => {
@@ -154,8 +152,8 @@ function App() {
         <Main>
           <BreadcrumbApp/>
           <Routes>
-            <Route path="*" element={<NotFound />} />
-            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<NotFound/>}/>
+            <Route path="/404" element={<NotFound/>}/>
             <Route path="/" element={<Home/>}/>
             <Route path="/search" element={<Search/>}/>
             <Route path="/lines/:id?" element={<Lines/>}/>
@@ -165,6 +163,7 @@ function App() {
             <Route path="/company/:id?" element={<Company/>}/>
             <Route path="/news/:id?" element={<News/>}/>
             <Route path="/guide" element={<Guide/>}/>
+            <Route path="/live" element={<Live/>}/>
           </Routes>
         </Main>
         <Footer/>

@@ -186,10 +186,12 @@ const Nav = () => {
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./lines">Linhas</BootstrapNav.Link>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./search">Pesquisa</BootstrapNav.Link>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./news">Notícias</BootstrapNav.Link>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./guide">
+                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./guide">Guia</BootstrapNav.Link>
+                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./live">
                     <div className={"d-flex align-items-center flex-wrap"}>
-                      {moment().diff(moment("2025-08-15T00:00:00-03:00"), "minutes") < 0 && (<Badge className={"rounded-pill me-1 text-uppercase fw-normal"} style={{paddingBottom: "4.21px", paddingTop: "4.2px"}}>Novo</Badge>)}
-                      <span>Guia</span>
+                      {moment().diff(moment("2025-09-15T00:00:00-03:00"), "minutes") < 0 && (<Badge className={"rounded-pill me-1 text-uppercase fw-normal"} style={{paddingBottom: "4.21px", paddingTop: "4.2px"}}>Novo</Badge>)}
+                      <div className={"d-inline-flex align-items-center justify-content-center me-1 rounded-circle"} style={{background: "#FF000050", padding: "4.5px 5px 3px 5px"}}><i className="bi bi-circle-fill text-danger" style={{fontSize: "7.5px"}}></i></div>
+                      <span className={"text-danger-emphasis"}>Ao vivo</span>
                     </div>
                   </BootstrapNav.Link>
                   {isInLinePage && width > 766 ? <div className={width > 991 ? "d-flex flex-wrap justify-content-end flex-grow-1" : ""} id={"nav-scrollspy"}><NavScrollspy/></div> : ""}
