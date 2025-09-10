@@ -68,7 +68,7 @@ export default class Util {
       qualifiedStarts = operationDayNames.join(', ')
     }
     
-    return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'}. ` + ` As informações da linha são verificadas periodicamente. Verifique as informações na página, se algo estiver errado envie um reporte. Esta linha opera nos dias ${operationDayNames || ""}.`;
+    return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'}. ` + ` As informações da linha são verificadas periodicamente. Verifique as informações na página, se algo estiver errado envie um reporte. Esta linha  opera nos dias ${operationDayNames || "da semana. Verifique o quadro de horários para maiores informações."}.`;
   }
   
   static isSameDomain(url) {
