@@ -6,6 +6,7 @@ import Util from "../../assets/Util.jsx";
 import {useEffect, useState} from "react";
 import Title from "../title/Title.jsx";
 import {Button} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 const ScrollX = ({children}) => {
   return <div className={"overflow-x-scroll d-flex scroll-x pt-2 pb-3 gap-3"}>{children}</div>
@@ -28,7 +29,7 @@ const LatestNews = () => {
     <>
       <div className={"d-flex justify-content-between align-items-center gap-3"}>
         <Title title="Últimas Notícias" classX={" text-body-secondary"}/>
-        <Button variant={"secondary"} size={"sm"}>
+        <Button as={Link} to={"/news"} variant={"secondary"} size={"sm"}>
           <span className={""}>Ver todas as {news.length > 1 ? news.length + "" : "todas as"} notícias</span>
         </Button>
       </div>
