@@ -29,7 +29,8 @@ export default class Util {
     if (date !== "Invalid date") return date
   }
   
-  static resumeInfoLine({modal, departure_location, destination_location, operation_days, time_first_start}) {
+  static resumeInfoLine({modal, departure_location, destination_location, operation_days}) {
+    // static resumeInfoLine({modal, departure_location, destination_location, operation_days, time_first_start}) {
     // console.log(modal, departure_location, destination_location, operation_days, time_first_start)
     
     if (modal === 1) modal = 'ônibus'
@@ -51,7 +52,7 @@ export default class Util {
     let operationDayNames = []
     let qualifiedStarts;
     
-    time_first_start = [...["2020-01-01"], time_first_start || "00:00:00"].join(" ")
+    // time_first_start = [...["2020-01-01"], time_first_start || "00:00:00"].join(" ")
     
     if (Util.arraysEqual(Util.createArray(7), newoperation_days)) {
       operationDayNames.concat(dayNames)
@@ -67,7 +68,7 @@ export default class Util {
       qualifiedStarts = operationDayNames.join(', ')
     }
     
-    return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'} a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.` + ` As informações da linha são verificadas periodicamente. Verifique as informações na página, se algo estiver errado envie um reporte.`;
+    return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'}. ` + ` As informações da linha são verificadas periodicamente. Verifique as informações na página, se algo estiver errado envie um reporte. Esta linha opera nos dias ${operationDayNames || ""}.`;
   }
   
   static isSameDomain(url) {
