@@ -15,7 +15,7 @@ const LegendItem = ({ item, i }) => {
   const bootstrapBGColors = data.bootstrap.bg.colors;
   return (
     <div className={`d-flex align-items-center gap-1 ${!clamp ? "flex-wrap" : ""}`}>
-      <span><Badge bg={bootstrapBGColors.at(i) || 'primary'} className={"rounded-5"}>{item.abrev}</Badge></span>
+      <span><Badge bg={item.color || bootstrapBGColors.at(i) || "primary"} className={"rounded-5"}>{item.abrev}</Badge></span>
       <span className={clamp ? "line-clamp-1" : 0} onClick={handleClamp}>{item.label}</span>
     </div>
   )
@@ -23,8 +23,9 @@ const LegendItem = ({ item, i }) => {
 
 LegendItem.propTypes = {
   item: PropTypes.shape({
-    abrev: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
+    abrev: PropTypes.any.isRequired,
+    label: PropTypes.string.isRequired,
+    color: PropTypes.string,
   }).isRequired,
   i: PropTypes.number.isRequired
 }
