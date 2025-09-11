@@ -155,7 +155,7 @@ const Nav = () => {
     return () => {
       clearInterval(int);
     }
-  }, [])
+  }, []);
   
   return (
     <>

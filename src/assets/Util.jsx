@@ -264,9 +264,9 @@ export default class Util {
   static clearServiceWorker() {
     if ('serviceWorker' in navigator) {
       caches.keys().then(function (names) {
-        console.log("SW Key: ", names);
+        // console.log("SW Key: ", names);
         for (let name of names) {
-          console.log("SW Key Item: ", name);
+          // console.log("SW Key Item: ", name);
           caches.delete(name);
         }
       });
