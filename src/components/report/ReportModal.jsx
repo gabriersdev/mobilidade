@@ -5,6 +5,8 @@ import {
 } from 'react-bootstrap';
 
 import ReportForm from "./ReportForm.jsx";
+import {reportMail} from "../../assets/resources.js";
+import {Link} from "react-router-dom";
 
 const ReportModal = () => {
   const [showModal, setShowModal] = useState(false);
@@ -33,6 +35,9 @@ const ReportModal = () => {
         <Modal.Body>
           <ReportForm handleCloseModal={handleCloseModal}/>
         </Modal.Body>
+        <Modal.Footer className={"justify-content-center border-top border-secondary-subtle"}>
+          <p className={"m-0 text-body-secondary"}>Se preferir, envie um e-mail <Link to={`mailto:${reportMail}`}>{reportMail}</Link>.</p>
+        </Modal.Footer>
       </Modal>
     </>
   );

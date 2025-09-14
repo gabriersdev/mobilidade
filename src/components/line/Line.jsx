@@ -134,7 +134,7 @@ const Line = ({id}) => {
               <div className={"mt-3"}>
                 {Util.resumeInfoLine({})}
                 <div className={"mt-2"}>
-                  <Link to={`/history/departure-times/${id}`}>Histórico de horários da linha</Link>
+                  <Link to={`/history/departure-times/${id}`}>Histórico de horários</Link>
                 </div>
               </div>
               <div className={"mt-5 d-flex flex-column gap-3"}>

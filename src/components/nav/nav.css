@@ -1,3 +1,42 @@
 .navbar-brand {
   color: #4C4C4C !important;
 }
+
+/* O contêiner principal para o indicador */
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espaço entre o ponto e o texto */
+  background-color: #4a4a4a;
+  padding: 4px;
+  border-radius: 5000px;
+  font-family: sans-serif;
+  color: #e0e0e0;
+  font-size: 1.2rem;
+}
+
+/* O ponto vermelho que irá piscar */
+.live-dot {
+  --size: 8px;
+
+  width: var(--size);
+  height: var(--size);
+  background-color: #e74c3c; /* Cor vermelha para "ao vivo" */
+  border-radius: 50%; /* Transforma o quadrado em um círculo */
+
+  /* A linha mais importante: aplica a nossa animação */
+  animation: pulseAnimation 2s ease-in-out infinite;
+}
+
+/* A definição da animação "pulseAnimation" */
+@keyframes pulseAnimation {
+  0% {
+    opacity: 1; /* Totalmente visível no início */
+  }
+  50% {
+    opacity: 0.2; /* Esmaece até 20% da opacidade na metade */
+  }
+  100% {
+    opacity: 1; /* Volta a ser totalmente visível no fim */
+  }
+}

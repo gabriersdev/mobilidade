@@ -66,14 +66,14 @@ export default function HistoryDepartureTimes() {
     console.error(error);
     return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;
   } else if (data.length === 0) {
-    return <Alert variant={'danger'} margin={"mt-0"}>Histórico não localizado.</Alert>;
+    return <Alert variant={'danger'} margin={"mt-0"}>Esta linha não tem histórico de horários.</Alert>;
   } else {
     
     return (
       <AnimatedComponents>
         <span className={"text-body-secondary"}>Histórico de horários</span>
         <Title classX=" fs-3 d-inline text-body-emphasis mt-1 p-0 d-block">
-          <span className="text-balance" style={{fontSize: "inherit"}}>
+          <span className="" style={{fontSize: "inherit"}}>
             Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " -> " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " -> ")}
           </span>
         </Title>
@@ -83,8 +83,8 @@ export default function HistoryDepartureTimes() {
             <ListGroup>
               {
                 data && data.map((item, index) => (
-                  <ListGroup.Item as={Link} to={`/history/departure-times/${id || 0}/${Util.renderText(moment(item?.["update_date"] || moment.utc()).format("YYYY[X]MM[X]DD"))}`} key={index}>
-                    <span className={"d-block"}>{Util.renderText(moment(item?.["update_date"] || moment.utc()).format("DD/MM/YYYY"))}</span>
+                  <ListGroup.Item as={Link} to={`/history/departure-times/${id || 0}/${Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"].replace('Z', '-03:00')}` : moment.utc()).format("YYYY[X]MM[X]DD"))}`} key={index}>
+                    <span className={"d-block"}>{Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"].replace('Z', '-03:00')}` : moment.utc()).format("DD/MM/YYYY Z") )}</span>
                     <span className={"text-body-tertiary"}>{item?.["count_departure_times"]} horários atualizados</span>
                   </ListGroup.Item>
                 ))
