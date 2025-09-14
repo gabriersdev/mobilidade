@@ -21,6 +21,8 @@ import Guide from "./pages/guide/Guide.jsx";
 import NotFound from "./pages/404/404.jsx";
 import Util from "./assets/Util.jsx";
 import TermsOfService from "./pages/termsOfService/TermsOfService.jsx";
+import HistoryDepartureTimes from "./pages/history/departure-times/HistoryDepartureTimes.jsx";
+import HistoryDayDepartureTimes from "./pages/history/departure-times/HistoryDayDepartureTimes.jsx";
 
 const Context = createContext({});
 const obj = {};
@@ -42,7 +44,7 @@ function App() {
       fetch("https://api64.ipify.org?format=json")
         .then(response => response.json())
         .then(data => {
-          if (data && data.ip) setPublicIp(data.ip);
+          if (data && data?.["ip"]) setPublicIp(data?.["ip"]);
         })
         .catch(error => {
           setPublicIp(1);
@@ -126,9 +128,8 @@ function App() {
         else {
           setTimeout(() => {
             window.scrollTo({top: 0, behavior: 'smooth'})
-          }, 100)
+          }, 100);
         }
-        ;
       } else {
         setTimeout(() => {
           window.scrollTo({top: 0, behavior: 'smooth'})
@@ -164,6 +165,8 @@ function App() {
             <Route path="/news/:id?" element={<News/>}/>
             <Route path="/guide" element={<Guide/>}/>
             <Route path="/live" element={<Live/>}/>
+            <Route path="/history/departure-times/:id" element={<HistoryDepartureTimes/>}/>
+            <Route path="/history/departure-times/:id/:id" element={<HistoryDayDepartureTimes/>}/>
           </Routes>
         </Main>
         <Footer/>

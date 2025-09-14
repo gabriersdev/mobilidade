@@ -17,9 +17,10 @@ const pages = [
   "guide"
 ]
 
-const BreadcrumbItemFactory = ({path, affirmationPath}) => {
+// const BreadcrumbItemFactory = ({path, affirmationPath}) => {
+const BreadcrumbItemFactory = ({path}) => {
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   let label = "";
   let isLinePage = "";
   
@@ -48,6 +49,9 @@ const BreadcrumbItemFactory = ({path, affirmationPath}) => {
     case "news":
       label = "Notícias"
       break;
+    case "history":
+      label = "Histórico"
+      break;
     case "guide":
       label = "Guia"
       break;
@@ -63,10 +67,10 @@ const BreadcrumbItemFactory = ({path, affirmationPath}) => {
   return (
     <BreadcrumbItem className={`bg-body ${isLinePage ? "breadcrumb-i data-line-id" : ""}`} onClick={(e) => {
       e.preventDefault();
-      // console.log(path === location.pathname.split("/")[1] ? `/${path}` : `${path}`)
-      const replaceUrl =  path === "../" ? "/" : pages.includes(path) ? `/${path}` : affirmationPath;
-      navigate(replaceUrl, {replace: true});
-    }}>
+      // // console.log(path === location.pathname.split("/")[1] ? `/${path}` : `${path}`)
+      // const replaceUrl =  path === "../" ? "/" : pages.includes(path) ? `/${path}` : affirmationPath;
+      // navigate(replaceUrl, {replace: true});
+    }} style={{cursor: "default"}}>
       {label}
     </BreadcrumbItem>
   );

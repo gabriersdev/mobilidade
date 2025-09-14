@@ -167,6 +167,10 @@ export default class Util {
   }
   
   static renderText = (text) => {
+    return text;
+  };
+  
+  static renderTextOld = (text) => {
     // Usa regex para encontrar todas as barras e as envolve em spans
     
     if (!text.split) return text;
@@ -259,6 +263,25 @@ export default class Util {
     const dayMatched = days.map((d) => Util.normalize(d).toLowerCase().replace(/-\s*PC\s*\d*/gi, "").trimEnd());
     
     console.log(now.weekday(), daysConvNormalized, dayMatched);
+  }
+  
+  static translateMonth = (month) => {
+    const o = {
+      "january": "janeiro",
+      "february": "fevereiro",
+      "march": "março",
+      "april": "abril",
+      "may": "maio",
+      "june": "junho",
+      "july": "julho",
+      "august": "agosto",
+      "september": "setembro",
+      "october": "outubro",
+      "november": "novembro",
+      "december": "dezembro",
+    }
+    
+    return o[month] || month;
   }
   
   static clearServiceWorker() {
