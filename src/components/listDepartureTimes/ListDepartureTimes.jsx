@@ -9,8 +9,8 @@ import {AnimatePresence} from "framer-motion";
 import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
 import Intermediate from "./Intermediate.jsx";
 
-const ListDepartureTimes = ({line_id, departure_location, destination_location}) => {
-  const {data, observations, error, isLoaded} = useDepartureTimes(line_id);
+const ListDepartureTimes = ({line_id, departure_location, destination_location, variant}) => {
+  const {data, observations, error, isLoaded} = useDepartureTimes(line_id, variant);
   
   const [sortedDays, setSortedDays] = useState(null);
   const [processingError, setProcessingError] = useState(null);
@@ -82,7 +82,11 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location})
 ListDepartureTimes.propTypes = {
   line_id: PropTypes.number.isRequired,
   departure_location: PropTypes.string.isRequired,
-  destination_location: PropTypes.string.isRequired
+  destination_location: PropTypes.string.isRequired,
+  variant: PropTypes.shape({
+    type: PropTypes.oneOf(["history", "current"]),
+    departureTimeData: PropTypes.string
+  }),
 }
 
 export {ListDepartureTimes};

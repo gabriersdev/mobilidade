@@ -74,7 +74,7 @@ const TableDepartureTimes = ({content, tableIndex}) => {
   useEffect(() => {
     // Função para agrupar os horários pelo prefixo da hora (ex: "00", "01")
     const groupByHour = listData.reduce((groups, item) => {
-      const hourPrefix = item.departureTime.slice(0, 2); // Pega os primeiros dois caracteres (a hora)
+      const hourPrefix = item.departureTime ? item.departureTime.slice(0, 2) : "00"; // Pega os primeiros dois caracteres (a hora)
       if (!groups[hourPrefix]) {
         groups[hourPrefix] = [];
       }

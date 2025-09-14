@@ -21,6 +21,7 @@ import Util from "../../assets/Util.jsx";
 import moment from "moment";
 import GuideBanner from "../guideBanner/GuideBanner.jsx";
 import NewsBanner from "../newsBanner/NewsBanner.jsx";
+import {Link} from "react-router-dom";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -132,6 +133,9 @@ const Line = ({id}) => {
               </div>
               <div className={"mt-3"}>
                 {Util.resumeInfoLine({})}
+                <div className={"mt-2"}>
+                  <Link to={`/history/departure-times/${id}`}>Histórico de horários da linha</Link>
+                </div>
               </div>
               <div className={"mt-5 d-flex flex-column gap-3"}>
                 <GuideBanner/>

@@ -1,27 +1,28 @@
 import './App.css'
-
 import {createContext, useEffect, useState} from 'react'
 import {Routes, Route, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import AOS from 'aos';
-
+import config from "./config.js";
+import {Button} from "react-bootstrap";
 import Nav from './components/nav/Nav'
 import Main from './components/main/Main'
 import Footer from './components/footer/Footer'
-
 import Home from './pages/home/Home'
 import Lines from './pages/lines/Lines.jsx'
 import Development from './pages/development/Development.jsx'
-import TermsOfService from './pages/termsOfService/TermsOfService.jsx'
+import Live from './pages/live/Live.jsx'
 import Privacy from './pages/privacy/Privacy.jsx'
 import Search from "./pages/search/Search.jsx";
 import Company from './pages/company/Company.jsx'
-import config from "./config.js";
 import BreadcrumbApp from "./components/breadcrumbApp/BreadcrumbApp.jsx";
 import News from "./pages/news/News.jsx";
 import Guide from "./pages/guide/Guide.jsx";
-import {Button} from "react-bootstrap";
 import NotFound from "./pages/404/404.jsx";
+import Util from "./assets/Util.jsx";
+import TermsOfService from "./pages/termsOfService/TermsOfService.jsx";
+import HistoryDepartureTimes from "./pages/history/departure-times/HistoryDepartureTimes.jsx";
+import HistoryDayDepartureTimes from "./pages/history/departure-times/HistoryDayDepartureTimes.jsx";
 
 const Context = createContext({});
 const obj = {};
@@ -43,7 +44,7 @@ function App() {
       fetch("https://api64.ipify.org?format=json")
         .then(response => response.json())
         .then(data => {
-          if (data && data.ip) setPublicIp(data.ip);
+          if (data && data?.["ip"]) setPublicIp(data?.["ip"]);
         })
         .catch(error => {
           setPublicIp(1);
@@ -65,14 +66,14 @@ function App() {
       debounceDelay: 50,
       throttleDelay: 99,
     });
-  }, [])
+  }, []);
   
   // Define um REL para os links da página
   useEffect(() => {
     document.querySelectorAll('a').forEach(link => link.setAttribute('rel', 'noopener noreferrer'));
   }, []);
   
-  // Define um parametro para o import do script que forçará a atualizar a versão do cache
+  // Define um parâmetro para o import do "script" que forçará a atualizar a versão do cache
   useEffect(() => {
     let [tent, matched] = [0, false]
     
@@ -87,7 +88,7 @@ function App() {
       }, tent > 0 ? 1000 * tent : 1000)
       tent += 1
     }
-  }, [])
+  }, []);
   
   // Oculta loader
   useEffect(() => {
@@ -96,6 +97,7 @@ function App() {
     }, 1000);
   }, []);
   
+  // Sobe a página ou vai para o item #
   useEffect(() => {
     if (publicIp && window.location.hostname !== "localhost") {
       try {
@@ -126,9 +128,8 @@ function App() {
         else {
           setTimeout(() => {
             window.scrollTo({top: 0, behavior: 'smooth'})
-          }, 100)
+          }, 100);
         }
-        ;
       } else {
         setTimeout(() => {
           window.scrollTo({top: 0, behavior: 'smooth'})
@@ -137,13 +138,12 @@ function App() {
     } catch (error) {
       console.log('Ocorreu um erro ao tentar verificar os parâmetros passados. %s', error);
     }
-    
-    // TODO - Verificar versão de SW salva no localStorage e a versão de SW atual
-    if ('serviceWorker' in navigator) {
-      caches.keys().then(function (names) {
-        for (let name of names) caches.delete(name);
-      });
-    }
+  }, [location, publicIp]);
+  
+  // Limpeza de cache do SW
+  useEffect(() => {
+    // TODO - FN - Verificar versão de SW salva no localStorage e a versão de SW atual
+    Util.clearServiceWorker();
   }, []);
   
   return (
@@ -153,8 +153,8 @@ function App() {
         <Main>
           <BreadcrumbApp/>
           <Routes>
-            <Route path="*" element={<NotFound />} />
-            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<NotFound/>}/>
+            <Route path="/404" element={<NotFound/>}/>
             <Route path="/" element={<Home/>}/>
             <Route path="/search" element={<Search/>}/>
             <Route path="/lines/:id?" element={<Lines/>}/>
@@ -164,6 +164,9 @@ function App() {
             <Route path="/company/:id?" element={<Company/>}/>
             <Route path="/news/:id?" element={<News/>}/>
             <Route path="/guide" element={<Guide/>}/>
+            <Route path="/live" element={<Live/>}/>
+            <Route path="/history/departure-times/:id" element={<HistoryDepartureTimes/>}/>
+            <Route path="/history/departure-times/:id/:id" element={<HistoryDayDepartureTimes/>}/>
           </Routes>
         </Main>
         <Footer/>
