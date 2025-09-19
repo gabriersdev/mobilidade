@@ -128,14 +128,15 @@ const Line = ({id}) => {
             <section id={"resume"} className={"pt-3"}>
               <Title type="h3" classX={" text-body-secondary"}>Sobre esta linha</Title>
               <div className={"mt-3 position-relative"}>
-                <h2 className={"position-absolute bottom-0 mb-3 ms-3 px-3 py-1 bg-warning fw-bolder rounded-pill"}><i className="bi bi-bus-front" style={{fontSize: "inherit"}}></i> {data[0].line_number}</h2>
                 <img src={"/images/banner.png"} alt="" width={"100"} height={"500px"} className={"w-100 object-fit-cover rounded border"}/>
+                <div className={"p-3 position-absolute top-0 rounded w-100 h-100"} style={{background: "linear-gradient(180deg,#00000010 0%, #00000075 75%)"}}></div>
+                <div className={"position-absolute bottom-0 mb-3 ms-3 text-balance"} style={{maxWidth: "calc(100% - 3rem)"}}>
+                  <h2 className={"text-white"}>{data[0].line_number}</h2>
+                  <p className={"m-0 text-white"}>{Util.resumeInfoLine({})}</p>
+                </div>
               </div>
               <div className={"mt-3"}>
-                {Util.resumeInfoLine({})}
-                <div className={"mt-2"}>
-                  <Link to={`/history/departure-times/${id}`}>Histórico de horários</Link>
-                </div>
+                <Link to={`/history/departure-times/${id}`}>Histórico de horários</Link>
               </div>
               <div className={"mt-5 d-flex flex-column gap-3"}>
                 <GuideBanner/>

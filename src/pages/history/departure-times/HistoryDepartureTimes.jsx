@@ -84,7 +84,7 @@ export default function HistoryDepartureTimes() {
               {
                 data && data.map((item, index) => (
                   <ListGroup.Item as={Link} to={`/history/departure-times/${id || 0}/${Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"].replace('Z', '-03:00')}` : moment.utc()).format("YYYY[X]MM[X]DD"))}`} key={index}>
-                    <span className={"d-block"}>{Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"].replace('Z', '-03:00')}` : moment.utc()).format("DD/MM/YYYY Z  QAQ") )}</span>
+                    <span className={"d-block"}>{Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"].replace('Z', '-03:00')}` : moment.utc()).format("DD/MM/YYYY"))}</span>
                     <span className={"text-body-tertiary"}>{item?.["count_departure_times"]} horários atualizados</span>
                   </ListGroup.Item>
                 ))

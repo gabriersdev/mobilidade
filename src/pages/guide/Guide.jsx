@@ -71,7 +71,7 @@ const Guide = () => {
                     {
                       Object.entries(data).filter(([k]) => k[0] === letter).map(([key, value], index) => {
                         return (
-                          <AccordionItem title={key.replace("/", " -> ").replaceAll("/", " - ")} key={index} eventKey={index.toString()}>
+                          <AccordionItem title={key.replace("/", " - ").replaceAll("/", " - ")} key={index} eventKey={index.toString()}>
                             <ul className="ps-3 m-0" style={{lineHeight: 1.75}}>
                               {
                                 value.map((line, i) => {
