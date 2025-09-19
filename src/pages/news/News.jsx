@@ -27,9 +27,11 @@ const News = () => {
       {
         !checkIsValid(id) ? (
           <>
-            <Title classX={" text-body-secondary"}>Notícias</Title>
-            <div className="d-flex flex-column align-items-start gap-5">
+            <div>
+              <Title classX={" text-body-secondary"}>Notícias</Title>
               <Alert variant={"info"}>As notícias estão ordenadas das mais recentes para as mais antigas</Alert>
+            </div>
+            <div className="d-flex flex-column align-items-start gap-5">
               <AnimatedComponents>
                 {[...newsA].toSpliced(50).toReversed().toSorted((a, b) => moment(a.publishDate).unix() < moment(b.publishDate).unix()).map((item, index) => (
                   <div className={"border-bottom border-secondary-subtle pb-5"} key={index}>
