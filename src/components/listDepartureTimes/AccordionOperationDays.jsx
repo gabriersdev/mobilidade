@@ -65,7 +65,7 @@ const AccordionOperationDays = () => {
               observations={observations}
               tableIndex={j}
             />
-            {observations.length > 0 && <Legend items={observations}/>}
+            <Legend items={observations}/>
             <span className={"d-inline-block text-muted mt-4"}>
               {departureTimesDay.length.toLocaleString()} horários de partidas no horário de {dayConverted.substring(0, 1).toLowerCase() + dayConverted.substring(1)}.
             </span>
