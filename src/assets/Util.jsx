@@ -29,7 +29,8 @@ export default class Util {
     if (date !== "Invalid date") return date
   }
   
-  static resumeInfoLine({modal, departure_location, destination_location, operation_days, time_first_start}) {
+  // static resumeInfoLine({modal, departure_location, destination_location, operation_days, time_first_start}) {
+  static resumeInfoLine({modal, departure_location, destination_location, operation_days}) {
     // console.log(modal, departure_location, destination_location, operation_days, time_first_start)
     
     if (modal === 1) modal = 'ônibus'
@@ -47,24 +48,25 @@ export default class Util {
       newoperation_days = Util.createArray(5)
     }
     
-    const dayNames = ["segunda", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado", "domingo"]
-    let operationDayNames = []
+    // const dayNames = ["segunda", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado", "domingo"]
+    // const operationDayNames = [];
     let qualifiedStarts;
     
-    time_first_start = [...["2020-01-01"], time_first_start || "00:00:00"].join(" ")
+    // time_first_start = [...["2020-01-01"], time_first_start || "00:00:00"].join(" ")
     
     if (Util.arraysEqual(Util.createArray(7), newoperation_days)) {
-      operationDayNames.concat(dayNames)
+      // operationDayNames.concat(dayNames)
       qualifiedStarts = 'todos os dias da semana'
     } else if (Util.arraysEqual(Util.createArray(5), newoperation_days)) {
-      operationDayNames.concat(dayNames.toSpliced(5))
+      // operationDayNames.concat(dayNames.toSpliced(5))
       qualifiedStarts = 'de segunda à sexta'
     } else if (Util.arraysEqual(Util.createArray(6), newoperation_days)) {
-      operationDayNames.concat(dayNames.toSpliced(6))
+      // operationDayNames.concat(dayNames.toSpliced(6))
       qualifiedStarts = 'de segunda à sábado'
     } else {
-      operationDayNames.concat(newoperation_days.map((dayNumber) => dayNames.at(dayNumber)))
-      qualifiedStarts = operationDayNames.join(', ')
+      //
+      // operationDayNames.concat(newoperation_days.map((dayNumber) => dayNames.at(dayNumber)))
+      // qualifiedStarts = operationDayNames.join(', ')
     }
     
     // return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'} a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.` + ` As informações da linha são verificadas periodicamente. Verifique as informações na página, se algo estiver errado envie um reporte.`;
@@ -186,7 +188,7 @@ export default class Util {
   };
   
   static processContents = (text) => {
-    const regex = /<Link\s+to={(?:"|')([^"']+)(?:"|')}>(.*?)<\/Link>/g;
+    const regex = /<Link\s+to={["']([^"']+)["']}>(.*?)<\/Link>/g;
     const elements = [];
     let lastIndex = 0;
     let match;
@@ -291,7 +293,7 @@ export default class Util {
         // console.log("SW Key: ", names);
         for (let name of names) {
           // console.log("SW Key Item: ", name);
-          caches.delete(name);
+          caches.delete(name).then(() => {});
         }
       });
     }
