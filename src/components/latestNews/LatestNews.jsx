@@ -27,10 +27,10 @@ const LatestNews = () => {
   
   return (
     <>
-      <div className={"d-flex justify-content-between align-items-center gap-3"}>
+      <div className={"d-flex align-items-center gap-2 justify-content-between flex-wrap"}>
         <Title title="Últimas Notícias" classX={" text-body-secondary"}/>
         <Button as={Link} to={"/news"} variant={"secondary"} size={"sm"}>
-          <span className={""}>Ver todas as {news.length > 1 ? news.length + "" : "todas as"} notícias</span>
+          <span className={""}>Ver todas</span>
         </Button>
       </div>
       <div>

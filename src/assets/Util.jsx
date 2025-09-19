@@ -68,7 +68,8 @@ export default class Util {
       qualifiedStarts = operationDayNames.join(', ')
     }
     
-    return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'}. ` + ` As informações da linha são verificadas periodicamente. Verifique as informações na página, se algo estiver errado envie um reporte. Esta linha  opera nos dias ${operationDayNames || "da semana. Verifique o quadro de horários para maiores informações."}.`;
+    // return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'} a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.` + ` As informações da linha são verificadas periodicamente. Verifique as informações na página, se algo estiver errado envie um reporte.`;
+    return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana - verifique o quadro de horários'}. As informações são verificadas periodicamente. Se algo estiver errado, envie um reporte.`;
   }
   
   static isSameDomain(url) {
@@ -167,11 +168,11 @@ export default class Util {
     }).format(value)
   }
   
-  static renderText = (text) => {
+  static newRenderText = (text) => {
     return text;
   };
   
-  static renderTextOld = (text) => {
+  static renderText = (text) => {
     // Usa regex para encontrar todas as barras e as envolve em spans
     
     if (!text.split) return text;

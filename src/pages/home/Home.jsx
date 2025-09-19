@@ -22,7 +22,7 @@ const Home = () => {
           <div className={"d-flex align-items-center gap-2 justify-content-between flex-wrap"}>
             <Title title="Principais Linhas" classX={" text-body-secondary"}/>
             <Button as={Link} to={"/lines"} variant={"secondary"} size={"sm"}>
-              <span className={""}>Ver todas as linhas</span>
+              <span className={""}>Ver todas</span>
             </Button>
           </div>
           <GetAndListLines variant="main"/>
