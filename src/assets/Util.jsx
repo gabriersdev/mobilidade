@@ -68,7 +68,7 @@ export default class Util {
     }
     
     // return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'} a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.` + ` As informações da linha são verificadas periodicamente. Verifique as informações na página, se algo estiver errado envie um reporte.`;
-    return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'}. As informações são verificadas periodicamente. Se algo estiver errado, envie um reporte.`;
+    return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana - verifique o quadro de horários'}. As informações são verificadas periodicamente. Se algo estiver errado, envie um reporte.`;
   }
   
   static isSameDomain(url) {

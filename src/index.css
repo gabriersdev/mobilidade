@@ -56,3 +56,17 @@ main {
     min-width: 322px;
   }
 }
+
+li.breadcrumb-item.bg-body {
+  cursor: default !important;
+  background: transparent !important;
+
+  a {
+    cursor: default !important;
+    color: #0d6efd;
+  }
+}
+
+select#city-recharge.bg-body {
+  background: transparent !important;
+}
