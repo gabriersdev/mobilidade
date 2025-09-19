@@ -167,11 +167,11 @@ export default class Util {
     }).format(value)
   }
   
-  static renderText = (text) => {
+  static newRenderText = (text) => {
     return text;
   };
   
-  static renderTextOld = (text) => {
+  static renderText = (text) => {
     // Usa regex para encontrar todas as barras e as envolve em spans
     
     if (!text.split) return text;

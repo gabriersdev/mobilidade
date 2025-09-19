@@ -58,12 +58,12 @@ main {
 }
 
 li.breadcrumb-item.bg-body {
-  cursor: default !important;
+  cursor: not-allowed !important;
   background: transparent !important;
 
   a {
-    cursor: default !important;
-    color: #0d6efd;
+    cursor: not-allowed !important;
+    color: #0a53be !important;
   }
 }
 
