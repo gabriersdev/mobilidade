@@ -6,7 +6,7 @@ import {Theme} from "../themeContext/ThemeContext";
 import {TimeContext} from "./DepartureTimeContext";
 import moment from "moment";
 
-const TableRow = ({row, directionName, direction, dayName, tableIndex}) => {
+const TableRow = ({row, directionName, direction, dayName, tableIndex, type}) => {
   const {defaultEventKey, handlePointClick} = useContext(TimeContext);
   const bootstrapBGColors = data.bootstrap.bg.colors;
   
@@ -35,7 +35,7 @@ const TableRow = ({row, directionName, direction, dayName, tableIndex}) => {
             {item.departureTime}
             
             
-            {tableIndex.toString() === defaultEventKey?.[0] && (
+            {(type !== "history") && tableIndex.toString() === defaultEventKey?.[0] && (
               <>
                 {moment(`2020-01-01T${moment().format("HH:mm")}:00`).diff(moment(`2020-01-01T${item.departureTime}:00`), "seconds") < -(15 * 60) ? (
                   <div className="text-primary-emphasis d-inline-block">
@@ -54,11 +54,13 @@ const TableRow = ({row, directionName, direction, dayName, tableIndex}) => {
               </>
             )}
             
-            {item.observations?.map((observation, i) => (
-              <Badge key={i} className="ms-1" bg={bootstrapBGColors[observation.index]}>
-                {observation.abrev}
-              </Badge>
-            ))}
+            {
+              (item.observations?.map((observation, i) => (
+                <Badge key={i} className="ms-1" bg={bootstrapBGColors[observation.index]}>
+                  {observation.abrev}
+                </Badge>
+              )))
+            }
           </div>
         </td>
       ))}
@@ -68,7 +70,7 @@ const TableRow = ({row, directionName, direction, dayName, tableIndex}) => {
 
 const TableDepartureTimes = ({content, tableIndex}) => {
   const [groupedData, setGroupedData] = useState([]);
-  const {directionName, direction} = useContext(Theme);
+  const {directionName, direction, type} = useContext(Theme);
   const {data: listData, dayName} = content;
   
   useEffect(() => {
@@ -101,6 +103,7 @@ const TableDepartureTimes = ({content, tableIndex}) => {
           directionName={directionName}
           direction={direction}
           dayName={dayName}
+          type={type || "current"}
         />
       ))}
       </tbody>
@@ -122,6 +125,7 @@ TableRow.propTypes = {
   direction: PropTypes.number.isRequired,
   dayName: PropTypes.string.isRequired,
   tableIndex: PropTypes.number.isRequired,
+  type: PropTypes.oneOf(["history", "current"]),
 };
 
 export default TableDepartureTimes;

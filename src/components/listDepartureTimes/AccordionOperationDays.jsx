@@ -21,7 +21,7 @@ const getCurrentDayGroupName = () => {
 
 const AccordionOperationDays = () => {
   const {defaultEventKey, setDefaultEventKey} = useContext(TimeContext);
-  const {departureTimes, uniqueDaysForDirection, index, direction, directionName, observations} = useContext(Theme);
+  const {departureTimes, uniqueDaysForDirection, index, direction, directionName, observations, type} = useContext(Theme);
   
   // 1. Criar estados para o conteúdo assíncrono e a chave padrão do accordion
   const [accordionItems, setAccordionItems] = useState(null);
@@ -65,7 +65,7 @@ const AccordionOperationDays = () => {
               observations={observations}
               tableIndex={j}
             />
-            <Legend items={observations}/>
+            <Legend items={observations} type={type || "current"}/>
             <span className={"d-inline-block text-muted mt-4"}>
               {departureTimesDay.length.toLocaleString()} horários de partidas no horário de {dayConverted.substring(0, 1).toLowerCase() + dayConverted.substring(1)}.
             </span>
