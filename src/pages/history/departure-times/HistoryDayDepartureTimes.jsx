@@ -18,7 +18,7 @@ export default function HistoryDayDepartureTimes() {
   const departureTimeDateIsValid = departureTimeDate.match(/^(\d+)X(\d+)X(\d+)$/) || false;
   
   const departureTimeDateFormatted = departureTimeDate.split("X").toReversed().join(".");
-  const departureTimeMomentInstance = moment(`${departureTimeDate.split("X").join("-")}T00:00:00`);
+  const departureTimeMomentInstance = moment(`${departureTimeDate.split("X").join("-")}T00:00:00-03:00`);
   
   const lineId = pathname.split("/")[pathname.split("/").length - 2];
   
@@ -85,13 +85,13 @@ export default function HistoryDayDepartureTimes() {
       <AnimatedComponents>
         <span className={"text-body-secondary"}>Histórico de horários</span>
         <Title classX=" fs-3 d-inline mt-1 p-0 d-block mb-0">
-          <span className="text-balance d-block text-body-emphasis" style={{fontSize: "inherit"}}>Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " -> " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " -> ")}</span>
+          <span className="d-block text-body-emphasis" style={{fontSize: "inherit"}}>Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " -> " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " -> ")}</span>
         </Title>
         
-        <span className="text-balance d-block text-body-secondary mt-1 mb-3" style={{fontSize: "inherit"}}>Snapshot dos horários de partida em  {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}</span>
+        <span className="d-block text-body-secondary mt-1 mb-3" style={{fontSize: "inherit"}}>Snapshot dos horários de partida em  {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}</span>
         
         <Alert variant={"warning"}>
-          <p className={"m-0"}>Você está vendo horários da linha {lineData?.[0]?.["line_number"] || ""} que <b>foram atualizados em {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}.</b> <Link to={`/lines/${lineId}`} className={"text-warning-emphasis"} target={"_blank"}>Para visualizar os horários atualizados clique aqui.</Link></p>
+          <p className={"m-0"}>Você está vendo horários da linha {lineData?.[0]?.["line_number"] || ""} que <b>foram atualizados em {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}.</b> <Link to={`/lines/${lineId}`} className={"text-warning-emphasis"} target={"_blank"}>Clique aqui para visualizar os horários mais atuais.</Link></p>
         </Alert>
         
         <section className={"d-flex gap-5 mt-5 flex-column"}>

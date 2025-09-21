@@ -4,7 +4,7 @@ import {Routes, Route, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import AOS from 'aos';
 import config from "./config.js";
-import {Button} from "react-bootstrap";
+import {Button, Image} from "react-bootstrap";
 import Nav from './components/nav/Nav'
 import Main from './components/main/Main'
 import Footer from './components/footer/Footer'
@@ -174,7 +174,11 @@ function App() {
           e.preventDefault()
           window.scrollTo({top: 0, behavior: 'smooth'})
         }} className={"position-fixed border-secondary-subtle rounded-2 z-2 bg-body text-body-secondary"} style={{right: "1rem", bottom: "1rem"}}>
-          <span>Subir</span>{" "}<i className="bi bi-arrow-up-square"></i>
+          <div className={"d-flex flex-wrap align-items-center justify-content-center gap-2"}>
+            <span>Subir</span>
+            <Image src={"favicon.png"} width={20} height={20} className={"object-fit-cover rounded-1"}/>
+            <i className="bi bi-arrow-up-square"></i>
+          </div>
         </Button>
       </div>
     </Context.Provider>

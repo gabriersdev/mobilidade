@@ -190,7 +190,10 @@ const Nav = () => {
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis d-none"} to="./live">
                     <div className={"d-flex align-items-center flex-wrap"}>
                       {moment().diff(moment("2025-09-15T00:00:00-03:00"), "minutes") < 0 && (<Badge className={"rounded-pill me-1 text-uppercase fw-normal"} style={{paddingBottom: "4.21px", paddingTop: "4.2px"}}>Novo</Badge>)}
-                      <div className={"d-inline-flex align-items-center justify-content-center me-1 rounded-circle"} style={{background: "#FF000050", padding: "4.5px 5px 3px 5px"}}><i className="bi bi-circle-fill text-danger" style={{fontSize: "7.5px"}}></i></div>
+                      {/*<div className={"d-inline-flex align-items-center justify-content-center me-1 rounded-circle"} style={{background: "#FF000050", padding: "4.5px 5px 3px 5px"}}><i className="bi bi-circle-fill text-danger" style={{fontSize: "7.5px"}}></i></div>*/}
+                      <div className={"live-indicator me-1"}>
+                        <div className={"live-dot"}></div>
+                      </div>
                       <span className={"text-danger-emphasis"}>Ao vivo</span>
                     </div>
                   </BootstrapNav.Link>

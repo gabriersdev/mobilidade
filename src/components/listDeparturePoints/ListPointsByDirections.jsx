@@ -54,7 +54,7 @@ const ListPointsByDirections = () => {
                       tabIndex={-1}
                       style={{textDecoration: 'none', textAlign: 'left'}}
                     >
-                      {point.address + (point.point_name ? " - " + point.point_name : "")}
+                      {(point.address + (point.point_name ? " - " + point.point_name : "")).replaceAll("/", " - ")}
                     </button>
                   </li>
                 )

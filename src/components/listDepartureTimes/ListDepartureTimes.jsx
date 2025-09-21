@@ -72,7 +72,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location, 
     <AnimatePresence mode={"wait"}>
       <AnimatedComponent>
         <DepartureTimeContext>
-          <Intermediate data={data} observations={observations} departure_location={departure_location} destination_location={destination_location} sortedDays={sortedDays} />
+          <Intermediate data={data} observations={observations} departure_location={departure_location} destination_location={destination_location} sortedDays={sortedDays} type={variant?.type || "current"} />
         </DepartureTimeContext>
       </AnimatedComponent>
     </AnimatePresence>
