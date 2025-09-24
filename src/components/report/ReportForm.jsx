@@ -1,5 +1,6 @@
 import {Alert, Button, Form, FormControl, FormGroup, FormLabel as BSFormLabel, FormSelect} from "react-bootstrap";
 
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import PropTypes from "prop-types";
 import {useEffect, useRef, useState} from "react";
 import axios from "axios";
@@ -28,12 +29,19 @@ const ReportForm = ({handleCloseModal}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [allOK, setAllOK] = useState(false);
   
+  const [token, setToken] = useState("");
+  const captchaRef = useRef(null);
+  
   const btnCancel = useRef(null);
   const inputVerificationCode = useRef(null);
   
   const [propsInput] = useState({
     autoComplete: "off",
   });
+  
+  useEffect(() => {
+    captchaRef?.current?.resetCaptcha();
+  }, []);
   
   useEffect(() => {
     setError("");
@@ -57,7 +65,8 @@ const ReportForm = ({handleCloseModal}) => {
         setError("Preencha o código de verificação");
         return;
       } else if (!messageId) {
-        setError("O parâmetro não foi definido. Contate o administrador")
+        setError("O parâmetro não foi definido. Contate o administrador");
+        captchaRef.current.resetCaptcha();
         return;
       }
       
@@ -84,11 +93,13 @@ const ReportForm = ({handleCloseModal}) => {
           return;
         }
         
-        setFeedback(<Alert className="alert-danger mb-0">{ret.message || "Algo não saiu como deveria. Tente novamente."}</Alert>)
+        setFeedback(<Alert className="alert-danger mb-0">{ret.message || "Algo não saiu como deveria. Tente novamente."}</Alert>);
+        captchaRef.current.resetCaptcha();
       }).catch(e => {
         console.error(e);
-        alert("Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.")
-        setFeedback(<Alert className={"alert-danger mb-0"}>Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.</Alert>)
+        alert("Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.");
+        captchaRef.current.resetCaptcha();
+        setFeedback(<Alert className={"alert-danger mb-0"}>Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.</Alert>);
       }).finally(() => setIsLoading(false));
       
       return;
@@ -98,11 +109,16 @@ const ReportForm = ({handleCloseModal}) => {
     if (!email.trim() || !typeError.trim() || !message.trim()) {
       setError("Você precisa preencher todos os dados.");
       setCodeIsSent(false);
+      captchaRef.current.resetCaptcha();
+    } else if (!token) {
+      setError('Por favor, complete o captcha antes de enviar.');
+      return false;
     } else {
       setIsLoading(true);
       
       // Lógica do envio dos dados
       axios.post(`${config.host}/api/report/`, {
+        token: token,
         email: email.trim(),
         typeError: typeError.trim(),
         message: message.trim(),
@@ -114,9 +130,10 @@ const ReportForm = ({handleCloseModal}) => {
         setCodeIsSent(true)
       }).catch(e => {
         console.error(e);
-        alert("Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.")
-        setFeedback(<Alert className={"alert-danger mb-0"}>Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.</Alert>)
-        setCodeIsSent(false)
+        captchaRef.current.resetCaptcha();
+        alert("Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.");
+        setFeedback(<Alert className={"alert-danger mb-0"}>Não foi possível enviar a sua requisição. Tente novamente ou contacte o administrador.</Alert>);
+        setCodeIsSent(false);
       }).finally(() => setIsLoading(false));
     }
   }
@@ -147,6 +164,15 @@ const ReportForm = ({handleCloseModal}) => {
               <FormLabel props={{htmlFor: "error-message"}}>Descreva o erro</FormLabel>
               <Form.Control as="textarea" className={"resize-none"} rows={"5"} id={"error-message"} value={message} onChange={(e) => setMessage(e.target.value)} maxLength={200}/>
             </FormGroup>
+            <div>
+              <HCaptcha
+                sitekey={import.meta.env.VITE_HC_SITE_KEY}
+                onVerify={(token) => {
+                  setToken(token);
+                }}
+                ref={captchaRef}
+              />
+            </div>
           </>
         ) :
           !allOK ? (
