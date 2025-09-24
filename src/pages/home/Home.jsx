@@ -3,7 +3,7 @@ import Title from "../../components/title/Title";
 import GetAndListLines from "../../components/getAndListLines/GetAndListLines.jsx";
 import FormValidSearch from "../../components/formValidSearch/FormValidSearch.jsx";
 import LatestNews from "../../components/latestNews/LatestNews.jsx";
-import GuideBanner from "../../components/guideBanner/GuideBanner.jsx";
+import GuideBanner from "../../components/banners/GuideBanner.jsx";
 import {Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
