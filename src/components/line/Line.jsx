@@ -135,8 +135,10 @@ const Line = ({id}) => {
                   <p className={"m-0 text-white"}>{Util.resumeInfoLine({})}</p>
                 </div>
               </div>
-              <div className={"mt-3"}>
+              <div className={"mt-3 d-flex gap-3 flex-wrap"}>
                 <Link to={`/history/departure-times/${id}`}>Histórico de horários</Link>
+                <Link to={`/history/#`}>Histórico de tarifas</Link>
+                <Link to={`/history/#`}>Histórico de pontos de paradas</Link>
               </div>
               <div className={"mt-5 d-flex flex-column gap-3"}>
                 <GuideBanner/>

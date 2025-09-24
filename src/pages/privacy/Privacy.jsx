@@ -6,7 +6,7 @@ const Privacy = () => {
   useEffect(() => {
     // Altera o título da página
     document.title = "Mobilidade - Privacidade";
-    // Util.updateActiveLink()
+    Util.updateActiveLink()
   }, [])
 
   return (
