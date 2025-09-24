@@ -19,8 +19,8 @@ import {LineContext} from "./LineContext.jsx";
 import GetAndListLines from "../getAndListLines/GetAndListLines.jsx";
 import Util from "../../assets/Util.jsx";
 import moment from "moment";
-import GuideBanner from "../guideBanner/GuideBanner.jsx";
-import NewsBanner from "../newsBanner/NewsBanner.jsx";
+import GuideBanner from "../banners/GuideBanner.jsx";
+import NewsBanner from "../banners/NewsBanner.jsx";
 import {Link} from "react-router-dom";
 
 const Line = ({id}) => {
@@ -131,12 +131,16 @@ const Line = ({id}) => {
                 <img src={"/images/banner.png"} alt="" width={"100"} height={"500px"} className={"w-100 object-fit-cover rounded border"}/>
                 <div className={"p-3 position-absolute top-0 rounded w-100 h-100"} style={{background: "linear-gradient(180deg,#00000010 0%, #00000075 75%)"}}></div>
                 <div className={"position-absolute bottom-0 mb-3 ms-3 text-balance"} style={{maxWidth: "calc(100% - 3rem)"}}>
-                  <h2 className={"text-white"}>{data[0].line_number}</h2>
+                  <h2 className={"text-white fs-3 fw-bold"}>{data[0].line_number}</h2>
                   <p className={"m-0 text-white"}>{Util.resumeInfoLine({})}</p>
                 </div>
               </div>
-              <div className={"mt-3"}>
+              <div className={"mt-3 d-flex gap-3 flex-wrap"}>
                 <Link to={`/history/departure-times/${id}`}>Histórico de horários</Link>
+                <div className={"d-none"}>
+                  <Link to={`/history/#`}>Histórico de tarifas</Link>
+                  <Link to={`/history/#`}>Histórico de pontos de paradas</Link>
+                </div>
               </div>
               <div className={"mt-5 d-flex flex-column gap-3"}>
                 <GuideBanner/>

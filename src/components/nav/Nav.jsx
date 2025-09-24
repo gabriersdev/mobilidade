@@ -171,13 +171,13 @@ const Nav = () => {
                 <img src={'./images/logo-transparent.png'} alt={'Logo'} className={'me-2'} style={{height: '3rem'}}/>
                 <span className={"text-primary"} style={{fontFamily: "'Inter', 'Inter Tight', sans-serif"}}>Mobilidade</span>
               </Navbar.Brand>
-              <div className={"d-flex flex-row align-items-center gap-1 me-1 me-md-4"}>
+              <Link to={"/sabara"} className={"d-flex flex-row align-items-center gap-1 me-1 me-md-4 text-decoration-none"}>
                 <i className="bi bi-geo-alt-fill text-primary-emphasis"></i>
                 <span className={"text-body-secondary d-none d-sm-inline-block"}>Sabará</span>
                 <i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i>
                 <span className={"text-body-secondary text-capitalize d-none d-sm-inline-block"}>{translateWeekDay(sabaraTime?.split(" ")?.[0])} {sabaraTime?.split(" ")?.[1]}</span>
                 <span className={"text-body-secondary text-capitalize d-inline-block d-sm-none"}>{translateWeekDay(sabaraTime?.split(" ")?.[0])?.substring(0, 3)} {sabaraTime?.split(" ")?.[1]}</span>
-              </div>
+              </Link>
               <Navbar.Toggle aria-controls="basic-navbar-nav"/>
               <Navbar.Collapse id="basic-navbar-nav">
                 <BootstrapNav className="me-auto w-100 align-items-center">

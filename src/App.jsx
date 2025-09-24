@@ -23,6 +23,7 @@ import Util from "./assets/Util.jsx";
 import TermsOfService from "./pages/termsOfService/TermsOfService.jsx";
 import HistoryDepartureTimes from "./pages/history/departure-times/HistoryDepartureTimes.jsx";
 import HistoryDayDepartureTimes from "./pages/history/departure-times/HistoryDayDepartureTimes.jsx";
+import SabaraInfo from "./pages/sabaraInfo/SabaraInfo.jsx";
 
 const Context = createContext({});
 const obj = {};
@@ -167,6 +168,7 @@ function App() {
             <Route path="/live" element={<Live/>}/>
             <Route path="/history/departure-times/:id" element={<HistoryDepartureTimes/>}/>
             <Route path="/history/departure-times/:id/:id" element={<HistoryDayDepartureTimes/>}/>
+            <Route path="/sabara" element={<SabaraInfo/>}/>
           </Routes>
         </Main>
         <Footer/>

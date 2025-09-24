@@ -35,3 +35,7 @@ stats.html
 *.test.js
 *.test.*
 .vercel
+
+# .env
+.env
+.env.*
