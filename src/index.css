@@ -57,6 +57,10 @@ main {
   }
 }
 
+.breadcrumb {
+  background: transparent !important;
+}
+
 li.breadcrumb-item.bg-body {
   cursor: not-allowed !important;
   background: transparent !important;
