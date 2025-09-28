@@ -8,6 +8,7 @@ import AnimatedComponents from "../../components/animatedComponent/AnimatedCompo
 import Weather from "../../components/weather/Weather.jsx";
 import LatestNews from "../../components/latestNews/LatestNews.jsx";
 import moment from "moment/moment";
+import {Link} from "react-router-dom";
 
 moment.locale("pt-br");
 
@@ -61,7 +62,7 @@ export default function SabaraInfo() {
         <div>
           <span className={"d-block"}>{sabaraTime.format("DD")} de {translateMonth(sabaraTime.format("MMMM"))} de {sabaraTime.format("YYYY")} {sabaraTime.format("HH:mm")}</span>
           <Weather variant={"city-info"}/>
-          <p className={"mb-0 mt-3"}> São {sabaraTime.format("DD")} e {translateMonth(sabaraTime.format("MMMM"))} de {sabaraTime.format("YYYY")}. No horário local (Horário de Brasília) são {sabaraTime.format("HH:mm")}. A cidade possui XX linhas de ônibus catalogadas aqui. Elas são operadas pelas companhias XXXX, XXXX e XXXX.</p>
+          <p className={"mb-0 mt-3"}> São {sabaraTime.format("DD")} e {translateMonth(sabaraTime.format("MMMM"))} de {sabaraTime.format("YYYY")}. No horário local (Horário de Brasília) são {sabaraTime.format("HH:mm")}. A cidade possui 38 linhas de ônibus ativas catalogadas aqui. Elas são operadas pelas companhias <Link to={"/company/4"} className={"text-primary"}>Transporte Coletivo Metropolitano - MG</Link> e <Link to={"/company/3"} className={"text-primary"}>Vinscol</Link>.</p>
           <Weather/>
         </div>
         
