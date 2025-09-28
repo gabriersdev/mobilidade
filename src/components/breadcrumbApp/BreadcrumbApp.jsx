@@ -85,7 +85,7 @@ const BreadcrumbApp = () => {
   useEffect(() => {
     ref.current = new Date().getTime();
     setPath({...path, current: location.pathname, date: ref.current});
-  }, [location.pathname, navigate, path, setPath]);
+  }, [navigate, setPath]);
   
   if (path.current === "/") return null;
   const affirmationPath = path.current;
