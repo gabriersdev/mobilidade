@@ -19,15 +19,13 @@ const Footer = () => {
       response.json().then((data) => {
         setDataBuild({...data})
       });
-    })
-  }, []);
-  
-  useEffect(() => {
+    });
+    
     fetch("package.json").then((res) => {
       return res.json();
     }).then(data => {
       if (data && data.version) setVersion(data.version);
-    })
+    });
     
     fetch("/service-worker.js").then((res) => {
       return res.text();
@@ -35,24 +33,8 @@ const Footer = () => {
       const match = data.match(/const cacheNumber = (\d+)/g);
       const cacheN = match.toString().split(" ")[match.toString().split(" ").length - 1];
       if (match && cacheN) setCacheVersion(`V${cacheN}`);
-    })
+    });
   }, []);
-  
-  useEffect(() => {
-    if (!("localStorage" in window)) {
-      console.log("Navegador não suporta localStorage");
-    } else {
-      let ls
-      
-      try {
-        ls = JSON.parse(localStorage.getItem("mobilidade-app"));
-        if (ls && ls["theme"]) handleTheme(ls["theme"]);
-        else if (!ls) localStorage.setItem("mobilidade-app", JSON.stringify({theme: theme}));
-      } catch (err) {
-        console.log(err.message)
-      }
-    }
-  }, [theme])
   
   const handleTheme = useCallback((themeParam) => {
     if (!["default", "light", "dark"].includes(themeParam)) {
@@ -74,7 +56,29 @@ const Footer = () => {
         console.log(error.message);
       }
     }
-  }, [theme])
+  }, []);
+  
+  useEffect(() => {
+    if (!("localStorage" in window)) {
+      console.log("Navegador não suporta localStorage");
+    } else {
+      let ls
+      
+      try {
+        ls = JSON.parse(localStorage.getItem("mobilidade-app"));
+        if (ls && ls["theme"]) handleTheme(ls["theme"]);
+        else if (!ls) localStorage.setItem("mobilidade-app", JSON.stringify({theme: theme}));
+      } catch (err) {
+        console.log(err.message)
+      }
+    }
+  }, [handleTheme, theme]);
+  
+  useEffect(() => {
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDarkMode) setTheme("dark");
+    else setTheme("light");
+  }, []);
   
   return (
     <AnimatedComponents>

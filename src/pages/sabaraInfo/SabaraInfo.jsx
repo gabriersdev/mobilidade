@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import Title from "../../components/title/Title.jsx";
 import GuideBanner from "../../components/banners/GuideBanner.jsx";
 import NewsBanner from "../../components/banners/NewsBanner.jsx";
@@ -7,26 +7,61 @@ import FormValidSearch from "../../components/formValidSearch/FormValidSearch.js
 import AnimatedComponents from "../../components/animatedComponent/AnimatedComponents.jsx";
 import Weather from "../../components/weather/Weather.jsx";
 import LatestNews from "../../components/latestNews/LatestNews.jsx";
+import moment from "moment/moment";
+
+moment.locale("pt-br");
+
+function translateMonth(month) {
+  const months = {
+    "january": "janeiro",
+    "february": "fevereiro",
+    "march": "março",
+    "april": "abril",
+    "may": "maio",
+    "june": "junho",
+    "july": "julho",
+    "august": "agosto",
+    "september": "setembro",
+    "october": "outubro",
+    "november": "novembro",
+    "december": "dezembro"
+  };
+  
+  return months[month.toLowerCase()] || month;
+}
 
 export default function SabaraInfo() {
   useEffect(() => {
     // Altera o título da página
     document.title = "Mobilidade - Sabará Minas Gerais - Informações";
     // Util.updateActiveLink()
-  }, [])
+  }, []);
+  
+  const [sabaraTime, setSabaraTime] = useState(moment());
+  
+  useEffect(() => {
+    const int = setInterval(() => {
+      setSabaraTime(moment());
+    }, 1000);
+    
+    return () => {
+      clearInterval(int);
+    }
+  }, []);
   
   return (
     <div>
       <AnimatedComponents>
         <hgroup>
           <Title title="Sabará Minas Gerais - Informações" type={"h2"} id="topo" classX=" d-none"/>
-          <Title title="Sabará" type={"h2"} id="topo" classX=" fs-2 text m-0 p-0 lh-sm"/>
+          <Title title="Sabará" type={"h2"} id="topo" classX=" fs-2 text m-0 p-0 lh-sm text-body"/>
           <Title title="Cidade do estado de Minas Gerais" type={"h2"} id="topo" classX=" fs-2 text-body-secondary m-0 p-0 lh-sm"/>
         </hgroup>
         
         <div>
-          <span className={"d-block"}>XX de XXXX de XXXX HH:MM</span>
-          <p className={"mb-0 mt-3"}>Agora em Sabará fazem XXº graus. A umidade relativa do ar é de XX%. São XX e XXXX de XXXX. No horário local (Horário de Brasília) são XX:MM. A cidade possui XX linhas de ônibus catalogadas aqui. Elas são operadas pelas companhias XXXX, XXXX e XXXX.</p>
+          <span className={"d-block"}>{sabaraTime.format("DD")} de {translateMonth(sabaraTime.format("MMMM"))} de {sabaraTime.format("YYYY")} {sabaraTime.format("HH:mm")}</span>
+          <Weather variant={"city-info"}/>
+          <p className={"mb-0 mt-3"}> São {sabaraTime.format("DD")} e {translateMonth(sabaraTime.format("MMMM"))} de {sabaraTime.format("YYYY")}. No horário local (Horário de Brasília) são {sabaraTime.format("HH:mm")}. A cidade possui XX linhas de ônibus catalogadas aqui. Elas são operadas pelas companhias XXXX, XXXX e XXXX.</p>
           <Weather/>
         </div>
         

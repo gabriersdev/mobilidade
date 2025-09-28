@@ -11,7 +11,6 @@ const Legend = ({items, marginTop, type}) => {
       ...defaultLegendItems
     ]
   }
-  console.log(items);
   
   return (
     (items.length > 0) && (

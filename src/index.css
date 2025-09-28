@@ -67,7 +67,7 @@ li.breadcrumb-item.bg-body {
 
   a {
     cursor: not-allowed !important;
-    color: #0a53be !important;
+    color:  var(--bs-text-body) !important;
   }
 }
 
