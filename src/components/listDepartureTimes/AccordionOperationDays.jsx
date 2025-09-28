@@ -6,10 +6,12 @@ import Legend from "../legend/Legend";
 import Accordion from "../accordion/Accordion";
 import {Theme} from "../themeContext/ThemeContext";
 import {TimeContext} from "./DepartureTimeContext.jsx";
+import moment from "moment";
+moment.locale("pt-br");
 
 // Função helper para obter o nome do dia atual (pode ficar fora do componente)
 const getCurrentDayGroupName = () => {
-  switch (new Date().getDay()) {
+  switch (moment().get("day")) {
     case 0:
       return 'domingo';
     case 6:

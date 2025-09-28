@@ -5,7 +5,7 @@ import Util from "../../assets/Util.jsx";
 
 const OffcanvasRechargePoints = () => {
   const {show, handleClose, rechargePointOffCanvas} = useContext(RechargeContext);
-
+  
   return (
     <Offcanvas show={show} onHide={handleClose} placement="start">
       <Offcanvas.Header closeButton>
@@ -18,8 +18,7 @@ const OffcanvasRechargePoints = () => {
         <section>
           <div className={"d-flex flex-column gap-2 mb-3"}>
             <p className={"m-0 p-0"}>{rechargePointOffCanvas.address}</p>
-            <p
-              className={"m-0 p-0"}>{rechargePointOffCanvas.observations || "Não há observações sobre este ponto de recarga."}</p>
+            <p className={"m-0 p-0"}>{rechargePointOffCanvas.observations || "Não há observações sobre este ponto de recarga."}</p>
           </div>
           <iframe
             width="100%"
