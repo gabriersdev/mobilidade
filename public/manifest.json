@@ -20,6 +20,11 @@
       "src": "/images/icon-white-745x739.png",
       "sizes": "745x739",
       "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "200x200",
+      "type": "image/png"
     }
   ]
 }

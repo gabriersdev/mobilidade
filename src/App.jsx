@@ -175,7 +175,7 @@ function App() {
         <Button onClick={(e) => {
           e.preventDefault()
           window.scrollTo({top: 0, behavior: 'smooth'})
-        }} className={"position-fixed border-secondary-subtle rounded-2 z-2 bg-body text-body-secondary"} style={{right: "1rem", bottom: "1rem"}}>
+        }} className={"position-fixed rounded-2 z-2 bg-body"} style={{right: "1rem", bottom: "1rem"}}>
           <div className={"d-flex flex-wrap align-items-center justify-content-center gap-2"}>
             <span>Subir</span>
             <Image src={"favicon.png"} width={20} height={20} className={"object-fit-cover rounded-1"}/>

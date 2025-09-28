@@ -7,6 +7,7 @@ function NewsBanner() {
       bg: "bg-primary-subtle",
       border: "border-primary-subtle",
       bgBadge: "bg-primary",
+      colorTextBadge: "text-light",
       colorEmphasis: "text-primary-emphasis",
       textBadge: "Leia",
       title: "Notícias do Transporte Público",

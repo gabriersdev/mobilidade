@@ -57,13 +57,17 @@ main {
   }
 }
 
+.breadcrumb {
+  background: transparent !important;
+}
+
 li.breadcrumb-item.bg-body {
   cursor: not-allowed !important;
   background: transparent !important;
 
   a {
     cursor: not-allowed !important;
-    color: #0a53be !important;
+    color:  var(--bs-text-body) !important;
   }
 }
 

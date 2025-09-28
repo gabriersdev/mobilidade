@@ -7,6 +7,7 @@ function GuideBanner() {
       bg: "bg-warning-subtle",
       border: "border-warning-subtle",
       bgBadge: "bg-warning",
+      colorTextBadge: "text-light",
       colorEmphasis: "text-warning-emphasis",
       textBadge: "Confira",
       title: "Guia de Transporte Público",

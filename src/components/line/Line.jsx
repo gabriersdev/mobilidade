@@ -146,7 +146,7 @@ const Line = ({id}) => {
                 <GuideBanner/>
                 <NewsBanner/>
               </div>
-              <details className={"mt-5 text-muted d-inline-block mb-0 "}>
+              <details className={"mt-5 text-muted d-inline-block mb-0"}>
                 <summary>Informações carregadas em {renderText(moment().format("DD/MM/YYYY"))} às {moment().format("HH") + "h" + moment().format("mm") + "m"}.</summary>
                 <p className={"mb-0 text-body-tertiary"}>{renderText(moment().format("DD/MM/YYYY HH:mm:ss"))} {"- Horário de Brasília"}</p>
               </details>

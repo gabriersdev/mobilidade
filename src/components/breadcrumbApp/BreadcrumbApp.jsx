@@ -1,27 +1,16 @@
 import './breadcrumbApp.css';
 
-import {useEffect, useMemo, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Breadcrumb, BreadcrumbItem} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {useLocation, useNavigate} from 'react-router-dom';
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 
-const pages = [
-  "lines",
-  "search",
-  "terms-of-service",
-  "privacy",
-  "company",
-  "development",
-  "news",
-  "guide"
-]
-
 // const BreadcrumbItemFactory = ({path, affirmationPath}) => {
 const BreadcrumbItemFactory = ({path}) => {
   const location = useLocation();
   // const navigate = useNavigate();
-  let label = "";
+  let label;
   let isLinePage = "";
   
   switch (path.toLowerCase()) {
@@ -93,7 +82,6 @@ const BreadcrumbApp = () => {
   const [path, setPath] = useState({current: location.pathname, date: new Date().getTime()});
   const ref = useRef(null);
   
-  // TODO - testar
   useEffect(() => {
     ref.current = new Date().getTime();
     setPath({...path, current: location.pathname, date: ref.current});

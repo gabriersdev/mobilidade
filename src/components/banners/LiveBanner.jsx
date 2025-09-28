@@ -7,6 +7,7 @@ function LiveBanner() {
       bg: "bg-secondary-subtle",
       border: "border-secondary-subtle",
       bgBadge: "bg-secondary",
+      colorTextBadge: "text-dark",
       colorEmphasis: "text-secondary-emphasis",
       textBadge: "Novidade",
       title: "Acompanhe ao vivo o seu ônibus!",
