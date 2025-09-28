@@ -4,12 +4,14 @@ import LegendItem from "./LegendItem";
 import defaultLegendItems from "../../assets/default-legend-items.jsx";
 
 const Legend = ({items, marginTop, type}) => {
-  if (type !== "history") {
+  
+  if (type !== "history" && type !== "offcanvas") {
     if (Array.isArray(items)) items = [
       ...items,
       ...defaultLegendItems
     ]
   }
+  console.log(items);
   
   return (
     (items.length > 0) && (
@@ -24,7 +26,7 @@ const Legend = ({items, marginTop, type}) => {
 Legend.propTypes = {
   items: PropTypes.array.isRequired,
   marginTop: PropTypes.string,
-  type: PropTypes.oneOf(["history", "current"]),
+  type: PropTypes.oneOf(["history", "current", "offcanvas"]),
 }
 
 export default Legend;

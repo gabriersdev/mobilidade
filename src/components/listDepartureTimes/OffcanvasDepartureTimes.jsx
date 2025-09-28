@@ -40,7 +40,7 @@ const OffcanvasDepartureTimes = () => {
           {departureTimeOffCanvas.observations ?
             <div className={'mt-4'}>
               <h4 className={"fs-6 fw-bold my-2 p-0"}>Observações:</h4>
-              <Legend items={departureTimeOffCanvas.observations} marginTop={"mt-0"}/>
+              <Legend items={departureTimeOffCanvas.observations} type={"offcanvas"} marginTop={"mt-0"}/>
             </div>
             : ""
           }
