@@ -11,14 +11,14 @@ const CityInfo = ({weatherData}) => {
   const translatedCondition = translateWeather(current.condition?.text);
   
   return (
-    <p className={"mb-0"}>
-      Agora em Sabará fazem {current?.["temp_c"] ?? "0"}º graus.
-      A umidade relativa do ar é de {current?.["humidity"] ?? "0"}%.
-      O tempo é {translatedCondition ?? "bom"}
+    <p className={"m-0 p-0 d-flex flex-wrap align-items-center lh-base gap-1"}>
+      <span>Agora em Sabará fazem {current?.["temp_c"] ?? "0"}º graus.</span>
+      <span>A umidade relativa do ar é de {current?.["humidity"] ?? "0"}%. Beba água.</span>
+      <span>O tempo é {translatedCondition ?? "bom"}</span>
       <img
-        style={{width: "2rem", height: "2rem"}}
+        style={{width: "1.5rem", height: "1.5rem"}}
         className={"object-fit-cover d-inline"}
-        src={current.condition?.icon}
+        src={(current.condition?.icon || "").replace("//", "https://")}
         alt={`Imagem ilustrativa do tempo ${translatedCondition ?? "bom"}`}
       />
     </p>
