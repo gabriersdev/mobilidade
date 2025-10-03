@@ -8,20 +8,13 @@ const Weather = ({variant = "default"}) => {
   const {weatherData, status} = useWeatherData('sabara-minas-gerais-brazil');
   
   // Renderiza um loader ou nada enquanto os dados estão sendo carregados.
-  if (status === 'loading') {
-    return null;
-  }
+  if (status === 'loading') return null;
   
   // Renderiza nada em caso de erro ou se não houver dados.
-  if (status === 'error' || !weatherData?.current) {
-    return null;
-  }
+  if (status === 'error' || !weatherData?.current) return null;
   
   // Decide qual componente de apresentação renderizar.
-  if (variant === "city-info") {
-    return <CityInfo weatherData={weatherData}/>;
-  }
-  
+  if (variant === "city-info") return <CityInfo weatherData={weatherData}/>;
   return <WeatherAlert weatherData={weatherData}/>;
 };
 
