@@ -195,38 +195,53 @@ const Print = ({variant, prevContentTarget}) => {
   
   useEffect(() => {
     if (htmlContent && printable && fileTitle) {
-      fetch(`${config.host}/api/render-pdf`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          html: htmlContent, css: cssContent.current,
-        }),
-      })
-        .then(res => res.json())
-        .then(data => {
-          const link = document.createElement('a');
-          link.href = `data:application/pdf;base64,${data}`;
-          link.target = '_target';
-          link.download = `${fileTitle}.pdf`;
-          document.body.appendChild(link);
-          setTimeout(() => {
-            link.click();
-          }, 500)
-          link.remove();
-          setshow(true)
+      try {
+        fetch(`${config.host}/api/render-pdf`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            html: htmlContent, css: cssContent.current,
+          }),
         })
-        .catch(error => console.log(error))
-        .finally(() => {
-          setLoading(false);
-          setPrintable(false);
-        });
+          .then(res => {
+            return res.json();
+          })
+          .then(data => {
+            
+            if (data?.["error"] === "Você fez muitas solicitações para gerar PDFs. Por favor, aguarde.") {
+              alert(`Espere um pouquinho! ${data?.["error"]}`);
+              return;
+            }
+            
+            const link = document.createElement('a');
+            link.href = `data:application/pdf;base64,${data}`;
+            link.target = '_target';
+            link.download = `${fileTitle}.pdf`;
+            document.body.appendChild(link);
+            setTimeout(() => {
+              link.click();
+            }, 500)
+            link.remove();
+            setshow(true)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+          .finally(() => {
+            setLoading(false);
+            setPrintable(false);
+          });
+      } catch (error) {
+        console.log(error);
+        console.error(error);
+      }
     }
   }, [htmlContent, printable, fileTitle]);
   
   if (printableAreaExists) {
     return (
       <div>
-        <ToastComponent show={show} setShow={setshow} title={"Mobilidade"} time={"agora"} content={(<span className={"text-success"}>Arquivo para impressão gerado e baixado com sucesso!</span>)} />
+        <ToastComponent show={show} setShow={setshow} title={"Mobilidade"} time={"agora"} content={(<span className={"text-success"}>Arquivo para impressão gerado e baixado com sucesso!</span>)}/>
         <AnimatedComponents>
           <Button variant={"primary"} className={"btn-sm d-flex align-items-center justify-content-center " + (loading ? "cursor-not-allowed opacity-75" : "")} onClick={handleClick}>
             {
