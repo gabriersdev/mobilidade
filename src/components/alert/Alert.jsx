@@ -3,7 +3,7 @@ import {Alert as BootstrapAlert} from "react-bootstrap";
 
 let icon = null
 
-const Alert = ({variant, margin, children}) => {
+const Alert = ({variant, margin, children = <></>}) => {
   switch (variant) {
     case 'danger':
       icon = <i className="bi bi-exclamation-triangle-fill"></i>

@@ -26,14 +26,16 @@ const Guide = () => {
     
     try {
       const response = await axios.get(`${config.host}/api/guide`);
-      setData(response.data);
-      setOriginalData(response.data);
+      if (response.data) {
+        setData(response.data);
+        setOriginalData(response.data);
+      } else setError("Ocorreu um erro na consulta do Guia. Tente novamente mais tarde.");
     } catch (error) {
-      setError(error);
+      setError(error || "Ocorreu um erro na consulta do Guia. Tente novamente mais tarde.");
     } finally {
       setLoading(false);
     }
-  }, [])
+  }, []);
   
   useEffect(() => {
     // Altera o título da página
@@ -49,50 +51,52 @@ const Guide = () => {
   }, [fetchData])
   
   useEffect(() => {
-    if (loading) setContent(<>Carregando...</>)
-    else if (error) setContent(<Alert variant={"danger"}>{error}</Alert>);
+    if (loading) setContent(<>Carregando...</>);
+    else if (error) setContent(<Alert variant={"danger"}>{<>{error || "Ocorreu um erro"}</>}</Alert>);
     else if (data) {
       setMessage("");
       const uniqueLetters = Object.keys(data).map(key => key[0]).filter((v, i, self) => self.indexOf(v) === i).toSorted();
       setIndiceLetters(uniqueLetters);
       
       setContent(
-        <div className={"d-flex flex-column gap-5"}>
-          {
-            uniqueLetters.map((letter, i) => {
-              return (
-                <div key={i} id={`index-letter-${letter}`}>
-                  <div className={"d-inline-flex justify-content-between gap-2 flex-wrap"}>
-                    <Title type={"h3"} classX={" fs-6 fw-bold"}>{letter}</Title>
-                    {uniqueLetters[uniqueLetters.indexOf(letter) + 1] && <Link to={`#index-letter-${uniqueLetters[uniqueLetters.indexOf(letter) + 1]}`} className={"text-decoration-none text-sml text-body-tertiary"}>Ir para a próxima letra do índice</Link>}
+        <AnimatedComponents>
+          <div className={"d-flex flex-column gap-5"}>
+            {
+              uniqueLetters.map((letter, i) => {
+                return (
+                  <div key={i} id={`index-letter-${letter}`}>
+                    <div className={"d-inline-flex justify-content-between gap-2 flex-wrap"}>
+                      <Title type={"h3"} classX={" fs-6 fw-bold"}>{letter}</Title>
+                      {uniqueLetters[uniqueLetters.indexOf(letter) + 1] && <Link to={`#index-letter-${uniqueLetters[uniqueLetters.indexOf(letter) + 1]}`} className={"text-decoration-none text-sml text-body-tertiary"}>Ir para a próxima letra do índice</Link>}
+                    </div>
+                    
+                    <Accordion defaultEventKey={["0"]}>
+                      {
+                        Object.entries(data).filter(([k]) => k[0] === letter).map(([key, value], index) => {
+                          return (
+                            <AccordionItem title={key.replace("/", " - ").replaceAll("/", " - ")} key={index} eventKey={index.toString()}>
+                              <ul className="ps-3 m-0" style={{lineHeight: 1.75}}>
+                                {
+                                  value.map((line, i) => {
+                                    return (
+                                      <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replaceAll("/", " -> ")}</Link></li>
+                                    )
+                                  })
+                                }
+                              </ul>
+                            </AccordionItem>
+                          )
+                        })
+                      }
+                    </Accordion>
                   </div>
-                  
-                  <Accordion defaultEventKey={["0"]}>
-                    {
-                      Object.entries(data).filter(([k]) => k[0] === letter).map(([key, value], index) => {
-                        return (
-                          <AccordionItem title={key.replace("/", " - ").replaceAll("/", " - ")} key={index} eventKey={index.toString()}>
-                            <ul className="ps-3 m-0" style={{lineHeight: 1.75}}>
-                              {
-                                value.map((line, i) => {
-                                  return (
-                                    <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replaceAll("/", " -> ")}</Link></li>
-                                  )
-                                })
-                              }
-                            </ul>
-                          </AccordionItem>
-                        )
-                      })
-                    }
-                  </Accordion>
-                </div>
-              )
-            })
-          }
-        </div>
+                )
+              })
+            }
+          </div>
+        </AnimatedComponents>
       )
-    } else setContent(<div>Conteúdo não mapeado</div>)
+    } else setContent(<div>Conteúdo não mapeado</div>);
   }, [loading, error, data]);
   
   useEffect(() => {
@@ -135,7 +139,9 @@ const Guide = () => {
             
             <div className="row">
               <div className="col-lg-8">
-                {content}
+                <AnimatedComponents>
+                  {content}
+                </AnimatedComponents>
               </div>
               <div className="col-lg-4">
                 <Card className="p-0 position-sticky" style={{top: "6rem"}}>
