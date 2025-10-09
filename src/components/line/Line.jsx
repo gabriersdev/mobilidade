@@ -27,13 +27,14 @@ const Line = ({id}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
+  const defaultImage = "/images/banner.png";
+  const initialImage = id ? `/images/lines/${id}.png` : defaultImage;
+  const [img, setImg] = useState(initialImage);
   
   const renderText = useCallback((text) => {
     // Usa regex para encontrar todas as barras e as envolve em spans
     return text.split(/(\/)/).map((part, index) => {
-      if (part === "/") {
-        return <span key={index} style={{fontSize: 'inherit', fontFamily: "'Arial', sans-serif"}}>/</span>; // Adiciona uma key para o React
-      }
+      if (part === "/") return <span key={index} style={{fontSize: 'inherit', fontFamily: "'Arial', sans-serif"}}>/</span>; // Adiciona uma key para o React
       return part;
     });
   }, [])
@@ -55,14 +56,44 @@ const Line = ({id}) => {
       }
     };
     
-    searchLine(id).then(() => {
-    });
+    searchLine(id).then(() => {});
   }, [id]);
+  
+  async function checkFileExists(url) {
+    try {
+      const response = await fetch(url, { method: 'HEAD' });
+      return response.ok; // Returns true if the status code is 200-299
+    } catch (error) {
+      console.error('Error while checking file:', error);
+      return false;
+    }
+  }
+
+// Usage in your React component
+  useEffect(() => {
+    if (!id) {
+      setImg(defaultImage);
+      return;
+    }
+    try {
+      const formUrl = `/images/lines/${id ?? 0}.png`;
+      checkFileExists(formUrl).then(exists => {
+        console.log(exists);
+        if (exists) setImg(formUrl);
+        else setImg(defaultImage);
+      });
+    } catch (error) {
+      console.log(`[ERROR] - ${error}`);
+      handleImageError();
+    }
+  }, [id]);
+  
+  const handleImageError = () => setImg(defaultImage);
   
   if (isLoaded) {
     return <div>Carregando...</div>;
   } else if (error) {
-    console.log(error)
+    console.log(error);
     return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;
   } else if (data.length === 0) {
     return (
@@ -71,8 +102,6 @@ const Line = ({id}) => {
       </Alert>
     );
   } else {
-    // console.log(data);
-    
     // Altera o título da página =
     document.title = `Linha ${data[0].line_number} | ${data[0].departure_location} - ${data[0].destination_location} | Transporte Público em Sabará - MG | Horários, Pontos de Paradas e Pontos de Recarga`;
     const dataLineId = document.querySelectorAll('.breadcrumb-i.data-line-id')
@@ -127,11 +156,14 @@ const Line = ({id}) => {
             
             <section id={"resume"} className={"pt-3"}>
               <Title type="h3" classX={" text-body-secondary"}>Sobre esta linha</Title>
-              <div className={"mt-3 position-relative"}>
-                <img src={"/images/banner.png"} alt="" width={"100"} height={"500px"} className={"w-100 object-fit-cover rounded border"}/>
-                <div className={"p-3 position-absolute top-0 rounded w-100 h-100"} style={{background: "linear-gradient(180deg,#00000010 0%, #00000075 75%)"}}></div>
-                <div className={"position-absolute bottom-0 mb-3 ms-3 text-balance"} style={{maxWidth: "calc(100% - 3rem)"}}>
-                  <h2 className={"text-white fs-3 fw-bold"}>{data[0].line_number}</h2>
+              <div className={"mt-3 position-relative border rounded"}>
+                <img src={img} onError={handleImageError} alt={`Imagem de veículo da linha ${id}. Banner do Mobilidade.`} width={"100"} height={"500px"} className={"w-100 object-fit-cover rounded border"}/>
+                <div className={"p-3 position-absolute top-0 rounded w-100 h-100"} style={{background: "linear-gradient(180deg,#00000010 0%, #00000095 50%)", backdropFilter: "blur(12px)"}}></div>
+                <div className={"position-absolute bottom-0 mb-4 ms-4 text-balance"} style={{maxWidth: "calc(100% - 3rem)"}}>
+                  <div className={"mb-5"}>
+                    <h2 className={"text-white fs-3 fw-bold"}>{data[0].line_number}</h2>
+                    <span>Linha XXXX | XXXX {"->"} XXXX</span>
+                  </div>
                   <p className={"m-0 text-white"}>{Util.resumeInfoLine({})}</p>
                 </div>
               </div>
