@@ -111,7 +111,7 @@ const LineIdentification = ({line}) => {
                       });
                       console.log("Conteúdo compartilhado com sucesso!");
                     } catch (error) {
-                      if (!error.toString().includes("Share canceled")) alert("Erro ao compartilhar:" + error);
+                      // if (!error.toString().includes("Share canceled")) alert("Erro ao compartilhar:" + error);
                       console.log(error.toString());
                     }
                   } else {
