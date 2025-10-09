@@ -18,7 +18,7 @@ const Live = () => {
       
       <form>
         <FormGroup>
-          <FormLabel column={"lg"} className={"fw-normal"}>
+          <FormLabel column={"lg"} className={"fw-normal w-100"}>
             <span>Linha</span>
             <FormControl as={"input"} type={"text"} placeholder={""}/>
             {/* TODO: lista de linhas */}
@@ -28,7 +28,7 @@ const Live = () => {
       
       <form>
         <FormGroup className={"disabled pointer-event-none"}>
-          <FormLabel column={"lg"} className={"fw-normal"}>
+          <FormLabel column={"lg"} className={"fw-normal w-100"} >
             <span>Ponto de parada</span>
             <FormControl as={"input"} type={"text"} placeholder={""}/>
             {/* TODO: listar os pontos de parada depois que a linha for selecionada */}
