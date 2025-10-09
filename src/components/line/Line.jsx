@@ -160,9 +160,9 @@ const Line = ({id}) => {
                 <img src={img} onError={handleImageError} alt={`Imagem de veículo da linha ${id}. Banner do Mobilidade.`} width={"100"} height={"500px"} className={"w-100 object-fit-cover rounded-1 border"}/>
                 <div className={"p-3 position-absolute top-0 rounded w-100 h-100"} style={{background: "linear-gradient(-135deg,#00000010 0%, #00000095 50%)", backdropFilter: "blur(12px)"}}></div>
                 <div className={"position-absolute bottom-0 mb-4 ms-4 text-balance"} style={{maxWidth: "calc(100% - 3rem)"}}>
-                  <div className={"mb-5"}>
+                  <div className={"mb-3"}>
                     <h2 className={"text-white fs-3 fw-bold"}>{data[0].line_number}</h2>
-                    <span>Linha XXXX | XXXX {"->"} XXXX</span>
+                    <span className={"d-none"}>Linha XXXX | XXXX {"->"} XXXX</span>
                   </div>
                   <p className={"m-0 text-white"}>{Util.resumeInfoLine({})}</p>
                 </div>
