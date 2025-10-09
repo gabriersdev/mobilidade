@@ -35,7 +35,7 @@ const ReportModal = () => {
         <Modal.Body>
           <ReportForm handleCloseModal={handleCloseModal}/>
         </Modal.Body>
-        <Modal.Footer className={"justify-content-center border-top border-secondary-subtle"}>
+        <Modal.Footer className={"justify-content-center border-top"}>
           <p className={"m-0 text-body-secondary"}>Se preferir, envie um e-mail <Link to={`mailto:${reportMail}`}>{reportMail}</Link>.</p>
         </Modal.Footer>
       </Modal>
