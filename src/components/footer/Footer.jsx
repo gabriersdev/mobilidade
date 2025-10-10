@@ -11,13 +11,13 @@ const Footer = () => {
   const [version, setVersion] = useState("1.0.0");
   const [cacheVersion, setCacheVersion] = useState("V11");
   
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
   const [dataBuild, setDataBuild] = useState({datetimeCreate: null});
   
   useEffect(() => {
     fetch((window.location.pathname !== "/" ? "." : "") + "./register.build.json").then((response) => {
       response.json().then((data) => {
-        setDataBuild({...data})
+        setDataBuild({...data});
       });
     });
     

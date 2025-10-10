@@ -26,7 +26,7 @@ const Guide = () => {
     
     try {
       const response = await axios.get(`${config.host}/api/guide`);
-      if (response.data) {
+      if (response?.data) {
         setData(response.data);
         setOriginalData(response.data);
       } else setError("Ocorreu um erro na consulta do Guia. Tente novamente mais tarde.");
@@ -66,7 +66,7 @@ const Guide = () => {
                 return (
                   <div key={i} id={`index-letter-${letter}`}>
                     <div className={"d-inline-flex justify-content-between gap-2 flex-wrap"}>
-                      <Title type={"h3"} classX={" fs-6 fw-bold"}>{letter}</Title>
+                      <Title type={"h3"} classX={" fs-6 fw-bold text-body"}>{letter}</Title>
                       {uniqueLetters[uniqueLetters.indexOf(letter) + 1] && <Link to={`#index-letter-${uniqueLetters[uniqueLetters.indexOf(letter) + 1]}`} className={"text-decoration-none text-sml text-body-tertiary"}>Ir para a próxima letra do índice</Link>}
                     </div>
                     
@@ -146,7 +146,7 @@ const Guide = () => {
               <div className="col-lg-4">
                 <Card className="p-0 position-sticky" style={{top: "6rem"}}>
                   <CardHeader className="bg-body-secondary">
-                    <CardTitle className={"fs-6 px-3 py-3 m-0 border-bottom border-secondary-subtle"}>Índice de letras</CardTitle>
+                    <CardTitle className={"fs-6 px-3 py-3 m-0 border-bottom"}>Índice de letras</CardTitle>
                   </CardHeader>
                   <CardBody className={"p-3"}>
                     {
@@ -154,7 +154,7 @@ const Guide = () => {
                         <ListGroup className={"bg-body"}>
                           {indiceLetters?.map((letter, i) => {
                             return (
-                              <ListGroupItem as={"a"} key={i} className={"bg-body text-primary border-secondary-subtle"} href={`#index-letter-${letter}`}>
+                              <ListGroupItem as={"a"} key={i} className={"bg-body text-primary border " + (i !== 0 ? "border-top-0" : "")} href={`#index-letter-${letter}`}>
                                 <AnimatedComponents>
                                   <span className={"d-block py-1"}>{letter}</span>
                                 </AnimatedComponents>
