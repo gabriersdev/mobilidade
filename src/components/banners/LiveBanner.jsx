@@ -5,7 +5,7 @@ function LiveBanner() {
     <Banner data={{
       link: "/live",
       bg: "bg-secondary-subtle",
-      border: "border-secondary-subtle",
+      border: "",
       bgBadge: "bg-secondary",
       colorTextBadge: "text-dark",
       colorEmphasis: "text-secondary-emphasis",
