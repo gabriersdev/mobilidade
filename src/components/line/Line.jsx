@@ -156,8 +156,8 @@ const Line = ({id}) => {
             
             <section id={"resume"} className={"pt-3"}>
               <Title type="h3" classX={" text-body-secondary"}>Sobre esta linha</Title>
-              <div className={"mt-3 position-relative border rounded"}>
-                <img src={img} onError={handleImageError} alt={`Imagem de veículo da linha ${id}. Banner do Mobilidade.`} width={"100"} height={"500px"} className={"w-100 object-fit-cover rounded-1 border"}/>
+              <div className={"mt-3 position-relative border rounded-5"}>
+                <img src={img} onError={handleImageError} alt={`Imagem de veículo da linha ${id}. Banner do Mobilidade.`} width={"100"} height={"500px"} className={"w-100 object-fit-cover rounded-5 border"}/>
                 <div className={"p-3 position-absolute top-0 rounded w-100 h-100"} style={{background: "linear-gradient(-135deg,#00000010 0%, #00000095 50%)", backdropFilter: "blur(12px)"}}></div>
                 <div className={"position-absolute bottom-0 mb-4 ms-4 text-balance"} style={{maxWidth: "calc(100% - 3rem)"}}>
                   <div className={"mb-3"}>

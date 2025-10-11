@@ -28,7 +28,7 @@ const ReportModal = () => {
         </Badge>
       </div>
 
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <Modal show={showModal} backdrop={"static"} keyboard={false} onHide={handleCloseModal}>
         <Modal.Header closeButton className={"border-0"}>
           <Modal.Title className={"fw-semibold"} style={{fontSize: "1.35rem"}}>Informar um erro</Modal.Title>
         </Modal.Header>
