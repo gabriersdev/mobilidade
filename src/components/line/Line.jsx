@@ -56,12 +56,13 @@ const Line = ({id}) => {
       }
     };
     
-    searchLine(id).then(() => {});
+    searchLine(id).then(() => {
+    });
   }, [id]);
   
   async function checkFileExists(url) {
     try {
-      const response = await fetch(url, { method: 'HEAD' });
+      const response = await fetch(url, {method: 'HEAD'});
       return response.ok; // Returns true if the status code is 200-299
     } catch (error) {
       console.error('Error while checking file:', error);
@@ -91,15 +92,25 @@ const Line = ({id}) => {
   const handleImageError = () => setImg(defaultImage);
   
   if (isLoaded) {
-    return <div>Carregando...</div>;
+    return (
+      <AnimatedComponents>
+        <div>Carregando...</div>
+      </AnimatedComponents>
+    );
   } else if (error) {
     console.log(error);
-    return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;
+    return (
+      <AnimatedComponents>
+        <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>
+      </AnimatedComponents>
+    );
   } else if (data.length === 0) {
     return (
-      <Alert variant={'danger'} margin={"mt-0"}>
-        <span>Linha não encontrada.</span>
-      </Alert>
+      <AnimatedComponents>
+        <Alert variant={'danger'} margin={"mt-0"}>
+          <span>Nenhuma linha ativa encontrada.</span>
+        </Alert>
+      </AnimatedComponents>
     );
   } else {
     // Altera o título da página =
