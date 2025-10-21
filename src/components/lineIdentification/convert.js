@@ -15,6 +15,7 @@ class Convert {
       case 2: return "Executivo Urbano";
       case 3: return "Executivo Rodoviário";
       case 4: return "Coletivo Rodoviário";
+      case 5: return "Seletivo";
       default: return "Não informado";
     }
   }

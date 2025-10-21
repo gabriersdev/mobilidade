@@ -1,27 +1,27 @@
 import {useCallback, useEffect, useState} from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 import axios from "axios";
+import moment from "moment";
 import config from "../../config";
 
+import Util from "../../assets/Util";
 import Title from "../title/Title";
 import LineIdentification from "../lineIdentification/LineIdentification";
-import {ListDepartureTimes} from "../listDepartureTimes/ListDepartureTimes";
 import ListRechargePoints from "../listRecharchePoints/ListRechargePoints";
-import {ListDeparturePoints} from "../listDeparturePoints/ListDeparturePoints";
 import Alert from "../alert/Alert";
 import ListLineWarnings from "../listLineWarnings/ListLineWarnings";
 import FeedbackError from "../feedbackError/FeedbackError";
 import Weather from "../weather/Weather";
-import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
-import Print from "../print/Print.jsx";
-import {LineContext} from "./LineContext.jsx";
-import GetAndListLines from "../getAndListLines/GetAndListLines.jsx";
-import Util from "../../assets/Util.jsx";
-import moment from "moment";
-import GuideBanner from "../banners/GuideBanner.jsx";
-import NewsBanner from "../banners/NewsBanner.jsx";
-import {Link} from "react-router-dom";
+import AnimatedComponents from "../animatedComponent/AnimatedComponents";
+import Print from "../print/Print";
+import GetAndListLines from "../getAndListLines/GetAndListLines";
+import GuideBanner from "../banners/GuideBanner";
+import NewsBanner from "../banners/NewsBanner";
+import {ListDepartureTimes} from "../listDepartureTimes/ListDepartureTimes";
+import {ListDeparturePoints} from "../listDeparturePoints/ListDeparturePoints";
+import {LineContext} from "./LineContext";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);

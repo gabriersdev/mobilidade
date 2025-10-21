@@ -8,15 +8,53 @@ import ReportModal from "../report/ReportModal.jsx";
 import Util from "../../assets/Util.jsx";
 import Convert from "./convert.js";
 import MonitorModal from "../monitor/MonitorModal.jsx";
+
 import {Tooltip} from 'bootstrap';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
 import {useEffect, useRef, useState} from "react";
 
 const LineIdentification = ({line}) => {
-  let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact, datetimeLastModify] = ['', '', '', 0, '', ''];
+  let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact, datetimeLastModify, accessibility] = ['', '', '', 0, '', '', ''];
   const btnShareRef = useRef(null);
   const [showTooltip, setShowTooltip] = useState(false);
   const [messageTooltip, setMessageTooltip] = useState("");
   const originalMessageTooltip = "Clique para copiar";
+  
+  const accessibilityPopover = (
+    <Popover id="popover-basic">
+      <Popover.Header as="h3" className={"inter"}>Acessibilidade</Popover.Header>
+      <Popover.Body className={"text-sml"}>
+        Os ônibus são acessíveis: possuem elevador; assentos destinados ao público prioritário; assentos, chão e as barras do ônibus tem cores que se contrastam, barras e puxadores para os usuários e pelo menos uma porta exclusiva para a saída.
+      </Popover.Body>
+    </Popover>
+  );
+  
+  const comfortPopover = (
+    <Popover id="popover-basic">
+      <Popover.Header as="h3" className={"inter"}>Conforto</Popover.Header>
+      <Popover.Body className={""}>
+        <div>
+          {
+            [
+              {text: "Ar-condicionado", has: false,},
+              {text: "Assoalho em teraflex", has: true,},
+              {text: "Banco de encosto alto", has: false,},
+              {text: "Frota com menos de 10 anos", has: true,},
+              {text: "Suspensão à ar", has: true,},
+            ].map((item, index) => {
+              return (
+                <div className={"d-flex align-items-center flex-wrap gap-1 " + (item.has ? "text-success" : "text-body-secondary text-decoration-line-through")} key={index}>
+                  <i className="bi bi-check2 text-sml"></i>
+                  <span className={"text-sml"}>{item.text}</span>
+                </div>
+              )
+            })
+          }
+        </div>
+      </Popover.Body>
+    </Popover>
+  );
   
   useEffect(() => {
     if (btnShareRef.current && showTooltip) {
@@ -40,6 +78,7 @@ const LineIdentification = ({line}) => {
   
   lineType = Convert.lineType(line.type);
   scope = Convert.theScope(line.scope);
+  accessibility = line?.accessibility ?? ""
   
   if (line.has_integration === 1) hasIntegration = "Possui integração";
   else hasIntegration = "Não possui integração";
@@ -78,6 +117,28 @@ const LineIdentification = ({line}) => {
           <LineInfo label={{ref: 'Integração com outras Linhas ou Modais', value: hasIntegration}}>
             <i className="bi bi-train-front-fill purple"></i>
           </LineInfo>
+          {
+            accessibility === 1 && (
+              <OverlayTrigger trigger="click" placement="auto" overlay={accessibilityPopover}>
+                <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
+                  <i className="bi bi-person-wheelchair text-warning"></i>
+                  Acessível
+                  <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
+                </div>
+              </OverlayTrigger>
+            )
+          }
+          {
+            accessibility === 1 && (
+              <OverlayTrigger trigger="click" placement="auto" overlay={comfortPopover}>
+                <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
+                  <i className="bi bi-person-wheelchair text-warning"></i>
+                  Acessível
+                  <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
+                </div>
+              </OverlayTrigger>
+            )
+          }
         </div>
         <div className="d-flex align-items-center gap-2 flex-wrap mb-3 order-3">
           {
@@ -193,6 +254,7 @@ LineIdentification.propTypes = {
     count_departure_times: PropTypes.number.isRequired,
     report_contact: PropTypes.string,
     datetime_last_modify: PropTypes.string,
+    accessibility: PropTypes.number
   }).isRequired
 }
 
