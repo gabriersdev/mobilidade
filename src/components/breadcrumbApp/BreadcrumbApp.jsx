@@ -51,7 +51,7 @@ const BreadcrumbItemFactory = ({path}) => {
       label = "Sabará"
       break;
     default:
-      label = (<span className={"text-capitalize"}>{path}</span>);
+      label = (<p className={"text-capitalize d-inline"}>{path.match(/\b\d+\b/) ? <span>Carregando...</span> : <span>{path}</span> }</p>);
   }
   
   if (!path || !path.trim() || ["null", "undefined"].includes(path)) return null;

@@ -47,7 +47,7 @@ export default function HistoryDepartureTimes() {
   useEffect(() => {
     document.title = "Mobilidade - Histórico de horários";
     const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
-    if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : "desconhecida"))?.replaceAll("/", " -> ");
+    if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " -> ");
     // if (breadcrumbData && breadcrumbData[1]) breadcrumbData[1].querySelector('a').textContent = 'Histórico';
   }, [lineData])
   
