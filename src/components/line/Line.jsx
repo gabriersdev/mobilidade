@@ -79,7 +79,6 @@ const Line = ({id}) => {
     try {
       const formUrl = `/images/lines/${id ?? 0}.png`;
       checkFileExists(formUrl).then(exists => {
-        console.log(exists);
         if (exists) setImg(formUrl);
         else setImg(defaultImage);
       });
