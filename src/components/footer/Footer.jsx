@@ -89,6 +89,8 @@ const Footer = () => {
             <Link to={"./development#topo"} className="footer-link-list-item">Desenvolvimento</Link>
             <Link to="./terms-of-service#topo" className="footer-link-list-item">Termos de serviços</Link>
             <Link to="./privacy#topo" className="footer-link-list-item">Privacidade</Link>
+            <Link to="https://github.com/gabriersdev/mobilidade/" className="footer-link-list-item">Repositório no Github</Link>
+            <Link to="https://github.com/gabriersdev/mobilidade/issues/new" className="footer-link-list-item">Reportar erro</Link>
           </ul>
           <div className="d-flex gap-3 flex-wrap">
             <button className={"btn text-start p-0 m-0 text-primary-emphasis border-0"} onClick={() => {
