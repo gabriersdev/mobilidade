@@ -10,6 +10,8 @@ import moment from "moment";
 import {ListDepartureTimes} from "../../../components/listDepartureTimes/ListDepartureTimes.jsx";
 import Util from "../../../assets/Util.jsx";
 
+moment.locale("pt-BR");
+
 export default function HistoryDayDepartureTimes() {
   const {id} = useParams();
   const {pathname} = useLocation();
@@ -95,7 +97,7 @@ export default function HistoryDayDepartureTimes() {
         </Alert>
         
         <section className={"d-flex gap-5 mt-5 flex-column"}>
-          {lineData && <ListDepartureTimes line_id={parseInt(lineId)} departure_location={lineData?.[0]?.["departure_location"]} destination_location={lineData?.[0]?.["destination_location"]} variant={{type: "history", departureTimeDate: departureTimeMomentInstance.format("YYYY-MM-DD")}}/>}
+          {lineData && <ListDepartureTimes line_id={parseInt(lineId)} departure_location={lineData?.[0]?.["departure_location"]} destination_location={lineData?.[0]?.["destination_location"]} variant={{type: "history", departureTimeDate: departureTimeMomentInstance.add(1, "day").format("YYYY-MM-DD")}}/>}
         </section>
       </AnimatedComponents>
     );

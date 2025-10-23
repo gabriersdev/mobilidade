@@ -13,6 +13,9 @@ import {Tooltip} from 'bootstrap';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import {useEffect, useRef, useState} from "react";
+import moment from "moment";
+
+moment.locale("pt-BR");
 
 const LineIdentification = ({line}) => {
   let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact, datetimeLastModify, accessibility, aircon, teraflex, bench, fleet, airsuspension] = ['', '', '', 0, '', '', 0, 0, 0, 0, 0, 0];
@@ -58,7 +61,7 @@ const LineIdentification = ({line}) => {
   
   if (line.count_departure_times) countDepartureTimes = line.count_departure_times;
   if (line.report_contact) reportContact = line.report_contact;
-  if (line.datetime_last_modify) datetimeLastModify = new Date(line.datetime_last_modify || '2021-01-01T00:00:00Z');
+  if (line.datetime_last_modify) datetimeLastModify = new Date((moment(line.datetime_last_modify || '2021-01-01T00:00:00Z').add(-3, "h")).format("YYYY-MM-DD HH:mm:zz"));
   
   const accessibilityPopover = (
     <Popover id="popover-basic">
