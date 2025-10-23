@@ -48,7 +48,7 @@ export default function GenericCombobox({
   return (
     <div>
       <Form.Group className="w-72">
-        <Form.Label {...getLabelProps()}>{label}</Form.Label>
+        <Form.Label {...getLabelProps()} className={"mb-1"}>{label}</Form.Label>
         <InputGroup>
           <Form.Control
             {...getInputProps()}
@@ -90,7 +90,7 @@ export default function GenericCombobox({
               }
               <span>{item.title}</span>
               <br/>
-              <span className="text-muted small">{item.author}</span>
+              <span className="text-muted small">{item.name}</span>
             </ListGroup.Item>
           ))}
       </ListGroup>
