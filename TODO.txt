@@ -1,5 +1,0 @@
-- lançar os avisos do nav no banco de dados
-- lançar as noticias no banco de dados
-- recuperar os avisos do nav do banco de dados
-- recuperar as noticias do banco de dados
-- implementar busca ativa de linhas mais usadas para links de facil acesso abaixo do campo de pesquisa
