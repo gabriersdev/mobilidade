@@ -31,6 +31,8 @@ const Live = () => {
             </FormLabel>
           </FormGroup>
           
+          
+          
           <FormGroup className={"disabled pointer-event-none"}>
             <FormLabel column={"lg"} className={"fw-normal w-100"}>
               <span>Ponto de parada</span>
@@ -45,6 +47,8 @@ const Live = () => {
           <Button type={"submit"} variant={"primary"} className={"mt-2"}>Pesquisar</Button>
         </form>
       </div>
+      
+      <ComboBoxExample/>
       
       <div className={"rounded-3 bg-body-secondary p-3 mt-5"}>
         Local: XXXX <br/>
@@ -67,6 +71,39 @@ const Live = () => {
         </Button>
       </div>
     </AnimatedComponents>
+  );
+}
+
+import  { useState } from 'react';
+import GenericCombobox from "../../components/comboBox/ComboBox.jsx";
+
+function ComboBoxExample() {
+  const books = [
+    { id: 'book-1', author: 'Harper Lee', title: 'To Kill a Mockingbird' },
+    { id: 'book-2', author: 'Lev Tolstoy', title: 'War and Peace' },
+    { id: 'book-3', author: 'Fyodor Dostoyevsy', title: 'The Idiot' },
+    { id: 'book-4', author: 'Oscar Wilde', title: 'A Picture of Dorian Gray' },
+    { id: 'book-5', author: 'George Orwell', title: '1984' },
+    { id: 'book-6', author: 'Jane Austen', title: 'Pride and Prejudice' },
+    { id: 'book-7', author: 'Marcus Aurelius', title: 'Meditations' },
+    { id: 'book-8', author: 'Fyodor Dostoevsky', title: 'The Brothers Karamazov' },
+    { id: 'book-9', author: 'Lev Tolstoy', title: 'Anna Karenina' },
+    { id: 'book-10', author: 'Fyodor Dostoevsky', title: 'Crime and Punishment' },
+  ];
+  
+  // Estado para armazenar o livro selecionado no componente pai
+  const [selectedBook, setSelectedBook] = useState(null);
+  
+  return (
+    <div className="">
+      <GenericCombobox
+        items={books}
+        itemToString={(item) => (item ? item.title : '')}
+        onSelectedItemChange={setSelectedBook}
+        label="Choose your favorite book:"
+        placeholder="Best book ever"
+      />
+    </div>
   );
 }
 
