@@ -43,14 +43,25 @@ const Live = () => {
     });
   }, []);
   
-  const fetchData = async () => {
+  const fetchData = async (departurePointSelected) => {
+    if (!departurePointSelected) return;
+    const s = await axios.post(`${config.host}/api/predictions/departure-points/`, {
+      pointId: departurePointSelected?.["id"] ?? -1
+    }).catch((error) => {
+      console.log("Error", error);
+      setError(error);
+    });
+    console.log(s);
+    setData(s?.data[0]);
   };
   
   useEffect(() => {
     if (departurePointSelected) {
-      console.log(departurePointSelected, lineSelected);
+      // console.log(departurePointSelected);
+      fetchData(departurePointSelected).then(() => {
+      });
     }
-  }, [lineSelected, departurePointSelected]);
+  }, [departurePointSelected]);
   
   useEffect(() => {
     // Altera o título da página
@@ -73,19 +84,21 @@ const Live = () => {
         }}>
           {
             lines ? (
-              <AnimatedComponents>
-                <FormGroup>
-                  <FormLabel column={"lg"} className={"fw-normal w-100"}>
-                    <GenericCombobox
-                      items={lines}
-                      itemToString={(item) => (item ? item.name : '')}
-                      onSelectedItemChange={setLineSelected}
-                      label="Linha"
-                      placeholder="Selecione uma linha"
-                    />
-                  </FormLabel>
-                </FormGroup>
-              </AnimatedComponents>
+              <div className={"d-none"}>
+                <AnimatedComponents>
+                  <FormGroup>
+                    <FormLabel column={"lg"} className={"fw-normal w-100"}>
+                      <GenericCombobox
+                        items={lines}
+                        itemToString={(item) => (item ? item.name : '')}
+                        onSelectedItemChange={setLineSelected}
+                        label="Linha"
+                        placeholder="Selecione uma linha"
+                      />
+                    </FormLabel>
+                  </FormGroup>
+                </AnimatedComponents>
+              </div>
             ) : (
               <AnimatedComponents>
                 <div className={"d-flex flex-wrap gap-2 align-items-center mt-3"}>
@@ -134,6 +147,8 @@ const Live = () => {
               Local: {JSON.stringify(departurePointSelected ?? "")} <br/>
               
               <span>Previsões:</span><br/>
+              
+              {JSON.stringify(data)}
               
               <ul style={{listStyleType: "none"}} className={"m-0 p-0"}>
                 <li className={""}>

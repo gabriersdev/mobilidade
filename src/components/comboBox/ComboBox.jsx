@@ -53,10 +53,11 @@ export default function GenericCombobox({
   
   return (
     <div>
-      <Form.Group className="w-72">
+      <Form.Group className="w-72" data-element={"form-group"}>
         <Form.Label {...getLabelProps()} className={"mb-1"}>{label}</Form.Label>
         <InputGroup>
           <Form.Control
+            id={``}
             {...getInputProps()}
             placeholder={placeholder}
             data-testid="combobox-input"
@@ -67,8 +68,17 @@ export default function GenericCombobox({
             variant="outline-secondary"
             className={"border text-body-tertiary bg-body"}
             data-testid="combobox-toggle-button"
+            type={"button"}
           >
             {isOpen ? <>&#8593;</> : <>&#8595;</>}
+          </Button>
+          <Button
+            aria-label="toggle menu"
+            variant="outline-secondary"
+            className={"border text-body-tertiary bg-body"}
+            type={"button"}
+          >
+            <i className="bi bi-x-lg"></i>
           </Button>
         </InputGroup>
       </Form.Group>
@@ -85,7 +95,8 @@ export default function GenericCombobox({
           items.map((item, index) => (
             <ListGroup.Item
               as="li"
-              key={`${itemToString(item)}-${index}`}
+              id={`${itemToString(item.id)}-${index}`}
+              key={`${itemToString(item.id)}-${index}`}
               {...getItemProps({item, index})}
               active={highlightedIndex === index}
               className={"cursor-pointer"}
