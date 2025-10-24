@@ -43,9 +43,13 @@ const Live = () => {
     });
   }, []);
   
-  const fetchData = useCallback(async () => {
-    if (!departurePointSelected) return false;
-    console.log(departurePointSelected, lineSelected);
+  const fetchData = async () => {
+  };
+  
+  useEffect(() => {
+    if (departurePointSelected) {
+      console.log(departurePointSelected, lineSelected);
+    }
   }, [lineSelected, departurePointSelected]);
   
   useEffect(() => {
@@ -126,7 +130,32 @@ const Live = () => {
       <div className={"rounded-3 bg-body-secondary p-3 mt-5"}>
         {
           departurePointSelected && (
-            <>Local: {JSON.stringify(departurePointSelected ?? "")} <br/></>
+            <>
+              Local: {JSON.stringify(departurePointSelected ?? "")} <br/>
+              
+              <span>Previsões:</span><br/>
+              
+              <ul style={{listStyleType: "none"}} className={"m-0 p-0"}>
+                <li className={""}>
+                  <table className="table table-responsive">
+                    <tbody>
+                    <tr className={"bg-body-secondary"}>
+                      <td className={"bg-body-secondary"}>
+                        <Title type="h3" classX=" text-primary fw-bold m-0 p-0">
+                          4998
+                        </Title>
+                      </td>
+                      <td className={"bg-body-secondary"}>Sabará → Retorno Av. José Cândido da Silveira</td>
+                    </tr>
+                    <tr>
+                      <td className={"bg-body-secondary"}>Ida</td>
+                      <td className={"bg-body-secondary"}>Chegando em 10 minutos...</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </li>
+              </ul>
+            </>
           )
         }
         

@@ -8,7 +8,7 @@ export default function GenericCombobox({
                                           itemToString,
                                           onSelectedItemChange,
                                           label,
-                                          placeholder,
+                                          placeholder = '',
                                         }) {
   const [items, setItems] = useState(initialItems);
   
@@ -91,12 +91,9 @@ export default function GenericCombobox({
               className={"cursor-pointer"}
               data-testid={`combobox-item-${index}`}
             >
-              {
-                // Exemplo para exibir mais de um campo, adaptável
-              }
               <span>{item.title}</span>
               <br/>
-              <span className="text-muted small">{item.name}</span>
+              <span className="text-sml small">{item.name}</span>
             </ListGroup.Item>
           ))}
       </ListGroup>
@@ -110,8 +107,4 @@ GenericCombobox.propTypes = {
   onSelectedItemChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
-};
-
-GenericCombobox.defaultProps = {
-  placeholder: '',
 };
