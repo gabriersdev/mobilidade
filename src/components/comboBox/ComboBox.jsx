@@ -14,7 +14,13 @@ export default function GenericCombobox({
   
   // Função genérica de filtro
   const getItemsFilter = (inputValue) => {
-    const lowerCasedInputValue = inputValue.toLowerCase();
+    let lowerCasedInputValue
+    try {
+      lowerCasedInputValue = inputValue?.toLowerCase();
+    } catch (error) {
+      if (error.toString().includes("-1")) console.log(error);
+      lowerCasedInputValue = "";
+    }
     return function itemsFilter(item) {
       // Assumimos que o item é um objeto e procuramos em todos os seus valores
       return (
@@ -69,7 +75,7 @@ export default function GenericCombobox({
       <ListGroup
         {...getMenuProps()}
         as="ul"
-        className={`mt-1 w-72 position-absolute shadow-md overflow-auto ${
+        className={`mt-3 w-72 position-absolute shadow-md overflow-auto ${
           !(isOpen && items.length) ? 'd-none' : ''
         }`}
         style={{maxHeight: '20rem', zIndex: 1000}}
