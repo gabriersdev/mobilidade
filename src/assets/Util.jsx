@@ -327,9 +327,9 @@ export default class Util {
     // Futuro
     if (diffSeconds > 0) {
       if (absDiff < 60) return 'em alguns segundos';
-      if (absDiff < 3600) return `em ${target.diff(now, 'minutes')} minuto${target.diff(now, 'minutes') ? "s" : ""}`;
-      if (absDiff < 86400) return `em ${target.diff(now, 'hours')} hora${target.diff(now, 'hours') ? "s" : ""}`;
-      return `em ${target.diff(now, 'days')} dias${target.diff(now, 'days') ? "s" : ""}`;
+      if (absDiff < 3600) return `em ${target.diff(now, 'minutes')} minuto${target.diff(now, 'minutes') > 1 ? "s" : ""}`;
+      if (absDiff < 86400) return `em ${target.diff(now, 'hours')} hora${target.diff(now, 'hours') > 1 ? "s" : ""}`;
+      return `em ${target.diff(now, 'days')} dias${target.diff(now, 'days') > 1 ? "s" : ""}`;
     }
     
     // Passado

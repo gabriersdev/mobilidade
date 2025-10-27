@@ -119,6 +119,13 @@ const Live = () => {
     }
   }, []);
   
+  const filtered = ((d, i, self) => {
+    return i === self.findIndex(other =>
+      other.line_number === d.line_number &&
+      other.departure_time_trip === d.departure_time_trip
+    );
+  });
+  
   return (
     <AnimatedComponents>
       <div className={"mb-3"}>
@@ -214,7 +221,7 @@ const Live = () => {
                     
                     <ul style={{listStyleType: "none"}} className={"m-0 p-0"}>
                       {
-                        data.toSpliced(50).map((d, i) => {
+                        data.filter(filtered).toSpliced(50).map((d, i) => {
                           return (
                             <li className={""} key={i}>
                               <table className="table table-responsive">
@@ -229,8 +236,9 @@ const Live = () => {
                                   </td>
                                   <td className={"bg-body-secondary"}>
                                     <Link to={`/lines/${d?.["line_id"] ?? ""}`} className={"text-decoration-none"}>
-                                      <Title type={"h3"} classX=" text-primary fs-6 fw-normal inter m-0 p-0 text-balance">
+                                      <Title type={"h3"} classX=" text-primary fs-6 fw-normal inter m-0 p-0 text-balance d-flex flex-wrap gap-1 align-items-center">
                                         {Util.renderText(d?.["departure_location"] ?? "")} {" -> "} {Util.renderText(d?.["destination_location"] ?? "")}
+                                        <span className={"text-sml"}>- partida às {moment(d?.["departure_time_trip"]).format("HH:mm")}</span>
                                       </Title>
                                     </Link>
                                   </td>
