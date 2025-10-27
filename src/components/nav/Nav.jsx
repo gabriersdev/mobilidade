@@ -5,7 +5,8 @@ import InstallPWAButton from "../installPWAButton/InstallPWAButton.jsx";
 import {Nav as BootstrapNav, Navbar, Container, Badge} from "react-bootstrap";
 import {Link, useLocation} from "react-router-dom";
 import {useCallback, useEffect, useRef, useState} from "react";
-import moment from "moment/moment";
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
 moment.locale("pt-br");
 
@@ -187,10 +188,9 @@ const Nav = () => {
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./search">Pesquisa</BootstrapNav.Link>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./news">Notícias</BootstrapNav.Link>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./guide">Guia</BootstrapNav.Link>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis d-none"} to="./live">
+                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./live">
                     <div className={"d-flex align-items-center flex-wrap"}>
-                      {moment().diff(moment("2025-09-15T00:00:00-03:00"), "minutes") < 0 && (<Badge className={"rounded-pill me-1 text-uppercase fw-normal"} style={{paddingBottom: "4.21px", paddingTop: "4.2px"}}>Novo</Badge>)}
-                      {/*<div className={"d-inline-flex align-items-center justify-content-center me-1 rounded-circle"} style={{background: "#FF000050", padding: "4.5px 5px 3px 5px"}}><i className="bi bi-circle-fill text-danger" style={{fontSize: "7.5px"}}></i></div>*/}
+                      {moment().diff(moment("2025-11-14T23:59:00"), "minutes") < 0 && (<Badge className={"rounded-pill me-2 text-uppercase fw-bold"} style={{paddingBottom: "4.25px", paddingTop: "4.25px"}}>Novo</Badge>)}
                       <div className={"live-indicator me-1"}>
                         <div className={"live-dot"}></div>
                       </div>

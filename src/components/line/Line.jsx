@@ -22,6 +22,7 @@ import NewsBanner from "../banners/NewsBanner";
 import {ListDepartureTimes} from "../listDepartureTimes/ListDepartureTimes";
 import {ListDeparturePoints} from "../listDeparturePoints/ListDeparturePoints";
 import {LineContext} from "./LineContext";
+import LiveBanner from "../banners/LiveBanner.jsx";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -144,6 +145,9 @@ const Line = ({id}) => {
                 <Print variant={"departure-times"} prevContentTarget={"id"}/>
               </div>
               <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>
+              <div className={"mt-4 pt-1"}>
+                <LiveBanner/>
+              </div>
             </section>
             
             <section id={"paradas"} className={"pt-3"}>
