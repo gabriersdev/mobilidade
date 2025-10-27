@@ -8,6 +8,7 @@ export default function GenericCombobox({
                                           itemToString,
                                           onSelectedItemChange,
                                           label,
+                                          required,
                                           placeholder = '',
                                         }) {
   const [items, setItems] = useState(initialItems);
@@ -40,6 +41,8 @@ export default function GenericCombobox({
     getInputProps,
     getItemProps,
     highlightedIndex,
+    setInputValue, // 👈 AQUI
+    reset,
   } = useCombobox({
     items,
     itemToString,
@@ -59,6 +62,7 @@ export default function GenericCombobox({
           <Form.Control
             id={``}
             {...getInputProps()}
+            required={required}
             placeholder={placeholder}
             data-testid="combobox-input"
           />
@@ -77,6 +81,8 @@ export default function GenericCombobox({
             variant="outline-secondary"
             className={"border text-body-tertiary bg-body"}
             type={"button"}
+            onClick={() => setInputValue("")}
+            onDoubleClick={() => {reset()}}
           >
             <i className="bi bi-x-lg"></i>
           </Button>
@@ -117,5 +123,6 @@ GenericCombobox.propTypes = {
   itemToString: PropTypes.func.isRequired,
   onSelectedItemChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
+  required: PropTypes.bool.isRequired,
   placeholder: PropTypes.string,
 };

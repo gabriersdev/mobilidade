@@ -2,7 +2,10 @@ import Moment from 'moment'
 import Arial from "../components/arial/Arial.jsx";
 import axios from "axios";
 import config from "../config.js";
-import moment from "moment";
+import moment from 'moment';
+import 'moment/locale/pt-br';
+
+moment.locale('pt-br');
 
 export default class Util {
   // Mark link as active
@@ -160,6 +163,19 @@ export default class Util {
     return find[1]
   }
   
+  static directionToText(number) {
+    switch (number) {
+      case 0:
+        return "Único";
+      case 1:
+        return "Ida";
+      case 2:
+        return "Volta";
+      default:
+        return " - ";
+    }
+  }
+  
   static formatMoney(value) {
     return Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -261,7 +277,7 @@ export default class Util {
     }
     
     const now = moment();
-    const daysConvNormalized= daysConv.map((d) => Util.normalize(d).toLowerCase().replace(/-\s*PC\s*\d*/gi, "").trimEnd());
+    const daysConvNormalized = daysConv.map((d) => Util.normalize(d).toLowerCase().replace(/-\s*PC\s*\d*/gi, "").trimEnd());
     const dayMatched = days.map((d) => Util.normalize(d).toLowerCase().replace(/-\s*PC\s*\d*/gi, "").trimEnd());
     
     console.log(now.weekday(), daysConvNormalized, dayMatched);
@@ -296,5 +312,30 @@ export default class Util {
         }
       });
     }
+  }
+  
+  static diffToHuman(date) {
+    const now = moment();
+    const target = moment(date);
+    
+    // Se for inválido, evita erro
+    if (!target.isValid()) return 'Data inválida';
+    
+    const diffSeconds = target.diff(now, 'seconds');
+    const absDiff = Math.abs(diffSeconds);
+    
+    // Futuro
+    if (diffSeconds > 0) {
+      if (absDiff < 60) return 'em alguns segundos';
+      if (absDiff < 3600) return `em ${target.diff(now, 'minutes')} minuto${target.diff(now, 'minutes') ? "s" : ""}`;
+      if (absDiff < 86400) return `em ${target.diff(now, 'hours')} hora${target.diff(now, 'hours') ? "s" : ""}`;
+      return `em ${target.diff(now, 'days')} dias${target.diff(now, 'days') ? "s" : ""}`;
+    }
+    
+    // Passado
+    if (absDiff < 60) return 'há alguns segundos';
+    if (absDiff < 3600) return `há ${now.diff(target, 'minutes')} minutos`;
+    if (absDiff < 86400) return `há ${now.diff(target, 'hours')} horas`;
+    return `há ${now.diff(target, 'days')} dias`;
   }
 }

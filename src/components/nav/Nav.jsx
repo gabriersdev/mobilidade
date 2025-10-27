@@ -175,7 +175,7 @@ const Nav = () => {
                 <i className="bi bi-geo-alt-fill text-primary-emphasis"></i>
                 <span className={"text-body-secondary d-none d-sm-inline-block"}>Sabará</span>
                 <i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i>
-                <span className={"text-body-secondary text-capitalize d-none d-sm-inline-block"}>{translateWeekDay(sabaraTime?.split(" ")?.[0])} {sabaraTime?.split(" ")?.[1]}</span>
+                <span className={"text-body-secondary text-capitalize d-none d-sm-inline-block"}>{translateWeekDay(sabaraTime?.split(" ")?.[0])?.split("-")?.[0]} {sabaraTime?.split(" ")?.[1]}</span>
                 <span className={"text-body-secondary text-capitalize d-inline-block d-sm-none"}>{translateWeekDay(sabaraTime?.split(" ")?.[0])?.substring(0, 3)} {sabaraTime?.split(" ")?.[1]}</span>
               </Link>
               <Navbar.Toggle aria-controls="basic-navbar-nav"/>

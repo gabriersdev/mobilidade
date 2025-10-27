@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useState} from 'react'
 import {Button, FormGroup, FormLabel, Spinner} from "react-bootstrap";
 import axios from "axios";
+import moment from "moment";
 
 import Title from "../../components/title/Title.jsx";
 import Util from "../../assets/Util.jsx";
@@ -8,6 +9,9 @@ import Alert from "../../components/alert/Alert.jsx";
 import AnimatedComponents from "../../components/animatedComponent/AnimatedComponents.jsx";
 import GenericCombobox from "../../components/comboBox/ComboBox.jsx";
 import config from "../../config.js";
+import {Link} from "react-router-dom";
+
+moment.locale("pt-BR");
 
 const Live = () => {
   const [lineSelected, setLineSelected] = useState(null);
@@ -16,6 +20,10 @@ const Live = () => {
   const [error, setError] = useState(null);
   const [lines, setLines] = useState(null);
   const [departurePoints, setDeparturePoints] = useState(null);
+  
+  const [isOriginalFetch, setIsOriginalFetch] = useState(false);
+  const [datetimeOriginalFetch, setDatetimeOriginalFetch] = useState(null);
+  const [now, setNow] = useState(moment());
   
   const fetchInitialData = useCallback(async () => {
     await axios.get(`${config.host}/api/lines/`).then((c) => {
@@ -50,26 +58,66 @@ const Live = () => {
     }).catch((error) => {
       console.log("Error", error);
       setError(error);
+      setIsOriginalFetch(false);
+      setDatetimeOriginalFetch(null);
+      return false;
     });
     console.log(s);
+    setIsOriginalFetch(true);
+    setDatetimeOriginalFetch(moment());
     setData(s?.data[0]);
   };
   
   useEffect(() => {
     if (departurePointSelected) {
-      // console.log(departurePointSelected);
       fetchData(departurePointSelected).then(() => {
       });
-    }
+    } else setData(null);
   }, [departurePointSelected]);
+  
+  useEffect(() => {
+    console.log(lineSelected);
+    if (!lines && !departurePoints) fetchInitialData().then(() => {
+    });
+  }, [lines, departurePoints, lineSelected, fetchInitialData]);
+  
+  useEffect(() => {
+    if (data && isOriginalFetch) {
+      const original = JSON.parse(JSON.stringify(data));
+      setIsOriginalFetch(false);
+      setData(original);
+    }
+  }, [data, isOriginalFetch]);
+  
+  useEffect(() => {
+    let int
+    if (departurePointSelected && datetimeOriginalFetch) {
+      int = setInterval(() => {
+        if (moment().diff(datetimeOriginalFetch, "seconds") % 60) fetchData(departurePointSelected).then(() => {
+        });
+      }, 1000 * 30);
+    }
+    
+    return () => {
+      clearInterval(int);
+    }
+  }, [departurePointSelected, datetimeOriginalFetch]);
   
   useEffect(() => {
     // Altera o título da página
     document.title = "Mobilidade - Ao Vivo";
     Util.updateActiveLink();
-    fetchInitialData().then(() => {
-    });
-  }, [fetchInitialData]);
+    
+    let int;
+    
+    int = setInterval(() => {
+      setNow(moment());
+    }, 1000);
+    
+    return () => {
+      clearInterval(int);
+    }
+  }, []);
   
   return (
     <AnimatedComponents>
@@ -94,6 +142,7 @@ const Live = () => {
                         onSelectedItemChange={setLineSelected}
                         label="Linha"
                         placeholder="Selecione uma linha"
+                        required={false}
                       />
                     </FormLabel>
                   </FormGroup>
@@ -120,6 +169,7 @@ const Live = () => {
                       onSelectedItemChange={setDeparturePointSelected}
                       label="Ponto de parada"
                       placeholder="Selecione uma ponto"
+                      required={true}
                     />
                   </FormLabel>
                 </FormGroup>
@@ -135,8 +185,6 @@ const Live = () => {
               )
             )
           }
-          
-          <Button type={"submit"} variant={"primary"} className={"mt-3" + (!departurePoints ? " disabled cursor-not-allowed" : "")}>Pesquisar</Button>
         </form>
       </div>
       
@@ -144,32 +192,80 @@ const Live = () => {
         {
           departurePointSelected && (
             <>
-              Local: {JSON.stringify(departurePointSelected ?? "")} <br/>
+              <div className={"d-flex flex-column gap-0 mb-3"}>
+                <span className={"text-muted text-sml"}>Local</span>
+                <span>{Util.renderText(departurePointSelected?.["title"])}</span>
+              </div>
               
-              <span>Previsões:</span><br/>
-              
-              {JSON.stringify(data)}
-              
-              <ul style={{listStyleType: "none"}} className={"m-0 p-0"}>
-                <li className={""}>
-                  <table className="table table-responsive">
-                    <tbody>
-                    <tr className={"bg-body-secondary"}>
-                      <td className={"bg-body-secondary"}>
-                        <Title type="h3" classX=" text-primary fw-bold m-0 p-0">
-                          4998
-                        </Title>
-                      </td>
-                      <td className={"bg-body-secondary"}>Sabará → Retorno Av. José Cândido da Silveira</td>
-                    </tr>
-                    <tr>
-                      <td className={"bg-body-secondary"}>Ida</td>
-                      <td className={"bg-body-secondary"}>Chegando em 10 minutos...</td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </li>
-              </ul>
+              {
+                (data && Array.isArray(data) && data.length) ? (
+                  <>
+                    <div className={"d-flex gap-3 flex-wrap mb-3"}>
+                      <div className={"d-flex flex-column gap-0 mb-3"}>
+                        <span className={"text-muted text-sml"}>Atualizado</span>
+                        <span>{moment.isMoment(datetimeOriginalFetch) ? Util.diffToHuman(datetimeOriginalFetch) : "-"}</span>
+                      </div>
+                      
+                      <div className={"d-flex flex-column gap-0 mb-3"}>
+                        <span className={"text-muted text-sml"}>Agora são</span>
+                        <span>{Util.renderText(moment.isMoment(now) ? now.format("HH:mm:ss") : "-")}</span>
+                      </div>
+                    </div>
+                    
+                    <ul style={{listStyleType: "none"}} className={"m-0 p-0"}>
+                      {
+                        data.toSpliced(50).map((d, i) => {
+                          return (
+                            <li className={""} key={i}>
+                              <table className="table table-responsive">
+                                <tbody>
+                                <tr className={"bg-body-secondary"}>
+                                  <td className={"bg-body-secondary"} style={{width: ((2 * 32) + 16) + "px"}}>
+                                    <Link to={`/lines/${d?.["line_id"] ?? ""}`} className={"text-decoration-none"}>
+                                      <Title type="h3" classX=" text-primary fw-bold m-0 p-0 line-clamp-1">
+                                        {d?.["line_number"] ?? "Linha"}
+                                      </Title>
+                                    </Link>
+                                  </td>
+                                  <td className={"bg-body-secondary"}>
+                                    <Link to={`/lines/${d?.["line_id"] ?? ""}`} className={"text-decoration-none"}>
+                                      <Title type={"h3"} classX=" text-primary fs-6 fw-normal inter m-0 p-0 text-balance">
+                                        {Util.renderText(d?.["departure_location"] ?? "")} {" -> "} {Util.renderText(d?.["destination_location"] ?? "")}
+                                      </Title>
+                                    </Link>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td className={"bg-body-secondary"}>
+                                    {Util.directionToText(d?.["direction"] ?? -1)}
+                                  </td>
+                                  <td className={"bg-body-secondary"}>
+                                    <div className={"d-flex align-items-center flex-wrap gap-1"}>
+                                      {
+                                        moment(d?.["expected_arrival_time"]).diff(moment(), "minutes") > 0 ? (
+                                          <>{(d?.["order_departure_point"] ?? -1) === 1 ? "Saindo" : "Chegando"} {Util.diffToHuman(moment(d?.["expected_arrival_time"]))}</>
+                                        ) : (
+                                          <>{(d?.["order_departure_point"] ?? -1) === 1 ? "Saindo agora!" : "Aproximando..."}</>
+                                        )
+                                      }
+                                      <span className={"text-muted text-sml"}>- às {moment(d?.["expected_arrival_time"]).format("HH:mm")}</span>
+                                    </div>
+                                  </td>
+                                </tr>
+                                </tbody>
+                              </table>
+                            </li>
+                          )
+                        })
+                      }
+                    </ul>
+                  </>
+                ) : (
+                  <Alert variant={"warning"}>
+                    Nenhum ônibus por perto...
+                  </Alert>
+                )
+              }
             </>
           )
         }
@@ -178,14 +274,6 @@ const Live = () => {
           !departurePointSelected && (
             <Alert variant={"warning"}>
               Defina um ponto de parada para acompanhar a aproximação de ônibus.
-            </Alert>
-          )
-        }
-        
-        {
-          !data && (
-            <Alert variant={"warning"}>
-              Nenhum ônibus por perto...
             </Alert>
           )
         }
