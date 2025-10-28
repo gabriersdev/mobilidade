@@ -55,6 +55,8 @@ const Live = () => {
   }, []);
   
   const fetchData = async (departurePointSelected) => {
+    // Força a perda de foco de todos os inputs
+    document.querySelectorAll("input")?.forEach(i => i.blur());
     if (!departurePointSelected) return;
     const s = await axios.post(`${config.host}/api/predictions/departure-points/`, {
       pointId: departurePointSelected?.["id"] ?? -1
