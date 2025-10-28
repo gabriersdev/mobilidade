@@ -19,19 +19,17 @@ const Home = () => {
     <div>
       <FormValidSearch formTitle={"Para onde vamos?"} inputPlaceholder={""}/>
       <div>
-        <>
-          <LiveBanner/>
-          <div className={"d-flex align-items-center gap-2 justify-content-between flex-wrap mt-5"}>
-            <Title title="Principais Linhas" classX={" text-body-secondary"}/>
-            <Button as={Link} to={"/lines"} variant={"secondary"} size={"sm"}>
-              <span className={""}>Ver todas</span>
-            </Button>
-          </div>
-          <GetAndListLines variant="main"/>
-          <div style={{marginTop: '4rem'}}>
-            <LatestNews/>
-          </div>
-        </>
+        <LiveBanner/>
+        <div className={"d-flex align-items-center gap-2 justify-content-between flex-wrap mt-5"}>
+          <Title title="Principais Linhas" classX={" text-body-secondary"}/>
+          <Button as={Link} to={"/lines"} variant={"secondary"} size={"sm"}>
+            <span className={""}>Ver todas</span>
+          </Button>
+        </div>
+        <GetAndListLines variant="main"/>
+        <div style={{marginTop: '4rem'}}>
+          <LatestNews/>
+        </div>
       </div>
       <GuideBanner/>
     </div>

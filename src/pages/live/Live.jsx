@@ -187,7 +187,7 @@ const Live = () => {
             ) : (
               (
                 <AnimatedComponents>
-                  <div className={"d-flex flex-wrap gap-2 align-items- mt-3"}>
+                  <div className={"d-flex flex-wrap gap-2 align-items-center mt-3"}>
                     <Spinner animation="grow" size={"sm"} variant={"primary"}/>
                     <span>Carregando os pontos de parada...</span>
                   </div>
