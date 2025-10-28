@@ -1,15 +1,16 @@
 import PropTypes from "prop-types";
-import news from "../../assets/news.js";
-import Card from "../card/Card.jsx";
 import moment from "moment";
-import Util from "../../assets/Util.jsx";
-import {useEffect, useState} from "react";
-import Title from "../title/Title.jsx";
 import {Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {useEffect, useState} from "react";
+
+import news from "../../assets/news.js";
+import Card from "../card/Card.jsx";
+import Util from "../../assets/Util.jsx";
+import Title from "../title/Title.jsx";
 
 const ScrollX = ({children}) => {
-  return <div className={"overflow-x-scroll d-flex scroll-x pt-2 pb-3 gap-3"}>{children}</div>
+  return <div className={"overflow-x-scroll d-flex scroll-x pt-2 pb-3 gap-3 scroll-container"}>{children}</div>
 }
 
 ScrollX.propTypes = {

@@ -9,6 +9,7 @@ import {ThemeContext} from "../themeContext/ThemeContext.jsx";
 import ListPointsByDirections from "./ListPointsByDirections.jsx";
 import {DeparturePointsContext} from "./DeparturePointsContext.jsx";
 import RouteMap from "../routeMap/RouteMap.jsx";
+import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 
 const ListDeparturePoints = ({line_id, departure_location, destination_location}) => {
   const [data, setData] = useState([]);
@@ -32,18 +33,12 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
     searchDeparturePoints();
   }, [line_id]);
   
-  if (isLoaded) {
-    return <div>Carregando...</div>;
-  } else if (error) {
+  if (isLoaded) return <AnimatedComponents><div>Carregando...</div></AnimatedComponents>;
+  else if (error) {
     console.log(error)
-    return <div>Erro: {error.message}</div>;
-  } else if (data.length === 0) {
-    return (
-      <Alert variant={"info"}>
-        <span>Não localizamos pontos de parada para esta linha.</span>
-      </Alert>
-    )
-  } else {
+    return <AnimatedComponents><div>Erro: {error.message}</div></AnimatedComponents>;
+  } else if (data.length === 0) return <AnimatedComponents><Alert variant={"info"}><span>Não localizamos pontos de parada para esta linha.</span></Alert></AnimatedComponents>
+  else {
     // Ordena os pontos de parada por direção e ordem
     const departurePoints = data.toSorted((a, b) => a.order_departure_point - b.order_departure_point);
     

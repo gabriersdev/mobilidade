@@ -8,6 +8,7 @@ import Util from "../../assets/Util.jsx";
 import {AnimatePresence} from "framer-motion";
 import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
 import Intermediate from "./Intermediate.jsx";
+import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 
 const ListDepartureTimes = ({line_id, departure_location, destination_location, variant}) => {
   const {data, observations, error, isLoaded} = useDepartureTimes(line_id, variant);
@@ -60,10 +61,10 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location, 
   
   // Lógica de Renderização
   
-  if (isLoaded) return <div>Carregando...</div>;
-  if (error) return <FeedbackError code={error.response?.status || 500} text={error.message} type={'card'}/>;
-  if (processingError) return <Alert variant={'danger'}><span>Ocorreu um erro ao organizar os horários. Tente novamente mais tarde.</span></Alert>
-  if (data.length === 0) return <Alert variant={'info'}><span>Não localizamos horários para esta linha.</span></Alert>
+  if (isLoaded) return <AnimatedComponents><div>Carregando...</div></AnimatedComponents>;
+  if (error) return <AnimatedComponents><FeedbackError code={error.response?.status || 500} text={error.message} type={'card'}/></AnimatedComponents>;
+  if (processingError) return <AnimatedComponents><Alert variant={'danger'}><span>Ocorreu um erro ao organizar os horários. Tente novamente mais tarde.</span></Alert></AnimatedComponents>;
+  if (data.length === 0) return <AnimatedComponents><Alert variant={'info'}><span>Não localizamos horários para esta linha.</span></Alert></AnimatedComponents>;
   
   // 6. Enquanto os dias estão sendo ordenados, mostramos uma mensagem
   if (!sortedDays) return <div>Organizando horários...</div>;

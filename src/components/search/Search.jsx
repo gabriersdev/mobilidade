@@ -35,7 +35,6 @@ const Search = ({value}) => {
     searchDatabase().then();
   }, [searchSanitized]);
   
-  // TODO - usar os componentes de animacao nos retornos avulsos
   if (isLoaded) {
     return (
       <AnimatedComponents>
@@ -66,8 +65,8 @@ const Search = ({value}) => {
       <AnimatedComponents>
         <div style={{marginTop: '1rem'}}>
           <Grid>
-            <Card title="Nenhuma linha encontrada" subtitle="Nenhum resultado">
-              Não encontramos nenhuma linha que, de alguma forma, corresponda ao termo.
+            <Card title="Nenhuma ativa linha encontrada" subtitle="Nenhum resultado">
+              Não encontramos nenhuma linha ativa que, de alguma forma, corresponda ao termo.
             </Card>
           </Grid>
         </div>

@@ -10,6 +10,8 @@ import moment from "moment";
 import {ListDepartureTimes} from "../../../components/listDepartureTimes/ListDepartureTimes.jsx";
 import Util from "../../../assets/Util.jsx";
 
+moment.locale("pt-BR");
+
 export default function HistoryDayDepartureTimes() {
   const {id} = useParams();
   const {pathname} = useLocation();
@@ -56,7 +58,7 @@ export default function HistoryDayDepartureTimes() {
   useEffect(() => {
     document.title = "Mobilidade - Histórico de horários";
     const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
-    if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : "desconhecida"))?.replaceAll("/", " -> ");
+    if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " -> ");
     if (breadcrumbData && departureTimeDate && departureTimeDateIsValid && breadcrumbData[4]) breadcrumbData[4].querySelector('a').textContent = departureTimeDateFormatted;
     else if (breadcrumbData && (!departureTimeDate || !departureTimeDateIsValid) && breadcrumbData[4]) breadcrumbData[4].querySelector('a').textContent = "Mobilidade";
   }, [lineData, departureTimeDate, departureTimeDateIsValid]);
@@ -95,7 +97,7 @@ export default function HistoryDayDepartureTimes() {
         </Alert>
         
         <section className={"d-flex gap-5 mt-5 flex-column"}>
-          {lineData && <ListDepartureTimes line_id={parseInt(lineId)} departure_location={lineData?.[0]?.["departure_location"]} destination_location={lineData?.[0]?.["destination_location"]} variant={{type: "history", departureTimeDate: departureTimeMomentInstance.format("YYYY-MM-DD")}}/>}
+          {lineData && <ListDepartureTimes line_id={parseInt(lineId)} departure_location={lineData?.[0]?.["departure_location"]} destination_location={lineData?.[0]?.["destination_location"]} variant={{type: "history", departureTimeDate: departureTimeMomentInstance.add(1, "day").format("YYYY-MM-DD")}}/>}
         </section>
       </AnimatedComponents>
     );

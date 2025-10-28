@@ -28,14 +28,14 @@ const ReportModal = () => {
         </Badge>
       </div>
 
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <Modal show={showModal} backdrop={"static"} keyboard={false} onHide={handleCloseModal}>
         <Modal.Header closeButton className={"border-0"}>
           <Modal.Title className={"fw-semibold"} style={{fontSize: "1.35rem"}}>Informar um erro</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ReportForm handleCloseModal={handleCloseModal}/>
         </Modal.Body>
-        <Modal.Footer className={"justify-content-center border-top border-secondary-subtle"}>
+        <Modal.Footer className={"justify-content-center border-top"}>
           <p className={"m-0 text-body-secondary"}>Se preferir, envie um e-mail <Link to={`mailto:${reportMail}`}>{reportMail}</Link>.</p>
         </Modal.Footer>
       </Modal>

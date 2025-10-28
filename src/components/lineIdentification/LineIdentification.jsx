@@ -8,11 +8,17 @@ import ReportModal from "../report/ReportModal.jsx";
 import Util from "../../assets/Util.jsx";
 import Convert from "./convert.js";
 import MonitorModal from "../monitor/MonitorModal.jsx";
+
 import {Tooltip} from 'bootstrap';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
 import {useEffect, useRef, useState} from "react";
+import moment from "moment";
+
+moment.locale("pt-BR");
 
 const LineIdentification = ({line}) => {
-  let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact, datetimeLastModify] = ['', '', '', 0, '', ''];
+  let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact, datetimeLastModify, accessibility, aircon, teraflex, bench, fleet, airsuspension] = ['', '', '', 0, '', '', 0, 0, 0, 0, 0, 0];
   const btnShareRef = useRef(null);
   const [showTooltip, setShowTooltip] = useState(false);
   const [messageTooltip, setMessageTooltip] = useState("");
@@ -40,6 +46,12 @@ const LineIdentification = ({line}) => {
   
   lineType = Convert.lineType(line.type);
   scope = Convert.theScope(line.scope);
+  accessibility = line?.accessibility ?? ""
+  aircon = line?.aircon ?? false;
+  teraflex = line?.teraflex ?? false;
+  bench = line?.bench ?? false;
+  fleet = line?.fleet ?? false;
+  airsuspension = line?.airsuspension ?? false;
   
   if (line.has_integration === 1) hasIntegration = "Possui integração";
   else hasIntegration = "Não possui integração";
@@ -49,7 +61,42 @@ const LineIdentification = ({line}) => {
   
   if (line.count_departure_times) countDepartureTimes = line.count_departure_times;
   if (line.report_contact) reportContact = line.report_contact;
-  if (line.datetime_last_modify) datetimeLastModify = new Date(line.datetime_last_modify || '2021-01-01T00:00:00Z');
+  if (line.datetime_last_modify) datetimeLastModify = new Date((moment(line.datetime_last_modify || '2021-01-01T00:00:00Z').add(-3, "h")).format("YYYY-MM-DD HH:mm:zz"));
+  
+  const accessibilityPopover = (
+    <Popover id="popover-basic">
+      <Popover.Header as="h3" className={"inter"}>Acessibilidade</Popover.Header>
+      <Popover.Body className={"text-sml"}>
+        Os ônibus são acessíveis: possuem elevador; assentos destinados ao público prioritário; assentos, chão e as barras do ônibus tem cores que se contrastam, barras e puxadores para os usuários e pelo menos uma porta exclusiva para a saída.
+      </Popover.Body>
+    </Popover>
+  );
+  
+  const comfortPopover = (
+    <Popover id="popover-basic">
+      <Popover.Header as="h3" className={"inter"}>Conforto</Popover.Header>
+      <Popover.Body className={""}>
+        <div>
+          {
+            [
+              {text: "Ar-condicionado", has: aircon ?? false,},
+              {text: "Assoalho em teraflex", has: teraflex ?? false,},
+              {text: "Banco de encosto alto", has: bench ?? false,},
+              {text: "Frota com menos de 10 anos", has: fleet ?? false,},
+              {text: "Suspensão à ar", has: airsuspension ?? false,},
+            ].map((item, index) => {
+              return (
+                <div className={"d-flex align-items-center flex-wrap gap-1 " + (item.has ? "text-primary" : "text-body-secondary text-decoration-line-through")} key={index}>
+                  <i className="bi bi-check2 text-sml"></i>
+                  <span className={"text-sml"}>{item.text}</span>
+                </div>
+              )
+            })
+          }
+        </div>
+      </Popover.Body>
+    </Popover>
+  );
   
   return (
     <div className="d-flex flex-column gap-3">
@@ -78,6 +125,24 @@ const LineIdentification = ({line}) => {
           <LineInfo label={{ref: 'Integração com outras Linhas ou Modais', value: hasIntegration}}>
             <i className="bi bi-train-front-fill purple"></i>
           </LineInfo>
+          {
+            accessibility === 1 && (
+              <OverlayTrigger trigger="click" placement="auto" overlay={accessibilityPopover}>
+                <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
+                  <i className="bi bi-person-wheelchair text-warning"></i>
+                  Acessível
+                  <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
+                </div>
+              </OverlayTrigger>
+            )
+          }
+          <OverlayTrigger trigger="click" placement="auto" overlay={comfortPopover}>
+            <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
+              <i className="bi bi-star-fill text-primary"></i>
+              Confortável
+              <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
+            </div>
+          </OverlayTrigger>
         </div>
         <div className="d-flex align-items-center gap-2 flex-wrap mb-3 order-3">
           {
@@ -111,7 +176,7 @@ const LineIdentification = ({line}) => {
                       });
                       console.log("Conteúdo compartilhado com sucesso!");
                     } catch (error) {
-                      if (!error.toString().includes("Share canceled")) alert("Erro ao compartilhar:" + error);
+                      // if (!error.toString().includes("Share canceled")) alert("Erro ao compartilhar:" + error);
                       console.log(error.toString());
                     }
                   } else {
@@ -193,6 +258,12 @@ LineIdentification.propTypes = {
     count_departure_times: PropTypes.number.isRequired,
     report_contact: PropTypes.string,
     datetime_last_modify: PropTypes.string,
+    accessibility: PropTypes.number,
+    aircon: PropTypes.number,
+    teraflex: PropTypes.number,
+    bench: PropTypes.number,
+    fleet: PropTypes.number,
+    airsuspension: PropTypes.number,
   }).isRequired
 }
 

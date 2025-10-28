@@ -9,6 +9,7 @@ import AnimatedComponents from "../../../components/animatedComponent/AnimatedCo
 import {ListGroup} from "react-bootstrap";
 import moment from "moment";
 import Util from "../../../assets/Util.jsx";
+moment.locale("pt-BR");
 
 export default function HistoryDepartureTimes() {
   const {id} = useParams();
@@ -47,7 +48,7 @@ export default function HistoryDepartureTimes() {
   useEffect(() => {
     document.title = "Mobilidade - Histórico de horários";
     const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
-    if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : "desconhecida"))?.replaceAll("/", " -> ");
+    if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " -> ");
     // if (breadcrumbData && breadcrumbData[1]) breadcrumbData[1].querySelector('a').textContent = 'Histórico';
   }, [lineData])
   
@@ -83,8 +84,8 @@ export default function HistoryDepartureTimes() {
             <ListGroup>
               {
                 data && data.map((item, index) => (
-                  <ListGroup.Item as={Link} to={`/history/departure-times/${id || 0}/${Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"].replace('Z', '-03:00')}` : moment.utc()).format("YYYY[X]MM[X]DD"))}`} key={index}>
-                    <span className={"d-block"}>{Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"].replace('Z', '-03:00')}` : moment.utc()).format("DD/MM/YYYY"))}</span>
+                  <ListGroup.Item as={Link} to={`/history/departure-times/${id || 0}/${Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"]}` : moment.utc()).add(-3, "h").format("YYYY[X]MM[X]DD"))}`} key={index}>
+                    <span className={"d-block"}>{Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"]}` : moment.utc()).add(-3, "h").format("DD/MM/YYYY"))}</span>
                     <span className={"text-body-tertiary"}>{item?.["count_departure_times"]} horários atualizados</span>
                   </ListGroup.Item>
                 ))

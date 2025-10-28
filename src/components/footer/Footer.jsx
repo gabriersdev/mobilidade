@@ -11,13 +11,13 @@ const Footer = () => {
   const [version, setVersion] = useState("1.0.0");
   const [cacheVersion, setCacheVersion] = useState("V11");
   
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
   const [dataBuild, setDataBuild] = useState({datetimeCreate: null});
   
   useEffect(() => {
     fetch((window.location.pathname !== "/" ? "." : "") + "./register.build.json").then((response) => {
       response.json().then((data) => {
-        setDataBuild({...data})
+        setDataBuild({...data});
       });
     });
     
@@ -89,6 +89,8 @@ const Footer = () => {
             <Link to={"./development#topo"} className="footer-link-list-item">Desenvolvimento</Link>
             <Link to="./terms-of-service#topo" className="footer-link-list-item">Termos de serviços</Link>
             <Link to="./privacy#topo" className="footer-link-list-item">Privacidade</Link>
+            <Link to="https://github.com/gabriersdev/mobilidade/" className="footer-link-list-item">Repositório no Github</Link>
+            <Link to="https://github.com/gabriersdev/mobilidade/issues/new" className="footer-link-list-item">Reportar erro</Link>
           </ul>
           <div className="d-flex gap-3 flex-wrap">
             <button className={"btn text-start p-0 m-0 text-primary-emphasis border-0"} onClick={() => {
