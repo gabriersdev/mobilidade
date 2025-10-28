@@ -25,6 +25,9 @@ const Live = () => {
   const [datetimeOriginalFetch, setDatetimeOriginalFetch] = useState(null);
   const [now, setNow] = useState(moment());
   
+  const defaultAudio = "/audio/general.mp3";
+  const [audio, setAudio] = useState(defaultAudio);
+  
   const fetchInitialData = useCallback(async () => {
     await axios.get(`${config.host}/api/lines/`).then((c) => {
       setLines(c.data.map(c => {
@@ -253,7 +256,10 @@ const Live = () => {
                                         moment(d?.["expected_arrival_time"]).diff(moment(), "minutes") > 0 ? (
                                           <>{(d?.["order_departure_point"] ?? -1) === 1 ? "Saindo" : "Chegando"} {Util.diffToHuman(moment(d?.["expected_arrival_time"]))}</>
                                         ) : (
-                                          <>{(d?.["order_departure_point"] ?? -1) === 1 ? "Saindo agora!" : "Aproximando..."}</>
+                                          <>
+                                            <audio src={[4986, 4987, 4988].map(x => x.toString()).includes(d?.["line_number"] ?? -1) ? `/audio/${d?.["line_number"]}.mp3` : audio} onError={() => {setAudio(defaultAudio)}} className={"d-none"} autoPlay></audio>
+                                            <span>{(d?.["order_departure_point"] ?? -1) === 1 ? "Saindo agora!" : "Aproximando..."}</span>
+                                          </>
                                         )
                                       }
                                       <span className={"text-muted text-sml"}>- às {moment(d?.["expected_arrival_time"]).format("HH:mm")}</span>
