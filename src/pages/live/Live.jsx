@@ -256,9 +256,9 @@ const Live = () => {
                                               parseInt(d?.["direction"] ?? "-1") === 2 ? (`Sentido volta - ${Util.renderText(d?.["destination_location"] ?? "")} -> ${Util.renderText(d?.["departure_location"] ?? "")}`) : ""
                                         }
                                         
-                                        {Util.renderText(d?.["departure_location"] ?? "")} {" -> "} {Util.renderText(d?.["destination_location"] ?? "")}
                                         <span className={"text-sml"}>- partida às {moment(d?.["departure_time_trip"]).format("HH:mm")}</span>
                                       </Title>
+                                      <span className={"text-sml opacity-50"}>({d?.["departure_time_trip"]}) | ({d?.["expected_arrival_time"]})</span>
                                     </Link>
                                   </td>
                                 </tr>
