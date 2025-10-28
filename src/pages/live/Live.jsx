@@ -200,6 +200,14 @@ const Live = () => {
       
       <div className={"rounded-3 bg-body-secondary p-3 mt-5"}>
         {
+          error && (
+            <Alert variant={"danger"}>
+              Algo não saiu como deveria... Tente novamente.
+            </Alert>
+          )
+        }
+        
+        {
           departurePointSelected && (
             <>
               <div className={"d-flex flex-column gap-0 mb-3"}>
@@ -239,7 +247,13 @@ const Live = () => {
                                   </td>
                                   <td className={"bg-body-secondary"}>
                                     <Link to={`/lines/${d?.["line_id"] ?? ""}`} className={"text-decoration-none"}>
-                                      <Title type={"h3"} classX=" text-primary fs-6 fw-normal inter m-0 p-0 text-balance d-flex flex-wrap gap-1 align-items-center">
+                                      <Title type={"h3"} classX=" text-primary fs-6 fw-normal inter m-0 p-0 d-flex flex-wrap gap-1 align-items-center">
+                                        {
+                                          parseInt(d?.["direction"] ?? "-1") === 1 ? (`Sentido ida - ${Util.renderText(d?.["departure_location"] ?? "")} -> ${Util.renderText(d?.["destination_location"] ?? "")}`) :
+                                            parseInt(d?.["direction"] ?? "-1") === 0 ? (`Sentido único - ${Util.renderText(d?.["departure_location"] ?? "")} <-> ${Util.renderText(d?.["destination_location"] ?? "")} (ida e volta)`) :
+                                              parseInt(d?.["direction"] ?? "-1") === 2 ? (`Sentido volta - ${Util.renderText(d?.["destination_location"] ?? "")} -> ${Util.renderText(d?.["departure_location"] ?? "")}`) : ""
+                                        }
+                                        
                                         {Util.renderText(d?.["departure_location"] ?? "")} {" -> "} {Util.renderText(d?.["destination_location"] ?? "")}
                                         <span className={"text-sml"}>- partida às {moment(d?.["departure_time_trip"]).format("HH:mm")}</span>
                                       </Title>
@@ -288,14 +302,6 @@ const Live = () => {
           !departurePointSelected && (
             <Alert variant={"warning"}>
               Defina um ponto de parada para acompanhar a aproximação de ônibus.
-            </Alert>
-          )
-        }
-        
-        {
-          error && (
-            <Alert variant={"danger"}>
-              Algo não saiu como deveria... Tente novamente.
             </Alert>
           )
         }
