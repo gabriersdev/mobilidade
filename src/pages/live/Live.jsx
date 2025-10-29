@@ -320,6 +320,10 @@ const Live = () => {
           </Button>
         </div>
       </div>
+      
+      <Alert variant={"info"} dismissible={true}>
+        Quando o ônibus estiver aproximando ou saindo um aviso sonoro será tocado.
+      </Alert>
     </AnimatedComponents>
   );
 }
