@@ -12,6 +12,8 @@ export default function Intermediate({data = [], observations, departure_locatio
   const departureTimes = data.toSorted((a, b) => a.day - b.day);
   const uniqueDirections = departureTimes.map((item) => item.direction).filter((value, index, self) => self.indexOf(value) === index);
   
+  if (!departure_location || !uniqueDirections) return <div>Organizando horários...</div>;
+  
   return (
     <Accordion defaultEventKey={["0"]} id={"departure-times-data"}>
       <OffcanvasDepartureTimes/>

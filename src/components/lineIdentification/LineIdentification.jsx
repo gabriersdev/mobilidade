@@ -115,7 +115,7 @@ const LineIdentification = ({line}) => {
       }
       
       <div className={"d-flex flex-column"}>
-        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-0">
+        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-1" style={{maxWidth: "600px"}}>
           <LineInfo label={{ref: 'Tipo da Linha', value: lineType}}>
             <i className="bi bi-record-circle red"></i>
           </LineInfo>
@@ -143,8 +143,23 @@ const LineIdentification = ({line}) => {
               <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
             </div>
           </OverlayTrigger>
+          
+          <LineInfo label={{ref: 'Tarifa', value: fare}}>
+            <i className="bi bi-cash-coin naval-blue"></i>
+          </LineInfo>
+          <Link to={`/company/${line.company_id}`} className={"text-decoration-none"}>
+            <LineInfo label={{ref: 'Companhia', value: line.company_name}}>
+              <i className="bi bi-buildings green-sheets"></i>
+            </LineInfo>
+          </Link>
+          <LineInfo label={{ref: "Horários", value: ""}}>
+            <i className="bi bi-calendar-date d-inline-block"></i>
+            <span
+              className={"ms-2"}>{countDepartureTimes.toLocaleString() || "Nenhuma"} {countDepartureTimes > 1 ? "partidas" : "partida"}
+            </span>
+          </LineInfo>
         </div>
-        <div className="d-flex align-items-center gap-2 flex-wrap mb-3 order-3">
+        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-2">
           {
             reportContact ? (
               <Badge className={"fw-normal rounded-5 bg-warning p-0"}>
@@ -201,42 +216,24 @@ const LineIdentification = ({line}) => {
             </Badge>
           </div>
         </div>
-        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-1">
-          <LineInfo label={{ref: 'Tarifa', value: fare}}>
-            <i className="bi bi-cash-coin naval-blue"></i>
-          </LineInfo>
-          <Link to={`/company/${line.company_id}`} className={"text-decoration-none"}>
-            <LineInfo label={{ref: 'Companhia', value: line.company_name}}>
-              <i className="bi bi-buildings green-sheets"></i>
-            </LineInfo>
-          </Link>
-          <LineInfo label={{ref: "Horários", value: ""}}>
-            <i className="bi bi-calendar-date d-inline-block"></i>
-            <span
-              className={"ms-2"}>{countDepartureTimes.toLocaleString() || "Nenhuma"} {countDepartureTimes > 1 ? "partidas" : "partida"}
-            </span>
-          </LineInfo>
-        </div>
-        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-2">
+        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-3">
           {
-            datetimeLastModify ? (
-                <div className={"d-flex align-items-center gap-3 flex-wrap"}>
-                  <LineInfo label={{ref: 'Última atualização', value: ""}}>
-                    <i className="bi bi-stopwatch"></i>
-                    <span className={"ms-1"}>
+            datetimeLastModify && (<div className={"d-flex align-items-center gap-3 flex-wrap"}>
+                <LineInfo label={{ref: 'Última atualização', value: ""}}>
+                  <i className="bi bi-stopwatch"></i>
+                  <span className={"ms-1"}>
                     Atualizado em:{" "}
-                      {
-                        [
-                          (0 + datetimeLastModify.toLocaleString('pt-BR', {day: 'numeric'})).slice(-2),
-                          datetimeLastModify.toLocaleString('pt-BR', {month: 'long'}),
-                          (0 + datetimeLastModify.toLocaleString('pt-BR', {year: 'numeric'})).slice(-4),
-                        ].join(" de ")
-                      }
+                    {
+                      [
+                        (0 + datetimeLastModify.toLocaleString('pt-BR', {day: 'numeric'})).slice(-2),
+                        datetimeLastModify.toLocaleString('pt-BR', {month: 'long'}),
+                        (0 + datetimeLastModify.toLocaleString('pt-BR', {year: 'numeric'})).slice(-4),
+                      ].join(" de ")
+                    }
                   </span>
-                  </LineInfo>
-                </div>
-              )
-              : ""}
+                </LineInfo>
+              </div>)
+          }
         </div>
       </div>
     </div>

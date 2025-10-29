@@ -29,8 +29,6 @@ const Line = ({id}) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
   const defaultImage = "/images/banner.png";
-  const initialImage = id ? `/images/lines/${id}.png` : defaultImage;
-  const [img, setImg] = useState(initialImage);
   
   const renderText = useCallback((text) => {
     // Usa regex para encontrar todas as barras e as envolve em spans
@@ -70,26 +68,6 @@ const Line = ({id}) => {
       return false;
     }
   }
-
-// Usage in your React component
-  useEffect(() => {
-    if (!id) {
-      setImg(defaultImage);
-      return;
-    }
-    try {
-      const formUrl = `/images/lines/${id ?? 0}.png`;
-      checkFileExists(formUrl).then(exists => {
-        if (exists) setImg(formUrl);
-        else setImg(defaultImage);
-      });
-    } catch (error) {
-      console.log(`[ERROR] - ${error}`);
-      handleImageError();
-    }
-  }, [id]);
-  
-  const handleImageError = () => setImg(defaultImage);
   
   if (isLoaded) {
     return (
@@ -170,9 +148,9 @@ const Line = ({id}) => {
             
             <section id={"resume"} className={"pt-3"}>
               <Title type="h3" classX={" text-body-secondary"}>Sobre esta linha</Title>
-              <div className={"mt-3 position-relative border rounded-5"}>
-                <img src={img} onError={handleImageError} alt={`Imagem de veículo da linha ${id}. Banner do Mobilidade.`} width={"100"} height={"500px"} className={"w-100 object-fit-cover rounded-5 border"}/>
-                <div className={"p-3 position-absolute top-0 rounded w-100 h-100"} style={{background: "linear-gradient(-135deg,#00000010 0%, #00000095 50%)", backdropFilter: "blur(12px)"}}></div>
+              <div className={"mt-3 position-relative"}>
+                <img src={defaultImage} alt={`Imagem de veículo da linha ${id}. Banner do Mobilidade.`} width={"100"} height={"500px"} className={"w-100 object-fit-cover rounded-1"}/>
+                <div className={"p-3 position-absolute top-0 w-100 h-100 rounded-3"} style={{background: "linear-gradient(-135deg,#00000005 0%, #00000095 50%)", backgroundColor: "#00000015"}}></div>
                 <div className={"position-absolute bottom-0 mb-4 ms-4 text-balance"} style={{maxWidth: "calc(100% - 3rem)"}}>
                   <div className={"mb-3"}>
                     <h2 className={"text-white fs-3 fw-bold"}>{data[0].line_number}</h2>

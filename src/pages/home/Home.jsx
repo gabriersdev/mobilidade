@@ -6,6 +6,7 @@ import LatestNews from "../../components/latestNews/LatestNews.jsx";
 import GuideBanner from "../../components/banners/GuideBanner.jsx";
 import {Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import LiveBanner from "../../components/banners/LiveBanner.jsx";
 
 const Home = () => {
   useEffect(() => {
@@ -18,18 +19,17 @@ const Home = () => {
     <div>
       <FormValidSearch formTitle={"Para onde vamos?"} inputPlaceholder={""}/>
       <div>
-        <>
-          <div className={"d-flex align-items-center gap-2 justify-content-between flex-wrap mt-5"}>
-            <Title title="Principais Linhas" classX={" text-body-secondary"}/>
-            <Button as={Link} to={"/lines"} variant={"secondary"} size={"sm"}>
-              <span className={""}>Ver todas</span>
-            </Button>
-          </div>
-          <GetAndListLines variant="main"/>
-          <div style={{marginTop: '4rem'}}>
-            <LatestNews/>
-          </div>
-        </>
+        <LiveBanner/>
+        <div className={"d-flex align-items-center gap-2 justify-content-between flex-wrap mt-5"}>
+          <Title title="Principais Linhas" classX={" text-body-secondary"}/>
+          <Button as={Link} to={"/lines"} variant={"secondary"} size={"sm"}>
+            <span className={""}>Ver todas</span>
+          </Button>
+        </div>
+        <GetAndListLines variant="main"/>
+        <div style={{marginTop: '4rem'}}>
+          <LatestNews/>
+        </div>
       </div>
       <GuideBanner/>
     </div>

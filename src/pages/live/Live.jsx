@@ -55,6 +55,8 @@ const Live = () => {
   }, []);
   
   const fetchData = async (departurePointSelected) => {
+    // Força a perda de foco de todos os inputs
+    document.querySelectorAll("input")?.forEach(i => i.blur());
     if (!departurePointSelected) return;
     const s = await axios.post(`${config.host}/api/predictions/departure-points/`, {
       pointId: departurePointSelected?.["id"] ?? -1
@@ -187,7 +189,7 @@ const Live = () => {
             ) : (
               (
                 <AnimatedComponents>
-                  <div className={"d-flex flex-wrap gap-2 align-items- mt-3"}>
+                  <div className={"d-flex flex-wrap gap-2 align-items-center mt-3"}>
                     <Spinner animation="grow" size={"sm"} variant={"primary"}/>
                     <span>Carregando os pontos de parada...</span>
                   </div>
@@ -199,6 +201,14 @@ const Live = () => {
       </div>
       
       <div className={"rounded-3 bg-body-secondary p-3 mt-5"}>
+        {
+          error && (
+            <Alert variant={"danger"}>
+              Algo não saiu como deveria... Tente novamente.
+            </Alert>
+          )
+        }
+        
         {
           departurePointSelected && (
             <>
@@ -239,10 +249,16 @@ const Live = () => {
                                   </td>
                                   <td className={"bg-body-secondary"}>
                                     <Link to={`/lines/${d?.["line_id"] ?? ""}`} className={"text-decoration-none"}>
-                                      <Title type={"h3"} classX=" text-primary fs-6 fw-normal inter m-0 p-0 text-balance d-flex flex-wrap gap-1 align-items-center">
-                                        {Util.renderText(d?.["departure_location"] ?? "")} {" -> "} {Util.renderText(d?.["destination_location"] ?? "")}
+                                      <Title type={"h3"} classX=" text-primary fs-6 fw-normal inter m-0 p-0 d-flex flex-wrap gap-1 align-items-center">
+                                        {
+                                          parseInt(d?.["direction"] ?? "-1") === 1 ? (`Sentido ida - ${Util.renderText(d?.["departure_location"] ?? "")} -> ${Util.renderText(d?.["destination_location"] ?? "")}`) :
+                                            parseInt(d?.["direction"] ?? "-1") === 0 ? (`Sentido único - ${Util.renderText(d?.["departure_location"] ?? "")} <-> ${Util.renderText(d?.["destination_location"] ?? "")} (ida e volta)`) :
+                                              parseInt(d?.["direction"] ?? "-1") === 2 ? (`Sentido volta - ${Util.renderText(d?.["destination_location"] ?? "")} -> ${Util.renderText(d?.["departure_location"] ?? "")}`) : ""
+                                        }
+                                        
                                         <span className={"text-sml"}>- partida às {moment(d?.["departure_time_trip"]).format("HH:mm")}</span>
                                       </Title>
+                                      <span className={"text-sml opacity-50"}>({d?.["departure_time_trip"]}) | ({d?.["expected_arrival_time"]})</span>
                                     </Link>
                                   </td>
                                 </tr>
@@ -292,14 +308,6 @@ const Live = () => {
           )
         }
         
-        {
-          error && (
-            <Alert variant={"danger"}>
-              Algo não saiu como deveria... Tente novamente.
-            </Alert>
-          )
-        }
-        
         <div className={"d-none"}>
           <Button variant={"primary"} size={"sm"} className={"d-flex align-items-center gap-2 flex-wrap"}>
             <i className="bi bi-fullscreen-exit"></i>
@@ -312,6 +320,10 @@ const Live = () => {
           </Button>
         </div>
       </div>
+      
+      <Alert variant={"info"} dismissible={true}>
+        Quando o ônibus estiver aproximando ou saindo um aviso sonoro será tocado.
+      </Alert>
     </AnimatedComponents>
   );
 }
