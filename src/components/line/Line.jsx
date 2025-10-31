@@ -59,16 +59,6 @@ const Line = ({id}) => {
     });
   }, [id]);
   
-  async function checkFileExists(url) {
-    try {
-      const response = await fetch(url, {method: 'HEAD'});
-      return response.ok; // Returns true if the status code is 200-299
-    } catch (error) {
-      console.error('Error while checking file:', error);
-      return false;
-    }
-  }
-  
   if (isLoaded) {
     return (
       <AnimatedComponents>
@@ -95,7 +85,11 @@ const Line = ({id}) => {
     document.title = `Linha ${data[0].line_number} | ${data[0].departure_location} - ${data[0].destination_location} | Transporte Público em Sabará - MG | Horários, Pontos de Paradas e Pontos de Recarga`;
     const dataLineId = document.querySelectorAll('.breadcrumb-i.data-line-id')
     if (dataLineId) dataLineId.forEach((item) => {
-      item.querySelector('a').textContent = `${data[0].line_number} - ${data[0].departure_location} -> ${data[0].destination_location}`;
+      try {
+        item.querySelector('a').textContent = `${data[0].line_number} - ${data[0].departure_location} -> ${data[0].destination_location}`;
+      } catch (error) {
+        console.log(error?.substring(0, 1));
+      }
     });
     
     return (
@@ -161,8 +155,8 @@ const Line = ({id}) => {
               </div>
               <div className={"mt-3 d-flex gap-3 flex-wrap"}>
                 <Link to={`/history/departure-times/${id}`}>Histórico de horários</Link>
-                <Link to={`/history/#`}>Histórico de tarifas</Link>
-                <Link to={`/history/#`}>Histórico de pontos de paradas</Link>
+                <Link to={`/history/fares/${id}`}>Histórico de tarifas</Link>
+                <Link to={`/history/departure-points/${id}`}>Histórico de pontos de paradas</Link>
               </div>
               <div className={"mt-5 d-flex flex-column gap-3"}>
                 <GuideBanner/>

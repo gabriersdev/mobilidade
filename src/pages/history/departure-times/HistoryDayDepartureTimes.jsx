@@ -58,17 +58,25 @@ export default function HistoryDayDepartureTimes() {
   useEffect(() => {
     document.title = "Mobilidade - Histórico de horários";
     const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
-    if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " -> ");
-    if (breadcrumbData && departureTimeDate && departureTimeDateIsValid && breadcrumbData[4]) breadcrumbData[4].querySelector('a').textContent = departureTimeDateFormatted;
-    else if (breadcrumbData && (!departureTimeDate || !departureTimeDateIsValid) && breadcrumbData[4]) breadcrumbData[4].querySelector('a').textContent = "Mobilidade";
+    try {
+      if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " -> ");
+      if (breadcrumbData && departureTimeDate && departureTimeDateIsValid && breadcrumbData[4]) breadcrumbData[4].querySelector('a').textContent = departureTimeDateFormatted;
+      else if (breadcrumbData && (!departureTimeDate || !departureTimeDateIsValid) && breadcrumbData[4]) breadcrumbData[4].querySelector('a').textContent = "Mobilidade";
+    } catch (error) {
+      console.log(error?.substring(0, 1));
+    }
   }, [lineData, departureTimeDate, departureTimeDateIsValid]);
   
   useEffect(() => {
     document.title = "Mobilidade - Histórico de horários";
     const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
-    if (breadcrumbData && breadcrumbData[1] && breadcrumbData[2]) {
-      breadcrumbData[1].querySelector('a').textContent = `Histórico`;
-      breadcrumbData[2].querySelector('a').textContent = `Horários de partida`;
+    try {
+      if (breadcrumbData && breadcrumbData[1] && breadcrumbData[2]) {
+        breadcrumbData[1].querySelector('a').textContent = `Histórico`;
+        breadcrumbData[2].querySelector('a').textContent = `Horários de partida`;
+      }
+    } catch (error) {
+      console.log(error?.substring(0, 1));
     }
   }, []);
   
@@ -86,11 +94,13 @@ export default function HistoryDayDepartureTimes() {
     return (
       <AnimatedComponents>
         <span className={"text-body-secondary"}>Histórico de horários</span>
-        <Title classX=" fs-3 d-inline mt-1 p-0 d-block mb-0">
-          <span className="d-block text-body-emphasis" style={{fontSize: "inherit"}}>Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " -> " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " -> ")}</span>
-        </Title>
+        <Link to={`/lines/${lineId}`} className={"text-decoration-none"}>
+          <Title classX=" fs-3 d-inline mt-1 p-0 d-block mb-0">
+            <span className="d-block text-body-emphasis" style={{fontSize: "inherit"}}>Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " -> " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " -> ")}</span>
+          </Title>
+        </Link>
         
-        <span className="d-block text-body-secondary mt-1 mb-3" style={{fontSize: "inherit"}}>Snapshot dos horários de partida em  {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}</span>
+        <span className="d-block text-body-secondary mt-1 mb-3" style={{fontSize: "inherit"}}>Snapshot dos horários de partida em {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}</span>
         
         <Alert variant={"warning"}>
           <p className={"m-0"}>Você está vendo horários da linha {lineData?.[0]?.["line_number"] || ""} que <b>foram atualizados em {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}.</b> <Link to={`/lines/${lineId}`} className={"text-warning-emphasis"} target={"_blank"}>Clique aqui para visualizar os horários mais atuais.</Link></p>
