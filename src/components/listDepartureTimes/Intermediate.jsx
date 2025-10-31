@@ -17,7 +17,7 @@ export default function Intermediate({data = [], observations, departure_locatio
   return (
     <Accordion defaultEventKey={["0"]} id={"departure-times-data"}>
       <OffcanvasDepartureTimes/>
-      {uniqueDirections.map((direction, i) => {
+      {uniqueDirections.reverse().map((direction, i) => {
         const directionName =
           direction === 1 ? (`Sentido ida - ${departure_location} -> ${destination_location}`) :
             direction === 0 ? (`Sentido único - ${departure_location} <-> ${destination_location} (ida e volta)`) :

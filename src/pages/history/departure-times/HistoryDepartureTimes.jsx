@@ -9,6 +9,7 @@ import AnimatedComponents from "../../../components/animatedComponent/AnimatedCo
 import {ListGroup} from "react-bootstrap";
 import moment from "moment";
 import Util from "../../../assets/Util.jsx";
+
 moment.locale("pt-BR");
 
 export default function HistoryDepartureTimes() {
@@ -48,16 +49,24 @@ export default function HistoryDepartureTimes() {
   useEffect(() => {
     document.title = "Mobilidade - Histórico de horários";
     const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
-    if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " -> ");
-    // if (breadcrumbData && breadcrumbData[1]) breadcrumbData[1].querySelector('a').textContent = 'Histórico';
+    try {
+      if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " -> ");
+      if (breadcrumbData && breadcrumbData[1]) breadcrumbData[1].querySelector('a').textContent = 'Histórico';
+    } catch (error) {
+      console.log(error?.substring(0, 1));
+    }
   }, [lineData])
   
   useEffect(() => {
     document.title = "Mobilidade - Histórico de horários";
     const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
-    if (breadcrumbData) {
-      breadcrumbData[1].querySelector('a').textContent = `Histórico`;
-      breadcrumbData[2].querySelector('a').textContent = `Horários de partida`;
+    try {
+      if (breadcrumbData) {
+        breadcrumbData[1].querySelector('a').textContent = `Histórico`;
+        breadcrumbData[2].querySelector('a').textContent = `Horários de partida`;
+      }
+    } catch (error) {
+      console.log(error?.substring(0, 1));
     }
   }, []);
   
@@ -73,11 +82,13 @@ export default function HistoryDepartureTimes() {
     return (
       <AnimatedComponents>
         <span className={"text-body-secondary"}>Histórico de horários</span>
-        <Title classX=" fs-3 d-inline text-body-emphasis mt-1 p-0 d-block">
+        <Link to={`/lines/${id}`} className={"text-decoration-none"}>
+          <Title classX=" fs-3 d-inline text-body-emphasis mt-1 p-0 d-block">
           <span className="" style={{fontSize: "inherit"}}>
             Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " -> " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " -> ")}
           </span>
-        </Title>
+          </Title>
+        </Link>
         
         <section className={"d-flex gap-5 mt-5 flex-column"}>
           <AnimatedComponents>
@@ -85,7 +96,7 @@ export default function HistoryDepartureTimes() {
               {
                 data && data.map((item, index) => (
                   <ListGroup.Item as={Link} to={`/history/departure-times/${id || 0}/${Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"]}` : moment.utc()).add(-3, "h").format("YYYY[X]MM[X]DD"))}`} key={index}>
-                    <span className={"d-block"}>{Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"]}` : moment.utc()).add(-3, "h").format("DD/MM/YYYY"))}</span>
+                    <Title classX={" fs-5 m-0 pt-1 pb-0 px-0 fw-bold d-bold text-primary"}>{Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"]}` : moment.utc()).add(-3, "h").format("DD/MM/YYYY"))}</Title>
                     <span className={"text-body-tertiary"}>{item?.["count_departure_times"]} horários atualizados</span>
                   </ListGroup.Item>
                 ))

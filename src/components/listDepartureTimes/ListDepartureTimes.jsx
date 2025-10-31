@@ -24,7 +24,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location, 
       const processAndSortDays = async () => {
         try {
           // A lógica de preparação dos dados fica aqui dentro
-          const uniqueDirections = data.map((item) => item.direction).filter((value, index, self) => self.indexOf(value) === index);
+          const uniqueDirections = data.map((item) => item.direction).filter((value, index, self) => self.indexOf(value) === index).sort();
           const uniqueDaysForDirection = uniqueDirections.map((direction) => data.filter((item) => item.direction === direction).map((item) => item.day).filter((value, index, self) => self.indexOf(value) === index));
           
           const result = await Promise.all(uniqueDaysForDirection.map(async directionItems => {
