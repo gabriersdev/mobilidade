@@ -70,7 +70,15 @@ const Live = () => {
     console.log(s);
     setIsOriginalFetch(true);
     setDatetimeOriginalFetch(moment());
-    setData(s?.data[0]);
+    
+    const axiosData = s?.data[0];
+    if (Array.isArray(axiosData)) setData(JSON.parse(JSON.stringify(axiosData)).map((d) => {
+      return {
+        ...d,
+        // "departure_time_trip": d?.["departure_time_trip"].replace("Z", "-03:00"),
+        // "expected_arrival_time": d?.["expected_arrival_time"].replace("Z", "-03:00"),
+      }
+    }));
   };
   
   useEffect(() => {
@@ -258,7 +266,7 @@ const Live = () => {
                                         
                                         <span className={"text-sml"}>- partida às {moment(d?.["departure_time_trip"]).format("HH:mm")}</span>
                                       </Title>
-                                      <span className={"d-none text-sml opacity-50"}>({d?.["departure_time_trip"]}) | ({d?.["expected_arrival_time"]})</span>
+                                      <span className={"d-block text-sml opacity-50"}>({d?.["departure_time_trip"]}) | ({d?.["expected_arrival_time"]})</span>
                                     </Link>
                                   </td>
                                 </tr>
