@@ -75,10 +75,11 @@ const Live = () => {
     if (Array.isArray(axiosData)) setData(JSON.parse(JSON.stringify(axiosData)).map((d) => {
       return {
         ...d,
-        // "departure_time_trip": d?.["departure_time_trip"].replace("Z", "-03:00"),
-        // "expected_arrival_time": d?.["expected_arrival_time"].replace("Z", "-03:00"),
+        "departure_time_trip": parseInt(import.meta.env.VITE_MODE, 10) === 0 ? d?.["departure_time_trip"].replace("Z", "-03:00") : d?.["departure_time_trip"],
+        "expected_arrival_time": parseInt(import.meta.env.VITE_MODE, 10) === 0 ? d?.["expected_arrival_time"].replace("Z", "-03:00") : d?.["expected_arrival_time"],
       }
     }));
+    setError(null);
   };
   
   useEffect(() => {
@@ -169,12 +170,7 @@ const Live = () => {
                 </AnimatedComponents>
               </div>
             ) : (
-              <AnimatedComponents>
-                <div className={"d-flex flex-wrap gap-2 align-items-center mt-3"}>
-                  <Spinner animation="grow" size={"sm"} variant={"primary"}/>
-                  <span>Carregando as linhas...</span>
-                </div>
-              </AnimatedComponents>
+              <></>
             )
           }
           
