@@ -69,6 +69,10 @@
   font-size: inherit !important;
 }
 
+.fs-initial {
+  font-size: initial !important;
+}
+
 p * {
   font-size: inherit !important;
   color: inherit !important;
