@@ -6,6 +6,7 @@ import InstallPWAButton from "../installPWAButton/InstallPWAButton.jsx";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 import Util from "../../assets/Util.jsx";
 import moment from "moment";
+import {contactLotus} from "../../assets/resources.js";
 
 const Footer = () => {
   const [version, setVersion] = useState("1.0.0");
@@ -123,6 +124,20 @@ const Footer = () => {
           </div>
         </Container>
       </footer>
+      <div className={"py-5 border-top"} style={{backgroundColor: "#F6F6F6"}}>
+        <Container className={"d-flex flex-column gap-3"}>
+          <img src={"/images/icon-white.png"} height={48} width={48} alt={"Logo da Lotus Media"} className={"rounded-2"}/>
+          <h3 className={"fs-3 m-0 p-0 d-flex flex-column"} style={{color: "#FC0B65"}}>
+            <span className={"fs-inherit"}>Mobilidade.</span>
+            <span className={"fs-inherit"}>Pensado com amor.</span>
+            <span className={"fs-inherit"}>Feito com tecnologia.</span>
+            <span className={"fs-inherit fw-bold"}>Hospedado na infraestrutura da <img src={"https://raw.githubusercontent.com/lotus-media/media-kit/refs/heads/main/favicon.svg"} height={32} width={32} alt={"Logo da Lotus Media"}/> Lotus.</span>
+          </h3>
+          <Link to={contactLotus} target={"_blank"} className={"text-decoration-none"}>
+            <span style={{color: "#FC0B65"}}>Comece seu projeto hoje mesmo {"->"}</span>
+            </Link>
+        </Container>
+      </div>
     </AnimatedComponents>
   )
 }

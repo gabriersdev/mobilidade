@@ -1,11 +1,11 @@
 import {useEffect} from 'react'
 import Title from "../../components/title/Title";
-// import Util from "../../assets/Util.jsx";
+import Util from "../../assets/Util.jsx";
 
 const Development = () => {
   useEffect(() => {
     document.title = "Mobilidade - Desenvolvimento";
-    // Util.updateActiveLink()
+    Util.updateActiveLink();
   }, [])
   
   return (
