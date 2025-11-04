@@ -36,7 +36,7 @@ const Line = ({id}) => {
       if (part === "/") return <span key={index} style={{fontSize: 'inherit', fontFamily: "'Arial', sans-serif"}}>/</span>; // Adiciona uma key para o React
       return part;
     });
-  }, [])
+  }, []);
   
   useEffect(() => {
     // Altera o título da página
@@ -88,7 +88,8 @@ const Line = ({id}) => {
       try {
         item.querySelector('a').textContent = `${data[0].line_number} - ${data[0].departure_location} -> ${data[0].destination_location}`;
       } catch (error) {
-        console.log(error?.substring(0, 1));
+        console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
+        console.log("Um erro ocorreu...");
       }
     });
     
