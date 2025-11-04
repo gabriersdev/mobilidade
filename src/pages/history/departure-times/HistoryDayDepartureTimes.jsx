@@ -9,6 +9,7 @@ import AnimatedComponents from "../../../components/animatedComponent/AnimatedCo
 import moment from "moment";
 import {ListDepartureTimes} from "../../../components/listDepartureTimes/ListDepartureTimes.jsx";
 import Util from "../../../assets/Util.jsx";
+import {Button} from "react-bootstrap";
 
 moment.locale("pt-BR");
 
@@ -63,7 +64,8 @@ export default function HistoryDayDepartureTimes() {
       if (breadcrumbData && departureTimeDate && departureTimeDateIsValid && breadcrumbData[4]) breadcrumbData[4].querySelector('a').textContent = departureTimeDateFormatted;
       else if (breadcrumbData && (!departureTimeDate || !departureTimeDateIsValid) && breadcrumbData[4]) breadcrumbData[4].querySelector('a').textContent = "Mobilidade";
     } catch (error) {
-      console.log(error?.substring(0, 1));
+      console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
+      console.log("Um erro ocorreu...");
     }
   }, [lineData, departureTimeDate, departureTimeDateIsValid]);
   
@@ -76,7 +78,8 @@ export default function HistoryDayDepartureTimes() {
         breadcrumbData[2].querySelector('a').textContent = `Horários de partida`;
       }
     } catch (error) {
-      console.log(error?.substring(0, 1));
+      console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
+      console.log("Um erro ocorreu...");
     }
   }, []);
   
@@ -93,14 +96,16 @@ export default function HistoryDayDepartureTimes() {
   else if (departureTimeDateIsValid && departureTimeMomentInstance.isValid()) {
     return (
       <AnimatedComponents>
-        <span className={"text-body-secondary"}>Histórico de horários</span>
+        <span className={"text-body-secondary fw-normal"}>Histórico de horários</span>
         <Link to={`/lines/${lineId}`} className={"text-decoration-none"}>
-          <Title classX=" fs-3 d-inline mt-1 p-0 d-block mb-0">
+          <Title type={"h2"} classX=" fs-3 d-inline mt-1 p-0 d-block mb-0">
             <span className="d-block text-body-emphasis" style={{fontSize: "inherit"}}>Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " -> " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " -> ")}</span>
           </Title>
         </Link>
         
-        <span className="d-block text-body-secondary mt-1 mb-3" style={{fontSize: "inherit"}}>Snapshot dos horários de partida em {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}</span>
+        <h1 className={"m-0 p-0"}>
+          <span className="d-block fw-normal fs-6 text-body-secondary mt-2 mb-3" style={{fontSize: "inherit"}}>Snapshot dos horários de partida em {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}</span>
+        </h1>
         
         <Alert variant={"warning"}>
           <p className={"m-0"}>Você está vendo horários da linha {lineData?.[0]?.["line_number"] || ""} que <b>foram atualizados em {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}.</b> <Link to={`/lines/${lineId}`} className={"text-warning-emphasis"} target={"_blank"}>Clique aqui para visualizar os horários mais atuais.</Link></p>
@@ -109,6 +114,10 @@ export default function HistoryDayDepartureTimes() {
         <section className={"d-flex gap-5 mt-5 flex-column"}>
           {lineData && <ListDepartureTimes line_id={parseInt(lineId)} departure_location={lineData?.[0]?.["departure_location"]} destination_location={lineData?.[0]?.["destination_location"]} variant={{type: "history", departureTimeDate: departureTimeMomentInstance.add(1, "day").format("YYYY-MM-DD")}}/>}
         </section>
+        
+        <Link to={`/lines/${lineId}`} className={"d-inline-flex mt-3 text-decoration-none"}>
+          <Button variant={"primary"}>Veja todas as informações da linha {lineData?.[0]?.["line_number"] ?? ""}</Button>
+        </Link>
       </AnimatedComponents>
     );
   }

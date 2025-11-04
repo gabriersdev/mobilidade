@@ -9,6 +9,7 @@ import AccordionItem from "../../components/accordion/AccordionItem.jsx";
 import {Link} from "react-router-dom";
 import AnimatedComponents from "../../components/animatedComponent/AnimatedComponents.jsx";
 import {Button, Card, CardBody, CardHeader, CardTitle, FormControl, InputGroup, ListGroup, ListGroupItem} from "react-bootstrap";
+import PaginationWithItems from "../../components/paginationWithItems/PaginationWithItems.jsx";
 
 const Guide = () => {
   const [data, setData] = useState({});
@@ -62,36 +63,38 @@ const Guide = () => {
         <AnimatedComponents>
           <div className={"d-flex flex-column gap-5"}>
             {
-              uniqueLetters.map((letter, i) => {
-                return (
-                  <div key={i} id={`index-letter-${letter}`}>
-                    <div className={"d-inline-flex justify-content-between gap-2 flex-wrap"}>
-                      <Title type={"h3"} classX={" fs-6 fw-bold text-body"}>{letter}</Title>
-                      {uniqueLetters[uniqueLetters.indexOf(letter) + 1] && <Link to={`#index-letter-${uniqueLetters[uniqueLetters.indexOf(letter) + 1]}`} className={"text-decoration-none text-sml text-body-tertiary"}>Ir para a próxima letra do índice</Link>}
+              <PaginationWithItems beforeSelector={true} items={
+                uniqueLetters.map((letter, i) => {
+                  return (
+                    <div key={i} id={`index-letter-${letter}`} className={"mt-3"}>
+                      <div className={"d-inline-flex justify-content-between gap-2 flex-wrap"}>
+                        <Title type={"h3"} classX={" fs-6 fw-bold text-body"}>{letter}</Title>
+                        {uniqueLetters[uniqueLetters.indexOf(letter) + 1] && <Link to={`#index-letter-${uniqueLetters[uniqueLetters.indexOf(letter) + 1]}`} className={"text-decoration-none text-sml text-body-tertiary"}>Ir para a próxima letra do índice</Link>}
+                      </div>
+                      
+                      <Accordion defaultEventKey={["0"]}>
+                        {
+                          Object.entries(data).filter(([k]) => k[0] === letter).map(([key, value], index) => {
+                            return (
+                              <AccordionItem title={key.replace("/", " - ").replaceAll("/", " - ")} key={index} eventKey={index.toString()}>
+                                <ul className="ps-3 m-0" style={{lineHeight: 1.75}}>
+                                  {
+                                    value.map((line, i) => {
+                                      return (
+                                        <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replaceAll("/", " -> ")}</Link></li>
+                                      )
+                                    })
+                                  }
+                                </ul>
+                              </AccordionItem>
+                            )
+                          })
+                        }
+                      </Accordion>
                     </div>
-                    
-                    <Accordion defaultEventKey={["0"]}>
-                      {
-                        Object.entries(data).filter(([k]) => k[0] === letter).map(([key, value], index) => {
-                          return (
-                            <AccordionItem title={key.replace("/", " - ").replaceAll("/", " - ")} key={index} eventKey={index.toString()}>
-                              <ul className="ps-3 m-0" style={{lineHeight: 1.75}}>
-                                {
-                                  value.map((line, i) => {
-                                    return (
-                                      <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replaceAll("/", " -> ")}</Link></li>
-                                    )
-                                  })
-                                }
-                              </ul>
-                            </AccordionItem>
-                          )
-                        })
-                      }
-                    </Accordion>
-                  </div>
-                )
-              })
+                  )
+                })
+              } itemsPerPage={1}/>
             }
           </div>
         </AnimatedComponents>
@@ -138,34 +141,10 @@ const Guide = () => {
             </form>
             
             <div className="row">
-              <div className="col-lg-8">
+              <div className="">
                 <AnimatedComponents>
                   {content}
                 </AnimatedComponents>
-              </div>
-              <div className="col-lg-4">
-                <Card className="p-0 position-sticky" style={{top: "6rem"}}>
-                  <CardHeader className="bg-body-secondary">
-                    <CardTitle className={"fs-6 px-3 py-3 m-0 border-bottom"}>Índice de letras</CardTitle>
-                  </CardHeader>
-                  <CardBody className={"p-3"}>
-                    {
-                      loading ? (<>Carregando...</>) : (
-                        <ListGroup className={"bg-body"}>
-                          {indiceLetters?.map((letter, i) => {
-                            return (
-                              <ListGroupItem as={"a"} key={i} className={"bg-body text-primary border " + (i !== 0 ? "border-top-0" : "")} href={`#index-letter-${letter}`}>
-                                <AnimatedComponents>
-                                  <span className={"d-block py-1"}>{letter}</span>
-                                </AnimatedComponents>
-                              </ListGroupItem>
-                            )
-                          })}
-                        </ListGroup>
-                      )
-                    }
-                  </CardBody>
-                </Card>
               </div>
             </div>
           </AnimatedComponents>

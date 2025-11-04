@@ -30,7 +30,7 @@ const ListRechargePoints = ({id_company, company_name}) => {
       }
     }
     
-    searchRecharchePoints()
+    searchRecharchePoints().then(()=> {});
   }, [id_company]);
   
   if (isLoaded) {

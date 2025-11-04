@@ -5,6 +5,7 @@ import {Theme} from "../themeContext/ThemeContext.jsx";
 import {Context as LineContext} from "../line/LineContext.jsx";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import PaginationWithItems from "../paginationWithItems/PaginationWithItems.jsx";
 
 const ListPointsByDirections = () => {
   const {uniqueDirections, departure_location, destination_location, departurePointsByDirection} = useContext(Theme);
@@ -37,8 +38,8 @@ const ListPointsByDirections = () => {
                 direction === 2 ? (`Sentido volta - ${destination_location} -> ${departure_location}`) : ""
           }
           eventKey={i.toString()}>
-          <ul className="list-line-content list-group d-flex gap-2 ms-3">
-            {
+          <ul className="list-line-content list-group d-flex gap-2 ms-md-3">
+            <PaginationWithItems items={(
               departurePointsByDirection[i].map((point, j) => {
                 return (
                   <li key={j}>
@@ -59,7 +60,7 @@ const ListPointsByDirections = () => {
                   </li>
                 )
               })
-            }
+            )} itemsPerPage={10}/>
           </ul>
           <div className={"d-flex gap-2 flex-wrap align-items-center mt-4"}>
             <OverlayTrigger overlay={<Tooltip>Não houve alteração nos pontos de paradas</Tooltip>}>

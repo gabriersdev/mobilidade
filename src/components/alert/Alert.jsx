@@ -2,7 +2,7 @@ import {useState} from "react";
 import PropTypes from "prop-types";
 import {Alert as BootstrapAlert} from "react-bootstrap";
 
-const Alert = ({variant, margin, children = <></>, dismissible = false, onClose = () => {}}) => {
+const Alert = ({variant, margin, children = <></>, dismissible = false, onClose = () => {}, className}) => {
   const [show, setShow] = useState(true);
   
   if (!show) {
@@ -37,7 +37,7 @@ const Alert = ({variant, margin, children = <></>, dismissible = false, onClose 
   return (
     <BootstrapAlert
       variant={variant === 'weather' ? 'info' : variant}
-      className={`d-flex flex-row gap-2 ${!margin ? 'mt-3' : margin} text-balance`}
+      className={`d-flex flex-row gap-2 ${!margin ? 'mt-3' : margin} text-balance` + " " + (className ?? "")}
       role="alert"
       show={show}
       onClose={handleClose}
@@ -55,6 +55,7 @@ Alert.propTypes = {
   children: PropTypes.node,
   dismissible: PropTypes.bool,
   onClose: PropTypes.func,
+  className: PropTypes.string
 };
 
 export default Alert;

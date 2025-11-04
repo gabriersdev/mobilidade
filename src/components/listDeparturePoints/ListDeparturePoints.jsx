@@ -30,7 +30,7 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
       }
     };
     
-    searchDeparturePoints();
+    searchDeparturePoints().then(() => {});
   }, [line_id]);
   
   if (isLoaded) return <AnimatedComponents><div>Carregando...</div></AnimatedComponents>;

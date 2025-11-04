@@ -68,7 +68,7 @@ const OffcanvasDepartureTimes = () => {
                 </iframe>
                 <Alert variant={"warning"} className={"mt-2"}>
             <span className={"fw-light"}>
-              A localização do Maps pode não corresponder <b>exatamente</b> ao endereço do ponto de parada. Use com cautela.
+              A localização do Maps pode não corresponder <b className={"fw-bold"}>exatamente</b> ao endereço do ponto de parada. Use com cautela.
             </span>
                 </Alert>
                 <a className={"link-opacity-100 d-flex gap-1 align-items-center mt-1"} style={{textDecoration: 'none'}}
