@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react'
+import {useCallback, useEffect, useRef, useState} from 'react'
 import {Button, FormGroup, FormLabel, Spinner} from "react-bootstrap";
 import axios from "axios";
 import moment from "moment";
@@ -81,6 +81,8 @@ const Live = () => {
     }));
     setError(null);
   };
+  
+  const resultSection = useRef();
   
   useEffect(() => {
     if (departurePointSelected) {
@@ -204,7 +206,7 @@ const Live = () => {
         </form>
       </div>
       
-      <div className={"rounded-3 bg-body-secondary p-3 mt-5"}>
+      <div className={"rounded-3 bg-body-secondary p-3 mt-5"} ref={resultSection}>
         {
           error && (
             <Alert variant={"danger"}>
@@ -277,7 +279,9 @@ const Live = () => {
                                           <>{(d?.["order_departure_point"] ?? -1) === 1 ? "Saindo" : "Chegando"} {Util.diffToHuman(moment(d?.["expected_arrival_time"]))}</>
                                         ) : (
                                           <>
-                                            <audio src={[4986, 4987, 4988].map(x => x.toString()).includes(d?.["line_number"] ?? -1) ? `/audio/${d?.["line_number"]}.mp3` : audio} onError={() => {setAudio(defaultAudio)}} className={"d-none"} autoPlay></audio>
+                                            <audio src={[4986, 4987, 4988].map(x => x.toString()).includes(d?.["line_number"] ?? -1) ? `/audio/${d?.["line_number"]}.mp3` : audio} onError={() => {
+                                              setAudio(defaultAudio)
+                                            }} className={"d-none"} autoPlay></audio>
                                             <span>{(d?.["order_departure_point"] ?? -1) === 1 ? "Saindo agora!" : "Aproximando..."}</span>
                                           </>
                                         )
@@ -312,22 +316,48 @@ const Live = () => {
           )
         }
         
-        <div className={"d-none"}>
-          <Button variant={"primary"} size={"sm"} className={"d-flex align-items-center gap-2 flex-wrap"}>
-            <i className="bi bi-fullscreen-exit"></i>
-            <span className={"d-none d-md-inline-block text-sml"}>Sair em tela cheia</span>
-          </Button>
-          
-          <Button variant={"primary"} size={"sm"} className={"d-flex align-items-center gap-2 flex-wrap"}>
+        <div className={"d-flex align-items-center flex-wrap gap-2"}>
+          <Button variant={"primary"} size={"sm"} className={"d-flex align-items-center gap-2 flex-wrap"} onClick={() => {
+            if (resultSection.current && resultSection.current.requestFullscreen)
+              resultSection.current.requestFullscreen()
+                .then(() => {
+                  console.log("Entrou no modo tela cheia com sucesso!");
+                })
+                .catch((err) => {
+                  console.error("Erro ao entrar do modo tela cheia:", err);
+                });
+            else alert("Não é possível entrar no modo tela cheia neste navegador. Tente em outro.");
+          }}>
             <i className="bi bi-fullscreen"></i>
             <span className={"d-none d-md-inline-block text-sml"}>Abrir em tela cheia</span>
+          </Button>
+          
+          <Button variant={"info"} size={"sm"} className={"d-flex align-items-center gap-2 flex-wrap"} onClick={() => {
+            if (resultSection.current && document.fullscreenElement) {
+              document.exitFullscreen()
+                .then(() => {
+                  console.log("Saiu do modo tela cheia com sucesso!");
+                })
+                .catch((err) => {
+                  console.error("Erro ao sair do modo tela cheia:", err);
+                });
+            }
+          }}>
+            <i className="bi bi-fullscreen-exit"></i>
+            <span className={"d-none d-md-inline-block text-sml"}>Sair da tela cheia</span>
           </Button>
         </div>
       </div>
       
-      <Alert variant={"info"} dismissible={true}>
-        Quando o ônibus estiver aproximando ou saindo um aviso sonoro será tocado.
-      </Alert>
+      <div className={"d-flex gap-3 mt-3 flex-column"}>
+        <Alert variant={"info"} dismissible={true} margin={"m-0"}>
+          Quando o ônibus estiver aproximando ou saindo um aviso sonoro será tocado.
+        </Alert>
+        
+        <Alert variant={"info"} dismissible={true} margin={"m-0"}>
+          Após uma pesquisa, a cada 30 segundos os resultados são atualizados.
+        </Alert>
+      </div>
     </AnimatedComponents>
   );
 }
