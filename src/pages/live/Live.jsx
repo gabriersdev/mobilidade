@@ -111,7 +111,7 @@ const Live = () => {
       int = setInterval(() => {
         if (moment().diff(datetimeOriginalFetch, "seconds") % 60) fetchData(departurePointSelected).then(() => {
         });
-      }, 1000 * 30);
+      }, 1000 * 60);
     }
     
     return () => {
@@ -240,7 +240,7 @@ const Live = () => {
                     
                     <ul style={{listStyleType: "none"}} className={"m-0 p-0"}>
                       {
-                        data.filter(filtered).toSpliced(50).map((d, i) => {
+                        data.filter(filtered).toSpliced(50).map((d, i, self) => {
                           return (
                             <li className={""} key={i}>
                               <table className="table table-responsive">
@@ -276,13 +276,15 @@ const Live = () => {
                                     <div className={"d-flex align-items-center flex-wrap gap-1"}>
                                       {
                                         moment(d?.["expected_arrival_time"]).diff(moment(), "minutes") > 0 ? (
-                                          <>{(d?.["order_departure_point"] ?? -1) === 1 ? "Saindo" : "Chegando"} {Util.diffToHuman(moment(d?.["expected_arrival_time"]))}</>
+                                          <>{(d?.["order_departure_point"] ?? -1) === 1 ? "Saindo" : (parseInt(d?.["order_departure_point"] ?? "-1", 10) === parseInt(d?.["total_departure_points"] ?? "-2", 10)) ? "Somente desembarque - Chegando" : "Chegando"} {Util.diffToHuman(moment(d?.["expected_arrival_time"]))}</>
                                         ) : (
                                           <>
                                             <audio src={[4986, 4987, 4988].map(x => x.toString()).includes(d?.["line_number"] ?? -1) ? `/audio/${d?.["line_number"]}.mp3` : audio} onError={() => {
                                               setAudio(defaultAudio)
                                             }} className={"d-none"} autoPlay></audio>
-                                            <span>{(d?.["order_departure_point"] ?? -1) === 1 ? "Saindo agora!" : "Aproximando..."}</span>
+                                            <span>
+                                              {(d?.["order_departure_point"] ?? -1) === 1 ? "Saindo agora!" : ((d?.["order_departure_point"] ?? -1) === (d?.["total_departure_points"] ?? -2)) ? "Somente desembarque - Aproximando..." : "Aproximando..."}
+                                            </span>
                                           </>
                                         )
                                       }
