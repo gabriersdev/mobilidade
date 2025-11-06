@@ -1,6 +1,7 @@
 import {useEffect} from 'react'
 import Title from "../../components/title/Title";
 import Util from "../../assets/Util.jsx";
+import GetAndListLines from "../../components/getAndListLines/GetAndListLines.jsx";
 
 const Development = () => {
   useEffect(() => {
@@ -56,6 +57,11 @@ const Development = () => {
           <p>Estamos sempre buscando melhorias! Sua opinião é importante para nós. Envie sugestões e informe sobre problemas encontrados para que possamos aprimorar o sistema.</p>
           <p>Se precisar de ajuda ou tiver dúvidas sobre o uso do sistema, entre em contato conosco através do nosso suporte. Nossa equipe está à disposição para ajudar.</p>
         </section>
+      </section>
+      
+      <section id={"principais-linhas"} className={"pt-3"}>
+        <Title type="h3" classX={" text-body-secondary"}>Principais Linhas</Title>
+        <GetAndListLines variant="main"/>
       </section>
     </div>
   );

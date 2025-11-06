@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import Title from "../../components/title/Title";
 import Util from "../../assets/Util.jsx";
+import GetAndListLines from "../../components/getAndListLines/GetAndListLines.jsx";
 
 const Privacy = () => {
   useEffect(() => {
@@ -67,6 +68,11 @@ const Privacy = () => {
           <p>Se tiver dúvidas ou preocupações sobre esta Política de Privacidade, entre em contato conosco pelo
             e-mail: <a href="mailto:devgabrielribeiro@gmail.com">devgabrielribeiro@gmail.com</a>.</p>
         </section>
+      </section>
+      
+      <section id={"principais-linhas"} className={"pt-3"}>
+        <Title type="h3" classX={" text-body-secondary"}>Principais Linhas</Title>
+        <GetAndListLines variant="main"/>
       </section>
     </div>
   );
