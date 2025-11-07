@@ -25,6 +25,8 @@ import HistoryDepartureTimes from "./pages/history/departure-times/HistoryDepart
 import HistoryDayDepartureTimes from "./pages/history/departure-times/HistoryDayDepartureTimes.jsx";
 import SabaraInfo from "./pages/sabaraInfo/SabaraInfo.jsx";
 import HistoryFares from "./pages/history/fares/HistoryFares.jsx";
+import DeparturePoints from "./pages/history/departure-points/DeparturePoints.jsx";
+import OneDeparturePoints from "./pages/history/departure-points/OneDeparturePoints.jsx";
 
 const Context = createContext({});
 const obj = {};
@@ -123,7 +125,7 @@ function App() {
     
     try {
       // Verificar se #[id] existe e rolar a página até ele
-      if (location.hash) {
+      if (location.hash && (location.pathname !== "lines") && !location.pathname?.split("/")?.[1]?.match(/\d/)) {
         const id = location.hash.replace('#', '')
         const element = document.getElementById(id)
         if (element) window.scrollTo({top: element.offsetTop, behavior: 'smooth'})
@@ -132,7 +134,8 @@ function App() {
             window.scrollTo({top: 0, behavior: 'smooth'})
           }, 100);
         }
-      } else {
+      } else if(!location.pathname.match(/lines\/\d+\/#\w+/)) {
+        console.log("run...");
         setTimeout(() => {
           window.scrollTo({top: 0, behavior: 'smooth'})
         }, 100);
@@ -170,8 +173,8 @@ function App() {
             <Route path="/history/departure-times/:id" element={<HistoryDepartureTimes/>}/>
             <Route path="/history/departure-times/:id/:id" element={<HistoryDayDepartureTimes/>}/>
             <Route path="/history/fares/:id" element={<HistoryFares/>}/>
-            <Route path="/history/departure-points/:id" element={<NotFound/>}/>
-            <Route path="/history/departure-points/:id/:id" element={<NotFound/>}/>
+            <Route path="/history/departure-points/:id" element={<DeparturePoints/>}/>
+            <Route path="/history/departure-points/:id/:id" element={<OneDeparturePoints/>}/>
             <Route path="/sabara" element={<SabaraInfo/>}/>
           </Routes>
         </Main>

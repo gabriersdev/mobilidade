@@ -6,7 +6,6 @@ import axios from "axios";
 import config from "../../config";
 import ListLines from "../listLines/ListLines.jsx";
 
-// TODO - Verificar necessidade da propriedade content
 const GetAndListLines = ({variant, content}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);

@@ -12,7 +12,7 @@ import Util from "../../../assets/Util.jsx";
 
 moment.locale("pt-BR");
 
-export default function HistoryFares() {
+export default function DeparturePoints() {
   const {id} = useParams();
   
   const departureTimeDate = id;
@@ -51,7 +51,7 @@ export default function HistoryFares() {
   }, [departureTimeDate, id]);
   
   useEffect(() => {
-    document.title = "Mobilidade - Histórico de tarifa";
+    document.title = "Mobilidade - Histórico de Pontos de Parada";
     const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
     try {
       if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " -> ");
@@ -63,12 +63,12 @@ export default function HistoryFares() {
   }, [lineData, departureTimeDate, departureTimeDateIsValid]);
   
   useEffect(() => {
-    document.title = "Mobilidade - Histórico de tarifa";
+    document.title = "Mobilidade - Histórico de Pontos de Parada";
     const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
     if (breadcrumbData && breadcrumbData[1] && breadcrumbData[2]) {
       try {
         breadcrumbData[1].querySelector('a').textContent = `Histórico`;
-        breadcrumbData[2].querySelector('a').textContent = `Tarifas`;
+        breadcrumbData[2].querySelector('a').textContent = `Pontos de Parada`;
       } catch (error) {
         console.log(error);
       }
@@ -85,7 +85,7 @@ export default function HistoryFares() {
   
   return (
     <AnimatedComponents>
-      <h1 className={"m-0 p-0"}><span className={"text-body-secondary fw-normal"}>Histórico de Tarifas</span></h1>
+      <h1 className={"m-0 p-0"}><span className={"text-body-secondary fw-normal"}>Histórico de Pontos de Parada</span></h1>
       <Link to={`/lines/${id}`} className={"text-decoration-none"}>
         <Title type={"h2"} classX=" fs-3 d-inline mt-1 p-0 d-block mb-0">
           <span className="d-block text-body-emphasis" style={{fontSize: "inherit"}}>Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " -> " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " -> ")}</span>
@@ -95,9 +95,9 @@ export default function HistoryFares() {
       <section className={"d-flex gap-5 mt-5 flex-column"}>
         <AnimatedComponents>
           <ListGroup>
-            <ListGroup.Item>
-              <Title type={"h3"} classX={" fs-5 m-0 pt-1 pb-0 px-0 fw-bold d-bold text-primary"}>R$ {lineData?.[0]?.["fare"]?.toString()?.replace(".", ",")}</Title>
-              <span className={"text-body-tertiary"}>Tarifa atualizada em {Util.renderText(moment(lineData?.[0]?.["datetime_last_modify"]?.replace("Z", "-03:00") ?? "").format("DD/MM/YYYY"))}</span>
+            <ListGroup.Item as={Link} className={"cursor-pointer"} to={`/lines/${id}#paradas`}>
+              <span className={"d-block"}>{Util.renderText(moment(lineData?.[0]?.["datetime_last_modify"]?.replace("Z", "-03:00") ?? "").format("DD/MM/YYYY"))}</span>
+              <span className={"text-body-tertiary"}>Pontos atualizados em {Util.renderText(moment(lineData?.[0]?.["datetime_last_modify"]?.replace("Z", "-03:00") ?? "").format("DD/MM/YYYY"))}</span>
             </ListGroup.Item>
           </ListGroup>
         </AnimatedComponents>

@@ -1,6 +1,7 @@
 import {useEffect} from 'react'
 import Title from "../../components/title/Title.jsx";
 import Util from "../../assets/Util.jsx";
+import GetAndListLines from "../../components/getAndListLines/GetAndListLines.jsx";
 
 const TermsOfService = () => {
   useEffect(() => {
@@ -73,6 +74,11 @@ const TermsOfService = () => {
           <p>Se você tiver dúvidas ou comentários sobre estes Termos de Serviço, entre em contato conosco pelo
             e-mail: <a href="mailto:devgabrielribeiro@gmail.com">devgabrielribeiro@gmail.com</a>.</p>
         </section>
+      </section>
+      
+      <section id={"principais-linhas"} className={"pt-3"}>
+        <Title type="h3" classX={" text-body-secondary"}>Principais Linhas</Title>
+        <GetAndListLines variant="main"/>
       </section>
     </div>
   );

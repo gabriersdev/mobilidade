@@ -111,7 +111,7 @@ const Live = () => {
       int = setInterval(() => {
         if (moment().diff(datetimeOriginalFetch, "seconds") % 60) fetchData(departurePointSelected).then(() => {
         });
-      }, 1000 * 30);
+      }, 1000 * 60);
     }
     
     return () => {
@@ -240,29 +240,29 @@ const Live = () => {
                     
                     <ul style={{listStyleType: "none"}} className={"m-0 p-0"}>
                       {
-                        data.filter(filtered).toSpliced(50).map((d, i) => {
+                        data.filter(filtered).toSpliced(50).map((d, i, self) => {
                           return (
                             <li className={""} key={i}>
                               <table className="table table-responsive">
                                 <tbody>
                                 <tr className={"bg-body-secondary"}>
-                                  <td className={"bg-body-secondary"} style={{width: ((2 * 32) + 16) + "px"}}>
+                                  <td className={"bg-body-secondary"} style={{width: ((3 * 32) + 16) + "px"}}>
                                     <Link to={`/lines/${d?.["line_id"] ?? ""}`} className={"text-decoration-none"}>
-                                      <Title type="h3" classX=" text-primary fw-bold m-0 p-0 line-clamp-1">
+                                      <Title type="h3" classX=" fs-1 text-primary fw-bold m-0 p-0 line-clamp-1">
                                         {d?.["line_number"] ?? "Linha"}
                                       </Title>
                                     </Link>
                                   </td>
-                                  <td className={"bg-body-secondary"}>
-                                    <Link to={`/lines/${d?.["line_id"] ?? ""}`} className={"text-decoration-none"}>
-                                      <Title type={"h3"} classX=" text-primary fs-6 fw-normal inter m-0 p-0 d-flex flex-wrap gap-1 align-items-center">
+                                  <td className={"bg-body-secondary"} style={{verticalAlign: "middle"}}>
+                                    <Link to={`/lines/${d?.["line_id"] ?? ""}`} className={"text-decoration-none d-flex align-items-center justify-content-start"}>
+                                      <Title type={"h3"} classX=" text-primary fs-3 fw-medium inter m-0 p-0 d-flex flex-wrap gap-1 align-items-center">
                                         {
-                                          parseInt(d?.["direction"] ?? "-1") === 1 ? (`Sentido ida - ${Util.renderText(d?.["departure_location"] ?? "")} -> ${Util.renderText(d?.["destination_location"] ?? "")}`) :
-                                            parseInt(d?.["direction"] ?? "-1") === 0 ? (`Sentido único - ${Util.renderText(d?.["departure_location"] ?? "")} <-> ${Util.renderText(d?.["destination_location"] ?? "")} (ida e volta)`) :
-                                              parseInt(d?.["direction"] ?? "-1") === 2 ? (`Sentido volta - ${Util.renderText(d?.["destination_location"] ?? "")} -> ${Util.renderText(d?.["departure_location"] ?? "")}`) : ""
+                                          parseInt(d?.["direction"] ?? "-1") === 1 ? (`${Util.renderText(d?.["departure_location"] ?? "")} -> ${Util.renderText(d?.["destination_location"] ?? "")}`) :
+                                            parseInt(d?.["direction"] ?? "-1") === 0 ? (`${Util.renderText(d?.["departure_location"] ?? "")} ⇄ ${Util.renderText(d?.["destination_location"] ?? "")}`) :
+                                              parseInt(d?.["direction"] ?? "-1") === 2 ? (`${Util.renderText(d?.["destination_location"] ?? "")} -> ${Util.renderText(d?.["departure_location"] ?? "")}`) : ""
                                         }
                                         
-                                        <span className={"text-sml"}>- partida às {moment(d?.["departure_time_trip"]).format("HH:mm")}</span>
+                                        <span className={"text-sml fs-initial fw-normal"}>- partida às {moment(d?.["departure_time_trip"]).format("HH:mm")}</span>
                                       </Title>
                                       <span className={"d-none text-sml opacity-50"}>({d?.["departure_time_trip"]}) | ({d?.["expected_arrival_time"]})</span>
                                     </Link>
@@ -276,13 +276,15 @@ const Live = () => {
                                     <div className={"d-flex align-items-center flex-wrap gap-1"}>
                                       {
                                         moment(d?.["expected_arrival_time"]).diff(moment(), "minutes") > 0 ? (
-                                          <>{(d?.["order_departure_point"] ?? -1) === 1 ? "Saindo" : "Chegando"} {Util.diffToHuman(moment(d?.["expected_arrival_time"]))}</>
+                                          <>{(d?.["order_departure_point"] ?? -1) === 1 ? "Saindo" : (parseInt(d?.["order_departure_point"] ?? "-1", 10) === parseInt(d?.["total_departure_points"] ?? "-2", 10)) ? "Somente desembarque - Chegando" : "Chegando"} {Util.diffToHuman(moment(d?.["expected_arrival_time"]))}</>
                                         ) : (
                                           <>
                                             <audio src={[4986, 4987, 4988].map(x => x.toString()).includes(d?.["line_number"] ?? -1) ? `/audio/${d?.["line_number"]}.mp3` : audio} onError={() => {
                                               setAudio(defaultAudio)
                                             }} className={"d-none"} autoPlay></audio>
-                                            <span>{(d?.["order_departure_point"] ?? -1) === 1 ? "Saindo agora!" : "Aproximando..."}</span>
+                                            <span>
+                                              {(d?.["order_departure_point"] ?? -1) === 1 ? "Saindo agora!" : ((d?.["order_departure_point"] ?? -1) === (d?.["total_departure_points"] ?? -2)) ? "Somente desembarque - Aproximando..." : "Aproximando..."}
+                                            </span>
                                           </>
                                         )
                                       }
