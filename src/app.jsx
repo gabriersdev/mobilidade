@@ -125,7 +125,7 @@ function App() {
     
     try {
       // Verificar se #[id] existe e rolar a página até ele
-      if (location.hash) {
+      if (location.hash && (location.pathname !== "lines") && !location.pathname?.split("/")?.[1]?.match(/\d/)) {
         const id = location.hash.replace('#', '')
         const element = document.getElementById(id)
         if (element) window.scrollTo({top: element.offsetTop, behavior: 'smooth'})
@@ -134,7 +134,8 @@ function App() {
             window.scrollTo({top: 0, behavior: 'smooth'})
           }, 100);
         }
-      } else {
+      } else if(!location.pathname.match(/lines\/\d+\/#\w+/)) {
+        console.log("run...");
         setTimeout(() => {
           window.scrollTo({top: 0, behavior: 'smooth'})
         }, 100);

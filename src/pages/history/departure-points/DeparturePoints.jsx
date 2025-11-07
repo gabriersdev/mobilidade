@@ -95,8 +95,8 @@ export default function DeparturePoints() {
       <section className={"d-flex gap-5 mt-5 flex-column"}>
         <AnimatedComponents>
           <ListGroup>
-            <ListGroup.Item>
-              <span>-</span>
+            <ListGroup.Item as={Link} className={"cursor-pointer"} to={`/lines/${id}#paradas`}>
+              <span className={"d-block"}>{Util.renderText(moment(lineData?.[0]?.["datetime_last_modify"]?.replace("Z", "-03:00") ?? "").format("DD/MM/YYYY"))}</span>
               <span className={"text-body-tertiary"}>Pontos atualizados em {Util.renderText(moment(lineData?.[0]?.["datetime_last_modify"]?.replace("Z", "-03:00") ?? "").format("DD/MM/YYYY"))}</span>
             </ListGroup.Item>
           </ListGroup>

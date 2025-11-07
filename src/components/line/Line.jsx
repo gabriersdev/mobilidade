@@ -1,6 +1,6 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 import axios from "axios";
 import moment from "moment";
@@ -29,6 +29,8 @@ const Line = ({id}) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
   const defaultImage = "/images/banner.png";
+  const params = useLocation();
+  const paradasSection = useRef();
   
   const renderText = useCallback((text) => {
     // Usa regex para encontrar todas as barras e as envolve em spans
@@ -58,6 +60,54 @@ const Line = ({id}) => {
     searchLine(id).then(() => {
     });
   }, [id]);
+  
+  useEffect(() => {
+    const {hash} = params;
+    if (!hash || !hash.startsWith("#")) return;
+    
+    const hashSanitized = hash.split("?")[0];
+    const element =
+      hashSanitized !== "#paradas"
+        ? document.querySelector(hashSanitized)
+        : paradasSection.current;
+    
+    if (!element) return;
+    let observer;
+    
+    // Função para realizar o scroll
+    const scrollToElement = () => {
+      const top = element.offsetTop;
+      if (top > 0 && element.tagName.toLowerCase() === "section") {
+        window.scroll({
+          behavior: "smooth",
+          top: top - 5 * 16, // 5rem de margem
+        });
+        if (observer && observer.disconnect) observer.disconnect();
+      }
+    };
+    
+    // Caso o elemento já esteja renderizado com altura válida
+    if (element.offsetHeight > 0) {
+      requestAnimationFrame(scrollToElement);
+      return;
+    } else {
+      // Se não encontrar o elemento com offsetHeight, clica no botão "paradas" para tentar direcionar o usuário até a seção
+      const btn = Array.from(document.querySelectorAll("a.text-body-secondary.nav-link")).find(a => a?.textContent?.toLowerCase()?.trim() === "paradas");
+      if (btn) btn.click();
+    }
+    
+    // Observa quando o layout for atualizado
+    observer = new ResizeObserver(() => {
+      if (element.offsetHeight > 0) {
+        requestAnimationFrame(scrollToElement);
+      }
+    });
+    
+    observer.observe(element);
+    
+    // Limpeza
+    return () => observer.disconnect();
+  }, [params, paradasSection]);
   
   if (isLoaded) {
     return (
@@ -123,7 +173,7 @@ const Line = ({id}) => {
               </div>
             </section>
             
-            <section id={"paradas"} className={"pt-3"}>
+            <section id={"paradas"} ref={paradasSection} className={"pt-3"}>
               <div className={"d-flex flex-wrap justify-content-between align-items-start mb-2"}>
                 <Title type="h3" classX={" pb-2 text-body-secondary"}>Pontos de paradas</Title>
                 <Print variant={"departure-points"} prevContentTarget={"id"}/>
