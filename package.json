@@ -21,7 +21,7 @@
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.12.1",
     "aos": "^2.3.4",
-    "axios": "^1.7.7",
+    "axios": "^1.13.2",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "downshift": "^9.0.10",
