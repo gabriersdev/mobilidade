@@ -7,6 +7,8 @@ import Accordion from "../accordion/Accordion";
 import {Theme} from "../themeContext/ThemeContext";
 import {TimeContext} from "./DepartureTimeContext.jsx";
 import moment from "moment";
+import Alert from "../alert/Alert.jsx";
+
 moment.locale("pt-br");
 
 // Função helper para obter o nome do dia atual (pode ficar fora do componente)
@@ -46,6 +48,7 @@ const AccordionOperationDays = () => {
       
       // Define a chave do accordion que deve vir aberta
       if (defaultIndex !== -1) setDefaultEventKey([defaultIndex.toString()]);
+      else setDefaultEventKey([]);
       // const daysConv = []
       
       const content = daysForDirection.map((day, j) => {
@@ -53,25 +56,50 @@ const AccordionOperationDays = () => {
         // daysConv.push(dayConverted)
         const departureTimesDay = departureTimes.filter((item) => item.day === day && item.direction === direction);
         
+        const totalItems = daysForDirection.length;
+        const classes = ['border-top'];
+        
+        if (totalItems === 1) classes.push('border-bottom', 'rounded');
+        else if (j === 0) classes.push('border-bottom-0', 'rounded-top');
+        else if (j === totalItems - 1) classes.push('border-bottom', 'rounded-bottom');
+        else classes.push('border-bottom-0');
+        
+        const className = classes.join(' ');
+        
         return (
-          <AccordionItem title={dayConverted} eventKey={j.toString()} key={j}>
-            <Table
-              content={{
-                data: departureTimesDay.map((item) => ({
-                  departureTime: Util.formatTime(`2020-01-01 ${item["departure_time"]}`, 'HH:mm'),
-                  observations: item.observations ? item.observations : null
-                })),
-                directionName: directionName,
-                dayName: dayConverted
-              }}
-              observations={observations}
-              tableIndex={j}
-            />
-            <Legend items={observations} type={type || "current"}/>
-            <span className={"d-inline-block text-muted mt-4"}>
-              {departureTimesDay.length.toLocaleString()} horários de partidas no horário de {dayConverted.substring(0, 1).toLowerCase() + dayConverted.substring(1)}.
-            </span>
-          </AccordionItem>
+          <div key={j}>
+            {
+              (defaultEventKey.length === 0 && j === 0) && (
+                <Alert variant={"warning"}>
+                  <p className={"m-0 p-0"}>
+                    {JSON.stringify(defaultEventKey)}
+                    Essa linha <b>não possui horários de partida {['sábado', 'domingo'].includes(currentDayName) ? "aos" : "em"} {currentDayName}s.</b>
+                  </p>
+                </Alert>
+              )
+            }
+            
+            <div>
+              <AccordionItem title={dayConverted} eventKey={j.toString()} className={className}>
+                <Table
+                  content={{
+                    data: departureTimesDay.map((item) => ({
+                      departureTime: Util.formatTime(`2020-01-01 ${item["departure_time"]}`, 'HH:mm'),
+                      observations: item.observations ? item.observations : null
+                    })),
+                    directionName: directionName,
+                    dayName: dayConverted
+                  }}
+                  observations={observations}
+                  tableIndex={j}
+                />
+                <Legend items={observations} type={type || "current"}/>
+                <span className={"d-inline-block text-muted mt-4"}>
+                  {departureTimesDay.length.toLocaleString()} horários de partidas no horário de {dayConverted.substring(0, 1).toLowerCase() + dayConverted.substring(1)}.
+                </span>
+              </AccordionItem>
+            </div>
+          </div>
         );
       });
       
