@@ -72,7 +72,6 @@ const AccordionOperationDays = () => {
               (defaultEventKey.length === 0 && j === 0) && (
                 <Alert variant={"warning"}>
                   <p className={"m-0 p-0"}>
-                    {JSON.stringify(defaultEventKey)}
                     Essa linha <b>não possui horários de partida {['sábado', 'domingo'].includes(currentDayName) ? "aos" : "em"} {currentDayName}s.</b>
                   </p>
                 </Alert>
