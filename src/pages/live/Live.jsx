@@ -71,7 +71,8 @@ const Live = () => {
     setIsOriginalFetch(true);
     setDatetimeOriginalFetch(moment());
     
-    const axiosData = s?.data[0];
+    const axiosData = s?.data[0]?.[0]?.["get_arrival_predictions(?, ?)"];
+    
     if (Array.isArray(axiosData)) setData(JSON.parse(JSON.stringify(axiosData)).map((d) => {
       return {
         ...d,
