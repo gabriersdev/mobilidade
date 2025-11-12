@@ -112,7 +112,7 @@ const Live = () => {
       int = setInterval(() => {
         if (moment().diff(datetimeOriginalFetch, "seconds") % 60) fetchData(departurePointSelected).then(() => {
         });
-      }, 1000 * 60);
+      }, 1000 * 30);
     }
     
     return () => {
