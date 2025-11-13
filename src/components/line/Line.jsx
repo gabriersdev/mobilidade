@@ -215,10 +215,17 @@ const Line = ({id}) => {
                 <GuideBanner/>
                 <NewsBanner/>
               </div>
-              <details className={"mt-5 text-muted d-inline-block mb-0"}>
-                <summary>Informações carregadas em {renderText(moment().format("DD/MM/YYYY"))} às {moment().format("HH") + "h" + moment().format("mm") + "m"}.</summary>
-                <p className={"mb-0 text-body-tertiary"}>{renderText(moment().format("DD/MM/YYYY HH:mm:ss"))} {"- Horário de Brasília"}</p>
-              </details>
+              <div className={"mt-5"}>
+                <p className={"mb-0 text-muted"}>
+                  <i className="bi bi-eye-fill"></i> {(data?.["0"]?.["count_access"] ?? 10).toLocaleString("pt-BR")} visualizações
+                </p>
+                <details className={"text-muted d-inline-block mb-0"}>
+                  <summary>Informações carregadas em {renderText(moment().format("DD/MM/YYYY"))} às {moment().format("HH") + "h" + moment().format("mm") + "m"}.</summary>
+                  <p className={"mb-0 text-body-tertiary"}>
+                    {renderText(moment().format("DD/MM/YYYY HH:mm:ss"))} {"- Horário de Brasília"}
+                  </p>
+                </details>
+              </div>
             </section>
           </AnimatedComponents>
         </LineContext>

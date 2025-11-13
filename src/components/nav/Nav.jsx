@@ -169,7 +169,7 @@ const Nav = () => {
           <Navbar expand="lg" className={`bg-body-tertiary border-bottom ${width > 766 ? "position-sticky top-0" : ""}`}>
             <Container className="my-1 d-flex justify-content-between align-items-center w-100 flex-wrap">
               <Navbar.Brand as={Link} to="./" className={"text-body-secondary me-5"} style={{letterSpacing: '-0.75px'}}>
-                <img src={'./images/logo-transparent.png'} alt={'Logo'} className={'me-2'} style={{height: '3rem'}}/>
+                <img src={'/images/logo-transparent.png'} alt={'Logo'} className={'me-2'} style={{height: '3rem'}}/>
                 <span className={"text-primary"} style={{fontFamily: "'Inter', 'Inter Tight', sans-serif"}}>Mobilidade</span>
               </Navbar.Brand>
               <Link to={"/sabara"} className={"d-flex flex-row align-items-center gap-1 me-1 me-md-4 text-decoration-none"}>

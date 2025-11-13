@@ -32,7 +32,7 @@ stats.html
 *.py
 
 # Test
-*.test.js
+*.test.test.js
 *.test.*
 .vercel
 
