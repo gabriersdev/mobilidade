@@ -338,4 +338,15 @@ export default class Util {
     if (absDiff < 86400) return `há ${now.diff(target, 'hours')} horas`;
     return `há ${now.diff(target, 'days')} dias`;
   }
+  
+  static getCurrentDayGroupName = () => {
+    switch (moment().get("day")) {
+      case 0:
+        return 'domingo';
+      case 6:
+        return 'sábado';
+      default:
+        return 'dia útil';
+    }
+  };
 }
