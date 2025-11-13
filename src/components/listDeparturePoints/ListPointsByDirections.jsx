@@ -60,7 +60,7 @@ const ListPointsByDirections = () => {
                   </li>
                 )
               })
-            )} itemsPerPage={10}/>
+            )} itemsPerPage={50}/>
           </ul>
           <div className={"d-flex gap-2 flex-wrap align-items-center mt-4"}>
             <OverlayTrigger overlay={<Tooltip>Não houve alteração nos pontos de paradas</Tooltip>}>

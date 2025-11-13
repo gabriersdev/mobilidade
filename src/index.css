@@ -53,7 +53,11 @@ main {
 
 .scroll-x {
   & > div {
-    min-width: 322px;
+    min-width: 425px;
+    
+    @media screen and (max-width: 475px) {
+      min-width: calc(100vw - 4rem);
+    }
   }
 }
 

@@ -195,7 +195,7 @@ const Line = ({id}) => {
               <Title type="h3" classX={" text-body-secondary"}>Sobre esta linha</Title>
               <div className={"mt-3 position-relative"}>
                 <img src={defaultImage} alt={`Imagem de veículo da linha ${id}. Banner do Mobilidade.`} width={"100"} height={"500px"} className={"w-100 object-fit-cover rounded-3"}/>
-                <div className={"p-3 position-absolute top-0 w-100 h-100 rounded-3"} style={{background: "linear-gradient(-135deg,#00000005 0%, #00000060 75%)", backgroundColor: "#00000015"}}></div>
+                <div className={"p-3 position-absolute top-0 w-100 h-100 rounded-3"} style={{background: "linear-gradient(to bottom,#00000025 1%, #00000060 75%)", backgroundColor: "#00000015"}}></div>
                 <div className={"position-absolute bottom-0 mb-4 ms-4 text-balance"} style={{maxWidth: "calc(100% - 3rem)"}}>
                   <div className={"mb-3"}>
                     <h2 className={"text-white fs-3 fw-bold"}>{data[0].line_number}</h2>

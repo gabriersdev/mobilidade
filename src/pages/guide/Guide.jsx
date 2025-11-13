@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from 'react'
-// import Util from "../../assets/Util.jsx";
 import Title from "../../components/title/Title.jsx";
 import axios from "axios";
 import config from "../../config.js";
@@ -27,7 +26,7 @@ const Guide = () => {
     
     try {
       const response = await axios.get(`${config.host}/api/guide`);
-      if (response?.data) {
+      if (response.data) {
         setData(response.data);
         setOriginalData(response.data);
       } else setError("Ocorreu um erro na consulta do Guia. Tente novamente mais tarde.");
@@ -63,38 +62,32 @@ const Guide = () => {
         <AnimatedComponents>
           <div className={"d-flex flex-column gap-5"}>
             {
-              <PaginationWithItems beforeSelector={true} items={
-                uniqueLetters.map((letter, i) => {
-                  return (
-                    <div key={i} id={`index-letter-${letter}`} className={"mt-3"}>
-                      <div className={"d-inline-flex justify-content-between gap-2 flex-wrap"}>
-                        <Title type={"h3"} classX={" fs-6 fw-bold text-body"}>{letter}</Title>
-                        {uniqueLetters[uniqueLetters.indexOf(letter) + 1] && <Link to={`#index-letter-${uniqueLetters[uniqueLetters.indexOf(letter) + 1]}`} className={"text-decoration-none text-sml text-body-tertiary"}>Ir para a próxima letra do índice</Link>}
-                      </div>
-                      
-                      <Accordion defaultEventKey={["0"]}>
-                        {
-                          Object.entries(data).filter(([k]) => k[0] === letter).map(([key, value], index) => {
-                            return (
-                              <AccordionItem title={key.replace("/", " - ").replaceAll("/", " - ")} key={index} eventKey={index.toString()}>
-                                <ul className="ps-3 m-0" style={{lineHeight: 1.75}}>
-                                  {
-                                    value.map((line, i) => {
-                                      return (
-                                        <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replaceAll("/", " -> ")}</Link></li>
-                                      )
-                                    })
-                                  }
-                                </ul>
-                              </AccordionItem>
-                            )
-                          })
-                        }
-                      </Accordion>
+              uniqueLetters.map((letter, i) => {
+                return (
+                  <div key={i} id={`index-letter-${letter}`}>
+                    <div className={"d-inline-flex justify-content-between gap-2 flex-wrap"}>
+                      <Title type={"h3"} classX={" fs-6 fw-bold"}>{letter}</Title>
+                      {uniqueLetters[uniqueLetters.indexOf(letter) + 1] && <Link to={`#index-letter-${uniqueLetters[uniqueLetters.indexOf(letter) + 1]}`} className={"text-decoration-none text-sml text-body-tertiary"}>Ir para a próxima letra do índice</Link>}
                     </div>
-                  )
-                })
-              } itemsPerPage={1}/>
+                    
+                    <Accordion defaultEventKey={["0"]}>
+                      {
+                        Object.entries(data).filter(([k]) => k[0] === letter).map(([key, value], index) => {
+                          return (
+                            <AccordionItem title={key.replace("/", " - ").replaceAll("/", " - ")} key={index} eventKey={index.toString()}>
+                              <ul className="ps-3 m-0" style={{lineHeight: 1.75}}>
+                                <PaginationWithItems items={(value.map((line, i) => {
+                                  return <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replaceAll("/", " -> ")}</Link></li>
+                                }))} itemsPerPage={10}/>
+                              </ul>
+                            </AccordionItem>
+                          )
+                        })
+                      }
+                    </Accordion>
+                  </div>
+                )
+              })
             }
           </div>
         </AnimatedComponents>
@@ -141,10 +134,34 @@ const Guide = () => {
             </form>
             
             <div className="row">
-              <div className="">
+              <div className="col-lg-8">
                 <AnimatedComponents>
                   {content}
                 </AnimatedComponents>
+              </div>
+              <div className="col-lg-4">
+                <Card className="p-0 position-sticky" style={{top: "6rem"}}>
+                  <CardHeader className="bg-body-secondary">
+                    <CardTitle className={"fs-6 px-3 py-3 m-0 border-bottom border-secondary-subtle"}>Índice de letras</CardTitle>
+                  </CardHeader>
+                  <CardBody className={"p-3"}>
+                    {
+                      loading ? (<>Carregando...</>) : (
+                        <ListGroup className={"bg-body"}>
+                          {indiceLetters?.map((letter, i) => {
+                            return (
+                              <ListGroupItem as={"a"} key={i} className={"bg-body text-primary border-secondary-subtle"} href={`#index-letter-${letter}`}>
+                                <AnimatedComponents>
+                                  <span className={"d-block py-1"}>{letter}</span>
+                                </AnimatedComponents>
+                              </ListGroupItem>
+                            )
+                          })}
+                        </ListGroup>
+                      )
+                    }
+                  </CardBody>
+                </Card>
               </div>
             </div>
           </AnimatedComponents>
