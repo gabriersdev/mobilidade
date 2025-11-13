@@ -130,6 +130,22 @@ const Print = ({variant, prevContentTarget}) => {
         display: none;
       }
     }
+    
+    .show-print {
+      display: none;
+    
+      @media print {
+        display: block;
+      }
+    }
+    
+    .hide-print {
+      display: block;
+    
+      @media print {
+        display: none;
+      }
+    }
 	`);
   
   const handleClick = useCallback((e) => {
@@ -166,6 +182,7 @@ const Print = ({variant, prevContentTarget}) => {
         element = element.outerHTML;
         element = element.replaceAll("class=\"accordion-collapse collapse\"", "class=\"accordion-collapse collapse show\"");
         element = element.replaceAll("type=\"button\" aria-expanded=\"false\" class=\"accordion-button collapsed\"", "type=\"button\" aria-expanded=\"true\" class=\"accordion-button\"");
+        element = element.replaceAll("class=\"hide-print\"", "style=\"display: none;\"");
         
         html = title + prevContent.outerHTML + "<div class='d-block mt-5'></div>" + element + footerInfos;
       } else {

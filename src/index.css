@@ -78,3 +78,25 @@ li.breadcrumb-item.bg-body {
 select#city-recharge.bg-body {
   background: transparent !important;
 }
+
+.show-print {
+  display: none;
+
+  @media print {
+    display: block;
+  }
+}
+
+.hide-print {
+  display: block;
+
+  @media print {
+    display: none;
+  }
+}
+
+.container {
+  @media print {
+    margin: 0.25rem !important;
+  }
+}
