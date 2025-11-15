@@ -39,3 +39,6 @@ stats.html
 # .env
 .env
 .env.*
+
+# Cypress Screenshots
+/cypress/screenshots
