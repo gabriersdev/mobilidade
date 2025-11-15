@@ -7,21 +7,12 @@ import Accordion from "../accordion/Accordion";
 import {Theme} from "../themeContext/ThemeContext";
 import {TimeContext} from "./DepartureTimeContext.jsx";
 import moment from "moment";
-import Alert from "../alert/Alert.jsx";
+import NoDepartureTimes from "./NoDepartureTimes.jsx";
 
 moment.locale("pt-br");
 
-// Função helper para obter o nome do dia atual (pode ficar fora do componente)
-const getCurrentDayGroupName = () => {
-  switch (moment().get("day")) {
-    case 0:
-      return 'domingo';
-    case 6:
-      return 'sábado';
-    default:
-      return 'dia útil';
-  }
-};
+// Função helper para obter o nome do dia atual
+const getCurrentDayGroupName = () => Util.getCurrentDayGroupName();
 
 const AccordionOperationDays = () => {
   const {defaultEventKey, setDefaultEventKey} = useContext(TimeContext);
@@ -49,11 +40,9 @@ const AccordionOperationDays = () => {
       // Define a chave do accordion que deve vir aberta
       if (defaultIndex !== -1) setDefaultEventKey([defaultIndex.toString()]);
       else setDefaultEventKey([]);
-      // const daysConv = []
       
       const content = daysForDirection.map((day, j) => {
         const dayConverted = convertedDayNames[j] || "Dia inválido";
-        // daysConv.push(dayConverted)
         const departureTimesDay = departureTimes.filter((item) => item.day === day && item.direction === direction);
         
         const totalItems = daysForDirection.length;
@@ -68,15 +57,8 @@ const AccordionOperationDays = () => {
         
         return (
           <div key={j}>
-            {
-              (defaultEventKey.length === 0 && j === 0) && (
-                <Alert variant={"warning"}>
-                  <p className={"m-0 p-0"}>
-                    Essa linha <b>não possui horários de partida {['sábado', 'domingo'].includes(currentDayName) ? "aos" : "em"} {currentDayName}s.</b>
-                  </p>
-                </Alert>
-              )
-            }
+            {/* componente separado para garantir re-render com mudanças no contexto */}
+            <NoDepartureTimes isFirst={j === 0}/>
             
             <div>
               <AccordionItem title={dayConverted} eventKey={j.toString()} className={className}>
@@ -102,7 +84,6 @@ const AccordionOperationDays = () => {
         );
       });
       
-      // Util.getDefaultEventKey(daysConv);
       setAccordionItems(content);
     };
     

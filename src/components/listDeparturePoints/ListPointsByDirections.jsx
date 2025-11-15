@@ -1,4 +1,4 @@
-import {useContext, useEffect} from "react";
+import {useCallback, useContext, useEffect} from "react";
 import AccordionItem from "../accordion/AccordionItem.jsx";
 import {RechargeContext as DeparturePointsTheme} from "./DeparturePointsContext.jsx";
 import {Theme} from "../themeContext/ThemeContext.jsx";
@@ -11,6 +11,27 @@ const ListPointsByDirections = () => {
   const {uniqueDirections, departure_location, destination_location, departurePointsByDirection} = useContext(Theme);
   const {handlePointClick} = useContext(DeparturePointsTheme);
   const {setFirstPointByDirection} = useContext(LineContext);
+  
+  const mapDeparturePoints = useCallback((point, j) => {
+    return (
+      <li key={j}>
+        <button
+          onClick={e => handlePointClick(e, {
+            address: point.address,
+            point_name: point.point_name,
+            points_lenght: departurePointsByDirection[i].length,
+            point_ordenation: j
+          })}
+          className={"p-0 border-0 bg-transparent list-group-item text-body"}
+          role={"link"}
+          tabIndex={-1}
+          style={{textDecoration: 'none', textAlign: 'left'}}
+        >
+          {(point.address + (point.point_name ? " - " + point.point_name : "")).replaceAll("/", " - ")}
+        </button>
+      </li>
+    )
+  }, []);
   
   useEffect(() => {
     let direction;
@@ -39,28 +60,12 @@ const ListPointsByDirections = () => {
           }
           eventKey={i.toString()}>
           <ul className="list-line-content list-group d-flex gap-2 ms-md-3">
-            <PaginationWithItems items={(
-              departurePointsByDirection[i].map((point, j) => {
-                return (
-                  <li key={j}>
-                    <button
-                      onClick={e => handlePointClick(e, {
-                        address: point.address,
-                        point_name: point.point_name,
-                        points_lenght: departurePointsByDirection[i].length,
-                        point_ordenation: j
-                      })}
-                      className={"p-0 border-0 bg-transparent list-group-item text-body"}
-                      role={"link"}
-                      tabIndex={-1}
-                      style={{textDecoration: 'none', textAlign: 'left'}}
-                    >
-                      {(point.address + (point.point_name ? " - " + point.point_name : "")).replaceAll("/", " - ")}
-                    </button>
-                  </li>
-                )
-              })
-            )} itemsPerPage={10}/>
+            <div className={"hide-print"}>
+              <PaginationWithItems items={departurePointsByDirection[i].map(mapDeparturePoints)} itemsPerPage={10}/>
+            </div>
+            <div className={"show-print"}>
+              {departurePointsByDirection[i].map(mapDeparturePoints)}
+            </div>
           </ul>
           <div className={"d-flex gap-2 flex-wrap align-items-center mt-4"}>
             <OverlayTrigger overlay={<Tooltip>Não houve alteração nos pontos de paradas</Tooltip>}>

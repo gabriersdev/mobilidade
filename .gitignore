@@ -32,10 +32,13 @@ stats.html
 *.py
 
 # Test
-*.test.js
+*.test.test.js
 *.test.*
 .vercel
 
 # .env
 .env
 .env.*
+
+# Cypress Screenshots
+/cypress/screenshots

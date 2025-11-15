@@ -53,7 +53,11 @@ main {
 
 .scroll-x {
   & > div {
-    min-width: 322px;
+    min-width: 425px;
+    
+    @media screen and (max-width: 475px) {
+      min-width: calc(100vw - 4rem);
+    }
   }
 }
 
@@ -73,4 +77,26 @@ li.breadcrumb-item.bg-body {
 
 select#city-recharge.bg-body {
   background: transparent !important;
+}
+
+.show-print {
+  display: none;
+
+  @media print {
+    display: block;
+  }
+}
+
+.hide-print {
+  display: block;
+
+  @media print {
+    display: none;
+  }
+}
+
+.container {
+  @media print {
+    margin: 0.25rem !important;
+  }
 }

@@ -194,8 +194,8 @@ const Line = ({id}) => {
             <section id={"resume"} className={"pt-3"}>
               <Title type="h3" classX={" text-body-secondary"}>Sobre esta linha</Title>
               <div className={"mt-3 position-relative"}>
-                <img src={defaultImage} alt={`Imagem de veículo da linha ${id}. Banner do Mobilidade.`} width={"100"} height={"500px"} className={"w-100 object-fit-cover rounded-1"}/>
-                <div className={"p-3 position-absolute top-0 w-100 h-100 rounded-3"} style={{background: "linear-gradient(-135deg,#00000005 0%, #00000095 50%)", backgroundColor: "#00000015"}}></div>
+                <img src={defaultImage} alt={`Imagem de veículo da linha ${id}. Banner do Mobilidade.`} width={"100"} height={"500px"} className={"w-100 object-fit-cover rounded-3"}/>
+                <div className={"p-3 position-absolute top-0 w-100 h-100 rounded-3"} style={{background: "linear-gradient(to bottom,#00000025 1%, #00000060 75%)", backgroundColor: "#00000015"}}></div>
                 <div className={"position-absolute bottom-0 mb-4 ms-4 text-balance"} style={{maxWidth: "calc(100% - 3rem)"}}>
                   <div className={"mb-3"}>
                     <h2 className={"text-white fs-3 fw-bold"}>{data[0].line_number}</h2>
@@ -205,18 +205,27 @@ const Line = ({id}) => {
                 </div>
               </div>
               <div className={"mt-3 d-flex gap-3 flex-wrap"}>
-                <Link to={`/history/departure-times/${id}`}>Histórico de horários</Link>
-                <Link to={`/history/fares/${id}`}>Histórico de tarifas</Link>
-                <Link to={`/history/departure-points/${id}`}>Histórico de pontos de paradas</Link>
+                <Link to={`/history/departure-times/${id}`} className={"text-decoration-none"}>Histórico de horários</Link>
+                <span className={"text-body-tertiary fw-light"}>|</span>
+                <Link to={`/history/fares/${id}`} className={"text-decoration-none"}>Histórico de tarifas</Link>
+                <span className={"text-body-tertiary fw-light"}>|</span>
+                <Link to={`/history/departure-points/${id}`} className={"text-decoration-none"}>Histórico de pontos de paradas</Link>
               </div>
               <div className={"mt-5 d-flex flex-column gap-3"}>
                 <GuideBanner/>
                 <NewsBanner/>
               </div>
-              <details className={"mt-5 text-muted d-inline-block mb-0"}>
-                <summary>Informações carregadas em {renderText(moment().format("DD/MM/YYYY"))} às {moment().format("HH") + "h" + moment().format("mm") + "m"}.</summary>
-                <p className={"mb-0 text-body-tertiary"}>{renderText(moment().format("DD/MM/YYYY HH:mm:ss"))} {"- Horário de Brasília"}</p>
-              </details>
+              <div className={"mt-5"}>
+                <p className={"mb-0 text-muted"}>
+                  <i className="bi bi-eye-fill"></i> {(Util.greaterThan(data?.["0"]?.["count_access"] ?? 10, 10, 10)).toLocaleString("pt-BR")} visualizações
+                </p>
+                <details className={"text-muted d-inline-block mb-0"}>
+                  <summary>Informações carregadas em {renderText(moment().format("DD/MM/YYYY"))} às {moment().format("HH") + "h" + moment().format("mm") + "m"}.</summary>
+                  <p className={"mb-0 text-body-tertiary"}>
+                    {renderText(moment().format("DD/MM/YYYY HH:mm:ss"))} {"- Horário de Brasília"}
+                  </p>
+                </details>
+              </div>
             </section>
           </AnimatedComponents>
         </LineContext>

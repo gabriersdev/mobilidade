@@ -33,3 +33,8 @@ Até o momento, o projeto atende apenas as linhas de ônibus municipais da cidad
 - Node.js
 - Leaflet
 - Weather API
+
+## Testes 
+
+- Para rodar testes E2E: `npx cypress run --e2e`
+- Para rodar testes de componentes: `npx cypress run --component`
