@@ -7,6 +7,7 @@ import {Link, useLocation} from "react-router-dom";
 import {useCallback, useEffect, useRef, useState} from "react";
 import moment from 'moment';
 import 'moment/locale/pt-br';
+import Util from "../../assets/Util.jsx";
 
 moment.locale("pt-br");
 
@@ -135,7 +136,7 @@ const Nav = () => {
   const [width, setWidth] = useState(document.body.offsetWidth);
   const location = useLocation();
   const [isInLinePage, setIsInLinePage] = useState(null);
-  const [sabaraTime, setSabaraTime] = useState(moment().format("dddd HH:mm"));
+  const [sabaraTime, setSabaraTime] = useState(moment().format("DD/MM HH[h]mm[min]"));
   
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -150,7 +151,7 @@ const Nav = () => {
   
   useEffect(() => {
     const int = setInterval(() => {
-      setSabaraTime(moment().format("dddd HH:mm"));
+      setSabaraTime(moment().format("DD/MM HH[h]mm[min]"));
     }, 1000);
     
     return () => {
@@ -172,17 +173,9 @@ const Nav = () => {
                 <img src={'/images/logo-transparent.png'} alt={'Logo'} className={'me-2'} style={{height: '3rem'}}/>
                 <span className={"text-primary"} style={{fontFamily: "'Inter', 'Inter Tight', sans-serif"}}>Mobilidade</span>
               </Navbar.Brand>
-              <Link to={"/sabara"} className={"d-flex flex-row align-items-center gap-1 me-1 me-md-4 text-decoration-none"}>
-                <i className="bi bi-geo-alt-fill text-primary-emphasis"></i>
-                <span className={"text-body-secondary d-none d-sm-inline-block"}>Sabará</span>
-                <i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i>
-                <span className={"text-body-secondary text-capitalize d-none d-sm-inline-block"}>{translateWeekDay(sabaraTime?.split(" ")?.[0])?.split("-")?.[0]} {sabaraTime?.split(" ")?.[1]}</span>
-                <span className={"text-body-secondary text-capitalize d-inline-block d-sm-none"}>{translateWeekDay(sabaraTime?.split(" ")?.[0])?.substring(0, 3)} {sabaraTime?.split(" ")?.[1]}</span>
-              </Link>
               <Navbar.Toggle aria-controls="basic-navbar-nav"/>
               <Navbar.Collapse id="basic-navbar-nav">
-                <BootstrapNav className="me-auto w-100 align-items-center">
-                  <div className={"me-2"}><InstallPWAButton/></div>
+                <BootstrapNav className="me-auto w-100 align-items-center justify-content-end">
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./">Início</BootstrapNav.Link>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./lines">Linhas</BootstrapNav.Link>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./search">Pesquisa</BootstrapNav.Link>
@@ -197,6 +190,25 @@ const Nav = () => {
                       <span className={"text-danger-emphasis"}>Ao vivo</span>
                     </div>
                   </BootstrapNav.Link>
+                  <Link to={"/sabara"} className={"d-flex flex-row align-items-center gap-1 mx-2 text-decoration-none"}>
+                    <span className={"text-body-secondary d-inline-block"}>Sabará</span>
+                    <i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i>
+                    <div className={"text-body-secondary d-none d-sm-inline-block"}>
+                      <span className={"text-uppercase"}>
+                        {Util.renderText((sabaraTime?.split(" ")?.[0]?.normalize("NFD"))?.split("-")?.[0])}
+                      </span>
+                      {" "}
+                      {sabaraTime?.split(" ")?.[1]}
+                    </div>
+                    <div className={"text-body-secondary d-inline-block d-sm-none"}>
+                      <span className={"text-uppercase"}>
+                        {Util.renderText((sabaraTime?.split(" ")?.[0])?.normalize("NFD"))}
+                      </span>
+                      {" "}
+                      {sabaraTime?.split(" ")?.[1]}
+                    </div>
+                  </Link>
+                  <div className={"ms-2"}><InstallPWAButton/></div>
                   {isInLinePage && width > 766 ? <div className={width > 991 ? "d-flex flex-wrap justify-content-end flex-grow-1" : ""} id={"nav-scrollspy"}><NavScrollspy/></div> : ""}
                 </BootstrapNav>
               </Navbar.Collapse>

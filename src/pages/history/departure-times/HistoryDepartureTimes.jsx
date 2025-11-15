@@ -55,8 +55,8 @@ export default function HistoryDepartureTimes() {
       if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " -> ");
       if (breadcrumbData && breadcrumbData[1]) breadcrumbData[1].querySelector('a').textContent = 'Histórico';
     } catch (error) {
-              console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
-        console.log("Um erro ocorreu..."); 
+      console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
+      console.log("Um erro ocorreu...");
     }
   }, [lineData]);
   
@@ -69,8 +69,8 @@ export default function HistoryDepartureTimes() {
         breadcrumbData[2].querySelector('a').textContent = `Horários de partida`;
       }
     } catch (error) {
-              console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
-        console.log("Um erro ocorreu..."); 
+      console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
+      console.log("Um erro ocorreu...");
     }
   }, []);
   
@@ -79,7 +79,7 @@ export default function HistoryDepartureTimes() {
       setDataAll(
         data.map((item, index) => (
           <ListGroup.Item as={Link} className={index !== 0 && (index % 10) !== 0 ? "border-top-0" : "border-top"} to={`/history/departure-times/${id || 0}/${Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"]}` : moment.utc()).add(-3, "h").format("YYYY[X]MM[X]DD"))}`} key={index}>
-            <Title type={"h3"} classX={" fs-5 m-0 pt-1 pb-0 px-0 fw-bold d-bold text-primary"}>{Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"]}` : moment.utc()).add(-3, "h").format("DD/MM/YYYY"))}</Title>
+            <Title type={"h3"} classX={" fs-6 m-0 pt-1 pb-0 px-0 fw-bold d-bold text-primary"}>{Util.renderText(Util.diffToHuman(moment(item?.["update_date"] ? `${item?.["update_date"]}` : moment.utc()).add(-3, "h")))}</Title>
             <span className={"text-body-tertiary"}>{item?.["count_departure_times"]} horários atualizados</span>
           </ListGroup.Item>
         ))
@@ -100,10 +100,10 @@ export default function HistoryDepartureTimes() {
       <AnimatedComponents>
         <h1 className={"m-0 p-0"}><span className={"text-body-secondary fw-normal"}>Histórico de horários</span></h1>
         <Link to={`/lines/${id}`} className={"text-decoration-none"}>
-          <Title type={"h2"} classX=" fs-3 d-inline text-body-emphasis mt-1 p-0 d-block">
-          <span className="" style={{fontSize: "inherit"}}>
-            Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " -> " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " -> ")}
-          </span>
+          <Title type={"h2"} classX=" fs-3 d-inline text-body-emphasis fw-normal mt-1 p-0 d-block">
+            <span className="" style={{fontSize: "inherit"}}>
+              Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " -> " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " -> ")}
+            </span>
           </Title>
         </Link>
         

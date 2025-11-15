@@ -54,15 +54,19 @@ export default function SabaraInfo() {
     <div>
       <AnimatedComponents>
         <hgroup>
-          <Title title="Sabará Minas Gerais - Informações" type={"h2"} id="topo" classX=" d-none"/>
-          <Title title="Sabará" type={"h2"} id="topo" classX=" fs-2 text m-0 p-0 lh-sm text-body"/>
+          <Title title="Sabará Minas Gerais - Informações" type={"h1"} id="topo" classX=" d-none"/>
+          <Title title="Sabará" type={"h2"} id="topo" classX=" fs-2 text m-0 p-0 lh-sm text-primary"/>
           <Title title="Cidade do estado de Minas Gerais" type={"h2"} id="topo" classX=" fs-2 text-body-secondary m-0 p-0 lh-sm"/>
         </hgroup>
         
         <div>
-          <span className={"d-block"}>{sabaraTime.format("DD")} de {translateMonth(sabaraTime.format("MMMM"))} de {sabaraTime.format("YYYY")} {sabaraTime.format("HH:mm")}</span>
           <Weather variant={"city-info"}/>
-          <p className={"mb-0 mt-3 text-balance"}> É {sabaraTime.format("DD")} de {translateMonth(sabaraTime.format("MMMM"))} de {sabaraTime.format("YYYY")}. No horário local (Horário de Brasília) são {sabaraTime.format("HH:mm")}. A cidade possui 38 linhas de ônibus ativas e outras 3 linhas suspensas ou desativadas catalogadas aqui. Elas são operadas pelas companhias <Link to={"/company/4"} className={"text-primary"}>Transporte Coletivo Metropolitano - MG</Link> e <Link to={"/company/3"} className={"text-primary"}>Vinscol</Link>.</p>
+          <p className={"mb-0 mt-3 text-balance"}>
+            É {sabaraTime.format("DD")} de {translateMonth(sabaraTime.format("MMMM"))} de {sabaraTime.format("YYYY")}.
+            No horário local (Horário de Brasília) são {sabaraTime.format("HH[h]mm[min]")}.
+            A cidade possui 38 linhas de ônibus ativas e outras 3 linhas suspensas ou desativadas catalogadas aqui.
+            Elas são operadas pelas companhias <Link to={"/company/4"} className={"text-primary"}>Transporte Coletivo Metropolitano - MG</Link> e <Link to={"/company/3"} className={"text-primary"}>Vinscol</Link>.
+          </p>
           <Weather/>
         </div>
         

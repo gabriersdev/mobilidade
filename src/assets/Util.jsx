@@ -329,14 +329,16 @@ export default class Util {
       if (absDiff < 60) return 'em alguns segundos';
       if (absDiff < 3600) return `em ${target.diff(now, 'minutes')} minuto${target.diff(now, 'minutes') > 1 ? "s" : ""}`;
       if (absDiff < 86400) return `em ${target.diff(now, 'hours')} hora${target.diff(now, 'hours') > 1 ? "s" : ""}`;
-      return `em ${target.diff(now, 'days')} dias${target.diff(now, 'days') > 1 ? "s" : ""}`;
+      if (absDiff < (86400 * 30)) return `em ${target.diff(now, 'days')} dia${target.diff(now, 'days') > 1 ? "s" : ""}`;
+      return `${target.format('DD/MM/YYYY')}`;
     }
     
     // Passado
     if (absDiff < 60) return 'há alguns segundos';
-    if (absDiff < 3600) return `há ${now.diff(target, 'minutes')} minutos`;
-    if (absDiff < 86400) return `há ${now.diff(target, 'hours')} horas`;
-    return `há ${now.diff(target, 'days')} dias`;
+    if (absDiff < 3600) return `há ${now.diff(target, 'minutes')} minuto${now.diff(target, 'minutes') > 1 ? "s" : ""}`;
+    if (absDiff < 86400) return `há ${now.diff(target, 'hours')} hora${now.diff(target, 'hours') > 1 ? "s" : ""}`;
+    if (absDiff < (86400 * 30)) return `há ${now.diff(target, 'days')} dia${now.diff(target, 'days') > 1 ? "s" : ""}`;
+    return `${target.format('DD/MM/YYYY')}`;
   }
   
   static getCurrentDayGroupName = () => {

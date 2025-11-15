@@ -198,7 +198,7 @@ const Line = ({id}) => {
                 <div className={"p-3 position-absolute top-0 w-100 h-100 rounded-3"} style={{background: "linear-gradient(to bottom,#00000025 1%, #00000060 75%)", backgroundColor: "#00000015"}}></div>
                 <div className={"position-absolute bottom-0 mb-4 ms-4 text-balance"} style={{maxWidth: "calc(100% - 3rem)"}}>
                   <div className={"mb-3"}>
-                    <h2 className={"text-white fs-3 fw-bold"}>{data[0].line_number}</h2>
+                    <h2 className={"text-white fs-1 fw-bold"}>{data[0].line_number}</h2>
                     <span className={"d-none"}>Linha XXXX | XXXX {"->"} XXXX</span>
                   </div>
                   <p className={"m-0 text-white"}>{Util.resumeInfoLine({})}</p>
@@ -206,9 +206,9 @@ const Line = ({id}) => {
               </div>
               <div className={"mt-3 d-flex gap-3 flex-wrap"}>
                 <Link to={`/history/departure-times/${id}`} className={"text-decoration-none"}>Histórico de horários</Link>
-                <span className={"text-body-tertiary fw-light"}>|</span>
+                <span className={"text-body-tertiary fw-light d-inline-flex align-items-center justify-content-center"}><i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i></span>
                 <Link to={`/history/fares/${id}`} className={"text-decoration-none"}>Histórico de tarifas</Link>
-                <span className={"text-body-tertiary fw-light"}>|</span>
+                <span className={"text-body-tertiary fw-light d-inline-flex align-items-center justify-content-center"}><i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i></span>
                 <Link to={`/history/departure-points/${id}`} className={"text-decoration-none"}>Histórico de pontos de paradas</Link>
               </div>
               <div className={"mt-5 d-flex flex-column gap-3"}>

@@ -40,7 +40,7 @@ const NoDepartureTimes = ({isFirst}) => {
 };
 
 NoDepartureTimes.propTypes = {
-  isFirst: PropTypes.object
+  isFirst: PropTypes.oneOfType([PropTypes.object, PropTypes.bool, PropTypes.number])
 }
 
 export default NoDepartureTimes;

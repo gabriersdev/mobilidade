@@ -96,9 +96,9 @@ export default function HistoryDayDepartureTimes() {
   else if (departureTimeDateIsValid && departureTimeMomentInstance.isValid()) {
     return (
       <AnimatedComponents>
-        <span className={"text-body-secondary fw-normal"}>Histórico de horários</span>
+        <h1 className={"m-0 p-0"}><span className={"text-body-secondary fw-normal"}>Histórico de horários</span></h1>
         <Link to={`/lines/${lineId}`} className={"text-decoration-none"}>
-          <Title type={"h2"} classX=" fs-3 d-inline mt-1 p-0 d-block mb-0">
+          <Title type={"h2"} classX=" fs-3 d-inline mt-1 p-0 d-block mb-0 fw-normal">
             <span className="d-block text-body-emphasis" style={{fontSize: "inherit"}}>Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " -> " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " -> ")}</span>
           </Title>
         </Link>
@@ -108,7 +108,7 @@ export default function HistoryDayDepartureTimes() {
         </h1>
         
         <Alert variant={"warning"}>
-          <p className={"m-0"}>Você está vendo horários da linha {lineData?.[0]?.["line_number"] || ""} que <b>foram atualizados em {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}.</b> <Link to={`/lines/${lineId}`} className={"text-warning-emphasis"} target={"_blank"}>Clique aqui para visualizar os horários mais atuais.</Link></p>
+          <p className={"m-0"}>Você está vendo horários da linha {lineData?.[0]?.["line_number"] || ""} que <b>foram atualizados em {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}.</b> <Link to={`/lines/${lineId}`} className={"text-warning-emphasis"} target={"_blank"}>Clique aqui para visualizar os horários de partidas atuais.</Link></p>
         </Alert>
         
         <section className={"d-flex gap-5 mt-5 flex-column"}>
