@@ -4,7 +4,7 @@ describe('Page /lines/33', () => {
     cy.visit('http://localhost:5173/lines/33');
   });
   
-  it(`should display the line information items`, () => {
+  it(`Should display the line information items`, () => {
     cy.get('#id')
       .find('.d-flex.flex-column')
       .invoke('text')
@@ -22,7 +22,7 @@ describe('Page /lines/33', () => {
   });
   
   ["Horários de partidas", "Pontos de paradas", "Pontos de recarga", "Linhas similares"].forEach((item, i) => {
-    it(`should display the "${item}" title - iterate ${i}`, () => {
+    it(`Should display the "${item}" title - iterate ${i}`, () => {
       cy.contains(item).should('be.visible');
     });
   });
