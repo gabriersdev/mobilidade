@@ -4,6 +4,7 @@ import axios from "axios";
 import config from "../config.js";
 import moment from 'moment';
 import 'moment/locale/pt-br';
+import {Link} from "react-router-dom";
 
 moment.locale('pt-br');
 
@@ -223,11 +224,10 @@ export default class Util {
       const linkContent =
         content.includes("/") ? <Arial>{content}</Arial> : content;
       
-      // TODO - usar o componente Link ao invés do link puro
       elements.push(
-        <a key={`link-${key++}`} href={to} target={"_blank"}>
+        <Link key={`link-${key++}`} to={to}>
           {linkContent}
-        </a>
+        </Link>
       );
       
       lastIndex = index + fullMatch.length;
