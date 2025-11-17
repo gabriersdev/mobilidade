@@ -378,4 +378,18 @@ export default class Util {
     // Fallback: se for booleano, comportamento igual ao ternário
     return compare ? value : replaced;
   }
+  
+  static translateWeekDay(weekDay) {
+    const days = {
+      "sunday": "domingo",
+      "monday": "segunda",
+      "tuesday": "terça",
+      "wednesday": "quarta",
+      "thursday": "quinta",
+      "friday": "sexta",
+      "saturday": "sábado"
+    };
+    
+    return days[weekDay.toLowerCase()] || weekDay;
+  }
 }

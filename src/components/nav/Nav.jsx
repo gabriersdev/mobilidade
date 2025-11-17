@@ -11,20 +11,6 @@ import Util from "../../assets/Util.jsx";
 
 moment.locale("pt-br");
 
-function translateWeekDay(weekDay) {
-  const days = {
-    "sunday": "domingo",
-    "monday": "segunda",
-    "tuesday": "terça",
-    "wednesday": "quarta",
-    "thursday": "quinta",
-    "friday": "sexta",
-    "saturday": "sábado"
-  };
-  
-  return days[weekDay.toLowerCase()] || weekDay;
-}
-
 const BarInfo = () => {
   const [show, setShow] = useState(false);
   
