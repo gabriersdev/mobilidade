@@ -9,6 +9,7 @@ import {Badge} from "react-bootstrap";
 import AnimatedComponents from "../../components/animatedComponent/AnimatedComponents.jsx";
 import Card from "../../components/card/Card.jsx";
 import Grid from "../../components/grid/Grid.jsx";
+import LineIdentificationCompanyLogo from "../../components/lineIdentification/LineIdentificationCompanyLogo.jsx";
 
 const RenderCompany = () => {
   const {id} = useParams();
@@ -65,12 +66,17 @@ const RenderCompany = () => {
     
     return (
       <AnimatedComponents>
+        <div className={"mb-3"}>
+          <LineIdentificationCompanyLogo companyId={id}/>
+        </div>
         <span className={"text-body-secondary"}>Companhia</span>
-        <Title classX=" fs-3 d-inline text-body-emphasis mt-1 p-0 d-block">
+        <div>
+          <Title classX=" fs-3 d-inline text-body-emphasis mt-1 p-0 d-block">
           <span className="text-balance" style={{fontSize: "inherit"}}>
             {data[0].company_name}
           </span>
-        </Title>
+          </Title>
+        </div>
         
         <section className={"d-flex gap-5 mt-5 flex-column"}>
           <AnimatedComponents>
