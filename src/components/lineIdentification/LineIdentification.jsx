@@ -198,7 +198,7 @@ const LineIdentification = ({line}) => {
                     await navigator.clipboard.writeText(window.location.href);
                     
                     if (Notification.permission === "granted") {
-                      setMessageTooltip("Copiado!")
+                      setMessageTooltip("Link copiado!")
                       setShowTooltip(true);
                     } else if (Notification.permission !== "denied") {
                       Notification.requestPermission().then(permission => {

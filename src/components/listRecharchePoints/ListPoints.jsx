@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Card from "../card/Card.jsx";
 import Grid from "../grid/Grid.jsx";
 import {RechargeContext} from "./RecharchePointsContext.jsx";
+import {Badge} from "react-bootstrap";
 
 const ListPoints = ({data}) => {
   const {handlePointClick} = useContext(RechargeContext);
@@ -12,7 +13,19 @@ const ListPoints = ({data}) => {
       {data.map((recharchePoint, index) => {
         return (
           <a key={index} style={{cursor: "pointer"}}>
-            <Card title={recharchePoint.point_name} subtitle={recharchePoint.address} onclick={(e) => handlePointClick(e, recharchePoint)}>
+            <Card
+              title={recharchePoint.point_name}
+              subtitle={recharchePoint.address}
+              onclick={(e) => handlePointClick(e, recharchePoint)}
+              badge={(
+                <>
+                  <div className={"text-primary d-flex align-items-center gap-1"}>
+                    <i className="bi bi-credit-card-2-front-fill"></i>
+                    <span className={"text-sml"}>Ponto oficial de Recarga</span>
+                  </div>
+                </>
+              )}
+            >
               {recharchePoint.observations || "Não há observações sobre este ponto de recarga."}
             </Card>
           </a>

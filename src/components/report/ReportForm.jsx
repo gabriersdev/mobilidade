@@ -153,10 +153,10 @@ const ReportForm = ({handleCloseModal}) => {
                   <option value="">Selecione</option>
                   <option value={1}>Horário errado</option>
                   <option value={2}>Itinerário (pontos de paradas) errado</option>
-                  <option value={3}>Pontos de recarga errado</option>
+                  <option value={3}>Ponto de recarga errado</option>
                   <option value={4}>Erro no carregamento do site</option>
                   <option value={5}>Travamento</option>
-                  <option value={6}>Dados da companhia errado</option>
+                  <option value={6}>Dados da companhia errados</option>
                   <option value={7}>Outros</option>
                 </FormSelect>
               </FormGroup>

@@ -10,7 +10,8 @@ Até o momento, o projeto atende apenas as linhas de ônibus municipais da cidad
 
 - Buscar por uma linha
 - Visualizar os horários de partida da linha
-  - Os horários podem ter itinerários diferentes, sendo necessário visualizar as observações dos horários de partida.
+  - Os horários podem ter itinerários diferentes, sendo necessário visualizar as observações dos horários de partida
+  - Ver com precisão os próximos horários do dia e os que partirão nos próximos 15 minutos
 - Visualizar os dados da linha:
   - Nome
   - Local de partida e destino
@@ -19,9 +20,13 @@ Até o momento, o projeto atende apenas as linhas de ônibus municipais da cidad
   - Abrangência (municipal, metropolitano, rodoviário, etc.)
   - Se possui integração ou não
   - Concessionária
+  - Informações sobre conforto e acessibilidade
 - Visualizar os pontos de recarga da linha
 - Visualizar os pontos de parada da linha
+- Visualizar linhas similares à linha consultada
 - Notícias sobre as linhas
+- Acompanhar ao vivo a aproximação de ônibus em pontos de parada, de acordo com estatísticas e critérios de previsibilidade
+- Visualizar quais linhas passam em X lugar, através do Guia de Transporte Público
 
 ## Tecnologias
 
@@ -33,6 +38,8 @@ Até o momento, o projeto atende apenas as linhas de ônibus municipais da cidad
 - Node.js
 - Leaflet
 - Weather API
+- Cypress
+- hCaptcha
 
 ## Testes 
 
