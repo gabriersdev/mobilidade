@@ -158,9 +158,13 @@ const Nav = () => {
         <AnimatedComponents>
           <Navbar expand="lg" className={`bg-body-tertiary border-bottom ${width > 766 ? "position-sticky top-0" : ""}`}>
             <Container className="my-1 d-flex justify-content-between align-items-center w-100 flex-wrap">
-              <Navbar.Brand as={Link} to="./" className={"text-body-secondary me-5"} style={{letterSpacing: '-0.75px'}}>
+              <Navbar.Brand as={Link} to="./" className={"text-body-secondary me-5 d-flex justify-content-center align-items-center flex-wrap"} style={{letterSpacing: '-0.75px'}}>
                 <img src={'/images/logo-transparent.png'} alt={'Logo'} className={'me-2'} style={{height: '3rem'}}/>
-                <span className={"text-primary"} style={{fontFamily: "'Inter', 'Inter Tight', sans-serif"}}>Mobilidade</span>
+                <div style={{fontFamily: "'Inter', 'Inter Tight', sans-serif"}} className={"d-flex flex-column"}>
+                  <span className={"text-primary d-block"}>Mobilidade</span>
+                  <span className={"text-body-secondary text-sml d-none d-sm-inline-block"}>Transporte Público em Sabará-MG</span>
+                  <span className={"text-body-secondary text-sml d-inline-block d-sm-none"}>em Sabará-MG</span>
+                </div>
               </Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav"/>
               <Navbar.Collapse id="basic-navbar-nav">

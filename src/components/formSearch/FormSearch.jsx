@@ -38,9 +38,9 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
   return (
     <form onSubmit={handleSubmit}>
       <FormGroup>
-        <hgroup className={"d-flex align-items-center justify-content-between"}>
+        <hgroup className={"d-flex align-items-center justify-content-between flex-wrap flex-column flex-md-row mb-3"}>
           <Form.Label htmlFor={`input-search`} column={0}>
-            <Title title={formTitle} classX=" text-body-secondary"/>
+            <Title title={formTitle} classX=" text-body-secondary m-0 p-0"/>
           </Form.Label>
           <div className={"d-flex align-items-center flex-wrap gap-1 justify-content-center"}>
             {
