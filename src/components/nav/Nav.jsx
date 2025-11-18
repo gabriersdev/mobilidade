@@ -8,6 +8,8 @@ import {useCallback, useEffect, useRef, useState} from "react";
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import Util from "../../assets/Util.jsx";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 moment.locale("pt-br");
 
@@ -122,7 +124,8 @@ const Nav = () => {
   const [width, setWidth] = useState(document.body.offsetWidth);
   const location = useLocation();
   const [isInLinePage, setIsInLinePage] = useState(null);
-  const [sabaraTime, setSabaraTime] = useState(moment().format("DD/MM HH[h]mm[min]"));
+  const formatString = useRef("dddd DD/MM HH[h]mm[min]");
+  const [sabaraTime, setSabaraTime] = useState(moment().format(formatString.current));
   
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -137,7 +140,7 @@ const Nav = () => {
   
   useEffect(() => {
     const int = setInterval(() => {
-      setSabaraTime(moment().format("DD/MM HH[h]mm[min]"));
+      setSabaraTime(moment().format(formatString.current));
     }, 1000);
     
     return () => {
@@ -176,24 +179,33 @@ const Nav = () => {
                       <span className={"text-danger-emphasis"}>Ao vivo</span>
                     </div>
                   </BootstrapNav.Link>
-                  <Link to={"/sabara"} className={"d-flex flex-row align-items-center gap-1 mx-2 text-decoration-none"}>
-                    <span className={"text-body-secondary d-inline-block"}>Sabará</span>
-                    <i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i>
-                    <div className={"text-body-secondary d-none d-sm-inline-block"}>
+                  <OverlayTrigger overlay={
+                    <Tooltip placement={"bottom"}>
+                      <p className={"m-0 p-0 text-sml"}>
+                        {Util.translateWeekDay(sabaraTime?.split(" ")?.[0], {suffix: true})},{" "}
+                        {Util.renderText((sabaraTime?.split(" ")?.[1]))}
+                      </p>
+                    </Tooltip>
+                  }>
+                    <Link to={"/sabara"} className={"d-flex flex-row align-items-center gap-1 mx-2 text-decoration-none"}>
+                      <span className={"text-body-secondary d-inline-block"}>Sabará</span>
+                      <i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i>
+                      <div className={"text-body-secondary d-none d-sm-inline-block"}>
                       <span className={"text-uppercase"}>
-                        {Util.renderText((sabaraTime?.split(" ")?.[0]?.normalize("NFD"))?.split("-")?.[0])}
+                        {Util.renderText((sabaraTime?.split(" ")?.[1]))}
                       </span>
-                      {" "}
-                      {sabaraTime?.split(" ")?.[1]}
-                    </div>
-                    <div className={"text-body-secondary d-inline-block d-sm-none"}>
+                        {" "}
+                        {sabaraTime?.split(" ")?.[2]}
+                      </div>
+                      <div className={"text-body-secondary d-inline-block d-sm-none"}>
                       <span className={"text-uppercase"}>
-                        {Util.renderText((sabaraTime?.split(" ")?.[0])?.normalize("NFD"))}
+                        {Util.renderText((sabaraTime?.split(" ")?.[1])?.normalize("NFD"))}
                       </span>
-                      {" "}
-                      {sabaraTime?.split(" ")?.[1]}
-                    </div>
-                  </Link>
+                        {" "}
+                        {sabaraTime?.split(" ")?.[2]}
+                      </div>
+                    </Link>
+                  </OverlayTrigger>
                   <div className={"ms-2"}><InstallPWAButton/></div>
                   {isInLinePage && width > 766 ? <div className={width > 991 ? "d-flex flex-wrap justify-content-end flex-grow-1" : ""} id={"nav-scrollspy"}><NavScrollspy/></div> : ""}
                 </BootstrapNav>

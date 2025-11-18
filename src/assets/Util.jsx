@@ -379,14 +379,14 @@ export default class Util {
     return compare ? value : replaced;
   }
   
-  static translateWeekDay(weekDay) {
+  static translateWeekDay(weekDay, props) {
     const days = {
       "sunday": "domingo",
-      "monday": "segunda",
-      "tuesday": "terça",
-      "wednesday": "quarta",
-      "thursday": "quinta",
-      "friday": "sexta",
+      "monday": "segunda" + (props?.suffix ? "-feira" : ""),
+      "tuesday": "terça" + (props?.suffix ? "-feira" : ""),
+      "wednesday": "quarta" + (props?.suffix ? "-feira" : ""),
+      "thursday": "quinta" + (props?.suffix ? "-feira" : ""),
+      "friday": "sexta" + (props?.suffix ? "-feira" : ""),
       "saturday": "sábado"
     };
     
