@@ -23,6 +23,7 @@ const CityInfo = ({weatherData}) => {
           src={(current.condition?.icon || "").replace("//", "https://")}
           alt={`Imagem ilustrativa do tempo ${translatedCondition ?? "bom"}`}
         />
+        <span>.</span>
       </p>
     </AnimatedComponents>
   );

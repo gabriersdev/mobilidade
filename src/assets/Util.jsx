@@ -4,6 +4,7 @@ import axios from "axios";
 import config from "../config.js";
 import moment from 'moment';
 import 'moment/locale/pt-br';
+import {Link} from "react-router-dom";
 
 moment.locale('pt-br');
 
@@ -223,11 +224,10 @@ export default class Util {
       const linkContent =
         content.includes("/") ? <Arial>{content}</Arial> : content;
       
-      // TODO - usar o componente Link ao invés do link puro
       elements.push(
-        <a key={`link-${key++}`} href={to} target={"_blank"}>
+        <Link key={`link-${key++}`} to={to}>
           {linkContent}
-        </a>
+        </Link>
       );
       
       lastIndex = index + fullMatch.length;
@@ -329,14 +329,16 @@ export default class Util {
       if (absDiff < 60) return 'em alguns segundos';
       if (absDiff < 3600) return `em ${target.diff(now, 'minutes')} minuto${target.diff(now, 'minutes') > 1 ? "s" : ""}`;
       if (absDiff < 86400) return `em ${target.diff(now, 'hours')} hora${target.diff(now, 'hours') > 1 ? "s" : ""}`;
-      return `em ${target.diff(now, 'days')} dias${target.diff(now, 'days') > 1 ? "s" : ""}`;
+      if (absDiff < (86400 * 30)) return `em ${target.diff(now, 'days')} dia${target.diff(now, 'days') > 1 ? "s" : ""}`;
+      return `${target.format('DD/MM/YYYY')}`;
     }
     
     // Passado
     if (absDiff < 60) return 'há alguns segundos';
-    if (absDiff < 3600) return `há ${now.diff(target, 'minutes')} minutos`;
-    if (absDiff < 86400) return `há ${now.diff(target, 'hours')} horas`;
-    return `há ${now.diff(target, 'days')} dias`;
+    if (absDiff < 3600) return `há ${now.diff(target, 'minutes')} minuto${now.diff(target, 'minutes') > 1 ? "s" : ""}`;
+    if (absDiff < 86400) return `há ${now.diff(target, 'hours')} hora${now.diff(target, 'hours') > 1 ? "s" : ""}`;
+    if (absDiff < (86400 * 30)) return `há ${now.diff(target, 'days')} dia${now.diff(target, 'days') > 1 ? "s" : ""}`;
+    return `${target.format('DD/MM/YYYY')}`;
   }
   
   static getCurrentDayGroupName = () => {
@@ -375,5 +377,19 @@ export default class Util {
     
     // Fallback: se for booleano, comportamento igual ao ternário
     return compare ? value : replaced;
+  }
+  
+  static translateWeekDay(weekDay, props) {
+    const days = {
+      "sunday": "domingo",
+      "monday": "segunda" + (props?.suffix ? "-feira" : ""),
+      "tuesday": "terça" + (props?.suffix ? "-feira" : ""),
+      "wednesday": "quarta" + (props?.suffix ? "-feira" : ""),
+      "thursday": "quinta" + (props?.suffix ? "-feira" : ""),
+      "friday": "sexta" + (props?.suffix ? "-feira" : ""),
+      "saturday": "sábado"
+    };
+    
+    return days[weekDay.toLowerCase()] || weekDay;
   }
 }

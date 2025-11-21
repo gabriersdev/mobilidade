@@ -1,4 +1,3 @@
-import React from 'react';
 import ListRechargePoints from '../../src/components/listRecharchePoints/ListRechargePoints.jsx';
 
 describe('ListRechargePoints Component', () => {

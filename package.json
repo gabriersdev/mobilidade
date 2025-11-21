@@ -1,15 +1,16 @@
 {
   "name": "mobilidade",
   "private": true,
-  "version": "1.6.0",
+  "version": "1.14.0",
   "type": "module",
   "homepage": "https://gabriersdev.github.io/mobilidade",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite",  
     "build": "node register.build.js && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "cypress": "npx cypress run"
   },
   "compilerOptions": {
     "jsx": "react-jsx"
@@ -25,6 +26,7 @@
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "downshift": "^9.0.10",
+    "eslint-plugin-cypress": "^5.2.0",
     "framer-motion": "^12.5.0",
     "html-react-parser": "^5.2.5",
     "leaflet": "^1.9.4",

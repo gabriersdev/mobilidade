@@ -12,15 +12,16 @@ const ListPointsByDirections = () => {
   const {handlePointClick} = useContext(DeparturePointsTheme);
   const {setFirstPointByDirection} = useContext(LineContext);
   
-  const mapDeparturePoints = useCallback((point, j) => {
+  const mapDeparturePoints = useCallback((point, index, parentIndex) => {
     return (
-      <li key={j}>
+      <li key={index}>
         <button
           onClick={e => handlePointClick(e, {
             address: point.address,
             point_name: point.point_name,
-            points_lenght: departurePointsByDirection[i].length,
-            point_ordenation: j
+            // TODO - test it: points_lenght: departurePointsByDirection[j].length,
+            points_lenght: departurePointsByDirection[parentIndex].length,
+            point_ordenation: index
           })}
           className={"p-0 border-0 bg-transparent list-group-item text-body"}
           role={"link"}
@@ -61,10 +62,10 @@ const ListPointsByDirections = () => {
           eventKey={i.toString()}>
           <ul className="list-line-content list-group d-flex gap-2 ms-md-3">
             <div className={"hide-print"}>
-              <PaginationWithItems items={departurePointsByDirection[i].map(mapDeparturePoints)} itemsPerPage={10}/>
+              <PaginationWithItems items={departurePointsByDirection[i].map((m, index) => mapDeparturePoints(m, index, i))} itemsPerPage={10}/>
             </div>
             <div className={"show-print"}>
-              {departurePointsByDirection[i].map(mapDeparturePoints)}
+              {departurePointsByDirection[i].map((m, index) => mapDeparturePoints(m, index, i))}
             </div>
           </ul>
           <div className={"d-flex gap-2 flex-wrap align-items-center mt-4"}>

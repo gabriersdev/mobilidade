@@ -66,7 +66,7 @@ const useDepartureTimes = (line_id, variant) => {
     };
     
     fetchDepartureTimes().then();
-  }, [line_id]);
+  }, [line_id, variant]);
   
   return {data, observations, error, isLoaded};
 };

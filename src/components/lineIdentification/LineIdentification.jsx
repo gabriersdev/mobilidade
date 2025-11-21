@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Title from "../title/Title";
 import LineInfo from "../lineInfo/LineInfo";
 import {Link} from "react-router-dom";
-import {Badge} from "react-bootstrap";
+import {Badge, Image} from "react-bootstrap";
 import ReportModal from "../report/ReportModal.jsx";
 import Util from "../../assets/Util.jsx";
 import Convert from "./convert.js";
@@ -12,8 +12,9 @@ import MonitorModal from "../monitor/MonitorModal.jsx";
 import {Tooltip} from 'bootstrap';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import moment from "moment";
+import LineIdentificationCompanyLogo from "./LineIdentificationCompanyLogo.jsx";
 
 moment.locale("pt-BR");
 
@@ -63,16 +64,16 @@ const LineIdentification = ({line}) => {
   if (line.report_contact) reportContact = line.report_contact;
   if (line.datetime_last_modify) datetimeLastModify = new Date((moment(line.datetime_last_modify || '2021-01-01T00:00:00Z').add(-3, "h")).format("YYYY-MM-DD HH:mm:zz"));
   
-  const accessibilityPopover = (
+  const accessibilityPopover = useMemo(() => (
     <Popover id="popover-basic">
       <Popover.Header as="h3" className={"inter"}>Acessibilidade</Popover.Header>
       <Popover.Body className={"text-sml"}>
         Os ônibus são acessíveis: possuem elevador; assentos destinados ao público prioritário; assentos, chão e as barras do ônibus tem cores que se contrastam, barras e puxadores para os usuários e pelo menos uma porta exclusiva para a saída.
       </Popover.Body>
     </Popover>
-  );
+  ), []);
   
-  const comfortPopover = (
+  const comfortPopover = useMemo(() => (
     <Popover id="popover-basic">
       <Popover.Header as="h3" className={"inter"}>Conforto</Popover.Header>
       <Popover.Body className={""}>
@@ -96,23 +97,29 @@ const LineIdentification = ({line}) => {
         </div>
       </Popover.Body>
     </Popover>
-  );
+  ), [aircon, airsuspension, bench, fleet, teraflex]);
   
   return (
     <div className="d-flex flex-column gap-3">
-      <hgroup className="d-flex align-items-center gap-2 flex-wrap mb-0">
-        <h1 className={"d-none"}>Linha {line.line_number} - {line.departure_location} para {line.destination_location}</h1>
-        <Title type="h2" classX=" fs-2 d-inline text-body-emphasis m-0 p-0">Linha {line.line_number}</Title>
-        <span className="text-body-secondary">|</span>
-        <Title type="h2" classX=" fs-2 d-inline text-body-secondary m-0 p-0 lh-sm">{line.departure_location} -{">"} {line.destination_location}</Title>
-      </hgroup>
-      {
-        line.line_name.toLowerCase() !== line.departure_location.toLowerCase() + "/" + line.destination_location.toLowerCase() ? (
-          <span className={"d-block mb-5 text-body-secondary"}>{line.line_name.replace(/\//, " -> ") || ""}</span>
-        ) : (
-          <div className={"my-2"}></div>
-        )
-      }
+      <div className={"d-flex align-items-start flex-wrap gap-3 justify-content-between flex-column flex-column-reverse flex-lg-row"}>
+        <div>
+          <hgroup className="d-flex align-items-center gap-2 flex-wrap mb-0">
+            <h1 className={"d-none"}>Linha {line.line_number} - {line.departure_location} para {line.destination_location}</h1>
+            <Title type="h2" classX=" fs-2 d-inline text-body-emphasis m-0 p-0">Linha {line.line_number}</Title>
+            <span className="text-body-secondary">|</span>
+            <Title type="h2" classX=" fs-2 d-inline text-body-secondary m-0 p-0 lh-sm">{line.departure_location} -{">"} {line.destination_location}</Title>
+          </hgroup>
+          {
+            line.line_name.toLowerCase() !== line.departure_location.toLowerCase() + "/" + line.destination_location.toLowerCase() ? (
+              <span className={"d-block mb-5 text-body-secondary"}>{line.line_name.replace(/\//, " -> ") || ""}</span>
+            ) : (
+              <div className={"my-2"}></div>
+            )
+          }
+        </div>
+        
+        <LineIdentificationCompanyLogo companyId={line.company_id}/>
+      </div>
       
       <div className={"d-flex flex-column"}>
         <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-1" style={{maxWidth: "600px"}}>
@@ -198,7 +205,7 @@ const LineIdentification = ({line}) => {
                     await navigator.clipboard.writeText(window.location.href);
                     
                     if (Notification.permission === "granted") {
-                      setMessageTooltip("Copiado!")
+                      setMessageTooltip("Link copiado!")
                       setShowTooltip(true);
                     } else if (Notification.permission !== "denied") {
                       Notification.requestPermission().then(permission => {
@@ -219,20 +226,20 @@ const LineIdentification = ({line}) => {
         <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-2">
           {
             datetimeLastModify && (<div className={"d-flex align-items-center gap-3 flex-wrap"}>
-                <LineInfo label={{ref: 'Última atualização', value: ""}}>
-                  <i className="bi bi-stopwatch"></i>
-                  <span className={"ms-1"}>
+              <LineInfo label={{ref: 'Última atualização', value: ""}}>
+                <i className="bi bi-stopwatch"></i>
+                <span className={"ms-1"}>
                     Atualizado em:{" "}
-                    {
-                      [
-                        (0 + datetimeLastModify.toLocaleString('pt-BR', {day: 'numeric'})).slice(-2),
-                        datetimeLastModify.toLocaleString('pt-BR', {month: 'long'}),
-                        (0 + datetimeLastModify.toLocaleString('pt-BR', {year: 'numeric'})).slice(-4),
-                      ].join(" de ")
-                    }
+                  {
+                    [
+                      (0 + datetimeLastModify.toLocaleString('pt-BR', {day: 'numeric'})).slice(-2),
+                      datetimeLastModify.toLocaleString('pt-BR', {month: 'long'}),
+                      (0 + datetimeLastModify.toLocaleString('pt-BR', {year: 'numeric'})).slice(-4),
+                    ].join(" de ")
+                  }
                   </span>
-                </LineInfo>
-              </div>)
+              </LineInfo>
+            </div>)
           }
         </div>
       </div>

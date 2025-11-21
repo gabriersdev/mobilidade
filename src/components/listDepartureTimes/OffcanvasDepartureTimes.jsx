@@ -5,6 +5,7 @@ import Legend from "../legend/Legend";
 import Alert from "../alert/Alert.jsx";
 import {Context as LineContext} from "../line/LineContext.jsx";
 import {Badge} from "react-bootstrap";
+import LiveBanner from "../banners/LiveBanner.jsx";
 
 const OffcanvasDepartureTimes = () => {
   const {show, handleClose, departureTimeOffCanvas} = useContext(TimeContext);
@@ -83,6 +84,9 @@ const OffcanvasDepartureTimes = () => {
                   </svg>
                 </a>
               </div>
+            </div>
+            <div className={"mt-3"}>
+              <LiveBanner/>
             </div>
           </section>
         ) : ""}

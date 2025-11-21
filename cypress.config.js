@@ -2,8 +2,12 @@ import {defineConfig} from "cypress";
 
 export default defineConfig({
   e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
+    // No clear assets
+    trashAssetsBeforeRerun: false,
+    trashAssetsBeforeSpec: false,
+    // Implement node event listeners here
+    setupNodeEvents() {
+      // pass
     },
     screenshotsFolder: 'cypress/screenshots',
     screenshotOnRunFailure: true,
