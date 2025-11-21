@@ -1,11 +1,11 @@
 {
   "name": "mobilidade",
   "private": true,
-  "version": "1.13.0",
+  "version": "1.14.0",
   "type": "module",
   "homepage": "https://gabriersdev.github.io/mobilidade",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite",  
     "build": "node register.build.js && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
