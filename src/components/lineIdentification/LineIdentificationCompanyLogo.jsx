@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {Image} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 export default function LineIdentificationCompanyLogo({companyId}) {
   const [imgSrc, setImgSrc] = useState("/favicon.png");
@@ -20,7 +21,11 @@ export default function LineIdentificationCompanyLogo({companyId}) {
     }
   }, [companyId]);
   
-  return <Image src={imgSrc} alt={"Logo da companhia que opera esta linha"} width={100} height={50} className={"object-fit-contain rounded-1"}/>;
+  return (
+    <Link to={`/company/${companyId}`}>
+      <Image src={imgSrc} alt={"Logo da companhia que opera esta linha"} width={100} height={50} className={"object-fit-contain rounded-1"}/>
+    </Link>
+  )
 }
 
 LineIdentificationCompanyLogo.propTypes = {

@@ -135,7 +135,6 @@ function App() {
           }, 100);
         }
       } else if(!location.pathname.match(/lines\/\d+\/#\w+/)) {
-        console.log("run...");
         setTimeout(() => {
           window.scrollTo({top: 0, behavior: 'smooth'})
         }, 100);
