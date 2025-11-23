@@ -49,6 +49,7 @@ export default [
         'warn',
         {allowConstantExport: true},
       ],
+      'react-hooks/exhaustive-deps': 'off'
     },
   },
   
@@ -70,6 +71,7 @@ export default [
     ...pluginCypress.configs.recommended,
     rules: {
       'cypress/no-unnecessary-waiting': 'off',
+      'react-hooks/exhaustive-deps': 'off'
     },
   },
 ];

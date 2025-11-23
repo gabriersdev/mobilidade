@@ -7,7 +7,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 import Accordion from "../accordion/Accordion.jsx";
 import PropTypes from "prop-types";
 
-export default function Intermediate({data = [], observations, departure_location, destination_location, sortedDays, type}) {
+export default function Intermediate({data = [], observations, departure_location, destination_location, sortedDays, type, scope}) {
   // Se tudo correu bem, renderiza o conteúdo final
   const departureTimes = data.toSorted((a, b) => a.day - b.day);
   const uniqueDirections = departureTimes.map((item) => item.direction).filter((value, index, self) => self.indexOf(value) === index);
@@ -34,7 +34,8 @@ export default function Intermediate({data = [], observations, departure_locatio
               direction,
               directionName,
               observations,
-              type: type
+              type: type,
+              scope: scope
             }}>
               <AccordionOperationDays/>
               <div className={"d-flex gap-2 flex-wrap align-items-center mt-4"}>
@@ -58,4 +59,5 @@ Intermediate.propTypes = {
   destination_location: PropTypes.string.isRequired,
   sortedDays: PropTypes.any.isRequired,
   type: PropTypes.oneOf(["history", "current"]),
+  scope: PropTypes.any
 }

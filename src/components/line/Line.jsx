@@ -23,6 +23,7 @@ import {ListDepartureTimes} from "../listDepartureTimes/ListDepartureTimes";
 import {ListDeparturePoints} from "../listDeparturePoints/ListDeparturePoints";
 import {LineContext} from "./LineContext";
 import LiveBanner from "../banners/LiveBanner.jsx";
+import ShowHolidayInfo from "../lineInfo/ShowHolidayInfo.jsx";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -157,8 +158,11 @@ const Line = ({id}) => {
                   : ""
                 }
                 
-                <Weather/>
-                <ListLineWarnings line_id={data[0].line_id}/>
+                <div className={"d-flex flex-column gap-3"}>
+                  <Weather/>
+                  <ListLineWarnings line_id={data[0].line_id}/>
+                  <ShowHolidayInfo scope={data[0].scope}/>
+                </div>
               </AnimatedComponents>
             </section>
             
@@ -167,7 +171,7 @@ const Line = ({id}) => {
                 <Title type="h3" classX={" pb-2 text-body-secondary"}>Horários de partidas</Title>
                 <Print variant={"departure-times"} prevContentTarget={"id"}/>
               </div>
-              <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>
+              <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location} scope={data[0].scope}/>
               <div className={"mt-4 pt-1"}>
                 <LiveBanner/>
               </div>

@@ -1,23 +1,21 @@
 import PropTypes from "prop-types";
+import moment from "moment";
+import {Link} from "react-router-dom";
+import {Popover, Badge, OverlayTrigger} from "react-bootstrap";
+import {Tooltip} from 'bootstrap';
+import {useEffect, useMemo, useRef, useState} from "react";
 
+import Convert from "./convert.js";
 import Title from "../title/Title";
 import LineInfo from "../lineInfo/LineInfo";
-import {Link} from "react-router-dom";
-import {Badge, Image} from "react-bootstrap";
-import ReportModal from "../report/ReportModal.jsx";
-import Util from "../../assets/Util.jsx";
-import Convert from "./convert.js";
-import MonitorModal from "../monitor/MonitorModal.jsx";
-
-import {Tooltip} from 'bootstrap';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Popover from 'react-bootstrap/Popover';
-import {useEffect, useMemo, useRef, useState} from "react";
-import moment from "moment";
-import LineIdentificationCompanyLogo from "./LineIdentificationCompanyLogo.jsx";
+import ReportModal from "../report/ReportModal";
+import Util from "../../assets/Util";
+import MonitorModal from "../monitor/MonitorModal";
+import LineIdentificationCompanyLogo from "./LineIdentificationCompanyLogo";
 
 moment.locale("pt-BR");
 
+// TODO: refatorar e substituir a "passação" de parâmetros entre componentes por useContext
 const LineIdentification = ({line}) => {
   let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact, datetimeLastModify, accessibility, aircon, teraflex, bench, fleet, airsuspension] = ['', '', '', 0, '', '', 0, 0, 0, 0, 0, 0];
   const btnShareRef = useRef(null);
@@ -132,6 +130,7 @@ const LineIdentification = ({line}) => {
           <LineInfo label={{ref: 'Integração com outras Linhas ou Modais', value: hasIntegration}}>
             <i className="bi bi-train-front-fill purple"></i>
           </LineInfo>
+          
           {
             accessibility === 1 && (
               <OverlayTrigger trigger="click" placement="auto" overlay={accessibilityPopover}>
@@ -143,6 +142,7 @@ const LineIdentification = ({line}) => {
               </OverlayTrigger>
             )
           }
+          
           <OverlayTrigger trigger="click" placement="auto" overlay={comfortPopover}>
             <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
               <i className="bi bi-star-fill text-primary"></i>
@@ -181,47 +181,44 @@ const LineIdentification = ({line}) => {
           <ReportModal/>
           <MonitorModal/>
           
-          <div>
-            <Badge className={"fw-normal rounded-5 bg-primary-subtle p-0"}>
-              <button
-                ref={btnShareRef}
-                title={originalMessageTooltip}
-                className={"btn pv-05 m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2 border-0 outline-none"}
-                style={{lineHeight: "normal"}}
-                onClick={async () => {
-                  if (navigator.share) {
-                    try {
-                      await navigator.share({
-                        title: document.title || `Linha ${line.line_number} | ${line.line_name}`,
-                        text: "Confira as informações da linha: horários de partida, pontos de recarga e parada, valor da tarifa, integração, compania entre outros.",
-                        url: window.location.href
-                      });
-                      console.log("Conteúdo compartilhado com sucesso!");
-                    } catch (error) {
-                      // if (!error.toString().includes("Share canceled")) alert("Erro ao compartilhar:" + error);
-                      console.log(error.toString());
-                    }
-                  } else {
-                    await navigator.clipboard.writeText(window.location.href);
-                    
-                    if (Notification.permission === "granted") {
-                      setMessageTooltip("Link copiado!")
-                      setShowTooltip(true);
-                    } else if (Notification.permission !== "denied") {
-                      Notification.requestPermission().then(permission => {
-                        if (permission === "granted") {
-                          new Notification("Link copiado!");
-                        }
-                      });
-                    }
+          <Badge className={"fw-normal rounded-5 bg-primary-subtle p-0"}>
+            <button
+              ref={btnShareRef}
+              className={"btn pv-05 m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2 border-0 outline-none"}
+              style={{lineHeight: "normal"}}
+              onClick={async () => {
+                if (navigator.share) {
+                  try {
+                    await navigator.share({
+                      title: document.title || `Linha ${line.line_number} | ${line.line_name}`,
+                      text: "Confira as informações da linha: horários de partida, pontos de recarga e parada, valor da tarifa, integração, compania entre outros.",
+                      url: window.location.href
+                    });
+                    console.log("Conteúdo compartilhado com sucesso!");
+                  } catch (error) {
+                    // if (!error.toString().includes("Share canceled")) alert("Erro ao compartilhar:" + error);
+                    console.log(error.toString());
                   }
-                }}
-              >
-                <span>Compartilhar</span>
-                <i className="bi bi-share"></i>
-              </button>
-            </Badge>
-          </div>
+                } else {
+                  await navigator.clipboard.writeText(window.location.href);
+                  
+                  if (Notification.permission === "granted") {
+                    setMessageTooltip("Link copiado!")
+                    setShowTooltip(true);
+                  } else if (Notification.permission !== "denied") {
+                    Notification.requestPermission().then(permission => {
+                      if (permission === "granted") {
+                        new Notification("Link copiado!");
+                      }
+                    });
+                  }
+                }
+              }}
+            >
+              <span>Compartilhar</span>
+              <i className="bi bi-share"></i>
+            </button>
+          </Badge>
         </div>
         <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-2">
           {

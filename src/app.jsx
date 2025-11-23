@@ -28,6 +28,7 @@ import HistoryFares from "./pages/history/fares/HistoryFares.jsx";
 import DeparturePoints from "./pages/history/departure-points/DeparturePoints.jsx";
 import OneDeparturePoints from "./pages/history/departure-points/OneDeparturePoints.jsx";
 
+// TODO - reorganizar os arquivos em diretórios e pastas conforme o sentido fizer
 const Context = createContext({});
 const obj = {};
 

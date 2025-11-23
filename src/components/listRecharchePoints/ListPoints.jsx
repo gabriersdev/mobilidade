@@ -1,9 +1,9 @@
 import {useContext} from "react";
 import PropTypes from "prop-types";
+
 import Card from "../card/Card.jsx";
 import Grid from "../grid/Grid.jsx";
 import {RechargeContext} from "./RecharchePointsContext.jsx";
-import {Badge} from "react-bootstrap";
 
 const ListPoints = ({data}) => {
   const {handlePointClick} = useContext(RechargeContext);
