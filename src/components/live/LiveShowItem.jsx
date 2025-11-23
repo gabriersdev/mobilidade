@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 moment.locale("pt-BR");
 
+// TODO - corrigir o retorno dos textos de pontos
 export default function LiveShowItem({d, configs}) {
   const defaultAudio = "/audio/general.mp3";
   const [audio, setAudio] = useState(defaultAudio);
