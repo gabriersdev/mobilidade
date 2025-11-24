@@ -7,6 +7,7 @@ moment.locale("pt-BR");
 
 // TODO - corrigir o retorno dos textos de pontos
 export default function LiveShowItem({d, configs}) {
+  // TODO - implementar logica e bloqueio para evitar ocasioes em que os audios de aviso toquem juntos
   const defaultAudio = "/audio/general.mp3";
   const [audio, setAudio] = useState(defaultAudio);
   
