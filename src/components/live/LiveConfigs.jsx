@@ -12,6 +12,7 @@ export function LiveConfigs({configs, setConfigs}) {
     });
   });
   
+  // Registrar configs em localstorage para persistencia
   return (
     <Accordion>
       <Accordion.Item eventKey="0">

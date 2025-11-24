@@ -6,13 +6,15 @@ const now = moment();
 describe('Live Page - Departure Points Combobox Interaction', () => { // Nome do bloco de testes mais descritivo
   beforeEach(() => {
     // Visita a página antes de cada teste no bloco
-    cy.visit('http://localhost:5173/live'); // Assumi que a URL é /live, ajuste se for diferente
+    cy.visit('http://localhost:5173/live');
   });
   
   it(`Should display the "Ao vivo" title`, () => {
     cy.contains("Ao vivo").should('be.visible');
   });
   
+  // TODO - corrigir erro na execucao do teste aqui:
+  // Timed out retrying after 4000ms + expected - actual
   it('Should successfully open the "Departure Points" combobox menu and search', () => {
     cy.wait(5000);
     

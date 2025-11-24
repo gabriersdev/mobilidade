@@ -12,11 +12,12 @@ const Manifest = () => {
   
   return (
     <div>
-      <div>
-        <Title title="Manifesto" id="topo" classX=" text-body-secondary"/>
-        <p>Manifesto de Mobilidade para o Transporte Público de Sabará</p>
+      <hgroup>
+        <Title title="Manifesto de Mobilidade para o Transporte Público de Sabará" type={"h1"} id="topo" classX=" d-none"/>
+        <Title title="Manifesto de Mobilidade" type={"h2"} id="topo" classX=" fs-2 text m-0 p-0 lh-sm text-primary"/>
+        <Title title="para o Transporte Público de Sabará" type={"h2"} id="topo" classX=" fs-2 text-body-secondary lh-sm"/>
         <p>Última atualização: 23<span className="arial">/</span>11<span className="arial">/</span>2025</p>
-      </div>
+      </hgroup>
       
       <section className="content-text">
         <section id="id">
