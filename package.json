@@ -20,7 +20,7 @@
     "react-dom": "18.2.0"
   },
   "dependencies": {
-    "@hcaptcha/react-hcaptcha": "^1.12.1",
+    "@hcaptcha/react-hcaptcha": "^1.15.0",
     "aos": "^2.3.4",
     "axios": "^1.13.2",
     "bootstrap": "^5.3.3",
