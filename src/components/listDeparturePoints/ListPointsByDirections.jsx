@@ -1,6 +1,6 @@
 import {useCallback, useContext, useEffect} from "react";
 import AccordionItem from "../accordion/AccordionItem.jsx";
-import {RechargeContext as DeparturePointsTheme} from "./DeparturePointsContext.jsx";
+import {DPContext as DeparturePointsTheme} from "./DeparturePointsContext.jsx";
 import {Theme} from "../themeContext/ThemeContext.jsx";
 import {Context as LineContext} from "../line/LineContext.jsx";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -21,7 +21,8 @@ const ListPointsByDirections = () => {
             point_name: point.point_name,
             // TODO - test it: points_lenght: departurePointsByDirection[j].length,
             points_lenght: departurePointsByDirection[parentIndex].length,
-            point_ordenation: index
+            point_ordenation: index,
+            departure_point_id: point?.["departure_point_id"] ?? -1
           })}
           className={"p-0 border-0 bg-transparent list-group-item text-body"}
           role={"link"}

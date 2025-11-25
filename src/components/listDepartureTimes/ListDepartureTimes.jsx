@@ -10,7 +10,7 @@ import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
 import Intermediate from "./Intermediate.jsx";
 import AnimatedComponents from "../animatedComponent/AnimatedComponents.jsx";
 
-const ListDepartureTimes = ({line_id, departure_location, destination_location, variant}) => {
+const ListDepartureTimes = ({line_id, departure_location, destination_location, variant, scope}) => {
   const {data, observations, error, isLoaded} = useDepartureTimes(line_id, variant);
   
   const [sortedDays, setSortedDays] = useState(null);
@@ -73,7 +73,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location, 
     <AnimatePresence mode={"wait"}>
       <AnimatedComponent>
         <DepartureTimeContext>
-          <Intermediate data={data} observations={observations} departure_location={departure_location} destination_location={destination_location} sortedDays={sortedDays} type={variant?.type || "current"} />
+          <Intermediate data={data} observations={observations} line_id={line_id} departure_location={departure_location} destination_location={destination_location} sortedDays={sortedDays} type={variant?.type || "current"} scope={scope} />
         </DepartureTimeContext>
       </AnimatedComponent>
     </AnimatePresence>
@@ -88,6 +88,7 @@ ListDepartureTimes.propTypes = {
     type: PropTypes.oneOf(["history", "current"]),
     departureTimeData: PropTypes.string
   }),
+  scope: PropTypes.any
 }
 
 export {ListDepartureTimes};

@@ -11,12 +11,11 @@ import NoDepartureTimes from "./NoDepartureTimes.jsx";
 
 moment.locale("pt-br");
 
-// Função helper para obter o nome do dia atual
-const getCurrentDayGroupName = () => Util.getCurrentDayGroupName();
-
 const AccordionOperationDays = () => {
   const {defaultEventKey, setDefaultEventKey} = useContext(TimeContext);
-  const {departureTimes, uniqueDaysForDirection, index, direction, directionName, observations, type} = useContext(Theme);
+  const {departureTimes, uniqueDaysForDirection, index, direction, directionName, observations, type, scope} = useContext(Theme);
+  // Função helper para obter o nome do dia atual
+  const getCurrentDayGroupName = () => Util.getCurrentDayGroupName(scope);
   
   // 1. Criar estados para o conteúdo assíncrono e a chave padrão do accordion
   const [accordionItems, setAccordionItems] = useState(null);
@@ -59,7 +58,6 @@ const AccordionOperationDays = () => {
           <div key={j}>
             {/* componente separado para garantir re-render com mudanças no contexto */}
             <NoDepartureTimes isFirst={j === 0}/>
-            
             <div>
               <AccordionItem title={dayConverted} eventKey={j.toString()} className={className}>
                 <Table

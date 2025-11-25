@@ -27,7 +27,9 @@ import SabaraInfo from "./pages/sabaraInfo/SabaraInfo.jsx";
 import HistoryFares from "./pages/history/fares/HistoryFares.jsx";
 import DeparturePoints from "./pages/history/departure-points/DeparturePoints.jsx";
 import OneDeparturePoints from "./pages/history/departure-points/OneDeparturePoints.jsx";
+import Manifest from "./pages/manifest/Manifest.jsx";
 
+// TODO - reorganizar os arquivos em diretórios e pastas conforme o sentido fizer
 const Context = createContext({});
 const obj = {};
 
@@ -135,7 +137,6 @@ function App() {
           }, 100);
         }
       } else if(!location.pathname.match(/lines\/\d+\/#\w+/)) {
-        console.log("run...");
         setTimeout(() => {
           window.scrollTo({top: 0, behavior: 'smooth'})
         }, 100);
@@ -176,6 +177,7 @@ function App() {
             <Route path="/history/departure-points/:id" element={<DeparturePoints/>}/>
             <Route path="/history/departure-points/:id/:id" element={<OneDeparturePoints/>}/>
             <Route path="/sabara" element={<SabaraInfo/>}/>
+            <Route path="/manifest" element={<Manifest/>}/>
           </Routes>
         </Main>
         <Footer/>

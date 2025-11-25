@@ -15,9 +15,12 @@ export default function GenericCombobox({
   
   // Função genérica de filtro
   const getItemsFilter = (inputValue) => {
-    let lowerCasedInputValue
+    let lowerCasedInputValue;
     try {
-      lowerCasedInputValue = inputValue?.toLowerCase();
+      lowerCasedInputValue = inputValue
+        ?.toLowerCase()
+        ?.normalize("NFD")
+        ?.trim();
     } catch (error) {
       if (error.toString().includes("-1")) console.log(error);
       lowerCasedInputValue = "";
@@ -27,7 +30,11 @@ export default function GenericCombobox({
       return (
         !inputValue ||
         Object.values(item).some((value) =>
-          String(value).toLowerCase().includes(lowerCasedInputValue),
+          String(value)
+            ?.toLowerCase()
+            ?.normalize("NFD")
+            ?.trim()
+            ?.includes(lowerCasedInputValue),
         )
       );
     };
@@ -41,7 +48,7 @@ export default function GenericCombobox({
     getInputProps,
     getItemProps,
     highlightedIndex,
-    setInputValue, // 👈 AQUI
+    setInputValue,
     reset,
   } = useCombobox({
     items,
@@ -82,38 +89,42 @@ export default function GenericCombobox({
             className={"border text-body-tertiary bg-body"}
             type={"button"}
             onClick={() => setInputValue("")}
-            onDoubleClick={() => {reset()}}
+            onDoubleClick={() => {
+              reset()
+            }}
           >
             <i className="bi bi-x-lg"></i>
           </Button>
         </InputGroup>
       </Form.Group>
-      <ListGroup
-        {...getMenuProps()}
-        as="ul"
-        className={`mt-3 w-72 position-absolute shadow-md overflow-auto ${
-          !(isOpen && items.length) ? 'd-none' : ''
-        }`}
-        style={{maxHeight: '20rem', zIndex: 1000}}
-        data-testid="combobox-menu"
-      >
-        {isOpen &&
-          items.map((item, index) => (
-            <ListGroup.Item
-              as="li"
-              id={`${itemToString(item.id)}-${index}`}
-              key={`${itemToString(item.id)}-${index}`}
-              {...getItemProps({item, index})}
-              active={highlightedIndex === index}
-              className={"cursor-pointer"}
-              data-testid={`combobox-item-${index}`}
-            >
-              <span>{item.title}</span>
-              <br/>
-              <span className="text-sml small">{item.name}</span>
-            </ListGroup.Item>
-          ))}
-      </ListGroup>
+      <div>
+        <ListGroup
+          {...getMenuProps()}
+          as="ul"
+          className={`mt-3 w-72 position-absolute shadow-sm border-bottom overflow-auto ${
+            !(isOpen && items.length) ? 'd-none' : ''
+          }`}
+          style={{maxHeight: '20rem', zIndex: 1000}}
+          data-testid="combobox-menu"
+        >
+          {isOpen &&
+            items.map((item, index) => (
+              <ListGroup.Item
+                as="li"
+                id={`${itemToString(item.id)}-${index}`}
+                key={`${itemToString(item.id)}-${index}`}
+                {...getItemProps({item, index})}
+                active={highlightedIndex === index}
+                className={"cursor-pointer"}
+                data-testid={`combobox-item-${index}`}
+              >
+                <span>{item.title}</span>
+                <br/>
+                <span className="text-sml small">{item.name}</span>
+              </ListGroup.Item>
+            ))}
+        </ListGroup>
+      </div>
     </div>
   );
 }

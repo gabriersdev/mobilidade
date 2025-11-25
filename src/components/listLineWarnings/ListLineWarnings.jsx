@@ -1,13 +1,13 @@
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import config from '../../config.js'
 import axios from 'axios'
-
-import './listLineWarnings.css'
-import {AnimatePresence} from "framer-motion";
-import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
 import moment from "moment";
 import {Button} from "react-bootstrap";
+import {AnimatePresence} from "framer-motion";
+
+import './listLineWarnings.css'
+import AnimatedComponent from "../animatedComponent/AnimatedComponent.jsx";
+import config from '../../config.js'
 
 const ListLineWarnings = ({line_id}) => {
   const [data, setData] = useState([])
@@ -77,12 +77,13 @@ const ListLineWarnings = ({line_id}) => {
           return now.getTime() >= datetimeInit.getTime() && now.getTime() <= datetimeFinish.getTime()
         case 2:
           // Frequência semanal - aviso será exibido semanalmente, entre os dias de início e fim
+          // TODO - definir aqui a apresentacao de frequencia caso o dia corrente seja feriado
           return (now.getDay() >= dayInit && now.getDay() <= dayFinish) && (createDateTimeToHours(timeInit).diff(mNow, "seconds") <= 0 && createDateTimeToHours(timeFinish).diff(mNow, "seconds") >= 0)
         case 3:
           // Frequência anual - aviso será exibido anualmente, entre as datas de inicio e fim
           return now.getTime() >= dateInit.getTime() && now.getTime() <= dateFinish.getTime()
         case 4:
-          // Frequência diária - aviso será exibido diariamente, entre os horários de inicio e fim
+          // Frequência diária - aviso será exibido diariamente, entre os horários de início e fim
           return timeNow.getTime() >= timeInit.getTime() && timeNow.getTime() <= timeFinish.getTime()
         default:
           console.error('Frequência inválida:', frequency)
@@ -115,7 +116,7 @@ const ListLineWarnings = ({line_id}) => {
     return (
       <AnimatePresence mode={"wait"}>
         <AnimatedComponent>
-          <div className={"mt-3 d-flex gap-3 flex-column"}>
+          <div className={"mt-0 d-flex gap-3 flex-column"}>
             {
               warnings.toSorted((a, b) => a.title.localeCompare(b.title)).map((warning, i) => {
                 // É crucial que cada aviso tenha um 'id' único para usar como 'key' e para gerenciar sua visibilidade.

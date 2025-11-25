@@ -15,7 +15,7 @@ const WeatherAlert = ({weatherData}) => {
   return (
     <AnimatePresence mode={"wait"}>
       <AnimatedComponent>
-        <Alert variant={'weather'} margin={"mt-3"} dismissible={true}>
+        <Alert variant={'weather'} margin={"m-0"} dismissible={true}>
           <span>
             <p className={"m-0 p-0 d-inline-block"}>{alertText}</p>{" "}
             <a className={"text-info-emphasis fw-semibold d-inline-block"} href={urlSabara} rel={"noreferrer noopener"} target={"_blank"}>

@@ -5,6 +5,7 @@ import config from "../config.js";
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import {Link} from "react-router-dom";
+import {getAllHolidays} from "./holidays.js";
 
 moment.locale('pt-br');
 
@@ -192,15 +193,19 @@ export default class Util {
   static renderText = (text) => {
     // Usa regex para encontrar todas as barras e as envolve em spans
     
-    if (!text.split) return text;
-    
-    return text.split(/(\/)/).map((part, index) => {
-      if (part === "/") {
-        // Adiciona uma key para o React
-        return (<span key={index} style={{fontSize: 'inherit', fontFamily: "'Arial', sans-serif"}}>/</span>);
-      }
-      return part;
-    });
+   try {
+     if (!text.split) return text;
+     
+     return text.split(/(\/)/).map((part, index) => {
+       if (part === "/") {
+         // Adiciona uma key para o React
+         return (<span key={index} style={{fontSize: 'inherit', fontFamily: "'Arial', sans-serif"}}>/</span>);
+       }
+       return part;
+     });
+   } catch (error) {
+     return text;
+   }
   };
   
   static processContents = (text) => {
@@ -341,7 +346,28 @@ export default class Util {
     return `${target.format('DD/MM/YYYY')}`;
   }
   
-  static getCurrentDayGroupName = () => {
+  static getTodayHolidayData(scope) {
+    let codeScope = -1;
+    
+    switch (typeof scope === "string" ? scope.toLowerCase() : scope) {
+      case "metropolitano":
+      case 2:
+        codeScope = 4;
+        break;
+      case "municipal":
+      case 1:
+      default:
+        codeScope = 3
+        break;
+    }
+    
+    let holidaysScope = getAllHolidays(moment().year(), {includeRegion: `SC${('0' + codeScope).slice(-2)}`});
+    return holidaysScope.find((h) => moment().diff(h.date, "days") === 0);
+  }
+  
+  static getCurrentDayGroupName(scope) {
+    if (Util.getTodayHolidayData(scope)) return 'domingo';
+    
     switch (moment().get("day")) {
       case 0:
         return 'domingo';

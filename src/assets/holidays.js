@@ -30,7 +30,7 @@ const regionalFixedHolidays = {
   "SC03": [
     {name: "Aniversário de Belo Horizonte", month: 8, day: 15},
     ...holidaysForAllScopes
-  ]
+  ],
 };
 
 /**
@@ -121,7 +121,3 @@ export function getAllHolidays(year, options = {}) {
   // Return without the raw Date object if you prefer, but date is convenient
   return normalized.map(({name, month, day, date}) => ({name, month, day, date}));
 }
-
-// Get holidays per scope
-// const scope03Holidays2025 = getAllHolidays(2025, {includeRegion: "SC03"});
-// const scope04Holidays2025 = getAllHolidays(2025, {includeRegion: "SC04"});

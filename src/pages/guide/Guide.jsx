@@ -5,7 +5,7 @@ import config from "../../config.js";
 import Alert from "../../components/alert/Alert.jsx";
 import Accordion from "../../components/accordion/Accordion.jsx";
 import AccordionItem from "../../components/accordion/AccordionItem.jsx";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import AnimatedComponents from "../../components/animatedComponent/AnimatedComponents.jsx";
 import {Button, Card, CardBody, CardHeader, CardTitle, FormControl, InputGroup, ListGroup, ListGroupItem} from "react-bootstrap";
 import PaginationWithItems from "../../components/paginationWithItems/PaginationWithItems.jsx";
@@ -17,9 +17,12 @@ const Guide = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [content, setContent] = useState(<></>);
-  const [term, setTerm] = useState(null);
+  const [term, setTerm] = useState("");
   const [message, setMessage] = useState("");
-  const [indiceLetters, setIndiceLetters] = useState([]);
+  const [indicesLetters, setIndicesLetters] = useState([]);
+  
+  const location = useLocation();
+  const [searchDPId, setSearchDPId] = useState(-1);
   
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -31,11 +34,21 @@ const Guide = () => {
         setOriginalData(response.data);
       } else setError("Ocorreu um erro na consulta do Guia. Tente novamente mais tarde.");
     } catch (error) {
-      setError(error || "Ocorreu um erro na consulta do Guia. Tente novamente mais tarde.");
+      console.log(error);
+      setError("Ocorreu um erro na consulta do Guia. Tente novamente mais tarde.");
     } finally {
       setLoading(false);
     }
   }, []);
+  
+  const fetchPhysicalPointAddress = async (pointId) => {
+    const s = await axios.post(`${config.host}/api/departure-points/physical-point`, {pointId})
+      .catch((error) => {
+        console.log(error);
+        setError("Ocorreu um erro ao consultar o banco de dados");
+      });
+    return s?.data?.[0]?.[0]?.["address"];
+  }
   
   useEffect(() => {
     // Altera o título da página
@@ -48,7 +61,7 @@ const Guide = () => {
     
     fetchData().then(() => {
     });
-  }, [fetchData])
+  }, [fetchData]);
   
   useEffect(() => {
     if (loading) setContent(<>Carregando...</>);
@@ -56,7 +69,7 @@ const Guide = () => {
     else if (data) {
       setMessage("");
       const uniqueLetters = Object.keys(data).map(key => key[0]).filter((v, i, self) => self.indexOf(v) === i).toSorted();
-      setIndiceLetters(uniqueLetters);
+      setIndicesLetters(uniqueLetters);
       
       setContent(
         <AnimatedComponents>
@@ -96,7 +109,7 @@ const Guide = () => {
   }, [loading, error, data]);
   
   useEffect(() => {
-    if (term) {
+    if (term && term.length) {
       const sanitizeTerm = term.trim();
       setMessage("");
       
@@ -114,7 +127,26 @@ const Guide = () => {
         setData(originalData);
       } else setData(objResults);
     } else setData(originalData);
-  }, [term, originalData])
+  }, [term, originalData]);
+  
+  useEffect(() => {
+    // Quando location search tiver algum valor, analisa se o parametro "ei" foi passado e se existe nele algum número para consultar o ponto
+    if (location.search) {
+      const searchParams = new URLSearchParams(location.search)
+      let getSearchParamId;
+      if (searchParams) getSearchParamId = searchParams.get("ei")
+      if (getSearchParamId.match(/\d/)) setSearchDPId(+getSearchParamId.match(/\d/g).join(""));
+    }
+  }, [location, originalData]);
+  
+  useEffect(() => {
+    // Consulta os dados do ponto e lança o endereço no input para pesquisar as linhas que param lá
+    if(searchDPId >= 0 && originalData) {
+      fetchPhysicalPointAddress(searchDPId).then(physicalPointAddress => {
+        if (physicalPointAddress) setTerm(physicalPointAddress);
+      });
+    }
+  }, [searchDPId, originalData]);
   
   return (
     <div>
@@ -126,7 +158,7 @@ const Guide = () => {
               e.preventDefault()
             }}>
               <InputGroup>
-                <FormControl type={"text"} as={"input"} placeholder={"Pesquise"} onChange={(e) => setTerm(e.target.value)}/>
+                <FormControl type={"text"} as={"input"} placeholder={"Pesquise"} value={term} onChange={(e) => setTerm(e.target.value)}/>
                 <Button variant="default" className={"border text-body-tertiary px-3"} type="reset" aria-hidden="true"><i className="bi bi-x-lg"></i></Button>
                 <Button variant="default" className={"border text-body-tertiary px-3"} type="submit" aria-hidden="true"><i className="bi bi-search"></i></Button>
               </InputGroup>
@@ -148,7 +180,7 @@ const Guide = () => {
                     {
                       loading ? (<>Carregando...</>) : (
                         <ListGroup className={"bg-body"}>
-                          {indiceLetters?.map((letter, i) => {
+                          {indicesLetters?.map((letter, i) => {
                             return (
                               <ListGroupItem as={"a"} key={i} className={"bg-body text-primary border-secondary-subtle"} href={`#index-letter-${letter}`}>
                                 <AnimatedComponents>
