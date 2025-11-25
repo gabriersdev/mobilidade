@@ -2,12 +2,12 @@ import {useContext} from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Util from "../../assets/Util.jsx";
 import Alert from "../alert/Alert.jsx";
-import {RechargeContext} from "./DeparturePointsContext.jsx";
+import {DPContext} from "./DeparturePointsContext.jsx";
 import {Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 const OffcanvasDeparturePoints = () => {
-  const {show, pointDataOffcanvas, handleClose} = useContext(RechargeContext)
+  const {show, pointDataOffcanvas, handleClose} = useContext(DPContext)
   
   return (
     <Offcanvas show={show} onHide={handleClose} placement="start">
@@ -53,12 +53,12 @@ const OffcanvasDeparturePoints = () => {
         </p>
         
         <div className={"d-flex align-items-center gap-2 flex-wrap"}>
-          <Button variant={"primary"} as={Link} href={"#"} className={"d-flex align-items-center gap-2 flex-wrap"}>
+          <Button variant={"primary"} as={Link} to={"/guide?ei=" + (pointDataOffcanvas?.["departure_point_id"] ?? -1)} className={"d-flex align-items-center gap-2 flex-wrap"}>
             Linhas que param nesse ponto
             <i className="bi bi-shop-window"></i>
           </Button>
           
-          <Button variant={"primary"} as={Link} href={"#"} className={"d-flex align-items-center gap-2 flex-wrap"}>
+          <Button variant={"primary"} as={Link} to={"/live?ei=" + (pointDataOffcanvas?.["departure_point_id"] ?? -1)} className={"d-flex align-items-center gap-2 flex-wrap"}>
             Acompanhar aproximação de ônibus
             <i className="bi bi-shop-window"></i>
           </Button>

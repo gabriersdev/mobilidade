@@ -27,6 +27,7 @@ const Live = () => {
     resultSection,
     configs,
     setConfigs,
+    labelsConfigs,
     
     fetchData
   } = useLiveComponent();
@@ -88,7 +89,7 @@ const Live = () => {
       
       <div className={"d-flex flex-column gap-3 mt-3"}>
         <AlertInfoFeature/>
-        <LiveConfigs configs={configs} setConfigs={setConfigs}/>
+        <LiveConfigs configs={configs} setConfigs={setConfigs} labelsConfigs={labelsConfigs}/>
       </div>
     </AnimatedComponents>
   );

@@ -4,6 +4,7 @@ import axios from "axios";
 
 import config from "../../config.js";
 import Util from "../../assets/Util.jsx";
+import {useLocation} from "react-router-dom";
 
 moment.locale("pt-BR");
 
@@ -16,9 +17,17 @@ const useLiveComponent = () => {
   const [departurePoints, setDeparturePoints] = useState(null);
   const [configs, setConfigs] = useState({
     warningSound: true,
-    showSomeDepartureStart: true,
+    showSomeDepartureStart: false,
     showAdditionalInfo: true
   });
+  const labelsConfigs = useRef({
+    warningSound: "Aviso sonoro",
+    showSomeDepartureStart: "Exibir apenas partidas",
+    showAdditionalInfo: "Exibir informações extras"
+  })
+  
+  const location = useLocation();
+  const [searchDPId, setSearchDPId] = useState(-1);
   
   const [isOriginalFetch, setIsOriginalFetch] = useState(false);
   const [datetimeOriginalFetch, setDatetimeOriginalFetch] = useState(null);
@@ -114,6 +123,21 @@ const useLiveComponent = () => {
   }, [departurePointSelected, datetimeOriginalFetch]);
   
   useEffect(() => {
+    // Quando location search tiver algum valor, analisa se o parametro "ei" foi passado e se existe nele algum número para consultar o ponto
+    if (location.search && location.search !== "") {
+      const searchParams = new URLSearchParams(location.search)
+      let getSearchParamId;
+      if (searchParams) getSearchParamId = searchParams.get("ei")
+      if (getSearchParamId.match(/\d/)) setSearchDPId(+getSearchParamId.match(/\d/g).join(""));
+    }
+  }, [location]);
+  
+  useEffect(() => {
+    // TODO - ir no banco de dados, consultar os dados do ponto e lançar no input para acompanhar os ônibus que se aproximam
+    if(searchDPId && data) console.log(searchDPId)
+  }, [searchDPId]);
+  
+  useEffect(() => {
     // Altera o título da página
     document.title = "Mobilidade - Ao Vivo";
     Util.updateActiveLink();
@@ -151,6 +175,7 @@ const useLiveComponent = () => {
     resultSection,
     configs,
     setConfigs,
+    labelsConfigs,
     
     fetchData
   }

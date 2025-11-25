@@ -5,9 +5,8 @@ import PropTypes from "prop-types";
 
 moment.locale("pt-BR");
 
-// TODO - corrigir o retorno dos textos de pontos
 export default function LiveShowItem({d, configs}) {
-  // TODO - implementar logica e bloqueio para evitar ocasioes em que os audios de aviso toquem juntos
+  // TODO - implementar logica e bloqueio para evitar ocasiões em que os audios de aviso toquem juntos
   const defaultAudio = "/audio/general.mp3";
   const [audio, setAudio] = useState(defaultAudio);
   
@@ -28,7 +27,7 @@ export default function LiveShowItem({d, configs}) {
       {
         moment(d?.["expected_arrival_time"]).diff(moment(), "minutes") > 0 ? (
           <div>
-            <span>{textOrderDeparturePointNow((d?.["order_departure_point"] ?? -1))}</span>
+            <span>{textOrderDeparturePoint((d?.["order_departure_point"] ?? -1))}</span>
             <span>{" "}</span>
             <span>{Util.diffToHuman(moment(d?.["expected_arrival_time"]))}</span>
           </div>
@@ -44,7 +43,7 @@ export default function LiveShowItem({d, configs}) {
                 </audio>
               )
             }
-            <span>{textOrderDeparturePoint((d?.["order_departure_point"] ?? -1))}</span>
+            <span>{textOrderDeparturePointNow((d?.["order_departure_point"] ?? -1))}</span>
           </div>
         )
       }

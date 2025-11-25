@@ -1,7 +1,7 @@
 import {createContext, useState} from "react";
 import PropTypes from "prop-types";
 
-const RechargeContext = createContext({});
+const DPContext = createContext({});
 
 const DeparturePointsContext = ({children}) => {
   const [show, setShow] = useState(false);
@@ -9,21 +9,23 @@ const DeparturePointsContext = ({children}) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handlePointClick = (e, {address, point_name, points_lenght, point_ordenation}) => {
+  // TODO - refatorar e usar camelCase ao invés de _
+  const handlePointClick = (e, {address, point_name, points_lenght, point_ordenation, departure_point_id}) => {
     e.preventScroll = true;
     setPointDataOffcanvas({
       address: address,
       point_name: point_name,
       points_lenght: points_lenght,
-      point_ordenation: point_ordenation
+      point_ordenation: point_ordenation,
+      departure_point_id: departure_point_id
     });
     handleShow();
   }
 
   return (
-    <RechargeContext.Provider value={Object.assign({}, {show,  pointDataOffcanvas, handleClose, handleShow, handlePointClick})}>
+    <DPContext.Provider value={Object.assign({}, {show,  pointDataOffcanvas, handleClose, handleShow, handlePointClick})}>
       {children}
-    </RechargeContext.Provider>
+    </DPContext.Provider>
   )
 }
 
@@ -31,4 +33,4 @@ DeparturePointsContext.propTypes = {
   children: PropTypes.node
 }
 
-export {RechargeContext, DeparturePointsContext};
+export {DPContext, DeparturePointsContext};

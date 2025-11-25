@@ -5,7 +5,7 @@ import config from "../../config.js";
 import Alert from "../../components/alert/Alert.jsx";
 import Accordion from "../../components/accordion/Accordion.jsx";
 import AccordionItem from "../../components/accordion/AccordionItem.jsx";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import AnimatedComponents from "../../components/animatedComponent/AnimatedComponents.jsx";
 import {Button, Card, CardBody, CardHeader, CardTitle, FormControl, InputGroup, ListGroup, ListGroupItem} from "react-bootstrap";
 import PaginationWithItems from "../../components/paginationWithItems/PaginationWithItems.jsx";
@@ -19,7 +19,10 @@ const Guide = () => {
   const [content, setContent] = useState(<></>);
   const [term, setTerm] = useState(null);
   const [message, setMessage] = useState("");
-  const [indiceLetters, setIndiceLetters] = useState([]);
+  const [indicesLetters, setIndicesLetters] = useState([]);
+  
+  const location = useLocation();
+  const [searchDPId, setSearchDPId] = useState(-1);
   
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -48,7 +51,7 @@ const Guide = () => {
     
     fetchData().then(() => {
     });
-  }, [fetchData])
+  }, [fetchData]);
   
   useEffect(() => {
     if (loading) setContent(<>Carregando...</>);
@@ -56,7 +59,7 @@ const Guide = () => {
     else if (data) {
       setMessage("");
       const uniqueLetters = Object.keys(data).map(key => key[0]).filter((v, i, self) => self.indexOf(v) === i).toSorted();
-      setIndiceLetters(uniqueLetters);
+      setIndicesLetters(uniqueLetters);
       
       setContent(
         <AnimatedComponents>
@@ -114,7 +117,22 @@ const Guide = () => {
         setData(originalData);
       } else setData(objResults);
     } else setData(originalData);
-  }, [term, originalData])
+  }, [term, originalData]);
+  
+  useEffect(() => {
+    // Quando location search tiver algum valor, analisa se o parametro "ei" foi passado e se existe nele algum número para consultar o ponto
+    if (location.search) {
+      const searchParams = new URLSearchParams(location.search)
+      let getSearchParamId;
+      if (searchParams) getSearchParamId = searchParams.get("ei")
+      if (getSearchParamId.match(/\d/)) setSearchDPId(+getSearchParamId.match(/\d/g).join(""));
+    }
+  }, [location]);
+  
+  useEffect(() => {
+    // TODO - ir no banco de dados, consultar os dados do ponto e lançar no input para pesquisar as linhas que param lá
+    if(searchDPId && data) console.log(searchDPId)
+  }, [searchDPId]);
   
   return (
     <div>
@@ -148,7 +166,7 @@ const Guide = () => {
                     {
                       loading ? (<>Carregando...</>) : (
                         <ListGroup className={"bg-body"}>
-                          {indiceLetters?.map((letter, i) => {
+                          {indicesLetters?.map((letter, i) => {
                             return (
                               <ListGroupItem as={"a"} key={i} className={"bg-body text-primary border-secondary-subtle"} href={`#index-letter-${letter}`}>
                                 <AnimatedComponents>
