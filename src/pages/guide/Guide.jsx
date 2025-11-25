@@ -41,6 +41,15 @@ const Guide = () => {
     }
   }, []);
   
+  const fetchPhysicalPointAddress = async (pointId) => {
+    const s = await axios.post(`${config.host}/api/departure-points/physical-point`, {pointId})
+      .catch((error) => {
+        console.log(error);
+        setError("Ocorreu um erro ao consultar o banco de dados");
+      });
+    return s?.data?.[0]?.[0]?.["address"];
+  }
+  
   useEffect(() => {
     // Altera o título da página
     const psTitle = `Guia do Transporte Público`;
@@ -133,8 +142,9 @@ const Guide = () => {
   useEffect(() => {
     // Consulta os dados do ponto e lança o endereço no input para pesquisar as linhas que param lá
     if(searchDPId >= 0 && originalData) {
-      const correspondence = Object.entries(originalData).find((o) => o[1]?.[0]?.["departurePointId"] === searchDPId);
-      if (correspondence && Array.isArray(correspondence) && correspondence.length) setTerm(correspondence[0]);
+      fetchPhysicalPointAddress(searchDPId).then(physicalPointAddress => {
+        if (physicalPointAddress) setTerm(physicalPointAddress);
+      });
     }
   }, [searchDPId, originalData]);
   
