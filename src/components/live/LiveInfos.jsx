@@ -41,7 +41,7 @@ export function AlertInfoFeature() {
   return (
     <div className={"d-flex gap-3 mt-3 flex-column"}>
       <Alert variant={"info"} dismissible={true} margin={"m-0"}>
-        Quando o ônibus estiver aproximando ou saindo um aviso sonoro será tocado. Os resultados da pesquisa são atualizados a cada 30 segundos.
+        Os resultados da pesquisa são atualizados a cada 30 segundos.
       </Alert>
     </div>
   )

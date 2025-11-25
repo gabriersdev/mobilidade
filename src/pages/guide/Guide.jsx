@@ -17,7 +17,7 @@ const Guide = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [content, setContent] = useState(<></>);
-  const [term, setTerm] = useState(null);
+  const [term, setTerm] = useState("");
   const [message, setMessage] = useState("");
   const [indicesLetters, setIndicesLetters] = useState([]);
   
@@ -99,7 +99,7 @@ const Guide = () => {
   }, [loading, error, data]);
   
   useEffect(() => {
-    if (term) {
+    if (term && term.length) {
       const sanitizeTerm = term.trim();
       setMessage("");
       
@@ -127,12 +127,15 @@ const Guide = () => {
       if (searchParams) getSearchParamId = searchParams.get("ei")
       if (getSearchParamId.match(/\d/)) setSearchDPId(+getSearchParamId.match(/\d/g).join(""));
     }
-  }, [location]);
+  }, [location, originalData]);
   
   useEffect(() => {
-    // TODO - ir no banco de dados, consultar os dados do ponto e lançar no input para pesquisar as linhas que param lá
-    if(searchDPId && data) console.log(searchDPId)
-  }, [searchDPId]);
+    // Consulta os dados do ponto e lança o endereço no input para pesquisar as linhas que param lá
+    if(searchDPId >= 0 && originalData) {
+      const correspondence = Object.entries(originalData).find((o) => o[1]?.[0]?.["departurePointId"] === searchDPId);
+      if (correspondence && Array.isArray(correspondence) && correspondence.length) setTerm(correspondence[0]);
+    }
+  }, [searchDPId, originalData]);
   
   return (
     <div>
@@ -144,7 +147,7 @@ const Guide = () => {
               e.preventDefault()
             }}>
               <InputGroup>
-                <FormControl type={"text"} as={"input"} placeholder={"Pesquise"} onChange={(e) => setTerm(e.target.value)}/>
+                <FormControl type={"text"} as={"input"} placeholder={"Pesquise"} value={term} onChange={(e) => setTerm(e.target.value)}/>
                 <Button variant="default" className={"border text-body-tertiary px-3"} type="reset" aria-hidden="true"><i className="bi bi-x-lg"></i></Button>
                 <Button variant="default" className={"border text-body-tertiary px-3"} type="submit" aria-hidden="true"><i className="bi bi-search"></i></Button>
               </InputGroup>
