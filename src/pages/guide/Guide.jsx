@@ -34,7 +34,8 @@ const Guide = () => {
         setOriginalData(response.data);
       } else setError("Ocorreu um erro na consulta do Guia. Tente novamente mais tarde.");
     } catch (error) {
-      setError(error || "Ocorreu um erro na consulta do Guia. Tente novamente mais tarde.");
+      console.log(error);
+      setError("Ocorreu um erro na consulta do Guia. Tente novamente mais tarde.");
     } finally {
       setLoading(false);
     }

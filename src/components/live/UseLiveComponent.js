@@ -88,6 +88,15 @@ const useLiveComponent = () => {
     setError(null);
   };
   
+  const fetchPhysicalPointId = async (pointId) => {
+    const s = await axios.post(`${config.host}/api/departure-points/physical-point`, {pointId})
+      .catch((error) => {
+        console.log(error);
+        setError("Ocorreu um erro ao consultar o banco de dados");
+      });
+    return s?.data?.[0]?.[0]?.["physical_stop_id"];
+  }
+  
   const resultSection = useRef();
   
   useEffect(() => {
@@ -134,8 +143,13 @@ const useLiveComponent = () => {
   
   useEffect(() => {
     // TODO - ir no banco de dados, consultar os dados do ponto e lançar no input para acompanhar os ônibus que se aproximam
-    if(searchDPId && data) console.log(searchDPId)
-  }, [searchDPId]);
+    if (searchDPId >= 0 && departurePoints) {
+      fetchPhysicalPointId(searchDPId).then(physicalPointId => {
+        const correspondence = departurePoints.find(dp => dp.id === physicalPointId);
+        if (correspondence) setDeparturePointSelected(correspondence);
+      });
+    }
+  }, [searchDPId, departurePoints]);
   
   useEffect(() => {
     // Altera o título da página
