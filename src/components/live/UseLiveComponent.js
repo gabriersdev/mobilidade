@@ -162,6 +162,28 @@ const useLiveComponent = () => {
       setNow(moment());
     }, 1000);
     
+    // Impedir que dispositivo entre em suspensão
+    if ('wakeLock' in navigator) {
+      let wakeLock = null;
+      
+      async function requestWakeLock() {
+        try {
+          wakeLock = await navigator.wakeLock.request('screen');
+          wakeLock.addEventListener('release', () => {
+            console.log('Wake Lock foi liberado');
+          });
+          console.log('Wake Lock ativado');
+        } catch (err) {
+          console.error('Falha ao ativar o Wake Lock:', err);
+        }
+      }
+      
+      // Solicitar Wake Lock assim que a página for carregada
+      requestWakeLock().then();
+    } else {
+      console.log('API de Wake Lock não suportada neste navegador');
+    }
+    
     return () => {
       clearInterval(int);
     }
