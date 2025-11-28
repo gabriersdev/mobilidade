@@ -1,3 +1,5 @@
+// noinspection DuplicatedCode
+
 const cacheNumber = 40;
 const cacheVersion = "V" + cacheNumber;
 const STATIC_CACHE_NAME = `mobilidade-app-${cacheVersion}`;
@@ -46,7 +48,7 @@ function staleWhileRevalidate(event) {
   return caches.open(STATIC_CACHE_NAME).then(cache => {
     return cache.match(event.request).then(response => {
       const fetchPromise = fetch(event.request).then(networkResponse => {
-        cache.put(event.request, networkResponse.clone());
+        cache.put(event.request, networkResponse.clone()).then();
         return networkResponse;
       });
 
@@ -59,7 +61,7 @@ function staleWhileRevalidate(event) {
 function networkFirst(event) {
   return fetch(event.request).then(fetchRes => {
     return caches.open(DYNAMIC_CACHE_NAME).then(cache => {
-      cache.put(event.request, fetchRes.clone());
+      cache.put(event.request, fetchRes.clone()).then();
       return fetchRes;
     })
   }).catch(() => {

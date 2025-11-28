@@ -1,3 +1,5 @@
+// noinspection CypressCommandSubjectValidation,JSCheckFunctionSignatures
+
 import moment from "moment/moment";
 
 moment.locale("pt-BR");
@@ -13,7 +15,7 @@ describe('Live Page - Departure Points Combobox Interaction', () => { // Nome do
     cy.contains("Ao vivo").should('be.visible');
   });
   
-  // TODO - corrigir erro na execucao do teste aqui:
+  // TODO - corrigir erro na execução do teste aqui:
   // Timed out retrying after 4000ms + expected - actual
   it('Should successfully open the "Departure Points" combobox menu and search', () => {
     cy.wait(5000);

@@ -1,3 +1,5 @@
+// noinspection JSCheckFunctionSignatures
+
 import {defineConfig} from "cypress";
 
 export default defineConfig({

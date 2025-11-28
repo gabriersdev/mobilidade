@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 .vite
+.run
 
 # Editor directories and files
 .vscode/*
@@ -32,7 +33,6 @@ stats.html
 *.py
 
 # Test
-*.test.test.js
 *.test.*
 .vercel
 

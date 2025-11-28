@@ -6,7 +6,7 @@ export default [
       "Os passageiros que usavam a linha 4992, Sabará ⇄ Terminal São Gabriel Via Av. José Cândido da Silveira acordaram na manhã dessa segunda (02/05) com a notícia que a linha havia sido suspensa",
       "A linha operava somente durante a semana, desde 2021 e existia desde 2016. As viagens partiam do bairro Siderúrgica, no centro da cidade, passando pela Av. José Cândido da Silveira, depois pela Av. Cristiano Machado e o Terminal São Gabriel e voltava, terminando a viagem no Terminal Rodoviário de Sabará.",
       "O motivo da desativação da linha não foi oficializado, mas provavelmente ocorreu pela baixa adesão do público, já que boa parte do percurso também é feito pelas outras linhas da Viação Cuiabá.",
-      "Os horários de partida foram transferidos para a linha 4991 - Sabará ⇄ Terminal São Gabriel Via Barraguinha. Durante os dias úteis, os horários que antes eram da linha 4992 foram transferidos para a 4991, que agora opera entre as 04h55 e 00h em dias úteis. <Link to={\"/lines/18#partidas\"}>Confira o quadro de horários atualizado da linha 4991.</Link>"
+      "<>Os horários de partida foram transferidos para a linha 4991 - Sabará ⇄ Terminal São Gabriel Via Barraguinha. Durante os dias úteis, os horários que antes eram da linha 4992 foram transferidos para a 4991, que agora opera entre as 04h55 e 00h em dias úteis. <Link to={\"/lines/18#partidas\"}>Confira o quadro de horários atualizado da linha 4991.</Link></>"
     ],
     img: "",
     id: 1,
@@ -48,7 +48,7 @@ export default [
     content: [
       "Uma nova linha foi criada para atender os passageiros que moram nos bairros Paciência e Adelmolândia. A linha 4990 passou a operar na manhã dessa segunda-feira (14/07).",
       "Inicialmente com 4 partidas em dias úteis (de segunda à sexta). A nova linha será uma mão na roda para os passageiros que dependiam de fazer baldeação com as linhas 04 e 03 operadas pela Vinscol, cujo os horários foram abruptamente reduzidos desde o início da pandemia de Covid-19 e nunca mais foi reestabelecido.",
-      "Veja as <Link to={\"/lines/42\"}>informações atualizadas e em detalhes da linha 4990</Link>."
+      "<>Veja as <Link to={\"/lines/42\"}>informações atualizadas e em detalhes da linha 4990</Link>.</>"
     ],
     img: "/news/neobus-44089-ob.jpg",
     id: 4,
@@ -59,7 +59,7 @@ export default [
     resume: "Durante o feriado de 07 de setembro (domingo) todas as linhas operadas pela Vinscol não passarão pelo centro Histórico.",
     content: [
       "No domingo, feriado de 07 de setembro todas as linhas operadas pela Vinscol não passarão pelo centro Histórico, em razão das comemorações e desfiles no Centro, seguindo viagem pela Av. Prefeito Victor Fantini e Av. Perimetral, sem entrar na Praça da Getúlio Vargas (Matriz), durante todo o dia, no sentido ida e volta.",
-      "As linhas operadas pelo Consórcio Metropolitano <Link to={\"/company/4\"}>(Transporte Coletivo Metropolitano - MG)</Link> não são afetadas pelas comemorações de 7 de setembro.",
+      "<>As linhas operadas pelo Consórcio Metropolitano <Link to={\"/company/4\"}>(Transporte Coletivo Metropolitano - MG)</Link> não são afetadas pelas comemorações de 7 de setembro.</>",
     ],
     img: "/news/neobus-44101-ob.jpg",
     id: 5,

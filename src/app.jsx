@@ -1,33 +1,41 @@
 import './styles/app.css'
+
 import {createContext, useEffect, useState} from 'react'
 import {Routes, Route, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import AOS from 'aos';
-import config from "./config.js";
 import {Button, Image} from "react-bootstrap";
-import Nav from './components/nav/Nav'
-import Main from './components/main/Main'
-import Footer from './components/footer/Footer'
-import Home from './pages/home/Home'
-import Lines from './pages/lines/Lines.jsx'
-import Development from './pages/development/Development.jsx'
-import Live from './pages/live/Live.jsx'
-import Privacy from './pages/privacy/Privacy.jsx'
-import Search from "./pages/search/Search.jsx";
-import Company from './pages/company/Company.jsx'
-import BreadcrumbApp from "./components/breadcrumbApp/BreadcrumbApp.jsx";
-import News from "./pages/news/News.jsx";
-import Guide from "./pages/guide/Guide.jsx";
-import NotFound from "./pages/404/404.jsx";
+
+import config from "./assets/config.js";
 import Util from "./assets/Util.jsx";
-import TermsOfService from "./pages/termsOfService/TermsOfService.jsx";
-import HistoryDepartureTimes from "./pages/history/departure-times/HistoryDepartureTimes.jsx";
-import HistoryDayDepartureTimes from "./pages/history/departure-times/HistoryDayDepartureTimes.jsx";
-import SabaraInfo from "./pages/sabaraInfo/SabaraInfo.jsx";
-import HistoryFares from "./pages/history/fares/HistoryFares.jsx";
-import DeparturePoints from "./pages/history/departure-points/DeparturePoints.jsx";
-import OneDeparturePoints from "./pages/history/departure-points/OneDeparturePoints.jsx";
-import Manifest from "./pages/manifest/Manifest.jsx";
+
+import {
+  Nav,
+  BreadcrumbApp,
+  Main,
+  Footer
+} from "./components/index.d.ts"
+
+import {
+  Home,
+  Lines,
+  Development,
+  Live,
+  Privacy,
+  Search,
+  Company,
+  News,
+  Guide,
+  NotFound,
+  TermsOfService,
+  HistoryDepartureTimes,
+  HistoryDayDepartureTimes,
+  SabaraInfo,
+  HistoryFares,
+  DeparturePoints,
+  OneDeparturePoints,
+  Manifest
+} from "./pages/index.d.ts"
 
 // TODO - reorganizar os arquivos em diretórios e pastas conforme o sentido fizer
 const Context = createContext({});
@@ -50,7 +58,7 @@ function App() {
       fetch("https://api64.ipify.org?format=json")
         .then(response => response.json())
         .then(data => {
-          if (data && data?.["ip"]) setPublicIp(data?.["ip"]);
+          if (data && data?.["ip"]) setPublicIp(data?.["ip"] ?? -1);
         })
         .catch(error => {
           setPublicIp(1);
@@ -108,7 +116,7 @@ function App() {
     if (publicIp && window.location.hostname !== "localhost") {
       try {
         axios.post(`${config.host}/api/logs/`, {
-          event_type: 'Acesss page',
+          event_type: 'Access page',
           event_details: `Access URL: ${window.location.origin}${window.location.pathname}${window.location.search} ${new Date().getTime()}`,
           os: navigator.userAgent.includes('Windows') ? 'Windows' : navigator.userAgent.includes('MacOS') ? 'MacOS' : navigator.userAgent.slice(0, 254),
           browser: navigator.userAgent.slice(0, 254),
@@ -182,8 +190,8 @@ function App() {
         </Main>
         <Footer/>
         <Button onClick={(e) => {
-          e.preventDefault()
-          window.scrollTo({top: 0, behavior: 'smooth'})
+          e.preventDefault();
+          window.scrollTo({top: 0, behavior: 'smooth'});
         }} className={"position-fixed rounded-2 z-2 bg-body"} style={{right: "1rem", bottom: "1rem"}}>
           <div className={"d-flex flex-wrap align-items-center justify-content-center gap-2"}>
             <span>Subir</span>

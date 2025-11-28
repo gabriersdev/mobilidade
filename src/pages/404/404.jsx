@@ -1,4 +1,4 @@
-import Title from "../../components/title/Title.jsx";
+import Title from "../../components/ui/title/title.jsx";
 import {Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {useEffect} from "react";
