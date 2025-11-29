@@ -5,7 +5,6 @@ import Grid from "../grid/grid.jsx";
 import Card from "../card/card.jsx";
 import AnimatedComponents from "../animated-component/animated-components.jsx";
 
-// TODO - ideal seria ser apenas feedback e retornar os itens para outros tipos de alertas também
 const FeedbackError = ({code, text, type}) => {
   const lowerCaseText = text ? text.toLowerCase().trim() : ''; // Lida com casos onde 'text' pode ser undefined/null
   let ret;

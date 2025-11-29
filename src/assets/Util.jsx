@@ -154,7 +154,6 @@ export default class Util {
     const find = table.find((item) => item[0] === parseInt(day, 10))
     
     if (!find) {
-      // TODO - Buscar no banco de dados especialmente no caso de não ter horário mapeado no array
       console.error(`Dia ${day} não categorizado. Retornado: "Horário não mapeado".`);
       return 'Horário não mapeado'
     }

@@ -19,7 +19,6 @@ const ListPointsByDirections = () => {
           onClick={e => handlePointClick(e, {
             address: point.address,
             point_name: point.point_name,
-            // TODO - test it: points_lenght: departurePointsByDirection[j].length,
             points_length: departurePointsByDirection[parentIndex].length,
             point_order: index,
             departure_point_id: point?.["departure_point_id"] ?? -1

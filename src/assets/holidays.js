@@ -2,7 +2,6 @@ import moment from "moment";
 
 moment.locale("pt-BR");
 
-// TODO - analisar se há a necessidade de exportar todas essas funções e constantes
 export const nationalFixedHolidays = [
   {name: "Confraternização Universal", month: 1, day: 1},
   {name: "Tiradentes", month: 4, day: 21},

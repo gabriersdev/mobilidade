@@ -9,7 +9,6 @@ import {Link} from "react-router-dom";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
-// TODO - Testar a lógica implementada para atualizar os dados da página
 const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermSearch, focus, initialValue = ""}) => {
   const [search, setSearch] = useState(initialValue || '');
   const [feedback, setFeedback] = useState('');

@@ -58,7 +58,7 @@ const TermsOfService = () => {
         
         <section id="direitos-autorais">
           <Title type='h2' classX=" text-body-tertiary">6. Direitos Autorais</Title>
-          <p>Todo o conteúdo disponível no site, incluindo textos, imagens, gráficos e design, é de propriedade
+          <p>O conteúdo disponível no site, incluindo textos, imagens, gráficos e design, é de propriedade
             exclusiva do projeto de mobilidade urbana ou de seus licenciadores, e é protegido por leis de direitos
             autorais e propriedade intelectual.</p>
         </section>
