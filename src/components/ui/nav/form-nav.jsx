@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {Form, FormControl, FormLabel} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 
@@ -7,6 +7,18 @@ export default function FormNav() {
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
+  
+  const handleFocusedTrue = useCallback((e) => {
+    e.stopPropagation()
+    if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+    setIsFocused(true);
+  }, []);
+  
+  const handleFocusedFalse = useCallback((e) => {
+    e.stopPropagation()
+    if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+    setIsFocused(false);
+  }, []);
   
   // Hook para capturar o atalho CTRL + K
   useEffect(() => {
@@ -40,8 +52,9 @@ export default function FormNav() {
       </FormLabel>
       
       <div
-        className="bg-body px-2 py-1 border rounded d-flex align-items-center overflow-x-hidden"
+        className={"bg-body px-2 py-1 border rounded d-flex align-items-center overflow-x-hidden " + (isFocused ? "border-primary-subtle" : "")}
         style={{maxWidth: "183.75px", height: "35px"}}
+        onClick={handleFocusedTrue}
       >
         <div
           className="text-body-tertiary me-2 d-flex align-items-center"
@@ -59,15 +72,18 @@ export default function FormNav() {
           className="p-0 border-0 bg-transparent shadow-none w-100 text-sml"
           value={term}
           onChange={(e) => setTerm(e.target.value)}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          onFocus={handleFocusedTrue}
+          onBlur={handleFocusedFalse}
           minLength={3}
           aria-autocomplete={"none"}
           required
         />
         
         {showPlaceholder && (
-          <button className="d-flex align-items-center border-0 shadow-none bg-body" onClick={() => setIsFocused(true)}>
+          <button
+            className="d-flex align-items-center border-0 shadow-none bg-body"
+            onClick={handleFocusedTrue}
+          >
             <kbd className="mb-0 me-2 text-sml px-1 py-0 bg-body-secondary text-body-tertiary font-monospace text-nowrap">
               CTRL + K
             </kbd>

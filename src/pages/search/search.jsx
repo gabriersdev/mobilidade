@@ -23,8 +23,6 @@ const Search = () => {
     try {
       let queryParams = null
       if (location.search) queryParams = new URLSearchParams(location.search)
-
-      // Verificar se queryParams não é null, se o parâmetro 'or' existe e se ele contém 'freelancer'
       if (queryParams?.get('term')) {
         setTermSearch(queryParams?.get('term'));
         setIsValidSearch(true);

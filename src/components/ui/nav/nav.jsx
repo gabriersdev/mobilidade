@@ -161,7 +161,7 @@ const Nav = () => {
         <BarInfo/>
       </AnimatedComponents>
       
-      <div className={`${width > 766 ? "position-sticky top-0" : ""}`} style={width > 766 ? {zIndex: 200} : {zIndex: 100}}>
+      <div className={`${width > 1200 ? "position-sticky top-0" : ""}`} style={width > 766 ? {zIndex: 200} : {zIndex: 100}}>
         <AnimatedComponents>
           <Navbar expand="lg" className={`bg-body-tertiary border-bottom ${width > 766 ? "position-sticky top-0" : ""}`}>
             <Container className="my-1 d-flex align-items-start justify-content-between flex-md-column  align-items-xl-center flex-xl-row w-100 flex-wrap ">

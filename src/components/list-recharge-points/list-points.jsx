@@ -17,6 +17,7 @@ const ListPoints = ({data}) => {
               title={rechargePoint.point_name}
               subtitle={rechargePoint.address}
               onclick={(e) => handlePointClick(e, rechargePoint)}
+              headerColumn={true}
               badge={(
                 <>
                   <div className={"text-primary d-flex align-items-center gap-1"}>
@@ -26,7 +27,7 @@ const ListPoints = ({data}) => {
                 </>
               )}
             >
-              {rechargePoint.observations || "Não há observações sobre este ponto de recarga."}
+              {rechargePoint.observations || "Não há observações sobre este ponto de recarga. Para maiores informações entre em contato com o estabelecimento do ponto de recarga."}
             </Card>
           </a>
         )
