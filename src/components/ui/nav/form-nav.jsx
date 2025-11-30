@@ -52,8 +52,19 @@ export default function FormNav() {
       </FormLabel>
       
       <div
-        className={"bg-body px-2 py-1 border rounded d-flex align-items-center overflow-x-hidden " + (isFocused ? "border-primary-subtle" : "")}
-        style={{maxWidth: "183.75px", height: "35px"}}
+        className={"bg-body px-2 py-1 rounded d-flex align-items-center overflow-x-hidden "}
+        style={{
+          maxWidth: "183.75px", height: "35px",
+          ...(isFocused ? {
+            color: "var(--bs-body-color)",
+            backgroundColor: "var(--bs-body-bg)",
+            border: "var(--bs-border-width) solid #97d2f3",
+            outline: 0,
+            boxShadow: "0 0 0 .25rem rgba(47,164,231,.25)",
+          } : {
+            border: "var(--bs-border-width) solid var(--bs-border-color)",
+          })
+        }}
         onClick={handleFocusedTrue}
       >
         <div

@@ -46,9 +46,13 @@ export default function LiveListResults({data, configs}) {
                               parseInt(d?.["direction"] ?? "-1") === 0 ? (`${Util.renderText(d?.["departure_location"] ?? "")} ⇄ ${Util.renderText(d?.["destination_location"] ?? "")}`) :
                                 parseInt(d?.["direction"] ?? "-1") === 2 ? (`${Util.renderText(d?.["destination_location"] ?? "")} -> ${Util.renderText(d?.["departure_location"] ?? "")}`) : ""
                           }
-                          {
-                            configs?.["showAdditionalInfo"] && <span className={"text-sml fs-initial fw-normal"}>- partida às {moment(d?.["departure_time_trip"]).format("HH:mm")}</span>
-                          }
+                          <span>
+                            {
+                              configs?.["showAdditionalInfo"] && (
+                                <span className={"text-sml fs-initial fw-normal"}>- partida às {moment(d?.["departure_time_trip"]).format("HH:mm")}</span>
+                              )
+                            }
+                          </span>
                         </Title>
                         <span className={"d-none text-sml opacity-50"}>({d?.["departure_time_trip"]}) | ({d?.["expected_arrival_time"]})</span>
                       </Link>
@@ -63,6 +67,23 @@ export default function LiveListResults({data, configs}) {
                         <LiveShowItem d={d} configs={configs}/>
                         <span className={"text-muted text-sml"}>- às {moment(d?.["expected_arrival_time"]).format("HH:mm")}</span>
                       </div>
+                      {
+                        configs?.["showAdditionalInfo"] && (
+                          <div className={"d-none"}>
+                            <p className={"text-sml m-0 d-inline-flex align-items-center gap-1 flex-wrap"}>
+                              <span className={"text-muted"}>
+                                <svg style={{rotate: "180deg", marginRight: "0.125rem"}} xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#BBBBBB">
+                                  <path d="M860-240 500-480l360-240v480Zm-400 0L100-480l360-240v480Zm-80-240Zm400 0Zm-400 90v-180l-136 90 136 90Zm400 0v-180l-136 90 136 90Z"/>
+                                </svg>
+                                Depois:
+                              </span>
+                              <span className={"m-0 text-muted"}>
+                                <span>amanhã às 15h00, 17h00 e 19h00.</span>
+                              </span>
+                            </p>
+                          </div>
+                        )
+                      }
                     </td>
                   </tr>
                   </tbody>
