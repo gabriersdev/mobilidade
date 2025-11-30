@@ -27,6 +27,34 @@ describe('Page /lines/33', () => {
     });
   });
   
+  it('Should opened modal "Informar um erro"', () => {
+    cy.get('.btn.m-0.px-2.pv-15.d-inline-block.text-white.text-decoration-none.border-0.outline-none')
+      .find('span.me-1')
+      .contains('Informar um erro')
+      .click();
+    
+    const modal = '.fade.modal.show[role="dialog"]';
+    
+    cy.get(`${modal} textarea#error-message`)
+      .type('Isso é um erro...', {delay: 100});
+    
+    cy.get(`${modal} button[type="submit"]`)
+      .contains('Próximo')
+      .click();
+    
+    cy.get(`${modal} .fw-semibold.modal-title.h4`)
+      .contains('Informar um erro')
+      .should('be.visible');
+    
+    cy.get(`${modal} button[type="button"]`)
+      .contains('Cancelar')
+      .click();
+    
+    cy.get('h1')
+      .contains('Linha 4650 - Carvalho de Brito para Belo Horizonte')
+      .should('be.hidden');
+  });
+  
   // it('should display a list of recharge points', () => {
   //   // Supondo que seus pontos de recarga são renderizados em algum elemento específico
   //   cy.get('.recharge-point-list').should('have.length.greaterThan', 0);
