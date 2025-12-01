@@ -12,6 +12,7 @@ const useLiveComponent = () => {
   const [lineSelected, setLineSelected] = useState(null);
   const [departurePointSelected, setDeparturePointSelected] = useState(null);
   const [data, setData] = useState([]);
+  const [dataNextDepartureTimes, setDataNextDepartureTimes] = useState([]);
   const [error, setError] = useState(null);
   const [lines, setLines] = useState(null);
   const [departurePoints, setDeparturePoints] = useState(null);
@@ -59,6 +60,14 @@ const useLiveComponent = () => {
     });
   }, []);
   
+  const parseDatetimeTimezone = useCallback((d) => {
+    return {
+      ...d,
+      "departure_time_trip": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["departure_time_trip"].replace("Z", "-03:00") : d?.["departure_time_trip"],
+      "expected_arrival_time": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["expected_arrival_time"].replace("Z", "-03:00") : d?.["expected_arrival_time"],
+    }
+  }, []);
+  
   const fetchData = async (departurePointSelected) => {
     // Força a perda de foco de todos os inputs
     document.querySelectorAll("input")?.forEach(i => i.blur());
@@ -72,19 +81,15 @@ const useLiveComponent = () => {
       setDatetimeOriginalFetch(null);
       return false;
     });
-    // console.log(s);
+    
     setIsOriginalFetch(true);
     setDatetimeOriginalFetch(moment());
     
-    const axiosData = s?.data[0]?.[0]?.["get_arrival_predictions(?, ?)"];
+    const axiosMainData = s?.data[0]?.[0]?.[0]?.["get_arrival_predictions(?, ?)"];
+    const axiosNextDepartureTimes = s?.data[1]?.[0]?.[0]?.["@out"];
     
-    if (Array.isArray(axiosData)) setData(JSON.parse(JSON.stringify(axiosData)).map((d) => {
-      return {
-        ...d,
-        "departure_time_trip": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["departure_time_trip"].replace("Z", "-03:00") : d?.["departure_time_trip"],
-        "expected_arrival_time": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["expected_arrival_time"].replace("Z", "-03:00") : d?.["expected_arrival_time"],
-      }
-    }));
+    if (Array.isArray(axiosMainData)) setData(JSON.parse(JSON.stringify(axiosMainData)).map(parseDatetimeTimezone));
+    if (Array.isArray(JSON.parse(axiosNextDepartureTimes))) setDataNextDepartureTimes(JSON.parse(axiosNextDepartureTimes).map(parseDatetimeTimezone));
     setError(null);
   };
   
@@ -98,6 +103,10 @@ const useLiveComponent = () => {
   }
   
   const resultSection = useRef();
+  
+  // useEffect(() => {
+  //   if (dataNextDepartureTimes) console.log(dataNextDepartureTimes);
+  // }, [dataNextDepartureTimes]);
   
   useEffect(() => {
     if (departurePointSelected) {
@@ -169,18 +178,18 @@ const useLiveComponent = () => {
         try {
           wakeLock = await navigator.wakeLock.request('screen');
           wakeLock.addEventListener('release', () => {
-            console.log('Wake Lock foi liberado');
+            console.log('[INFO] - Wake Lock foi liberado');
           });
-          console.log('Wake Lock ativado');
+          console.log('[INFO] - Wake Lock ativado');
         } catch (err) {
-          console.error('Falha ao ativar o Wake Lock:', err);
+          console.error('[FAIL] - Falha ao ativar o Wake Lock:', err);
         }
       }
       
       // Solicitar Wake Lock assim que a página for carregada
       requestWakeLock().then();
     } else {
-      console.log('API de Wake Lock não suportada neste navegador');
+      console.log('[INFO] - API de Wake Lock não suportada neste navegador');
     }
     
     return () => {
@@ -195,6 +204,8 @@ const useLiveComponent = () => {
     setDeparturePointSelected,
     data,
     setData,
+    dataNextDepartureTimes,
+    setDataNextDepartureTimes,
     error,
     setError,
     lines,

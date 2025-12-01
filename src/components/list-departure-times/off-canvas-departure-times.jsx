@@ -37,7 +37,7 @@ const OffCanvasDepartureTimes = () => {
         </section>
         
         <section>
-          <span className={'text-muted d-block'}>{departureTimeOffCanvas.directionName}</span>
+          <span className={'text-muted d-block text-balance'}>{departureTimeOffCanvas.directionName}</span>
           {departureTimeOffCanvas.observations ?
             <div className={'mt-4'}>
               <h4 className={"fs-6 fw-bold my-2 p-0"}>Observações:</h4>

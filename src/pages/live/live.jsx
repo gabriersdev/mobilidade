@@ -19,6 +19,7 @@ const Live = () => {
     departurePointSelected,
     setDeparturePointSelected,
     data,
+    dataNextDepartureTimes,
     error,
     lines,
     departurePoints,
@@ -75,7 +76,7 @@ const Live = () => {
                     </div>
                     
                     {configs?.["showSomeDepartureStart"] && <AlertInfoConfigSomeDepartureStart/>}
-                    <LiveListResults data={data} configs={configs}/>
+                    <LiveListResults data={data} dataNextDepartureTimes={dataNextDepartureTimes} configs={configs}/>
                   </>
                 ) : <AnyBusProximityError/>
               }

@@ -17,8 +17,8 @@ const OffCanvasRechargePoints = () => {
         </h3>
         <section>
           <div className={"d-flex flex-column gap-2 mb-3"}>
-            <p className={"m-0 p-0"}>{rechargePointOffCanvas.address}</p>
-            <p className={"m-0 p-0"}>{rechargePointOffCanvas.observations || "Não há observações sobre este ponto de recarga."}</p>
+            <p className={"m-0 p-0 text-balance"}>{rechargePointOffCanvas.address}</p>
+            <p className={"m-0 p-0 text-balance"}>{rechargePointOffCanvas.observations || "Não há observações sobre este ponto de recarga."}</p>
           </div>
           <iframe
             width="100%"
