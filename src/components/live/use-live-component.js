@@ -19,12 +19,14 @@ const useLiveComponent = () => {
   const [configs, setConfigs] = useState({
     warningSound: true,
     showSomeDepartureStart: false,
-    showAdditionalInfo: true
+    showAdditionalInfo: true,
+    volume: 70
   });
   const labelsConfigs = useRef({
     warningSound: "Aviso sonoro",
     showSomeDepartureStart: "Exibir apenas partidas",
-    showAdditionalInfo: "Exibir informações extras"
+    showAdditionalInfo: "Exibir informações extras",
+    volume: "Volume do aviso sonoro"
   })
   
   const location = useLocation();

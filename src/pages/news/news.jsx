@@ -35,7 +35,7 @@ const News = () => {
               <AnimatedComponents>
                 <div className={"d-flex flex-column align-items-start gap-5"}>
                 {[...newsA].toSpliced(50).toReversed().toSorted((a, b) => moment(a.publishDate).unix() < moment(b.publishDate).unix()).map((item, index) => (
-                  <div className={"border-bottom border-secondary-subtle pb-5"} key={index}>
+                  <div className={"pb-5"} key={index} style={{borderBottom: "1px dashed #AAA"}}>
                     <NewsC {...item}/>
                   </div>
                 ))}

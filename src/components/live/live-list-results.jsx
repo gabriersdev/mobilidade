@@ -19,9 +19,15 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
     );
   }, []);
   
-  const getNextDepartureTimes = useCallback((lineId, departureTimeTrip) => {
+  const getNextDepartureTimes = useCallback((lineId, expectedArrivalTime) => {
     if (nextDepartureTimes.current && lineId) {
-      return nextDepartureTimes.current.filter(d => d?.["line_id"] === lineId && moment(d?.["departure_time_trip"]).utc() !== moment(departureTimeTrip).utc()).toSpliced(3);
+      return nextDepartureTimes.current.filter(d => {
+        const lineItemExpectedArrivalTimeM = moment(expectedArrivalTime);
+        const departureExpectedArrivalTimeM = moment(d?.["expected_arrival_time"]);
+        return (
+          d?.["line_id"] === lineId && departureExpectedArrivalTimeM.toDate().getTime() > lineItemExpectedArrivalTimeM.toDate().getTime()
+        )
+      }).toSpliced(3);
     }
     return [];
   }, [nextDepartureTimes]);
@@ -36,6 +42,7 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
           .toSpliced(50)
           .map((d, i) => {
             return (
+              // TODO - separar em um componente a parte
               <li className={configs?.["showSomeDepartureStart"] && (d?.["order_departure_point"] ?? -1) !== 1 ? "d-none" : ""} key={i}>
                 <table className="table table-responsive">
                   <tbody>
@@ -73,10 +80,11 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
                     </td>
                     <td className={"bg-body-secondary"}>
                       <div className={"d-flex align-items-center flex-wrap gap-1"}>
-                        <LiveShowItem d={d} configs={configs}/>
+                        <LiveShowItem d={{...d, i}} configs={configs}/>
                         <span className={"text-muted text-sml"}>- às {moment(d?.["expected_arrival_time"]).format("HH:mm")}</span>
                       </div>
                       {
+                        // TODO - separar em um componente a parte
                         configs?.["showAdditionalInfo"] && (
                           <div className={""}>
                             <p className={"text-sml m-0 d-inline-flex align-items-center gap-1 flex-wrap lh-base"}>
@@ -85,13 +93,14 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
                                   <path d="M860-240 500-480l360-240v480Zm-400 0L100-480l360-240v480Zm-80-240Zm400 0Zm-400 90v-180l-136 90 136 90Zm400 0v-180l-136 90 136 90Z"/>
                                 </svg>
                                 <i className={"fst-normal"}>
-                                  Depois - aprox. ou saí
+                                  Depois - aproxima ou saí
                                 </i>
                               </span>
                               <>
                                 {
-                                  getNextDepartureTimes(d?.["line_id"] ?? 0, d?.["departure_time_trip"])?.map((_, u, self) => {
+                                  getNextDepartureTimes(d?.["line_id"] ?? 0, d?.["expected_arrival_time"])?.map((_, u, self) => {
                                     return (
+                                      // TODO - separar em um componente a parte
                                       (u === 0) && (
                                         <span className={"m-0 text-muted d-flex align-items-center flex-wrap gap-1"} key={u}>
                                           {
@@ -109,7 +118,7 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
                                                   }
                                                   {Util.renderText(moment(q?.["expected_arrival_time"])?.format("HH:mm"))}
                                                   {j === (self.length - 1) && "."}
-                                                  {(j !== (self.length - 1) || j === 0 && (self.length - 1) !== 0) && ","}
+                                                  {(j !== (self.length - 1) && (j === 0 && (self.length - 1) !== 0)) && ","}
                                                 </i>
                                               )
                                             })
@@ -120,7 +129,7 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
                                   })
                                 }
                                 {
-                                  !getNextDepartureTimes(d?.["line_id"] ?? 0, d?.["departure_time_trip"]).length && (
+                                  !getNextDepartureTimes(d?.["line_id"] ?? 0, d?.["expected_arrival_time"]).length && (
                                     <>amanhã ou no próximo dia útil.
                                       <Link to={`/lines/${d?.["line_id"] ?? ""}`} className={"text-primary"}>
                                         Consulte
