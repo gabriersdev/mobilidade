@@ -2,7 +2,6 @@ import moment from "moment";
 
 moment.locale("pt-BR");
 
-// TODO - analisar se há a necessidade de exportar todas essas funções e constantes
 export const nationalFixedHolidays = [
   {name: "Confraternização Universal", month: 1, day: 1},
   {name: "Tiradentes", month: 4, day: 21},
@@ -33,17 +32,17 @@ const regionalFixedHolidays = {
   ],
 };
 
-/**
- * addRegionalHoliday(regionCode: string, name: string, month: number, day: number)
- * @param regionCode {string} - use state sigla ("SP", "RJ") or "city:BH" for city-level (or qualquer string identificadora)
- * @param name {string}
- * @param month {number}
- * @param day {number}
- */
-export function addRegionalHoliday(regionCode, name, month, day) {
-  if (!regionalFixedHolidays[regionCode]) regionalFixedHolidays[regionCode] = [];
-  regionalFixedHolidays[regionCode].push({name, month, day});
-}
+// /**
+//  * addRegionalHoliday(regionCode: string, name: string, month: number, day: number)
+//  * @param regionCode {string} - use state sigla ("SP", "RJ") or "city:BH" for city-level (or qualquer string identificadora)
+//  * @param name {string}
+//  * @param month {number}
+//  * @param day {number}
+//  */
+// export function addRegionalHoliday(regionCode, name, month, day) {
+//   if (!regionalFixedHolidays[regionCode]) regionalFixedHolidays[regionCode] = [];
+//   regionalFixedHolidays[regionCode].push({name, month, day});
+// }
 
 /** Easter calculation (Meets/Jones algorithm)
  * @param year {number}
@@ -78,7 +77,7 @@ function addDaysToDate(year, dateObj, days) {
 /**
  * getMovableHolidays(year)
  * @param year {number}
- * @return {{name: string, props: object}} array of movable holidays based on Easter
+ * @return {[{name: string, month: number, day: number},{name: string, month: number, day: number},{name: string, month: number, day: number},{name: string, month: number, day: number}]} array of movable holidays based on Easter
  */
 export function getMovableHolidays(year) {
   const easter = getEasterDate(year);

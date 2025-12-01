@@ -1,3 +1,5 @@
+// noinspection CypressCommandSubjectValidation,JSCheckFunctionSignatures
+
 import moment from "moment/moment";
 moment.locale("pt-BR");
 const now = moment();

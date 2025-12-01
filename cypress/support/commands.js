@@ -23,6 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+// noinspection JSCheckFunctionSignatures,CypressCommandWithoutDeclaration
 
 
 // Exemplo: Um comando personalizado para login
@@ -44,7 +45,6 @@ Cypress.Commands.add('apiLogin', (username, password) => {
   cy.request('POST', '/api/login', { username, password })
     .its('body')
     .then((body) => {
-      // Aqui você pode armazenar tokens, cookies ou o que a API retornar
-      window.localStorage.setItem('authToken', body.token);
+      window.localStorage.setItem('authToken', body?.["token"]);
     });
 });

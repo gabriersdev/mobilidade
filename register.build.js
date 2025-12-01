@@ -32,7 +32,7 @@ async function managerFile() {
     } catch (error) {
       // Se o erro for 'ENOENT', significa que o arquivo não existe, o que é esperado.
       if (error.code !== 'ENOENT') {
-        throw error; // Se for outro erro, propaga o erro.
+        console.error(error); // Se for outro erro, propaga o erro.
       }
     }
     

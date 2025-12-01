@@ -1,7 +1,7 @@
 import Moment from 'moment'
-import Arial from "../components/arial/Arial.jsx";
+import Arial from "../components/ui/arial/arial.jsx";
 import axios from "axios";
-import config from "../config.js";
+import config from "./config.js";
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import {Link} from "react-router-dom";
@@ -42,38 +42,36 @@ export default class Util {
     else if (modal === 2) modal = 'metrô'
     else modal = 'transporte público'
     
-    let newoperation_days = Array.isArray((operation_days)) ? operation_days.sort() : [1, 2, 3, 4]
+    let newOperationDays = Array.isArray((operation_days)) ? operation_days.sort() : [1, 2, 3, 4]
     
     // Seguindo lógica do sistema, para o caso de todos os dias da semana, não é necessário informar os dias, apenas o número conforme o banco de dados
-    if (Util.arraysEqual(newoperation_days, [5, 6, 7])) {
-      newoperation_days = Util.createArray(7)
-    } else if (Util.arraysEqual(newoperation_days, [5, 6])) {
-      newoperation_days = Util.createArray(6)
-    } else if (Util.arraysEqual(newoperation_days, [5])) {
-      newoperation_days = Util.createArray(5)
+    if (Util.arraysEqual(newOperationDays, [5, 6, 7])) {
+      newOperationDays = Util.createArray(7)
+    } else if (Util.arraysEqual(newOperationDays, [5, 6])) {
+      newOperationDays = Util.createArray(6)
+    } else if (Util.arraysEqual(newOperationDays, [5])) {
+      newOperationDays = Util.createArray(5)
     }
     
-    const dayNames = ["segunda", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado", "domingo"]
-    let operationDayNames = []
+    // const dayNames = ["segunda", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado", "domingo"]
+    // const operationDayNames = []
     let qualifiedStarts;
     
-    // time_first_start = [...["2020-01-01"], time_first_start || "00:00:00"].join(" ")
-    
-    if (Util.arraysEqual(Util.createArray(7), newoperation_days)) {
-      operationDayNames.concat(dayNames)
+    if (Util.arraysEqual(Util.createArray(7), newOperationDays)) {
+      // operationDayNames.concat(dayNames)
       qualifiedStarts = 'todos os dias da semana'
-    } else if (Util.arraysEqual(Util.createArray(5), newoperation_days)) {
-      operationDayNames.concat(dayNames.toSpliced(5))
+    } else if (Util.arraysEqual(Util.createArray(5), newOperationDays)) {
+      // operationDayNames.concat(dayNames.toSpliced(5))
       qualifiedStarts = 'de segunda à sexta'
-    } else if (Util.arraysEqual(Util.createArray(6), newoperation_days)) {
-      operationDayNames.concat(dayNames.toSpliced(6))
+    } else if (Util.arraysEqual(Util.createArray(6), newOperationDays)) {
+      // operationDayNames.concat(dayNames.toSpliced(6))
       qualifiedStarts = 'de segunda à sábado'
-    } else {
-      operationDayNames.concat(newoperation_days.map((dayNumber) => dayNames.at(dayNumber)))
-      qualifiedStarts = operationDayNames.join(', ')
     }
+    // } else {
+    // operationDayNames.concat(newOperationDays.map((dayNumber) => dayNames.at(dayNumber)))
+    // qualifiedStarts = operationDayNames.join(', ')
+    // }
     
-    // return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana (verifique o quadro de horários)'} a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.a partir das ${Util.formatTime(time_first_start, 'HH:mm') || '00:00'}.` + ` As informações da linha são verificadas periodicamente. Verifique as informações na página, se algo estiver errado envie um reporte.`;
     return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana - verifique o quadro de horários'}. As informações são verificadas periodicamente. Se algo estiver errado, envie um reporte.`;
   }
   
@@ -92,31 +90,31 @@ export default class Util {
     }
   }
   
-  static formatString(text, format) {
-    // Remove non-numeric characters from the text if the format only contains #, otherwise keeps the original characters
-    const cleanText = format.includes('#') && !format.includes('?') ? text.replace(/\D/g, '') : text;
-    
-    let result = '';
-    let textIndex = 0;
-    
-    for (let i = 0; i < format.length; i++) {
-      if (format[i] === '#') {
-        if (textIndex < cleanText.length) {
-          result += cleanText[textIndex];
-          textIndex++;
-        }
-      } else if (format[i] === '?') { // Wildcard character, inserts if there is a character in the text
-        if (textIndex < cleanText.length) {
-          result += cleanText[textIndex];
-          textIndex++;
-        }
-      } else {
-        result += format[i];
-      }
-    }
-    
-    return result;
-  }
+  // static formatString(text, format) {
+  //   // Remove non-numeric characters from the text if the format only contains #, otherwise keeps the original characters
+  //   const cleanText = format.includes('#') && !format.includes('?') ? text.replace(/\D/g, '') : text;
+  //
+  //   let result = '';
+  //   let textIndex = 0;
+  //
+  //   for (let i = 0; i < format.length; i++) {
+  //     if (format[i] === '#') {
+  //       if (textIndex < cleanText.length) {
+  //         result += cleanText[textIndex];
+  //         textIndex++;
+  //       }
+  //     } else if (format[i] === '?') { // Wildcard character, inserts if there is a character in the text
+  //       if (textIndex < cleanText.length) {
+  //         result += cleanText[textIndex];
+  //         textIndex++;
+  //       }
+  //     } else {
+  //       result += format[i];
+  //     }
+  //   }
+  //
+  //   return result;
+  // }
   
   static convertToSafeText(text) {
     if (!text) return '';
@@ -156,7 +154,6 @@ export default class Util {
     const find = table.find((item) => item[0] === parseInt(day, 10))
     
     if (!find) {
-      // TODO - Buscar no banco de dados especialmente no caso de não ter horário mapeado no array
       console.error(`Dia ${day} não categorizado. Retornado: "Horário não mapeado".`);
       return 'Horário não mapeado'
     }
@@ -186,30 +183,30 @@ export default class Util {
     }).format(value)
   }
   
-  static newRenderText = (text) => {
-    return text;
-  };
+  // static newRenderText = (text) => {
+  //   return text;
+  // };
   
   static renderText = (text) => {
     // Usa regex para encontrar todas as barras e as envolve em spans
     
-   try {
-     if (!text.split) return text;
-     
-     return text.split(/(\/)/).map((part, index) => {
-       if (part === "/") {
-         // Adiciona uma key para o React
-         return (<span key={index} style={{fontSize: 'inherit', fontFamily: "'Arial', sans-serif"}}>/</span>);
-       }
-       return part;
-     });
-   } catch (error) {
-     return text;
-   }
+    try {
+      if (!text.split) return text;
+      
+      return text.split(/(\/)/).map((part, index) => {
+        if (part === "/") {
+          // Adiciona uma key para o React
+          return (<span key={index} style={{fontSize: 'inherit', fontFamily: "'Arial', sans-serif"}}>/</span>);
+        }
+        return part;
+      });
+    } catch {
+      return text;
+    }
   };
   
   static processContents = (text) => {
-    const regex = /<Link\s+to={(?:"|')([^"']+)(?:"|')}>(.*?)<\/Link>/g;
+    const regex = /<Link\s+to={["']([^"']+)["']}>(.*?)<\/Link>/g;
     const elements = [];
     let lastIndex = 0;
     let match;
@@ -268,25 +265,26 @@ export default class Util {
   };
   
   // Procura algum dia correspondente para usar no defaultEventKey
-  static getDefaultEventKey = (daysConv) => {
-    const days = {
-      "sabado": [6],
-      "domingo": [0],
-      "segunda": [1],
-      "terca": [2],
-      "quarta": [3],
-      "quinta": [4],
-      "sexta": [5],
-      "dias uteis": [1, 2, 3, 4, 5],
-      "dia util": [1, 2, 3, 4, 5],
-    }
-    
-    const now = moment();
-    const daysConvNormalized = daysConv.map((d) => Util.normalize(d).toLowerCase().replace(/-\s*PC\s*\d*/gi, "").trimEnd());
-    const dayMatched = days.map((d) => Util.normalize(d).toLowerCase().replace(/-\s*PC\s*\d*/gi, "").trimEnd());
-    
-    console.log(now.weekday(), daysConvNormalized, dayMatched);
-  }
+  // static getDefaultEventKey = (daysConv) => {
+  //   const days = {
+  //     "sabado": [6],
+  //     "domingo": [0],
+  //     "segunda": [1],
+  //     "terca": [2],
+  //     "quarta": [3],
+  //     "quinta": [4],
+  //     "sexta": [5],
+  //     "dias uteis": [1, 2, 3, 4, 5],
+  //     "dia util": [1, 2, 3, 4, 5],
+  //   }
+  //
+  //   const now = moment();
+  //   const daysConvNormalized = daysConv.map((d) => Util.normalize(d).toLowerCase().replace(/-\s*PC\s*\d*/gi, "").trimEnd());
+  //   const dayMatched = days.map((d) => Util.normalize(d).toLowerCase().replace(/-\s*PC\s*\d*/gi, "").trimEnd());
+  //
+  //   console.log(now.weekday(), daysConvNormalized, dayMatched);
+  // }
+  //
   
   static translateMonth = (month) => {
     const o = {
@@ -310,11 +308,7 @@ export default class Util {
   static clearServiceWorker() {
     if ('serviceWorker' in navigator) {
       caches.keys().then(function (names) {
-        // console.log("SW Key: ", names);
-        for (let name of names) {
-          // console.log("SW Key Item: ", name);
-          caches.delete(name);
-        }
+        for (let name of names) caches.delete(name).then();
       });
     }
   }
@@ -347,7 +341,7 @@ export default class Util {
   }
   
   static getTodayHolidayData(scope) {
-    let codeScope = -1;
+    let codeScope;
     
     switch (typeof scope === "string" ? scope.toLowerCase() : scope) {
       case "metropolitano":
@@ -401,7 +395,7 @@ export default class Util {
       }
     }
     
-    // Fallback: se for booleano, comportamento igual ao ternário
+    // Fallback: se for do tipo boolean, comportamento igual ao ternário
     return compare ? value : replaced;
   }
   
