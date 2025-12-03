@@ -25,7 +25,7 @@
     "axios": "^1.13.2",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "downshift": "^9.0.10",
+    "downshift": "^9.0.12",
     "eslint-plugin-cypress": "^5.2.0",
     "framer-motion": "^12.5.0",
     "html-react-parser": "^5.2.5",
