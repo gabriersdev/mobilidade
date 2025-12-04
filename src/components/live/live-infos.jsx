@@ -40,8 +40,8 @@ export function SelectOneDeparturePoint() {
 
 export function AlertInfoFeature() {
   return (
-    <div className={"d-flex gap-3 mt-3 flex-column"}>
-      <Alert variant={"info"} dismissible={true} margin={"m-0"}>
+    <div className={"d-flex gap-3 flex-column"}>
+      <Alert variant={"info"} dismissible={true} margin={"m-0"} className={"my-3"}>
         Os resultados da pesquisa são atualizados a cada 30 segundos.
       </Alert>
     </div>
