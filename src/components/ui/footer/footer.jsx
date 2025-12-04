@@ -103,6 +103,14 @@ const Footer = () => {
               <i className="bi bi-database-fill-x"></i>
             </button>
             
+            <button className={"btn text-start p-0 m-0 text-primary-emphasis border-0"} onClick={() => {
+              if (localStorage) localStorage.clear();
+              window.location.reload();
+            }}>
+              <span className={"me-1"}>Limpar outros dados</span>
+              <i className="bi bi-menu-button-fill"></i>
+            </button>
+            
             {/*TODO - separar em um componente a parte*/}
             <DropdownButton id="dropdown-basic-button" title="Tema" variant="secondary" className="mt-1 rounded-circle">
               <DropdownItem active={["default", "light"].includes(theme)} onClick={() => handleTheme("light")}>
