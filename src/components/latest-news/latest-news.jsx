@@ -41,7 +41,7 @@ const LatestNews = () => {
               [...news.toSorted((a, b) => moment(b.publishDate).diff(moment(a.publishDate), "seconds"))].toSpliced(5).map((ns, index) => {
                 return (
                   <Card key={index} title={ns.title.replace("<", "")} subtitle={ns.resume} link={`/news/${ns.id}`}>
-                    {typeof ns.resume === "string" ? (Util.renderText(ns.content)) : ns.content.map((item, i) => (<p key={i}>{Util.renderText(item)}</p>))}
+                    {typeof ns.resume === "string" ? (Util.renderText(ns.content.toString().replace(/<\/?>/, ""))) : ns.content.map((item, i) => (<p key={i}>{Util.renderText(item)}</p>))}
                   </Card>
                 )
               })
