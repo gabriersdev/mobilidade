@@ -10,6 +10,7 @@ import useLiveComponent from "../../components/live/use-live-component.js";
 import {LiveConfigs} from "../../components/live/live-configs.jsx";
 import {LoadingDeparturePoints, AnyBusProximityError, LiveGeneralError, SelectOneDeparturePoint, AlertInfoFeature, AlertInfoConfigSomeDepartureStart} from "../../components/live/live-infos.jsx";
 import {LiveFormLines, LiveFormDeparturePoints} from "../../components/live/live-form.jsx";
+import Weather from "../../components/weather/weather.jsx";
 
 moment.locale("pt-BR");
 
@@ -50,6 +51,11 @@ const Live = () => {
       </div>
       
       <div className={"rounded-3 bg-body-secondary p-3 mt-5"} ref={resultSection}>
+        <div className={"d-flex flex-column gap-0 "}>
+          <Weather/>
+          <AlertInfoFeature/>
+        </div>
+        
         {error && <LiveGeneralError/>}
         
         {
@@ -89,7 +95,6 @@ const Live = () => {
       </div>
       
       <div className={"d-flex flex-column gap-3 mt-3"}>
-        <AlertInfoFeature/>
         <LiveConfigs configs={configs} setConfigs={setConfigs} labelsConfigs={labelsConfigs}/>
       </div>
     </AnimatedComponents>

@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import {Container, DropdownButton, DropdownItem} from "react-bootstrap";
 import "./footer.css";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import InstallPWAButton from "../../install-PWA-button/install-PWA-button.jsx";
 import AnimatedComponents from "../animated-component/animated-components.jsx";
 import Util from "../../../assets/Util.jsx";
@@ -9,19 +9,22 @@ import moment from "moment";
 import {contactLotus} from "../../../assets/resources.js";
 
 const Footer = () => {
-  const [version, setVersion] = useState("1.0.0");
-  const [cacheVersion, setCacheVersion] = useState("V11");
+  const baseVersion = useRef("1.15.0");
+  const [version, setVersion] = useState(baseVersion.current);
+  const [cacheVersion, setCacheVersion] = useState("V40");
   
   const [theme, setTheme] = useState("dark");
   const [dataBuild, setDataBuild] = useState({datetimeCreate: null});
   
   useEffect(() => {
+    // TODO - verificar. essa formação de string para o fetch não parece correta
     fetch((window.location.pathname !== "/" ? "." : "") + "./register.build.json").then((response) => {
       response.json().then((data) => {
         setDataBuild({...data});
       });
     });
     
+    // TODO - rever como buscar versão. O package.json não está disponível para acesso em produção
     fetch("package.json").then((res) => {
       return res.json();
     }).then(data => {
@@ -103,6 +106,14 @@ const Footer = () => {
               <i className="bi bi-database-fill-x"></i>
             </button>
             
+            <button className={"btn text-start p-0 m-0 text-primary-emphasis border-0"} onClick={() => {
+              if (localStorage) localStorage.clear();
+              window.location.reload();
+            }}>
+              <span className={"me-1"}>Limpar outros dados</span>
+              <i className="bi bi-menu-button-fill"></i>
+            </button>
+            
             {/*TODO - separar em um componente a parte*/}
             <DropdownButton id="dropdown-basic-button" title="Tema" variant="secondary" className="mt-1 rounded-circle">
               <DropdownItem active={["default", "light"].includes(theme)} onClick={() => handleTheme("light")}>
@@ -117,7 +128,7 @@ const Footer = () => {
             {
               (
                 <div className={"d-b lock mt-2 text-sml d-flex flex-column gap-1"}>
-                  <p className={"text-body-secondary p-0 m-0 fs-inherit"}>Versão: {version || "1.0.0"} | Cache: {cacheVersion || "Não definido"} </p>
+                  <p className={"text-body-secondary p-0 m-0 fs-inherit"}>Versão: {version || baseVersion.current} | Cache: {cacheVersion || "Não definido"} </p>
                   <p className={"text-body-secondary p-0 m-0 fs-inherit"}>{dataBuild.datetimeCreate && <span>Versão de build: {Util.renderText(moment(dataBuild.datetimeCreate).utc(true).format("HH[h]mm[m] DD/MM/YYYY [GMT-03:00]"))}</span>}</p>
                 </div>
               )
@@ -136,7 +147,7 @@ const Footer = () => {
           </h3>
           <Link to={contactLotus} target={"_blank"} className={"text-decoration-none"}>
             <span style={{color: "#FC0B65"}}>Comece seu projeto hoje mesmo {"->"}</span>
-            </Link>
+          </Link>
         </Container>
       </div>
     </AnimatedComponents>
