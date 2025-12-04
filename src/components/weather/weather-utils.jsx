@@ -2,6 +2,7 @@
 import PropTypes from "prop-types";
 
 const PRECIPITATION_LEVEL = {
+  // TODO - analisar estabelecer um nível para chuva mais fina que "LIGHT"
   LIGHT: 2,
   MODERATE: 10,
   HEAVY: 30,
@@ -15,7 +16,7 @@ export const getWeatherAlertText = (currentWeather) => {
   const precipt = currentWeather?.["precip_mm"] || 0;
   const conditionText = currentWeather.condition?.text || '';
   
-  if (precipt >= 1) {
+  if (precipt >= 0.15) {
     if (precipt <= PRECIPITATION_LEVEL.LIGHT) return 'Previsão de chuva leve para a região. Normalmente não causa transtornos ao trânsito ou atraso nos horários de partida.';
     if (precipt <= PRECIPITATION_LEVEL.MODERATE) return 'Previsão de chuva moderada para a região. Pode causar atrasos nos horários de partida.';
     if (precipt <= PRECIPITATION_LEVEL.HEAVY) return 'Fique ligado! Previsão de chuva forte para a região. Pode causar atrasos nos horários de partida e transtornos ao trânsito.';

@@ -51,7 +51,7 @@ const Live = () => {
       </div>
       
       <div className={"rounded-3 bg-body-secondary p-3 mt-5"} ref={resultSection}>
-        <div className={"d-flex flex-column gap-3 "}>
+        <div className={"d-flex flex-column gap-0 "}>
           <Weather/>
           <AlertInfoFeature/>
         </div>

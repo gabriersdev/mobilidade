@@ -11,7 +11,7 @@ const Manifest = () => {
     Util.updateActiveLink();
     
     const breadcrumbsItems = Array.from(document.querySelectorAll('.breadcrumb-item'));
-    breadcrumbsItems[1].textContent = 'Manifesto';
+    if (breadcrumbsItems[1]) breadcrumbsItems[1].textContent = 'Manifesto';
   }, []);
   
   return (
@@ -83,7 +83,7 @@ const Manifest = () => {
             </ul>
           </li>
           <li>O sistema deve limitar a integração a uma quantindade X por dia e estabelecer um tempo máximo entre o desembarque de um sistema ou ônibus e embarque em outro.</li>
-          <li>Remoção de locais em que é permitido estacionar, como a Rua Beira Rio, Praça Marquês de Sapucaí, pontos da Av. Prefeito Victor Fantini e nos bairros.</li>
+          <li>Remoção de locais em que é permitido estacionar, como a Rua Beira Rio, Praça Marquês de Sapucaí, pontos da Av. Prefeito Victor Fantini e nos bairros, que causem transtornos ao trânsito.</li>
         </ul>
       </section>
       
