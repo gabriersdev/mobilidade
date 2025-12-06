@@ -19,13 +19,16 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
     );
   }, []);
   
-  const getNextDepartureTimes = useCallback((lineId, expectedArrivalTime) => {
+  const getNextDepartureTimes = useCallback((lineId, expectedArrivalTime, departureTimeTrip) => {
     if (nextDepartureTimes.current && lineId) {
       return nextDepartureTimes.current.filter(d => {
         const lineItemExpectedArrivalTimeM = moment(expectedArrivalTime);
+        const lineItemDepartureTimeTripM = moment(departureTimeTrip);
         const departureExpectedArrivalTimeM = moment(d?.["expected_arrival_time"]);
         return (
-          d?.["line_id"] === lineId && departureExpectedArrivalTimeM.toDate().getTime() > lineItemExpectedArrivalTimeM.toDate().getTime()
+          d?.["line_id"] === lineId && departureExpectedArrivalTimeM.toDate().getTime() > lineItemExpectedArrivalTimeM.toDate().getTime() && (
+            ![0, 1].includes(d?.["prediction_line_order"] ? lineItemDepartureTimeTripM.diff(lineItemExpectedArrivalTimeM, "seconds") > 60 : true)
+          )
         )
       }).toSpliced(3);
     }
@@ -98,7 +101,11 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
                               </span>
                               <>
                                 {
-                                  getNextDepartureTimes(d?.["line_id"] ?? 0, d?.["expected_arrival_time"])?.map((_, u, self) => {
+                                  getNextDepartureTimes(
+                                    d?.["line_id"] ?? 0,
+                                    d?.["expected_arrival_time"],
+                                    d?.["departure_time_trip"],
+                                  )?.map((_, u, self) => {
                                     return (
                                       // TODO - separar em um componente a parte
                                       (u === 0) && (
@@ -116,7 +123,10 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
                                                       </>
                                                     ) : "às "
                                                   }
-                                                  {Util.renderText(moment(q?.["expected_arrival_time"])?.format("HH:mm"))}
+                                                  {
+                                                    Util.renderText(moment(q?.["expected_arrival_time"])?.format("HH:mm"))
+                                                    //{" "} (Saiu às {Util.renderText(moment(q?.["departure_time_trip"])?.format("HH:mm"))})
+                                                  }
                                                   {j === (self.length - 1) && "."}
                                                   {(j !== (self.length - 1) && (j === 0 && (self.length - 1) !== 0)) && ","}
                                                 </i>
@@ -129,7 +139,11 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
                                   })
                                 }
                                 {
-                                  !getNextDepartureTimes(d?.["line_id"] ?? 0, d?.["expected_arrival_time"]).length && (
+                                  !getNextDepartureTimes(
+                                    d?.["line_id"] ?? 0,
+                                    d?.["expected_arrival_time"],
+                                    d?.["departure_time_trip"],
+                                  ).length && (
                                     <>amanhã ou no próximo dia útil.
                                       <Link to={`/lines/${d?.["line_id"] ?? ""}`} className={"text-primary"}>
                                         Consulte

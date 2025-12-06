@@ -15,12 +15,16 @@ const filePath = path.join(DIRNAME + "/public/", fileName);
 async function managerFile() {
   try {
     // 1. Prepara os dados
+    const version = "1.16.0";
     const code = Date.now();
     const datetimeCreate = new Date().toISOString();
+    
     const data = {
+      version: version,
       code: code,
       datetimeCreate: datetimeCreate
     };
+    
     const dadosEmJson = JSON.stringify(data, null, 2);
     
     // 2. Verifica se o arquivo já existe e o apaga
