@@ -26,10 +26,10 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
         const lineItemDepartureTimeTripM = moment(departureTimeTrip);
         const departureExpectedArrivalTimeM = moment(d?.["expected_arrival_time"]);
         return (
-          d?.["line_id"] === lineId && departureExpectedArrivalTimeM.toDate().getTime() > lineItemExpectedArrivalTimeM.toDate().getTime() && (
-            ![0, 1].includes(d?.["prediction_line_order"] ? lineItemDepartureTimeTripM.diff(lineItemExpectedArrivalTimeM, "seconds") > 60 : true)
-          )
-        )
+          d?.["line_id"].toString() === lineId.toString()
+          && departureExpectedArrivalTimeM.toDate().getTime() > lineItemExpectedArrivalTimeM.toDate().getTime()
+          && (![0, 1].includes(d?.["prediction_line_order"] ? lineItemDepartureTimeTripM.diff(lineItemExpectedArrivalTimeM, "seconds") > 60 : true))
+        );
       }).toSpliced(3);
     }
     return [];
@@ -50,16 +50,16 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
                 <table className="table table-responsive">
                   <tbody>
                   <tr className={"bg-body-secondary"}>
-                    <td className={"bg-body-secondary"} style={{width: ((3 * 32) + 16) + "px"}}>
+                    <td className={"bg-body-secondary"} style={{width: ((3 * 32) + 16) + "px", verticalAlign: "top"}}>
                       <Link to={`/lines/${d?.["line_id"] ?? ""}`} className={"text-decoration-none"}>
                         <Title type="h3" classX=" fs-1 text-primary fw-bold m-0 p-0 line-clamp-1">
                           {d?.["line_number"] ?? "Linha"}
                         </Title>
                       </Link>
                     </td>
-                    <td className={"bg-body-secondary"} style={{verticalAlign: "middle"}}>
+                    <td className={"bg-body-secondary"} style={{verticalAlign: "top"}}>
                       <Link to={`/lines/${d?.["line_id"] ?? ""}`} className={"text-decoration-none d-flex align-items-center justify-content-start"}>
-                        <Title type={"h3"} classX=" text-primary fs-3 fw-medium inter m-0 p-0 d-flex flex-wrap gap-1 align-items-center">
+                        <Title type={"h3"} classX=" text-primary fs-3 fw-medium inter m-0 p-0 d-flex flex-column gap-1">
                           {
                             parseInt(d?.["direction"] ?? "-1") === 1 ? (`${Util.renderText(d?.["departure_location"] ?? "")} -> ${Util.renderText(d?.["destination_location"] ?? "")}`) :
                               parseInt(d?.["direction"] ?? "-1") === 0 ? (`${Util.renderText(d?.["departure_location"] ?? "")} ⇄ ${Util.renderText(d?.["destination_location"] ?? "")}`) :
@@ -68,7 +68,10 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
                           <span>
                             {
                               configs?.["showAdditionalInfo"] && (
-                                <span className={"text-sml fs-initial fw-normal"}>- partida às {moment(d?.["departure_time_trip"]).format("HH:mm")}</span>
+                                <span className={"fs-initial fw-normal d-flex flex-wrap gap-1 opacity-75"}>
+                                  <i className={"fst-normal fw-normal text-sml"}>Sentido {Util.directionToText(d?.["direction"] ?? -1)?.toLowerCase()}.</i>
+                                  <i className={"fst-normal fw-normal text-sml"}>Partida às {moment(d?.["departure_time_trip"]).format("HH:mm")}.</i>
+                                </span>
                               )
                             }
                           </span>
@@ -78,10 +81,7 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
                     </td>
                   </tr>
                   <tr>
-                    <td className={"bg-body-secondary"}>
-                      {Util.directionToText(d?.["direction"] ?? -1)}
-                    </td>
-                    <td className={"bg-body-secondary"}>
+                    <td className={"bg-body-secondary"} colSpan={2}>
                       <div className={"d-flex align-items-center flex-wrap gap-1"}>
                         <LiveShowItem d={{...d, i}} configs={configs}/>
                         <span className={"text-muted text-sml"}>- às {moment(d?.["expected_arrival_time"]).format("HH:mm")}</span>

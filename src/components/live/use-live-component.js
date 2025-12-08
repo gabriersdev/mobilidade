@@ -114,7 +114,10 @@ const useLiveComponent = () => {
     if (departurePointSelected) {
       fetchData(departurePointSelected).then(() => {
       });
-    } else setData(null);
+    } else {
+      setData(null);
+      setDataNextDepartureTimes(null);
+    };
   }, [departurePointSelected]);
   
   useEffect(() => {
@@ -130,11 +133,28 @@ const useLiveComponent = () => {
   }, [data, isOriginalFetch]);
   
   useEffect(() => {
+    // TODO - existe um bug quando troca o ponto observado os próximos horários (depois...) não são atualizados como deviam, e continuam recebendo os dados do ponto anterior consultado.
     let int;
+    
     if (departurePointSelected && datetimeOriginalFetch) {
+      try {
+        clearInterval(int);
+      } catch {
+        //
+      }
+      
       int = setInterval(() => {
         if (moment().diff(datetimeOriginalFetch, "seconds") % 60) fetchData(departurePointSelected).then();
       }, 1000 * 30);
+    }
+    
+    //
+    else {
+      try {
+        clearInterval(int);
+      } catch {
+        //
+      }
     }
     
     return () => {
