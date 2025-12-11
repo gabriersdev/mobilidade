@@ -21,7 +21,8 @@ describe('Live Page', () => { // Nome do bloco de testes mais descritivo
   });
   
   it(`Click in link`, () => {
-    cy.get('a[href="/company/4"]')
+    // cy.get('a[href="/company/4"]')
+    cy.get('a[href="/lines"]')
       .should('be.visible')
       .should($el => {
         expect($el.prop('textContent'))
