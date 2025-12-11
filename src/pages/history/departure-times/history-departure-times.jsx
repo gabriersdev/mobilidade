@@ -53,7 +53,7 @@ export default function HistoryDepartureTimes() {
     document.title = "Mobilidade - Histórico de horários";
     const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
     try {
-      if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " -> ");
+      if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " ⇄ ");
       if (breadcrumbData && breadcrumbData[1]) breadcrumbData[1].querySelector('a').textContent = 'Histórico';
     } catch (error) {
       console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
@@ -103,7 +103,7 @@ export default function HistoryDepartureTimes() {
         <Link to={`/lines/${id}`} className={"text-decoration-none"}>
           <Title type={"h2"} classX=" fs-3 d-inline text-body-emphasis fw-normal mt-1 p-0 d-block">
             <span className="" style={{fontSize: "inherit"}}>
-              Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " -> " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " -> ")}
+              Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " ⇄ " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " ⇄ ")}
             </span>
           </Title>
         </Link>

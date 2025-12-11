@@ -57,7 +57,7 @@ export default function HistoryFares() {
     // TODO - refatoar e remover código duplicado
     const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
     try {
-      if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " -> ");
+      if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " ⇄ ");
       else if (breadcrumbData && (!departureTimeDate || !departureTimeDateIsValid) && breadcrumbData[4]) breadcrumbData[4].querySelector('a').textContent = "Mobilidade";
     } catch (error) {
       console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
@@ -91,7 +91,7 @@ export default function HistoryFares() {
       <h1 className={"m-0 p-0"}><span className={"text-body-secondary fw-normal"}>Histórico de Tarifas</span></h1>
       <Link to={`/lines/${id}`} className={"text-decoration-none"}>
         <Title type={"h2"} classX=" fs-3 d-inline mt-1 p-0 d-block mb-0">
-          <span className="d-block text-body-emphasis" style={{fontSize: "inherit"}}>Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " -> " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " -> ")}</span>
+          <span className="d-block text-body-emphasis" style={{fontSize: "inherit"}}>Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " ⇄ " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " ⇄ ")}</span>
         </Title>
       </Link>
       

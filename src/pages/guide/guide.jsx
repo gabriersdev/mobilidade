@@ -91,9 +91,16 @@ const Guide = () => {
                             <AccordionItem title={key.replace("/", " - ").replaceAll("/", " - ")} key={index} eventKey={index.toString()}>
                               <ul className="ps-3 m-0" style={{lineHeight: 1.75}}>
                                 <PaginationWithItems items={(value.map((line, i) => {
-                                  return <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replaceAll("/", " -> ")}</Link></li>
+                                  return <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replaceAll("/", " ⇄ ")}</Link></li>
                                 }))} itemsPerPage={10}/>
                               </ul>
+                              
+                              <div>
+                                <Button variant={"primary"} as={Link} to={"/live?ei=" + -1} className={"d-inline-flex align-items-center gap-2 flex-wrap"}>
+                                  Acompanhar aproximação de ônibus
+                                  <i className="bi bi-shop-window"></i>
+                                </Button>
+                              </div>
                             </AccordionItem>
                           )
                         })

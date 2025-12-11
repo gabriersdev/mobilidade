@@ -42,7 +42,7 @@ const useLiveComponent = () => {
         return {
           id: c?.["line_id"] ?? -1,
           title: Util.renderText((c?.["line_number"] + " - ") + (c?.["line_name"] ?? "")),
-          name: Util.renderText(c?.["departure_location"] + " -> " + c?.["destination_location"])
+          name: Util.renderText(c?.["departure_location"] + " ⇄ " + c?.["destination_location"])
         }
       }));
     }).catch((error) => {

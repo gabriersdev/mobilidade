@@ -19,7 +19,6 @@ const Home = () => {
     <div>
       <FormValidSearch formTitle={"Para onde vamos?"} inputPlaceholder={""}/>
       <div>
-        <LiveBanner/>
         <div className={"d-flex align-items-center gap-2 justify-content-between flex-wrap"}>
           <Title title="Principais Linhas" classX={" text-body-secondary"}/>
           <Button as={Link} to={"/lines"} variant={"secondary"} size={"sm"}>
@@ -31,7 +30,6 @@ const Home = () => {
           <LatestNews/>
         </div>
       </div>
-      <GuideBanner/>
     </div>
   );
 }

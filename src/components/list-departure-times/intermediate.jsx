@@ -19,9 +19,9 @@ export default function Intermediate({data = [], observations, departure_locatio
       <OffCanvasDepartureTimes/>
       {[...(uniqueDirections[0] === 2 ? uniqueDirections.toReversed() : uniqueDirections)].map((direction, i) => {
         const directionName =
-          direction === 1 ? (`Sentido ida - ${departure_location} -> ${destination_location}`) :
+          direction === 1 ? (`Sentido ida - ${departure_location} ⇄ ${destination_location}`) :
             direction === 0 ? (`Sentido único - ${departure_location} ⇄ ${destination_location} (ida e volta)`) :
-              direction === 2 ? (`Sentido volta - ${destination_location} -> ${departure_location}`) : "";
+              direction === 2 ? (`Sentido volta - ${destination_location} ⇄ ${departure_location}`) : "";
         return (
           <AccordionItem
             title={directionName}
