@@ -20,7 +20,7 @@ const Home = () => {
       <FormValidSearch formTitle={"Para onde vamos?"} inputPlaceholder={""}/>
       <div>
         <LiveBanner/>
-        <div className={"d-flex align-items-center gap-2 justify-content-between flex-wrap mt-5"}>
+        <div className={"d-flex align-items-center gap-2 justify-content-between flex-wrap"}>
           <Title title="Principais Linhas" classX={" text-body-secondary"}/>
           <Button as={Link} to={"/lines"} variant={"secondary"} size={"sm"}>
             <span className={""}>Ver todas</span>

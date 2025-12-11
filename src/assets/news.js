@@ -61,7 +61,7 @@ const news = [
     ],
   },
   {
-    title: "Mudanças nos feriados do Natal e Ano Novo",
+    title: "Mudanças nos quadros de horários das linhas nos feriados do Natal e Ano Novo",
     resume: "Durante as vésperas (24 e 31) e os feriados (25/12 e 01/01), os quadros de horários das linhas mudam.",
     img: "/news/neobus-44115.jpg",
     publishDate: "2025-11-30T00:00:00.000-03:00",

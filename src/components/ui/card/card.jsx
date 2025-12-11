@@ -40,7 +40,7 @@ const Card = ({title = "Card Title", subtitle = "Subtitle", badge, link, childre
       <>
         <BootstrapCard.Header className={"d-flex flex-column"}>
           <div className={'d-flex gap-2 ' + (headerColumn ? "flex-column align-items-start" : "flex-wrap align-items-center")}>
-            <Title type="h2" title={title.trim()} classX={" text-ellipsis-1 text-body"}/>
+            <Title type="h2" title={title.trim()} classX={" text-ellipsis-2 text-body"}/>
             {badge}
           </div>
           <Title type="h2" title={subtitle ? subtitle.trim() : ""} classX={" text-ellipsis-2 text-body-secondary"} color="#4C4C4C"/>

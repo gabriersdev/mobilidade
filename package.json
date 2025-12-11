@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://gabriersdev.github.io/mobilidade",
   "scripts": {
-    "dev": "vite",  
+    "dev": "vite",
     "build": "node register.build.js && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.12.1",
+    "@vercel/speed-insights": "^1.3.1",
     "aos": "^2.3.4",
     "axios": "^1.13.2",
     "bootstrap": "^5.3.3",
@@ -39,7 +40,8 @@
     "react-input-mask": "^2.0.4",
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^7.7.1",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-terser": "^7.0.2",
+    "vercel": "^49.2.0"
   },
   "devDependencies": {
     "@eslint/js": "9.17.0",

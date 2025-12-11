@@ -13,7 +13,7 @@ const Footer = () => {
   const [version, setVersion] = useState(baseVersion.current);
   const [cacheVersion, setCacheVersion] = useState("V40");
   
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   const [dataBuild, setDataBuild] = useState({datetimeCreate: null});
   
   useEffect(() => {

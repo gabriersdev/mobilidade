@@ -79,8 +79,8 @@ export default function HistoryDepartureTimes() {
     if (data && Array.isArray(data) && data.length) {
       setDataAll(
         data.map((item, index) => (
-          <ListGroup.Item as={Link} className={index !== 0 && (index % 10) !== 0 ? "border-top-0" : "border-top"} to={`/history/departure-times/${id || 0}/${Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"]}` : moment.utc()).add(-3, "h").format("YYYY[X]MM[X]DD"))}`} key={index}>
-            <Title type={"h3"} classX={" fs-6 m-0 pt-1 pb-0 px-0 fw-bold d-bold text-primary"}>{Util.renderText(Util.diffToHuman(moment(item?.["update_date"] ? `${item?.["update_date"]}` : moment.utc()).add(-3, "h")))}</Title>
+          <ListGroup.Item as={Link} className={index !== 0 && (index % 10) !== 0 ? "border-top-0" : "border-top"} to={`/history/departure-times/${id || 0}/${Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"]}` : moment.utc()).add(config.host.startsWith("http://localhost") ? 0 : -3, "h").format("YYYY[X]MM[X]DD"))}`} key={index}>
+            <Title type={"h3"} classX={" fs-6 m-0 pt-1 pb-0 px-0 fw-bold d-bold text-primary"}>{Util.renderText(Util.diffToHuman(moment(item?.["update_date"] ? `${item?.["update_date"]}` : moment.utc()).add(config.host.startsWith("http://localhost") ? 0 : -3, "h")))}</Title>
             <span className={"text-body-tertiary"}>{item?.["count_departure_times"]} horários atualizados</span>
           </ListGroup.Item>
         ))
