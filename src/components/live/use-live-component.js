@@ -90,8 +90,18 @@ const useLiveComponent = () => {
     const axiosMainData = s?.data[0]?.[0]?.[0]?.["get_arrival_predictions(?, ?)"];
     const axiosNextDepartureTimes = s?.data[1]?.[0]?.[0]?.["@out"];
     
-    if (Array.isArray(axiosMainData)) setData(JSON.parse(JSON.stringify(axiosMainData)).map(parseDatetimeTimezone));
-    if (Array.isArray(JSON.parse(axiosNextDepartureTimes))) setDataNextDepartureTimes(JSON.parse(axiosNextDepartureTimes).map(parseDatetimeTimezone));
+    if (Array.isArray(axiosMainData)) {
+      setData(JSON.parse(JSON.stringify(axiosMainData)).map(parseDatetimeTimezone));
+    } else {
+      setData([]);
+    }
+
+    if (Array.isArray(JSON.parse(axiosNextDepartureTimes))) {
+      setDataNextDepartureTimes(JSON.parse(axiosNextDepartureTimes).map(parseDatetimeTimezone));
+    } else {
+      setDataNextDepartureTimes([]);
+    }
+
     setError(null);
   };
   
@@ -112,6 +122,8 @@ const useLiveComponent = () => {
   
   useEffect(() => {
     if (departurePointSelected) {
+      setData([]);
+      setDataNextDepartureTimes([]);
       fetchData(departurePointSelected).then(() => {
       });
     } else {
@@ -133,7 +145,6 @@ const useLiveComponent = () => {
   }, [data, isOriginalFetch]);
   
   useEffect(() => {
-    // TODO - existe um bug quando troca o ponto observado os próximos horários (depois...) não são atualizados como deviam, e continuam recebendo os dados do ponto anterior consultado.
     let int;
     
     if (departurePointSelected && datetimeOriginalFetch) {
