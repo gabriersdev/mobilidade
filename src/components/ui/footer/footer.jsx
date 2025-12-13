@@ -9,11 +9,11 @@ import moment from "moment";
 import {contactLotus} from "../../../assets/resources.js";
 
 const Footer = () => {
-  const baseVersion = useRef("1.15.0");
+  const baseVersion = useRef("1.17.0");
   const [version, setVersion] = useState(baseVersion.current);
   const [cacheVersion, setCacheVersion] = useState("V40");
   
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   const [dataBuild, setDataBuild] = useState({datetimeCreate: null});
   
   useEffect(() => {

@@ -140,7 +140,7 @@ const Line = ({id}) => {
     const dataLineId = document.querySelectorAll('.breadcrumb-i.data-line-id')
     if (dataLineId) dataLineId.forEach((item) => {
       try {
-        item.querySelector('a').textContent = `${data[0].line_number} - ${data[0].departure_location} -> ${data[0].destination_location}`;
+        item.querySelector('a').textContent = `${data[0].line_number} - ${data[0].departure_location} ⇄ ${data[0].destination_location}`;
       } catch (error) {
         console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
         console.log("Um erro ocorreu...");
@@ -178,9 +178,6 @@ const Line = ({id}) => {
                   <Print variant={"departure-times"} prevContentTarget={"id"}/>
                 </div>
                 <ListDepartureTimes line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location} scope={data[0].scope}/>
-                <div className={"mt-4 pt-1"}>
-                  <LiveBanner/>
-                </div>
               </section>
               
               <section id={"paradas"} ref={paradasSection} className={"pt-3"}>
@@ -209,7 +206,6 @@ const Line = ({id}) => {
                   <div className={"position-absolute bottom-0 mb-4 ms-4 text-balance"} style={{maxWidth: "calc(100% - 3rem)"}}>
                     <div className={"mb-3"}>
                       <h2 className={"text-white fs-1 fw-bold"}>{data[0].line_number}</h2>
-                      <span className={"d-none"}>Linha XXXX | XXXX {"->"} XXXX</span>
                     </div>
                     <p className={"m-0 text-white"}>{Util.resumeInfoLine({})}</p>
                   </div>
@@ -222,6 +218,7 @@ const Line = ({id}) => {
                   <Link to={`/history/departure-points/${id}`} className={"text-decoration-none"}>Histórico de pontos de paradas</Link>
                 </div>
                 <div className={"mt-5 d-flex flex-column gap-3"}>
+                  <LiveBanner/>
                   <GuideBanner/>
                   <NewsBanner/>
                 </div>

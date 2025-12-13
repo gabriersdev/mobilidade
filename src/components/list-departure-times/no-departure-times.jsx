@@ -33,7 +33,7 @@ const NoDepartureTimes = ({isFirst}) => {
   return (
     <Alert variant={"warning"} dismissible={true}>
       <p className={"m-0 p-0"}>
-        Essa linha <b>não possui horários de partida {['sábado', 'domingo'].includes(currentDayName) ? "aos" : "em"} {currentDayName}{['dia útil'].includes(currentDayName) ? "dias úteis" : "s"}.</b>
+        Essa linha <b>não possui horários de partida {['sábado', 'domingo'].includes(currentDayName) ? "aos" : "em"} {['dia útil'].includes(currentDayName) ? "dias úteis" : currentDayName + "s"}.</b>
       </p>
     </Alert>
   );

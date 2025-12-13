@@ -42,7 +42,7 @@ export function AlertInfoFeature() {
   return (
     <div className={"d-flex gap-3 flex-column"}>
       <Alert variant={"info"} dismissible={true} margin={"m-0"} className={"my-3"}>
-        Os resultados da pesquisa são atualizados a cada 30 segundos.
+        Os resultados da pesquisa são atualizados a cada 30 segundos. Os horários de partida com partidas ou recolhimento intermediário não são exibidos aqui.
       </Alert>
     </div>
   )

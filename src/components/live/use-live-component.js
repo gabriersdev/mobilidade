@@ -20,13 +20,13 @@ const useLiveComponent = () => {
     warningSound: true,
     showSomeDepartureStart: false,
     showAdditionalInfo: true,
-    volume: 70
+    // volume: 70
   });
   const labelsConfigs = useRef({
     warningSound: "Aviso sonoro",
     showSomeDepartureStart: "Exibir apenas partidas",
     showAdditionalInfo: "Exibir informações extras",
-    volume: "Volume do aviso sonoro"
+    // volume: "Volume do aviso sonoro"
   })
   
   const location = useLocation();
@@ -42,7 +42,7 @@ const useLiveComponent = () => {
         return {
           id: c?.["line_id"] ?? -1,
           title: Util.renderText((c?.["line_number"] + " - ") + (c?.["line_name"] ?? "")),
-          name: Util.renderText(c?.["departure_location"] + " -> " + c?.["destination_location"])
+          name: Util.renderText(c?.["departure_location"] + " ⇄ " + c?.["destination_location"])
         }
       }));
     }).catch((error) => {
@@ -90,8 +90,18 @@ const useLiveComponent = () => {
     const axiosMainData = s?.data[0]?.[0]?.[0]?.["get_arrival_predictions(?, ?)"];
     const axiosNextDepartureTimes = s?.data[1]?.[0]?.[0]?.["@out"];
     
-    if (Array.isArray(axiosMainData)) setData(JSON.parse(JSON.stringify(axiosMainData)).map(parseDatetimeTimezone));
-    if (Array.isArray(JSON.parse(axiosNextDepartureTimes))) setDataNextDepartureTimes(JSON.parse(axiosNextDepartureTimes).map(parseDatetimeTimezone));
+    if (Array.isArray(axiosMainData)) {
+      setData(JSON.parse(JSON.stringify(axiosMainData)).map(parseDatetimeTimezone));
+    } else {
+      setData([]);
+    }
+
+    if (Array.isArray(JSON.parse(axiosNextDepartureTimes))) {
+      setDataNextDepartureTimes(JSON.parse(axiosNextDepartureTimes).map(parseDatetimeTimezone));
+    } else {
+      setDataNextDepartureTimes([]);
+    }
+
     setError(null);
   };
   
@@ -112,9 +122,14 @@ const useLiveComponent = () => {
   
   useEffect(() => {
     if (departurePointSelected) {
+      setData([]);
+      setDataNextDepartureTimes([]);
       fetchData(departurePointSelected).then(() => {
       });
-    } else setData(null);
+    } else {
+      setData(null);
+      setDataNextDepartureTimes(null);
+    };
   }, [departurePointSelected]);
   
   useEffect(() => {
@@ -131,10 +146,26 @@ const useLiveComponent = () => {
   
   useEffect(() => {
     let int;
+    
     if (departurePointSelected && datetimeOriginalFetch) {
+      try {
+        clearInterval(int);
+      } catch {
+        //
+      }
+      
       int = setInterval(() => {
         if (moment().diff(datetimeOriginalFetch, "seconds") % 60) fetchData(departurePointSelected).then();
       }, 1000 * 30);
+    }
+    
+    //
+    else {
+      try {
+        clearInterval(int);
+      } catch {
+        //
+      }
     }
     
     return () => {

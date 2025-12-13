@@ -29,6 +29,15 @@
   font-family: Arial, sans-serif;
 }
 
+.text-ellipsis-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
 .text-ellipsis-2 {
   overflow: hidden;
   text-overflow: ellipsis;

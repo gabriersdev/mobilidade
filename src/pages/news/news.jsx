@@ -8,6 +8,7 @@ import {useParams} from "react-router-dom";
 import AnimatedComponents from "../../components/ui/animated-component/animated-component.jsx";
 import Alert from "../../components/ui/alert/alert.jsx";
 import UpdatePageData from "../../components/update-page-data/update-page-data.jsx";
+import PaginationWithItems from "../../components/pagination-with-items/pagination-with-items.jsx";
 
 const News = () => {
   const {id} = useParams()
@@ -34,11 +35,16 @@ const News = () => {
             <div className="d-flex flex-column align-items-start gap-5">
               <AnimatedComponents>
                 <div className={"d-flex flex-column align-items-start gap-5"}>
-                {[...newsA].toSpliced(50).toReversed().toSorted((a, b) => moment(a.publishDate).unix() < moment(b.publishDate).unix()).map((item, index) => (
-                  <div className={"pb-5"} key={index} style={{borderBottom: "1px dashed #AAA"}}>
-                    <NewsC {...item}/>
-                  </div>
-                ))}
+                  <PaginationWithItems
+                    itemsPerPage={1}
+                    items={
+                      [...newsA].toSpliced(50).toReversed().toSorted((a, b) => moment(a.publishDate).unix() < moment(b.publishDate).unix()).map((item, index) => (
+                        <div className={"pb-5"} key={index}>
+                          <NewsC {...item}/>
+                        </div>
+                      ))
+                    }
+                  />
                 </div>
               </AnimatedComponents>
             </div>

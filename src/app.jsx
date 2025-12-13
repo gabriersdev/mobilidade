@@ -1,13 +1,13 @@
 import './styles/app.css'
 
-import {createContext, useEffect, useState} from 'react'
-import {Routes, Route, useLocation} from 'react-router-dom';
-import axios from 'axios';
 import AOS from 'aos';
+import axios from 'axios';
 import {Button, Image} from "react-bootstrap";
+import {createContext, useEffect, useState} from 'react';
+import {Routes, Route, useLocation} from 'react-router-dom';
 
-import config from "./assets/config.js";
 import Util from "./assets/Util.jsx";
+import config from "./assets/config.js";
 
 import {
   Nav,
@@ -144,7 +144,7 @@ function App() {
             window.scrollTo({top: 0, behavior: 'smooth'})
           }, 100);
         }
-      } else if(!location.pathname.match(/lines\/\d+\/#\w+/)) {
+      } else if (!location.pathname.match(/lines\/\d+\/#\w+/)) {
         setTimeout(() => {
           window.scrollTo({top: 0, behavior: 'smooth'})
         }, 100);

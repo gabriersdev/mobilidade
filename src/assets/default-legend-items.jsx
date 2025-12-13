@@ -1,6 +1,6 @@
 export default [
   {
-    label: "Sai nos próximos 15 minutos",
+    label: "Saí em até 15 minutos",
     abrev: (
       <span className={"text-sml"}>
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" fill="currentColor" className="bi bi-fast-forward-circle-fill" viewBox="0 0 16 16">

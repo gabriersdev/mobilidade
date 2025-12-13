@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react'
+import {useCallback, useEffect, useRef, useState} from 'react'
 import axios from "axios";
 import {Link, useLocation} from "react-router-dom";
 import {Button, Card, CardBody, CardHeader, CardTitle, FormControl, InputGroup, ListGroup, ListGroupItem} from "react-bootstrap";
@@ -21,9 +21,10 @@ const Guide = () => {
   const [term, setTerm] = useState("");
   const [message, setMessage] = useState("");
   const [indicesLetters, setIndicesLetters] = useState([]);
-  
-  const location = useLocation();
   const [searchDPId, setSearchDPId] = useState(-1);
+  
+  const genericError = useRef("Ocorreu um erro na consulta do Guia. Aguarde alguns minutos e tente novamente mais tarde.");
+  const location = useLocation();
   
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -33,10 +34,10 @@ const Guide = () => {
       if (response.data) {
         setData(response.data);
         setOriginalData(response.data);
-      } else setError("Ocorreu um erro na consulta do Guia. Tente novamente mais tarde.");
+      } else setError(genericError.current);
     } catch (error) {
       console.log(error);
-      setError("Ocorreu um erro na consulta do Guia. Tente novamente mais tarde.");
+      setError(genericError.current);
     } finally {
       setLoading(false);
     }
@@ -91,9 +92,16 @@ const Guide = () => {
                             <AccordionItem title={key.replace("/", " - ").replaceAll("/", " - ")} key={index} eventKey={index.toString()}>
                               <ul className="ps-3 m-0" style={{lineHeight: 1.75}}>
                                 <PaginationWithItems items={(value.map((line, i) => {
-                                  return <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replaceAll("/", " -> ")}</Link></li>
+                                  return <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replaceAll("/", " ⇄ ")}</Link></li>
                                 }))} itemsPerPage={10}/>
                               </ul>
+                              
+                              <div>
+                                <Button variant={"primary"} as={Link} to={`/live?ei=${value?.[0]?.["data"]?.["departure_point_id"] ?? -1}`} className={"d-inline-flex align-items-center gap-2 flex-wrap"}>
+                                  Acompanhar aproximação de ônibus
+                                  <i className="bi bi-shop-window"></i>
+                                </Button>
+                              </div>
                             </AccordionItem>
                           )
                         })

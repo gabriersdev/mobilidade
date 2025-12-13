@@ -20,15 +20,7 @@ describe('Live Page', () => { // Nome do bloco de testes mais descritivo
     });
   });
   
-  it(`Click in link`, () => {
-    cy.get('a[href="/company/4"]')
-      .should('be.visible')
-      .should($el => {
-        expect($el.prop('textContent'))
-          .to.equal('(Transporte Coletivo Metropolitano - MG)')
-      })
-      .click();
-    
+  it(`Take a screenshot`, () => {
     cy.wait(2000);
     cy.screenshot(`/news/news-page-link-${now.format('YYYYMMDDHHmmss')}`, {
       capture: 'viewport'
