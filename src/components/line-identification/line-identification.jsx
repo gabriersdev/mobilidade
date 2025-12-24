@@ -67,7 +67,7 @@ const LineIdentification = ({line}) => {
   else hasIntegration = "Não possui integração";
   
   if (parseFloat(line.fare) === 0) fare = "Não informado";
-  else fare = Util.formatMoney(line.fare);
+  else fare = Util.formatMoney(line.fare)?.replace("R$", "BRL");
   
   if (line.count_departure_times) countDepartureTimes = line.count_departure_times;
   if (line.report_contact) reportContact = line.report_contact;

@@ -88,8 +88,8 @@ export default function DeparturePoints() {
     <AnimatedComponents>
       <h1 className={"m-0 p-0"}><span className={"text-body-secondary fw-normal"}>Histórico de Pontos de Parada</span></h1>
       <Link to={`/lines/${id}`} className={"text-decoration-none"}>
-        <Title type={"h2"} classX=" fs-3 d-inline mt-1 p-0 d-block mb-0">
-          <span className="d-block text-body-emphasis" style={{fontSize: "inherit"}}>Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " ⇄ " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " ⇄ ")}</span>
+        <Title type={"h2"} classX=" fs-3 d-inline mt-1 p-0 d-block mb-0 fw-normal">
+          <span className="d-block" style={{fontSize: "inherit"}}>Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " ⇄ " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " ⇄ ")}</span>
         </Title>
       </Link>
       
@@ -97,7 +97,7 @@ export default function DeparturePoints() {
         <AnimatedComponents>
           <ListGroup>
             <ListGroup.Item as={Link} className={"cursor-pointer"} to={`/lines/${id}#paradas`}>
-              <span className={"d-block"}>{Util.renderText(moment(lineData?.[0]?.["datetime_last_modify"]?.replace("Z", "-03:00") ?? "").format("DD/MM/YYYY"))}</span>
+              <span className={"d-block text-primary"}>{Util.renderText(moment(lineData?.[0]?.["datetime_last_modify"]?.replace("Z", "-03:00") ?? "").format("DD/MM/YYYY"))}</span>
               <span className={"text-body-tertiary"}>Pontos atualizados em {Util.renderText(moment(lineData?.[0]?.["datetime_last_modify"]?.replace("Z", "-03:00") ?? "").format("DD/MM/YYYY"))}</span>
             </ListGroup.Item>
           </ListGroup>
