@@ -11,6 +11,7 @@ import {LiveConfigs} from "../../components/live/live-configs.jsx";
 import {LoadingDeparturePoints, AnyBusProximityError, LiveGeneralError, SelectOneDeparturePoint, AlertInfoFeature, AlertInfoConfigSomeDepartureStart} from "../../components/live/live-infos.jsx";
 import {LiveFormLines, LiveFormDeparturePoints} from "../../components/live/live-form.jsx";
 import Weather from "../../components/weather/weather.jsx";
+import {useEffect, useRef} from "react";
 
 moment.locale("pt-BR");
 
@@ -33,6 +34,12 @@ const Live = () => {
     
     fetchData
   } = useLiveComponent();
+  
+  const alertShowSomeDepartureStartHasShowed = useRef(false);
+  
+  useEffect(() => {
+    alertShowSomeDepartureStartHasShowed.current = !departurePointSelected;
+  }, [departurePointSelected]);
   
   return (
     <AnimatedComponents>
@@ -90,7 +97,7 @@ const Live = () => {
           )
         }
         
-        {!departurePointSelected && <SelectOneDeparturePoint/>}
+        {alertShowSomeDepartureStartHasShowed.current && !departurePointSelected && <SelectOneDeparturePoint/>}
         <LiveFullscreenControl resultSection={resultSection}/>
       </div>
       
