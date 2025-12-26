@@ -19,7 +19,23 @@ moment.locale("pt-BR");
 
 // TODO: refatorar e substituir a "passação" de parâmetros entre componentes por useContext
 const LineIdentification = ({line}) => {
-  let [lineType, scope, hasIntegration, fare, countDepartureTimes, reportContact, datetimeLastModify, accessibility, aircon, teraflex, bench, fleet, airsuspension] = ['', '', '', 0, '', '', 0, 0, 0, 0, 0, 0];
+  let [
+    lineType,
+    scope,
+    hasIntegration,
+    fare,
+    countDepartureTimes,
+    reportContact,
+    datetimeLastModify,
+    accessibility,
+    aircon,
+    teraflex,
+    bench,
+    fleet,
+    airsuspension,
+    wifi,
+    conc
+  ] = ['', '', '', 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0];
   const btnShareRef = useRef(null);
   const [showTooltip, setShowTooltip] = useState(false);
   const [messageTooltip, setMessageTooltip] = useState("");
@@ -62,6 +78,8 @@ const LineIdentification = ({line}) => {
   bench = line?.bench ?? false;
   fleet = line?.fleet ?? false;
   airsuspension = line?.airsuspension ?? false;
+  wifi = line?.wifi ?? false;
+  conc = line?.conc ?? false;
   
   if (line.has_integration === 1) hasIntegration = "Possui integração";
   else hasIntegration = "Não possui integração";
@@ -93,7 +111,9 @@ const LineIdentification = ({line}) => {
               {text: "Assoalho em teraflex", has: teraflex ?? false,},
               {text: "Banco de encosto alto", has: bench ?? false,},
               {text: "Frota com menos de 10 anos", has: fleet ?? false,},
+              {text: "Rastreável", has: conc ?? false,},
               {text: "Suspensão à ar", has: airsuspension ?? false,},
+              {text: "Wifi", has: wifi ?? false,},
             ].map((item, index) => {
               return (
                 <div className={"d-flex align-items-center flex-wrap gap-1 " + (item.has ? "text-primary" : "text-body-secondary text-decoration-line-through")} key={index}>
@@ -274,6 +294,8 @@ LineIdentification.propTypes = {
     bench: PropTypes.number,
     fleet: PropTypes.number,
     airsuspension: PropTypes.number,
+    wifi: PropTypes.number,
+    conc: PropTypes.number
   }).isRequired
 }
 

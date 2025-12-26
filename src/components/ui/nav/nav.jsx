@@ -51,7 +51,7 @@ const NavScrollspy = () => {
   const variable = useRef(null);
   
   const includeElements = useCallback(() => {
-    ["partidas", "paradas", "pontos-de-recarga"].forEach(i => {
+    ["partidas", "paradas", "pontos-de-recarga", "resume"].forEach(i => {
       setElements(prev => {
         return {
           ...prev,
@@ -122,6 +122,7 @@ const NavScrollspy = () => {
         <BootstrapNav.Link className={"text-primary p-0"} style={areaFocus === "partidas" ? {fontWeight: "bold"} : {fontWeight: "normal"}} onClick={(e) => scrollTo(e, "#partidas")}>Horários</BootstrapNav.Link>
         <BootstrapNav.Link className={"text-primary p-0"} style={areaFocus === "paradas" ? {fontWeight: "bold"} : {fontWeight: "normal"}} onClick={(e) => scrollTo(e, "#paradas")}>Paradas</BootstrapNav.Link>
         <BootstrapNav.Link className={"text-primary p-0"} style={areaFocus === "pontos-de-recarga" ? {fontWeight: "bold"} : {fontWeight: "normal"}} onClick={(e) => scrollTo(e, "#pontos-de-recarga")}>Recarga</BootstrapNav.Link>
+        <BootstrapNav.Link className={"text-primary p-0 d-none"} style={areaFocus === "resume" ? {fontWeight: "bold"} : {fontWeight: "normal"}} onClick={(e) => scrollTo(e, "#resume")}>Sobre</BootstrapNav.Link>
       </div>
     </AnimatedComponents>
   )
