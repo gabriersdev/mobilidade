@@ -22,12 +22,12 @@ const Home = () => {
       <div className={"d-flex flex-column gap-1"}>
         <FormValidSearch formTitle={"Para onde vamos?"} inputPlaceholder={""}/>
         <AnimatedComponents>
-          <div>
+          <div className={"d-none"}>
             <Placeholder as={CardTitle} animation="glow">
               <Placeholder xs={"10"} className={"rounded w-100 py-3"}/>
             </Placeholder>
           </div>
-          <div className={""}>
+          <div className={"d-none"}>
             <div className={"bg-body-secondary px-2 py-1 rounded d-flex align-items-center justify-content-between gap-2"}>
               <div className={"text-body-secondary"}>
                 <Dropdown>
