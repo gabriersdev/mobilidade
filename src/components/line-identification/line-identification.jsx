@@ -204,7 +204,7 @@ const LineIdentification = ({line}) => {
             </LineInfo>
           </Link>
         </div>
-        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-3">
+        <div className="d-flex align-items-center gap-1 flex-wrap mb-3 order-3">
           {
             reportContact ? (
               <Badge className={"fw-normal rounded-5 bg-warning p-0"}>
