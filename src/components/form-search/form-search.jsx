@@ -37,7 +37,7 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
   return (
     <form onSubmit={handleSubmit}>
       <FormGroup>
-        <hgroup className={"d-flex align-items-center justify-content-between flex-wrap flex-column flex-md-row mb-3"}>
+        <hgroup className={"d-flex align-items-center justify-content-between flex-wrap flex-column flex-md-row mb-1"}>
           <Form.Label htmlFor={`input-search`} column={0}>
             <Title title={formTitle} classX=" text-body-secondary m-0 p-0"/>
           </Form.Label>
@@ -62,7 +62,7 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
         </div>
       </FormGroup>
       <SearchLinks/>
-      <span className={"d-block mt-2 text-danger"}>{feedback}</span>
+      {feedback && <span className={"d-block mt-2 text-danger"}>{feedback}</span>}
     </form>
   )
 }
