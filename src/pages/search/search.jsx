@@ -6,19 +6,20 @@ import ComponentSearch from "../../components/search/search.jsx";
 import Grid from "../../components/ui/grid/grid.jsx";
 import Card from "../../components/ui/card/card.jsx";
 import FormValidSearch from "../../components/form-valid-search/form-valid-search.jsx";
+import LatestNews from "../../components/latest-news/latest-news.jsx";
 
 const Search = () => {
   const [isValidSearch, setIsValidSearch] = useState(false)
   const [termSearch, setTermSearch] = useState("")
   const location = useLocation()
-
+  
   useEffect(() => {
     // Atualiza o título do documento
     document.title = 'Mobilidade - Pesquisa';
     // Util.updateActiveLink();
-
+    
   }, [])
-
+  
   useEffect(() => {
     try {
       let queryParams = null
@@ -32,7 +33,7 @@ const Search = () => {
           if (!input) return false;
           input.value = queryParams.get('term');
           console.log(termSearch);
-          const event = new Event("input", { bubbles: true });
+          const event = new Event("input", {bubbles: true});
           input.dispatchEvent(event);
         }, 1000);
       }
@@ -40,7 +41,7 @@ const Search = () => {
       console.log('Ocorreu um erro ao tentar verificar os parâmetros passados. %s', error);
     }
   }, [location])
-
+  
   return (
     <div>
       <FormValidSearch formTitle="Para onde vamos?" inputPlaceholder="" focus={Object.keys(new URLSearchParams(location.search)).length > 0}/>
@@ -48,7 +49,9 @@ const Search = () => {
         {
           (isValidSearch && termSearch) ? (
               <>
-                <Title title="Resultados" classX={" text-body-secondary"}/>
+                <Title type="h3" classX={" text-body-secondary"}>
+                  <span className={"fs-3 fw-semibold"} style={{fontFamily: "inherit"}}>Resultados</span>
+                </Title>
                 <ComponentSearch value={termSearch}/>
               </>
             ) :
@@ -63,6 +66,9 @@ const Search = () => {
               </>
             )
         }
+        <div style={{marginTop: '4rem'}}>
+          <LatestNews/>
+        </div>
       </div>
     </div>
   );

@@ -6,6 +6,8 @@ import {useCallback, useRef} from "react";
 import Title from "../ui/title/title.jsx";
 import Util from "../../assets/Util.jsx";
 import LiveShowItem from "./live-show-item.jsx";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 moment.locale("pt-BR");
 
@@ -59,13 +61,14 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
                     </td>
                     <td className={"bg-body-secondary"} style={{verticalAlign: "top"}}>
                       <Link to={`/lines/${d?.["line_id"] ?? ""}`} className={"text-decoration-none d-flex align-items-center justify-content-start"}>
-                        <Title type={"h3"} classX=" text-primary fs-3 fw-medium inter m-0 p-0 d-flex flex-column gap-1">
-                          {
-                            parseInt(d?.["direction"] ?? "-1") === 1 ? (`${Util.renderText(d?.["departure_location"] ?? "")} ⇄ ${Util.renderText(d?.["destination_location"] ?? "")}`) :
-                              parseInt(d?.["direction"] ?? "-1") === 0 ? (`${Util.renderText(d?.["departure_location"] ?? "")} ⇄ ${Util.renderText(d?.["destination_location"] ?? "")}`) :
-                                parseInt(d?.["direction"] ?? "-1") === 2 ? (`${Util.renderText(d?.["destination_location"] ?? "")} ⇄ ${Util.renderText(d?.["departure_location"] ?? "")}`) : ""
-                          }
-                          <span>
+                        <div className={"d-flex gap-2"}>
+                          <Title type={"h3"} classX=" text-primary fs-3 fw-medium inter m-0 p-0 d-flex flex-column gap-1">
+                            {
+                              parseInt(d?.["direction"] ?? "-1") === 1 ? (`${Util.renderText(d?.["departure_location"] ?? "")} ⇄ ${Util.renderText(d?.["destination_location"] ?? "")}`) :
+                                parseInt(d?.["direction"] ?? "-1") === 0 ? (`${Util.renderText(d?.["departure_location"] ?? "")} ⇄ ${Util.renderText(d?.["destination_location"] ?? "")}`) :
+                                  parseInt(d?.["direction"] ?? "-1") === 2 ? (`${Util.renderText(d?.["destination_location"] ?? "")} ⇄ ${Util.renderText(d?.["departure_location"] ?? "")}`) : ""
+                            }
+                            <span>
                             {
                               configs?.["showAdditionalInfo"] && (
                                 <span className={"fs-initial fw-normal d-flex flex-wrap gap-1 opacity-75"}>
@@ -75,7 +78,23 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
                               )
                             }
                           </span>
-                        </Title>
+                          </Title>
+                          {
+                            configs?.["showAdditionalInfo"] && Util.getTodayHolidayData() && (
+                              <OverlayTrigger overlay={
+                                <Tooltip>
+                                  <p className={"m-0 p-0 text-sml text-balance line-clamp-3"}>
+                                    A linha está operando no horário de domingo e feriado. O horário possui observações.
+                                  </p>
+                                </Tooltip>
+                              }>
+                                <span className={"d-block pt-1"}>
+                                <i className="bi bi-exclamation-circle-fill text-"></i>
+                              </span>
+                              </OverlayTrigger>
+                            )
+                          }
+                        </div>
                         <span className={"d-none text-sml opacity-50"}>({d?.["departure_time_trip"]}) | ({d?.["expected_arrival_time"]})</span>
                       </Link>
                     </td>

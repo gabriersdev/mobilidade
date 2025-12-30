@@ -88,7 +88,9 @@ const Manifest = () => {
       </section>
       
       <section id={"principais-linhas"} className={"pt-3"}>
-        <Title type="h3" classX={" text-body-secondary"}>Principais Linhas</Title>
+        <Title type="h3" classX={" text-body-secondary"}>
+          <span className={"fs-3 fw-semibold"} style={{fontFamily: "inherit"}}>Principais Linhas</span>
+        </Title>
         <GetAndListLines variant="main"/>
       </section>
     </div>

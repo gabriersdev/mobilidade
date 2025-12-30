@@ -48,6 +48,9 @@ export default function Intermediate({data = [], observations, departure_locatio
           </AccordionItem>
         )
       })}
+      <div className={"mt-2"}>
+        <span className={"d-block text-muted"}>Os horários são atualizados periodicamente via integração com a companhia.</span>
+      </div>
     </Accordion>
   )
 }

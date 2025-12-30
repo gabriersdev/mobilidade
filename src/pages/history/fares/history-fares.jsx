@@ -90,8 +90,8 @@ export default function HistoryFares() {
     <AnimatedComponents>
       <h1 className={"m-0 p-0"}><span className={"text-body-secondary fw-normal"}>Histórico de Tarifas</span></h1>
       <Link to={`/lines/${id}`} className={"text-decoration-none"}>
-        <Title type={"h2"} classX=" fs-3 d-inline mt-1 p-0 d-block mb-0">
-          <span className="d-block text-body-emphasis" style={{fontSize: "inherit"}}>Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " ⇄ " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " ⇄ ")}</span>
+        <Title type={"h2"} classX=" fs-3 d-inline mt-1 p-0 d-block mb-0 fw-normal">
+          <span className="d-block" style={{fontSize: "inherit"}}>Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " ⇄ " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " ⇄ ")}</span>
         </Title>
       </Link>
       
@@ -99,7 +99,7 @@ export default function HistoryFares() {
         <AnimatedComponents>
           <ListGroup>
             <ListGroup.Item>
-              <Title type={"h3"} classX={" fs-5 m-0 pt-1 pb-0 px-0 fw-bold d-bold text-primary"}>R$ {lineData?.[0]?.["fare"]?.toString()?.replace(".", ",")}</Title>
+              <span className={"d-block text-primary"}>BRL {lineData?.[0]?.["fare"]?.toString()?.replace(".", ",")}</span>
               <span className={"text-body-tertiary"}>Tarifa atualizada em {Util.renderText(moment(lineData?.[0]?.["datetime_last_modify"]?.toString()?.replace("Z", "-03:00") ?? "").format("DD/MM/YYYY"))}</span>
             </ListGroup.Item>
           </ListGroup>

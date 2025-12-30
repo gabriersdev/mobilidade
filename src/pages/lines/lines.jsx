@@ -7,6 +7,7 @@ import Title from "../../components/ui/title/title.jsx";
 import FormValidSearch from "../../components/form-valid-search/form-valid-search.jsx";
 import GetAndListLines from "../../components/get-and-list-lines/get-and-list-lines.jsx";
 import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
+import LatestNews from "../../components/latest-news/latest-news.jsx";
 
 const Lines = () => {
   const {id} = useParams();
@@ -40,6 +41,9 @@ const Lines = () => {
               <Line id={id}/>
             </AnimatedComponents>
         }
+        <div style={{marginTop: '4rem'}}>
+          <LatestNews/>
+        </div>
       </div>
     </div>
   );

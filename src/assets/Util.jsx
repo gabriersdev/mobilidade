@@ -358,7 +358,7 @@ export default class Util {
     // Para funcionar corretamente SEMPRE precisa que o horário da data seja 00:00
     const m = moment();
     const now = moment(`${m.get("year")}-${('0' + (m.get("month") + 1)).slice(-2)}-${('0' + m.get("date")).slice(-2)}T00:00:00-03:00`);
-    console.log(now);
+    
     let holidaysScope = getAllHolidays(now.year(), {includeRegion: `SC${('0' + codeScope).slice(-2)}`});
     return holidaysScope.find((h) => now.diff(h.date, "days") === 0);
   }
