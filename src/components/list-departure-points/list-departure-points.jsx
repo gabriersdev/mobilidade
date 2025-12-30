@@ -61,6 +61,9 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
           <Accordion id={"departure-points-data"} defaultEventKey={["0"]}>
             <OffCanvasDeparturePoints/>
             <ListPointsByDirections/>
+            <div className={"mt-2"}>
+              <span className={"d-block text-muted"}>Os pontos de partida são atualizados ocasionalmente via integração com o Moovit.</span>
+            </div>
           </Accordion>
         </ThemeContext>
       </DeparturePointsContext>

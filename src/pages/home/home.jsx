@@ -158,7 +158,9 @@ const Home = () => {
       </div>
       <div>
         <div className={"d-flex align-items-center gap-2 justify-content-between flex-wrap"}>
-          <Title title="Principais Linhas" classX={" text-body-secondary"}/>
+          <Title type="h3" classX={" text-body-secondary"}>
+            <span className={"fs-3 fw-semibold"} style={{fontFamily: "inherit"}}>Principais Linhas</span>
+          </Title>
           <Button as={Link} to={"/lines"} variant={"secondary"} size={"sm"}>
             <span className={""}>Ver todas</span>
           </Button>

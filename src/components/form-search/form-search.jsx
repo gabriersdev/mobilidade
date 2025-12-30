@@ -39,7 +39,9 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
       <FormGroup>
         <hgroup className={"d-flex align-items-center justify-content-between flex-wrap flex-column flex-md-row mb-1"}>
           <Form.Label htmlFor={`input-search`} column={0}>
-            <Title title={formTitle} classX=" text-body-secondary m-0 p-0"/>
+            <Title classX=" text-body-secondary m-0 p-0">
+              <span className={"fs-3 fw-semibold"} style={{fontFamily: "inherit"}}>{formTitle}</span>
+            </Title>
           </Form.Label>
           <div className={"d-flex align-items-center flex-wrap gap-1 justify-content-center"}>
             {
