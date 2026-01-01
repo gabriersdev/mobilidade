@@ -67,7 +67,7 @@ const ListRechargePoints = ({id_company, company_name}) => {
       <RechargePointsContext>
         <AnimatedComponents>
           <OffCanvasRechargePoints/>
-          <FormGroup className={"mb-4 gap-1 flex-wrap"}>
+          <FormGroup className={"mb-4 gap-1 flex-wrap d-none"}>
             <FormLabel column={"sm"} htmlFor={"#city-recharge"} className={"fs-6 text-body-tertiary pe-1"}>Na cidade de</FormLabel>
             <FormSelect style={{width: "min(100%, 300px)", background: "inherit !important"}} id={"city-recharge"} disabled={true} className={"p-0 m-0 border-0 bg-body"}>
               <option value={"1"} defaultValue={"1"}>Sabará</option>

@@ -51,7 +51,7 @@ const BreadcrumbItemFactory = ({path}) => {
       label = "Sabará"
       break;
     default:
-      label = (<p className={"text-capitalize d-inline"}>{path.match(/\b\d+\b/) ? <span>Carregando...</span> : <span>{path}</span> }</p>);
+      label = (<p className={"text-capitalize d-inline"}>{path.match(/\b\d+\b/) ? <span>Carregando...</span> : <span>{path}</span>}</p>);
   }
   
   if (!path || !path.trim() || ["null", "undefined"].includes(path)) return null;
@@ -91,16 +91,18 @@ const BreadcrumbApp = () => {
   const affirmationPath = path.current;
   
   return (
-    <AnimatedComponents>
-      <Breadcrumb className="bg-body mb-5">
-        {
-          ["../", ...path.current.split('/')].map((item, index) => {
-            if (!item || !item.trim() || ["null", "undefined"].includes(item)) return null;
-            return (<BreadcrumbItemFactory key={index} path={item} affirmationPath={affirmationPath}/>)
-          })
-        }
-      </Breadcrumb>
-    </AnimatedComponents>
+    <div className={"d-none d-md-block"}>
+      <AnimatedComponents>
+        <Breadcrumb className="bg-body mb-5">
+          {
+            ["../", ...path.current.split('/')].map((item, index) => {
+              if (!item || !item.trim() || ["null", "undefined"].includes(item)) return null;
+              return (<BreadcrumbItemFactory key={index} path={item} affirmationPath={affirmationPath}/>)
+            })
+          }
+        </Breadcrumb>
+      </AnimatedComponents>
+    </div>
   )
 }
 

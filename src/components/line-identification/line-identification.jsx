@@ -129,7 +129,7 @@ const LineIdentification = ({line}) => {
   ), [aircon, airsuspension, bench, fleet, teraflex]);
   
   return (
-    <div className="d-flex flex-column gap-3">
+    <div className="d-flex flex-column">
       <div className={"d-flex align-items-start flex-wrap gap-3 justify-content-between flex-column flex-column-reverse flex-lg-row"}>
         <div>
           <hgroup className="d-flex align-items-center gap-2 flex-wrap mb-0">
@@ -150,8 +150,8 @@ const LineIdentification = ({line}) => {
         <LineIdentificationCompanyLogo companyId={line.company_id}/>
       </div>
       
-      <div className={"d-flex flex-column"}>
-        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-1" style={{maxWidth: "600px"}}>
+      <div className={"d-flex flex-column gap-3 mt-5"}>
+        <div className="d-flex align-items-center gap-3 flex-wrap order-1">
           <Link className={"text-decoration-none"} to={"/search/?term=" + (
             lineType.toLowerCase().includes("executivo") || lineType.toLowerCase().includes("seletivo") ? "bandeirante" :
               lineType.toLowerCase().includes("coletivo") ? "coletivo" : lineType
@@ -204,7 +204,7 @@ const LineIdentification = ({line}) => {
             </LineInfo>
           </Link>
         </div>
-        <div className="d-flex align-items-center gap-1 flex-wrap mb-3 order-3">
+        <div className="d-flex align-items-center gap-2 flex-wrap order-3">
           {
             reportContact ? (
               <Badge className={"fw-normal rounded-5 bg-warning p-0"}>
@@ -258,7 +258,7 @@ const LineIdentification = ({line}) => {
             </button>
           </Badge>
         </div>
-        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-2">
+        <div className="d-flex align-items-center gap-3 flex-wrap order-2">
           {
             datetimeLastModify && (<div className={"d-flex align-items-center gap-3 flex-wrap"}>
               <LineInfo label={{ref: 'Última atualização', value: ""}}>

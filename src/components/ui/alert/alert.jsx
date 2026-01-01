@@ -2,8 +2,12 @@ import {useState} from "react";
 import PropTypes from "prop-types";
 import {Alert as BootstrapAlert} from "react-bootstrap";
 
-const Alert = ({variant, margin, children = <></>, dismissible = false, onClose = () => {}, className}) => {
+const Alert = ({
+                 variant, margin, children = <></>, dismissible = false, onClose = () => {
+  }, className
+               }) => {
   const [show, setShow] = useState(true);
+  const [propOpen, setPropOpen] = useState(false);
   
   if (!show) {
     return null;
@@ -43,8 +47,17 @@ const Alert = ({variant, margin, children = <></>, dismissible = false, onClose 
       onClose={handleClose}
       dismissible={dismissible}
     >
-      {icon}
-      {children}
+      <details>
+        <summary open={propOpen} onClick={() => {
+          setPropOpen(!propOpen)
+        }} className={"alert-warning-summary d-flex gap-2"}>
+          <span className={"d-block"}>{icon}</span>
+          <div className={"line-clamp-1 text-wrap"}>Aviso. Clique para visualizar</div>
+        </summary>
+        <div className={"mt-3"}>
+          {children}
+        </div>
+      </details>
     </BootstrapAlert>
   );
 };

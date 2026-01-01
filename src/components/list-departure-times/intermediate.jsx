@@ -38,18 +38,18 @@ export default function Intermediate({data = [], observations, departure_locatio
               scope: scope
             }}>
               <AccordionOperationDays/>
-              <div className={"d-flex gap-2 flex-wrap align-items-center mt-4"}>
+              <div className={"d-flex gap-2 align-items-center mt-4"}>
                 <OverlayTrigger overlay={<Tooltip>Não houve alteração no quadro de horários</Tooltip>}>
                   <span><i className="bi bi-dash-circle-fill text-primary"></i></span>
                 </OverlayTrigger>
-                <span className={"d-inline-block text-muted"}> {departureTimes.length.toLocaleString()} horários de partidas neste sentido.</span>
+                <span className={"text-body-secondary line-clamp-1 text-sml"}>{departureTimes.length.toLocaleString()} horários de partidas neste sentido.</span>
               </div>
             </ThemeContext>
           </AccordionItem>
         )
       })}
       <div className={"mt-2"}>
-        <span className={"d-block text-muted"}>Os horários são atualizados periodicamente via integração com a companhia.</span>
+        <p className={"d-block text-body-tertiary text-sml m-0 p-0"}>Os horários são atualizados periodicamente via integração com a companhia.</p>
       </div>
     </Accordion>
   )

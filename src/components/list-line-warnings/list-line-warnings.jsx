@@ -15,7 +15,7 @@ const ListLineWarnings = ({line_id}) => {
   const [error, setError] = useState(null)
   const [visibleWarningIds, setVisibleWarningIds] = useState([]); // Novo estado para controlar quais IDs de avisos estão visíveis
   
-  const [propOpen, setPropOpen] = useState(false)
+  const [propOpen, setPropOpen] = useState(false);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -27,9 +27,9 @@ const ListLineWarnings = ({line_id}) => {
         setData(responseWithId);
         setVisibleWarningIds(responseWithId.map(warning => warning.id));
       } catch (error) {
-        setError(error)
+        setError(error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
     

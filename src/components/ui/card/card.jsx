@@ -28,7 +28,8 @@ const Card = ({title = "Card Title", subtitle = "Subtitle", badge, link, childre
         <div className={"d-flex flex-column placeholder-glow gap-1"}>
           <div className={'placeholder fs-1'}></div>
           <div className={'placeholder fs-1'}></div>
-        </div><br/>
+        </div>
+        <br/>
         <BootstrapCard.Body className={"d-flex flex-column placeholder-glow gap-1"} style={{flex: '0 0 auto'}}>
           <div className={'placeholder fs-6'}></div>
           <div className={'placeholder fs-6'}></div>
@@ -45,9 +46,11 @@ const Card = ({title = "Card Title", subtitle = "Subtitle", badge, link, childre
           </div>
           <Title type="h2" title={subtitle ? subtitle.trim() : ""} classX={" text-ellipsis-2 text-body-secondary"} color="#4C4C4C"/>
         </BootstrapCard.Header>
-        <BootstrapCard.Body className="text-ellipsis-2" style={{flex: '0 0 auto'}}>
-          <BootstrapCard.Text className="mt-3 text-ellipsis-2" title={String(children).replace(/[\r\n\b]/g, '')?.substring(0, 200)?.match(/<(\w+)>\s*\S*<\/\1>/g) || String(children).includes('[object Object]') ? "" : (children?.toString()?.substring(0, 200) + "...")}>{children}</BootstrapCard.Text>
-        </BootstrapCard.Body>
+        {children && (
+          <BootstrapCard.Body style={{flex: '0 0 auto'}}>
+            <BootstrapCard.Text className="mt-3 line-clamp-2" title={String(children).replace(/[\r\n\b]/g, '')?.substring(0, 200)?.match(/<(\w+)>\s*\S*<\/\1>/g) || String(children).includes('[object Object]') ? "" : (children?.toString()?.substring(0, 200) + "...")}>{children}</BootstrapCard.Text>
+          </BootstrapCard.Body>
+        )}
       </>
     )
   }
