@@ -29,19 +29,19 @@ const ListLines = ({data, variant}) => {
             badge={(
               <div className="d-flex flex-wrap gap-1">
                 <Badge
-                  className={"bg-primary rounded-5 text-white fw-normal"}
+                  className={"bg-primary rounded-5 text-white"}
                   style={{letterSpacing: '0.5px'}}>
                   N.º {line.line_number}
                 </Badge>
                 
                 {parseFloat(line.fare) > 0 ? (<Badge
-                  className={"bg-primary-subtle rounded-5 text-primary-emphasis fw-normal"}
+                  className={"bg-primary-subtle rounded-5 text-primary-emphasis"}
                   style={{letterSpacing: '0.5px'}}>
                   {Util.formatMoney(line.fare)}
                 </Badge>) : ""}
                 
                 {line.type ? (<Badge
-                  className={`${Convert.colorIdentification((Convert.lineType(line.type) || "").split(' ')[0])} rounded-5 fw-normal`}
+                  className={`${Convert.colorIdentification((Convert.lineType(line.type) || "").split(' ')[0])} rounded-5`}
                   style={{letterSpacing: '0.5px'}}>
                   {(Convert.lineType(line.type) || "").split(' ')[0]}
                 </Badge>) : ""}

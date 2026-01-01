@@ -97,7 +97,7 @@ const TableRow = ({ row, directionName, direction, dayName, tableIndex, type }) 
             />
             
             {item.observations?.map((observation, i) => (
-              <Badge key={i} className="ms-1 fw-normal rounded-pill" bg={bootstrapBGColors[observation.index]}>
+              <Badge key={i} className="ms-1 rounded-pill" bg={bootstrapBGColors[observation.index]}>
                 {observation.abrev}
               </Badge>
             ))}

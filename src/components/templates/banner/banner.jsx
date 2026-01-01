@@ -10,7 +10,7 @@ export default function Banner({data}) {
     <AnimatedComponents className={"h-100"}>
       <Link to={data.link} className={`pt-4 px-4 pb-4 ${data.bg} rounded-3 border ${data.border} d-flex flex-column gap-3 text-decoration-none h-100`}>
         <div className={"d-flex flex-column gap-4 align-items-start"}>
-          <Badge className={`badge ${data.bgBadge} ${data.colorTextBadge ? data.colorTextBadge : "text-body"} fw-normal fs-6 rounded-pill`}>{data.textBadge}</Badge>
+          <Badge className={`badge ${data.bgBadge} ${data.colorTextBadge ? data.colorTextBadge : "text-body"} fs-6 rounded-pill`}>{data.textBadge}</Badge>
           <Title type={"h2"} classX={` fs-3 m-0 p-0 ${data.colorEmphasis}`}>{data.title}</Title>
         </div>
         <div>

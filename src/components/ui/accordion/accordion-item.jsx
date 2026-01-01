@@ -5,7 +5,7 @@ import {Accordion as BootstrapAccordion} from 'react-bootstrap';
 function AccordionItem({title, children, eventKey, className}) {
   return (
     <BootstrapAccordion.Item eventKey={eventKey} className={className}>
-      <BootstrapAccordion.Header className={"inter lh-base"}>{title.trim()}</BootstrapAccordion.Header>
+      <BootstrapAccordion.Header className={"inter lh-base"}>{typeof title === "string" ? title.trim() : title}</BootstrapAccordion.Header>
       <BootstrapAccordion.Body className="d-flex flex-column text-left">
         {children}
       </BootstrapAccordion.Body>
@@ -14,7 +14,7 @@ function AccordionItem({title, children, eventKey, className}) {
 }
 
 AccordionItem.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.shape([PropTypes.string, PropTypes.node]).isRequired,
   children: PropTypes.node.isRequired,
   eventKey: PropTypes.string.isRequired,
   className: PropTypes.string

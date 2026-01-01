@@ -209,7 +209,7 @@ const LineIdentification = ({line}) => {
           <div className="d-flex align-items-center gap-2 flex-wrap order-3">
             {
               reportContact ? (
-                <Badge className={"fw-normal rounded-5 bg-warning p-0"}>
+                <Badge className={"rounded-5 bg-warning p-0"}>
                   <Link className={"btn pv-05 d-inline-block text-black text-decoration-none border-0 outline-none"} to={reportContact || "#"} target="_blank" rel="noopener noreferrer">
                     <span className={"me-1"}>Reclamar</span>
                     <i className="bi bi-arrow-up-right-square"></i>
@@ -221,7 +221,7 @@ const LineIdentification = ({line}) => {
             <ReportModal/>
             <MonitorModal/>
             
-            <Badge className={"fw-normal rounded-5 bg-primary-subtle p-0"}>
+            <Badge className={"rounded-5 bg-primary-subtle p-0"}>
               <button
                 ref={btnShareRef}
                 className={"btn pv-05 m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2 border-0 outline-none"}

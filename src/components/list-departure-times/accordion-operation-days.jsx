@@ -9,6 +9,9 @@ import Accordion from "../ui/accordion/accordion.jsx";
 import {Theme} from "../ui/theme-context/theme-context.jsx";
 import {TimeContext} from "./departure-time-context.jsx";
 import NoDepartureTimes from "./no-departure-times.jsx";
+import {Badge} from "react-bootstrap";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 moment.locale("pt-br");
 
@@ -60,7 +63,20 @@ const AccordionOperationDays = () => {
             {/* componente separado para garantir re-render com mudanças no contexto */}
             <NoDepartureTimes isFirst={j === 0}/>
             <div>
-              <AccordionItem title={dayConverted} eventKey={j.toString()} className={className}>
+              <AccordionItem title={(
+                <span>
+                  {dayConverted}{" "}
+                  {(defaultEventKey?.toString()?.match(/\d/g).join("") === j.toString()) && (
+                    <OverlayTrigger overlay={
+                      <Tooltip>
+                        <span className={"text-sml"}>Este é o itinerário de hoje</span>
+                      </Tooltip>
+                    }>
+                      <Badge bg={"secondary"} className={"rounded-pill border"}>HOJE</Badge>
+                    </OverlayTrigger>
+                  )}
+                </span>
+              )} eventKey={j.toString()} className={className}>
                 <Table
                   content={{
                     data: departureTimesDay.map((item) => ({

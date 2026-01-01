@@ -24,7 +24,7 @@ export default [
   {
     label: "Noturno",
     abrev: (
-      <span className={"text-sml fw-normal"}>NOT</span>
+      <span className={"text-sml"}>NOT</span>
     ),
     color: "primary"
   },

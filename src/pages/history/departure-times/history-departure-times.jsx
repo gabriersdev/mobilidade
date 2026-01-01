@@ -99,9 +99,9 @@ export default function HistoryDepartureTimes() {
     
     return (
       <AnimatedComponents>
-        <h1 className={"m-0 p-0"}><span className={"text-body-secondary fw-normal"}>Histórico de horários</span></h1>
+        <h1 className={"m-0 p-0"}><span className={"text-body-secondary"}>Histórico de horários</span></h1>
         <Link to={`/lines/${id}`} className={"text-decoration-none"}>
-          <Title type={"h2"} classX=" fs-3 d-inline text-body-emphasis fw-normal mt-1 p-0 d-block">
+          <Title type={"h2"} classX=" fs-3 d-inline text-body-emphasis mt-1 p-0 d-block">
             <span className="" style={{fontSize: "inherit"}}>
               Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " ⇄ " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " ⇄ ")}
             </span>

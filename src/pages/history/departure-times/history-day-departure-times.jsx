@@ -97,15 +97,15 @@ export default function HistoryDayDepartureTimes() {
   else if (departureTimeDateIsValid && departureTimeMomentInstance.isValid()) {
     return (
       <AnimatedComponents>
-        <h1 className={"m-0 p-0"}><span className={"text-body-secondary fw-normal"}>Histórico de horários</span></h1>
+        <h1 className={"m-0 p-0"}><span className={"text-body-secondary"}>Histórico de horários</span></h1>
         <Link to={`/lines/${lineId}`} className={"text-decoration-none"}>
-          <Title type={"h2"} classX=" fs-3 d-inline mt-1 p-0 d-block mb-0 fw-normal">
+          <Title type={"h2"} classX=" fs-3 d-inline mt-1 p-0 d-block mb-0">
             <span className="d-block text-body-emphasis" style={{fontSize: "inherit"}}>Linha {(lineData?.[0]?.["line_number"] + " - " + lineData?.[0]?.["departure_location"] + " ⇄ " + lineData?.[0]?.["destination_location"] || "")?.replaceAll("/", " ⇄ ")}</span>
           </Title>
         </Link>
         
         <h1 className={"m-0 p-0"}>
-          <span className="d-block fw-normal fs-6 text-body-secondary mt-2 mb-3" style={{fontSize: "inherit"}}>Snapshot dos horários de partida em {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}</span>
+          <span className="d-block fs-6 text-body-secondary mt-2 mb-3" style={{fontSize: "inherit"}}>Snapshot dos horários de partida em {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}</span>
         </h1>
         
         <Alert variant={"warning"}>
