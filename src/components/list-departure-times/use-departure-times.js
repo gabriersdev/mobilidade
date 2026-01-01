@@ -79,9 +79,7 @@ const useDepartureTimes = (line_id, variant) => {
       const newDataThinking = data.map((d) => {
         const originalDepartureTime = moment(`2020-01-01T${d?.["departure_time"] || "05:00:00"}`);
         const time = originalDepartureTime.isValid() ? +(originalDepartureTime.format("HH")) : 5;
-        if (time >= 0 && time < 3) {
-          return {...d, observations: [...(d.observations ? d.observations : []), {"abrev": "NOT", "label": "Horário noturno. Veículo com capacidade reduzida e itinerário pode ser diferente do normal.", index: 14780142}]}
-        }
+        if (time >= 0 && time < 3) return {...d, observations: [...(d.observations ? d.observations : []), {"abrev": "NOT", "label": "Horário noturno. Veículo com capacidade reduzida e itinerário pode ser diferente do normal.", index: 14780142}]}
         return d;
       });
       // console.log(newDataThinking);

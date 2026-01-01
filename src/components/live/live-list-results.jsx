@@ -71,9 +71,9 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
                             <span>
                             {
                               configs?.["showAdditionalInfo"] && (
-                                <span className={"fs-initial fw-normal d-flex flex-wrap gap-1 opacity-75"}>
-                                  <i className={"fst-normal fw-normal text-sml"}>Sentido {Util.directionToText(d?.["direction"] ?? -1)?.toLowerCase()}.</i>
-                                  <i className={"fst-normal fw-normal text-sml"}>Partida às {moment(d?.["departure_time_trip"]).format("HH:mm")}.</i>
+                                <span className={"fs-initial d-flex flex-wrap gap-1 opacity-75"}>
+                                  <i className={"fst-normal text-sml"}>Sentido {Util.directionToText(d?.["direction"] ?? -1)?.toLowerCase()}.</i>
+                                  <i className={"fst-normal text-sml"}>Partida às {moment(d?.["departure_time_trip"]).format("HH:mm")}.</i>
                                 </span>
                               )
                             }

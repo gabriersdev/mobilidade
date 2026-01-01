@@ -9,6 +9,9 @@ import Accordion from "../ui/accordion/accordion.jsx";
 import {Theme} from "../ui/theme-context/theme-context.jsx";
 import {TimeContext} from "./departure-time-context.jsx";
 import NoDepartureTimes from "./no-departure-times.jsx";
+import {Badge} from "react-bootstrap";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 moment.locale("pt-br");
 
@@ -20,6 +23,7 @@ const AccordionOperationDays = () => {
   
   // 1. Criar estados para o conteúdo assíncrono e a chave padrão do accordion
   const [accordionItems, setAccordionItems] = useState(null);
+  const [accordionKey, setAccordionKey] = useState(0);
   
   // 2. Usar useEffect para processar os dados de forma assíncrona
   useEffect(() => {
@@ -38,8 +42,8 @@ const AccordionOperationDays = () => {
       );
       
       // Define a chave do accordion que deve vir aberta
-      if (defaultIndex !== -1) setDefaultEventKey([defaultIndex.toString()]);
-      else setDefaultEventKey([]);
+      const newDefaultKey = defaultIndex !== -1 ? [defaultIndex.toString()] : [];
+      setDefaultEventKey(newDefaultKey);
       
       const content = daysForDirection.map((day, j) => {
         const dayConverted = convertedDayNames[j] || "Dia inválido";
@@ -55,12 +59,27 @@ const AccordionOperationDays = () => {
         
         const className = classes.join(' ');
         
+        const isToday = defaultIndex === j;
+        
         return (
           <div key={j}>
             {/* componente separado para garantir re-render com mudanças no contexto */}
             <NoDepartureTimes isFirst={j === 0}/>
             <div>
-              <AccordionItem title={dayConverted} eventKey={j.toString()} className={className}>
+              <AccordionItem title={(
+                <span>
+                  {dayConverted}{" "}
+                  {isToday && (
+                    <OverlayTrigger overlay={
+                      <Tooltip>
+                        <span className={"text-sml"}>Este é o itinerário de hoje</span>
+                      </Tooltip>
+                    }>
+                      <Badge bg={"secondary"} className={"rounded-pill border"}>HOJE</Badge>
+                    </OverlayTrigger>
+                  )}
+                </span>
+              )} eventKey={j.toString()} className={className}>
                 <Table
                   content={{
                     data: departureTimesDay.map((item) => ({
@@ -74,7 +93,7 @@ const AccordionOperationDays = () => {
                   tableIndex={j}
                 />
                 <Legend items={observations} type={type || "current"}/>
-                <span className={"d-inline-block text-muted mt-4"}>
+                <span className={"text-body-secondary mt-4 text-sml"}>
                   {departureTimesDay.length.toLocaleString()} horários de partidas no horário de {dayConverted.substring(0, 1).toLowerCase() + dayConverted.substring(1)}.
                 </span>
               </AccordionItem>
@@ -84,12 +103,13 @@ const AccordionOperationDays = () => {
       });
       
       setAccordionItems(content);
+      setAccordionKey(prev => prev + 1);
     };
     
     generateContent().then(() => {
     });
     // A dependência garante que o efeito rode quando os dados do contexto mudarem
-  }, [uniqueDaysForDirection, direction, directionName]);
+  }, [uniqueDaysForDirection, direction, directionName, departureTimes, observations, index, scope]);
   // deps: uniqueDaysForDirection, direction, directionName, index, setDefaultEventKey, departureTimes, observations
   
   if (!accordionItems) {
@@ -98,7 +118,7 @@ const AccordionOperationDays = () => {
   
   // Renderize o accordion com os dados do estado
   return (
-    <Accordion defaultEventKey={defaultEventKey || ["0"]}>
+    <Accordion defaultEventKey={defaultEventKey || ["0"]} key={accordionKey}>
       {accordionItems}
     </Accordion>
   );

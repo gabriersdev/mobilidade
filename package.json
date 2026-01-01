@@ -1,7 +1,7 @@
 {
   "name": "mobilidade",
   "private": true,
-  "version": "1.17.0",
+  "version": "1.19.2",
   "type": "module",
   "homepage": "https://gabriersdev.github.io/mobilidade",
   "scripts": {
@@ -40,6 +40,7 @@
     "react-input-mask": "^2.0.4",
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^7.7.1",
+    "rolldown": "^1.0.0-beta.58",
     "rollup-plugin-terser": "^7.0.2",
     "vercel": "^49.2.0"
   },
@@ -59,6 +60,13 @@
     "rollup-plugin-visualizer": "^5.14.0",
     "terser": "^5.39.2",
     "vite": "^7.2.2"
+  },
+  "overrides": {
+    "qs": "^6.14.1",
+    "undici": "^5.28.5",
+    "esbuild": "^0.25.0",
+    "path-to-regexp": "^6.3.0",
+    "rolldown": "^1.0.0-beta.58"
   },
   "sideEffects": [
     "bootstrap/dist/js/bootstrap.bundle.min.js"

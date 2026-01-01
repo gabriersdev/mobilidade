@@ -24,6 +24,7 @@ import ListRechargePoints from "../list-recharge-points/list-recharge-points.jsx
 import AnimatedComponents from "../ui/animated-component/animated-component.jsx";
 import {ListDepartureTimes} from "../list-departure-times/list-departure-times.jsx";
 import {ListDeparturePoints} from "../list-departure-points/list-departure-points.jsx";
+import Grid from "../../components/ui/grid/grid.jsx";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -156,19 +157,16 @@ const Line = ({id}) => {
                 <AnimatedComponents>
                   <LineIdentification line={data[0]}/>
                   
-                  <div className={"d-flex flex-column gap-3 mt-3"}>
-                    {data[0].observations ? (
-                      <AnimatedComponents>
-                        <Alert variant={'secondary'} margin={"mt-3 mb-0"}>
-                          <span>{data[0].observations}</span>
-                        </Alert>
-                      </AnimatedComponents>
-                    ) : ""
-                    }
+                  <Grid className={"align-items-stretch mt-5 w-100"}>
+                    {data[0].observations && (
+                      <Alert variant={'secondary'} margin={"m-0"}>
+                        <span>{data[0].observations}</span>
+                      </Alert>
+                    )}
                     <Weather/>
                     <ListLineWarnings line_id={data[0].line_id}/>
                     <ShowHolidayInfo scope={data[0].scope}/>
-                  </div>
+                  </Grid>
                 </AnimatedComponents>
               </section>
               
@@ -210,7 +208,7 @@ const Line = ({id}) => {
                     <p className={"m-0 text-white"}>{Util.resumeInfoLine({})}</p>
                   </div>
                 </div>
-                <div className={"mt-3 d-flex gap-3 flex-wrap"}>
+                <div className={"mt-3 d-flex column-gap-3 row-gap-1 flex-wrap"}>
                   <Link to={`/history/departure-times/${id}`} className={"text-decoration-none"}>Histórico de horários</Link>
                   <span className={"text-body-tertiary fw-light d-inline-flex align-items-center justify-content-center"}><i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i></span>
                   <Link to={`/history/fares/${id}`} className={"text-decoration-none"}>Histórico de tarifas</Link>
@@ -218,17 +216,25 @@ const Line = ({id}) => {
                   <Link to={`/history/departure-points/${id}`} className={"text-decoration-none"}>Histórico de pontos de paradas</Link>
                 </div>
                 <div className={"mt-5 d-flex flex-column gap-3"}>
-                  <LiveBanner/>
-                  <GuideBanner/>
-                  <NewsBanner/>
+                  <Grid className={"align-items-stretch overflow-x-scroll"}>
+                    <LiveBanner/>
+                    <GuideBanner/>
+                    <NewsBanner/>
+                  </Grid>
                 </div>
                 <div className={"mt-5"}>
                   <p className={"mb-0 text-muted"}>
                     <i className="bi bi-eye-fill"></i> {(Util.greaterThan(data?.["0"]?.["count_access"] ?? 10, 10, 10)).toLocaleString("pt-BR")} visualizações
                   </p>
                   <details className={"text-muted d-inline-block mb-0"}>
-                    <summary>Informações carregadas em {renderText(moment().format("DD/MM/YYYY"))} às {moment().format("HH") + "h" + moment().format("mm") + "m"}.</summary>
-                    <p className={"mb-0 text-body-tertiary"}>
+                    <summary className={""}>
+                      <div className={"mt-1"}>
+                        <p className={"text-sml line-clamp-1 p-0 m-0"}>
+                          Informações carregadas em {renderText(moment().format("DD/MM/YYYY"))} às {moment().format("HH") + "h" + moment().format("mm") + "m"}.
+                        </p>
+                      </div>
+                    </summary>
+                    <p className={"mb-0 text-body-tertiary  text-sml"}>
                       {renderText(moment().format("DD/MM/YYYY HH:mm:ss"))} {"- Horário de Brasília"}
                     </p>
                   </details>

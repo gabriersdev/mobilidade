@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import "./grid.css";
 
-const Grid = ({classes, children, variant}) => {
-  return <div className={(classes ? `grid ${classes !== 'main' ? classes : ""}` : "grid") + (variant ? ` ${variant}` : "")}>{children}</div>;
+const Grid = ({className, children, variant}) => {
+  return <div className={(className ? `grid ${className !== 'main' ? className : ""}` : "grid") + (variant ? ` ${variant}` : "")}>{children}</div>;
 }
 
 Grid.propTypes = {
-  classes: PropTypes.string, children: PropTypes.node,
+  className: PropTypes.string, children: PropTypes.node,
   variant: PropTypes.string
 };
 

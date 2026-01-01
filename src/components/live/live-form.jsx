@@ -9,7 +9,7 @@ export function LiveFormLines({lines, setLineSelected}) {
     <div className={"d-none"}>
       <AnimatedComponents>
         <FormGroup>
-          <FormLabel column={"lg"} className={"fw-normal w-100"}>
+          <FormLabel column={"lg"} className={"w-100"}>
             <GenericCombobox
               items={lines}
               itemToString={(item) => (item ? item.name : '')}
@@ -29,7 +29,7 @@ export function LiveFormDeparturePoints({departurePoints, setDeparturePointSelec
   return (
     <AnimatedComponents>
       <FormGroup>
-        <FormLabel column={"lg"} className={"fw-normal w-100"}>
+        <FormLabel column={"lg"} className={"w-100"}>
           <GenericCombobox
             items={departurePoints}
             itemToString={(item) => (item ? item.name : '')}

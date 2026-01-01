@@ -255,7 +255,7 @@ export default class Util {
       if (part.includes("/")) {
         const [before, after] = part.split("/")
         
-        parts.push(<span key={`${keyPrefix}-a-${key++}`}><i className={"fst-normal fw-normal"}>{before}</i><Arial>/</Arial><i className={"fst-normal fw-normal"}>{after}</i></span>);
+        parts.push(<span key={`${keyPrefix}-a-${key++}`}><i className={"fst-normal"}>{before}</i><Arial>/</Arial><i className={"fst-normal"}>{after}</i></span>);
       } else {
         parts.push(<span key={`${keyPrefix}-s-${key++}`}>{part}</span>);
       }

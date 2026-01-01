@@ -1,5 +1,12 @@
 export default [
   {
+    label: "Noturno",
+    abrev: (
+      <span style={{fontSize: "0.75rem"}}>NOT</span>
+    ),
+    color: "primary"
+  },
+  {
     label: "Saí em até 15 minutos",
     abrev: (
       <span className={"text-sml"}>

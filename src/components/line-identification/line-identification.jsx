@@ -14,6 +14,7 @@ import LineInfo from "../line-info/line-info.jsx";
 import ReportModal from "../report/report-modal.jsx";
 import MonitorModal from "../monitor/monitor-modal.jsx";
 import LineIdentificationCompanyLogo from "./line-identification-company-logo.jsx";
+import SeeMore from "../../components/ui/see-more/see-more.jsx";
 
 moment.locale("pt-BR");
 
@@ -129,7 +130,7 @@ const LineIdentification = ({line}) => {
   ), [aircon, airsuspension, bench, fleet, teraflex]);
   
   return (
-    <div className="d-flex flex-column gap-3">
+    <div className="d-flex flex-column">
       <div className={"d-flex align-items-start flex-wrap gap-3 justify-content-between flex-column flex-column-reverse flex-lg-row"}>
         <div>
           <hgroup className="d-flex align-items-center gap-2 flex-wrap mb-0">
@@ -150,125 +151,127 @@ const LineIdentification = ({line}) => {
         <LineIdentificationCompanyLogo companyId={line.company_id}/>
       </div>
       
-      <div className={"d-flex flex-column"}>
-        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-1" style={{maxWidth: "600px"}}>
-          <Link className={"text-decoration-none"} to={"/search/?term=" + (
-            lineType.toLowerCase().includes("executivo") || lineType.toLowerCase().includes("seletivo") ? "bandeirante" :
-              lineType.toLowerCase().includes("coletivo") ? "coletivo" : lineType
-          )}>
-            <LineInfo label={{ref: 'Tipo da Linha', value: lineType}}>
-              <i className="bi bi-record-circle red"></i>
-            </LineInfo>
-          </Link>
-          <Link className={"text-decoration-none"} to={"/search/?term=" + scope}>
-            <LineInfo label={{ref: 'Grupo de atendimento', value: scope}}>
-              <i className="bi bi-building red"></i>
-            </LineInfo>
-          </Link>
-          <LineInfo label={{ref: 'Integração com outras Linhas ou Modais', value: hasIntegration}}>
-            <i className="bi bi-train-front-fill purple"></i>
-          </LineInfo>
-          
-          {
-            accessibility === 1 && (
-              <OverlayTrigger trigger="click" placement="auto" overlay={accessibilityPopover}>
-                <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
-                  <i className="bi bi-person-wheelchair text-warning"></i>
-                  Acessível
-                  <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
-                </div>
-              </OverlayTrigger>
-            )
-          }
-          
-          <OverlayTrigger trigger="click" placement="auto" overlay={comfortPopover}>
-            <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
-              <i className="bi bi-star-fill text-primary"></i>
-              Confortável
-              <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
-            </div>
-          </OverlayTrigger>
-          
-          <LineInfo label={{ref: 'Tarifa', value: fare}}>
-            <i className="bi bi-cash-coin naval-blue"></i>
-          </LineInfo>
-          <Link to={`/company/${line.company_id}`} className={"text-decoration-none"}>
-            <LineInfo label={{ref: 'Companhia', value: line.company_name}}>
-              <i className="bi bi-buildings green-sheets"></i>
-            </LineInfo>
-          </Link>
-          <Link className={"text-decoration-none text-body"} to={"#partidas"}>
-            <LineInfo label={{ref: "Horários", value: ""}}>
-              <i className="bi bi-calendar-date d-inline-block"></i>
-              <span className={"ms-2"}>{countDepartureTimes.toLocaleString() || "Nenhuma"} {countDepartureTimes > 1 ? "partidas" : "partida"}</span>
-            </LineInfo>
-          </Link>
-        </div>
-        <div className="d-flex align-items-center gap-1 flex-wrap mb-3 order-3">
-          {
-            reportContact ? (
-              <Badge className={"fw-normal rounded-5 bg-warning p-0"}>
-                <Link className={"btn pv-05 d-inline-block text-black text-decoration-none border-0 outline-none"} to={reportContact || "#"} target="_blank" rel="noopener noreferrer">
-                  <span className={"me-1"}>Reclamar</span>
-                  <i className="bi bi-arrow-up-right-square"></i>
-                </Link>
-              </Badge>
-            ) : ""
-          }
-          
-          <ReportModal/>
-          <MonitorModal/>
-          
-          <Badge className={"fw-normal rounded-5 bg-primary-subtle p-0"}>
-            <button
-              ref={btnShareRef}
-              className={"btn pv-05 m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2 border-0 outline-none"}
-              style={{lineHeight: "normal"}}
-              onClick={async () => {
-                if (navigator.share) {
-                  try {
-                    await navigator.share({
-                      title: document.title || `Linha ${line.line_number} | ${line.line_name}`,
-                      text: "Confira as informações da linha: horários de partida, pontos de recarga e parada, valor da tarifa, integração, compania entre outros.",
-                      url: window.location.href
-                    });
-                    console.log("Conteúdo compartilhado com sucesso!");
-                  } catch (error) {
-                    // if (!error.toString().includes("Share canceled")) alert("Erro ao compartilhar:" + error);
-                    console.log(error.toString());
-                  }
-                } else {
-                  await navigator.clipboard.writeText(window.location.href);
-                  
-                  if (Notification.permission === "granted") {
-                    setMessageTooltip("Link copiado!")
-                    setShowTooltip(true);
-                  } else if (Notification.permission !== "denied") {
-                    Notification.requestPermission().then(permission => {
-                      if (permission === "granted") {
-                        new Notification("Link copiado!");
-                      }
-                    });
-                  }
-                }
-              }}
-            >
-              <span>Compartilhar</span>
-              <i className="bi bi-share"></i>
-            </button>
-          </Badge>
-        </div>
-        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 order-2">
-          {
-            datetimeLastModify && (<div className={"d-flex align-items-center gap-3 flex-wrap"}>
-              <LineInfo label={{ref: 'Última atualização', value: ""}}>
-                <i className="bi bi-stopwatch"></i>
-                <span className={"ms-1"}>Infos. atualizadas {Util.renderText(Util.diffToHuman(datetimeLastModify))}</span>
+      <SeeMore mobileOnly={true} height={200}>
+        <div className={"d-flex flex-column gap-3 mt-5"}>
+          <div className="d-flex align-items-center gap-3 flex-wrap order-1" style={{maxWidth: "600px"}} >
+            <Link className={"text-decoration-none"} to={"/search/?term=" + (
+              lineType.toLowerCase().includes("executivo") || lineType.toLowerCase().includes("seletivo") ? "bandeirante" :
+                lineType.toLowerCase().includes("coletivo") ? "coletivo" : lineType
+            )}>
+              <LineInfo label={{ref: 'Tipo da Linha', value: lineType}}>
+                <i className="bi bi-record-circle red"></i>
               </LineInfo>
-            </div>)
-          }
+            </Link>
+            <Link className={"text-decoration-none"} to={"/search/?term=" + scope}>
+              <LineInfo label={{ref: 'Grupo de atendimento', value: scope}}>
+                <i className="bi bi-building red"></i>
+              </LineInfo>
+            </Link>
+            <LineInfo label={{ref: 'Integração com outras Linhas ou Modais', value: hasIntegration}}>
+              <i className="bi bi-train-front-fill purple"></i>
+            </LineInfo>
+            
+            {
+              accessibility === 1 && (
+                <OverlayTrigger trigger="click" placement="auto" overlay={accessibilityPopover}>
+                  <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
+                    <i className="bi bi-person-wheelchair text-warning"></i>
+                    Acessível
+                    <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
+                  </div>
+                </OverlayTrigger>
+              )
+            }
+            
+            <OverlayTrigger trigger="click" placement="auto" overlay={comfortPopover}>
+              <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
+                <i className="bi bi-star-fill text-primary"></i>
+                Confortável
+                <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
+              </div>
+            </OverlayTrigger>
+            
+            <LineInfo label={{ref: 'Tarifa', value: fare}}>
+              <i className="bi bi-cash-coin naval-blue"></i>
+            </LineInfo>
+            <Link to={`/company/${line.company_id}`} className={"text-decoration-none"}>
+              <LineInfo label={{ref: 'Companhia', value: line.company_name}}>
+                <i className="bi bi-buildings green-sheets"></i>
+              </LineInfo>
+            </Link>
+            <Link className={"text-decoration-none text-body"} to={"#partidas"}>
+              <LineInfo label={{ref: "Horários", value: ""}}>
+                <i className="bi bi-calendar-date d-inline-block"></i>
+                <span className={"ms-2"}>{countDepartureTimes.toLocaleString() || "Nenhuma"} {countDepartureTimes > 1 ? "partidas" : "partida"}</span>
+              </LineInfo>
+            </Link>
+          </div>
+          <div className="d-flex align-items-center gap-2 flex-wrap order-3">
+            {
+              reportContact ? (
+                <Badge className={"rounded-5 bg-warning p-0"}>
+                  <Link className={"btn pv-05 d-inline-block text-black text-decoration-none border-0 outline-none"} to={reportContact || "#"} target="_blank" rel="noopener noreferrer">
+                    <span className={"me-1"}>Reclamar</span>
+                    <i className="bi bi-arrow-up-right-square"></i>
+                  </Link>
+                </Badge>
+              ) : ""
+            }
+            
+            <ReportModal/>
+            <MonitorModal/>
+            
+            <Badge className={"rounded-5 bg-primary-subtle p-0"}>
+              <button
+                ref={btnShareRef}
+                className={"btn pv-05 m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2 border-0 outline-none"}
+                style={{lineHeight: "normal"}}
+                onClick={async () => {
+                  if (navigator.share) {
+                    try {
+                      await navigator.share({
+                        title: document.title || `Linha ${line.line_number} | ${line.line_name}`,
+                        text: "Confira as informações da linha: horários de partida, pontos de recarga e parada, valor da tarifa, integração, compania entre outros.",
+                        url: window.location.href
+                      });
+                      console.log("Conteúdo compartilhado com sucesso!");
+                    } catch (error) {
+                      // if (!error.toString().includes("Share canceled")) alert("Erro ao compartilhar:" + error);
+                      console.log(error.toString());
+                    }
+                  } else {
+                    await navigator.clipboard.writeText(window.location.href);
+                    
+                    if (Notification.permission === "granted") {
+                      setMessageTooltip("Link copiado!")
+                      setShowTooltip(true);
+                    } else if (Notification.permission !== "denied") {
+                      Notification.requestPermission().then(permission => {
+                        if (permission === "granted") {
+                          new Notification("Link copiado!");
+                        }
+                      });
+                    }
+                  }
+                }}
+              >
+                <span>Compartilhar</span>
+                <i className="bi bi-share"></i>
+              </button>
+            </Badge>
+          </div>
+          <div className="d-flex align-items-center gap-3 flex-wrap order-2">
+            {
+              datetimeLastModify && (<div className={"d-flex align-items-center gap-3 flex-wrap"}>
+                <LineInfo label={{ref: 'Última atualização', value: ""}}>
+                  <i className="bi bi-stopwatch"></i>
+                  <span className={"ms-1"}>Infos. atualizadas {Util.renderText(Util.diffToHuman(datetimeLastModify))}</span>
+                </LineInfo>
+              </div>)
+            }
+          </div>
         </div>
-      </div>
+      </SeeMore>
     </div>
   )
 }
