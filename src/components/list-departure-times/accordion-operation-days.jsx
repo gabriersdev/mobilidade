@@ -23,6 +23,7 @@ const AccordionOperationDays = () => {
   
   // 1. Criar estados para o conteúdo assíncrono e a chave padrão do accordion
   const [accordionItems, setAccordionItems] = useState(null);
+  const [accordionKey, setAccordionKey] = useState(0);
   
   // 2. Usar useEffect para processar os dados de forma assíncrona
   useEffect(() => {
@@ -41,8 +42,8 @@ const AccordionOperationDays = () => {
       );
       
       // Define a chave do accordion que deve vir aberta
-      if (defaultIndex !== -1) setDefaultEventKey([defaultIndex.toString()]);
-      else setDefaultEventKey([]);
+      const newDefaultKey = defaultIndex !== -1 ? [defaultIndex.toString()] : [];
+      setDefaultEventKey(newDefaultKey);
       
       const content = daysForDirection.map((day, j) => {
         const dayConverted = convertedDayNames[j] || "Dia inválido";
@@ -58,6 +59,8 @@ const AccordionOperationDays = () => {
         
         const className = classes.join(' ');
         
+        const isToday = defaultIndex === j;
+        
         return (
           <div key={j}>
             {/* componente separado para garantir re-render com mudanças no contexto */}
@@ -66,7 +69,7 @@ const AccordionOperationDays = () => {
               <AccordionItem title={(
                 <span>
                   {dayConverted}{" "}
-                  {(defaultEventKey?.toString()?.match(/\d/g).join("") === j.toString()) && (
+                  {isToday && (
                     <OverlayTrigger overlay={
                       <Tooltip>
                         <span className={"text-sml"}>Este é o itinerário de hoje</span>
@@ -100,12 +103,13 @@ const AccordionOperationDays = () => {
       });
       
       setAccordionItems(content);
+      setAccordionKey(prev => prev + 1);
     };
     
     generateContent().then(() => {
     });
     // A dependência garante que o efeito rode quando os dados do contexto mudarem
-  }, [uniqueDaysForDirection, direction, directionName]);
+  }, [uniqueDaysForDirection, direction, directionName, departureTimes, observations, index, scope]);
   // deps: uniqueDaysForDirection, direction, directionName, index, setDefaultEventKey, departureTimes, observations
   
   if (!accordionItems) {
@@ -114,7 +118,7 @@ const AccordionOperationDays = () => {
   
   // Renderize o accordion com os dados do estado
   return (
-    <Accordion defaultEventKey={defaultEventKey || ["0"]}>
+    <Accordion defaultEventKey={defaultEventKey || ["0"]} key={accordionKey}>
       {accordionItems}
     </Accordion>
   );
