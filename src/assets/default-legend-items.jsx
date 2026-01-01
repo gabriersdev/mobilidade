@@ -21,4 +21,11 @@ export default [
     ),
     color: "secondary"
   },
+  {
+    label: "Noturno",
+    abrev: (
+      <span className={"text-sml fw-normal"}>NOT</span>
+    ),
+    color: "primary"
+  },
 ]

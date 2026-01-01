@@ -45,7 +45,7 @@ const BarInfo = () => {
   ))
 }
 
-const NavScrollspy = () => {
+const NavScrollspy = ({closeNav}) => {
   const [elements, setElements] = useState({});
   const [areaFocus, setAreaFocus] = useState(null);
   const variable = useRef(null);
@@ -107,8 +107,19 @@ const NavScrollspy = () => {
     e.preventDefault();
     const el = document.querySelector(`${id}`);
     const navbar = document.querySelector(`nav.navbar`);
+    
+    let offset = navbar.clientHeight;
+    if (closeNav) {
+      closeNav();
+      const toggler = navbar.querySelector('.navbar-toggler');
+      if (toggler && window.getComputedStyle(toggler).display !== 'none') {
+        const brand = navbar.querySelector('.navbar-brand');
+        if (brand) offset = brand.offsetHeight + 20;
+      }
+    }
+    
     window.scrollTo({
-      top: el.offsetTop - navbar.clientHeight,
+      top: el.offsetTop - offset,
       behavior: "smooth"
     });
     window.location.hash = id;
@@ -134,6 +145,8 @@ const Nav = () => {
   const [isInLinePage, setIsInLinePage] = useState(null);
   const formatString = useRef("dddd DD/MM HH[h]mm[min]");
   const [sabaraTime, setSabaraTime] = useState(moment().format(formatString.current));
+  const [expanded, setExpanded] = useState(false);
+  const navbarRef = useRef(null);
   
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -155,6 +168,28 @@ const Nav = () => {
       clearInterval(int);
     }
   }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          setExpanded(false);
+        }
+      },
+      { threshold: 0 }
+    );
+
+    const currentRef = navbarRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, []);
   
   return (
     <>
@@ -162,12 +197,12 @@ const Nav = () => {
         <BarInfo/>
       </AnimatedComponents>
       
-      <div className={`${width > 1200 ? "position-sticky top-0" : ""}`} style={width > 766 ? {zIndex: 200} : {zIndex: 100}}>
+      <div ref={navbarRef} className={`${width > 1200 ? "position-sticky top-0" : ""}`} style={width > 766 ? {zIndex: 200} : {zIndex: 100}}>
         <AnimatedComponents>
-          <Navbar expand="lg" className={`bg-body-tertiary border-bottom ${width > 766 ? "position-sticky top-0" : ""}`}>
+          <Navbar expand="lg" className={`bg-body-tertiary border-bottom ${width > 766 ? "position-sticky top-0" : ""}`} expanded={expanded} onToggle={setExpanded}>
             <Container className="my-1 d-flex align-items-start justify-content-between flex-md-column  align-items-xl-center flex-xl-row w-100 flex-wrap ">
               <div className={"d-flex align-items-center justify-content-between gap-1 flex-row w-100 flex-wrap"}>
-                <Navbar.Brand as={Link} to="./" className={"text-body-secondary me-5 d-flex justify-content-center align-items-center flex-wrap"} style={{letterSpacing: '-0.75px'}}>
+                <Navbar.Brand as={Link} to="./" onClick={() => setExpanded(false)} className={"text-body-secondary me-5 d-flex justify-content-center align-items-center flex-wrap"} style={{letterSpacing: '-0.75px'}}>
                   <img src={'/images/logo-transparent.png'} alt={'Logo'} className={'me-2'} style={{height: '3rem'}}/>
                   <div style={{fontFamily: "'Inter', 'Inter Tight', sans-serif"}} className={"d-flex flex-column"}>
                     <span className={"text-primary d-block"}>Mobilidade</span>
@@ -182,12 +217,12 @@ const Nav = () => {
               </div>
               <Navbar.Collapse id="basic-navbar-nav">
                 <BootstrapNav className={"me-auto w-100 d-flex " + (width > 1200 ? "align-items-center" : "flex-column align-items-start justify-content-end my-3")}>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./">Início</BootstrapNav.Link>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./lines">Linhas</BootstrapNav.Link>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis d-inline-block d-lg-none"} to="./search">Pesquisa</BootstrapNav.Link>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./news">Notícias</BootstrapNav.Link>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./guide">Guia</BootstrapNav.Link>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./live">
+                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./" onClick={() => setExpanded(false)}>Início</BootstrapNav.Link>
+                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./lines" onClick={() => setExpanded(false)}>Linhas</BootstrapNav.Link>
+                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis d-inline-block d-lg-none"} to="./search" onClick={() => setExpanded(false)}>Pesquisa</BootstrapNav.Link>
+                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./news" onClick={() => setExpanded(false)}>Notícias</BootstrapNav.Link>
+                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./guide" onClick={() => setExpanded(false)}>Guia</BootstrapNav.Link>
+                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./live" onClick={() => setExpanded(false)}>
                     <div className={"d-flex align-items-center flex-wrap"}>
                       {moment().diff(moment("2025-11-14T23:59:00"), "minutes") < 0 && (<Badge className={"rounded-pill me-2 text-uppercase fw-bold"} style={{paddingBottom: "4.25px", paddingTop: "4.25px"}}>Novo</Badge>)}
                       <div className={"live-indicator me-1"}>
@@ -204,7 +239,7 @@ const Nav = () => {
                       </p>
                     </Tooltip>
                   }>
-                    <Link to={"/sabara"} className={"d-flex flex-row align-items-center gap-1 text-decoration-none " + (width > 1200 ? "mx-2" : "mt-2 mx-0")}>
+                    <Link to={"/sabara"} onClick={() => setExpanded(false)} className={"d-flex flex-row align-items-center gap-1 text-decoration-none " + (width > 1200 ? "mx-2" : "mt-2 mx-0")}>
                       <span className={"text-body-secondary d-inline-block"}>Sabará</span>
                       <i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i>
                       <div className={"text-body-secondary d-none d-sm-inline-block"}>
@@ -217,10 +252,10 @@ const Nav = () => {
                       </div>
                     </Link>
                   </OverlayTrigger>
-                  <div className={"ms-2"}><InstallPWAButton/></div>
+                  <div className={"ms-2"}><InstallPWAButton onClick={() => setExpanded(false)}/></div>
                   {isInLinePage && width > 766 ? (
                     <div className={width > 991 ? "d-flex flex-wrap justify-content-end flex-grow-1" : ""} id={"nav-scrollspy"}>
-                      <NavScrollspy/>
+                      <NavScrollspy closeNav={() => setExpanded(false)}/>
                     </div>
                   ) : ""
                   }

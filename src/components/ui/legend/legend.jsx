@@ -15,8 +15,8 @@ const Legend = ({items, marginTop, type}) => {
   return (
     (items.length > 0) && (
       <div className={`d-flex flex-wrap align-items-start flex-column gap-2 ${marginTop || 'mt-3'}`}>
-        <span className={"fs-6 fw-normal mb-1 text-body-secondary text-sml"}>Legenda</span>
-        {items.map((item, index) => <LegendItem key={index} i={index} item={item}/>)}
+        <span className={"fw-normal mb-1 text-body-tertiary fs-6"}>Legenda</span>
+        {items.map((item, index) => <LegendItem key={index} i={index} item={item} className={"fw-normal mb-1 text-body-tertiary fs-6"}/>)}
       </div>
     )
   )

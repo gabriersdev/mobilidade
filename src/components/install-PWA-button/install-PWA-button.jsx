@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Nav as BootstrapNav} from "react-bootstrap";
 
-const InstallPWAButton = () => {
+const InstallPWAButton = ({onClick}) => {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [showInstallButton, setShowInstallButton] = useState(false);
   
@@ -27,6 +27,7 @@ const InstallPWAButton = () => {
   }, []);
   
   const handleInstallClick = () => {
+    if (onClick) onClick();
     if (!deferredPrompt) return;
     
     deferredPrompt.prompt();

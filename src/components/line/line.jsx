@@ -216,9 +216,11 @@ const Line = ({id}) => {
                   <Link to={`/history/departure-points/${id}`} className={"text-decoration-none"}>Histórico de pontos de paradas</Link>
                 </div>
                 <div className={"mt-5 d-flex flex-column gap-3"}>
-                  <LiveBanner/>
-                  <GuideBanner/>
-                  <NewsBanner/>
+                  <Grid className={"align-items-stretch overflow-x-scroll"}>
+                    <LiveBanner/>
+                    <GuideBanner/>
+                    <NewsBanner/>
+                  </Grid>
                 </div>
                 <div className={"mt-5"}>
                   <p className={"mb-0 text-muted"}>
