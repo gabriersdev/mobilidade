@@ -32,15 +32,27 @@ const BarInfo = () => {
       new Date().getTime() <= new Date(i.finish).getTime()
   })
   
-  return isValidInfos.map(({title, message}, index) => (
+  const ret = (title, message) => (
+    <details className={"container"} open={show}>
+      <summary className={"fs-6 mb-0 fw-bold text-danger text-balance bar-info-summary sm-text-center"}>
+        <i className="bi bi-exclamation-triangle-fill me-2"></i>
+        {title}
+      </summary>
+      <p className={"fw-light mt-2 mb-0 text-balance sm-text-center text-danger-emphasis"}>{message}</p>
+    </details>
+  )
+  
+  return isValidInfos.map(({title, message, link}, index) => (
     <div className={`py-4 bg-danger-subtle border-bottom border-danger-subtle`} style={infos.length - 1 === index ? {zIndex: 100} : {}} key={index}>
-      <details className={"container"} open={show}>
-        <summary className={"fs-6 mb-0 fw-bold text-danger text-balance bar-info-summary sm-text-center"}>
-          <i className="bi bi-exclamation-triangle-fill me-2"></i>
-          {title}
-        </summary>
-        <p className={"fw-light mt-2 mb-0 text-balance sm-text-center"}>{message}</p>
-      </details>
+      {
+        link ? (
+          <Link to={link} key={index} className={'text-decoration-none'}>
+            {ret(title, message)}
+          </Link>
+        ) : (
+          <>{ret(title, message)}</>
+        )
+      }
     </div>
   ))
 }
@@ -168,7 +180,7 @@ const Nav = () => {
       clearInterval(int);
     }
   }, []);
-
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -176,14 +188,14 @@ const Nav = () => {
           setExpanded(false);
         }
       },
-      { threshold: 0 }
+      {threshold: 0}
     );
-
+    
     const currentRef = navbarRef.current;
     if (currentRef) {
       observer.observe(currentRef);
     }
-
+    
     return () => {
       if (currentRef) {
         observer.unobserve(currentRef);

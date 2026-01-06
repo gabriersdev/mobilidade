@@ -29,9 +29,9 @@ const ListPoints = ({data}) => {
                   </>
                 )}
               >
-                <p className={"m-0 p-0 d-inline"}>
+                <span className={"m-0 p-0 d-inline"}>
                   {rechargePoint.observations || "Não há observações sobre este ponto de recarga. Para maiores informações entre em contato com o estabelecimento do ponto de recarga."}
-                </p>
+                </span>
               </Card>
             </a>
           )
