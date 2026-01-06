@@ -8,6 +8,7 @@ import {AnimatePresence} from "framer-motion";
 import './list-line-warnings.css'
 import AnimatedComponent from "../ui/animated-component/animated-component.jsx";
 import config from '../../assets/config.js'
+import Util from "../../assets/Util.jsx"
 
 const ListLineWarnings = ({line_id}) => {
   const [data, setData] = useState([])
@@ -44,13 +45,13 @@ const ListLineWarnings = ({line_id}) => {
   const getValidWarnings = (warnings) => {
     // Verifica se o aviso está dentro do período de validade
     return warnings.filter(warning => {
-      const now = new Date()
-      const mNow = moment()
+      const now = new Date();
+      const mNow = moment();
       
       // Só precisa do horário, por isso o ano é definido pelo ano atual. A data fica algo assim: 20XX-01-01 HH:MM:SS
-      const timeNow = new Date(`${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`)
+      const timeNow = new Date(`${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`);
       
-      const frequency = parseInt(warning.frequency, 10)
+      const frequency = parseInt(warning.frequency, 10);
       
       // Só precisa do horário, por isso o ano é definido pelo ano atual. A data fica algo assim: 20XX-01-01 HH:MM:SS
       const timeInit = new Date(`${new Date().getFullYear()} ${warning?.["time_init"]}`);
@@ -136,9 +137,9 @@ const ListLineWarnings = ({line_id}) => {
                           </span>
                         </p>
                       </summary>
-                      <p className={"p-0 mt-2 mb-0 text-balance"}>
-                        {warning.text.endsWith('.') ? warning.text : `${warning.text}.`}
-                      </p>
+                      <div className={"p-0 mt-2 mb-0 text-balance"}>
+                        {warning.text.endsWith('.') ? Util.renderText(warning.text) : <>{Util.renderText(warning.text)}</>}
+                      </div>
                     </details>
                     <Button
                       className={"m-0 p-0 bg-transparent border-0 text-warning-emphasis rounded-1"}
