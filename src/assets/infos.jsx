@@ -10,12 +10,11 @@ export default [
     init: "2025-06-30T00:00:00-03:00",
     finish: "2025-07-10T00:00:00-03:00",
   }, {
-    // TODO - link para matéria
-    title: "Reajuste nas tarifas do sistema Municipal e Metropolitano",
-    message: (<>As tarifas das linhas do sistema foram reajustadas. Média 6.5% para mais. Confira agora.</>),
-    // ATT - definir ano para 2025
-    init: "3026-01-01T00:00:00-03:00",
-    finish: "3026-01-15T00:00:00-03:00",
+    title: "Reajuste nas tarifas do sistema metropolitano",
+    message: (<>Reajuste foi de quase 9% - o dobro da inflação. Confira aqui.</>),
+    link: "/news/6",
+    init: "2026-01-01T00:00:00-03:00",
+    finish: "2026-01-25T00:00:00-03:00",
   }, {
     // TODO - link para matéria
     title: "Novas linhas de novas cidades: Caeté e Nova Lima",

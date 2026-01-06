@@ -14,7 +14,7 @@ function AccordionItem({title, children, eventKey, className}) {
 }
 
 AccordionItem.propTypes = {
-  title: PropTypes.shape([PropTypes.string, PropTypes.node]).isRequired,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.object]).isRequired,
   children: PropTypes.node.isRequired,
   eventKey: PropTypes.string.isRequired,
   className: PropTypes.string
