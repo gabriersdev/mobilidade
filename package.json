@@ -39,7 +39,7 @@
     "react-dom": "^18.2.0",
     "react-input-mask": "^2.0.4",
     "react-leaflet": "^4.2.1",
-    "react-router-dom": "^7.7.1",
+    "react-router-dom": "^7.12.0",
     "rolldown": "^1.0.0-beta.58",
     "rollup-plugin-terser": "^7.0.2",
     "vercel": "^49.2.0"
