@@ -416,4 +416,12 @@ export default class Util {
     
     return days[weekDay.toLowerCase()] || weekDay;
   }
+
+  static parseDatetimeTimezone(d) {
+    return {
+      ...d,
+      "departure_time_trip": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["departure_time_trip"].replace("Z", "-03:00") : d?.["departure_time_trip"],
+      "expected_arrival_time": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["expected_arrival_time"].replace("Z", "-03:00") : d?.["expected_arrival_time"],
+    }
+  }
 }

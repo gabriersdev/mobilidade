@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import moment from "moment";
 import config from "../../assets/config.js";
+import Util from "../../assets/Util.jsx";
 
 moment.locale("pt-BR");
 
@@ -39,16 +40,6 @@ const useSuggestLabel = () => {
     fetchStops().then();
   }, []);
 
-  // TODO - código duplicado! reutilizar aqui e na outra fonte: use-live-component.js
-  const parseDatetimeTimezone = useCallback((d) => {
-    return {
-      ...d,
-      "departure_time_trip": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["departure_time_trip"].replace("Z", "-03:00") : d?.["departure_time_trip"],
-      "expected_arrival_time": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["expected_arrival_time"].replace("Z", "-03:00") : d?.["expected_arrival_time"],
-    }
-  }, []);
-  // Código duplicado acaba aqui...
-  
   const fetchData = useCallback(async () => {
     if (!selectedStop) return;
 
@@ -60,7 +51,7 @@ const useSuggestLabel = () => {
       const axiosMainData = response?.data[0]?.[0]?.[0]?.["get_arrival_predictions(?, ?)"];
       
       if (Array.isArray(axiosMainData)) {
-        const parsedData = JSON.parse(JSON.stringify(axiosMainData)).map(parseDatetimeTimezone);
+        const parsedData = JSON.parse(JSON.stringify(axiosMainData)).map(Util.parseDatetimeTimezone);
         setData(parsedData);
       } else {
         setData([]);
@@ -69,7 +60,7 @@ const useSuggestLabel = () => {
       console.error("Error fetching predictions:", error);
       setData([]);
     }
-  }, [selectedStop, parseDatetimeTimezone]);
+  }, [selectedStop]);
 
   // Update busTimes based on data and now
   useEffect(() => {

@@ -62,14 +62,6 @@ const useLiveComponent = () => {
     });
   }, []);
   
-  const parseDatetimeTimezone = useCallback((d) => {
-    return {
-      ...d,
-      "departure_time_trip": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["departure_time_trip"].replace("Z", "-03:00") : d?.["departure_time_trip"],
-      "expected_arrival_time": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["expected_arrival_time"].replace("Z", "-03:00") : d?.["expected_arrival_time"],
-    }
-  }, []);
-  
   const fetchData = async (departurePointSelected) => {
     // Força a perda de foco de todos os inputs
     document.querySelectorAll("input")?.forEach(i => i.blur());
@@ -91,13 +83,13 @@ const useLiveComponent = () => {
     const axiosNextDepartureTimes = s?.data[1]?.[0]?.[0]?.["@out"];
     
     if (Array.isArray(axiosMainData)) {
-      setData(JSON.parse(JSON.stringify(axiosMainData)).map(parseDatetimeTimezone));
+      setData(JSON.parse(JSON.stringify(axiosMainData)).map(Util.parseDatetimeTimezone));
     } else {
       setData([]);
     }
 
     if (Array.isArray(JSON.parse(axiosNextDepartureTimes))) {
-      setDataNextDepartureTimes(JSON.parse(axiosNextDepartureTimes).map(parseDatetimeTimezone));
+      setDataNextDepartureTimes(JSON.parse(axiosNextDepartureTimes).map(Util.parseDatetimeTimezone));
     } else {
       setDataNextDepartureTimes([]);
     }

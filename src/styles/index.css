@@ -31,6 +31,18 @@ main {
   min-height: calc(100vh - 80px);
 }
 
+.line-clamp-w-250 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: horizontal;
+  width: 300px;
+  max-width: 250px;
+  text-align: left !important;
+}
+
 .line-clamp-1 {
   overflow: hidden;
   text-overflow: ellipsis;
