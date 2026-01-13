@@ -19,7 +19,7 @@ const SearchLinks = () => {
           </Link>
         ))
       }
-      <span className={"text-body-tertiary fw-light"}>|</span>
+      <span className={"text-body-tertiary"}>|</span>
       {
         [...["Pompeu", "Morada da Serra", "Paciência", 4993, 4991, 4988, 4987, 4970, 4925, 4920, 4900, 4676, 4600].map(i => [i])].map((item, index) => (
           <Link key={index} to={(item[0].toString().match(/\d/g)) ? ((item[0].toString().match(/\d/g).join('').length === item[0].toString().length) ? "/search/?term=" + item[0] : "/search/?term=" + item[0].toLowerCase()) : "/search/?term=" + item[0].toLowerCase()} className={"cursor-pointer"}>

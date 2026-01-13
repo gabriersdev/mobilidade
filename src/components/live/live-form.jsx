@@ -35,7 +35,7 @@ export function LiveFormDeparturePoints({departurePoints, setDeparturePointSelec
             itemToString={(item) => (item ? item.name : '')}
             onSelectedItemChange={setDeparturePointSelected}
             label="Ponto de parada"
-            placeholder="Selecione uma ponto"
+            placeholder="Selecione um ponto"
             required={true}
           />
         </FormLabel>

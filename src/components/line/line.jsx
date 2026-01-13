@@ -210,9 +210,9 @@ const Line = ({id}) => {
                 </div>
                 <div className={"mt-3 d-flex column-gap-3 row-gap-1 flex-wrap"}>
                   <Link to={`/history/departure-times/${id}`} className={"text-decoration-none"}>Histórico de horários</Link>
-                  <span className={"text-body-tertiary fw-light d-inline-flex align-items-center justify-content-center"}><i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i></span>
+                  <span className={"text-body-tertiaryd-inline-flex align-items-center justify-content-center"}><i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i></span>
                   <Link to={`/history/fares/${id}`} className={"text-decoration-none"}>Histórico de tarifas</Link>
-                  <span className={"text-body-tertiary fw-light d-inline-flex align-items-center justify-content-center"}><i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i></span>
+                  <span className={"text-body-tertiaryd-inline-flex align-items-center justify-content-center"}><i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i></span>
                   <Link to={`/history/departure-points/${id}`} className={"text-decoration-none"}>Histórico de pontos de paradas</Link>
                 </div>
                 <div className={"mt-5 d-flex flex-column gap-3"}>

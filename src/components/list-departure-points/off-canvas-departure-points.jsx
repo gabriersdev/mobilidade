@@ -12,7 +12,7 @@ const OffCanvasDeparturePoints = () => {
   return (
     <Offcanvas show={show} onHide={handleClose} placement="start">
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title className={"fs-6 fw-light text-muted m-0 p-0"}>Ponto de parada</Offcanvas.Title>
+        <Offcanvas.Title className={"fs-6text-muted m-0 p-0"}>Ponto de parada</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body className={"d-flex flex-column gap-3"}>
         <h3 className={"fs-3 m-0 p-0"}>
@@ -30,7 +30,7 @@ const OffCanvasDeparturePoints = () => {
             src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDLVLgUmpHx7VfSA0qTMhYdKW1SVXKFTak&q=${Util.convertToSafeText(pointDataOffcanvas.address)}cidade+sabara+minas+gerais`}>
           </iframe>
           <Alert variant={"warning"} className={"mt-2"}>
-            <span className={"fw-light"}>
+            <span className={""}>
               A localização do Maps pode não corresponder <b className={"fw-bold"}>exatamente</b> ao endereço do ponto de parada. Use com cautela.
             </span>
           </Alert>
@@ -45,7 +45,7 @@ const OffCanvasDeparturePoints = () => {
           </a>
         </section>
         
-        <p className={"text-muted fw-light"}>
+        <p className={"text-muted"}>
           Este é o ponto de parada
           n.º {pointDataOffcanvas?.["point_order"] + 1} de {pointDataOffcanvas?.["points_length"]} do sentido
         </p>

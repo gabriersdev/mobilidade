@@ -99,7 +99,7 @@ const RenderCompany = () => {
               <span className={"text-body-tertiary"}></span>
               <div className={"d-flex flex-wrap column-gap-2 row-gap-3"}>
                 {linesData ? linesData.map((line, index) => (
-                  <Badge key={index} variant="primary" className={"rounded-5 fw-light text-decoration-none"} style={{letterSpacing: '0.5px'}} as={Link} to={`/lines/${line.line_id}`}>
+                  <Badge key={index} variant="primary" className={"rounded-5text-decoration-none"} style={{letterSpacing: '0.5px'}} as={Link} to={`/lines/${line.line_id}`}>
                     N.º {line.line_number}
                   </Badge>
                 )) : ""}

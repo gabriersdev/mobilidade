@@ -38,7 +38,7 @@ const BarInfo = () => {
         <i className="bi bi-exclamation-triangle-fill me-2"></i>
         {title}
       </summary>
-      <p className={"fw-light mt-2 mb-0 text-balance sm-text-center text-danger-emphasis"}>{message}</p>
+      <p className={"mt-2 mb-0 text-balance sm-text-center text-danger-emphasis"}>{message}</p>
     </details>
   )
   
