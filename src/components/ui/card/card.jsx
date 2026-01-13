@@ -44,7 +44,7 @@ const Card = ({title = "Card Title", subtitle = "Subtitle", badge, link, childre
             <Title type="h2" title={title.trim()} classX={" text-ellipsis-2 text-body"}/>
             {badge}
           </div>
-          <Title type="h2" title={subtitle ? subtitle.trim() : ""} classX={" text-ellipsis-2 text-body-secondary"} color="#4C4C4C"/>
+          <Title type="h2" title={subtitle ? subtitle.trim() : ""} classX={" text-ellipsis-2 text-body-secondary text-balance"} color="#4C4C4C"/>
         </BootstrapCard.Header>
         {children && (
           <BootstrapCard.Body style={{flex: '0 0 auto'}}>

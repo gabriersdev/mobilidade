@@ -1,42 +1,23 @@
-// noinspection JSUnusedAssignment
-
-import PropTypes from "prop-types";
 import moment from "moment";
+import {Tooltip} from 'bootstrap';
 import {Link} from "react-router-dom";
 import {Popover, Badge, OverlayTrigger} from "react-bootstrap";
-import {Tooltip} from 'bootstrap';
-import {useEffect, useMemo, useRef, useState} from "react";
+import {useContext, useEffect, useMemo, useRef, useState} from "react";
 
-import Convert from "../../assets/Convert.js";
 import Util from "../../assets/Util";
 import Title from "../ui/title/title.jsx";
+import Convert from "../../assets/Convert.js";
+import {Context} from "../line/line-context.jsx";
 import LineInfo from "../line-info/line-info.jsx";
 import ReportModal from "../report/report-modal.jsx";
 import MonitorModal from "../monitor/monitor-modal.jsx";
-import LineIdentificationCompanyLogo from "./line-identification-company-logo.jsx";
 import SeeMore from "../../components/ui/see-more/see-more.jsx";
+import LineIdentificationCompanyLogo from "./line-identification-company-logo.jsx";
 
 moment.locale("pt-BR");
 
-// TODO: refatorar e substituir a "passação" de parâmetros entre componentes por useContext
-const LineIdentification = ({line}) => {
-  let [
-    lineType,
-    scope,
-    hasIntegration,
-    fare,
-    countDepartureTimes,
-    reportContact,
-    datetimeLastModify,
-    accessibility,
-    aircon,
-    teraflex,
-    bench,
-    fleet,
-    airsuspension,
-    wifi,
-    conc
-  ] = ['', '', '', 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0];
+const LineIdentification = () => {
+  const {line} = useContext(Context);
   const btnShareRef = useRef(null);
   const [showTooltip, setShowTooltip] = useState(false);
   const [messageTooltip, setMessageTooltip] = useState("");
@@ -44,10 +25,6 @@ const LineIdentification = ({line}) => {
   
   useEffect(() => {
     console.groupCollapsed("[INFO] - Informações da linha");
-    console.log("lineType", lineType);
-    console.log("scope", scope);
-    console.log("hasIntegration", hasIntegration);
-    console.log("fare", fare);
     console.groupEnd();
   }, []);
   
@@ -70,27 +47,27 @@ const LineIdentification = ({line}) => {
       };
     }
   }, [showTooltip]);
+
+  const lineType = line ? Convert.lineType(line.type) : '';
+  const scope = line ? Convert.theScope(line.scope) : '';
+  const accessibility = line?.accessibility ?? "";
+  const aircon = line?.aircon ?? false;
+  const teraflex = line?.teraflex ?? false;
+  const bench = line?.bench ?? false;
+  const fleet = line?.fleet ?? false;
+  const airsuspension = line?.airsuspension ?? false;
+  const wifi = line?.wifi ?? false;
+  const conc = line?.conc ?? false;
   
-  lineType = Convert.lineType(line.type);
-  scope = Convert.theScope(line.scope);
-  accessibility = line?.accessibility ?? ""
-  aircon = line?.aircon ?? false;
-  teraflex = line?.teraflex ?? false;
-  bench = line?.bench ?? false;
-  fleet = line?.fleet ?? false;
-  airsuspension = line?.airsuspension ?? false;
-  wifi = line?.wifi ?? false;
-  conc = line?.conc ?? false;
+  const hasIntegration = line?.has_integration === 1 ? "Possui integração" : "Não possui integração";
   
-  if (line.has_integration === 1) hasIntegration = "Possui integração";
-  else hasIntegration = "Não possui integração";
+  const fare = line && parseFloat(line.fare) === 0 ? "Não informado" : Util.formatMoney(line?.fare)?.replace("R$", "BRL");
   
-  if (parseFloat(line.fare) === 0) fare = "Não informado";
-  else fare = Util.formatMoney(line.fare)?.replace("R$", "BRL");
-  
-  if (line.count_departure_times) countDepartureTimes = line.count_departure_times;
-  if (line.report_contact) reportContact = line.report_contact;
-  if (line.datetime_last_modify) datetimeLastModify = new Date((moment(line.datetime_last_modify || '2021-01-01T00:00:00Z').add(-3, "h")).format("YYYY-MM-DD HH:mm:zz"));
+  const countDepartureTimes = line?.count_departure_times || 0;
+  const reportContact = line?.report_contact;
+  const datetimeLastModify = line?.datetime_last_modify 
+      ? new Date((moment(line.datetime_last_modify).add(-3, "h")).format("YYYY-MM-DD HH:mm:zz")) 
+      : null;
   
   const accessibilityPopover = useMemo(() => (
     <Popover id="popover-basic">
@@ -127,8 +104,10 @@ const LineIdentification = ({line}) => {
         </div>
       </Popover.Body>
     </Popover>
-  ), [aircon, airsuspension, bench, fleet, teraflex]);
+  ), [aircon, airsuspension, bench, fleet, teraflex, conc, wifi]);
   
+  if (!line) return null;
+
   return (
     <div className="d-flex flex-column">
       <div className={"d-flex align-items-start flex-wrap gap-3 justify-content-between flex-column flex-column-reverse flex-lg-row"}>
@@ -274,32 +253,6 @@ const LineIdentification = ({line}) => {
       </SeeMore>
     </div>
   )
-}
-
-LineIdentification.propTypes = {
-  line: PropTypes.shape({
-    line_number: PropTypes.string.isRequired,
-    line_name: PropTypes.string.isRequired,
-    departure_location: PropTypes.string.isRequired,
-    destination_location: PropTypes.string.isRequired,
-    company_name: PropTypes.string.isRequired,
-    company_id: PropTypes.number.isRequired,
-    fare: PropTypes.string.isRequired,
-    has_integration: PropTypes.number.isRequired,
-    scope: PropTypes.number.isRequired,
-    type: PropTypes.number.isRequired,
-    count_departure_times: PropTypes.number.isRequired,
-    report_contact: PropTypes.string,
-    datetime_last_modify: PropTypes.string,
-    accessibility: PropTypes.number,
-    aircon: PropTypes.number,
-    teraflex: PropTypes.number,
-    bench: PropTypes.number,
-    fleet: PropTypes.number,
-    airsuspension: PropTypes.number,
-    wifi: PropTypes.number,
-    conc: PropTypes.number
-  }).isRequired
 }
 
 export default LineIdentification;

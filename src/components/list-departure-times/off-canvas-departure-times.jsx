@@ -26,7 +26,7 @@ const OffCanvasDepartureTimes = () => {
   return (
     <Offcanvas show={show} onHide={handleClose} placement="start">
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title className={"fs-6text-muted m-0 p-0"}>Horário de partida</Offcanvas.Title>
+        <Offcanvas.Title className={"fs-6 text-muted m-0 p-0"}>Horário de partida</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body className={"d-flex flex-column gap-3"}>
         <section>

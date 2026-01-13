@@ -79,8 +79,8 @@ const useSuggestLabel = () => {
         let timeLabel;
         let infoLabel = "aprox.";
         
-        if (d?.["order_departure_point"] === d?.["total_departure_points"]) return
-        else if ([0, 1].includes(d?.["order_departure_point"])) infoLabel = "saí"
+        // if (d?.["order_departure_point"] === d?.["total_departure_points"]) return
+        if ([0, 1].includes(d?.["order_departure_point"])) infoLabel = "sai"
         
         if (diffMinutes <= 0) timeLabel = "agora";
         else timeLabel = `em ${diffMinutes} min`;

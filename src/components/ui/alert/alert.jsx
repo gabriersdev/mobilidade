@@ -62,9 +62,12 @@ const Alert = ({
           setPropOpen(!propOpen)
         }} className={"alert-warning-summary d-flex gap-2"}>
           <span className={"d-block"}>{icon}</span>
-          <div>
+          <div className={"d-flex align-items-center"}>
             <span className={"truncate-w-250 d-block"}>
               {summaryText}
+            </span>
+            <span className="ms-1 d-inline-flex" style={{transform: "rotate(180deg)"}}>
+              <i className="bi bi-arrow-up-short"></i>
             </span>
           </div>
         </summary>

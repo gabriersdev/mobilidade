@@ -150,12 +150,12 @@ const Line = ({id}) => {
     
     return (
       <div className="d-flex flex-column" style={{gap: '3rem'}}>
-        <LineContext>
+        <LineContext line={data[0]}>
           <AnimatedComponents>
             <div className="d-flex flex-column" style={{gap: '3rem'}}>
               <section id={"id"}>
                 <AnimatedComponents>
-                  <LineIdentification line={data[0]}/>
+                  <LineIdentification/>
                   
                   <Grid className={"align-items-stretch mt-5 w-100"}>
                     {data[0].observations && (
