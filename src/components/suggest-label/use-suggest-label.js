@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import moment from "moment";
 import config from "../../assets/config.js";
+import Util from "../../assets/Util.jsx";
 
 moment.locale("pt-BR");
 
@@ -39,16 +40,6 @@ const useSuggestLabel = () => {
     fetchStops().then();
   }, []);
 
-  // TODO - código duplicado! reutilizar aqui e na outra fonte: use-live-component.js
-  const parseDatetimeTimezone = useCallback((d) => {
-    return {
-      ...d,
-      "departure_time_trip": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["departure_time_trip"].replace("Z", "-03:00") : d?.["departure_time_trip"],
-      "expected_arrival_time": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["expected_arrival_time"].replace("Z", "-03:00") : d?.["expected_arrival_time"],
-    }
-  }, []);
-  // Código duplicado acaba aqui...
-  
   const fetchData = useCallback(async () => {
     if (!selectedStop) return;
 
@@ -60,7 +51,7 @@ const useSuggestLabel = () => {
       const axiosMainData = response?.data[0]?.[0]?.[0]?.["get_arrival_predictions(?, ?)"];
       
       if (Array.isArray(axiosMainData)) {
-        const parsedData = JSON.parse(JSON.stringify(axiosMainData)).map(parseDatetimeTimezone);
+        const parsedData = JSON.parse(JSON.stringify(axiosMainData)).map(Util.parseDatetimeTimezone);
         setData(parsedData);
       } else {
         setData([]);
@@ -69,7 +60,7 @@ const useSuggestLabel = () => {
       console.error("Error fetching predictions:", error);
       setData([]);
     }
-  }, [selectedStop, parseDatetimeTimezone]);
+  }, [selectedStop]);
 
   // Update busTimes based on data and now
   useEffect(() => {
@@ -80,21 +71,26 @@ const useSuggestLabel = () => {
 
     // Filter for future arrivals and sort by time
     const times = data
-      .filter(d => moment(d.expected_arrival_time).isAfter(now))
-      .sort((a, b) => moment(a.expected_arrival_time).diff(moment(b.expected_arrival_time)))
+      .filter(d => moment(d?.["expected_arrival_time"]).isAfter(now))
+      .sort((a, b) => moment(a?.["expected_arrival_time"]).diff(moment(b?.["expected_arrival_time"])))
       .slice(0, 3) // Limit to 3 items
       .map((d, index) => {
-        const diffMinutes = moment(d.expected_arrival_time).diff(now, 'minutes');
+        const diffMinutes = moment(d?.["expected_arrival_time"]).diff(now, 'minutes');
         let timeLabel;
+        let infoLabel = "aprox.";
+        
+        if (d?.["order_departure_point"] === d?.["total_departure_points"]) return
+        else if ([0, 1].includes(d?.["order_departure_point"])) infoLabel = "saí"
+        
         if (diffMinutes <= 0) timeLabel = "agora";
         else timeLabel = `em ${diffMinutes} min`;
 
         return {
           id: `${d.line_id}_${index}`,
-          label: `${d.line_number} sai ${timeLabel}`,
+          label: `${d.line_number} ${infoLabel} ${timeLabel}`.replace(/,/, ''),
           link: `/lines/${d.line_id}`
         };
-      });
+      }).filter(d => d);
       
     setBusTimes(times);
 

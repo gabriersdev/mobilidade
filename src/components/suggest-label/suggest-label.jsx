@@ -17,8 +17,8 @@ export default function SuggestLabel() {
       <div className={"bg-body-secondary px-2 py-1 rounded d-flex align-items-center justify-content-between gap-2"}>
         <div className={"text-body-secondary"}>
           <Dropdown>
-            <DropdownToggle variant={"default"} className={"border-0 p-0 m-0 text-body-secondary"}>
-              {selectedStop ? selectedStop.label : "Selecione um ponto"}
+            <DropdownToggle variant={"default"} className={"border-0 p-0 m-0 text-body-secondary line-clamp-w-200"}>
+              <span className={"text-sml"}>{selectedStop ? selectedStop.label : "Selecione um ponto"}</span>
             </DropdownToggle>
             <DropdownMenu style={{maxHeight: "150px"}} className={"overflow-y-scroll"}>
               <DropdownItemText className={"text-sml text-body-secondary"}>
@@ -77,12 +77,9 @@ export default function SuggestLabel() {
               <span className={"text-sml"}>Ao vivo</span>
             </DropdownToggle>
             <DropdownMenu>
-              {/*TODO - link deve mandar para a página de Ao vivo concatenando com o id do ponto ?id={id do ponto}*/}
-              <DropdownItem>Acompanhar as partidas deste ponto</DropdownItem>
-              {/*TODO - link deve mandar para a página de Ao vivo*/}
-              <DropdownItem>Ir para a página de Ao vivo</DropdownItem>
-              {/*TODO - link deve mandar para a página de Guia concatenando com o id do ponto ?id={id do ponto}*/}
-              <DropdownItem>Linhas que param neste ponto</DropdownItem>
+              <DropdownItem as={Link} to={`/live?sei=${selectedStop?.id}`}>Acompanhar as partidas deste ponto</DropdownItem>
+              <DropdownItem as={Link} to="/live">Ir para a página de Ao vivo</DropdownItem>
+              <DropdownItem as={Link} to={`/guide?sei=${selectedStop?.id}`}>Linhas que param neste ponto</DropdownItem>
               <DropdownItem as={Link} to={`mailto:${reportMail}`}>
                 Reportar um problema
               </DropdownItem>

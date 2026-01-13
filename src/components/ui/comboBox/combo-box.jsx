@@ -118,7 +118,7 @@ export default function GenericCombobox({
                 className={"cursor-pointer"}
                 data-testid={`combobox-item-${index}`}
               >
-                <span>{item.id + " " + item.title}</span>
+                <span>{item.title}</span>
                 <br/>
                 <span className="text-sml small">{item.name}</span>
               </ListGroup.Item>
