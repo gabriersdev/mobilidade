@@ -31,6 +31,13 @@ main {
   min-height: calc(100vh - 80px);
 }
 
+.truncate-w-250 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}
+
 .line-clamp-w-200 {
   overflow: hidden;
   text-overflow: ellipsis;
