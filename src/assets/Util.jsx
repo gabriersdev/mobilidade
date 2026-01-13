@@ -424,4 +424,23 @@ export default class Util {
       "expected_arrival_time": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["expected_arrival_time"].replace("Z", "-03:00") : d?.["expected_arrival_time"],
     }
   }
+
+  static getSearchParamId(location) {
+    if (!location || !location.search) return null;
+    const searchParams = new URLSearchParams(location.search);
+
+    const ei = searchParams.get("ei");
+    if (ei) {
+      const match = ei.match(/\d+/g);
+      if (match) return +match.join("");
+    }
+
+    const sei = searchParams.get("sei");
+    if (sei) {
+      const match = sei.match(/\d+/g);
+      if (match) return `${match.join("")}S`;
+    }
+
+    return null;
+  }
 }

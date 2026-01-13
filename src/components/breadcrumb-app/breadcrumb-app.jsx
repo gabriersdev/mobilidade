@@ -6,10 +6,9 @@ import PropTypes from "prop-types";
 import {useLocation, useNavigate} from 'react-router-dom';
 import AnimatedComponents from "../ui/animated-component/animated-components.jsx";
 
-// const BreadcrumbItemFactory = ({path, affirmationPath}) => {
-const BreadcrumbItemFactory = ({path}) => {
+const BreadcrumbItemFactory = ({path, url}) => {
   const location = useLocation();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   let label;
   let isLinePage = "";
   
@@ -62,10 +61,8 @@ const BreadcrumbItemFactory = ({path}) => {
   return (
     <BreadcrumbItem className={`bg-body ${isLinePage ? "breadcrumb-i data-line-id" : ""}`} onClick={(e) => {
       e.preventDefault();
-      // // console.log(path === location.pathname.split("/")[1] ? `/${path}` : `${path}`)
-      // const replaceUrl =  path === "../" ? "/" : pages.includes(path) ? `/${path}` : affirmationPath;
-      // navigate(replaceUrl, {replace: true});
-    }} style={{cursor: "default"}}>
+      if (url) navigate(url);
+    }} style={{cursor: "pointer"}}>
       {label}
     </BreadcrumbItem>
   );
@@ -73,7 +70,7 @@ const BreadcrumbItemFactory = ({path}) => {
 
 BreadcrumbItemFactory.propTypes = {
   path: PropTypes.string.isRequired,
-  affirmationPath: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 }
 
 const BreadcrumbApp = () => {
@@ -84,20 +81,22 @@ const BreadcrumbApp = () => {
   
   useEffect(() => {
     ref.current = new Date().getTime();
-    setPath({...path, current: location.pathname, date: ref.current});
-  }, [navigate, setPath]);
+    setPath(prev => ({...prev, current: location.pathname, date: ref.current}));
+  }, [location.pathname]);
   
   if (path.current === "/") return null;
-  const affirmationPath = path.current;
+  
+  const segments = path.current.split('/').filter(item => item && item.trim() && !["null", "undefined"].includes(item));
   
   return (
     <div className={"d-none d-md-block"}>
       <AnimatedComponents>
         <Breadcrumb className="bg-body mb-5">
+          <BreadcrumbItemFactory path="../" url="/" />
           {
-            ["../", ...path.current.split('/')].map((item, index) => {
-              if (!item || !item.trim() || ["null", "undefined"].includes(item)) return null;
-              return (<BreadcrumbItemFactory key={index} path={item} affirmationPath={affirmationPath}/>)
+            segments.map((item, index) => {
+              const url = "/" + segments.slice(0, index + 1).join("/");
+              return (<BreadcrumbItemFactory key={index} path={item} url={url}/>)
             })
           }
         </Breadcrumb>

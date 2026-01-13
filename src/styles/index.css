@@ -107,12 +107,12 @@ main {
 }
 
 li.breadcrumb-item.bg-body {
-  cursor: not-allowed !important;
+  cursor: pointer !important;
   background: transparent !important;
 
   /*noinspection CssUnresolvedCustomProperty*/
   a {
-    cursor: not-allowed !important;
+    cursor: pointer !important;
     color: var(--bs-text-body) !important;
   }
 }

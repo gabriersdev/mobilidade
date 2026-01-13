@@ -166,21 +166,26 @@ const useLiveComponent = () => {
   }, [departurePointSelected, datetimeOriginalFetch]);
   
   useEffect(() => {
-    // Quando location search tiver algum valor, analisa se o parâmetro "ei" foi passado e se existe nele algum número para consultar o ponto
-    if (location.search && location.search !== "") {
-      const searchParams = new URLSearchParams(location.search)
-      let getSearchParamId;
-      if (searchParams) getSearchParamId = searchParams.get("ei")
-      if (getSearchParamId.match(/\d/)) setSearchDPId(+getSearchParamId.match(/\d/g).join(""));
-    }
+    const id = Util.getSearchParamId(location);
+    if (id !== null) setSearchDPId(id);
   }, [location]);
   
   useEffect(() => {
-    if (searchDPId >= 0 && departurePoints) {
-      fetchPhysicalPointId(searchDPId).then(physicalPointId => {
-        const correspondence = departurePoints.find(dp => dp.id === physicalPointId);
+    let correspondence;
+    let PPI;
+    
+    if (searchDPId && departurePoints) {
+      if (typeof searchDPId === 'string' && searchDPId.endsWith("S")) {
+        PPI = +searchDPId.match(/\d/g).join("");
+        if (PPI) correspondence = departurePoints.find(dp => dp.id === PPI);
         if (correspondence) setDeparturePointSelected(correspondence);
-      });
+      } else if (searchDPId >= 0) {
+        fetchPhysicalPointId(searchDPId).then(physicalPointId => {
+          PPI = physicalPointId
+          if (PPI) correspondence = departurePoints.find(dp => dp.id === PPI);
+          if (correspondence) setDeparturePointSelected(correspondence);
+        });
+      }
     }
   }, [searchDPId, departurePoints]);
   

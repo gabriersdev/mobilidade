@@ -10,6 +10,7 @@ import Accordion from "../../components/ui/accordion/accordion.jsx";
 import AccordionItem from "../../components/ui/accordion/accordion-item.jsx";
 import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
 import PaginationWithItems from "../../components/pagination-with-items/pagination-with-items.jsx";
+import Util from "../../assets/Util.jsx";
 
 const Guide = () => {
   const [data, setData] = useState({});
@@ -51,6 +52,20 @@ const Guide = () => {
       });
     return s?.data?.[0]?.[0]?.["address"];
   }
+
+  const fetchPhysicalPointAddressByPhysicalId = async (physicalId) => {
+    try {
+      const response = await axios.get(`${config.host}/api/physical-departure-points/`);
+      const points = response.data?.[0];
+      if (points) {
+        const point = points.find(p => p["stop_id"] === physicalId);
+        return point?.["address"];
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    return null;
+  }
   
   useEffect(() => {
     // Altera o título da página
@@ -79,10 +94,10 @@ const Guide = () => {
             {
               uniqueLetters.map((letter, i) => {
                 return (
-                  <div key={i} id={`index-letter-${letter}`}>
+                  <div key={i} id={`${letter}`}>
                     <div className={"d-inline-flex justify-content-between gap-2 flex-wrap"}>
                       <Title type={"h3"} classX={" fs-6 fw-bold"}>{letter}</Title>
-                      {uniqueLetters[uniqueLetters.indexOf(letter) + 1] && <Link to={`#index-letter-${uniqueLetters[uniqueLetters.indexOf(letter) + 1]}`} className={"text-decoration-none text-sml text-body-tertiary"}>Ir para a próxima letra do índice</Link>}
+                      {uniqueLetters[uniqueLetters.indexOf(letter) + 1] && <Link to={`#${uniqueLetters[uniqueLetters.indexOf(letter) + 1]}`} className={"text-decoration-none text-sml text-body-tertiary"}>Ir para a próxima letra do índice</Link>}
                     </div>
                     
                     <Accordion defaultEventKey={["0"]}>
@@ -96,7 +111,7 @@ const Guide = () => {
                                 }))} itemsPerPage={10}/>
                               </ul>
                               
-                              <div>
+                              <div className={"mt-1"}>
                                 <Button variant={"primary"} as={Link} to={`/live?ei=${value?.[0]?.["data"]?.["departure_point_id"] ?? -1}`} className={"d-inline-flex align-items-center gap-2 flex-wrap"}>
                                   Acompanhar aproximação de ônibus
                                   <i className="bi bi-shop-window"></i>
@@ -139,21 +154,23 @@ const Guide = () => {
   }, [term, originalData]);
   
   useEffect(() => {
-    // Quando location search tiver algum valor, analisa se o parâmetro "ei" foi passado e se existe nele algum número para consultar o ponto
-    if (location.search) {
-      const searchParams = new URLSearchParams(location.search)
-      let getSearchParamId;
-      if (searchParams) getSearchParamId = searchParams.get("ei")
-      if (getSearchParamId.match(/\d/)) setSearchDPId(+getSearchParamId.match(/\d/g).join(""));
-    }
-  }, [location, originalData]);
+    const id = Util.getSearchParamId(location);
+    if (id !== null) setSearchDPId(id);
+  }, [location]);
   
   useEffect(() => {
     // Consulta os dados do ponto e lança o endereço no input para pesquisar as linhas que param lá
-    if(searchDPId >= 0 && originalData) {
-      fetchPhysicalPointAddress(searchDPId).then(physicalPointAddress => {
-        if (physicalPointAddress) setTerm(physicalPointAddress);
-      });
+    if (originalData) {
+      if (typeof searchDPId === 'string' && searchDPId.endsWith("S")) {
+        const physicalId = +searchDPId.match(/\d/g).join("");
+        fetchPhysicalPointAddressByPhysicalId(physicalId).then(address => {
+          if (address) setTerm(address);
+        });
+      } else if (searchDPId >= 0) {
+        fetchPhysicalPointAddress(searchDPId).then(physicalPointAddress => {
+          if (physicalPointAddress) setTerm(physicalPointAddress);
+        });
+      }
     }
   }, [searchDPId, originalData]);
   
@@ -164,7 +181,7 @@ const Guide = () => {
         <section>
           <AnimatedComponents>
             <form className="mb-5" onSubmit={(e) => {
-              e.preventDefault()
+              e.preventDefault();
             }}>
               <InputGroup>
                 <FormControl type={"text"} as={"input"} placeholder={"Pesquise"} value={term} onChange={(e) => setTerm(e.target.value)}/>
@@ -192,9 +209,9 @@ const Guide = () => {
                     {
                       loading ? (<>Carregando...</>) : (
                         <ListGroup className={"bg-body"}>
-                          {indicesLetters?.map((letter, i) => {
+                          {[...indicesLetters]?.map((letter, i) => {
                             return (
-                              <ListGroupItem as={"a"} key={i} className={"bg-body text-primary border-secondary-subtle"} href={`#index-letter-${letter}`}>
+                              <ListGroupItem as={"a"} key={i} className={"bg-body text-primary border-secondary-subtle"} href={`#${letter}`}>
                                 <AnimatedComponents>
                                   <span className={"d-block py-1"}>{letter}</span>
                                 </AnimatedComponents>
