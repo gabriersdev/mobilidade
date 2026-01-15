@@ -2,11 +2,15 @@ import {useEffect} from 'react'
 import Title from "../../components/ui/title/title.jsx";
 import Util from "../../assets/Util.jsx";
 import GetAndListLines from "../../components/get-and-list-lines/get-and-list-lines.jsx";
+import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 
 const Development = () => {
+  const { setLabel } = useBreadcrumb();
+
   useEffect(() => {
     document.title = "Mobilidade - Desenvolvimento";
     Util.updateActiveLink();
+    setLabel("development", "Desenvolvimento");
   }, [])
   
   return (

@@ -25,6 +25,7 @@ import AnimatedComponents from "../ui/animated-component/animated-component.jsx"
 import {ListDepartureTimes} from "../list-departure-times/list-departure-times.jsx";
 import {ListDeparturePoints} from "../list-departure-points/list-departure-points.jsx";
 import Grid from "../../components/ui/grid/grid.jsx";
+import { useBreadcrumb } from "../breadcrumb-app/breadcrumb-context.jsx";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -33,6 +34,7 @@ const Line = ({id}) => {
   const defaultImage = "/images/banner.png";
   const params = useLocation();
   const paradasSection = useRef();
+  const { setLabel } = useBreadcrumb();
   
   const renderText = useCallback((text) => {
     // Usa regex para encontrar todas as barras e as envolve em spans
@@ -138,15 +140,9 @@ const Line = ({id}) => {
   } else {
     // Altera o título da página =
     document.title = `Linha ${data[0].line_number} | ${data[0].departure_location} - ${data[0].destination_location} | Transporte Público em Sabará - MG | Horários, Pontos de Paradas e Pontos de Recarga`;
-    const dataLineId = document.querySelectorAll('.breadcrumb-i.data-line-id')
-    if (dataLineId) dataLineId.forEach((item) => {
-      try {
-        item.querySelector('a').textContent = `${data[0].line_number} - ${data[0].departure_location} ⇄ ${data[0].destination_location}`;
-      } catch (error) {
-        console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
-        console.log("Um erro ocorreu...");
-      }
-    });
+    
+    // Atualiza o breadcrumb usando o contexto
+    setLabel(id, `${data[0].line_number} - ${data[0].departure_location} ⇄ ${data[0].destination_location}`);
     
     return (
       <div className="d-flex flex-column" style={{gap: '3rem'}}>

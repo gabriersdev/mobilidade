@@ -10,6 +10,7 @@ import LatestNews from "../../components/latest-news/latest-news.jsx";
 import FormValidSearch from "../../components/form-valid-search/form-valid-search.jsx";
 import GetAndListLines from "../../components/get-and-list-lines/get-and-list-lines.jsx";
 import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
+import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 
 moment.locale("pt-br");
 
@@ -33,10 +34,13 @@ function translateMonth(month) {
 }
 
 export default function SabaraInfo() {
+  const { setLabel } = useBreadcrumb();
+
   useEffect(() => {
     // Altera o título da página
     document.title = "Mobilidade - Sabará Minas Gerais - Informações";
     // Util.updateActiveLink()
+    setLabel("sabara", "Sabará");
   }, []);
   
   const [sabaraTime, setSabaraTime] = useState(moment());

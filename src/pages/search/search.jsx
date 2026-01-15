@@ -7,17 +7,19 @@ import Grid from "../../components/ui/grid/grid.jsx";
 import Card from "../../components/ui/card/card.jsx";
 import FormValidSearch from "../../components/form-valid-search/form-valid-search.jsx";
 import LatestNews from "../../components/latest-news/latest-news.jsx";
+import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 
 const Search = () => {
   const [isValidSearch, setIsValidSearch] = useState(false)
   const [termSearch, setTermSearch] = useState("")
   const location = useLocation()
+  const { setLabel } = useBreadcrumb();
   
   useEffect(() => {
     // Atualiza o título do documento
     document.title = 'Mobilidade - Pesquisa';
     // Util.updateActiveLink();
-    
+    setLabel("search", "Pesquisa");
   }, [])
   
   useEffect(() => {

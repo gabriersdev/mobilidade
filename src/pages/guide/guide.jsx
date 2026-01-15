@@ -11,6 +11,7 @@ import AccordionItem from "../../components/ui/accordion/accordion-item.jsx";
 import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
 import PaginationWithItems from "../../components/pagination-with-items/pagination-with-items.jsx";
 import Util from "../../assets/Util.jsx";
+import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 
 const Guide = () => {
   const [data, setData] = useState({});
@@ -23,6 +24,7 @@ const Guide = () => {
   const [message, setMessage] = useState("");
   const [indicesLetters, setIndicesLetters] = useState([]);
   const [searchDPId, setSearchDPId] = useState(-1);
+  const { setLabel } = useBreadcrumb();
   
   const genericError = useRef("Ocorreu um erro na consulta do Guia. Aguarde alguns minutos e tente novamente mais tarde.");
   const location = useLocation();
@@ -73,8 +75,7 @@ const Guide = () => {
     document.title = `Mobilidade - ${psTitle} de Sabará-MG`;
     // Util.updateActiveLink()
     
-    const dataCompanyId = document.querySelector('.breadcrumb-item:nth-child(2)')
-    if (dataCompanyId) dataCompanyId.querySelector('a').textContent = `${psTitle}`;
+    setLabel("guide", psTitle);
     
     fetchData().then(() => {
     });

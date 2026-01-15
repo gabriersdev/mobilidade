@@ -3,15 +3,17 @@ import {useEffect} from 'react'
 import Util from "../../assets/Util.jsx";
 import Title from "../../components/ui/title/title.jsx";
 import GetAndListLines from "../../components/get-and-list-lines/get-and-list-lines.jsx";
+import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 
 const Manifest = () => {
+  const { setLabel } = useBreadcrumb();
+
   useEffect(() => {
     // Altera o título da página
     document.title = "Mobilidade - Manifesto de Mobilidade para o Transporte Público de Sabará";
     Util.updateActiveLink();
     
-    const breadcrumbsItems = Array.from(document.querySelectorAll('.breadcrumb-item'));
-    if (breadcrumbsItems[1]) breadcrumbsItems[1].textContent = 'Manifesto';
+    setLabel("manifest", "Manifesto");
   }, []);
   
   return (

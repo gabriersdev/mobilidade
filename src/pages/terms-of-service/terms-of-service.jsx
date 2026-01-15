@@ -3,12 +3,16 @@ import {useEffect} from 'react'
 import Util from "../../assets/Util.jsx";
 import Title from "../../components/ui/title/title.jsx";
 import GetAndListLines from "../../components/get-and-list-lines/get-and-list-lines.jsx";
+import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 
 const TermsOfService = () => {
+  const { setLabel } = useBreadcrumb();
+
   useEffect(() => {
     // Altera o título da página
     document.title = "Mobilidade - Termos de Serviço";
     Util.updateActiveLink();
+    setLabel("terms-of-service", "Termos de Serviço");
   }, [])
   
   return (

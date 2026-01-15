@@ -11,6 +11,7 @@ import Title from "../../../components/ui/title/title.jsx";
 import FeedbackError from "../../../components/ui/feedbackError/feedback-error.jsx";
 import AnimatedComponents from "../../../components/ui/animated-component/animated-components.jsx";
 import {ListDepartureTimes} from "../../../components/list-departure-times/list-departure-times.jsx";
+import { useBreadcrumb } from "../../../components/breadcrumb-app/breadcrumb-context.jsx";
 
 moment.locale("pt-BR");
 
@@ -30,6 +31,7 @@ export default function HistoryDayDepartureTimes() {
   const [loaded, setIsLoaded] = useState(true);
   const [data, setData] = useState([]);
   const [lineData, setLineData] = useState([]);
+  const { setLabel } = useBreadcrumb();
   
   const checkIsValid = (id) => {
     if (!id) return false
@@ -59,30 +61,19 @@ export default function HistoryDayDepartureTimes() {
   
   useEffect(() => {
     document.title = "Mobilidade - Histórico de horários";
-    const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
-    try {
-      if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " ⇄ ");
-      if (breadcrumbData && departureTimeDate && departureTimeDateIsValid && breadcrumbData[4]) breadcrumbData[4].querySelector('a').textContent = departureTimeDateFormatted;
-      else if (breadcrumbData && (!departureTimeDate || !departureTimeDateIsValid) && breadcrumbData[4]) breadcrumbData[4].querySelector('a').textContent = "Mobilidade";
-    } catch (error) {
-      console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
-      console.log("Um erro ocorreu...");
+    
+    setLabel("history", "Histórico");
+    setLabel("departure-times", "Horários de partida");
+    
+    if (lineData?.[0]) {
+      const lineLabel = (`${lineData[0]["line_number"] || "Linha"} - ` + (lineData[0]["line_name"] ? lineData[0]["line_name"] : ""))?.replaceAll("/", " ⇄ ");
+      setLabel(lineId, lineLabel);
     }
-  }, [lineData, departureTimeDate, departureTimeDateIsValid]);
-  
-  useEffect(() => {
-    document.title = "Mobilidade - Histórico de horários";
-    const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
-    try {
-      if (breadcrumbData && breadcrumbData[1] && breadcrumbData[2]) {
-        breadcrumbData[1].querySelector('a').textContent = `Histórico`;
-        breadcrumbData[2].querySelector('a').textContent = `Horários de partida`;
-      }
-    } catch (error) {
-      console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
-      console.log("Um erro ocorreu...");
+    
+    if (departureTimeDate && departureTimeDateIsValid) {
+      setLabel(id, departureTimeDateFormatted);
     }
-  }, []);
+  }, [lineData, departureTimeDate, departureTimeDateIsValid, lineId, id, departureTimeDateFormatted]);
   
   if (!lineId || !checkIsValid(lineId)) return <Alert variant={'danger'} margin={"mt-0"}>O id da linha não foi informado.</Alert>
   else if (!checkIsValid(departureTimeDate.replace(/\D/, ""))) return <Alert variant={'danger'} margin={"mt-0"}>A data do histórico não foi informada.</Alert>

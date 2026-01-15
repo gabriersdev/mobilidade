@@ -5,52 +5,62 @@ import {Breadcrumb, BreadcrumbItem} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {useLocation, useNavigate} from 'react-router-dom';
 import AnimatedComponents from "../ui/animated-component/animated-components.jsx";
+import { useBreadcrumb } from './breadcrumb-context';
 
 const BreadcrumbItemFactory = ({path, url}) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { labels } = useBreadcrumb();
   let label;
   let isLinePage = "";
   
-  switch (path.toLowerCase()) {
-    case "../":
-      label = "Mobilidade"
-      break;
-    case "lines":
-      label = "Linhas"
-      break;
-    case "search":
-      label = "Pesquisa"
-      break;
-    case "terms-of-service":
-      label = "Termos de Serviço"
-      break;
-    case "privacy":
-      label = "Privacidade"
-      break;
-    case "company":
-      label = "Compania"
-      break;
-    case "development":
-      label = "Desenvolvimento"
-      break;
-    case "news":
-      label = "Notícias"
-      break;
-    case "history":
-      label = "Histórico"
-      break;
-    case "guide":
-      label = "Guia"
-      break;
-    case "live":
-      label = "Ao vivo"
-      break;
-    case "sabara":
-      label = "Sabará"
-      break;
-    default:
-      label = (<p className={"text-capitalize d-inline"}>{path.match(/\b\d+\b/) ? <span>Carregando...</span> : <span>{path}</span>}</p>);
+  // Verifica se existe um label customizado no contexto
+  if (labels[path]) {
+    label = labels[path];
+  } else {
+    switch (path.toLowerCase()) {
+      case "../":
+        label = "Mobilidade"
+        break;
+      case "lines":
+        label = "Linhas"
+        break;
+      case "search":
+        label = "Pesquisa"
+        break;
+      case "terms-of-service":
+        label = "Termos de Serviço"
+        break;
+      case "privacy":
+        label = "Privacidade"
+        break;
+      case "company":
+        label = "Compania"
+        break;
+      case "development":
+        label = "Desenvolvimento"
+        break;
+      case "news":
+        label = "Notícias"
+        break;
+      case "history":
+        label = "Histórico"
+        break;
+      case "guide":
+        label = "Guia"
+        break;
+      case "live":
+        label = "Ao vivo"
+        break;
+      case "sabara":
+        label = "Sabará"
+        break;
+      case "manifest":
+        label = "Manifesto"
+        break;
+      default:
+        label = (<p className={"text-capitalize d-inline"}>{path.match(/\b\d+\b/) ? <span>Carregando...</span> : <span>{path}</span>}</p>);
+    }
   }
   
   if (!path || !path.trim() || ["null", "undefined"].includes(path)) return null;
@@ -75,7 +85,6 @@ BreadcrumbItemFactory.propTypes = {
 
 const BreadcrumbApp = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [path, setPath] = useState({current: location.pathname, date: new Date().getTime()});
   const ref = useRef(null);
   

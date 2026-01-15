@@ -9,9 +9,11 @@ import AnimatedComponents from "../../components/ui/animated-component/animated-
 import Alert from "../../components/ui/alert/alert.jsx";
 import UpdatePageData from "../../components/update-page-data/update-page-data.jsx";
 import PaginationWithItems from "../../components/pagination-with-items/pagination-with-items.jsx";
+import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 
 const News = () => {
   const {id} = useParams()
+  const { setLabel } = useBreadcrumb();
   
   const checkIsValid = (id) => {
     if (!id) return false
@@ -54,10 +56,16 @@ const News = () => {
             <AnimatedComponents>
               {
                 newsA.find(n => n.id === parseInt(id)) ? (
-                  <>
-                    <UpdatePageData title={newsA.find(n => n.id === parseInt(id)).title} breadcrumbSelector={".breadcrumb-item:nth-child(3)"} breadcrumbText={newsA.find(n => n.id === parseInt(id)).title}/>
-                    <NewsC {...newsA.find(n => n.id === parseInt(id))}/>
-                  </>
+                  (() => {
+                    const newsItem = newsA.find(n => n.id === parseInt(id));
+                    setLabel(id, newsItem.title);
+                    return (
+                      <>
+                        <UpdatePageData title={newsItem.title}/>
+                        <NewsC {...newsItem}/>
+                      </>
+                    );
+                  })()
                 ) : (
                   <Alert variant={'danger'} margin={"mt-0"}>
                     <span>Notícia não encontrada.</span>
