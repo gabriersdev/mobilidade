@@ -2,7 +2,7 @@
 
 import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
-import {terser} from 'rollup-plugin-terser'
+import terser from '@rollup/plugin-terser'
 import {visualizer} from 'rollup-plugin-visualizer'
 
 // https://vitejs.dev/config/
