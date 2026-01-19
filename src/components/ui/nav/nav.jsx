@@ -38,7 +38,7 @@ const BarInfo = () => {
         <i className="bi bi-exclamation-triangle-fill me-2"></i>
         {title}
       </summary>
-      <p className={"fw-light mt-2 mb-0 text-balance sm-text-center text-danger-emphasis"}>{message}</p>
+      <p className={"text-sml mt-2 mb-0 text-balance sm-text-center text-danger-emphasis"}>{message}</p>
     </details>
   )
   
@@ -214,19 +214,27 @@ const Nav = () => {
           <Navbar expand="lg" className={`bg-body-tertiary border-bottom ${width > 766 ? "position-sticky top-0" : ""}`} expanded={expanded} onToggle={setExpanded}>
             <Container className="my-1 d-flex align-items-start justify-content-between flex-md-column  align-items-xl-center flex-xl-row w-100 flex-wrap ">
               <div className={"d-flex align-items-center justify-content-between gap-1 flex-row w-100 flex-wrap"}>
-                <Navbar.Brand as={Link} to="./" onClick={() => setExpanded(false)} className={"text-body-secondary me-5 d-flex justify-content-center align-items-center flex-wrap"} style={{letterSpacing: '-0.75px'}}>
+                <Navbar.Brand
+                  as={Link}
+                  to="./"
+                  onClick={() => setExpanded(false)}
+                  className={"text-body-secondary me-5 d-flex justify-content-center align-items-center flex-wrap"} style={{letterSpacing: '-0.75px'}}
+                >
                   <img src={'/images/logo-transparent.png'} alt={'Logo'} className={'me-2'} style={{height: '3rem'}}/>
                   <div style={{fontFamily: "'Inter', 'Inter Tight', sans-serif"}} className={"d-flex flex-column"}>
                     <span className={"text-primary d-block"}>Mobilidade</span>
-                    <span className={"text-body-secondary text-sml d-none d-sm-inline-block"}>Transporte Público em Sabará-MG</span>
-                    <span className={"text-body-secondary text-sml d-inline-block d-sm-none"}>em Sabará-MG</span>
+                    <span className={"text-primary-emphasis text-sml d-none d-sm-inline-block"}>Transporte Público em Sabará-MG</span>
+                    <span className={"text-primary-emphasis text-sml d-inline-block d-sm-none"}>em Sabará-MG</span>
                   </div>
                 </Navbar.Brand>
+                
                 <div className={"d-none d-lg-block"}>
                   <FormNav/>
                 </div>
+                
                 <Navbar.Toggle aria-controls="basic-navbar-nav" className={"mt-3 mt-sm-0"}/>
               </div>
+              
               <Navbar.Collapse id="basic-navbar-nav">
                 <BootstrapNav className={"me-auto w-100 d-flex " + (width > 1200 ? "align-items-center" : "flex-column align-items-start justify-content-end my-3")}>
                   <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./" onClick={() => setExpanded(false)}>Início</BootstrapNav.Link>
