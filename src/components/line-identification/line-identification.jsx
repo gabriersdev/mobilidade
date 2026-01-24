@@ -1,7 +1,7 @@
 import moment from "moment";
 import {Tooltip} from 'bootstrap';
 import {Link} from "react-router-dom";
-import {Popover, Badge, OverlayTrigger} from "react-bootstrap";
+import {Popover, Badge, OverlayTrigger, ListGroup, ListGroupItem} from "react-bootstrap";
 import {useContext, useEffect, useMemo, useRef, useState} from "react";
 
 import Util from "../../assets/Util";
@@ -47,7 +47,7 @@ const LineIdentification = () => {
       };
     }
   }, [showTooltip]);
-
+  
   const lineType = line ? Convert.lineType(line.type) : '';
   const scope = line ? Convert.theScope(line.scope) : '';
   const accessibility = line?.accessibility ?? "";
@@ -65,12 +65,12 @@ const LineIdentification = () => {
   
   const countDepartureTimes = line?.count_departure_times || 0;
   const reportContact = line?.report_contact;
-  const datetimeLastModify = line?.datetime_last_modify 
-      ? new Date((moment(line.datetime_last_modify).add(-3, "h")).format("YYYY-MM-DD HH:mm:zz")) 
-      : null;
+  const datetimeLastModify = line?.datetime_last_modify
+    ? new Date((moment(line.datetime_last_modify).add(-3, "h")).format("YYYY-MM-DD HH:mm:zz"))
+    : null;
   
   const accessibilityPopover = useMemo(() => (
-    <Popover id="popover-basic">
+    <Popover id="accessibility-popover">
       <Popover.Header as="h3" className={"inter"}>Acessibilidade</Popover.Header>
       <Popover.Body className={"text-sml"}>
         Os ônibus são acessíveis: possuem elevador, assentos destinados ao público prioritário, chão em teraflex e as barras do ônibus tem cores que se contrastam, puxadores para os usuários e pelo menos uma porta exclusiva para a saída.
@@ -79,7 +79,7 @@ const LineIdentification = () => {
   ), []);
   
   const comfortPopover = useMemo(() => (
-    <Popover id="popover-basic">
+    <Popover id="comfort-popover">
       <Popover.Header as="h3" className={"inter"}>Conforto</Popover.Header>
       <Popover.Body className={""}>
         <div>
@@ -106,8 +106,27 @@ const LineIdentification = () => {
     </Popover>
   ), [aircon, airsuspension, bench, fleet, teraflex, conc, wifi]);
   
+  // TODO - implementar retorno ou verificação do banco de dados de integração
+  const integrationPopover = useMemo(() => (
+    <Popover id="accessibility-popover" className={"d-none"}>
+      <Popover.Header as="h3" className={"inter"}>Integração</Popover.Header>
+      <Popover.Body className={"text-sml"}>
+        <ListGroup className={"fs-inherit"}>
+          <ListGroupItem className={"fs-inherit"}>
+            <span className={"fs-inherit text-primary"}>4000 - MOVE Metropolitano</span><br/>
+            Tarifa de BRL 8.80 (1ª passagem) + BRL 0.15 pela integração
+          </ListGroupItem>
+          <ListGroupItem className={"fs-inherit"}>
+            <span className={"fs-inherit text-primary"}>4000 - TREM Belo Horizonte</span><br/>
+            Tarifa de BRL 8.80 (1ª passagem) + BRL 0.15 pela integração
+          </ListGroupItem>
+        </ListGroup>
+      </Popover.Body>
+    </Popover>
+  ), []);
+  
   if (!line) return null;
-
+  
   return (
     <div className="d-flex flex-column">
       <div className={"d-flex align-items-start flex-wrap gap-3 justify-content-between flex-column flex-column-reverse flex-lg-row"}>
@@ -132,7 +151,7 @@ const LineIdentification = () => {
       
       <SeeMore mobileOnly={true} height={200}>
         <div className={"d-flex flex-column gap-3 mt-5"}>
-          <div className="d-flex align-items-center gap-3 flex-wrap order-1" style={{maxWidth: "600px"}} >
+          <div className="d-flex align-items-center gap-3 flex-wrap order-1" style={{maxWidth: "600px"}}>
             <Link className={"text-decoration-none"} to={"/search/?term=" + (
               lineType.toLowerCase().includes("executivo") || lineType.toLowerCase().includes("seletivo") ? "bandeirante" :
                 lineType.toLowerCase().includes("coletivo") ? "coletivo" : lineType
@@ -146,9 +165,15 @@ const LineIdentification = () => {
                 <i className="bi bi-building red"></i>
               </LineInfo>
             </Link>
-            <LineInfo label={{ref: 'Integração com outras Linhas ou Modais', value: hasIntegration}}>
-              <i className="bi bi-train-front-fill purple"></i>
-            </LineInfo>
+            
+            <OverlayTrigger trigger="click" placement="auto" overlay={integrationPopover}>
+              <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
+                <LineInfo label={{ref: 'Integração com outras Linhas ou Modais', value: hasIntegration}}>
+                  <i className="bi bi-train-front-fill purple"></i>
+                </LineInfo>
+                <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
+              </div>
+            </OverlayTrigger>
             
             {
               accessibility === 1 && (

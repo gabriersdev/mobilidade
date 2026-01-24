@@ -62,7 +62,7 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
             <OffCanvasDeparturePoints/>
             <ListPointsByDirections/>
             <div className={"mt-2"}>
-              <p className={"d-block text-body-tertiary text-sml m-0 p-0"}>Os pontos de partida são atualizados ocasionalmente via integração com o Moovit.</p>
+              <p className={"d-block text-body-tertiary text-sml m-0 p-0 text-balance"}>Os pontos de partida são atualizados ocasionalmente via integração com o Moovit.</p>
             </div>
           </Accordion>
         </ThemeContext>
