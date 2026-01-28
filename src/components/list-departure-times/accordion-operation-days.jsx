@@ -40,9 +40,22 @@ const AccordionOperationDays = () => {
       );
       
       const currentDayName = getCurrentDayGroupName();
-      const defaultIndex = convertedDayNames.findIndex(name =>
-        Util.normalize(name.toLowerCase()).includes(Util.normalize(currentDayName.toLowerCase()))
-      );
+      
+      const defaultIndex = convertedDayNames.findIndex(name => {
+        const normalizedName = Util.normalize(name.toLowerCase());
+        const normalizedCurrent = Util.normalize(currentDayName.toLowerCase());
+        
+        // Se for férias, verifica ambas as grafias
+        if (normalizedCurrent === 'ferias') {
+          // Usa como opção encontrar apenas o normalizedCurrent se não estiver incluído no nome "ferias"
+          // Chama novamente a função getCurrentDayGroupName, porém com o parâmetro consideringVacations = false
+          const currentDayNameNoConsideringVacations = Util.normalize(Util.getCurrentDayGroupName(scope, false));
+          const match = (normalizedName.includes('ferias') && normalizedName.includes(normalizedCurrent)) || (normalizedName.includes(normalizedCurrent) || normalizedName.includes(currentDayNameNoConsideringVacations));
+          return match;
+        }
+        
+        return normalizedName.includes(normalizedCurrent);
+      });
       
       // Define a chave do accordion que deve vir aberta
       const newDefaultKey = defaultIndex !== -1 ? [defaultIndex.toString()] : [];

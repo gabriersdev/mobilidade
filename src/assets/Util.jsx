@@ -5,7 +5,7 @@ import config from "./config.js";
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import {Link} from "react-router-dom";
-import {getAllHolidays} from "./holidays.js";
+import {getAllHolidays, getVacation} from "./holidays.js";
 
 moment.locale('pt-br');
 
@@ -362,9 +362,21 @@ export default class Util {
     let holidaysScope = getAllHolidays(now.year(), {includeRegion: `SC${('0' + codeScope).slice(-2)}`});
     return holidaysScope.find((h) => now.diff(h.date, "days") === 0);
   }
+
+  static getTodayVacationData() {
+    const m = moment();
+    const now = moment(`${m.get("year")}-${('0' + (m.get("month") + 1)).slice(-2)}-${('0' + m.get("date")).slice(-2)}T00:00:00-03:00`);
+    
+    return getVacation(now);
+  }
   
-  static getCurrentDayGroupName(scope) {
+  static getCurrentDayGroupName(scope, consideringVacations) {
     if (Util.getTodayHolidayData(scope)) return 'domingo';
+
+    if ([null, undefined, true].includes(consideringVacations)) {
+      const vacation = Util.getTodayVacationData();
+      if (vacation) return 'ferias';
+    }
     
     switch (moment().get("day")) {
       case 0:
