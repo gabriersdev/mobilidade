@@ -108,17 +108,18 @@ const LineIdentification = () => {
   
   // TODO - implementar retorno ou verificação do banco de dados de integração
   const integrationPopover = useMemo(() => (
-    <Popover id="accessibility-popover" className={"d-none"}>
+    // , 4992, 4685, 4687
+    <Popover id="accessibility-popover" className={[4991].map(s => s.toString()).includes(line.line_number) ? "" : "d-none"}>
       <Popover.Header as="h3" className={"inter"}>Integração</Popover.Header>
       <Popover.Body className={"text-sml"}>
         <ListGroup className={"fs-inherit"}>
           <ListGroupItem className={"fs-inherit"}>
-            <span className={"fs-inherit text-primary"}>4000 - MOVE Metropolitano</span><br/>
-            Tarifa de BRL 8.80 (1ª passagem) + BRL 0.15 pela integração
+            <span className={"fs-inherit text-primary lh-base mb-1 d-block"}>4991 {"->"} Integração MOVE Metropolitano</span>
+            <span className={"fs-inherit"}>BRL 8.80 (tarifa da linha 4991) + BRL 0.15 na integração.</span>
           </ListGroupItem>
           <ListGroupItem className={"fs-inherit"}>
-            <span className={"fs-inherit text-primary"}>4000 - TREM Belo Horizonte</span><br/>
-            Tarifa de BRL 8.80 (1ª passagem) + BRL 0.15 pela integração
+            <span className={"fs-inherit text-primary lh-base"}>4991 {"->"} TREM Belo Horizonte</span><br/>
+            Não possui integração.
           </ListGroupItem>
         </ListGroup>
       </Popover.Body>
