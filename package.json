@@ -4,6 +4,9 @@
   "version": "1.21.0",
   "type": "module",
   "homepage": "https://gabriersdev.github.io/mobilidade",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "node sync-version.js && node register.build.js && vite build",
@@ -42,7 +45,6 @@
     "html-react-parser": "^5.2.5",
     "leaflet": "^1.9.4",
     "moment": "^2.30.1",
-    "node": "^25.3.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.5",
