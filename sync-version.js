@@ -3,12 +3,17 @@ import path from "path";
 import {execSync} from "child_process";
 
 function getGitTags() {
-  const output = execSync("git tag", {encoding: "utf8"});
-  return output
-    .split("\n")
-    .map(t => t.trim())
-    .filter(Boolean)
-    .filter(t => /^\d+\.\d+\.\d+$/.test(t));
+  try {
+    const output = execSync("git tag", {encoding: "utf8"});
+    return output
+      .split("\n")
+      .map(t => t.trim())
+      .filter(Boolean)
+      .filter(t => /^\d+\.\d+\.\d+$/.test(t));
+  } catch (e) {
+    console.warn("Failed to read git tags:", e.message);
+    return [];
+  }
 }
 
 function compareVersions(a, b) {
@@ -40,8 +45,9 @@ function updatePackageJson(version) {
 const tags = getGitTags();
 
 if (!tags.length) {
-  console.error("No valid semver tags found.");
-  process.exit(1);
+  console.warn("No valid semver tags found. Skipping version sync.");
+  // Não falha o build, apenas pula a sincronização
+  process.exit(0);
 }
 
 const latest = getLatestTag(tags);
