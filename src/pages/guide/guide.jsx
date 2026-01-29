@@ -11,7 +11,7 @@ import AccordionItem from "../../components/ui/accordion/accordion-item.jsx";
 import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
 import PaginationWithItems from "../../components/pagination-with-items/pagination-with-items.jsx";
 import Util from "../../assets/Util.jsx";
-import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+import {useBreadcrumb} from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 
 const Guide = () => {
   const [data, setData] = useState({});
@@ -24,7 +24,7 @@ const Guide = () => {
   const [message, setMessage] = useState("");
   const [indicesLetters, setIndicesLetters] = useState([]);
   const [searchDPId, setSearchDPId] = useState(-1);
-  const { setLabel } = useBreadcrumb();
+  const {setLabel} = useBreadcrumb();
   
   const genericError = useRef("Ocorreu um erro na consulta do Guia. Aguarde alguns minutos e tente novamente mais tarde.");
   const location = useLocation();
@@ -54,7 +54,7 @@ const Guide = () => {
       });
     return s?.data?.[0]?.[0]?.["address"];
   }
-
+  
   const fetchPhysicalPointAddressByPhysicalId = async (physicalId) => {
     try {
       const response = await axios.get(`${config.host}/api/physical-departure-points/`);
@@ -106,7 +106,7 @@ const Guide = () => {
                         Object.entries(data).filter(([k]) => k[0] === letter).map(([key, value], index) => {
                           return (
                             <AccordionItem title={key.replace("/", " - ").replaceAll("/", " - ")} key={index} eventKey={index.toString()}>
-                              <ul className="ps-3 m-0" style={{lineHeight: 1.75}}>
+                              <ul className={"ps-3 mt-0 " + (value.length > 10 ? "mb-3" : "mb-0")} style={{lineHeight: 1.75}}>
                                 <PaginationWithItems items={(value.map((line, i) => {
                                   return <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replaceAll("/", " ⇄ ")}</Link></li>
                                 }))} itemsPerPage={10}/>
