@@ -26,7 +26,7 @@ const OffCanvasDepartureTimes = () => {
   return (
     <Offcanvas show={show} onHide={handleClose} placement="start">
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title className={"fs-6 fw-light text-muted m-0 p-0"}>Horário de partida</Offcanvas.Title>
+        <Offcanvas.Title className={"fs-6 text-muted m-0 p-0"}>Horário de partida</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body className={"d-flex flex-column gap-3"}>
         <section>
@@ -68,7 +68,7 @@ const OffCanvasDepartureTimes = () => {
                   src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDLVLgUmpHx7VfSA0qTMhYdKW1SVXKFTak&q=${(dataFirstPointByDirection.point_name || "") + " " + (dataFirstPointByDirection.address || "")}cidade+sabara+minas+gerais`}>
                 </iframe>
                 <Alert variant={"warning"} className={"mt-2"}>
-            <span className={"fw-light"}>
+            <span className={""}>
               A localização do Maps pode não corresponder <b className={"fw-bold"}>exatamente</b> ao endereço do ponto de parada. Use com cautela.
             </span>
                 </Alert>

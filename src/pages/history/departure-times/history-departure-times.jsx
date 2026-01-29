@@ -11,6 +11,7 @@ import Title from "../../../components/ui/title/title.jsx";
 import FeedbackError from "../../../components/ui/feedbackError/feedback-error.jsx";
 import AnimatedComponents from "../../../components/ui/animated-component/animated-components.jsx";
 import PaginationWithItems from "../../../components/pagination-with-items/pagination-with-items.jsx";
+import { useBreadcrumb } from "../../../components/breadcrumb-app/breadcrumb-context.jsx";
 
 moment.locale("pt-BR");
 
@@ -21,6 +22,7 @@ export default function HistoryDepartureTimes() {
   const [data, setData] = useState([]);
   const [lineData, setLineData] = useState([]);
   const [dataAll, setDataAll] = useState([]);
+  const { setLabel } = useBreadcrumb();
   
   const checkIsValid = (id) => {
     if (!id) return false
@@ -51,29 +53,15 @@ export default function HistoryDepartureTimes() {
   
   useEffect(() => {
     document.title = "Mobilidade - Histórico de horários";
-    const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
-    try {
-      if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " ⇄ ");
-      if (breadcrumbData && breadcrumbData[1]) breadcrumbData[1].querySelector('a').textContent = 'Histórico';
-    } catch (error) {
-      console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
-      console.log("Um erro ocorreu...");
+    
+    setLabel("history", "Histórico");
+    setLabel("departure-times", "Horários de partida");
+    
+    if (lineData?.[0]) {
+      const lineLabel = (`${lineData[0]["line_number"] || "Linha"} - ` + (lineData[0]["line_name"] ? lineData[0]["line_name"] : ""))?.replaceAll("/", " ⇄ ");
+      setLabel(id, lineLabel);
     }
-  }, [lineData]);
-  
-  useEffect(() => {
-    document.title = "Mobilidade - Histórico de horários";
-    const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
-    try {
-      if (breadcrumbData) {
-        breadcrumbData[1].querySelector('a').textContent = `Histórico`;
-        breadcrumbData[2].querySelector('a').textContent = `Horários de partida`;
-      }
-    } catch (error) {
-      console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
-      console.log("Um erro ocorreu...");
-    }
-  }, []);
+  }, [lineData, id]);
   
   useEffect(() => {
     if (data && Array.isArray(data) && data.length) {

@@ -2,13 +2,17 @@ import Title from "../../components/ui/title/title.jsx";
 import {Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {useEffect} from "react";
+import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 
 const NotFound = () => {
   document.title = `Mobilidade - Companhias`;
+  const { setLabel } = useBreadcrumb();
   
   useEffect(() => {
-    const breadcrumbsItems = Array.from(document.querySelectorAll('.breadcrumb-item'))
-    breadcrumbsItems.forEach(item => { item.textContent = 'Mobilidade' });
+    // No contexto do 404, talvez queiramos limpar ou definir algo específico
+    // Mas como o breadcrumb é baseado na URL, e 404 geralmente mantém a URL errada ou redireciona
+    // Se for redirecionamento para /404, o breadcrumb mostrará "404" se não houver label
+    setLabel("404", "Página não encontrada");
   }, []);
   
   return (

@@ -9,6 +9,7 @@ import AnimatedComponents from "../../../components/ui/animated-component/animat
 import moment from "moment";
 import {Button, ListGroup} from "react-bootstrap";
 import Util from "../../../assets/Util.jsx";
+import { useBreadcrumb } from "../../../components/breadcrumb-app/breadcrumb-context.jsx";
 
 moment.locale("pt-BR");
 
@@ -23,6 +24,7 @@ export default function DeparturePoints() {
   const [loaded, setIsLoaded] = useState(true);
   const [data, setData] = useState([]);
   const [lineData, setLineData] = useState([]);
+  const { setLabel } = useBreadcrumb();
   
   const checkIsValid = (id) => {
     if (!id) return false
@@ -53,28 +55,15 @@ export default function DeparturePoints() {
   
   useEffect(() => {
     document.title = "Mobilidade - Histórico de Pontos de Parada";
-    const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
-    try {
-      if (breadcrumbData && breadcrumbData[3]) breadcrumbData[3].querySelector('a').textContent = (`${lineData?.[0]?.["line_number"] || "Linha"} - ` + (lineData?.[0]?.["line_name"] ? lineData?.[0]?.["line_name"] : ""))?.replaceAll("/", " ⇄ ");
-      else if (breadcrumbData && (!departureTimeDate || !departureTimeDateIsValid) && breadcrumbData[4]) breadcrumbData[4].querySelector('a').textContent = "Mobilidade";
-    } catch (error) {
-      console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
-      console.log("Um erro ocorreu...");
+    
+    setLabel("history", "Histórico");
+    setLabel("departure-points", "Pontos de Parada");
+    
+    if (lineData?.[0]) {
+      const lineLabel = (`${lineData[0]["line_number"] || "Linha"} - ` + (lineData[0]["line_name"] ? lineData[0]["line_name"] : ""))?.replaceAll("/", " ⇄ ");
+      setLabel(id, lineLabel);
     }
-  }, [lineData, departureTimeDate, departureTimeDateIsValid]);
-  
-  useEffect(() => {
-    document.title = "Mobilidade - Histórico de Pontos de Parada";
-    const breadcrumbData = document.querySelectorAll('.breadcrumb-item');
-    if (breadcrumbData && breadcrumbData[1] && breadcrumbData[2]) {
-      try {
-        breadcrumbData[1].querySelector('a').textContent = `Histórico`;
-        breadcrumbData[2].querySelector('a').textContent = `Pontos de Parada`;
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, []);
+  }, [lineData, departureTimeDate, departureTimeDateIsValid, id]);
   
   if (!checkIsValid(id)) return <Alert variant={'danger'} margin={"mt-0"}>O id da linha não foi informado.</Alert>
   

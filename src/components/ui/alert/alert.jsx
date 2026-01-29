@@ -2,6 +2,14 @@ import {useState} from "react";
 import PropTypes from "prop-types";
 import {Alert as BootstrapAlert} from "react-bootstrap";
 
+const getNodeText = (node) => {
+  if (node == null) return "";
+  if (typeof node === "string" || typeof node === "number") return node.toString();
+  if (Array.isArray(node)) return node.map(getNodeText).join("");
+  if (typeof node === "object" && node.props) return getNodeText(node.props.children);
+  return "";
+};
+
 const Alert = ({
                  variant, margin, children = <></>, dismissible = false, onClose = () => {
   }, className
@@ -38,6 +46,8 @@ const Alert = ({
     onClose();
   };
   
+  const summaryText = getNodeText(children) || "Aviso. Clique para visualizar";
+  
   return (
     <BootstrapAlert
       variant={variant === 'weather' ? 'info' : variant}
@@ -52,7 +62,14 @@ const Alert = ({
           setPropOpen(!propOpen)
         }} className={"alert-warning-summary d-flex gap-2"}>
           <span className={"d-block"}>{icon}</span>
-          <div className={"line-clamp-1 text-wrap"}>Aviso. Clique para visualizar</div>
+          <div className={"d-flex align-items-center"}>
+            <span className={"truncate-w-250 d-block"}>
+              {summaryText}
+            </span>
+            <span className="ms-1 d-inline-flex" style={{transform: "rotate(180deg)"}}>
+              <i className="bi bi-arrow-up-short"></i>
+            </span>
+          </div>
         </summary>
         <div className={"mt-3"}>
           {children}

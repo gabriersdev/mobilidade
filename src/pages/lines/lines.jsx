@@ -8,9 +8,11 @@ import FormValidSearch from "../../components/form-valid-search/form-valid-searc
 import GetAndListLines from "../../components/get-and-list-lines/get-and-list-lines.jsx";
 import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
 import LatestNews from "../../components/latest-news/latest-news.jsx";
+import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 
 const Lines = () => {
   const {id} = useParams();
+  const { setLabel } = useBreadcrumb();
 
   const checkIsValid = (id) => {
     if (!id) return false
@@ -20,6 +22,7 @@ const Lines = () => {
 
   useEffect(() => {
     document.title = `Mobilidade - Linhas de Transporte Público`
+    setLabel("lines", "Linhas");
   }, []);
   
   if (id && !checkIsValid(id)) return <Navigate to="/404" replace />;

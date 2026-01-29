@@ -12,12 +12,15 @@ import NoDepartureTimes from "./no-departure-times.jsx";
 import {Badge} from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import {useLocation} from "react-router-dom";
 
 moment.locale("pt-br");
 
 const AccordionOperationDays = () => {
   const {defaultEventKey, setDefaultEventKey} = useContext(TimeContext);
   const {departureTimes, uniqueDaysForDirection, index, direction, directionName, observations, type, scope} = useContext(Theme);
+  const navigation = useLocation();
+  
   // Função helper para obter o nome do dia atual
   const getCurrentDayGroupName = () => Util.getCurrentDayGroupName(scope);
   
@@ -37,9 +40,22 @@ const AccordionOperationDays = () => {
       );
       
       const currentDayName = getCurrentDayGroupName();
-      const defaultIndex = convertedDayNames.findIndex(name =>
-        Util.normalize(name.toLowerCase()).includes(Util.normalize(currentDayName.toLowerCase()))
-      );
+      
+      const defaultIndex = convertedDayNames.findIndex(name => {
+        const normalizedName = Util.normalize(name.toLowerCase());
+        const normalizedCurrent = Util.normalize(currentDayName.toLowerCase());
+        
+        // Se for férias, verifica ambas as grafias
+        if (normalizedCurrent === 'ferias') {
+          // Usa como opção encontrar apenas o normalizedCurrent se não estiver incluído no nome "ferias"
+          // Chama novamente a função getCurrentDayGroupName, porém com o parâmetro consideringVacations = false
+          const currentDayNameNoConsideringVacations = Util.normalize(Util.getCurrentDayGroupName(scope, false));
+          const match = (normalizedName.includes('ferias') && normalizedName.includes(normalizedCurrent)) || (normalizedName.includes(normalizedCurrent) || normalizedName.includes(currentDayNameNoConsideringVacations));
+          return match;
+        }
+        
+        return normalizedName.includes(normalizedCurrent);
+      });
       
       // Define a chave do accordion que deve vir aberta
       const newDefaultKey = defaultIndex !== -1 ? [defaultIndex.toString()] : [];
@@ -69,7 +85,7 @@ const AccordionOperationDays = () => {
               <AccordionItem title={(
                 <span>
                   {dayConverted}{" "}
-                  {isToday && (
+                  {isToday && !navigation.pathname.startsWith("/history/") && (
                     <OverlayTrigger overlay={
                       <Tooltip>
                         <span className={"text-sml"}>Este é o itinerário de hoje</span>
@@ -110,7 +126,7 @@ const AccordionOperationDays = () => {
     });
     // A dependência garante que o efeito rode quando os dados do contexto mudarem
   }, [uniqueDaysForDirection, direction, directionName, departureTimes, observations, index, scope]);
-  // deps: uniqueDaysForDirection, direction, directionName, index, setDefaultEventKey, departureTimes, observations
+  // deps: uniqueDaysForDirection, direction, directionName, index, setDefaultEventKey, departureTimes, observations;
   
   if (!accordionItems) {
     return <div>Carregando dias de operação...</div>;

@@ -25,6 +25,7 @@ import AnimatedComponents from "../ui/animated-component/animated-component.jsx"
 import {ListDepartureTimes} from "../list-departure-times/list-departure-times.jsx";
 import {ListDeparturePoints} from "../list-departure-points/list-departure-points.jsx";
 import Grid from "../../components/ui/grid/grid.jsx";
+import { useBreadcrumb } from "../breadcrumb-app/breadcrumb-context.jsx";
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);
@@ -33,6 +34,7 @@ const Line = ({id}) => {
   const defaultImage = "/images/banner.png";
   const params = useLocation();
   const paradasSection = useRef();
+  const { setLabel } = useBreadcrumb();
   
   const renderText = useCallback((text) => {
     // Usa regex para encontrar todas as barras e as envolve em spans
@@ -138,24 +140,18 @@ const Line = ({id}) => {
   } else {
     // Altera o título da página =
     document.title = `Linha ${data[0].line_number} | ${data[0].departure_location} - ${data[0].destination_location} | Transporte Público em Sabará - MG | Horários, Pontos de Paradas e Pontos de Recarga`;
-    const dataLineId = document.querySelectorAll('.breadcrumb-i.data-line-id')
-    if (dataLineId) dataLineId.forEach((item) => {
-      try {
-        item.querySelector('a').textContent = `${data[0].line_number} - ${data[0].departure_location} ⇄ ${data[0].destination_location}`;
-      } catch (error) {
-        console.log((error ?? "").toString().substring(0, 1) + ". Um erro ocorreu...");
-        console.log("Um erro ocorreu...");
-      }
-    });
+    
+    // Atualiza o breadcrumb usando o contexto
+    setLabel(id, `${data[0].line_number} - ${data[0].departure_location} ⇄ ${data[0].destination_location}`);
     
     return (
       <div className="d-flex flex-column" style={{gap: '3rem'}}>
-        <LineContext>
+        <LineContext line={data[0]}>
           <AnimatedComponents>
             <div className="d-flex flex-column" style={{gap: '3rem'}}>
               <section id={"id"}>
                 <AnimatedComponents>
-                  <LineIdentification line={data[0]}/>
+                  <LineIdentification/>
                   
                   <Grid className={"align-items-stretch mt-5 w-100"}>
                     {data[0].observations && (
@@ -210,9 +206,9 @@ const Line = ({id}) => {
                 </div>
                 <div className={"mt-3 d-flex column-gap-3 row-gap-1 flex-wrap"}>
                   <Link to={`/history/departure-times/${id}`} className={"text-decoration-none"}>Histórico de horários</Link>
-                  <span className={"text-body-tertiary fw-light d-inline-flex align-items-center justify-content-center"}><i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i></span>
+                  <span className={"text-body-tertiaryd-inline-flex align-items-center justify-content-center"}><i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i></span>
                   <Link to={`/history/fares/${id}`} className={"text-decoration-none"}>Histórico de tarifas</Link>
-                  <span className={"text-body-tertiary fw-light d-inline-flex align-items-center justify-content-center"}><i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i></span>
+                  <span className={"text-body-tertiaryd-inline-flex align-items-center justify-content-center"}><i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i></span>
                   <Link to={`/history/departure-points/${id}`} className={"text-decoration-none"}>Histórico de pontos de paradas</Link>
                 </div>
                 <div className={"mt-5 d-flex flex-column gap-3"}>

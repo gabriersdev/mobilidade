@@ -12,6 +12,7 @@ import {LoadingDeparturePoints, AnyBusProximityError, LiveGeneralError, SelectOn
 import {LiveFormLines, LiveFormDeparturePoints} from "../../components/live/live-form.jsx";
 import Weather from "../../components/weather/weather.jsx";
 import {useEffect, useRef} from "react";
+import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 
 moment.locale("pt-BR");
 
@@ -36,10 +37,15 @@ const Live = () => {
   } = useLiveComponent();
   
   const alertShowSomeDepartureStartHasShowed = useRef(false);
+  const { setLabel } = useBreadcrumb();
   
   useEffect(() => {
     alertShowSomeDepartureStartHasShowed.current = !departurePointSelected;
   }, [departurePointSelected]);
+  
+  useEffect(() => {
+    setLabel("live", "Ao vivo");
+  }, []);
   
   return (
     <AnimatedComponents>

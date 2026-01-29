@@ -218,7 +218,7 @@ const Nav = () => {
                   as={Link}
                   to="./"
                   onClick={() => setExpanded(false)}
-                  className={"text-body-secondary me-5 d-flex justify-content-center align-items-center flex-wrap"} style={{letterSpacing: '-0.75px'}}
+                  className={"text-body-secondary me-5 d-flex justify-content-center align-items-center flex-wrap"}
                 >
                   <img src={'/images/logo-transparent.png'} alt={'Logo'} className={'me-2'} style={{height: '3rem'}}/>
                   <div style={{fontFamily: "'Inter', 'Inter Tight', sans-serif"}} className={"d-flex flex-column"}>

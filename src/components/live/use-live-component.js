@@ -62,14 +62,6 @@ const useLiveComponent = () => {
     });
   }, []);
   
-  const parseDatetimeTimezone = useCallback((d) => {
-    return {
-      ...d,
-      "departure_time_trip": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["departure_time_trip"].replace("Z", "-03:00") : d?.["departure_time_trip"],
-      "expected_arrival_time": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["expected_arrival_time"].replace("Z", "-03:00") : d?.["expected_arrival_time"],
-    }
-  }, []);
-  
   const fetchData = async (departurePointSelected) => {
     // Força a perda de foco de todos os inputs
     document.querySelectorAll("input")?.forEach(i => i.blur());
@@ -91,13 +83,13 @@ const useLiveComponent = () => {
     const axiosNextDepartureTimes = s?.data[1]?.[0]?.[0]?.["@out"];
     
     if (Array.isArray(axiosMainData)) {
-      setData(JSON.parse(JSON.stringify(axiosMainData)).map(parseDatetimeTimezone));
+      setData(JSON.parse(JSON.stringify(axiosMainData)).map(Util.parseDatetimeTimezone));
     } else {
       setData([]);
     }
 
     if (Array.isArray(JSON.parse(axiosNextDepartureTimes))) {
-      setDataNextDepartureTimes(JSON.parse(axiosNextDepartureTimes).map(parseDatetimeTimezone));
+      setDataNextDepartureTimes(JSON.parse(axiosNextDepartureTimes).map(Util.parseDatetimeTimezone));
     } else {
       setDataNextDepartureTimes([]);
     }
@@ -174,21 +166,26 @@ const useLiveComponent = () => {
   }, [departurePointSelected, datetimeOriginalFetch]);
   
   useEffect(() => {
-    // Quando location search tiver algum valor, analisa se o parâmetro "ei" foi passado e se existe nele algum número para consultar o ponto
-    if (location.search && location.search !== "") {
-      const searchParams = new URLSearchParams(location.search)
-      let getSearchParamId;
-      if (searchParams) getSearchParamId = searchParams.get("ei")
-      if (getSearchParamId.match(/\d/)) setSearchDPId(+getSearchParamId.match(/\d/g).join(""));
-    }
+    const id = Util.getSearchParamId(location);
+    if (id !== null) setSearchDPId(id);
   }, [location]);
   
   useEffect(() => {
-    if (searchDPId >= 0 && departurePoints) {
-      fetchPhysicalPointId(searchDPId).then(physicalPointId => {
-        const correspondence = departurePoints.find(dp => dp.id === physicalPointId);
+    let correspondence;
+    let PPI;
+    
+    if (searchDPId && departurePoints) {
+      if (typeof searchDPId === 'string' && searchDPId.endsWith("S")) {
+        PPI = +searchDPId.match(/\d/g).join("");
+        if (PPI) correspondence = departurePoints.find(dp => dp.id === PPI);
         if (correspondence) setDeparturePointSelected(correspondence);
-      });
+      } else if (searchDPId >= 0) {
+        fetchPhysicalPointId(searchDPId).then(physicalPointId => {
+          PPI = physicalPointId
+          if (PPI) correspondence = departurePoints.find(dp => dp.id === PPI);
+          if (correspondence) setDeparturePointSelected(correspondence);
+        });
+      }
     }
   }, [searchDPId, departurePoints]);
   
