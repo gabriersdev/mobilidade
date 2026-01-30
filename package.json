@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://gabriersdev.github.io/mobilidade",
   "engines": {
-    "node": ">=24.10.0"
+    "node": "^22.18.0"
   },
   "scripts": {
     "dev": "vite",
@@ -81,7 +81,8 @@
     "rolldown": "^1.0.0-beta.58",
     "diff": "^8.0.3",
     "got": "^11.8.5",
-    "tar": "^7.5.3"
+    "tar": "^7.5.7",
+    "npm": "latest"
   },
   "sideEffects": [
     "bootstrap/dist/js/bootstrap.bundle.min.js"
