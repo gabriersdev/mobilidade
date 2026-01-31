@@ -1,5 +1,5 @@
 // Importa as funções necessárias do módulo 'fs/promises'
-import {writeFile, unlink, stat} from 'node:fs/promises';
+import {writeFile, unlink, stat, readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 
@@ -9,43 +9,58 @@ const fileName = 'register.build.json';
 
 // Constrói o caminho absoluto para o arquivo de forma segura em ES Modules
 const DIRNAME = path.dirname(fileURLToPath(import.meta.url));
-const filePath = path.join(DIRNAME + "/public/", fileName);
+const filePath = path.join(DIRNAME, "public", fileName);
+const packageJsonPath = path.join(DIRNAME, "package.json");
+const serviceWorkerPath = path.join(DIRNAME, "public", "service-worker.js");
 
 // Função principal assíncrona para criar ou recriar o arquivo JSON.
 async function managerFile() {
   try {
-    // 1. Prepara os dados
-    const version = "1.16.0";
+    // 1. Lê o package.json para obter a versão
+    const packageJsonContent = await readFile(packageJsonPath, 'utf-8');
+    const packageJson = JSON.parse(packageJsonContent);
+    const version = packageJson.version;
+
+    // 2. Lê o service-worker.js para obter a versão do cache
+    let cacheVersion = "Não definido";
+    try {
+      const swContent = await readFile(serviceWorkerPath, 'utf-8');
+      const match = swContent.match(/const cacheNumber = (\d+)/);
+      if (match && match[1]) {
+        cacheVersion = `V${match[1]}`;
+      }
+    } catch (swError) {
+      console.warn("Não foi possível ler o service-worker.js:", swError.message);
+    }
+
     const code = Date.now();
     const datetimeCreate = new Date().toISOString();
     
     const data = {
       version: version,
+      cacheVersion: cacheVersion,
       code: code,
       datetimeCreate: datetimeCreate
     };
     
     const dadosEmJson = JSON.stringify(data, null, 2);
     
-    // 2. Verifica se o arquivo já existe e o apaga
-    // Usar 'stat' dentro de um try-catch é uma forma robusta de verificar a existência
+    // 3. Verifica se o arquivo já existe e o apaga
     try {
-      await stat(filePath); // Tenta obter o status do arquivo
-      await unlink(filePath); // Se não deu erro, o arquivo existe e será apagado
+      await stat(filePath); 
+      await unlink(filePath);
       console.log('Arquivo existente apagado com sucesso.');
     } catch (error) {
-      // Se o erro for 'ENOENT', significa que o arquivo não existe, o que é esperado.
       if (error.code !== 'ENOENT') {
-        console.error(error); // Se for outro erro, propaga o erro.
+        console.error(error);
       }
     }
     
-    // 3. Cria o novo arquivo com os dados
+    // 4. Cria o novo arquivo com os dados
     await writeFile(filePath, dadosEmJson);
     console.log(`Arquivo JSON "${fileName}" foi criado com sucesso em: ${filePath}`);
     
   } catch (err) {
-    // 4. Captura e exibe qualquer erro que possa ocorrer no processo
     console.error('Ocorreu um erro ao gerenciar o arquivo:', err);
   }
 }
