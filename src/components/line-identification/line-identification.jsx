@@ -159,9 +159,9 @@ const LineIdentification = () => {
           </hgroup>
           {
             line.line_name.toLowerCase() !== line.departure_location.toLowerCase() + "/" + line.destination_location.toLowerCase() ? (
-              <span className={"d-block mb-5 mt-3 mt-md-2 text-body-secondary"}>{line.line_name.replace(/\//, " ⇄ ") || ""}</span>
+              <span className={"d-block mb-lg-5 mt-3 mt-md-2 text-body-secondary"}>{line.line_name.replace(/\//, " ⇄ ") || ""}</span>
             ) : (
-              <div className={"my-2"}></div>
+              <div className={"my-lg-2"}></div>
             )
           }
         </div>

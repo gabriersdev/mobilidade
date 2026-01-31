@@ -145,7 +145,7 @@ const AccordionOperationDays = () => {
                   tableIndex={j}
                 />
                 <Legend items={observations} type={type || "current"}/>
-                <span className={"text-body-secondary mt-4 text-sml"}>
+                <span className={"text-body-secondary mt-4 text-sml d-block text-balance"}>
                   {departureTimesDay.length.toLocaleString()} horários de partidas no horário de {dayConverted.substring(0, 1).toLowerCase() + dayConverted.substring(1)}.
                 </span>
               </AccordionItem>
