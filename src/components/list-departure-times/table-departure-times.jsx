@@ -4,7 +4,7 @@ import moment from "moment";
 import {Badge, Table as BootstrapTable} from "react-bootstrap";
 
 import data from "../../assets/data.js";
-import {Theme} from "../ui/theme-context/theme-context.jsx";
+import {ThemeContext} from "../ui/theme-context/theme-context.jsx";
 import {TimeContext} from "./departure-time-context.jsx";
 
 // Componente para a lógica de 'Próximo' e 'Avançar' que precisa de atualização em tempo real
@@ -109,7 +109,7 @@ const TableRow = ({ row, directionName, direction, dayName, tableIndex, type }) 
 };
 
 const TableDepartureTimes = ({ content, tableIndex }) => {
-  const { directionName, direction, type } = useContext(Theme);
+  const { directionName, direction, type } = useContext(ThemeContext);
   const { data: listData, dayName } = content;
   const [isLoading, setIsLoading] = useState(true);
   

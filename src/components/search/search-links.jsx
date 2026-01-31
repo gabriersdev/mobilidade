@@ -6,11 +6,11 @@ const SearchLinks = () => {
     <div className={"py-3 d-flex align-items-center gap-1 overflow-x-scroll"}>
       {
         [
-          ["Municipal", "bg-danger-subtle text-danger-emphasis"],
-          ["Metropolitano", "bg-primary-subtle text-primary-emphasis"],
+          ["Executivo", "bg-warning-subtle text-warning-emphasis"],
+          ["Municipal", "bg-secondary text-secondary-emphasis"],
+          ["Metropolitano", "bg-info-subtle text-info-emphasis"],
           // ["Intermunicipal", "bg-primary-subtle text-primary-emphasis"],
           // ["Coletivo", "bg-danger-subtle text-danger-emphasis"],
-          ["Executivo", "bg-success-subtle text-success-emphasis"],
         ].toSorted((a, b) =>
           (a[1] ? 1 : 0) - (b[1] ? 1 : 0) || (a[1] ? a[1].localeCompare(b[1]) : a[0].localeCompare(b[0]))
         ).map((item, index) => (

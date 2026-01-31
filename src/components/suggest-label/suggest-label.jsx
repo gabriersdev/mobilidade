@@ -14,7 +14,7 @@ export default function SuggestLabel() {
   
   return (
     <div>
-      <div className={"bg-body-secondary px-2 py-1 rounded d-flex align-items-center justify-content-between gap-2"}>
+      <div className={"bg-body-secondary px-2 py-1 rounded d-flex align-items-center justify-content-between flex-wrap gap-2"}>
         <div className={"text-body-secondary"}>
           <Dropdown>
             <DropdownToggle variant={"default"} className={"border-0 p-0 m-0 text-body-secondary line-clamp-w-200"}>
@@ -49,7 +49,7 @@ export default function SuggestLabel() {
           </Dropdown>
         </div>
         
-        <div className={"d-flex gap-1 align-items-center text-sml"}>
+        <div className={"d-flex gap-1 align-items-center flex-wrap text-sml"}>
           {busTimes.length > 0 ? (
             busTimes.map((busTime, index) => (
               <React.Fragment key={busTime.id}>
@@ -70,7 +70,7 @@ export default function SuggestLabel() {
         
         <div>
           <Dropdown>
-            <DropdownToggle size={"sm"} variant={"default"} className={"border-0 text-danger-emphasis d-flex align-items-center"}>
+            <DropdownToggle size={"sm"} variant={"default"} className={"border-0 text-danger-emphasis d-flex align-items-center m-0 p-0"}>
               <div className="live-indicator me-1">
                 <div className="live-dot"></div>
               </div>

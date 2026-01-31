@@ -2,6 +2,7 @@ import {createContext, useState} from "react";
 import PropTypes from "prop-types";
 
 const DPContext = createContext({});
+const DeparturePointsDataContext = createContext({});
 
 const DeparturePointsContext = ({children}) => {
   const [show, setShow] = useState(false);
@@ -33,4 +34,4 @@ DeparturePointsContext.propTypes = {
   children: PropTypes.node
 }
 
-export {DPContext, DeparturePointsContext};
+export {DPContext, DeparturePointsContext, DeparturePointsDataContext};

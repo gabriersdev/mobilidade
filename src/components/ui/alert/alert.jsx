@@ -60,9 +60,9 @@ const Alert = ({
       <details>
         <summary open={propOpen} onClick={() => {
           setPropOpen(!propOpen)
-        }} className={"alert-warning-summary d-flex gap-2"}>
+        }} className={"alert-warning-summary d-flex gap-2 line-clamp-1"}>
           <span className={"d-block"}>{icon}</span>
-          <div className={"d-flex align-items-center"}>
+          <div className={"d-flex align-items-center line-clamp-1"}>
             <span className={"truncate-w-250 d-block"}>
               {summaryText}
             </span>

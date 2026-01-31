@@ -1,87 +1,37 @@
 import {Link} from "react-router-dom";
-import {Container, DropdownButton, DropdownItem} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import "./footer.css";
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import InstallPWAButton from "../../install-PWA-button/install-PWA-button.jsx";
 import AnimatedComponents from "../animated-component/animated-components.jsx";
 import Util from "../../../assets/Util.jsx";
 import moment from "moment";
 import {contactLotus} from "../../../assets/resources.js";
+import {useTheme} from "../theme-context/theme-context.jsx";
+import ThemeSelector from "./theme-selector.jsx";
 
 const Footer = () => {
-  const baseVersion = useRef("1.17.0");
-  const [version, setVersion] = useState(baseVersion.current);
+  const [version, setVersion] = useState("1.17.0");
   const [cacheVersion, setCacheVersion] = useState("V40");
-  
-  const [theme, setTheme] = useState("light");
   const [dataBuild, setDataBuild] = useState({datetimeCreate: null});
+  const {theme, handleTheme} = useTheme();
   
   useEffect(() => {
-    // TODO - verificar. essa formação de string para o fetch não parece correta
-    fetch((window.location.pathname !== "/" ? "." : "") + "./register.build.json").then((response) => {
-      response.json().then((data) => {
-        setDataBuild({...data});
-      });
-    });
-    
-    // TODO - rever como buscar versão. O package.json não está disponível para acesso em produção
-    fetch("package.json").then((res) => {
-      return res.json();
-    }).then(data => {
-      if (data && data.version) setVersion(data.version);
-    });
-    
-    fetch("/service-worker.js").then((res) => {
-      return res.text();
-    }).then(data => {
-      const match = data.match(/const cacheNumber = (\d+)/g);
-      const cacheN = match.toString().split(" ")[match.toString().split(" ").length - 1];
-      if (match && cacheN) setCacheVersion(`V${cacheN}`);
-    });
-  }, []);
-  
-  const handleTheme = useCallback((themeParam) => {
-    if (!["default", "light", "dark"].includes(themeParam)) {
-      throw new Error(`Theme "${themeParam}" is not supported`);
-    }
-    
-    if ("localStorage" in window) {
-      try {
-        let ls = JSON.parse(localStorage.getItem("mobilidade-app"));
-        if (ls && ls["theme"]) {
-          localStorage.setItem("mobilidade-app", JSON.stringify({
-            ...ls,
-            theme: themeParam
-          }));
+    fetch("/register.build.json")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
         }
-        setTheme(themeParam);
-        document.querySelector('html').dataset.bsTheme = themeParam;
-      } catch (error) {
-        console.log(error.message);
-      }
-    }
-  }, []);
-  
-  useEffect(() => {
-    if (!("localStorage" in window)) {
-      console.log("Navegador não suporta localStorage");
-    } else {
-      let ls
-      
-      try {
-        ls = JSON.parse(localStorage.getItem("mobilidade-app"));
-        if (ls && ls["theme"]) handleTheme(ls["theme"]);
-        else if (!ls) localStorage.setItem("mobilidade-app", JSON.stringify({theme: theme}));
-      } catch (err) {
-        console.log(err.message)
-      }
-    }
-  }, [handleTheme, theme]);
-  
-  useEffect(() => {
-    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (prefersDarkMode) setTheme("dark");
-    else setTheme("light");
+        return response.json();
+      })
+      .then((data) => {
+        setDataBuild({...data});
+        if (data.version) setVersion(data.version);
+        if (data.cacheVersion) setCacheVersion(data.cacheVersion);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch build info:", error);
+      });
   }, []);
   
   return (
@@ -114,21 +64,13 @@ const Footer = () => {
               <i className="bi bi-menu-button-fill"></i>
             </button>
             
-            {/*TODO - separar em um componente a parte*/}
-            <DropdownButton id="dropdown-basic-button" title="Tema" variant="secondary" className="mt-1 rounded-circle">
-              <DropdownItem active={["default", "light"].includes(theme)} onClick={() => handleTheme("light")}>
-                Claro
-              </DropdownItem>
-              <DropdownItem active={theme === "dark"} onClick={() => handleTheme("dark")}>
-                Escuro
-              </DropdownItem>
-            </DropdownButton>
+            <ThemeSelector theme={theme} onThemeChange={handleTheme} />
             
             <InstallPWAButton/>
             {
               (
                 <div className={"d-b lock mt-2 text-sml d-flex flex-column gap-1"}>
-                  <p className={"text-body-secondary p-0 m-0 fs-inherit"}>Versão: {version || baseVersion.current} | Cache: {cacheVersion || "Não definido"} </p>
+                  <p className={"text-body-secondary p-0 m-0 fs-inherit"}>Versão: {version} | Cache: {cacheVersion} </p>
                   <p className={"text-body-secondary p-0 m-0 fs-inherit"}>{dataBuild.datetimeCreate && <span>Versão de build: {Util.renderText(moment(dataBuild.datetimeCreate).utc(true).format("HH[h]mm[m] DD/MM/YYYY [GMT-03:00]"))}</span>}</p>
                 </div>
               )
@@ -146,7 +88,7 @@ const Footer = () => {
             <span className={"fs-inherit fw-bold"}>Hospedado na infraestrutura da <img src={"https://raw.githubusercontent.com/lotus-media/media-kit/refs/heads/main/favicon.svg"} height={24} width={24} style={{marginBottom: "0.25rem"}} alt={"Logo da Lotus Media"}/> Lotus.</span>
           </h3>
           <Link to={contactLotus} target={"_blank"} className={"text-decoration-none"}>
-            <span style={{color: "#FC0B65"}}>Comece seu projeto hoje mesmo {"->"}</span>
+            <p className={"m-0 p-0"} style={{color: "#FC0B65"}}>Comece seu projeto hoje mesmo <span className={"fs-inherit d-inline-block"} style={{rotate: "-45deg", marginBottom: "1.15px"}}>{"->"}</span></p>
           </Link>
         </Container>
       </div>

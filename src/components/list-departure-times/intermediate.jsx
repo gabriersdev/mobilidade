@@ -26,7 +26,7 @@ export default function Intermediate({data = [], observations, departure_locatio
           <AccordionItem
             title={directionName}
             eventKey={i.toString()} key={i}>
-            <ThemeContext value={{
+            <ThemeContext.Provider value={{
               departureTimes,
               // 7. Usa o estado 'sortedDays' com os dados corretos e ordenados
               uniqueDaysForDirection: sortedDays,
@@ -44,7 +44,7 @@ export default function Intermediate({data = [], observations, departure_locatio
                 </OverlayTrigger>
                 <span className={"text-body-secondary line-clamp-1 text-sml"}>{departureTimes.length.toLocaleString()} horários de partidas neste sentido.</span>
               </div>
-            </ThemeContext>
+            </ThemeContext.Provider>
           </AccordionItem>
         )
       })}

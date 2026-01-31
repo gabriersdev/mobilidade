@@ -6,7 +6,7 @@ import moment from "moment";
 
 import Legend from "../ui/legend/legend.jsx";
 import Accordion from "../ui/accordion/accordion.jsx";
-import {Theme} from "../ui/theme-context/theme-context.jsx";
+import {ThemeContext} from "../ui/theme-context/theme-context.jsx";
 import {TimeContext} from "./departure-time-context.jsx";
 import NoDepartureTimes from "./no-departure-times.jsx";
 import {Badge} from "react-bootstrap";
@@ -18,7 +18,7 @@ moment.locale("pt-br");
 
 const AccordionOperationDays = () => {
   const {defaultEventKey, setDefaultEventKey} = useContext(TimeContext);
-  const {departureTimes, uniqueDaysForDirection, index, direction, directionName, observations, type, scope} = useContext(Theme);
+  const {departureTimes, uniqueDaysForDirection, index, direction, directionName, observations, type, scope} = useContext(ThemeContext);
   const navigation = useLocation();
   
   // Função helper para obter o nome do dia atual
@@ -39,23 +39,59 @@ const AccordionOperationDays = () => {
         daysForDirection.map(day => Util.convertNumberToDay(day))
       );
       
-      const currentDayName = getCurrentDayGroupName();
+      const dayGroup = getCurrentDayGroupName();
+      // Ensure dayGroup is an array
+      const currentDayNameRaw = Array.isArray(dayGroup) ? dayGroup[0] : dayGroup;
+      const currentDayNameIsVacationRaw = Array.isArray(dayGroup) ? dayGroup[1] : null;
       
-      const defaultIndex = convertedDayNames.findIndex(name => {
+      const currentDayName = Util.normalize(currentDayNameRaw.toLowerCase());
+      const isVacation = currentDayNameIsVacationRaw && (currentDayNameIsVacationRaw.includes('ferias') || currentDayNameIsVacationRaw.includes('férias'));
+      
+      let bestMatchIndex = -1;
+      let bestMatchScore = -1;
+      
+      convertedDayNames.forEach((name, index) => {
         const normalizedName = Util.normalize(name.toLowerCase());
-        const normalizedCurrent = Util.normalize(currentDayName.toLowerCase());
+        const nameHasVacation = normalizedName.includes('ferias') || normalizedName.includes('férias');
         
-        // Se for férias, verifica ambas as grafias
-        if (normalizedCurrent === 'ferias') {
-          // Usa como opção encontrar apenas o normalizedCurrent se não estiver incluído no nome "ferias"
-          // Chama novamente a função getCurrentDayGroupName, porém com o parâmetro consideringVacations = false
-          const currentDayNameNoConsideringVacations = Util.normalize(Util.getCurrentDayGroupName(scope, false));
-          const match = (normalizedName.includes('ferias') && normalizedName.includes(normalizedCurrent)) || (normalizedName.includes(normalizedCurrent) || normalizedName.includes(currentDayNameNoConsideringVacations));
-          return match;
+        let nameHasDay = normalizedName.includes(currentDayName);
+        
+        // Special handling for "dia util" vs "dias uteis"
+        if (!nameHasDay && currentDayName === 'dia util') {
+            nameHasDay = normalizedName.includes('dias uteis') || normalizedName.includes('dia util');
         }
         
-        return normalizedName.includes(normalizedCurrent);
+        let score = -1;
+        
+        if (isVacation) {
+            // Today is Vacation
+            if (nameHasDay) {
+                if (nameHasVacation) {
+                    score = 2; // Exact match (Day + Vacation)
+                } else {
+                    score = 1; // Fallback (Day only)
+                }
+            }
+        } else {
+            // Today is Normal
+            if (nameHasDay) {
+                if (!nameHasVacation) {
+                    score = 2; // Exact match (Day only)
+                } else {
+                    // Day matches, but it is a vacation schedule.
+                    // If today is Normal, we should NOT show Vacation schedule.
+                    score = -1;
+                }
+            }
+        }
+        
+        if (score > bestMatchScore) {
+            bestMatchScore = score;
+            bestMatchIndex = index;
+        }
       });
+      
+      const defaultIndex = bestMatchIndex;
       
       // Define a chave do accordion que deve vir aberta
       const newDefaultKey = defaultIndex !== -1 ? [defaultIndex.toString()] : [];
@@ -109,7 +145,7 @@ const AccordionOperationDays = () => {
                   tableIndex={j}
                 />
                 <Legend items={observations} type={type || "current"}/>
-                <span className={"text-body-secondary mt-4 text-sml"}>
+                <span className={"text-body-secondary mt-4 text-sml d-block text-balance"}>
                   {departureTimesDay.length.toLocaleString()} horários de partidas no horário de {dayConverted.substring(0, 1).toLowerCase() + dayConverted.substring(1)}.
                 </span>
               </AccordionItem>

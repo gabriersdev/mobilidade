@@ -127,7 +127,8 @@ export default class Util {
   }
   
   static normalize(text) {
-    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\u0100-\u1EFF]/g, "");
+    if (text.normalize) return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\u0100-\u1EFF]/g, "");
+    return text
   }
   
   static convertNumberToDay = async (day) => {
@@ -362,7 +363,7 @@ export default class Util {
     let holidaysScope = getAllHolidays(now.year(), {includeRegion: `SC${('0' + codeScope).slice(-2)}`});
     return holidaysScope.find((h) => now.diff(h.date, "days") === 0);
   }
-
+  
   static getTodayVacationData() {
     const m = moment();
     const now = moment(`${m.get("year")}-${('0' + (m.get("month") + 1)).slice(-2)}-${('0' + m.get("date")).slice(-2)}T00:00:00-03:00`);
@@ -371,21 +372,26 @@ export default class Util {
   }
   
   static getCurrentDayGroupName(scope, consideringVacations) {
-    if (Util.getTodayHolidayData(scope)) return 'domingo';
-
-    if ([null, undefined, true].includes(consideringVacations)) {
-      const vacation = Util.getTodayVacationData();
-      if (vacation) return 'ferias';
+    if (Util.getTodayHolidayData(scope)) return ['domingo'];
+    
+    function theDayIs() {
+      switch (moment().get("day")) {
+        case 0:
+          return 'domingo';
+        case 6:
+          return 'sábado';
+        default:
+          return 'dia útil';
+      }
     }
     
-    switch (moment().get("day")) {
-      case 0:
-        return 'domingo';
-      case 6:
-        return 'sábado';
-      default:
-        return 'dia útil';
+    if ([null, undefined, true].includes(consideringVacations)) {
+      const vacation = Util.getTodayVacationData();
+      if (vacation) return [theDayIs(), 'ferias'];
+      return [theDayIs()];
     }
+    
+    return [theDayIs()];
   };
   
   static greaterThan(value, compare, replaced) {
@@ -428,7 +434,7 @@ export default class Util {
     
     return days[weekDay.toLowerCase()] || weekDay;
   }
-
+  
   static parseDatetimeTimezone(d) {
     return {
       ...d,
@@ -436,23 +442,28 @@ export default class Util {
       "expected_arrival_time": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["expected_arrival_time"].replace("Z", "-03:00") : d?.["expected_arrival_time"],
     }
   }
-
+  
   static getSearchParamId(location) {
     if (!location || !location.search) return null;
     const searchParams = new URLSearchParams(location.search);
-
+    
     const ei = searchParams.get("ei");
     if (ei) {
       const match = ei.match(/\d+/g);
       if (match) return +match.join("");
     }
-
+    
     const sei = searchParams.get("sei");
     if (sei) {
       const match = sei.match(/\d+/g);
       if (match) return `${match.join("")}S`;
     }
-
+    
     return null;
   }
+  
+  // TODO - criar método para usar na construção da identificação visual das linhas
+  // ["Executivo", "bg-warning-subtle text-warning-emphasis"],
+  // ["Municipal", "bg-secondary text-secondary-emphasis"],
+  // ["Metropolitano", "bg-info-subtle text-info-emphasis"],
 }
