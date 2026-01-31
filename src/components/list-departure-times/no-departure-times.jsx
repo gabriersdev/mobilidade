@@ -24,7 +24,7 @@ const NoDepartureTimes = ({isFirst}) => {
   // Só renderiza para o primeiro item (mesma lógica anterior)
   if (!isFirst) return null;
   
-  const currentDayName = getCurrentDayGroupName();
+  const currentDayName = getCurrentDayGroupName()[0];
   
   const show = Array.isArray(defaultEventKey) && defaultEventKey.length === 0;
   
@@ -33,7 +33,17 @@ const NoDepartureTimes = ({isFirst}) => {
   return (
     <Alert variant={"warning"} dismissible={true}>
       <p className={"m-0 p-0"}>
-        Essa linha <b>não possui horários de partida {['sábado', 'domingo'].includes(currentDayName) ? "aos" : "em"} {['dia útil'].includes(currentDayName) ? "dias úteis" : currentDayName + "s"}.</b>
+        Essa linha {" "}
+        <b>
+          não possui horários de partida
+          {" "}
+          {['sábado', 'domingo'].includes(currentDayName) ? "aos" : "em"}
+          {" "}
+          {
+            (['dia útil'].includes(currentDayName) ? "dias úteis" : currentDayName.toString().replaceAll(",", " ")) +
+            (currentDayName.toString().endsWith("s") ? "" : "s")
+          }.
+        </b>
       </p>
     </Alert>
   );
