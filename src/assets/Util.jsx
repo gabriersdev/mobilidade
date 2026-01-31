@@ -455,4 +455,9 @@ export default class Util {
 
     return null;
   }
+  
+  // TODO - criar método para usar na construção da identificação visual das linhas
+  // ["Executivo", "bg-warning-subtle text-warning-emphasis"],
+  // ["Municipal", "bg-secondary text-secondary-emphasis"],
+  // ["Metropolitano", "bg-info-subtle text-info-emphasis"],
 }

@@ -1,7 +1,7 @@
 import moment from "moment";
 import {Tooltip} from 'bootstrap';
 import {Link} from "react-router-dom";
-import {Popover, Badge, OverlayTrigger, ListGroup, ListGroupItem} from "react-bootstrap";
+import {Popover, Badge, OverlayTrigger, ListGroup, ListGroupItem, Button} from "react-bootstrap";
 import {useContext, useEffect, useMemo, useRef, useState} from "react";
 
 import Util from "../../assets/Util";
@@ -11,6 +11,7 @@ import {Context} from "../line/line-context.jsx";
 import LineInfo from "../line-info/line-info.jsx";
 import ReportModal from "../report/report-modal.jsx";
 import MonitorModal from "../monitor/monitor-modal.jsx";
+import {currentTableFares, linesWithManualIntegration} from "../../assets/resources.js";
 import SeeMore from "../../components/ui/see-more/see-more.jsx";
 import LineIdentificationCompanyLogo from "./line-identification-company-logo.jsx";
 
@@ -107,24 +108,42 @@ const LineIdentification = () => {
   ), [aircon, airsuspension, bench, fleet, teraflex, conc, wifi]);
   
   // TODO - implementar retorno ou verificação do banco de dados de integração
-  const integrationPopover = useMemo(() => (
-    // , 4992, 4685, 4687
-    <Popover id="accessibility-popover" className={[4991].map(s => s.toString()).includes(line.line_number) ? "" : "d-none"}>
-      <Popover.Header as="h3" className={"inter"}>Integração</Popover.Header>
-      <Popover.Body className={"text-sml"}>
-        <ListGroup className={"fs-inherit"}>
-          <ListGroupItem className={"fs-inherit"}>
-            <span className={"fs-inherit text-primary lh-base mb-1 d-block"}>4991 {"->"} Integração MOVE Metropolitano</span>
-            <span className={"fs-inherit"}>BRL 8.80 (tarifa da linha 4991) + BRL 0.15 na integração.</span>
-          </ListGroupItem>
-          <ListGroupItem className={"fs-inherit"}>
-            <span className={"fs-inherit text-primary lh-base"}>4991 {"->"} TREM Belo Horizonte</span><br/>
-            Não possui integração.
-          </ListGroupItem>
-        </ListGroup>
-      </Popover.Body>
-    </Popover>
-  ), []);
+  const integrationPopover = useMemo(() => {
+    const lineHaveAIntegration = [...linesWithManualIntegration].map(s => s.toString()).includes(line.line_number);
+    
+    if (!lineHaveAIntegration) return (
+      <Popover id="no-accessibility-popover">
+        <Popover.Header as="h3" className={"inter"}>Integração</Popover.Header>
+        <Popover.Body className={"text-sml"}>
+          Esta linha não possui integração. Isso significa que, se você precisar fazer baldeação para chegar ao seu destino, precisará desembolsar o valor integral da passagem.
+        </Popover.Body>
+      </Popover>
+    )
+    
+    return (
+      <Popover id="accessibility-popover">
+        <Popover.Header as="h3" className={"inter"}>Integração</Popover.Header>
+        <Popover.Body className={"text-sml"}>
+          <ListGroup className={"fs-inherit"}>
+            <ListGroupItem className={"fs-inherit"}>
+              <span className={"fs-inherit text-primary lh-base mb-1 d-block"}>4991 {"->"} Integração MOVE Metropolitano</span>
+              <span className={"fs-inherit"}>BRL 8,80 (tarifa da linha 4991) + BRL 0,15 na integração.</span>
+            </ListGroupItem>
+            <ListGroupItem className={"fs-inherit"}>
+              <span className={"fs-inherit text-primary lh-base"}>4991 {"->"} TREM Belo Horizonte</span><br/>
+              Não possui integração.
+            </ListGroupItem>
+          </ListGroup>
+          
+          <Link to={currentTableFares} rel={"noreferrer noopener"} target={"_blank"} className={"mt-2 d-block"}>
+            <Button size={"sm"} className={"text-sml"}>
+              Tabela de tarifas <span className={"fs-inherit d-inline-block"} style={{rotate: "-45deg", marginBottom: "1.15px"}}>{"->"}</span>
+            </Button>
+          </Link>
+        </Popover.Body>
+      </Popover>
+    )
+  }, [line]);
   
   if (!line) return null;
   
@@ -154,8 +173,8 @@ const LineIdentification = () => {
         <div className={"d-flex flex-column gap-3 mt-5"}>
           <div className="d-flex align-items-center gap-3 flex-wrap order-1" style={{maxWidth: "600px"}}>
             <Link className={"text-decoration-none"} to={"/search/?term=" + (
-              lineType.toLowerCase().includes("executivo") || lineType.toLowerCase().includes("seletivo") ? "bandeirante" :
-                lineType.toLowerCase().includes("coletivo") ? "coletivo" : lineType
+              lineType.toLowerCase().includes("executivo") ? "Executivo" : lineType.toLowerCase().includes("seletivo") ? "Bandeirante" :
+                lineType.toLowerCase().includes("coletivo") ? "Coletivo" : lineType
             )}>
               <LineInfo label={{ref: 'Tipo da Linha', value: lineType}}>
                 <i className="bi bi-record-circle red"></i>
