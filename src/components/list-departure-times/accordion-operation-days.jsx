@@ -6,7 +6,7 @@ import moment from "moment";
 
 import Legend from "../ui/legend/legend.jsx";
 import Accordion from "../ui/accordion/accordion.jsx";
-import {Theme} from "../ui/theme-context/theme-context.jsx";
+import {ThemeContext} from "../ui/theme-context/theme-context.jsx";
 import {TimeContext} from "./departure-time-context.jsx";
 import NoDepartureTimes from "./no-departure-times.jsx";
 import {Badge} from "react-bootstrap";
@@ -18,7 +18,7 @@ moment.locale("pt-br");
 
 const AccordionOperationDays = () => {
   const {defaultEventKey, setDefaultEventKey} = useContext(TimeContext);
-  const {departureTimes, uniqueDaysForDirection, index, direction, directionName, observations, type, scope} = useContext(Theme);
+  const {departureTimes, uniqueDaysForDirection, index, direction, directionName, observations, type, scope} = useContext(ThemeContext);
   const navigation = useLocation();
   
   // Função helper para obter o nome do dia atual

@@ -5,9 +5,8 @@ import config from "../../assets/config.js";
 import Alert from "../ui/alert/alert.jsx";
 import Accordion from "../ui/accordion/accordion.jsx";
 import OffCanvasDeparturePoints from "./off-canvas-departure-points.jsx";
-import {ThemeContext} from "../ui/theme-context/theme-context.jsx";
 import ListPointsByDirections from "./list-points-by-directions.jsx";
-import {DeparturePointsContext} from "./departure-points-context.jsx";
+import {DeparturePointsContext, DeparturePointsDataContext} from "./departure-points-context.jsx";
 import RouteMap from "../route-map/route-map.jsx";
 import AnimatedComponents from "../ui/animated-component/animated-components.jsx";
 
@@ -51,7 +50,7 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
     return (
       <DeparturePointsContext>
         {/* Lista os sentidos da linha e os pontos de parada que correspondentes */}
-        <ThemeContext value={Object.assign({}, {
+        <DeparturePointsDataContext.Provider value={Object.assign({}, {
           departure_location,
           destination_location,
           uniqueDirections,
@@ -65,7 +64,7 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
               <p className={"d-block text-body-tertiary text-sml m-0 p-0 text-balance"}>Os pontos de partida são atualizados ocasionalmente via integração com o Moovit.</p>
             </div>
           </Accordion>
-        </ThemeContext>
+        </DeparturePointsDataContext.Provider>
       </DeparturePointsContext>
     )
   }

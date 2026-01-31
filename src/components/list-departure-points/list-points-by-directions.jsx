@@ -1,14 +1,13 @@
 import {useCallback, useContext, useEffect} from "react";
 import AccordionItem from "../ui/accordion/accordion-item.jsx";
-import {DPContext as DeparturePointsTheme} from "./departure-points-context.jsx";
-import {Theme} from "../ui/theme-context/theme-context.jsx";
+import {DPContext as DeparturePointsTheme, DeparturePointsDataContext} from "./departure-points-context.jsx";
 import {Context as LineContext} from "../line/line-context.jsx";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import PaginationWithItems from "../pagination-with-items/pagination-with-items.jsx";
 
 const ListPointsByDirections = () => {
-  const {uniqueDirections, departure_location, destination_location, departurePointsByDirection} = useContext(Theme);
+  const {uniqueDirections, departure_location, destination_location, departurePointsByDirection} = useContext(DeparturePointsDataContext);
   const {handlePointClick} = useContext(DeparturePointsTheme);
   const {setFirstPointByDirection} = useContext(LineContext);
   
