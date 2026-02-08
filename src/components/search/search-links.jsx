@@ -7,7 +7,7 @@ const SearchLinks = () => {
       {
         [
           ["Executivo", "bg-warning-subtle text-warning-emphasis"],
-          ["Municipal", "bg-secondary text-secondary-emphasis"],
+          ["Municipal", "bg-body-secondary text-body"],
           ["Metropolitano", "bg-info-subtle text-info-emphasis"],
           // ["Intermunicipal", "bg-primary-subtle text-primary-emphasis"],
           // ["Coletivo", "bg-danger-subtle text-danger-emphasis"],
