@@ -1,90 +1,87 @@
-// noinspection DuplicatedCode
-
-const cacheNumber = 42;
+const cacheNumber = 43;
 const cacheVersion = "V" + cacheNumber;
+const CACHE_NAME = `mobilidade-app-${cacheVersion}`;
 const STATIC_CACHE_NAME = `mobilidade-app-${cacheVersion}`;
 const DYNAMIC_CACHE_NAME = `dynamic-mobilidade-app-${cacheVersion}`;
 
-
-const staticUrlsToCache = [ // Arquivos estáticos que raramente mudam
+// TODO - testar nova implementação de caching
+// Arquivos essenciais que DEVEM estar no cache imediatamente (App Shell)
+const ASSETS_TO_CACHE = [
   '/',
+  '/index.html',
+  '/offline.html',
   '/manifest.json',
-  '/favicon.svg',
-  '/images/icon-white-192x192.png',
-  '/images/icon-white-512x512.png',
+  '/css/app.css',
+  '/css/bootstrap-cerulean.css',
+  '/css/index.css',
+  '/css/scroll-container.css',
 ];
 
+// Instalação: Cacheia os arquivos estáticos iniciais
 self.addEventListener('install', (event) => {
-  console.log('Service Worker instalado.');
   event.waitUntil(
-    caches.open(STATIC_CACHE_NAME)
-      .then((cache) => cache.addAll(staticUrlsToCache))
-  );
-  self.skipWaiting();
-});
-
-
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-
-      // Stale-while-revalidate para recursos estáticos, network-first para dinâmicos
-      if (staticUrlsToCache.includes(event.request.url)) { // Cache estático
-        return staleWhileRevalidate(event);
-      } else { // Cache Dinâmico (API, etc.) - ajusta conforme necessário
-        return networkFirst(event);
-      }
-
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log('Service Worker: Cacheando arquivos estáticos');
+      return cache.addAll(ASSETS_TO_CACHE);
     })
   );
 });
 
-
-// Função auxiliar para stale-while-revalidate
-function staleWhileRevalidate(event) {
-  return caches.open(STATIC_CACHE_NAME).then(cache => {
-    return cache.match(event.request).then(response => {
-      const fetchPromise = fetch(event.request).then(networkResponse => {
-        cache.put(event.request, networkResponse.clone()).then();
-        return networkResponse;
-      });
-
-      return response || fetchPromise;
-    });
-  });
-}
-
-//Função auxiliar para network-first
-function networkFirst(event) {
-  return fetch(event.request).then(fetchRes => {
-    return caches.open(DYNAMIC_CACHE_NAME).then(cache => {
-      cache.put(event.request, fetchRes.clone()).then();
-      return fetchRes;
-    })
-  }).catch(() => {
-    return caches.match(event.request)
-  })
-}
-
-
+// Ativação: Limpa caches antigos se a versão mudar
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
+    caches.keys().then((keys) => {
       return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== STATIC_CACHE_NAME && cacheName !== DYNAMIC_CACHE_NAME) {
-            console.log('Limpando cache antigo:', cacheName);
-            return caches.delete(cacheName);
+        keys.map((key) => {
+          if (key !== CACHE_NAME && key !== DYNAMIC_CACHE_NAME) {
+            return caches.delete(key);
           }
         })
       );
     })
   );
-  console.log('Service Worker ativado.');
-  event.waitUntil(clients.claim());
+});
+
+// Fetch: cache centralizado
+self.addEventListener('fetch', (event) => {
+  const request = event.request;
+  
+  // Ignora requisições que não sejam GET ou que sejam de outras origens (opcional)
+  if (request.method !== 'GET') return;
+  
+  // Estratégia para Páginas HTML (Network First, Fallback to Cache)
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
+          // Se a rede responder, atualiza o cache dinâmico com a nova versão da página
+          return caches.open(DYNAMIC_CACHE_NAME).then((cache) => {
+            cache.put(request, networkResponse.clone());
+            return networkResponse;
+          });
+        })
+        .catch(() => {
+          // Se estiver offline, tenta pegar do cache
+          return caches.match(request).then((cachedResponse) => {
+            if (cachedResponse) return cachedResponse;
+            // Opcional: Retornar uma página de "Você está offline" genérica aqui
+            return caches.match('/offline.html');
+          });
+        })
+    );
+  } else {
+    // Para Ativos Estáticos (Cache First, Fallback to Network)
+    event.respondWith(
+      caches.match(request).then((cachedResponse) => {
+        return cachedResponse || fetch(request).then((networkResponse) => {
+          return caches.open(DYNAMIC_CACHE_NAME).then((cache) => {
+            cache.put(request, networkResponse.clone());
+            return networkResponse;
+          });
+        });
+      })
+    );
+  }
 });
 
 self.addEventListener('push', event => {
