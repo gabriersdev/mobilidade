@@ -33,13 +33,13 @@ const LineIdentificationComfortPopover = forwardRef(({aircon, teraflex, bench, f
 LineIdentificationComfortPopover.displayName = "LineIdentificationComfortPopover";
 
 LineIdentificationComfortPopover.propTypes = {
-  aircon: PropTypes.oneOfType([PropTypes.bool, null, undefined, PropTypes.number]),
-  teraflex: PropTypes.oneOfType([PropTypes.bool, null, undefined, PropTypes.number]),
-  bench: PropTypes.oneOfType([PropTypes.bool, null, undefined, PropTypes.number]),
-  fleet: PropTypes.oneOfType([PropTypes.bool, null, undefined, PropTypes.number]),
-  conc: PropTypes.oneOfType([PropTypes.bool, null, undefined, PropTypes.number]),
-  airsuspension: PropTypes.oneOfType([PropTypes.bool, null, undefined, PropTypes.number]),
-  wifi: PropTypes.oneOfType([PropTypes.bool, null, undefined, PropTypes.number]),
+  aircon: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  teraflex: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  bench: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  fleet: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  conc: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  airsuspension: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  wifi: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
 }
 
 export default LineIdentificationComfortPopover;

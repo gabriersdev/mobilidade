@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Title from "../ui/title/title.jsx";
 import LineIdentificationCompanyLogo from "./line-identification-company-logo.jsx";
 
@@ -24,5 +25,10 @@ const LineIdentificationHeader = ({line}) => {
     </div>
   );
 };
+
+LineIdentificationHeader.propTypes = {
+  line: PropTypes.object.isRequired
+}
+
 
 export default LineIdentificationHeader;

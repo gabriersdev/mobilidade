@@ -1,6 +1,5 @@
 import LineInfo from "../line-info/line-info.jsx";
 import Util from "../../assets/Util.jsx";
-import moment from "moment";
 import PropTypes from "prop-types";
 
 const LineIdentificationLastUpdate = ({datetimeLastModify}) => {
@@ -19,7 +18,7 @@ const LineIdentificationLastUpdate = ({datetimeLastModify}) => {
 };
 
 LineIdentificationLastUpdate.propTypes = {
-  datetimeLastModify: PropTypes.instanceOf(moment)
+  datetimeLastModify: PropTypes.oneOfType([Date, PropTypes.string])
 }
 
 export default LineIdentificationLastUpdate;

@@ -2,6 +2,7 @@ import {Button, ListGroup, ListGroupItem, Popover} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {currentTableFares, linesWithManualIntegration} from "../../assets/resources.js";
 import {forwardRef} from "react";
+import PropTypes from "prop-types";
 
 const LineIdentificationIntegrationPopover = forwardRef(({line, ...props}, ref) => {
   const lineHaveAIntegration = [...linesWithManualIntegration].map(s => s.toString()).includes(line.line_number);
@@ -39,6 +40,10 @@ const LineIdentificationIntegrationPopover = forwardRef(({line, ...props}, ref) 
     </Popover>
   )
 });
+
+LineIdentificationIntegrationPopover.propTypes = {
+  line: PropTypes.object
+}
 
 LineIdentificationIntegrationPopover.displayName = "LineIdentificationIntegrationPopover";
 

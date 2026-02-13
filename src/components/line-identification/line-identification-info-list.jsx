@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom";
 import {OverlayTrigger} from "react-bootstrap";
 import LineInfo from "../line-info/line-info.jsx";
+import PropTypes from "prop-types";
 
 const LineIdentificationInfoList = ({
                                       lineType,
@@ -29,7 +30,7 @@ const LineIdentificationInfoList = ({
           <i className="bi bi-building red"></i>
         </LineInfo>
       </Link>
-
+      
       <OverlayTrigger trigger="click" placement="auto" overlay={integrationPopover}>
         <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
           <LineInfo label={{ref: 'Integração com outras Linhas ou Modais', value: hasIntegration}}>
@@ -38,7 +39,7 @@ const LineIdentificationInfoList = ({
           <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
         </div>
       </OverlayTrigger>
-
+      
       {
         accessibility === 1 && (
           <OverlayTrigger trigger="click" placement="auto" overlay={accessibilityPopover}>
@@ -50,7 +51,7 @@ const LineIdentificationInfoList = ({
           </OverlayTrigger>
         )
       }
-
+      
       <OverlayTrigger trigger="click" placement="auto" overlay={comfortPopover}>
         <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
           <i className="bi bi-star-fill text-primary"></i>
@@ -58,7 +59,7 @@ const LineIdentificationInfoList = ({
           <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
         </div>
       </OverlayTrigger>
-
+      
       <LineInfo label={{ref: 'Tarifa', value: fare}}>
         <i className="bi bi-cash-coin naval-blue"></i>
       </LineInfo>
@@ -76,5 +77,18 @@ const LineIdentificationInfoList = ({
     </div>
   );
 };
+
+LineIdentificationInfoList.propTypes = {
+  lineType: PropTypes.string,
+  scope: PropTypes.string,
+  integrationPopover: PropTypes.object,
+  hasIntegration: PropTypes.string,
+  accessibility: PropTypes.number,
+  accessibilityPopover: PropTypes.object,
+  comfortPopover: PropTypes.object,
+  fare: PropTypes.string,
+  line: PropTypes.object,
+  countDepartureTimes: PropTypes.number,
+}
 
 export default LineIdentificationInfoList;

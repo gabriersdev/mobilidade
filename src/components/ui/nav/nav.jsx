@@ -13,6 +13,7 @@ import Util from "../../../assets/Util.jsx";
 import infos from "../../../assets/infos.jsx"
 import AnimatedComponents from "../animated-component/animated-components.jsx";
 import InstallPWAButton from "../../install-PWA-button/install-PWA-button.jsx";
+import PropTypes from "prop-types";
 
 moment.locale("pt-br");
 
@@ -301,6 +302,10 @@ const Nav = () => {
       }
     </>
   )
+}
+
+NavScrollspy.propTypes = {
+  closeNav: PropTypes.func.isRequired
 }
 
 export default Nav;

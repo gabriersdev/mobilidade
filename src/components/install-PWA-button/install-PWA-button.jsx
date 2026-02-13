@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {useEffect, useState} from 'react';
 import {Nav as BootstrapNav} from "react-bootstrap";
 
@@ -54,5 +55,9 @@ const InstallPWAButton = ({onClick}) => {
     )
   );
 };
+
+InstallPWAButton.propTypes = {
+  onClick: PropTypes.func
+}
 
 export default InstallPWAButton;

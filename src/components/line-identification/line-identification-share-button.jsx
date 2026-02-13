@@ -49,7 +49,8 @@ const LineIdentificationShareButton = ({line}) => {
               console.log(error.toString());
             }
           } else {
-            await navigator.clipboard.writeText(window.location.href);
+            const instanceURL = new URL(window.location);
+            await navigator.clipboard.writeText(`${instanceURL.origin}${instanceURL.pathname}`);
             
             if (Notification.permission === "granted") {
               setMessageTooltip("Link copiado!")
