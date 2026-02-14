@@ -5,7 +5,9 @@ import {Breadcrumb, BreadcrumbItem} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {useLocation, useNavigate} from 'react-router-dom';
 import AnimatedComponents from "../ui/animated-component/animated-components.jsx";
-import { useBreadcrumb } from './breadcrumb-context';
+
+import bcAll from './breadcrumb-context.jsx';
+const useBreadcrumb = bcAll.useBreadcrumb;
 
 const BreadcrumbItemFactory = ({path, url}) => {
   const location = useLocation();

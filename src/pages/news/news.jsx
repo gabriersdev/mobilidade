@@ -9,7 +9,9 @@ import AnimatedComponents from "../../components/ui/animated-component/animated-
 import Alert from "../../components/ui/alert/alert.jsx";
 import UpdatePageData from "../../components/update-page-data/update-page-data.jsx";
 import PaginationWithItems from "../../components/pagination-with-items/pagination-with-items.jsx";
-import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+
+import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+const useBreadcrumb = bcAll.useBreadcrumb;
 
 const News = () => {
   const {id} = useParams()

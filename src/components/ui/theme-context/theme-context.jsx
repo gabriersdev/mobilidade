@@ -51,7 +51,7 @@ export const ThemeProvider = ({children}) => {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e) => {
+    const handleChange = () => {
       // Only change if user hasn't manually set a preference (optional logic, keeping simple for now)
       // For now, let's respect manual overrides stored in localStorage, so we might not auto-switch here
       // unless we want to follow system preference strictly when no local storage is set.

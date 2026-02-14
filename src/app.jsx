@@ -16,7 +16,9 @@ import {
   Footer
 } from "./components/index.d.ts"
 
-import { BreadcrumbProvider } from './components/breadcrumb-app/breadcrumb-context';
+import bcAll from './components/breadcrumb-app/breadcrumb-context.jsx';
+const BreadcrumbProvider = bcAll.BreadcrumbProvider;
+
 import { ThemeProvider } from './components/ui/theme-context/theme-context.jsx';
 
 import {

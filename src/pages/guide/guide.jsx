@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useRef, useState} from 'react'
 import axios from "axios";
 import {Link, useLocation} from "react-router-dom";
-import {Button, Card, CardBody, CardHeader, CardTitle, FormControl, InputGroup, ListGroup, ListGroupItem} from "react-bootstrap";
+import {Badge, Button, Card, CardBody, CardHeader, CardTitle, FormControl, InputGroup, ListGroup, ListGroupItem} from "react-bootstrap";
 
 import config from "../../assets/config.js";
 import Title from "../../components/ui/title/title.jsx";
@@ -11,7 +11,9 @@ import AccordionItem from "../../components/ui/accordion/accordion-item.jsx";
 import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
 import PaginationWithItems from "../../components/pagination-with-items/pagination-with-items.jsx";
 import Util from "../../assets/Util.jsx";
-import {useBreadcrumb} from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+
+import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+const useBreadcrumb = bcAll.useBreadcrumb;
 
 const Guide = () => {
   const [data, setData] = useState({});
@@ -193,6 +195,28 @@ const Guide = () => {
                 <Button variant="default" className={"border text-body-tertiary px-3"} type="submit" aria-hidden="true"><i className="bi bi-search"></i></Button>
               </InputGroup>
               {(message) && <span className="text-danger d-block mt-1">{message}</span>}
+              
+              <div className={"py-3 d-flex align-items-center gap-1 overflow-x-scroll"}>
+                {
+                  [...[
+                    "Rodoviária de Sabará",
+                    "Terminal São Gabriel",
+                    "Estação José Cândido da Silveira",
+                    "Estação São Gabriel",
+                    "Rua dos Caetés",
+                    "Andradas",
+                    "Rodoviária de Belo Horizonte",
+                  ]
+                    .sort((a, b) => a.localeCompare(b))
+                    .map(i => [i])].map((item, index) => (
+                    <div key={index} className={"cursor-pointer"} onClick={() => setTerm(item[0])}>
+                      <Badge className={"rounded-pill d-inline-block inter fs-6 " + (item[1] ? item[1] : "bg-primary-subtle text-primary-emphasis")}>
+                        {item[0]}
+                      </Badge>
+                    </div>
+                  ))
+                }
+              </div>
             </form>
             
             <div className="row">

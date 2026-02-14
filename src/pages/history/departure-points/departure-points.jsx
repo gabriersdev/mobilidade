@@ -9,7 +9,9 @@ import AnimatedComponents from "../../../components/ui/animated-component/animat
 import moment from "moment";
 import {Button, ListGroup} from "react-bootstrap";
 import Util from "../../../assets/Util.jsx";
-import { useBreadcrumb } from "../../../components/breadcrumb-app/breadcrumb-context.jsx";
+
+import bcAll from "../../../components/breadcrumb-app/breadcrumb-context.jsx";
+const useBreadcrumb = bcAll.useBreadcrumb;
 
 moment.locale("pt-BR");
 
