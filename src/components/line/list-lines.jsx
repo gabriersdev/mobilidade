@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Grid from "../ui/grid/grid.jsx";
 import Card from "../ui/card/card.jsx";
-import {Badge} from "react-bootstrap";
+import {Badge, Image} from "react-bootstrap";
 import Util from "../../assets/Util.jsx";
 import Convert from "../../assets/Convert.js";
 import {useEffect, useState} from "react";
@@ -14,9 +14,25 @@ ScrollX.propTypes = {
   children: PropTypes.node,
 }
 
+const GetCompanyIdentification = ({line}) => {
+  const [companyIdentification, setCompanyIdentification] = useState(<></>);
+  
+  useEffect(() => {
+    switch (line.company_name.toLowerCase().trim()) {
+      case "Transporte Coletivo Metropolitano - MG".toLowerCase().trim():
+        setCompanyIdentification(<Image src={"/images/companies/der-mg.png"} width={40} height={15} className={"object-fit-contain rounded-0"}/>);
+        break
+      case "Vinscol".toLowerCase().trim():
+        setCompanyIdentification(<Image src={"/images/companies/vinscol.svg"} width={40} height={20} className={"object-fit-contain rounded-0"}/>);
+        break
+    }
+  }, [line]);
+  
+  return companyIdentification;
+}
+
 const ListLines = ({data, variant}) => {
   const [content, setContent] = useState(null);
-  
   useEffect(() => {
     setContent(<>
       {data.map((line) => {
@@ -45,6 +61,8 @@ const ListLines = ({data, variant}) => {
                   style={{letterSpacing: '0.5px'}}>
                   {(Convert.lineType(line.type) || "").split(' ')[0]}
                 </Badge>) : ""}
+                
+                <GetCompanyIdentification line={line}/>
               </div>
             )}
             subtitle={
@@ -66,8 +84,13 @@ const ListLines = ({data, variant}) => {
   );
 }
 
+GetCompanyIdentification.propTypes = {
+  line: PropTypes.object.isRequired,
+}
+
 ListLines.propTypes = {
-  data: PropTypes.array.isRequired, variant: PropTypes.string,
+  data: PropTypes.array.isRequired,
+  variant: PropTypes.string,
 }
 
 export default ListLines;

@@ -3,7 +3,9 @@ import {useEffect} from 'react'
 import Util from "../../assets/Util.jsx";
 import Title from "../../components/ui/title/title.jsx";
 import GetAndListLines from "../../components/get-and-list-lines/get-and-list-lines.jsx";
-import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+
+import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+const useBreadcrumb = bcAll.useBreadcrumb;
 
 const TermsOfService = () => {
   const { setLabel } = useBreadcrumb();

@@ -18,7 +18,7 @@ const LineIdentificationLastUpdate = ({datetimeLastModify}) => {
 };
 
 LineIdentificationLastUpdate.propTypes = {
-  datetimeLastModify: PropTypes.oneOfType([Date, PropTypes.string])
+  datetimeLastModify: PropTypes.oneOfType([Date, PropTypes.string, PropTypes.instanceOf(Date)])
 }
 
 export default LineIdentificationLastUpdate;

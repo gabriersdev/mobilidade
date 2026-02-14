@@ -7,7 +7,9 @@ import Grid from "../../components/ui/grid/grid.jsx";
 import Card from "../../components/ui/card/card.jsx";
 import FormValidSearch from "../../components/form-valid-search/form-valid-search.jsx";
 import LatestNews from "../../components/latest-news/latest-news.jsx";
-import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+
+import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+const useBreadcrumb = bcAll.useBreadcrumb;
 
 const Search = () => {
   const [isValidSearch, setIsValidSearch] = useState(false)

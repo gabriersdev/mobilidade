@@ -11,7 +11,9 @@ import AccordionItem from "../../components/ui/accordion/accordion-item.jsx";
 import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
 import PaginationWithItems from "../../components/pagination-with-items/pagination-with-items.jsx";
 import Util from "../../assets/Util.jsx";
-import {useBreadcrumb} from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+
+import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+const useBreadcrumb = bcAll.useBreadcrumb;
 
 const Guide = () => {
   const [data, setData] = useState({});

@@ -2,7 +2,9 @@ import Title from "../../components/ui/title/title.jsx";
 import {Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {useEffect} from "react";
-import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+
+import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+const useBreadcrumb = bcAll.useBreadcrumb;
 
 const NotFound = () => {
   document.title = `Mobilidade - Companhias`;

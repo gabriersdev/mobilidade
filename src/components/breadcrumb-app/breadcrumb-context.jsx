@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const BreadcrumbContext = createContext();
 
-export const BreadcrumbProvider = ({ children }) => {
+const BreadcrumbProvider = ({ children }) => {
   const [labels, setLabels] = useState({});
 
   const setLabel = useCallback((key, value) => {
@@ -28,4 +28,9 @@ BreadcrumbProvider.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export const useBreadcrumb = () => useContext(BreadcrumbContext);
+const useBreadcrumb = () => useContext(BreadcrumbContext);
+
+export default {
+  BreadcrumbProvider,
+  useBreadcrumb
+}

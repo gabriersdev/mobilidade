@@ -25,7 +25,9 @@ import AnimatedComponents from "../ui/animated-component/animated-component.jsx"
 import {ListDepartureTimes} from "../list-departure-times/list-departure-times.jsx";
 import {ListDeparturePoints} from "../list-departure-points/list-departure-points.jsx";
 import Grid from "../../components/ui/grid/grid.jsx";
-import { useBreadcrumb } from "../breadcrumb-app/breadcrumb-context.jsx";
+
+import bcAll from "../breadcrumb-app/breadcrumb-context.jsx";
+const useBreadcrumb = bcAll.useBreadcrumb;
 
 const Line = ({id}) => {
   const [data, setData] = useState([]);

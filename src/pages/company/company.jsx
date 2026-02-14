@@ -11,7 +11,8 @@ import Grid from "../../components/ui/grid/grid.jsx";
 import FeedbackError from "../../components/ui/feedbackError/feedback-error.jsx";
 import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
 import LineIdentificationCompanyLogo from "../../components/line-identification/line-identification-company-logo.jsx";
-import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+const useBreadcrumb = bcAll.useBreadcrumb;
 
 const RenderCompany = () => {
   const {id} = useParams();

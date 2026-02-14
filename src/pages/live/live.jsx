@@ -12,7 +12,9 @@ import {LoadingDeparturePoints, AnyBusProximityError, LiveGeneralError, SelectOn
 import {LiveFormLines, LiveFormDeparturePoints} from "../../components/live/live-form.jsx";
 import Weather from "../../components/weather/weather.jsx";
 import {useEffect, useRef} from "react";
-import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+
+import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+const useBreadcrumb = bcAll.useBreadcrumb;
 
 moment.locale("pt-BR");
 

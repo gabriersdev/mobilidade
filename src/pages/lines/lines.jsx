@@ -8,7 +8,10 @@ import FormValidSearch from "../../components/form-valid-search/form-valid-searc
 import GetAndListLines from "../../components/get-and-list-lines/get-and-list-lines.jsx";
 import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
 import LatestNews from "../../components/latest-news/latest-news.jsx";
-import { useBreadcrumb } from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+
+import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+const useBreadcrumb = bcAll.useBreadcrumb;
+
 import SuggestLabel from "../../components/suggest-label/suggest-label.jsx";
 
 const Lines = () => {
