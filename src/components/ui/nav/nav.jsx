@@ -305,7 +305,7 @@ const Nav = () => {
 }
 
 NavScrollspy.propTypes = {
-  closeNav: PropTypes.func.isRequired
+  closeNav: PropTypes.func
 }
 
 export default Nav;
