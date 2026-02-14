@@ -14,6 +14,7 @@ export default defineConfig({
     screenshotsFolder: 'cypress/screenshots',
     screenshotOnRunFailure: true,
   },
+  allowCypressEnv: false,
   component: {
     devServer: {
       framework: "react",
