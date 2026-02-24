@@ -11,6 +11,7 @@ moment.locale("pt-BR");
 const useLiveComponent = () => {
   const [lineSelected, setLineSelected] = useState(null);
   const [departurePointSelected, setDeparturePointSelected] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState([]);
   const [dataNextDepartureTimes, setDataNextDepartureTimes] = useState([]);
   const [error, setError] = useState(null);
@@ -108,9 +109,30 @@ const useLiveComponent = () => {
   
   const resultSection = useRef();
   
-  // useEffect(() => {
-  //   if (dataNextDepartureTimes) console.log(dataNextDepartureTimes);
-  // }, [dataNextDepartureTimes]);
+  useEffect(() => {
+    if (searchTerm && (lines || departurePoints)) {
+      const searchTermLower = searchTerm.toLowerCase();
+
+      const foundLine = lines?.find(line =>
+        line.title.toLowerCase().includes(searchTermLower) ||
+        line.name.toLowerCase().includes(searchTermLower)
+      );
+
+      if (foundLine) {
+        setLineSelected(foundLine);
+        return;
+      }
+
+      const foundDP = departurePoints?.find(dp =>
+        dp.title.toLowerCase().includes(searchTermLower) ||
+        dp.name.toLowerCase().includes(searchTermLower)
+      );
+
+      if (foundDP) {
+        setDeparturePointSelected(foundDP);
+      }
+    }
+  }, [searchTerm, lines, departurePoints]);
   
   useEffect(() => {
     if (departurePointSelected) {
@@ -232,6 +254,8 @@ const useLiveComponent = () => {
     setLineSelected,
     departurePointSelected,
     setDeparturePointSelected,
+    searchTerm,
+    setSearchTerm,
     data,
     setData,
     dataNextDepartureTimes,

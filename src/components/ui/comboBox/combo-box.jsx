@@ -7,12 +7,13 @@ export default function GenericCombobox({
                                           items: initialItems,
                                           itemToString,
                                           onSelectedItemChange,
+                                          onInputValueChange,
                                           label,
                                           required,
                                           placeholder = '',
                                         }) {
   const [items, setItems] = useState(initialItems);
-  
+
   // Função genérica de filtro
   const getItemsFilter = (inputValue) => {
     let lowerCasedInputValue;
@@ -39,7 +40,7 @@ export default function GenericCombobox({
       );
     };
   };
-  
+
   const {
     isOpen,
     getToggleButtonProps,
@@ -58,13 +59,16 @@ export default function GenericCombobox({
     },
     onInputValueChange: ({inputValue}) => {
       setItems(initialItems.filter(getItemsFilter(inputValue)));
+      if (onInputValueChange) {
+        onInputValueChange(inputValue);
+      }
     },
   });
-  
+
   return (
-    <div>
+    <div className={"flex-grow-1 flex-shrink-1"}>
       <Form.Group className="w-72" data-element={"form-group"}>
-        <Form.Label {...getLabelProps()} className={"mb-1"}>{label}</Form.Label>
+        {label && (<Form.Label {...getLabelProps()} className={"mb-1"}>{label}</Form.Label>)}
         <InputGroup>
           <Form.Control
             id={``}
@@ -111,16 +115,20 @@ export default function GenericCombobox({
             items.map((item, index) => (
               <ListGroup.Item
                 as="li"
-                id={`${itemToString(item.id)}-${index}`}
-                key={`${itemToString(item.id)}-${index}`}
+                id={`${item.id || item.name}-${index}`}
+                key={`${item.id || item.name}-${index}`}
                 {...getItemProps({item, index})}
                 active={highlightedIndex === index}
                 className={"cursor-pointer"}
                 data-testid={`combobox-item-${index}`}
               >
-                <span>{item.title}</span>
-                <br/>
-                <span className="text-sml small">{item.name}</span>
+                {item.title && (
+                    <>
+                        <span>{item.title}</span>
+                        <br />
+                    </>
+                )}
+                <span className={item.title ? "text-sml small" : ""}>{item.name}</span>
               </ListGroup.Item>
             ))}
         </ListGroup>
@@ -133,6 +141,7 @@ GenericCombobox.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   itemToString: PropTypes.func.isRequired,
   onSelectedItemChange: PropTypes.func.isRequired,
+  onInputValueChange: PropTypes.func,
   label: PropTypes.string.isRequired,
   required: PropTypes.bool.isRequired,
   placeholder: PropTypes.string,
