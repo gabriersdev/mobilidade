@@ -2,9 +2,8 @@ import {useEffect, useRef, useState} from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 import PropTypes from "prop-types";
 
-const PaginationWithItems = ({items, itemsPerPage, classNameOfItems, beforeSelector, classNameOfContainer}) => {
+const PaginationWithItems = ({items, itemsPerPage, classNameOfItems, beforeSelector, classNameOfContainer, currentPage, onPageChange}) => {
   
-  const [currentPage, setCurrentPage] = useState(1);
   const paginationElement = useRef();
   const [paginationSelector, setPaginationSelector] = useState(<></>);
   
@@ -24,7 +23,7 @@ const PaginationWithItems = ({items, itemsPerPage, classNameOfItems, beforeSelec
         });
       }, 100);
     }
-    setCurrentPage(pageNumber);
+    onPageChange(pageNumber);
   };
   
   const renderPageItems = () => {
@@ -67,10 +66,12 @@ const PaginationWithItems = ({items, itemsPerPage, classNameOfItems, beforeSelec
           <Pagination.Last onClick={() => handleClick(totalPages)} disabled={currentPage === totalPages}/>
         </Pagination>
       )
+    } else {
+      setPaginationSelector(<></>);
     }
-  }, [currentPage, totalPages]);
+  }, [currentPage, totalPages, items]);
   
-  if (totalItems === 0) return <p>No items found.</p>;
+  if (totalItems === 0) return <p>Nenhuma linha encontrada.</p>;
   
   return (
     <div ref={paginationElement}>
@@ -80,12 +81,7 @@ const PaginationWithItems = ({items, itemsPerPage, classNameOfItems, beforeSelec
         </div>
       )}
       <div className={classNameOfContainer}>
-        {displayedItems.map((item, index) => (
-          <div key={index} className={classNameOfItems}>
-            {/* Render each item here */}
-            {item}
-          </div>
-        ))}
+        {displayedItems}
       </div>
       <div className={"mt-3"}>
         {paginationSelector}
@@ -99,7 +95,9 @@ PaginationWithItems.propTypes = {
   itemsPerPage: PropTypes.number.isRequired,
   classNameOfItems: PropTypes.string,
   beforeSelector: PropTypes.bool,
-  classNameOfContainer: PropTypes.string
+  classNameOfContainer: PropTypes.string,
+  currentPage: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
 }
 
 export default PaginationWithItems;
