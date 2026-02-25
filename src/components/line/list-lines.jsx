@@ -18,6 +18,7 @@ const GetCompanyIdentification = ({line}) => {
   const [companyIdentification, setCompanyIdentification] = useState(<></>);
   
   useEffect(() => {
+    if (!line.company_name) return;
     switch (line.company_name.toLowerCase().trim()) {
       case "Transporte Coletivo Metropolitano - MG".toLowerCase().trim():
         setCompanyIdentification(<Image src={"/images/companies/der-mg.png"} width={40} height={15} className={"object-fit-contain rounded-0"}/>);
