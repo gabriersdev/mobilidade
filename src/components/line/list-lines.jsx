@@ -11,57 +11,58 @@ import LineFilters from "./line-filters.jsx";
 
 const ListLines = ({data, variant}) => {
   const [content, setContent] = useState([]);
+  const [isAnimating, setIsAnimating] = useState(false);
+  
   const [filters, setFilters] = useState({
-    sortOrder: "number_asc",
+    sortOrder: "number-asc",
     lineType: "",
     isMetropolitan: "",
     company: "",
   });
-
-  const [companies, setCompanies] = useState([]);
+  
   const [lineTypes, setLineTypes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-
+  
   useEffect(() => {
     if (Array.isArray(data)) {
-      const uniqueCompanies = [...new Set(data.map((line) => line.company_name).filter(Boolean))];
       const uniqueLineTypes = [...new Set(data.map((line) => Convert.lineType(line.type)).filter(Boolean))];
-      setCompanies(uniqueCompanies);
       setLineTypes(uniqueLineTypes);
     }
   }, [data]);
-
+  
   useEffect(() => {
+    setIsAnimating(true);
+    const timer = setTimeout(() => setIsAnimating(false), 500);
+
     if (Array.isArray(data)) {
       let filteredData = [...data];
-
+      
       // Filtering
       if (filters.lineType) {
         filteredData = filteredData.filter(line => Convert.lineType(line.type) === filters.lineType);
       }
       if (filters.isMetropolitan) {
-        const isMetro = filters.isMetropolitan === 'yes';
-        filteredData = filteredData.filter(line => (line.is_metropolitan === 1) === isMetro);
+        filteredData = filteredData.filter(line => (filters.isMetropolitan === 'yes' ? line.is_metropolitan : !line.is_metropolitan));
       }
       if (filters.company) {
         filteredData = filteredData.filter(line => line.company_name === filters.company);
       }
-
+      
       // Sorting
       filteredData.sort((a, b) => {
         switch (filters.sortOrder) {
-          case "number_desc":
+          case "number-desc":
             return b.line_number.localeCompare(a.line_number);
-          case "fare_asc":
+          case "fare-asc":
             return a.fare - b.fare;
-          case "fare_desc":
+          case "fare-desc":
             return b.fare - a.fare;
-          case "number_asc":
+          case "number-asc":
           default:
             return a.line_number.localeCompare(b.line_number);
         }
       });
-
+      
       const lines = filteredData.map((line) => (
         <Card
           key={line.line_id}
@@ -101,39 +102,57 @@ const ListLines = ({data, variant}) => {
     } else {
       setContent([]);
     }
+    return () => clearTimeout(timer);
   }, [data, filters]);
-
+  
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
     setCurrentPage(1);
   };
-
+  
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
+  
   return (
     <div style={{marginTop: '1rem'}}>
+      <style>
+        {`
+          .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+          }
+
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+        `}
+      </style>
       {variant !== "similar-lines" && (
         <LineFilters
           filters={filters}
           onFilterChange={handleFilterChange}
-          companies={companies}
           lineTypes={lineTypes}
         />
       )}
-      {variant === "similar-lines" ? (
-        <ScrollX>{content}</ScrollX>
-      ) : (
-        <PaginationWithItems
-          items={content}
-          itemsPerPage={10}
-          classNameOfContainer={"grid similar-lines mt-3"}
-          beforeSelector={true}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-        />
-      )}
+      <div className={isAnimating ? 'fade-in' : ''}>
+        {variant === "similar-lines" ? (
+          <ScrollX>{content}</ScrollX>
+        ) : (
+          <PaginationWithItems
+            items={content}
+            itemsPerPage={10}
+            classNameOfContainer={"grid similar-lines mt-3"}
+            beforeSelector={true}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        )}
+      </div>
     </div>
   );
 }

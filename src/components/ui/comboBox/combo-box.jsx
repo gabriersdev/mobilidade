@@ -76,6 +76,7 @@ export default function GenericCombobox({
             required={required}
             placeholder={placeholder}
             data-testid="combobox-input"
+            // style={{borderRadius: 0}}
           />
           <Button
             {...getToggleButtonProps()}
@@ -84,6 +85,7 @@ export default function GenericCombobox({
             className={"border text-body-tertiary bg-body"}
             data-testid="combobox-toggle-button"
             type={"button"}
+            style={{borderRadius: 0}}
           >
             {isOpen ? <>&#8593;</> : <>&#8595;</>}
           </Button>
@@ -92,6 +94,7 @@ export default function GenericCombobox({
             variant="outline-secondary"
             className={"border text-body-tertiary bg-body"}
             type={"button"}
+            style={{borderRadius: 0}}
             onClick={() => setInputValue("")}
             onDoubleClick={() => {
               reset()

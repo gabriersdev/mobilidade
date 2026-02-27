@@ -1,90 +1,66 @@
 import PropTypes from "prop-types";
-import { Form, Row, Col } from "react-bootstrap";
+import {Row} from "react-bootstrap";
+import {sortOrderOptions, isMetropolitanOptions} from "./filter-options.js";
+import FilterItem from "./filter-item.jsx";
 
-const LineFilters = ({ filters, onFilterChange, companies, lineTypes }) => {
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    onFilterChange({ ...filters, [name]: value });
+const LineFilters = ({filters, onFilterChange, lineTypes}) => {
+  const handleInputChange = (name, value) => {
+    onFilterChange({...filters, [name]: value});
   };
-
+  
+  const getLabelForValue = (options, value) => {
+    const option = options.find(opt => opt[0] === value);
+    return option ? option[1] : "Todos";
+  };
+  
+  const lineTypeOptions = [
+    ["", "Todos"],
+    ...lineTypes.toSorted().map(type => [type, type])
+  ];
+  
   return (
-    <Row className="mb-3">
-      <Col md={3}>
-        <Form.Group controlId="sortOrder">
-          <Form.Label>Ordenar por</Form.Label>
-          <Form.Control
-            as="select"
-            name="sortOrder"
-            value={filters.sortOrder}
-            onChange={handleInputChange}
-          >
-            <option value="number_asc">Número (crescente)</option>
-            <option value="number_desc">Número (decrescente)</option>
-            <option value="fare_asc">Tarifa (crescente)</option>
-            <option value="fare_desc">Tarifa (decrescente)</option>
-          </Form.Control>
-        </Form.Group>
-      </Col>
-      <Col md={3}>
-        <Form.Group controlId="lineType">
-          <Form.Label>Tipo de Linha</Form.Label>
-          <Form.Control
-            as="select"
-            name="lineType"
-            value={filters.lineType}
-            onChange={handleInputChange}
-          >
-            <option value="">Todos</option>
-            {lineTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </Form.Control>
-        </Form.Group>
-      </Col>
-      <Col md={3}>
-        <Form.Group controlId="isMetropolitan">
-          <Form.Label>Região</Form.Label>
-          <Form.Control
-            as="select"
-            name="isMetropolitan"
-            value={filters.isMetropolitan}
-            onChange={handleInputChange}
-          >
-            <option value="">Todas</option>
-            <option value="yes">Metropolitana</option>
-            <option value="no">Municipal</option>
-          </Form.Control>
-        </Form.Group>
-      </Col>
-      <Col md={3}>
-        <Form.Group controlId="company">
-          <Form.Label>Empresa</Form.Label>
-          <Form.Control
-            as="select"
-            name="company"
-            value={filters.company}
-            onChange={handleInputChange}
-          >
-            <option value="">Todas</option>
-            {companies.map((company) => (
-              <option key={company} value={company}>
-                {company}
-              </option>
-            ))}
-          </Form.Control>
-        </Form.Group>
-      </Col>
+    <Row className="mb-3 align-items-center d-none d-md-flex">
+      <FilterItem
+        md={2}
+        label="Ordenar por"
+        value={getLabelForValue(sortOrderOptions, filters.sortOrder)}
+        options={sortOrderOptions}
+        activeValue={filters.sortOrder}
+        onSelect={value => handleInputChange("sortOrder", value)}
+      />
+      
+      <FilterItem
+        md={3}
+        label="Tipo de Linha"
+        value={filters.lineType || "Todos"}
+        options={lineTypeOptions}
+        activeValue={filters.lineType}
+        onSelect={value => handleInputChange("lineType", value)}
+      />
+      
+      <div className={"d-none"}>
+        <FilterItem
+          md={4}
+          label="Região"
+          value={getLabelForValue(isMetropolitanOptions, filters.isMetropolitan)}
+          options={isMetropolitanOptions}
+          activeValue={filters.isMetropolitan}
+          onSelect={value => handleInputChange("isMetropolitan", value)}
+        />
+      </div>
     </Row>
   );
 };
 
 LineFilters.propTypes = {
-  filters: PropTypes.object.isRequired,
+  filters: PropTypes.shape({
+    sortOrder: PropTypes.string,
+    lineType: PropTypes.string,
+    isMetropolitan: PropTypes.string,
+    company: PropTypes.string,
+  }).isRequired,
   onFilterChange: PropTypes.func.isRequired,
-  companies: PropTypes.array.isRequired,
-  lineTypes: PropTypes.array.isRequired,
+  lineTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default LineFilters;
