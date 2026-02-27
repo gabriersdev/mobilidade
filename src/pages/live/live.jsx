@@ -11,9 +11,11 @@ import {LiveConfigs} from "../../components/live/live-configs.jsx";
 import {LoadingDeparturePoints, AnyBusProximityError, LiveGeneralError, SelectOneDeparturePoint, AlertInfoFeature, AlertInfoConfigSomeDepartureStart} from "../../components/live/live-infos.jsx";
 import {LiveFormLines, LiveFormDeparturePoints} from "../../components/live/live-form.jsx";
 import Weather from "../../components/weather/weather.jsx";
-import {useEffect, useRef}from "react";
+import {useEffect, useRef} from "react";
 
 import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+import LiveListSingleLine from "../../components/live/live-list-single-line.jsx";
+
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 moment.locale("pt-BR");
@@ -35,11 +37,11 @@ const Live = () => {
     setConfigs,
     labelsConfigs,
     
-    fetchData
+    // fetchData
   } = useLiveComponent();
   
   const alertShowSomeDepartureStartHasShowed = useRef(false);
-  const { setLabel } = useBreadcrumb();
+  const {setLabel} = useBreadcrumb();
   
   useEffect(() => {
     alertShowSomeDepartureStartHasShowed.current = !departurePointSelected;
@@ -92,7 +94,10 @@ const Live = () => {
                     </div>
                     
                     {configs?.["showSomeDepartureStart"] && <AlertInfoConfigSomeDepartureStart/>}
-                    <LiveListResults data={data} dataNextDepartureTimes={dataNextDepartureTimes} configs={configs}/>
+                    {configs?.["showSingleLine"] ?
+                      <LiveListSingleLine data={data}/> :
+                      <LiveListResults data={data} dataNextDepartureTimes={dataNextDepartureTimes} configs={configs}/>
+                    }
                   </>
                 ) : <AnyBusProximityError/>
               }

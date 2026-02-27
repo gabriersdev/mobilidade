@@ -17,16 +17,29 @@ const useLiveComponent = () => {
   const [error, setError] = useState(null);
   const [lines, setLines] = useState(null);
   const [departurePoints, setDeparturePoints] = useState(null);
-  const [configs, setConfigs] = useState({
-    warningSound: true,
-    showSomeDepartureStart: false,
-    showAdditionalInfo: true,
-    // volume: 70
+  const [configs, setConfigs] = useState(() => {
+    const defaultConfig = {
+      warningSound: true,
+      showSomeDepartureStart: false,
+      showAdditionalInfo: true,
+      showSingleLine: false,
+      // volume: 70
+    };
+    try {
+      const savedConfigs = localStorage.getItem("live-configs");
+      if (savedConfigs) {
+        return { ...defaultConfig, ...JSON.parse(savedConfigs) };
+      }
+    } catch (error) {
+      console.error("Error reading configs from localStorage", error);
+    }
+    return defaultConfig;
   });
   const labelsConfigs = useRef({
     warningSound: "Aviso sonoro",
     showSomeDepartureStart: "Exibir apenas partidas",
     showAdditionalInfo: "Exibir informações extras",
+    showSingleLine: "Exibir em linha única"
     // volume: "Volume do aviso sonoro"
   })
   
@@ -131,6 +144,14 @@ const useLiveComponent = () => {
       }
     }
   }, [searchTerm, lines, departurePoints]);
+  
+  useEffect(() => {
+    try {
+      localStorage.setItem("live-configs", JSON.stringify(configs));
+    } catch (error) {
+      console.error("Error saving configs to localStorage", error);
+    }
+  }, [configs]);
   
   useEffect(() => {
     if (departurePointSelected) {
