@@ -73,7 +73,15 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
           <GenericCombobox
             items={searchHistory}
             itemToString={(item) => (item ? item.name : '')}
-            onSelectedItemChange={(item) => setSearch(item ? item.name : '')}
+            onSelectedItemChange={(item) => {
+              const term = item ? item.name : '';
+              setSearch(term);
+              if (term) {
+                fnSetIsValidSearch(true);
+                fnSetTermSearch(term);
+                handleSearchHistory(term);
+              }
+            }}
             onInputValueChange={(inputValue) => setSearch(inputValue)}
             placeholder={inputPlaceholder}
             label={""}

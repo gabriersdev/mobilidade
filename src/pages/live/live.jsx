@@ -9,9 +9,9 @@ import useLiveComponent from "../../components/live/use-live-component.js";
 
 import {LiveConfigs} from "../../components/live/live-configs.jsx";
 import {LoadingDeparturePoints, AnyBusProximityError, LiveGeneralError, SelectOneDeparturePoint, AlertInfoFeature, AlertInfoConfigSomeDepartureStart} from "../../components/live/live-infos.jsx";
-import {LiveFormLines, LiveFormDeparturePoints, LiveFormSearch} from "../../components/live/live-form.jsx";
+import {LiveFormLines, LiveFormDeparturePoints} from "../../components/live/live-form.jsx";
 import Weather from "../../components/weather/weather.jsx";
-import {useEffect, useRef} from "react";
+import {useEffect, useRef}from "react";
 
 import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 const useBreadcrumb = bcAll.useBreadcrumb;
@@ -23,7 +23,6 @@ const Live = () => {
     setLineSelected,
     departurePointSelected,
     setDeparturePointSelected,
-    setSearchTerm,
     data,
     dataNextDepartureTimes,
     error,
@@ -57,14 +56,8 @@ const Live = () => {
       </div>
       
       <div>
-        <form onSubmit={async (e) => {
-          e.preventDefault();
-          await fetchData();
-        }}>
-          <LiveFormSearch setSearchTerm={setSearchTerm} />
-          {lines && <LiveFormLines lines={lines} setLineSelected={setLineSelected}/>}
-          {departurePoints ? <LiveFormDeparturePoints departurePoints={departurePoints} setDeparturePointSelected={setDeparturePointSelected}/> : <LoadingDeparturePoints/>}
-        </form>
+        {lines && <LiveFormLines lines={lines} setLineSelected={setLineSelected}/>}
+        {departurePoints ? <LiveFormDeparturePoints departurePoints={departurePoints} setDeparturePointSelected={setDeparturePointSelected}/> : <LoadingDeparturePoints/>}
       </div>
       
       <div className={"rounded-3 bg-body-secondary p-3 mt-5"} ref={resultSection}>

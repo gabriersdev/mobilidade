@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useCombobox} from 'downshift';
 import {Form, InputGroup, Button, ListGroup} from 'react-bootstrap';
 import PropTypes from "prop-types";
@@ -14,32 +14,51 @@ export default function GenericCombobox({
                                         }) {
   const [items, setItems] = useState(initialItems);
 
-  // Função genérica de filtro
+  useEffect(() => {
+    setItems(initialItems);
+  }, [initialItems]);
+
   const getItemsFilter = (inputValue) => {
     let lowerCasedInputValue;
     try {
-      lowerCasedInputValue = inputValue
-        ?.toLowerCase()
-        ?.normalize("NFD")
-        ?.trim();
+      lowerCasedInputValue = inputValue?.toLowerCase()?.normalize("NFD")?.trim();
     } catch (error) {
       if (error.toString().includes("-1")) console.log(error);
       lowerCasedInputValue = "";
     }
     return function itemsFilter(item) {
-      // Assumimos que o item é um objeto e procuramos em todos os seus valores
       return (
         !inputValue ||
         Object.values(item).some((value) =>
-          String(value)
-            ?.toLowerCase()
-            ?.normalize("NFD")
-            ?.trim()
-            ?.includes(lowerCasedInputValue),
+          String(value)?.toLowerCase()?.normalize("NFD")?.trim()?.includes(lowerCasedInputValue),
         )
       );
     };
   };
+
+  function stateReducer(state, actionAndChanges) {
+    const {type, changes} = actionAndChanges;
+    switch (type) {
+      case useCombobox.stateChangeTypes.InputChange:
+      case useCombobox.stateChangeTypes.InputBlur:
+        // Prevents the selected item from being cleared when the input value changes or blurs.
+        // The selection should only change when an item is clicked or the reset button is used.
+        return {
+          ...changes,
+          selectedItem: state.selectedItem,
+        };
+      case useCombobox.stateChangeTypes.FunctionReset:
+        // Handles the 'X' button click, clearing the input and selection.
+        return {
+          ...changes,
+          selectedItem: null,
+          inputValue: '',
+        };
+      default:
+        // Applies default behavior for other actions like item selection.
+        return changes;
+    }
+  }
 
   const {
     isOpen,
@@ -49,13 +68,15 @@ export default function GenericCombobox({
     getInputProps,
     getItemProps,
     highlightedIndex,
-    setInputValue,
     reset,
   } = useCombobox({
     items,
     itemToString,
-    onSelectedItemChange: ({selectedItem: newSelectedItem}) => {
-      onSelectedItemChange(newSelectedItem);
+    stateReducer, // Use the custom state reducer.
+    onSelectedItemChange: (changes) => {
+      if (onSelectedItemChange) {
+        onSelectedItemChange(changes.selectedItem);
+      }
     },
     onInputValueChange: ({inputValue}) => {
       setItems(initialItems.filter(getItemsFilter(inputValue)));
@@ -71,12 +92,10 @@ export default function GenericCombobox({
         {label && (<Form.Label {...getLabelProps()} className={"mb-1"}>{label}</Form.Label>)}
         <InputGroup>
           <Form.Control
-            id={``}
             {...getInputProps()}
             required={required}
             placeholder={placeholder}
             data-testid="combobox-input"
-            // style={{borderRadius: 0}}
           />
           <Button
             {...getToggleButtonProps()}
@@ -90,15 +109,12 @@ export default function GenericCombobox({
             {isOpen ? <>&#8593;</> : <>&#8595;</>}
           </Button>
           <Button
-            aria-label="toggle menu"
+            aria-label="clear selection"
             variant="outline-secondary"
             className={"border text-body-tertiary bg-body"}
             type={"button"}
             style={{borderRadius: 0}}
-            onClick={() => setInputValue("")}
-            onDoubleClick={() => {
-              reset()
-            }}
+            onClick={() => reset()} // Reset clears the selection via the stateReducer.
           >
             <i className="bi bi-x-lg"></i>
           </Button>
