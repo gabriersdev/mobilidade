@@ -15,7 +15,7 @@ import {useEffect, useRef} from "react";
 
 import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 import LiveListSingleLine from "../../components/live/live-list-single-line.jsx";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 

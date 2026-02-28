@@ -28,7 +28,7 @@ const useLiveComponent = () => {
     try {
       const savedConfigs = localStorage.getItem("live-configs");
       if (savedConfigs) {
-        return { ...defaultConfig, ...JSON.parse(savedConfigs) };
+        return {...defaultConfig, ...JSON.parse(savedConfigs)};
       }
     } catch (error) {
       console.error("Error reading configs from localStorage", error);
@@ -99,13 +99,13 @@ const useLiveComponent = () => {
     } else {
       setData([]);
     }
-
+    
     if (Array.isArray(JSON.parse(axiosNextDepartureTimes))) {
       setDataNextDepartureTimes(JSON.parse(axiosNextDepartureTimes).map(Util.parseDatetimeTimezone));
     } else {
       setDataNextDepartureTimes([]);
     }
-
+    
     setError(null);
   };
   
@@ -123,22 +123,22 @@ const useLiveComponent = () => {
   useEffect(() => {
     if (searchTerm && (lines || departurePoints)) {
       const searchTermLower = searchTerm.toLowerCase();
-
+      
       const foundLine = lines?.find(line =>
         line.title.toLowerCase().includes(searchTermLower) ||
         line.name.toLowerCase().includes(searchTermLower)
       );
-
+      
       if (foundLine) {
         setLineSelected(foundLine);
         return;
       }
-
+      
       const foundDP = departurePoints?.find(dp =>
         dp.title.toLowerCase().includes(searchTermLower) ||
         dp.name.toLowerCase().includes(searchTermLower)
       );
-
+      
       if (foundDP) {
         setDeparturePointSelected(foundDP);
       }
@@ -162,7 +162,8 @@ const useLiveComponent = () => {
     } else {
       setData(null);
       setDataNextDepartureTimes(null);
-    };
+    }
+    ;
   }, [departurePointSelected]);
   
   useEffect(() => {

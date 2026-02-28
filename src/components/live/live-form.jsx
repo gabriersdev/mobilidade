@@ -7,12 +7,12 @@ import PropTypes from "prop-types";
 
 export function LiveFormSearch({setSearchTerm}) {
   const [searchHistory, setSearchHistory] = useState([]);
-
+  
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
     setSearchHistory(history.map(term => ({name: term})));
   }, []);
-
+  
   return (
     <AnimatedComponents>
       <FormGroup>
