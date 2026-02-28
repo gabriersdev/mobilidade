@@ -14,6 +14,11 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
+  const [paginationCurrentPages, setPaginationCurrentPages] = useState({});
+  
+  const handlePageChange = (key, page) => {
+    setPaginationCurrentPages(prev => ({...prev, [key]: page}));
+  };
   
   useEffect(() => {
     const searchDeparturePoints = async () => {
@@ -54,7 +59,9 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
           departure_location,
           destination_location,
           uniqueDirections,
-          departurePointsByDirection
+          departurePointsByDirection,
+          paginationCurrentPages,
+          handlePageChange
         })}>
           <RouteMap/>
           <Accordion id={"departure-points-data"}>

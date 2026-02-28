@@ -2,6 +2,7 @@ import moment from "moment";
 import PropTypes from "prop-types";
 import {useCallback} from "react";
 import Util from "../../assets/Util.jsx";
+import {Link} from "react-router-dom";
 
 moment.locale("pt-BR");
 
@@ -22,10 +23,12 @@ export default function LiveListSingleLine({data}) {
           })
           .toSpliced(50)
           .map((d, i) => (
-            <li key={i} className="d-flex align-items-center gap-2 monospace text-truncate">
-              <span className="fw-bold ff-inherit text-info">{d?.["line_number"]}</span>
-              <span className={"ff-inherit"}>{d?.["departure_location"]} ⇄ {d?.["destination_location"]}</span>
-              <span className="text-body-secondary ff-inherit">{Util.diffToHuman(d?.["expected_arrival_time"])}</span>
+            <li key={i} className="">
+              <Link to={"/lines/" + d?.["line_id"]} className={"monospace text-truncate d-flex align-items-center gap-2 text-decoration-none"}>
+                <span className="fw-bold ff-inherit text-info">{d?.["line_number"]}</span>
+                <span className={"ff-inherit text-body"}>{d?.["departure_location"]} ⇄ {d?.["destination_location"]}</span>
+                <span className="text-body-secondary ff-inherit">{Util.diffToHuman(d?.["expected_arrival_time"])}</span>
+              </Link>
             </li>
           ))
       }

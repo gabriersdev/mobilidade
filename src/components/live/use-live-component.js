@@ -163,7 +163,6 @@ const useLiveComponent = () => {
       setData(null);
       setDataNextDepartureTimes(null);
     }
-    ;
   }, [departurePointSelected]);
   
   useEffect(() => {
@@ -179,7 +178,8 @@ const useLiveComponent = () => {
   }, [data, isOriginalFetch]);
   
   useEffect(() => {
-    let int;
+    let int = setInterval(() => {
+    }, 100000);
     
     if (departurePointSelected && datetimeOriginalFetch) {
       try {
