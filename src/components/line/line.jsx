@@ -27,6 +27,7 @@ import {ListDeparturePoints} from "../list-departure-points/list-departure-point
 import Grid from "../../components/ui/grid/grid.jsx";
 
 import bcAll from "../breadcrumb-app/breadcrumb-context.jsx";
+
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 const Line = ({id}) => {
@@ -36,7 +37,7 @@ const Line = ({id}) => {
   const defaultImage = "/images/banner.png";
   const params = useLocation();
   const paradasSection = useRef();
-  const { setLabel } = useBreadcrumb();
+  const {setLabel} = useBreadcrumb();
   
   const renderText = useCallback((text) => {
     // Usa regex para encontrar todas as barras e as envolve em spans

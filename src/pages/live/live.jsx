@@ -15,6 +15,7 @@ import {useEffect, useRef} from "react";
 
 import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 import LiveListSingleLine from "../../components/live/live-list-single-line.jsx";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
@@ -42,6 +43,7 @@ const Live = () => {
   
   const alertShowSomeDepartureStartHasShowed = useRef(false);
   const {setLabel} = useBreadcrumb();
+  const navigate = useNavigate();
   
   useEffect(() => {
     alertShowSomeDepartureStartHasShowed.current = !departurePointSelected;
@@ -50,6 +52,13 @@ const Live = () => {
   useEffect(() => {
     setLabel("live", "Ao vivo");
   }, []);
+  
+  useEffect(() => {
+    // Definir o ?sei = departurePointSelected.id
+    const base = "/live"
+    if (departurePointSelected?.id) navigate(base + "?sei=" + (departurePointSelected?.["id"] ?? ""));
+    else navigate(base);
+  }, [departurePointSelected]);
   
   return (
     <AnimatedComponents>

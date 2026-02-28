@@ -27,9 +27,14 @@ const Guide = () => {
   const [indicesLetters, setIndicesLetters] = useState([]);
   const [searchDPId, setSearchDPId] = useState(-1);
   const {setLabel} = useBreadcrumb();
+  const [paginationCurrentPages, setPaginationCurrentPages] = useState({});
   
   const genericError = useRef("Ocorreu um erro na consulta do Guia. Aguarde alguns minutos e tente novamente mais tarde.");
   const location = useLocation();
+  
+  const handlePageChange = (key, page) => {
+    setPaginationCurrentPages(prev => ({...prev, [key]: page}));
+  };
   
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -109,9 +114,14 @@ const Guide = () => {
                           return (
                             <AccordionItem title={key.replace("/", " - ").replaceAll("/", " - ")} key={index} eventKey={index.toString()}>
                               <ul className={"ps-3 mt-0 " + (value.length > 10 ? "mb-3" : "mb-0")} style={{lineHeight: 1.75}}>
-                                <PaginationWithItems items={(value.map((line, i) => {
-                                  return <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replaceAll("/", " ⇄ ")}</Link></li>
-                                }))} itemsPerPage={10}/>
+                                <PaginationWithItems
+                                  items={(value.map((line, i) => {
+                                    return <li key={i}><Link to={`/lines/${line["lineId"]}`}>Linha {line["lineNumber"]} - {line["lineName"].replaceAll("/", " ⇄ ")}</Link></li>
+                                  }))}
+                                  itemsPerPage={10}
+                                  currentPage={paginationCurrentPages[key] || 1}
+                                  onPageChange={(page) => handlePageChange(key, page)}
+                                />
                               </ul>
                               
                               <div className={"mt-1"}>
@@ -133,7 +143,7 @@ const Guide = () => {
         </AnimatedComponents>
       )
     } else setContent(<div>Conteúdo não mapeado</div>);
-  }, [loading, error, data]);
+  }, [loading, error, data, paginationCurrentPages]);
   
   useEffect(() => {
     if (term && term.length) {
