@@ -25,6 +25,11 @@ export default function HistoryDepartureTimes() {
   const [lineData, setLineData] = useState([]);
   const [dataAll, setDataAll] = useState([]);
   const { setLabel } = useBreadcrumb();
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
   
   const checkIsValid = (id) => {
     if (!id) return false
@@ -103,7 +108,7 @@ export default function HistoryDepartureTimes() {
             <ListGroup>
               {
                 Array.isArray(dataAll) && dataAll.length && (
-                  <PaginationWithItems items={dataAll} itemsPerPage={10}/>
+                  <PaginationWithItems items={dataAll} itemsPerPage={10} currentPage={currentPage} onPageChange={handlePageChange}/>
                 )
               }
             </ListGroup>
