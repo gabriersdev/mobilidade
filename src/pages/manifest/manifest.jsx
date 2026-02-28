@@ -23,7 +23,7 @@ const Manifest = () => {
         <Title title="Manifesto de Mobilidade para o Transporte Público de Sabará" type={"h1"} id="topo" classX=" d-none"/>
         <Title title="Manifesto de Mobilidade" type={"h2"} id="topo" classX=" fs-2 text m-0 p-0 lh-sm text-primary"/>
         <Title title="para o Transporte Público de Sabará" type={"h2"} id="topo" classX=" fs-2 text-body-secondary lh-sm"/>
-        <p>Última atualização: 23<span className="arial">/</span>11<span className="arial">/</span>2025</p>
+        <p>Última atualização: 27<span className="arial">/</span>02<span className="arial">/</span>2026</p>
       </hgroup>
       
       
@@ -87,6 +87,7 @@ const Manifest = () => {
           </li>
           <li>O sistema deve limitar a integração a uma quantindade X por dia e estabelecer um tempo máximo entre o desembarque de um sistema ou ônibus e embarque em outro.</li>
           <li>Remoção de locais em que é permitido estacionar, como a Rua Beira Rio, Praça Marquês de Sapucaí, pontos da Av. Prefeito Victor Fantini e nos bairros, que causem transtornos ao trânsito.</li>
+          <li>Implementar tarifas dinâmicas: à excessão das linhas que não têm pelo menos dois pontos finais (sendo cada um deles, o ponto de partida para um sentido), deve ser implementado um sistema de tarifas dinâmicas, que variam de acordo com a distância em que a pessoa embarca e o ponto de final do sentido da linha. Para evitar meios de burlar esse sistema deve ser pensado mecanismos que identifiquem a permanência ou não do passageiro durante muito tempo no ônibus, antes de a viagem ser paga e a catraca liberada. Este meio de tarifação só deve ser possível através da bilhetagem eletrônica.</li>
         </ul>
       </section>
       
