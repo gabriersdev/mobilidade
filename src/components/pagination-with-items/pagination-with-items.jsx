@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 import PropTypes from "prop-types";
 
-const PaginationWithItems = ({items, itemsPerPage, classNameOfItems, beforeSelector, classNameOfContainer, currentPage, onPageChange}) => {
+const PaginationWithItems = ({items, itemsPerPage, beforeSelector, classNameOfContainer, currentPage, onPageChange}) => {
   
   const paginationElement = useRef();
   const [paginationSelector, setPaginationSelector] = useState(<></>);
@@ -93,7 +93,7 @@ const PaginationWithItems = ({items, itemsPerPage, classNameOfItems, beforeSelec
 PaginationWithItems.propTypes = {
   items: PropTypes.array.isRequired,
   itemsPerPage: PropTypes.number.isRequired,
-  classNameOfItems: PropTypes.string,
+  // classNameOfItems: PropTypes.string,
   beforeSelector: PropTypes.bool,
   classNameOfContainer: PropTypes.string,
   currentPage: PropTypes.number.isRequired,

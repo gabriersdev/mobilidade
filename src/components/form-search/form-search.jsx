@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {Form, FormGroup, Button, Image} from "react-bootstrap";
+import {FormGroup, Button, Image} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -10,7 +10,7 @@ import SearchLinks from "../search/search-links.jsx";
 import GenericCombobox from "../ui/comboBox/combo-box.jsx";
 import './form-search.css';
 
-const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermSearch, focus, initialValue = ""}) => {
+const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermSearch, initialValue = ""}) => {
   const [search, setSearch] = useState(initialValue || '');
   const [feedback, setFeedback] = useState('');
   const [searchHistory, setSearchHistory] = useState([]);
@@ -101,7 +101,6 @@ FormSearch.propTypes = {
   inputPlaceholder: PropTypes.string.isRequired,
   fnSetIsValidSearch: PropTypes.func.isRequired,
   fnSetTermSearch: PropTypes.func.isRequired,
-  focus: PropTypes.bool,
   initialValue: PropTypes.string
 }
 

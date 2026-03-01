@@ -1,4 +1,4 @@
-import React from 'react';
+import 'react';
 import PropTypes from 'prop-types';
 import FullscreenControl from '../FullscreenControl';
 
