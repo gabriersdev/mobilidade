@@ -233,7 +233,7 @@ const Nav = () => {
                   <FormNav/>
                 </div>
                 
-                <Navbar.Toggle aria-controls="basic-navbar-nav" className={"mt-3 mt-sm-0"}/>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className={"mt-3 mt-sm-0 p-0 me-2 mb-2 border-0 rounded-0"} style={{boxShadow: "none"}}/>
               </div>
               
               <Navbar.Collapse id="basic-navbar-nav">
