@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import {Row} from "react-bootstrap";
 import {sortOrderOptions, isMetropolitanOptions} from "./filter-options.js";
 import FilterItem from "./filter-item.jsx";
 
@@ -19,9 +18,8 @@ const LineFilters = ({filters, onFilterChange, lineTypes}) => {
   ];
   
   return (
-    <Row className="mb-3 align-items-center d-none d-md-flex">
+    <div className="mb-3 align-items-center d-none d-md-flex gap-3">
       <FilterItem
-        md={2}
         label="Ordenar por"
         value={getLabelForValue(sortOrderOptions, filters.sortOrder)}
         options={sortOrderOptions}
@@ -30,7 +28,6 @@ const LineFilters = ({filters, onFilterChange, lineTypes}) => {
       />
       
       <FilterItem
-        md={3}
         label="Tipo de Linha"
         value={filters.lineType || "Todos"}
         options={lineTypeOptions}
@@ -48,7 +45,7 @@ const LineFilters = ({filters, onFilterChange, lineTypes}) => {
           onSelect={value => handleInputChange("isMetropolitan", value)}
         />
       </div>
-    </Row>
+    </div>
   );
 };
 

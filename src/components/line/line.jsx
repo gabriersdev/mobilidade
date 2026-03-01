@@ -27,6 +27,7 @@ import {ListDeparturePoints} from "../list-departure-points/list-departure-point
 import Grid from "../../components/ui/grid/grid.jsx";
 
 import bcAll from "../breadcrumb-app/breadcrumb-context.jsx";
+import AsyncIframe from "../../components/AsyncIframe.tsx";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
@@ -183,6 +184,11 @@ const Line = ({id}) => {
                   <Print variant={"departure-points"} prevContentTarget={"id"}/>
                 </div>
                 <ListDeparturePoints line_id={data[0].line_id} departure_location={data[0].departure_location} destination_location={data[0].destination_location}/>
+                
+                <AsyncIframe
+                  src="https://editor.mobilibus.com/web/bus2you/1sb79#hf5a"
+                  title="Iframe do coiso"
+                />
               </section>
               
               <section id={"pontos-de-recarga"} className={"pt-3"}>
