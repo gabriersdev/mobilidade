@@ -82,7 +82,10 @@
     "diff": "^8.0.3",
     "got": "^11.8.5",
     "tar": "^7.5.7",
-    "npm": "latest"
+    "npm": "latest",
+    "ajv": "^8.12.0",
+    "minimatch": "^9.0.4",
+    "serialize-javascript": "^6.0.0"
   },
   "sideEffects": [
     "bootstrap/dist/js/bootstrap.bundle.min.js"
