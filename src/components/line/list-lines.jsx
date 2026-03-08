@@ -14,7 +14,7 @@ const ListLines = ({data, variant}) => {
   const [content, setContent] = useState([]);
   
   const [filters, setFilters] = useState({
-    sortOrder: "number-asc",
+    sortOrder: "none",
     lineType: "",
     isMetropolitan: "",
     company: "",
@@ -55,6 +55,8 @@ const ListLines = ({data, variant}) => {
           case "fare-desc":
             return b.fare - a.fare;
           case "number-asc":
+            return a.line_number.localeCompare(b.line_number);
+          case "none":
           default:
             return a.line_number.localeCompare(b.line_number);
         }

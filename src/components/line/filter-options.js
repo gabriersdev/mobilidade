@@ -1,4 +1,5 @@
 export const sortOrderOptions = [
+  ["none", "Padrão"],
   ["number-asc", "Número (crescente)"],
   ["number-desc", "Número (decrescente)"],
   ["fare-asc", "Tarifa (crescente)"],
