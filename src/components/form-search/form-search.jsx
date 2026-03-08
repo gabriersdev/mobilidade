@@ -1,24 +1,43 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-
-import {Form, FormGroup, Button, Image} from "react-bootstrap";
-import Title from "../ui/title/title.jsx";
-import './form-search.css';
-import SearchLinks from "../search/search-links.jsx";
+import {FormGroup, Button, Image} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
-const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermSearch, focus, initialValue = ""}) => {
+import Title from "../ui/title/title.jsx";
+import SearchLinks from "../search/search-links.jsx";
+import GenericCombobox from "@/components/ui/combo-box/combo-box.jsx";
+import './form-search.css';
+
+const FEATURED_COMPANIES = [
+  { name: "Vinscol", path: "/company/3", logo: "vinscol.svg" },
+  { name: "Transporte Coletivo Metropolitano - MG", path: "/company/4", logo: "der-mg.png" },
+];
+
+const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermSearch, initialValue = ""}) => {
   const [search, setSearch] = useState(initialValue || '');
   const [feedback, setFeedback] = useState('');
-  
+  const [searchHistory, setSearchHistory] = useState([]);
+
+  useEffect(() => {
+    const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    setSearchHistory(history.map(term => ({name: term})));
+  }, []);
+
+  const handleSearchHistory = (term) => {
+    const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    if (!history.includes(term)) {
+      history.push(term);
+      localStorage.setItem('searchHistory', JSON.stringify(history));
+    }
+  }
+
   const handleSubmit = (e) => {
+    e.preventDefault();
     fnSetIsValidSearch(false);
     fnSetTermSearch(null);
-    
-    e.preventDefault();
-    
+
     setTimeout(() => {
       if (search.trim().length === 0) {
         setFeedback('O campo de pesquisa não pode estar vazio.');
@@ -30,37 +49,47 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
         setFeedback("");
         fnSetIsValidSearch(true);
         fnSetTermSearch(search);
+        handleSearchHistory(search);
       }
     }, 0)
   }
-  
+
   return (
     <form onSubmit={handleSubmit}>
       <FormGroup>
         <hgroup className={"d-flex align-items-center justify-content-between flex-wrap flex-column flex-md-row mb-1"}>
-          <Form.Label htmlFor={`input-search`} column={0}>
-            <Title classX=" text-body-secondary m-0 p-0">
-              <span className={"fs-3 fw-semibold"} style={{fontFamily: "inherit"}}>{formTitle}</span>
-            </Title>
-          </Form.Label>
+          <Title classX=" text-body-secondary m-0 p-0">
+            <span className={"fs-3 fw-semibold"} style={{fontFamily: "inherit"}}>{formTitle}</span>
+          </Title>
           <div className={"d-flex align-items-center flex-wrap gap-1 justify-content-center"}>
-            {
-              [
-                ["Vinscol", "/company/3", "vinscol.svg"],
-                ["Transporte Coletivo Metropolitano - MG", "/company/4", "der-mg.png"],
-              ].map((company, index) => (
-                <OverlayTrigger key={index} overlay={<Tooltip><p className={"m-0 p-0 line-clamp-2"}>Veja as linhas ativas da companhia {company[0]}</p></Tooltip>}>
-                  <Link to={company[1]}>
-                    <Image src={"/images/companies/" + company[2]} alt={"Logo da companhia " + company[0]} width={75} height={25} className={"object-fit-contain rounded-1"}/>
-                  </Link>
-                </OverlayTrigger>
-              ))
-            }
+            {FEATURED_COMPANIES.map((company) => (
+              <OverlayTrigger key={company.path} overlay={<Tooltip><p className={"m-0 p-0 line-clamp-2"}>Veja as linhas ativas da companhia {company.name}</p></Tooltip>}>
+                <Link to={company.path}>
+                  <Image src={`/images/companies/${company.logo}`} alt={`Logo da companhia ${company.name}`} width={75} height={25} className={"object-fit-contain rounded-1"}/>
+                </Link>
+              </OverlayTrigger>
+            ))}
           </div>
         </hgroup>
-        <div className="input-group">
-          <Form.Control type="search" id={`input-search`} placeholder={inputPlaceholder} className="fs-5" value={search} onChange={(e) => setSearch(e.target.value)} autoComplete={"off"} autoFocus={focus || false}/>
-          <Button variant="default" className={"border text-body-tertiary px-3"} type="submit" aria-hidden="true"><i className="bi bi-search"></i></Button>
+        <div className="input-group d-flex flex-wrap align-items-center mt-2">
+          <GenericCombobox
+            items={searchHistory}
+            itemToString={(item) => (item ? item.name : '')}
+            onSelectedItemChange={(item) => {
+              const term = item ? item.name : '';
+              setSearch(term);
+              if (term) {
+                fnSetIsValidSearch(true);
+                fnSetTermSearch(term);
+                handleSearchHistory(term);
+              }
+            }}
+            onInputValueChange={(inputValue) => setSearch(inputValue)}
+            placeholder={inputPlaceholder}
+            label={""}
+            required={true}
+          />
+          <Button variant="default" className={"border text-body-tertiary"} type="submit" aria-hidden="true"><i className="bi bi-search"></i></Button>
         </div>
       </FormGroup>
       <SearchLinks/>
@@ -74,7 +103,6 @@ FormSearch.propTypes = {
   inputPlaceholder: PropTypes.string.isRequired,
   fnSetIsValidSearch: PropTypes.func.isRequired,
   fnSetTermSearch: PropTypes.func.isRequired,
-  focus: PropTypes.bool,
   initialValue: PropTypes.string
 }
 

@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import Title from "../../components/ui/title/title.jsx";
 import NewsC from '../../components/news/news.jsx';
 import newsA from "../../assets/news.js";
@@ -16,6 +16,7 @@ const useBreadcrumb = bcAll.useBreadcrumb;
 const News = () => {
   const {id} = useParams()
   const { setLabel } = useBreadcrumb();
+  const [currentPage, setCurrentPage] = useState(1);
   
   const checkIsValid = (id) => {
     if (!id) return false
@@ -41,6 +42,8 @@ const News = () => {
                 <div className={"d-flex flex-column align-items-start gap-5"}>
                   <PaginationWithItems
                     itemsPerPage={1}
+                    currentPage={currentPage}
+                    onPageChange={setCurrentPage}
                     items={
                       [...newsA].toSpliced(50).toReversed().toSorted((a, b) => moment(a.publishDate).unix() < moment(b.publishDate).unix()).map((item, index) => (
                         <div className={"pb-5"} key={index}>

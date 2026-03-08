@@ -1,8 +1,35 @@
 import {FormGroup, FormLabel} from "react-bootstrap";
+import {useEffect, useState} from "react";
 
-import GenericCombobox from "../ui/comboBox/combo-box.jsx";
+import GenericCombobox from "@/components/ui/combo-box/combo-box.jsx";
 import AnimatedComponents from "../ui/animated-component/animated-components.jsx";
 import PropTypes from "prop-types";
+
+export function LiveFormSearch({setSearchTerm}) {
+  const [searchHistory, setSearchHistory] = useState([]);
+  
+  useEffect(() => {
+    const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    setSearchHistory(history.map(term => ({name: term})));
+  }, []);
+  
+  return (
+    <AnimatedComponents>
+      <FormGroup>
+        <FormLabel column={"lg"} className={"w-100"}>
+          <GenericCombobox
+            items={searchHistory}
+            itemToString={(item) => (item ? item.name : '')}
+            onSelectedItemChange={(item) => setSearchTerm(item ? item.name : '')}
+            label="Pesquisas recentes"
+            placeholder="Selecione uma pesquisa recente"
+            required={false}
+          />
+        </FormLabel>
+      </FormGroup>
+    </AnimatedComponents>
+  )
+}
 
 export function LiveFormLines({lines, setLineSelected}) {
   return (
@@ -44,6 +71,10 @@ export function LiveFormDeparturePoints({departurePoints, setDeparturePointSelec
   )
 }
 
+LiveFormSearch.propTypes = {
+  setSearchTerm: PropTypes.func.isRequired
+}
+
 LiveFormLines.propTypes = {
   lines: PropTypes.array.isRequired,
   setLineSelected: PropTypes.func.isRequired
@@ -53,4 +84,3 @@ LiveFormDeparturePoints.propTypes = {
   departurePoints: PropTypes.array.isRequired,
   setDeparturePointSelected: PropTypes.func.isRequired
 }
-

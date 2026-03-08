@@ -1,17 +1,17 @@
 import {Link, useParams} from "react-router-dom";
-import Alert from "../../../components/ui/alert/alert.jsx";
+import Alert from "@/components/ui/alert/alert.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import config from "../../../assets/config.js";
+import config from "@/assets/config.js";
 import moment from "moment";
 import {Button, ListGroup} from "react-bootstrap";
 
-import Title from "../../../components/ui/title/title.jsx";
-import FeedbackError from "../../../components/ui/feedbackError/feedback-error.jsx";
-import AnimatedComponents from "../../../components/ui/animated-component/animated-components.jsx";
-import Util from "../../../assets/Util.jsx";
+import Title from "@/components/ui/title/title.jsx";
+import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";
+import AnimatedComponents from "@/components/ui/animated-component/animated-components.jsx";
+import Util from "@/assets/Util.jsx";
 
-import bcAll from "../../../components/breadcrumb-app/breadcrumb-context.jsx";
+import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 moment.locale("pt-BR");

@@ -1,45 +1,76 @@
 import PropTypes from "prop-types";
-import Grid from "../ui/grid/grid.jsx";
 import Card from "../ui/card/card.jsx";
-import {Badge, Image} from "react-bootstrap";
+import {Badge} from "react-bootstrap";
 import Util from "../../assets/Util.jsx";
 import Convert from "../../assets/Convert.js";
 import {useEffect, useState} from "react";
-
-const ScrollX = ({children}) => {
-  return <div className={"overflow-x-scroll d-flex scroll-x gap-3 pt-2 pb-3"}>{children}</div>
-}
-
-ScrollX.propTypes = {
-  children: PropTypes.node,
-}
-
-const GetCompanyIdentification = ({line}) => {
-  const [companyIdentification, setCompanyIdentification] = useState(<></>);
-  
-  useEffect(() => {
-    switch (line.company_name.toLowerCase().trim()) {
-      case "Transporte Coletivo Metropolitano - MG".toLowerCase().trim():
-        setCompanyIdentification(<Image src={"/images/companies/der-mg.png"} width={40} height={15} className={"object-fit-contain rounded-0"}/>);
-        break
-      case "Vinscol".toLowerCase().trim():
-        setCompanyIdentification(<Image src={"/images/companies/vinscol.svg"} width={40} height={20} className={"object-fit-contain rounded-0"}/>);
-        break
-    }
-  }, [line]);
-  
-  return companyIdentification;
-}
+import PaginationWithItems from "../pagination-with-items/pagination-with-items.jsx";
+import GetCompanyIdentification from "./get-company-identification.jsx";
+import ScrollX from "../ui/scroll-x/scroll-x.jsx";
+import LineFilters from "./line-filters.jsx";
+import {motion, AnimatePresence} from "framer-motion";
 
 const ListLines = ({data, variant}) => {
-  const [content, setContent] = useState(null);
+  const [content, setContent] = useState([]);
+  
+  const [filters, setFilters] = useState({
+    sortOrder: "none",
+    lineType: "",
+    isMetropolitan: "",
+    company: "",
+  });
+  
+  const [lineTypes, setLineTypes] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  
   useEffect(() => {
-    setContent(<>
-      {data.map((line) => {
-        // console.log(line)
-        return (
+    if (Array.isArray(data)) {
+      const uniqueLineTypes = [...new Set(data.map((line) => Convert.lineType(line.type)).filter(Boolean))];
+      setLineTypes(uniqueLineTypes);
+    }
+  }, [data]);
+  
+  useEffect(() => {
+    if (Array.isArray(data)) {
+      let filteredData = [...data];
+      
+      // Filtering
+      if (filters.lineType) {
+        filteredData = filteredData.filter(line => Convert.lineType(line.type) === filters.lineType);
+      }
+      if (filters.isMetropolitan) {
+        filteredData = filteredData.filter(line => (filters.isMetropolitan === 'yes' ? line.is_metropolitan : !line.is_metropolitan));
+      }
+      if (filters.company) {
+        filteredData = filteredData.filter(line => line.company_name === filters.company);
+      }
+      
+      // Sorting
+      filteredData.sort((a, b) => {
+        switch (filters.sortOrder) {
+          case "number-desc":
+            return b.line_number.localeCompare(a.line_number);
+          case "fare-asc":
+            return a.fare - b.fare;
+          case "fare-desc":
+            return b.fare - a.fare;
+          case "number-asc":
+            return a.line_number.localeCompare(b.line_number);
+          case "none":
+          default:
+            return a.line_number.localeCompare(b.line_number);
+        }
+      });
+      
+      const lines = filteredData.map((line) => (
+        <motion.div
+          key={line.line_id}
+          initial={{opacity: 0, scale: 1, y: 10}}
+          animate={{opacity: 1, scale: 1, y: 0}}
+          exit={{opacity: 0, scale: 1, y: -10}}
+          transition={{duration: 0.5}}
+        >
           <Card
-            key={line.line_id}
             title={`Linha`}
             link={`/lines/${line.line_id}`}
             badge={(
@@ -66,26 +97,53 @@ const ListLines = ({data, variant}) => {
               </div>
             )}
             subtitle={
-              // TODO - refatorar com componente específico para o funcionamento
               line.direction === 0 ? (`${line.departure_location} ⇄ ${line.destination_location} (ida e volta)`) : `${line.departure_location} ⇄ ${line.destination_location}`.trim()
             }
           >
             {Util.resumeInfoLine(line)}
           </Card>
-        )
-      })}
-    </>);
-  }, [])
+        </motion.div>
+      ));
+      setContent(lines);
+    } else {
+      setContent([]);
+    }
+  }, [data, filters]);
+  
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+    setCurrentPage(1);
+  };
+  
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   
   return (
     <div style={{marginTop: '1rem'}}>
-      {variant === "similar-lines" ? (<ScrollX>{content}</ScrollX>) : <Grid variant={"similar-lines"}>{content}</Grid>}
+      {variant !== "similar-lines" && (
+        <LineFilters
+          filters={filters}
+          onFilterChange={handleFilterChange}
+          lineTypes={lineTypes}
+        />
+      )}
+      <AnimatePresence>
+        {variant === "similar-lines" ? (
+          <ScrollX>{content}</ScrollX>
+        ) : (
+          <PaginationWithItems
+            items={content}
+            itemsPerPage={10}
+            classNameOfContainer={"grid similar-lines mt-3"}
+            beforeSelector={true}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
-}
-
-GetCompanyIdentification.propTypes = {
-  line: PropTypes.object.isRequired,
 }
 
 ListLines.propTypes = {

@@ -4,15 +4,15 @@ import {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {Button, ListGroup} from "react-bootstrap";
 
-import config from "../../../assets/config.js";
-import Util from "../../../assets/Util.jsx";
-import Alert from "../../../components/ui/alert/alert.jsx";
-import Title from "../../../components/ui/title/title.jsx";
-import FeedbackError from "../../../components/ui/feedbackError/feedback-error.jsx";
-import AnimatedComponents from "../../../components/ui/animated-component/animated-components.jsx";
-import PaginationWithItems from "../../../components/pagination-with-items/pagination-with-items.jsx";
+import config from "@/assets/config.js";
+import Util from "@/assets/Util.jsx";
+import Alert from "@/components/ui/alert/alert.jsx";
+import Title from "@/components/ui/title/title.jsx";
+import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";
+import AnimatedComponents from "@/components/ui/animated-component/animated-components.jsx";
+import PaginationWithItems from "@/components/pagination-with-items/pagination-with-items.jsx";
 
-import bcAll from "../../../components/breadcrumb-app/breadcrumb-context.jsx";
+import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 moment.locale("pt-BR");
@@ -25,6 +25,11 @@ export default function HistoryDepartureTimes() {
   const [lineData, setLineData] = useState([]);
   const [dataAll, setDataAll] = useState([]);
   const { setLabel } = useBreadcrumb();
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
   
   const checkIsValid = (id) => {
     if (!id) return false
@@ -103,7 +108,7 @@ export default function HistoryDepartureTimes() {
             <ListGroup>
               {
                 Array.isArray(dataAll) && dataAll.length && (
-                  <PaginationWithItems items={dataAll} itemsPerPage={10}/>
+                  <PaginationWithItems items={dataAll} itemsPerPage={10} currentPage={currentPage} onPageChange={handlePageChange}/>
                 )
               }
             </ListGroup>

@@ -8,7 +8,7 @@ import Alert from "../../components/ui/alert/alert.jsx";
 import Title from "../../components/ui/title/title.jsx";
 import Card from "../../components/ui/card/card.jsx";
 import Grid from "../../components/ui/grid/grid.jsx";
-import FeedbackError from "../../components/ui/feedbackError/feedback-error.jsx";
+import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";
 import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
 import LineIdentificationCompanyLogo from "../../components/line-identification/line-identification-company-logo.jsx";
 import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";

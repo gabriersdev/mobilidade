@@ -7,7 +7,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 import PaginationWithItems from "../pagination-with-items/pagination-with-items.jsx";
 
 const ListPointsByDirections = () => {
-  const {uniqueDirections, departure_location, destination_location, departurePointsByDirection} = useContext(DeparturePointsDataContext);
+  const {uniqueDirections, departure_location, destination_location, departurePointsByDirection, paginationCurrentPages, handlePageChange} = useContext(DeparturePointsDataContext);
   const {handlePointClick} = useContext(DeparturePointsTheme);
   const {setFirstPointByDirection} = useContext(LineContext);
   
@@ -61,7 +61,12 @@ const ListPointsByDirections = () => {
           eventKey={i.toString()}>
           <ul className="list-line-content list-group d-flex gap-2 ms-md-3">
             <div className={"hide-print"}>
-              <PaginationWithItems items={departurePointsByDirection[i].map((m, index) => mapDeparturePoints(m, index, i))} itemsPerPage={10}/>
+              <PaginationWithItems
+                items={departurePointsByDirection[i].map((m, index) => mapDeparturePoints(m, index, i))}
+                itemsPerPage={10}
+                currentPage={paginationCurrentPages[i] || 1}
+                onPageChange={(page) => handlePageChange(i, page)}
+              />
             </div>
             <div className={"show-print"}>
               {departurePointsByDirection[i].map((m, index) => mapDeparturePoints(m, index, i))}

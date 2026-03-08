@@ -52,8 +52,6 @@ export function LiveConfigs({configs, setConfigs, labelsConfigs}) {
     else if (type === "range") value = Math.round(+e.target.value);
     else value = e.target.value;
     
-    console.log(value);
-    
     setConfigs(prev => {
       return {
         ...prev,

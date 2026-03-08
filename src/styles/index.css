@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
 @font-face {
   font-family: Arial;
@@ -25,6 +26,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .inter {
   font-family: 'Inter', sans-serif;
+}
+
+.font-monospace,
+.monospace {
+  font-family: 'JetBrains Mono', monospace !important;
 }
 
 main {
@@ -129,6 +135,10 @@ select#city-recharge.bg-body {
 
 .hide-print {
   display: block;
+}
+
+.ff-inherit {
+  font-family: inherit !important;
 }
 
 @media print {

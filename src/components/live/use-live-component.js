@@ -11,21 +11,35 @@ moment.locale("pt-BR");
 const useLiveComponent = () => {
   const [lineSelected, setLineSelected] = useState(null);
   const [departurePointSelected, setDeparturePointSelected] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState([]);
   const [dataNextDepartureTimes, setDataNextDepartureTimes] = useState([]);
   const [error, setError] = useState(null);
   const [lines, setLines] = useState(null);
   const [departurePoints, setDeparturePoints] = useState(null);
-  const [configs, setConfigs] = useState({
-    warningSound: true,
-    showSomeDepartureStart: false,
-    showAdditionalInfo: true,
-    // volume: 70
+  const [configs, setConfigs] = useState(() => {
+    const defaultConfig = {
+      warningSound: true,
+      showSomeDepartureStart: false,
+      showAdditionalInfo: true,
+      showSingleLine: false,
+      // volume: 70
+    };
+    try {
+      const savedConfigs = localStorage.getItem("live-configs");
+      if (savedConfigs) {
+        return {...defaultConfig, ...JSON.parse(savedConfigs)};
+      }
+    } catch (error) {
+      console.error("Error reading configs from localStorage", error);
+    }
+    return defaultConfig;
   });
   const labelsConfigs = useRef({
     warningSound: "Aviso sonoro",
     showSomeDepartureStart: "Exibir apenas partidas",
     showAdditionalInfo: "Exibir informações extras",
+    showSingleLine: "Exibir em linha única"
     // volume: "Volume do aviso sonoro"
   })
   
@@ -63,8 +77,6 @@ const useLiveComponent = () => {
   }, []);
   
   const fetchData = async (departurePointSelected) => {
-    // Força a perda de foco de todos os inputs
-    document.querySelectorAll("input")?.forEach(i => i.blur());
     if (!departurePointSelected) return;
     const s = await axios.post(`${config.host}/api/predictions/departure-points/`, {
       pointId: departurePointSelected?.["id"] ?? -1
@@ -87,13 +99,13 @@ const useLiveComponent = () => {
     } else {
       setData([]);
     }
-
+    
     if (Array.isArray(JSON.parse(axiosNextDepartureTimes))) {
       setDataNextDepartureTimes(JSON.parse(axiosNextDepartureTimes).map(Util.parseDatetimeTimezone));
     } else {
       setDataNextDepartureTimes([]);
     }
-
+    
     setError(null);
   };
   
@@ -108,9 +120,38 @@ const useLiveComponent = () => {
   
   const resultSection = useRef();
   
-  // useEffect(() => {
-  //   if (dataNextDepartureTimes) console.log(dataNextDepartureTimes);
-  // }, [dataNextDepartureTimes]);
+  useEffect(() => {
+    if (searchTerm && (lines || departurePoints)) {
+      const searchTermLower = searchTerm.toLowerCase();
+      
+      const foundLine = lines?.find(line =>
+        line.title.toLowerCase().includes(searchTermLower) ||
+        line.name.toLowerCase().includes(searchTermLower)
+      );
+      
+      if (foundLine) {
+        setLineSelected(foundLine);
+        return;
+      }
+      
+      const foundDP = departurePoints?.find(dp =>
+        dp.title.toLowerCase().includes(searchTermLower) ||
+        dp.name.toLowerCase().includes(searchTermLower)
+      );
+      
+      if (foundDP) {
+        setDeparturePointSelected(foundDP);
+      }
+    }
+  }, [searchTerm, lines, departurePoints]);
+  
+  useEffect(() => {
+    try {
+      localStorage.setItem("live-configs", JSON.stringify(configs));
+    } catch (error) {
+      console.error("Error saving configs to localStorage", error);
+    }
+  }, [configs]);
   
   useEffect(() => {
     if (departurePointSelected) {
@@ -121,7 +162,7 @@ const useLiveComponent = () => {
     } else {
       setData(null);
       setDataNextDepartureTimes(null);
-    };
+    }
   }, [departurePointSelected]);
   
   useEffect(() => {
@@ -137,7 +178,8 @@ const useLiveComponent = () => {
   }, [data, isOriginalFetch]);
   
   useEffect(() => {
-    let int;
+    let int = setInterval(() => {
+    }, 100000);
     
     if (departurePointSelected && datetimeOriginalFetch) {
       try {
@@ -232,6 +274,8 @@ const useLiveComponent = () => {
     setLineSelected,
     departurePointSelected,
     setDeparturePointSelected,
+    searchTerm,
+    setSearchTerm,
     data,
     setData,
     dataNextDepartureTimes,

@@ -2,7 +2,7 @@ import {useState} from "react";
 import PropTypes from "prop-types";
 import { Badge } from "react-bootstrap";
 
-import data from "../../../assets/data.js";
+import data from "@/assets/data.js";
 
 const LegendItem = ({ item, i }) => {
   const [clamp, setClamp] = useState(true);

@@ -14,6 +14,9 @@ import Weather from "../../components/weather/weather.jsx";
 import {useEffect, useRef} from "react";
 
 import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+import LiveListSingleLine from "../../components/live/live-list-single-line.jsx";
+import {useNavigate} from "react-router-dom";
+
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 moment.locale("pt-BR");
@@ -35,11 +38,12 @@ const Live = () => {
     setConfigs,
     labelsConfigs,
     
-    fetchData
+    // fetchData
   } = useLiveComponent();
   
   const alertShowSomeDepartureStartHasShowed = useRef(false);
-  const { setLabel } = useBreadcrumb();
+  const {setLabel} = useBreadcrumb();
+  const navigate = useNavigate();
   
   useEffect(() => {
     alertShowSomeDepartureStartHasShowed.current = !departurePointSelected;
@@ -49,6 +53,13 @@ const Live = () => {
     setLabel("live", "Ao vivo");
   }, []);
   
+  useEffect(() => {
+    // Definir o ?sei = departurePointSelected.id
+    const base = "/live"
+    if (departurePointSelected?.id) navigate(base + "?sei=" + (departurePointSelected?.["id"] ?? ""));
+    else navigate(base);
+  }, [departurePointSelected]);
+  
   return (
     <AnimatedComponents>
       <div className={"mb-3"}>
@@ -56,13 +67,8 @@ const Live = () => {
       </div>
       
       <div>
-        <form onSubmit={async (e) => {
-          e.preventDefault();
-          await fetchData();
-        }}>
-          {lines && <LiveFormLines lines={lines} setLineSelected={setLineSelected}/>}
-          {departurePoints ? <LiveFormDeparturePoints departurePoints={departurePoints} setDeparturePointSelected={setDeparturePointSelected}/> : <LoadingDeparturePoints/>}
-        </form>
+        {lines && <LiveFormLines lines={lines} setLineSelected={setLineSelected}/>}
+        {departurePoints ? <LiveFormDeparturePoints departurePoints={departurePoints} setDeparturePointSelected={setDeparturePointSelected}/> : <LoadingDeparturePoints/>}
       </div>
       
       <div className={"rounded-3 bg-body-secondary p-3 mt-5"} ref={resultSection}>
@@ -97,7 +103,10 @@ const Live = () => {
                     </div>
                     
                     {configs?.["showSomeDepartureStart"] && <AlertInfoConfigSomeDepartureStart/>}
-                    <LiveListResults data={data} dataNextDepartureTimes={dataNextDepartureTimes} configs={configs}/>
+                    {configs?.["showSingleLine"] ?
+                      <LiveListSingleLine data={data}/> :
+                      <LiveListResults data={data} dataNextDepartureTimes={dataNextDepartureTimes} configs={configs}/>
+                    }
                   </>
                 ) : <AnyBusProximityError/>
               }
