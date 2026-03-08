@@ -10,6 +10,11 @@ import SearchLinks from "../search/search-links.jsx";
 import GenericCombobox from "@/components/ui/combo-box/combo-box.jsx";
 import './form-search.css';
 
+const FEATURED_COMPANIES = [
+  { name: "Vinscol", path: "/company/3", logo: "vinscol.svg" },
+  { name: "Transporte Coletivo Metropolitano - MG", path: "/company/4", logo: "der-mg.png" },
+];
+
 const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermSearch, initialValue = ""}) => {
   const [search, setSearch] = useState(initialValue || '');
   const [feedback, setFeedback] = useState('');
@@ -57,13 +62,10 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
             <span className={"fs-3 fw-semibold"} style={{fontFamily: "inherit"}}>{formTitle}</span>
           </Title>
           <div className={"d-flex align-items-center flex-wrap gap-1 justify-content-center"}>
-            {[
-              ["Vinscol", "/company/3", "vinscol.svg"],
-              ["Transporte Coletivo Metropolitano - MG", "/company/4", "der-mg.png"],
-            ].map((company, index) => (
-              <OverlayTrigger key={index} overlay={<Tooltip><p className={"m-0 p-0 line-clamp-2"}>Veja as linhas ativas da companhia {company[0]}</p></Tooltip>}>
-                <Link to={company[1]}>
-                  <Image src={"/images/companies/" + company[2]} alt={"Logo da companhia " + company[0]} width={75} height={25} className={"object-fit-contain rounded-1"}/>
+            {FEATURED_COMPANIES.map((company) => (
+              <OverlayTrigger key={company.path} overlay={<Tooltip><p className={"m-0 p-0 line-clamp-2"}>Veja as linhas ativas da companhia {company.name}</p></Tooltip>}>
+                <Link to={company.path}>
+                  <Image src={`/images/companies/${company.logo}`} alt={`Logo da companhia ${company.name}`} width={75} height={25} className={"object-fit-contain rounded-1"}/>
                 </Link>
               </OverlayTrigger>
             ))}
