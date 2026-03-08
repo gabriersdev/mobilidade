@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.12.1",
-    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-terser": "^1.0.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/exec": "^7.1.0",
@@ -79,13 +79,17 @@
     "esbuild": "^0.25.0",
     "path-to-regexp": "^6.3.0",
     "rolldown": "^1.0.0-beta.58",
-    "diff": "^8.0.3",
     "got": "^11.8.5",
-    "tar": "^7.5.7",
-    "npm": "latest",
     "ajv": "^8.12.0",
-    "minimatch": "^9.0.4",
-    "serialize-javascript": "^6.0.0"
+    "npm": "10.8.1",
+    "brace-expansion": "^2.0.1",
+    "cross-spawn": "^7.0.5",
+    "diff": "^5.2.2",
+    "glob": "^10.4.6",
+    "minimatch": "^9.0.8",
+    "serialize-javascript": "^6.0.2",
+    "tar": "^6.2.1",
+    "@tootallnate/once": "^3.0.1"
   },
   "sideEffects": [
     "bootstrap/dist/js/bootstrap.bundle.min.js"
