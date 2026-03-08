@@ -9,8 +9,8 @@ import {useCallback, useEffect, useRef, useState} from "react";
 import {Nav as BootstrapNav, Navbar, Container, Badge} from "react-bootstrap";
 
 import FormNav from "./form-nav.jsx";
-import Util from "../../../assets/Util.jsx";
-import infos from "../../../assets/infos.jsx"
+import Util from "@/assets/Util.jsx";
+import infos from "@/assets/infos.jsx"
 import AnimatedComponents from "../animated-component/animated-components.jsx";
 import InstallPWAButton from "../../install-PWA-button/install-PWA-button.jsx";
 import PropTypes from "prop-types";

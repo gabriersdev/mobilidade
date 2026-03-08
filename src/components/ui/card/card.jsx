@@ -5,7 +5,7 @@ import {Card as BootstrapCard} from 'react-bootstrap';
 import {Link} from "react-router-dom";
 import {AnimatePresence} from "framer-motion";
 import Title from "../title/title.jsx";
-import Util from "../../../assets/Util.jsx";
+import Util from "@/assets/Util.jsx";
 import AnimatedComponent from "../animated-component/animated-component.jsx";
 
 const Card = ({title = "Card Title", subtitle = "Subtitle", badge, link, children, onclick, variant, headerColumn = false}) => {

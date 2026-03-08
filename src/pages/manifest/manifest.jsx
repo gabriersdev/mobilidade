@@ -3,15 +3,17 @@ import {useEffect} from 'react'
 import Util from "../../assets/Util.jsx";
 import Title from "../../components/ui/title/title.jsx";
 import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
-import Premissas from "./components/Premissas.jsx";
-import LineChanges from "./components/LineChanges.jsx";
-import IntegrationInfrastructure from "./components/IntegrationInfrastructure.jsx";
-import MainLines from "./components/MainLines.jsx";
+
+import Premissas from "@/components/manifest/premissas.jsx";
+import LineChanges from "@/components/manifest/line-changes.jsx";
+import IntegrationInfrastructure from "@/components/manifest/integration-infrastructure.jsx";
+import MainLines from "@/components/manifest/main-lines.jsx";
+
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 const Manifest = () => {
-  const { setLabel } = useBreadcrumb();
-
+  const {setLabel} = useBreadcrumb();
+  
   useEffect(() => {
     // Altera o título da página
     document.title = "Mobilidade - Manifesto de Mobilidade para o Transporte Público de Sabará";
@@ -29,10 +31,10 @@ const Manifest = () => {
         <p>Última atualização: 27<span className="arial">/</span>02<span className="arial">/</span>2026</p>
       </hgroup>
       
-      <Premissas />
-      <LineChanges />
-      <IntegrationInfrastructure />
-      <MainLines />
+      <Premissas/>
+      <LineChanges/>
+      <IntegrationInfrastructure/>
+      <MainLines/>
     </div>
   );
 }

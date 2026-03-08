@@ -4,14 +4,15 @@ import {Button} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {Link, useLocation, useParams} from "react-router-dom";
 
-import Util from "../../../assets/Util.jsx";
-import config from "../../../assets/config.js";
-import Alert from "../../../components/ui/alert/alert.jsx";
-import Title from "../../../components/ui/title/title.jsx";
-import FeedbackError from "../../../components/ui/feedbackError/feedback-error.jsx";
-import AnimatedComponents from "../../../components/ui/animated-component/animated-components.jsx";
-import {ListDepartureTimes} from "../../../components/list-departure-times/list-departure-times.jsx";
-import bcAll from "../../../components/breadcrumb-app/breadcrumb-context.jsx";
+import Util from "@/assets/Util.jsx";
+import config from "@/assets/config.js";
+import Alert from "@/components/ui/alert/alert.jsx";
+import Title from "@/components/ui/title/title.jsx";
+import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";
+import AnimatedComponents from "@/components/ui/animated-component/animated-components.jsx";
+import {ListDepartureTimes} from "@/components/list-departure-times/list-departure-times.jsx";
+import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
+
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 moment.locale("pt-BR");
@@ -32,7 +33,7 @@ export default function HistoryDayDepartureTimes() {
   const [loaded, setIsLoaded] = useState(true);
   const [data, setData] = useState([]);
   const [lineData, setLineData] = useState([]);
-  const { setLabel } = useBreadcrumb();
+  const {setLabel} = useBreadcrumb();
   
   const checkIsValid = (id) => {
     if (!id) return false

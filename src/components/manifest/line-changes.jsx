@@ -1,4 +1,4 @@
-import Title from "../../../components/ui/title/title";
+import Title from "@/components/ui/title/title";
 
 const LineChanges = () => (
   <section id="id" className="content-text">

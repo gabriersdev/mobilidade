@@ -4,9 +4,9 @@ import "./footer.css";
 import {useEffect, useState} from "react";
 import InstallPWAButton from "../../install-PWA-button/install-PWA-button.jsx";
 import AnimatedComponents from "../animated-component/animated-components.jsx";
-import Util from "../../../assets/Util.jsx";
+import Util from "@/assets/Util.jsx";
 import moment from "moment";
-import {contactLotus} from "../../../assets/resources.js";
+import {contactLotus} from "@/assets/resources.js";
 import {useTheme} from "../theme-context/theme-context.jsx";
 import ThemeSelector from "./theme-selector.jsx";
 

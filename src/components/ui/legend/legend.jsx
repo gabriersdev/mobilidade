@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 import LegendItem from "./legend-item.jsx";
-import defaultLegendItems from "../../../assets/default-legend-items.jsx";
+import defaultLegendItems from "@/assets/default-legend-items.jsx";
 
 const Legend = ({items, marginTop, type}) => {
   

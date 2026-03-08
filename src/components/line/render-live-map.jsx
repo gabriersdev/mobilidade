@@ -1,4 +1,4 @@
-import AsyncIframe from "../../components/AsyncIframe.tsx";
+import AsyncIframe from "@/components/async-iframe/async-iframe.tsx";
 import liveMap from "../../assets/live-map.js";
 import {Link} from "react-router-dom";
 import Title from "../ui/title/title.jsx";

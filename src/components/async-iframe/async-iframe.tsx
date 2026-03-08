@@ -1,7 +1,7 @@
 import React, {useRef, useState, useEffect} from 'react';
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import FullscreenControl from "./FullscreenControl";
+import FullscreenControl from "@/components/fullscreen-control/fullscreen-control";
 
 interface AsyncIframeProps extends React.IframeHTMLAttributes<HTMLIFrameElement> {
   placeholder?: React.ReactNode;

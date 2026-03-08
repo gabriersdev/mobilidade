@@ -1,7 +1,7 @@
 import {FormGroup, FormLabel} from "react-bootstrap";
 import {useEffect, useState} from "react";
 
-import GenericCombobox from "../ui/comboBox/combo-box.jsx";
+import GenericCombobox from "@/components/ui/combo-box/combo-box.jsx";
 import AnimatedComponents from "../ui/animated-component/animated-components.jsx";
 import PropTypes from "prop-types";
 

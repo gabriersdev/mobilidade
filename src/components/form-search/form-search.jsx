@@ -7,7 +7,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
 import Title from "../ui/title/title.jsx";
 import SearchLinks from "../search/search-links.jsx";
-import GenericCombobox from "../ui/comboBox/combo-box.jsx";
+import GenericCombobox from "@/components/ui/combo-box/combo-box.jsx";
 import './form-search.css';
 
 const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermSearch, initialValue = ""}) => {

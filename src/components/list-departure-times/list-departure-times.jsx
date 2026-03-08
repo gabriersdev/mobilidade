@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import useDepartureTimes from "./use-departure-times.js";
 import Alert from "../ui/alert/alert.jsx";
-import FeedbackError from "../ui/feedbackError/feedback-error.jsx";
+import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";
 import {DepartureTimeContext} from "./departure-time-context.jsx";
 import Util from "../../assets/Util.jsx";
 import {AnimatePresence} from "framer-motion";

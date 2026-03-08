@@ -1,5 +1,5 @@
-import Title from "../../../components/ui/title/title";
-import GetAndListLines from "../../../components/get-and-list-lines/get-and-list-lines";
+import Title from "@/components/ui/title/title";
+import GetAndListLines from "@/components/get-and-list-lines/get-and-list-lines";
 
 const MainLines = () => (
   <section id={"principais-linhas"} className={"pt-3"}>

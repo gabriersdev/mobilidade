@@ -2,8 +2,8 @@ import {Link} from "react-router-dom";
 import {Badge} from "react-bootstrap";
 import PropTypes from "prop-types";
 
-import Title from "../../ui/title/title.jsx";
-import AnimatedComponents from "../../ui/animated-component/animated-components.jsx";
+import Title from "@/components/ui/title/title.jsx";
+import AnimatedComponents from "@/components/ui/animated-component/animated-components.jsx";
 
 export default function Banner({data}) {
   return (

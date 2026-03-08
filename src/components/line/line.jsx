@@ -16,7 +16,7 @@ import NewsBanner from "../banners/news-banner.jsx";
 import LiveBanner from "../banners/live-banner.jsx";
 import GuideBanner from "../banners/guide-banner.jsx";
 import ShowHolidayInfo from "../line-info/show-holiday-info.jsx";
-import FeedbackError from "../ui/feedbackError/feedback-error.jsx";
+import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";
 import GetAndListLines from "../get-and-list-lines/get-and-list-lines.jsx";
 import ListLineWarnings from "../list-line-warnings/list-line-warnings.jsx";
 import LineIdentification from "../line-identification/line-identification.jsx";
