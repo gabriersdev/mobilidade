@@ -48,7 +48,7 @@ const PageCacheManager = () => {
         
         // Lógica de Contagem de Views
         const storageKey = 'page-view-counts';
-        let views = {};
+        let views;
         try {
           views = JSON.parse(localStorage.getItem(storageKey) || '{}');
         } catch (e) {
