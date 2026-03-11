@@ -20,6 +20,7 @@ import bcAll from './components/breadcrumb-app/breadcrumb-context.jsx';
 const BreadcrumbProvider = bcAll.BreadcrumbProvider;
 
 import { ThemeProvider } from './components/ui/theme-context/theme-context.jsx';
+import PageCacheManager from './components/cache/page-cache-manager.jsx';
 
 import {
   Home,
@@ -169,6 +170,7 @@ function App() {
     <Context.Provider value={obj}>
       <ThemeProvider>
         <BreadcrumbProvider>
+          <PageCacheManager />
           <div className={'position-relative'}>
             <Nav/>
             <Main>
