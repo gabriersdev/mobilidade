@@ -27,6 +27,12 @@ Até o momento, o projeto atende principalmente as linhas de ônibus municipais 
   - Dados sobre a cidade de Sabará.
   - Manifesto do projeto.
 
+## Performance e Otimização
+
+O projeto implementa uma estratégia de cache inteligente (`PageCacheManager`) para melhorar a performance e funcionamento offline:
+- **Cache de Estáticos**: Scripts (JS) e estilos (CSS) principais são cacheados automaticamente em cada visita, garantindo que a aplicação carregue rapidamente e seja resiliente a falhas de rede.
+- **Cache de Páginas Frequentes**: Páginas acessadas mais de 3 vezes têm seu HTML e imagens adicionais armazenados em cache, permitindo acesso ultra-rápido às rotas favoritas do usuário.
+
 ## Páginas e Rotas
 
 A aplicação utiliza `react-router-dom` para navegação. As principais rotas são:
