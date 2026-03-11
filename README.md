@@ -56,6 +56,19 @@ A aplicação utiliza `react-router-dom` para navegação. As principais rotas s
 - **Testes**: Cypress
 - **Outros**: Moment.js, hCaptcha
 
+## Configuração de Paths
+
+O projeto está configurado para suportar tanto importações relativas (`../`) quanto importações absolutas a partir da pasta `src` usando o alias `@/`.
+
+Exemplo:
+```javascript
+import Button from '@/components/Button';
+// Equivalente a:
+// import Button from '../../components/Button';
+```
+
+Isso é configurado no `tsconfig.json` e `vite.config.js`.
+
 ## Testes
 
 - Para rodar testes E2E: `npx cypress run --e2e`
