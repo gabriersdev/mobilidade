@@ -43,9 +43,6 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
       if (search.trim().length === 0) {
         setFeedback('O campo de pesquisa não pode estar vazio.');
         fnSetIsValidSearch(false);
-      } else if (search.trim().length < 3) {
-        setFeedback('O termo para pesquisa deve conter pelo menos 3 caracteres.');
-        fnSetIsValidSearch(false);
       } else {
         setFeedback("");
         fnSetIsValidSearch(true);
