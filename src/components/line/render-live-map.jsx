@@ -20,7 +20,7 @@ export default function RenderLiveMap({data}) {
         setContent(
           <section id={"mapa"} className={"pt-3"}>
             <div>
-              <Title type="h3" classX={" pb-2 text-body-secondary"}>Mapa ao vivo da <b>linha {data?.[0]?.line_number}</b></Title>
+              <Title type="h3" classX={" pb-2 text-body-secondary"}>Mapa ao vivo da <b className={"fs-inherit"}>linha {data?.[0]?.line_number}</b></Title>
               
               <AsyncIframe
                 src={link}
