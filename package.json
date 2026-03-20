@@ -41,7 +41,7 @@
     "bootstrap-icons": "^1.13.1",
     "downshift": "^9.3.2",
     "eslint-plugin-cypress": "^6.2.0",
-    "framer-motion": "^12.36.0",
+    "framer-motion": "^12.38.0",
     "html-react-parser": "^5.2.17",
     "leaflet": "^1.9.4",
     "moment": "^2.30.1",
