@@ -74,10 +74,10 @@ const PageCacheManager = () => {
           
           const pageUrls = Array.from(pageAssets);
           await Promise.allSettled(
-            pageUrls.map(url => cache.add(url).catch(err => console.warn(`[Cache] Falha ao cachear ${url}`, err)))
+            pageUrls.map(url => cache.add(url).catch(err => console.warn('[Cache] Falha ao cachear:', url, err)))
           );
           
-          console.log(`[PageCacheManager] Página frequente atualizada no cache: ${path}`);
+          console.log('[PageCacheManager] Página frequente atualizada no cache:', path);
         }
       } catch (error) {
         console.error('[PageCacheManager] Erro ao gerenciar cache:', error);
