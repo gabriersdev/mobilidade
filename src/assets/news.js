@@ -94,10 +94,10 @@ const news = [
     ],
   },
   {
-    title: "Feriado de 03 de Abril (Sexta-feira da Paixão)",
+    title: "Feriado de 03 de abril (Sexta-feira da Paixão) - mudanças no itinerário",
     resume: "Confira como será o funcionamento das linhas de ônibus no feriado de 03 de abril.",
     img: "",
-    publishDate: "2026-04-01T00:00:00.000-03:00",
+    publishDate: "2026-03-27T00:00:00.000-03:00",
     content: [
       "No feriado de Sexta-feira da Paixão, celebrado em 03 de abril, as linhas de ônibus municipais e metropolitanas operarão com o quadro de horários de domingos e feriados.",
       "Recomendamos aos passageiros que fiquem atentos aos horários, pois a oferta de viagens será reduzida. Além disso, não há previsão de mudanças nos itinerários passando pelo Centro Histórico, a não ser que haja procissões ou eventos religiosos informados previamente pelas paróquias.",
@@ -105,7 +105,7 @@ const news = [
     ],
   },
   {
-    title: "Feriado de Tiradentes (21 de Abril)",
+    title: "Feriado de 21 de abril (Tiradentes) - mudanças no itinerário",
     resume: "Veja como ficam os horários de ônibus durante o feriado de Tiradentes, 21 de abril.",
     img: "",
     publishDate: "2026-04-19T00:00:00.000-03:00",
