@@ -93,6 +93,28 @@ const news = [
       "Todas as linhas metropolitanas que passam pelo Centro de Belo Horizonte, assim como nos arredores passarão apenas pela Av. Andradas e Av. Contorno. Nesse caso, consulte o motorista antes de embarcar ou entre em contato com a empresa responsável pela linha."
     ],
   },
+  {
+    title: "Feriado de 03 de Abril (Sexta-feira da Paixão)",
+    resume: "Confira como será o funcionamento das linhas de ônibus no feriado de 03 de abril.",
+    img: "",
+    publishDate: "2026-04-01T00:00:00.000-03:00",
+    content: [
+      "No feriado de Sexta-feira da Paixão, celebrado em 03 de abril, as linhas de ônibus municipais e metropolitanas operarão com o quadro de horários de domingos e feriados.",
+      "Recomendamos aos passageiros que fiquem atentos aos horários, pois a oferta de viagens será reduzida. Além disso, não há previsão de mudanças nos itinerários passando pelo Centro Histórico, a não ser que haja procissões ou eventos religiosos informados previamente pelas paróquias.",
+      "<>Para planejar sua viagem, <Link to={\"/lines\"}>consulte a página de linhas</Link> e veja os horários de partida para domingos e feriados.</>"
+    ],
+  },
+  {
+    title: "Feriado de Tiradentes (21 de Abril)",
+    resume: "Veja como ficam os horários de ônibus durante o feriado de Tiradentes, 21 de abril.",
+    img: "",
+    publishDate: "2026-04-19T00:00:00.000-03:00",
+    content: [
+      "Na próxima terça-feira, 21 de abril, é celebrado o feriado de Tiradentes. Durante este dia, o quadro de horários das linhas de ônibus municipais e metropolitanas será equivalente ao de domingos e feriados.",
+      "Algumas linhas podem operar com intervalos maiores entre as viagens devido à redução da demanda. Solicitamos aos usuários que se planejem antecipadamente para evitar transtornos e tempos de espera maiores nos pontos.",
+      "<>Para verificar os horários de sua linha de interesse, <Link to={\"/lines\"}>acesse a nossa página de consulta de horários</Link>.</>"
+    ],
+  },
 ]
 
 const returnNews = news.map((n, i) => {
