@@ -104,7 +104,7 @@ const Live = () => {
                     
                     {configs?.["showSomeDepartureStart"] && <AlertInfoConfigSomeDepartureStart/>}
                     {configs?.["showSingleLine"] ?
-                      <LiveListSingleLine data={data}/> :
+                      <LiveListSingleLine data={data} configs={configs}/> :
                       <LiveListResults data={data} dataNextDepartureTimes={dataNextDepartureTimes} configs={configs}/>
                     }
                   </>
