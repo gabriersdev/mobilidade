@@ -145,7 +145,7 @@ const Line = ({id}) => {
         <Alert variant={'danger'} margin={"mt-0"}>
           <div className={"d-flex flex-column gap-1"}>
             <span>Informações sobre a linha (ou as linhas) não foram encontrada(s).</span>
-            <span className={"text-sml"}>Isso acontece quando a linha (ou as linhas) tiver(em) sido desativada(s), suspensa(s) ou não existir.</span>
+            <span className={"text-sml"}>Isso acontece quando a linha (ou as linhas) tiver(em) sido desativada(s), suspensa(s) ou não existir(em).</span>
           </div>
         </Alert>
       </AnimatedComponents>

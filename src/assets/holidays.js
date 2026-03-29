@@ -15,6 +15,9 @@ export const nationalFixedHolidays = [
 ];
 
 export const holidaysForAllScopes = [
+  // Varia de acordo com o ano
+  {name: "Sexta-feira Santa", month: 4, day: 3},
+  // A data invaria
   {name: "Assunção de Nossa Senhora", month: 12, day: 8},
   {name: "Véspera de Natal", month: 12, day: 24},
   {name: "Véspera de Ano Novo", month: 12, day: 31},
