@@ -41,7 +41,7 @@ export default function LiveShowItem({d, configs}) {
   }, [audioRef])
   
   return (
-    <div className={"fs-inherit"}>
+    <div>
       {
         moment(d?.["expected_arrival_time"]).diff(moment(), "minutes") > 0 ? (
           <div>
@@ -53,7 +53,6 @@ export default function LiveShowItem({d, configs}) {
           <div>
             {
               configs?.["warningSound"] && (
-                // TODO - separar as linhas que possuem áudios dedicados
                 <audio
                   ref={audioRef}
                   data-ref-id={d?.["i"] ?? 0}

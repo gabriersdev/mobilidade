@@ -11,37 +11,39 @@ import GenericCombobox from "@/components/ui/combo-box/combo-box.jsx";
 import './form-search.css';
 
 const FEATURED_COMPANIES = [
-  {name: "Vinscol", path: "/company/3", logo: "vinscol.svg"},
-  {name: "Transporte Coletivo Metropolitano - MG", path: "/company/4", logo: "der-mg.png"},
+  { name: "Vinscol", path: "/company/3", logo: "vinscol.svg" },
+  { name: "Transporte Coletivo Metropolitano - MG", path: "/company/4", logo: "der-mg.png" },
 ];
 
 const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermSearch, initialValue = ""}) => {
   const [search, setSearch] = useState(initialValue || '');
   const [feedback, setFeedback] = useState('');
   const [searchHistory, setSearchHistory] = useState([]);
-  const SEARCH_LS_KEY = "search-history"
-  
+
   useEffect(() => {
-    const history = JSON.parse(localStorage.getItem(SEARCH_LS_KEY)) || [];
+    const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
     setSearchHistory(history.map(term => ({name: term})));
   }, []);
-  
+
   const handleSearchHistory = (term) => {
-    const history = JSON.parse(localStorage.getItem(SEARCH_LS_KEY)) || [];
+    const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
     if (!history.includes(term)) {
       history.push(term);
-      localStorage.setItem(SEARCH_LS_KEY, JSON.stringify(history));
+      localStorage.setItem('searchHistory', JSON.stringify(history));
     }
   }
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     fnSetIsValidSearch(false);
     fnSetTermSearch(null);
-    
+
     setTimeout(() => {
       if (search.trim().length === 0) {
         setFeedback('O campo de pesquisa não pode estar vazio.');
+        fnSetIsValidSearch(false);
+      } else if (search.trim().length < 3) {
+        setFeedback('O termo para pesquisa deve conter pelo menos 3 caracteres.');
         fnSetIsValidSearch(false);
       } else {
         setFeedback("");
@@ -51,7 +53,7 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
       }
     }, 0)
   }
-  
+
   return (
     <form onSubmit={handleSubmit}>
       <FormGroup>
@@ -85,7 +87,6 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
             onInputValueChange={(inputValue) => setSearch(inputValue)}
             placeholder={inputPlaceholder}
             label={""}
-            subLabel={"Pesquisas recentes"}
             required={true}
           />
           <Button variant="default" className={"border text-body-tertiary"} type="submit" aria-hidden="true"><i className="bi bi-search"></i></Button>
