@@ -1,6 +1,6 @@
 import {Accordion, Form, FormCheck, FormLabel} from "react-bootstrap";
 import PropTypes from "prop-types";
-import {useRef} from "react";
+import {useEffect, useRef} from "react";
 
 function FormControlElement({elementType, params}) {
   const label = useRef(
@@ -43,7 +43,11 @@ function FormControlElement({elementType, params}) {
   return <></>
 }
 
-export function LiveConfigs({configs, setConfigs, labelsConfigs}) {
+export function LiveConfigs({configs, setConfigs, labelsConfigs, resultSection}) {
+  useEffect(() => {
+    console.log("Change detected in resultSection", resultSection);
+  }, [resultSection]);
+  
   const handleChange = ((e) => {
     const {id, type} = e.target;
     let value;
@@ -58,6 +62,9 @@ export function LiveConfigs({configs, setConfigs, labelsConfigs}) {
         [id]: value
       }
     });
+    
+    // Scroll até a seção de resultados
+    if (resultSection.current) window.scrollTo({top: resultSection.current.offsetTop - (16 * 8), behavior: "smooth"})
   });
   
   // Registrar configs em localstorage para persistência
@@ -95,7 +102,8 @@ export function LiveConfigs({configs, setConfigs, labelsConfigs}) {
 LiveConfigs.propTypes = {
   configs: PropTypes.object.isRequired,
   setConfigs: PropTypes.any.isRequired,
-  labelsConfigs: PropTypes.object.isRequired
+  labelsConfigs: PropTypes.object.isRequired,
+  resultSection: PropTypes.object.isRequired,
 }
 
 FormControlElement.propTypes = {

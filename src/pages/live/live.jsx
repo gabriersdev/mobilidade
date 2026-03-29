@@ -71,7 +71,7 @@ const Live = () => {
         {departurePoints ? <LiveFormDeparturePoints departurePoints={departurePoints} setDeparturePointSelected={setDeparturePointSelected}/> : <LoadingDeparturePoints/>}
       </div>
       
-      <div className={"rounded-3 bg-body-secondary p-3 mt-5"} ref={resultSection}>
+      <div className={"rounded-3 bg-body-secondary p-3 mt-5 position-relative"} ref={resultSection}>
         <div className={"d-flex flex-column gap-0"}>
           <Weather/>
           <AlertInfoFeature/>
@@ -114,12 +114,22 @@ const Live = () => {
           )
         }
         
-        {alertShowSomeDepartureStartHasShowed.current && !departurePointSelected && <SelectOneDeparturePoint/>}
+        {
+          alertShowSomeDepartureStartHasShowed.current &&
+          !departurePointSelected &&
+          <SelectOneDeparturePoint/>
+        }
+        
         <LiveFullscreenControl resultSection={resultSection}/>
       </div>
       
       <div className={"d-flex flex-column gap-3 mt-3"}>
-        <LiveConfigs configs={configs} setConfigs={setConfigs} labelsConfigs={labelsConfigs}/>
+        <LiveConfigs
+          configs={configs}
+          setConfigs={setConfigs}
+          labelsConfigs={labelsConfigs}
+          resultSection={resultSection}
+        />
       </div>
     </AnimatedComponents>
   );

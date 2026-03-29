@@ -62,7 +62,7 @@ const Line = ({id}) => {
         if (amicableMapping) {
           actualId = amicableMapping[0];
         }
-
+        
         const response = await axios.post(`${config.host}/api/lines/`, {id: actualId}); // URL completa da sua API
         setData(response.data);
         // console.log('Dados carregados com sucesso:', response.data);

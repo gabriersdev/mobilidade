@@ -85,6 +85,7 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
             onInputValueChange={(inputValue) => setSearch(inputValue)}
             placeholder={inputPlaceholder}
             label={""}
+            subLabel={"Pesquisas recentes"}
             required={true}
           />
           <Button variant="default" className={"border text-body-tertiary"} type="submit" aria-hidden="true"><i className="bi bi-search"></i></Button>
