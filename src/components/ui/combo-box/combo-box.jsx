@@ -9,16 +9,15 @@ export default function GenericCombobox({
                                           onSelectedItemChange,
                                           onInputValueChange,
                                           label,
-                                          subLabel,
                                           required,
                                           placeholder = '',
                                         }) {
   const [items, setItems] = useState(initialItems);
-  
+
   useEffect(() => {
     setItems(initialItems);
   }, [initialItems]);
-  
+
   const getItemsFilter = (inputValue) => {
     let lowerCasedInputValue;
     try {
@@ -36,7 +35,7 @@ export default function GenericCombobox({
       );
     };
   };
-  
+
   function stateReducer(state, actionAndChanges) {
     const {type, changes} = actionAndChanges;
     switch (type) {
@@ -60,7 +59,7 @@ export default function GenericCombobox({
         return changes;
     }
   }
-  
+
   const {
     isOpen,
     getToggleButtonProps,
@@ -86,7 +85,7 @@ export default function GenericCombobox({
       }
     },
   });
-  
+
   return (
     <div className={"flex-grow-1 flex-shrink-1"}>
       <Form.Group className="w-72" data-element={"form-group"}>
@@ -125,42 +124,31 @@ export default function GenericCombobox({
         <ListGroup
           {...getMenuProps()}
           as="ul"
-          className={`mt-3 w-72 position-absolute shadow-sm overflow-auto
-            ${!(isOpen && items.length) ? 'd-none' : ''}
-            ${items.length > 1 ? '' : ''}
-          `}
-          style={{maxHeight: '20rem', zIndex: 1000, marginLeft: '-0.75rem'}}
+          className={`mt-3 w-72 position-absolute shadow-sm border-bottom overflow-auto ${
+            !(isOpen && items.length) ? 'd-none' : ''
+          }`}
+          style={{maxHeight: '20rem', zIndex: 1000}}
           data-testid="combobox-menu"
         >
           {isOpen &&
             items.map((item, index) => (
-              <>
-                {
-                  subLabel && index === 0 && (
-                    <ListGroup.Item className={"border-bottom-0 text-sml"}>
-                      {subLabel}
-                    </ListGroup.Item>
-                  )
-                }
-                
-                <ListGroup.Item
-                  as="li"
-                  id={`${item.id || item.name}-${index}`}
-                  key={`${item.id || item.name}-${index}`}
-                  {...getItemProps({item, index})}
-                  active={highlightedIndex === index}
-                  className={"cursor-pointer"}
-                  data-testid={`combobox-item-${index}`}
-                >
-                  {item.title && (
+              <ListGroup.Item
+                as="li"
+                id={`${item.id || item.name}-${index}`}
+                key={`${item.id || item.name}-${index}`}
+                {...getItemProps({item, index})}
+                active={highlightedIndex === index}
+                className={"cursor-pointer"}
+                data-testid={`combobox-item-${index}`}
+              >
+                {item.title && (
                     <>
-                      <span>{item.title}</span>
-                      <br/>
+                        <span>{item.title}</span>
+                        <br />
                     </>
-                  )}
-                  <span className={item.title ? "text-sml small" : ""}>{item.name}</span>
-                </ListGroup.Item>
-              </>
+                )}
+                <span className={item.title ? "text-sml small" : ""}>{item.name}</span>
+              </ListGroup.Item>
             ))}
         </ListGroup>
       </div>
@@ -174,7 +162,6 @@ GenericCombobox.propTypes = {
   onSelectedItemChange: PropTypes.func.isRequired,
   onInputValueChange: PropTypes.func,
   label: PropTypes.string.isRequired,
-  subLabel: PropTypes.string,
   required: PropTypes.bool.isRequired,
   placeholder: PropTypes.string,
 };
