@@ -42,7 +42,7 @@ const news = [
   {
     title: "Nova linha 4990 - Adelmolândia e Paciência para Belo Horizonte",
     resume: "A linha começa a operar hoje (14/07/2025) e atende os passageiros desses bairros.",
-    img: "/news/neobus-44089-ob.jpg",
+    img: "/news/neobus-44089.jpg",
     publishDate: "2025-07-14T00:00:00.000-03:00",
     content: [
       "Uma nova linha foi criada para atender os passageiros que moram nos bairros Paciência e Adelmolândia. A linha 4990 passou a operar na manhã dessa segunda-feira (14/07).",
@@ -53,7 +53,7 @@ const news = [
   {
     title: "Feriado de 07 de setembro - mudanças de itinerário",
     resume: "Durante o feriado de 07 de setembro (domingo) todas as linhas operadas pela Vinscol não passarão pelo centro Histórico.",
-    img: "/news/neobus-44101-ob.jpg",
+    img: "/news/neobus-44101.jpg",
     publishDate: "2025-08-30T00:00:00.000-03:00",
     content: [
       "No domingo, feriado de 07 de setembro todas as linhas operadas pela Vinscol não passarão pelo centro Histórico, em razão das comemorações e desfiles no Centro, seguindo viagem pela Av. Prefeito Victor Fantini e Av. Perimetral, sem entrar na Praça da Getúlio Vargas (Matriz), durante todo o dia, no sentido ida e volta.",
@@ -91,6 +91,28 @@ const news = [
       "Na segunda-feira (16/02) e terça-feira (17/02), as linhas operarão com horário de domingo/feriado. Na quarta-feira de cinzas (18/02), o funcionamento será com horário atípico ou de domingo até as 12h, retornando ao normal após esse horário.",
       "Mudanças de itinerário também ocorrerão. As linhas municipais que passam pelo Centro de Sabará e Av. Prefeito Victor Fantini passarão pela Av. Central até a entrada para o bairro Córrego da Ilha. As linhas metropolitanas que passam pelo Centro de Sabará e Av. Prefeito Victor Fantini também passarão pela Av. Central. As linhas de bairros também podem sofrer alterações no itinerário.",
       "Todas as linhas metropolitanas que passam pelo Centro de Belo Horizonte, assim como nos arredores passarão apenas pela Av. Andradas e Av. Contorno. Nesse caso, consulte o motorista antes de embarcar ou entre em contato com a empresa responsável pela linha."
+    ],
+  },
+  {
+    title: "Feriado de 03 de abril (Sexta-feira da Paixão) - mudanças no itinerário",
+    resume: "Confira como será o funcionamento das linhas de ônibus no feriado de 03 de abril.",
+    img: "/news/marcopolo-44117.png",
+    publishDate: "2026-03-27T00:00:00.000-03:00",
+    content: [
+      "No feriado de Sexta-feira da Paixão, celebrado em 03 de abril, as linhas de ônibus municipais e metropolitanas operarão com o quadro de horários de domingos e feriados.",
+      "Recomendamos aos passageiros que fiquem atentos aos horários, pois a oferta de viagens será reduzida. Além disso, não há previsão de mudanças nos itinerários passando pelo Centro Histórico, a não ser que haja procissões ou eventos religiosos informados previamente pelas paróquias.",
+      "<>Para planejar sua viagem, <Link to={\"/lines\"}>consulte a página de linhas</Link> e veja os horários de partida para domingos e feriados.</>"
+    ],
+  },
+  {
+    title: "Feriado de 21 de abril (Tiradentes) - mudanças no itinerário",
+    resume: "Veja como ficam os horários de ônibus durante o feriado de Tiradentes, 21 de abril.",
+    img: "/news/marcopolo-44117.png",
+    publishDate: "2026-04-19T00:00:00.000-03:00",
+    content: [
+      "Na próxima terça-feira, 21 de abril, é celebrado o feriado de Tiradentes. Durante este dia, o quadro de horários das linhas de ônibus municipais e metropolitanas será equivalente ao de domingos e feriados.",
+      "Algumas linhas podem operar com intervalos maiores entre as viagens devido à redução da demanda. Solicitamos aos usuários que se planejem antecipadamente para evitar transtornos e tempos de espera maiores nos pontos.",
+      "<>Para verificar os horários de sua linha de interesse, <Link to={\"/lines\"}>acesse a nossa página de consulta de horários</Link>.</>"
     ],
   },
 ]

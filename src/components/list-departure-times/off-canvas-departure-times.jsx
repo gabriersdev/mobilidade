@@ -1,16 +1,24 @@
 import {useContext, useEffect, useState} from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import moment from "moment";
 import {TimeContext} from "./departure-time-context.jsx";
 import Legend from "../ui/legend/legend.jsx";
 import Alert from "../ui/alert/alert.jsx";
 import {Context as LineContext} from "../line/line-context.jsx";
 import {Badge} from "react-bootstrap";
 import LiveBanner from "../banners/live-banner.jsx";
+import defaultLegendItems from "@/assets/default-legend-items.jsx";
+
+const legendItems = {
+  quinzeMin: defaultLegendItems.find(i => i.label === "Saí em até 15 minutos"),
+  proximas: defaultLegendItems.find(i => i.label === "Próximas partidas"),
+};
 
 const OffCanvasDepartureTimes = () => {
   const {show, handleClose, departureTimeOffCanvas} = useContext(TimeContext);
   const {firstPointByDirection} = useContext(LineContext)
   const [dataFirstPointByDirection, setDataFirstPointByDirection] = useState(null);
+  const [dynamicObservations, setDynamicObservations] = useState([]);
   
   useEffect(() => {
     const first = firstPointByDirection
@@ -22,6 +30,37 @@ const OffCanvasDepartureTimes = () => {
       else setDataFirstPointByDirection(null);
     } else setDataFirstPointByDirection(null);
   }, [firstPointByDirection, departureTimeOffCanvas.direction])
+  
+  useEffect(() => {
+    if (!departureTimeOffCanvas.time) {
+      setDynamicObservations([]);
+      return;
+    }
+    
+    const updateDynamicObservations = () => {
+      const now = moment(`2020-01-01T${moment().format("HH:mm:ss")}`);
+      const departure = moment(`2020-01-01T${departureTimeOffCanvas.time}:00`);
+      const diffSeconds = now.diff(departure, "seconds");
+      
+      const newObservations = [];
+      if (diffSeconds < -(15 * 60)) { // Mais de 15 minutos no futuro
+        newObservations.push(legendItems.proximas);
+      } else if (diffSeconds <= 0) { // No passado recente ou agora
+        newObservations.push(legendItems.quinzeMin);
+      }
+      setDynamicObservations(newObservations);
+    };
+    
+    updateDynamicObservations();
+    const intervalId = setInterval(updateDynamicObservations, 1000);
+    
+    return () => clearInterval(intervalId);
+  }, [departureTimeOffCanvas.time]);
+  
+  const allObservations = [
+    ...(departureTimeOffCanvas.observations || []),
+    ...dynamicObservations
+  ].filter(Boolean);
   
   return (
     <Offcanvas show={show} onHide={handleClose} placement="start">
@@ -38,10 +77,10 @@ const OffCanvasDepartureTimes = () => {
         
         <section>
           <span className={'text-muted d-block text-balance'}>{departureTimeOffCanvas.directionName}</span>
-          {departureTimeOffCanvas.observations ?
+          {allObservations.length > 0 ?
             <div className={'mt-4'}>
               <h4 className={"fs-6 fw-bold my-2 p-0"}>Observações:</h4>
-              <Legend items={departureTimeOffCanvas.observations} type={"offcanvas"} marginTop={"mt-0"}/>
+              <Legend items={allObservations} type={"offcanvas"} marginTop={"mt-0"}/>
             </div>
             : ""
           }

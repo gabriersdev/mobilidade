@@ -45,7 +45,12 @@ const News = () => {
                     currentPage={currentPage}
                     onPageChange={setCurrentPage}
                     items={
-                      [...newsA].toSpliced(50).toReversed().toSorted((a, b) => moment(a.publishDate).unix() < moment(b.publishDate).unix()).map((item, index) => (
+                      [...newsA]
+                        .filter(n => moment().diff(moment(n.publishDate), "seconds") > 0)
+                        .toSpliced(50)
+                        .toReversed()
+                        .toSorted((a, b) => moment(a.publishDate).unix() < moment(b.publishDate).unix())
+                        .map((item, index) => (
                         <div className={"pb-5"} key={index}>
                           <NewsC {...item}/>
                         </div>

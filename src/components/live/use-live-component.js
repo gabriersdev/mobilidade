@@ -64,12 +64,15 @@ const useLiveComponent = () => {
     });
     
     await axios.get(`${config.host}/api/physical-departure-points/`).then((c) => {
-      setDeparturePoints(c.data?.[0].map(c => {
-        return {
+      setDeparturePoints(c.data?.[0].map((c, index) => {
+        const formattedObject = {
           id: c?.["stop_id"] ?? -1,
-          title: (((c?.["stop_name"] ? c?.["stop_name"] + " - " : "") + " " + c?.["address"])?.trim() ?? "").replaceAll("/", " - "),
+          title: (((c?.["stop_name"] ? c?.["stop_name"] + " - " : "") + " " + c?.["address"] + (index <= 14 ? ` ★` : ''))?.trim() ?? "").replaceAll("/", " - "),
           name: (c?.["address"]?.trim() ?? "").replaceAll("/", " - "),
         }
+        
+        if (formattedObject.id && parseInt(formattedObject.id, 10) === 4095) setDeparturePointSelected(formattedObject);
+        return formattedObject;
       }));
     }).catch((error) => {
       setError(error);

@@ -28,6 +28,7 @@ import Grid from "../../components/ui/grid/grid.jsx";
 
 import bcAll from "../breadcrumb-app/breadcrumb-context.jsx";
 import RenderLiveMap from "./render-live-map.jsx";
+import amigablePathLines from "../../assets/amigable-path-lines.js";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
@@ -53,9 +54,16 @@ const Line = ({id}) => {
     // Altera o título da página
     document.title = "Mobilidade - Consulta Linha - Transporte Público em Sabará - MG | Horários, Pontos de Paradas e Pontos de Recarga";
     
-    const searchLine = async (id) => {
+    const searchLine = async (idParam) => {
       try {
-        const response = await axios.post(`${config.host}/api/lines/`, {id: id}); // URL completa da sua API
+        // Find the actual line ID from the amicable path mapping
+        let actualId = idParam;
+        const amicableMapping = amigablePathLines.find(item => item[1] === idParam);
+        if (amicableMapping) {
+          actualId = amicableMapping[0];
+        }
+        
+        const response = await axios.post(`${config.host}/api/lines/`, {id: actualId}); // URL completa da sua API
         setData(response.data);
         // console.log('Dados carregados com sucesso:', response.data);
       } catch (error) {
@@ -137,7 +145,7 @@ const Line = ({id}) => {
         <Alert variant={'danger'} margin={"mt-0"}>
           <div className={"d-flex flex-column gap-1"}>
             <span>Informações sobre a linha (ou as linhas) não foram encontrada(s).</span>
-            <span className={"text-sml"}>Isso acontece quando a linha (ou as linhas) tiver(em) sido desativada(s), suspensa(s) ou não existir.</span>
+            <span className={"text-sml"}>Isso acontece quando a linha (ou as linhas) tiver(em) sido desativada(s), suspensa(s) ou não existir(em).</span>
           </div>
         </Alert>
       </AnimatedComponents>

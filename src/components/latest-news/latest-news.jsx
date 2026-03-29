@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import moment from "moment";
-import {Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {Button, Image} from "react-bootstrap";
 import {useEffect, useState} from "react";
 
 import news from "../../assets/news.js";
@@ -40,13 +40,34 @@ const LatestNews = () => {
         <ScrollX>
           {
             !isLoaded ? (
-              [...news.toSorted((a, b) => moment(b.publishDate).diff(moment(a.publishDate), "seconds"))].toSpliced(5).map((ns, index) => {
-                return (
-                  <Card key={index} title={ns.title.replace(/</g, "")} subtitle={ns.resume} link={`/news/${ns.id}`}>
-                    {typeof ns.resume === "string" ? (Util.renderText(ns.content.toString().replace(/<\/?>/, ""))) : ns.content.map((item, i) => (<p key={i}>{Util.renderText(item)}</p>))}
-                  </Card>
-                )
-              })
+              [
+                ...news
+                  .filter(n => moment().diff(moment(n.publishDate), "seconds") > 0)
+                  .toSorted((a, b) => moment(b.publishDate).diff(moment(a.publishDate), "seconds"))
+              ]
+                .toSpliced(5)
+                .map((ns, index) => {
+                  return (
+                    <div key={index}>
+                      <Link to={`/news/${ns.id}`} className={"position-relative"}>
+                        <Image
+                          src={ns.img ?? "/news/marcopolo-44117.png"}
+                          alt={ns.title}
+                          className={"w-100 h-100 rounded-1 object-fit-cover mb-2"}
+                          style={{maxHeight: 150}}
+                        />
+                        <div
+                          className={"position-absolute w-100 h-100 rounded-1"}
+                          style={{top: "0", left: "0", transform: "translate(0, -45%)", background: "#00000025", minHeight: 150}}
+                        >
+                        </div>
+                      </Link>
+                      <Card key={index} title={ns.title.replace(/</g, "")} subtitle={ns.resume} link={`/news/${ns.id}`}>
+                        {typeof ns.resume === "string" ? (Util.renderText(ns.content.toString().replace(/<\/?>/, ""))) : ns.content.map((item, i) => (<p key={i}>{Util.renderText(item)}</p>))}
+                      </Card>
+                    </div>
+                  )
+                })
             ) : (
               Array.from({length: 9}, (_, i) => i).map((_, key) => {
                 return (<Card key={key} variant={"placeholder"}></Card>)
