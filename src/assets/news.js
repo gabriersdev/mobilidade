@@ -42,7 +42,7 @@ const news = [
   {
     title: "Nova linha 4990 - Adelmolândia e Paciência para Belo Horizonte",
     resume: "A linha começa a operar hoje (14/07/2025) e atende os passageiros desses bairros.",
-    img: "/news/neobus-44089-ob.jpg",
+    img: "/news/neobus-44089.jpg",
     publishDate: "2025-07-14T00:00:00.000-03:00",
     content: [
       "Uma nova linha foi criada para atender os passageiros que moram nos bairros Paciência e Adelmolândia. A linha 4990 passou a operar na manhã dessa segunda-feira (14/07).",
@@ -53,7 +53,7 @@ const news = [
   {
     title: "Feriado de 07 de setembro - mudanças de itinerário",
     resume: "Durante o feriado de 07 de setembro (domingo) todas as linhas operadas pela Vinscol não passarão pelo centro Histórico.",
-    img: "/news/neobus-44101-ob.jpg",
+    img: "/news/neobus-44101.jpg",
     publishDate: "2025-08-30T00:00:00.000-03:00",
     content: [
       "No domingo, feriado de 07 de setembro todas as linhas operadas pela Vinscol não passarão pelo centro Histórico, em razão das comemorações e desfiles no Centro, seguindo viagem pela Av. Prefeito Victor Fantini e Av. Perimetral, sem entrar na Praça da Getúlio Vargas (Matriz), durante todo o dia, no sentido ida e volta.",
@@ -96,7 +96,7 @@ const news = [
   {
     title: "Feriado de 03 de abril (Sexta-feira da Paixão) - mudanças no itinerário",
     resume: "Confira como será o funcionamento das linhas de ônibus no feriado de 03 de abril.",
-    img: "",
+    img: "/news/marcopolo-44117.png",
     publishDate: "2026-03-27T00:00:00.000-03:00",
     content: [
       "No feriado de Sexta-feira da Paixão, celebrado em 03 de abril, as linhas de ônibus municipais e metropolitanas operarão com o quadro de horários de domingos e feriados.",
@@ -107,7 +107,7 @@ const news = [
   {
     title: "Feriado de 21 de abril (Tiradentes) - mudanças no itinerário",
     resume: "Veja como ficam os horários de ônibus durante o feriado de Tiradentes, 21 de abril.",
-    img: "",
+    img: "/news/marcopolo-44117.png",
     publishDate: "2026-04-19T00:00:00.000-03:00",
     content: [
       "Na próxima terça-feira, 21 de abril, é celebrado o feriado de Tiradentes. Durante este dia, o quadro de horários das linhas de ônibus municipais e metropolitanas será equivalente ao de domingos e feriados.",

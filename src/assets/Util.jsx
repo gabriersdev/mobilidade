@@ -35,16 +35,12 @@ export default class Util {
   }
   
   static resumeInfoLine({modal, departure_location, destination_location, operation_days}) {
-    // static resumeInfoLine({modal, departure_location, destination_location, operation_days, time_first_start}) {
-    // console.log(modal, departure_location, destination_location, operation_days, time_first_start)
-    
     if (modal === 1) modal = 'ônibus'
     else if (modal === 2) modal = 'metrô'
     else modal = 'transporte público'
     
     let newOperationDays = Array.isArray((operation_days)) ? operation_days.sort() : [1, 2, 3, 4]
     
-    // Seguindo lógica do sistema, para o caso de todos os dias da semana, não é necessário informar os dias, apenas o número conforme o banco de dados
     if (Util.arraysEqual(newOperationDays, [5, 6, 7])) {
       newOperationDays = Util.createArray(7)
     } else if (Util.arraysEqual(newOperationDays, [5, 6])) {
@@ -53,24 +49,15 @@ export default class Util {
       newOperationDays = Util.createArray(5)
     }
     
-    // const dayNames = ["segunda", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado", "domingo"]
-    // const operationDayNames = []
     let qualifiedStarts;
     
     if (Util.arraysEqual(Util.createArray(7), newOperationDays)) {
-      // operationDayNames.concat(dayNames)
       qualifiedStarts = 'todos os dias da semana'
     } else if (Util.arraysEqual(Util.createArray(5), newOperationDays)) {
-      // operationDayNames.concat(dayNames.toSpliced(5))
       qualifiedStarts = 'de segunda à sexta'
     } else if (Util.arraysEqual(Util.createArray(6), newOperationDays)) {
-      // operationDayNames.concat(dayNames.toSpliced(6))
       qualifiedStarts = 'de segunda à sábado'
     }
-    // } else {
-    // operationDayNames.concat(newOperationDays.map((dayNumber) => dayNames.at(dayNumber)))
-    // qualifiedStarts = operationDayNames.join(', ')
-    // }
     
     return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana - verifique o quadro de horários'}. As informações são verificadas periodicamente. Se algo estiver errado, envie um reporte.`;
   }
@@ -81,40 +68,12 @@ export default class Util {
     try {
       const currentOrigin = new URL(window.location.href).origin;
       const linkOrigin = new URL(url).origin;
-      // console.log(currentOrigin, linkOrigin)
       return currentOrigin === linkOrigin;
     } catch (error) {
       console.log('Um erro ocorreu: %s', error.message)
-      // URL inválida, assumimos que não é do mesmo domínio
       return false;
     }
   }
-  
-  // static formatString(text, format) {
-  //   // Remove non-numeric characters from the text if the format only contains #, otherwise keeps the original characters
-  //   const cleanText = format.includes('#') && !format.includes('?') ? text.replace(/\D/g, '') : text;
-  //
-  //   let result = '';
-  //   let textIndex = 0;
-  //
-  //   for (let i = 0; i < format.length; i++) {
-  //     if (format[i] === '#') {
-  //       if (textIndex < cleanText.length) {
-  //         result += cleanText[textIndex];
-  //         textIndex++;
-  //       }
-  //     } else if (format[i] === '?') { // Wildcard character, inserts if there is a character in the text
-  //       if (textIndex < cleanText.length) {
-  //         result += cleanText[textIndex];
-  //         textIndex++;
-  //       }
-  //     } else {
-  //       result += format[i];
-  //     }
-  //   }
-  //
-  //   return result;
-  // }
   
   static convertToSafeText(text) {
     if (!text) return '';
@@ -147,7 +106,6 @@ export default class Util {
       
       return response.data;
     }).then(() => {
-      // console.log(response, new Date().getTime());
     }).catch(error => {
       console.log(error);
     })
@@ -159,7 +117,6 @@ export default class Util {
       return 'Horário não mapeado'
     }
     
-    // console.log(new Date().getTime());
     return find[1]
   }
   
@@ -184,23 +141,33 @@ export default class Util {
     }).format(value)
   }
   
-  // static newRenderText = (text) => {
-  //   return text;
-  // };
-  
   static renderText = (text) => {
-    // Usa regex para encontrar todas as barras e as envolve em spans
-    
     try {
       if (!text.split) return text;
       
-      return text.split(/(\/)/).map((part, index) => {
-        if (part === "/") {
-          // Adiciona uma key para o React
-          return (<span key={index} style={{fontSize: 'inherit', fontFamily: "'Arial', sans-serif"}}>/</span>);
+      const parts = text.split(/(Atenção,|Atenção)/g);
+      let elements = [];
+      
+      for (let i = 0; i < parts.length; i++) {
+        const part = parts[i];
+        
+        if (part === "Atenção," || part === "Atenção") {
+          if (i > 1 || (i === 1 && parts[0].trim() !== "")) elements.push(<span key={`br-${i}-#1`} className={"d-block my-2"}></span>);
+          elements.push(<span key={`atencao-${i}`}>{part}</span>);
         }
-        return part;
-      });
+        
+        //
+        else if (part) {
+          const subParts = part.split(/(\/)/);
+          const subElements = subParts.map((subPart, subIndex) => {
+            if (subPart === "/") return (<span key={`${i}-${subIndex}`} style={{fontSize: 'inherit', fontFamily: "'Arial', sans-serif"}}>/</span>);
+            return subPart;
+          });
+          
+          elements.push(...subElements);
+        }
+      }
+      return elements;
     } catch {
       return text;
     }
@@ -217,7 +184,6 @@ export default class Util {
       const [fullMatch, to, content] = match;
       const index = match.index;
       
-      // Texto anterior ao Link
       const beforeText = text.slice(lastIndex, index);
       if (beforeText) {
         elements.push(...Util.wrapTextInArialIfNeeded(beforeText, key));
@@ -236,7 +202,6 @@ export default class Util {
       lastIndex = index + fullMatch.length;
     }
     
-    // Texto depois do último Link
     const afterText = text.slice(lastIndex);
     if (afterText) {
       elements.push(...Util.wrapTextInArialIfNeeded(afterText, key));
@@ -245,11 +210,10 @@ export default class Util {
     return elements;
   };
   
-  // Função auxiliar: envolve com Arial se tiver "/"
   static wrapTextInArialIfNeeded = (text, keyPrefix) => {
     const parts = [];
     if (!text.split) return text;
-    const split = text.split(/(\s+)/); // preserva espaços
+    const split = text.split(/(\s+)/);
     let key = 0;
     
     split.forEach((part) => {
@@ -264,28 +228,6 @@ export default class Util {
     
     return parts;
   };
-  
-  // Procura algum dia correspondente para usar no defaultEventKey
-  // static getDefaultEventKey = (daysConv) => {
-  //   const days = {
-  //     "sabado": [6],
-  //     "domingo": [0],
-  //     "segunda": [1],
-  //     "terca": [2],
-  //     "quarta": [3],
-  //     "quinta": [4],
-  //     "sexta": [5],
-  //     "dias uteis": [1, 2, 3, 4, 5],
-  //     "dia util": [1, 2, 3, 4, 5],
-  //   }
-  //
-  //   const now = moment();
-  //   const daysConvNormalized = daysConv.map((d) => Util.normalize(d).toLowerCase().replace(/-\s*PC\s*\d*/gi, "").trimEnd());
-  //   const dayMatched = days.map((d) => Util.normalize(d).toLowerCase().replace(/-\s*PC\s*\d*/gi, "").trimEnd());
-  //
-  //   console.log(now.weekday(), daysConvNormalized, dayMatched);
-  // }
-  //
   
   static translateMonth = (month) => {
     const o = {
@@ -318,13 +260,11 @@ export default class Util {
     const now = moment();
     const target = moment(date);
     
-    // Se for inválido, evita erro
     if (!target.isValid()) return 'Data inválida';
     
     const diffSeconds = target.diff(now, 'seconds');
     const absDiff = Math.abs(diffSeconds);
     
-    // Futuro
     if (diffSeconds > 0) {
       if (absDiff < 60) return 'em alguns segundos';
       if (absDiff < 3600) return `em ${target.diff(now, 'minutes')} minuto${target.diff(now, 'minutes') > 1 ? "s" : ""}`;
@@ -333,7 +273,6 @@ export default class Util {
       return `${target.format('DD/MM/YYYY')}`;
     }
     
-    // Passado
     if (absDiff < 60) return 'há alguns segundos';
     if (absDiff < 3600) return `há ${now.diff(target, 'minutes')} minuto${now.diff(target, 'minutes') > 1 ? "s" : ""}`;
     if (absDiff < 86400) return `há ${now.diff(target, 'hours')} hora${now.diff(target, 'hours') > 1 ? "s" : ""}`;
@@ -356,7 +295,6 @@ export default class Util {
         break;
     }
     
-    // Para funcionar corretamente SEMPRE precisa que o horário da data seja 00:00
     const m = moment();
     const now = moment(`${m.get("year")}-${('0' + (m.get("month") + 1)).slice(-2)}-${('0' + m.get("date")).slice(-2)}T00:00:00-03:00`);
     
@@ -395,20 +333,16 @@ export default class Util {
   };
   
   static greaterThan(value, compare, replaced) {
-    // Se o segundo argumento for uma função, ela será usada como condição
     if (typeof compare === 'function') {
       return compare(value) ? value : replaced;
     }
     
-    // Se o segundo argumento for um número, compara se é maior
     if (typeof compare === 'number') {
       return value > compare ? value : replaced;
     }
     
-    // Se o segundo argumento for uma string com operador
     if (typeof compare === 'string') {
       try {
-        // Exemplo: ">= 10" ou "< 5"
         const condition = new Function('value', `return value ${compare}`);
         return condition(value) ? value : replaced;
       } catch {
@@ -417,7 +351,6 @@ export default class Util {
       }
     }
     
-    // Fallback: se for do tipo boolean, comportamento igual ao ternário
     return compare ? value : replaced;
   }
   
@@ -461,9 +394,4 @@ export default class Util {
     
     return null;
   }
-  
-  // TODO - criar método para usar na construção da identificação visual das linhas
-  // ["Executivo", "bg-warning-subtle text-warning-emphasis"],
-  // ["Municipal", "bg-secondary text-secondary-emphasis"],
-  // ["Metropolitano", "bg-info-subtle text-info-emphasis"],
 }

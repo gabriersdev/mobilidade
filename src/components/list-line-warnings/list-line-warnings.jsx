@@ -138,7 +138,11 @@ const ListLineWarnings = ({line_id}) => {
                         </p>
                       </summary>
                       <div className={"p-0 mt-2 mb-0 text-balance"}>
-                        {warning.text.endsWith('.') ? Util.renderText(warning.text) : <>{Util.renderText(warning.text)}</>}
+                        {
+                          (warning.text.endsWith('.')) ?
+                            Util.renderText(warning.text) :
+                            <>{Util.renderText(warning.text)}</>
+                        }
                       </div>
                     </details>
                     <Button
