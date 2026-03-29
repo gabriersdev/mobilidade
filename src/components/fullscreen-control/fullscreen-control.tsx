@@ -1,35 +1,35 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {Button} from 'react-bootstrap';
+import React, { useState, useEffect, useRef } from 'react';
+import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 interface FullscreenControlProps {
   elementRef: React.RefObject<HTMLElement>;
 }
 
-const FullscreenControl: React.FC<FullscreenControlProps> = ({elementRef}) => {
+const FullscreenControl: React.FC<FullscreenControlProps> = ({ elementRef }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const wakeLockRef = useRef<WakeLockSentinel | null>(null);
-  
+
   useEffect(() => {
     const handleFullscreenChange = () => {
       const isCurrentlyFullscreen = !!document.fullscreenElement;
       setIsFullscreen(isCurrentlyFullscreen);
-      
+
       if (isCurrentlyFullscreen) {
         requestWakeLock();
       } else {
         releaseWakeLock();
       }
     };
-    
+
     document.addEventListener('fullscreenchange', handleFullscreenChange);
-    
+
     return () => {
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
       releaseWakeLock();
     };
   }, []);
-  
+
   const requestWakeLock = async () => {
     if ('wakeLock' in navigator) {
       try {
@@ -40,7 +40,7 @@ const FullscreenControl: React.FC<FullscreenControlProps> = ({elementRef}) => {
       }
     }
   };
-  
+
   const releaseWakeLock = () => {
     if (wakeLockRef.current) {
       wakeLockRef.current.release().then(() => {
@@ -49,10 +49,10 @@ const FullscreenControl: React.FC<FullscreenControlProps> = ({elementRef}) => {
       });
     }
   };
-  
+
   const toggleFullscreen = () => {
     if (!elementRef.current) return;
-    
+
     if (!isFullscreen) {
       elementRef.current.requestFullscreen().catch(err => {
         console.error("Error attempting to enable full-screen mode:", err);
@@ -62,14 +62,14 @@ const FullscreenControl: React.FC<FullscreenControlProps> = ({elementRef}) => {
       document.exitFullscreen();
     }
   };
-  
+
   return (
     <Button
       variant={!isFullscreen ? "primary" : "info"}
       size={"sm"}
-      className={"d-flex align-items-center gap-2 flex-wrap shadow-sm"}
+      className={"d-flex align-items-center gap-2 flex-wrap"}
       onClick={toggleFullscreen}
-      style={{position: 'absolute', top: '0.75rem', right: '0.75rem', zIndex: 10}}
+      style={{ position: 'absolute', top: '1rem', right: '1rem', zIndex: 10 }}
     >
       <i className={`bi ${!isFullscreen ? 'bi-fullscreen' : 'bi-fullscreen-exit'}`}></i>
       <span className={"d-none d-md-inline-block text-sml"}>

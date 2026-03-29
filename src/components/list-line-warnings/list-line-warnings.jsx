@@ -129,8 +129,8 @@ const ListLineWarnings = ({line_id}) => {
                         setPropOpen(!propOpen)
                       }} className={"alert-warning-summary"}>
                         <p className="alert-heading d-inline-block fw-bold mb-0 text-balance">
-                          {/*<span className={'hide-max-width-419'}>&nbsp;</span>*/}
-                          <span>{`${warning.title.endsWith('.') ? warning.title : `${warning.title}.`}`.trim()}</span>
+                          <span className={'hide-max-width-419'}>&nbsp;</span>
+                          <span>{warning.title.endsWith('.') ? warning.title : `${warning.title}.`}</span>
                           <span className={"ms-1"}>Saiba mais</span>
                           <span className={"ms-1 d-inline-flex"} style={{transform: "rotate(180deg)"}}>
                             <i className="bi bi-arrow-up-short"></i>
@@ -138,11 +138,7 @@ const ListLineWarnings = ({line_id}) => {
                         </p>
                       </summary>
                       <div className={"p-0 mt-2 mb-0 text-balance"}>
-                        {
-                          (warning.text.endsWith('.')) ?
-                            Util.renderText(warning.text) :
-                            <>{Util.renderText(warning.text)}</>
-                        }
+                        {warning.text.endsWith('.') ? Util.renderText(warning.text) : <>{Util.renderText(warning.text)}</>}
                       </div>
                     </details>
                     <Button
