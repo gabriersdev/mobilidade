@@ -42,3 +42,6 @@ stats.html
 
 # Cypress Screenshots
 /cypress/screenshots
+
+# JS Executable
+.exec/**/**
