@@ -15,9 +15,6 @@ export const nationalFixedHolidays = [
 ];
 
 export const holidaysForAllScopes = [
-  // Varia de acordo com o ano
-  {name: "Sexta-feira Santa", month: 4, day: 3},
-  // A data invaria
   {name: "Assunção de Nossa Senhora", month: 12, day: 8},
   {name: "Véspera de Natal", month: 12, day: 24},
   {name: "Véspera de Ano Novo", month: 12, day: 31},
@@ -132,11 +129,11 @@ export const vacations = [
 export function getVacation(date) {
   const m = moment(date);
   const year = m.year();
-  
+
   return vacations.find(v => {
     let start = moment(`${year}-${("0" + v.start.month).slice(-2)}-${("0" + v.start.day).slice(-2)}T00:00:00-03:00`);
     let end = moment(`${year}-${("0" + v.end.month).slice(-2)}-${("0" + v.end.day).slice(-2)}T00:00:00-03:00`);
-    
+
     if (start.isAfter(end)) {
       if (m.month() < 6) {
         start.subtract(1, 'year');
@@ -144,7 +141,7 @@ export function getVacation(date) {
         end.add(1, 'year');
       }
     }
-    
+
     return m.isBetween(start, end, 'day', '[]');
   });
 }
