@@ -1,7 +1,7 @@
 {
   "name": "mobilidade",
   "private": true,
-  "version": "1.24.1",
+  "version": "1.26.0",
   "type": "module",
   "homepage": "https://gabriersdev.github.io/mobilidade",
   "engines": {
@@ -14,6 +14,7 @@
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "update": "npm update",
+    "upgrade:deps": "npx npm-check-updates -i && npm install",
     "cypress": "npx cypress run",
     "sync:version": "node sync-version.js"
   },
