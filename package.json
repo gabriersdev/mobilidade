@@ -42,7 +42,7 @@
     "bootstrap-icons": "^1.13.1",
     "downshift": "^9.3.2",
     "framer-motion": "^12.38.0",
-    "html-react-parser": "^5.2.17",
+    "html-react-parser": "^6.0.0",
     "leaflet": "^1.9.4",
     "moment": "^2.30.1",
     "prop-types": "^15.8.1",
