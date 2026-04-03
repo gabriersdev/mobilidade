@@ -17,9 +17,11 @@ import {
 } from "./components/index.d.ts"
 
 import bcAll from './components/breadcrumb-app/breadcrumb-context.jsx';
+
 const BreadcrumbProvider = bcAll.BreadcrumbProvider;
 
-import { ThemeProvider } from './components/ui/theme-context/theme-context.jsx';
+import {ThemeProvider} from './components/ui/theme-context/theme-context.jsx';
+import {CaptchaProvider, useCaptcha} from './components/captcha-verifier/captcha-context.jsx';
 
 import {
   Home,
@@ -41,12 +43,14 @@ import {
   OneDeparturePoints,
   Manifest
 } from "./pages/index.d.ts"
+import CaptchaVerifier from "@/components/captcha-verifier/captcha-verifier.jsx";
 
 // TODO - reorganizar os arquivos em diretórios e pastas conforme o sentido fizer
 const Context = createContext({});
 const obj = {};
 
-function App() {
+function AppContent() {
+  const {isVerified} = useCaptcha();
   const [publicIp, setPublicIp] = useState(0);
   const location = useLocation();
   
@@ -165,52 +169,62 @@ function App() {
     Util.clearServiceWorker();
   }, []);
   
+  if (!isVerified) {
+    return <CaptchaVerifier/>;
+  }
+  
   return (
-    <Context.Provider value={obj}>
-      <ThemeProvider>
-        <BreadcrumbProvider>
-          <div className={'position-relative'}>
-            <Nav/>
-            <Main>
-              <BreadcrumbApp/>
-              <Routes>
-                <Route path="*" element={<NotFound/>}/>
-                <Route path="/404" element={<NotFound/>}/>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/search" element={<Search/>}/>
-                <Route path="/lines/:id?" element={<Lines/>}/>
-                <Route path="/development" element={<Development/>}/>
-                <Route path="/terms-of-service" element={<TermsOfService/>}/>
-                <Route path="/privacy" element={<Privacy/>}/>
-                <Route path="/company/:id?" element={<Company/>}/>
-                <Route path="/news/:id?" element={<News/>}/>
-                <Route path="/guide" element={<Guide/>}/>
-                <Route path="/live" element={<Live/>}/>
-                <Route path="/history/departure-times/:id" element={<HistoryDepartureTimes/>}/>
-                <Route path="/history/departure-times/:id/:id" element={<HistoryDayDepartureTimes/>}/>
-                <Route path="/history/fares/:id" element={<HistoryFares/>}/>
-                <Route path="/history/departure-points/:id" element={<DeparturePoints/>}/>
-                <Route path="/history/departure-points/:id/:id" element={<OneDeparturePoints/>}/>
-                <Route path="/sabara" element={<SabaraInfo/>}/>
-                <Route path="/manifest" element={<Manifest/>}/>
-              </Routes>
-            </Main>
-            <Footer/>
-            <Button onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({top: 0, behavior: 'smooth'});
-            }} className={"position-fixed rounded-2 z-2 bg-body"} style={{right: "1rem", bottom: "1rem"}}>
-              <div className={"d-flex flex-wrap align-items-center justify-content-center gap-2"}>
-                <span>Subir</span>
-                <Image src={"/static/mobilidade-blue.png"} width={20} height={20} className={"object-fit-cover rounded-1"}/>
-                <i className="bi bi-arrow-up-square"></i>
-              </div>
-            </Button>
-          </div>
-        </BreadcrumbProvider>
-      </ThemeProvider>
-    </Context.Provider>
+    <div className={'position-relative'}>
+      <Nav/>
+      <Main>
+        <BreadcrumbApp/>
+        <Routes>
+          <Route path="*" element={<NotFound/>}/>
+          <Route path="/404" element={<NotFound/>}/>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/search" element={<Search/>}/>
+          <Route path="/lines/:id?" element={<Lines/>}/>
+          <Route path="/development" element={<Development/>}/>
+          <Route path="/terms-of-service" element={<TermsOfService/>}/>
+          <Route path="/privacy" element={<Privacy/>}/>
+          <Route path="/company/:id?" element={<Company/>}/>
+          <Route path="/news/:id?" element={<News/>}/>
+          <Route path="/guide" element={<Guide/>}/>
+          <Route path="/live" element={<Live/>}/>
+          <Route path="/history/departure-times/:id" element={<HistoryDepartureTimes/>}/>
+          <Route path="/history/departure-times/:id/:id" element={<HistoryDayDepartureTimes/>}/>
+          <Route path="/history/fares/:id" element={<HistoryFares/>}/>
+          <Route path="/history/departure-points/:id" element={<DeparturePoints/>}/>
+          <Route path="/history/departure-points/:id/:id" element={<OneDeparturePoints/>}/>
+          <Route path="/sabara" element={<SabaraInfo/>}/>
+          <Route path="/manifest" element={<Manifest/>}/>
+        </Routes>
+      </Main>
+      <Footer/>
+      <Button onClick={(e) => {
+        e.preventDefault();
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      }} className={"position-fixed rounded-2 z-2 bg-body"} style={{right: "1rem", bottom: "1rem"}}>
+        <div className={"d-flex flex-wrap align-items-center justify-content-center gap-2"}>
+          <span>Subir</span>
+          <Image src={"/static/mobilidade-blue.png"} width={20} height={20} className={"object-fit-cover rounded-1"}/>
+          <i className="bi bi-arrow-up-square"></i>
+        </div>
+      </Button>
+    </div>
   )
 }
 
-export default App
+function App() {
+  return (
+    <CaptchaProvider>
+      <ThemeProvider>
+        <BreadcrumbProvider>
+          <AppContent/>
+        </BreadcrumbProvider>
+      </ThemeProvider>
+    </CaptchaProvider>
+  );
+}
+
+export default App;

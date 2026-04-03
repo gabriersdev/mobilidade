@@ -44,10 +44,6 @@ function FormControlElement({elementType, params}) {
 }
 
 export function LiveConfigs({configs, setConfigs, labelsConfigs, resultSection}) {
-  useEffect(() => {
-    console.log("Change detected in resultSection", resultSection);
-  }, [resultSection]);
-  
   const handleChange = ((e) => {
     const {id, type} = e.target;
     let value;
