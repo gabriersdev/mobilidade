@@ -42,7 +42,7 @@
     "bootstrap-icons": "^1.13.1",
     "downshift": "^9.3.2",
     "framer-motion": "^12.38.0",
-    "html-react-parser": "^5.2.17",
+    "html-react-parser": "^6.0.0",
     "leaflet": "^1.9.4",
     "moment": "^2.30.1",
     "prop-types": "^15.8.1",
@@ -51,7 +51,7 @@
     "react-dom": "^19.2.4",
     "react-input-mask": "^2.0.4",
     "react-leaflet": "^5.0.0",
-    "react-router-dom": "^7.13.2",
+    "react-router-dom": "^7.14.0",
     "rolldown": "^1.0.0-rc.13",
     "semantic-release": "^25.0.3",
     "vercel": "^50.38.3"
