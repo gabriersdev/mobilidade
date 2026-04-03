@@ -100,6 +100,7 @@ const news = [
     publishDate: "2026-03-27T00:00:00.000-03:00",
     content: [
       "No feriado de Sexta-feira da Paixão, celebrado em 03 de abril, as linhas de ônibus municipais e metropolitanas operarão com o quadro de horários de domingos e feriados.",
+      "Na quinta-feira, 02 de abril, TODAS as linhas municipais e metropolitanas irão operar com o quadro de horários de dia útil atípico, com redução nas partidas.",
       "Recomendamos aos passageiros que fiquem atentos aos horários, pois a oferta de viagens será reduzida. Além disso, não há previsão de mudanças nos itinerários passando pelo Centro Histórico, a não ser que haja procissões ou eventos religiosos informados previamente pelas paróquias.",
       "<>Para planejar sua viagem, <Link to={\"/lines\"}>consulte a página de linhas</Link> e veja os horários de partida para domingos e feriados.</>"
     ],
@@ -108,9 +109,10 @@ const news = [
     title: "Feriado de 21 de abril (Tiradentes) - mudanças no itinerário",
     resume: "Veja como ficam os horários de ônibus durante o feriado de Tiradentes, 21 de abril.",
     img: "/news/marcopolo-44117.png",
-    publishDate: "2026-04-19T00:00:00.000-03:00",
+    publishDate: "2026-04-10T00:00:00.000-03:00",
     content: [
-      "Na próxima terça-feira, 21 de abril, é celebrado o feriado de Tiradentes. Durante este dia, o quadro de horários das linhas de ônibus municipais e metropolitanas será equivalente ao de domingos e feriados.",
+      "Na terça-feira, 21 de abril, é celebrado o feriado de Tiradentes. Durante este dia, o quadro de horários das linhas de ônibus municipais e metropolitanas será equivalente ao de domingos e feriados.",
+      "Na segunda-feira, 20 de abril, TODAS as linhas metropolitanas irão operar com o quadro de horários de dia útil atípico, com redução nas partidas. É possível que as municipais também operem com este quadro de horários, porém não houve confirmação. Nos anos anteriores era comum o sistema municipal adotar o quadro de horários de sábado nos feriados no início ou fim de semana, que seria possível \"emendar\".",
       "Algumas linhas podem operar com intervalos maiores entre as viagens devido à redução da demanda. Solicitamos aos usuários que se planejem antecipadamente para evitar transtornos e tempos de espera maiores nos pontos.",
       "<>Para verificar os horários de sua linha de interesse, <Link to={\"/lines\"}>acesse a nossa página de consulta de horários</Link>.</>"
     ],
