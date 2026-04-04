@@ -40,7 +40,7 @@ function CaptchaVerifier() {
             setVerificationStatus('Sessão verificada com sucesso!');
             setIsVerified(true);
           } else {
-            setVerificationStatus(`Falha na verificação: ${data.message}. Por favor tente novamente.`);
+            setVerificationStatus(`Falha na verificação: ${data.message ?? "Erro não mapeado"}. Por favor tente novamente.`);
             setIsVerified(false);
           }
         } catch (error) {

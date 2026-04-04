@@ -20,8 +20,9 @@ import bcAll from './components/breadcrumb-app/breadcrumb-context.jsx';
 
 const BreadcrumbProvider = bcAll.BreadcrumbProvider;
 
-import {ThemeProvider} from './components/ui/theme-context/theme-context.jsx';
-import {CaptchaProvider, useCaptcha} from './components/captcha-verifier/captcha-context.jsx';
+import {ThemeProvider} from '@/components/ui/theme-context/theme-context.jsx';
+import {CaptchaProvider} from '@/components/captcha-verifier/captcha-context.jsx';
+import {useCaptcha} from '@/components/captcha-verifier/use-captcha.js';
 
 import {
   Home,
