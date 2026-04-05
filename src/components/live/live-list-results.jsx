@@ -79,21 +79,43 @@ export default function LiveListResults({data, dataNextDepartureTimes, configs})
                             }
                           </span>
                           </Title>
-                          {
-                            configs?.["showAdditionalInfo"] && Util.getTodayHolidayData() && (
-                              <OverlayTrigger overlay={
-                                <Tooltip>
-                                  <p className={"m-0 p-0 text-sml text-balance line-clamp-3"}>
-                                    A linha está operando no horário de domingo e feriado. O horário possui observações.
-                                  </p>
-                                </Tooltip>
-                              }>
-                                <span className={"d-block pt-1"}>
-                                <i className="bi bi-exclamation-circle-fill text-"></i>
-                              </span>
-                              </OverlayTrigger>
-                            )
-                          }
+                          <div className={"d-flex align-items-start justify-content-center gap-1 mt-1"}>
+                            {
+                              configs?.["showAdditionalInfo"] && Util.getTodayHolidayData() && (
+                                <OverlayTrigger overlay={
+                                  <Tooltip>
+                                    <p className={"m-0 p-0 text-sml text-balance line-clamp-3"}>
+                                      A linha está operando no horário de domingo e feriado. O horário possui observações.
+                                    </p>
+                                  </Tooltip>
+                                }>
+                                  <i className="bi bi-exclamation-circle-fill text-"></i>
+                                </OverlayTrigger>
+                              )
+                            }
+                            
+                            {/*T1DO - implementar lógica. A verificação é +- feita com `const onlyExit = (number) => (parseInt(number ?? "-1", 10) === parseInt(d?.["total_departure_points"] ?? "-2", 10))` */}
+                            <OverlayTrigger overlay={
+                              <Tooltip>
+                                <p className={"m-0 p-0 text-sml text-balance line-clamp-3"}>
+                                  Somente desembarque. Linhas encerrando viagem.
+                                </p>
+                              </Tooltip>
+                            }>
+                              <i className="bi bi-arrow-down-left-circle-fill d-none"></i>
+                            </OverlayTrigger>
+                            
+                            {/*T1DO - implementar lógica. A verificação é +- feita com `const onlyEnter = (number) => (parseInt(number ?? "-1", 10) === 1)`*/}
+                            <OverlayTrigger overlay={
+                              <Tooltip>
+                                <p className={"m-0 p-0 text-sml text-balance line-clamp-3"}>
+                                  Linhas partindo. Somente embarque.
+                                </p>
+                              </Tooltip>
+                            }>
+                              <i className="bi bi-arrow-up-right-circle-fill d-none"></i>
+                            </OverlayTrigger>
+                          </div>
                         </div>
                         <span className={"d-none text-sml opacity-50"}>({d?.["departure_time_trip"]}) | ({d?.["expected_arrival_time"]})</span>
                       </Link>

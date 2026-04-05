@@ -8,7 +8,7 @@ const GenericModal = ({show, onHide, title, body, footer}) => {
       <Modal.Header closeButton>
         <Modal.Title className={"fs-3"}>{title}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>{body}</Modal.Body>
+      <Modal.Body className={"text-balance"}>{body}</Modal.Body>
       <Modal.Footer>
         {footer || <Button variant="secondary" onClick={onHide}>Fechar</Button>}
       </Modal.Footer>
