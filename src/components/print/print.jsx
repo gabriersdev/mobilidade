@@ -6,6 +6,7 @@ import {useCallback, useEffect, useRef, useState} from "react";
 
 import ToastComponent from "../ui/toast/toast.jsx";
 import AnimatedComponents from "../ui/animated-component/animated-components.jsx";
+import GenericModal from "../ui/modal/modal.jsx";
 
 const Print = ({variant, prevContentTarget}) => {
   const [htmlContent, setHtmlContent] = useState("");
@@ -13,7 +14,9 @@ const Print = ({variant, prevContentTarget}) => {
   const [fileTitle, setFileTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const [printableAreaExists, setPrintableAreaExists] = useState(false);
-  const [show, setShow] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: "", body: "" });
   
   // Conteúdo dos arquivos index.css e App.css, usados para estilizar elementos que o framework nao estiliza
   const cssContent = useRef(`
@@ -193,7 +196,8 @@ const Print = ({variant, prevContentTarget}) => {
         
         html = title + prevContent.outerHTML + "<div class='d-block mt-5'></div>" + element + footerInfos;
       } else {
-        alert("Algo não saiu como deveria. Por favor entre em contato com os desenvolvedores. Não será possível imprimir o PDF no momento.")
+        setModalContent({ title: "Erro", body: "Algo não saiu como deveria. Por favor entre em contato com os desenvolvedores. Não será possível imprimir o PDF no momento." });
+        setShowErrorModal(true);
         return;
       }
     }
@@ -207,13 +211,12 @@ const Print = ({variant, prevContentTarget}) => {
     if (variant === "departure-times" || variant === "departure-points") {
       int = setInterval(() => {
         const cond = document.getElementById(variant === "departure-times" ? "departure-times-data" : "departure-points-data")
-        // console.log(cond, !!cond)
         setPrintableAreaExists(!!cond);
       }, 2000);
     }
     
     return () => {
-      setInterval(int);
+      clearInterval(int);
     }
   }, [variant]);
   
@@ -233,8 +236,8 @@ const Print = ({variant, prevContentTarget}) => {
           .then(data => {
             
             if (data?.["error"] === "Você fez muitas solicitações para gerar PDFs. Por favor, aguarde.") {
-              // TODO - substituir por modal com aviso
-              alert(`Espere um pouquinho! ${data?.["error"]}`);
+              setModalContent({ title: "Atenção", body: `Espere um pouquinho! ${data?.["error"]}` });
+              setShowErrorModal(true);
               return;
             }
             
@@ -247,10 +250,12 @@ const Print = ({variant, prevContentTarget}) => {
               link.click();
             }, 500)
             link.remove();
-            setShow(true)
+            setShowToast(true)
           })
           .catch(error => {
             console.log(error)
+            setModalContent({ title: "Erro", body: "Ocorreu um erro ao gerar o PDF. Por favor, tente novamente mais tarde." });
+            setShowErrorModal(true);
           })
           .finally(() => {
             setLoading(false);
@@ -259,6 +264,8 @@ const Print = ({variant, prevContentTarget}) => {
       } catch (error) {
         console.log(error);
         console.error(error);
+        setModalContent({ title: "Erro", body: "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde." });
+        setShowErrorModal(true);
       }
     }
   }, [htmlContent, printable, fileTitle]);
@@ -266,7 +273,8 @@ const Print = ({variant, prevContentTarget}) => {
   if (printableAreaExists) {
     return (
       <div>
-        <ToastComponent show={show} setShow={setShow} title={"Mobilidade"} time={"agora"} content={(<span className={"text-success"}>Arquivo para impressão gerado e baixado com sucesso!</span>)}/>
+        <GenericModal show={showErrorModal} onHide={() => setShowErrorModal(false)} title={modalContent.title} body={modalContent.body} />
+        <ToastComponent show={showToast} setShow={setShowToast} title={"Mobilidade"} time={"agora"} content={(<span className={"text-success"}>Arquivo para impressão gerado e baixado com sucesso!</span>)}/>
         <AnimatedComponents>
           <Button variant={"primary"} className={"btn-sm d-flex align-items-center justify-content-center " + (loading ? "cursor-not-allowed opacity-75" : "")} onClick={handleClick}>
             {
