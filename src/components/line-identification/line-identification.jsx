@@ -1,5 +1,6 @@
 import moment from "moment";
-import {useContext, useEffect} from "react";
+// import {useContext, useEffect} from "react";
+import {useContext} from "react";
 
 import Util from "../../assets/Util";
 import Convert from "../../assets/Convert.js";
@@ -18,10 +19,10 @@ moment.locale("pt-BR");
 const LineIdentification = () => {
   const {line} = useContext(Context);
   
-  useEffect(() => {
-    console.groupCollapsed("[INFO] - Informações da linha");
-    console.groupEnd();
-  }, []);
+  // useEffect(() => {
+  //   console.groupCollapsed("[INFO] - Informações da linha");
+  //   console.groupEnd();
+  // }, []);
   
   const lineType = line ? Convert.lineType(line.type) : '';
   const scope = line ? Convert.theScope(line.scope) : '';
@@ -45,7 +46,7 @@ const LineIdentification = () => {
     : null;
   
   const accessibilityPopover = (
-    <LineIdentificationAccessibilityPopover />
+    <LineIdentificationAccessibilityPopover/>
   );
   
   const comfortPopover = (
@@ -62,14 +63,14 @@ const LineIdentification = () => {
   
   // TODO - implementar retorno ou verificação do banco de dados de integração
   const integrationPopover = (
-    <LineIdentificationIntegrationPopover line={line} />
+    <LineIdentificationIntegrationPopover line={line}/>
   );
   
   if (!line) return null;
   
   return (
     <div className="d-flex flex-column">
-      <LineIdentificationHeader line={line} />
+      <LineIdentificationHeader line={line}/>
       
       <SeeMore mobileOnly={true} height={200}>
         <div className={"d-flex flex-column gap-3 mt-5"}>
@@ -86,9 +87,9 @@ const LineIdentification = () => {
             countDepartureTimes={countDepartureTimes}
           />
           
-          <LineIdentificationActions reportContact={reportContact} line={line} />
+          <LineIdentificationActions reportContact={reportContact} line={line}/>
           
-          <LineIdentificationLastUpdate datetimeLastModify={datetimeLastModify} />
+          <LineIdentificationLastUpdate datetimeLastModify={datetimeLastModify}/>
         </div>
       </SeeMore>
     </div>

@@ -2,11 +2,11 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import PropTypes from "prop-types";
 
-const GenericModal = ({ show, onHide, title, body, footer }) => {
+const GenericModal = ({show, onHide, title, body, footer}) => {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>{title}</Modal.Title>
+        <Modal.Title className={"fs-3"}>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{body}</Modal.Body>
       <Modal.Footer>
