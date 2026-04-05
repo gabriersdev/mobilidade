@@ -15,6 +15,7 @@ const useLiveComponent = () => {
   const [data, setData] = useState([]);
   const [dataNextDepartureTimes, setDataNextDepartureTimes] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [lines, setLines] = useState(null);
   const [departurePoints, setDeparturePoints] = useState(null);
   const [configs, setConfigs] = useState(() => {
@@ -79,8 +80,12 @@ const useLiveComponent = () => {
     });
   }, []);
   
-  const fetchData = async (departurePointSelected) => {
+  const fetchData = async (departurePointSelected, isRefresh = false) => {
     if (!departurePointSelected) return;
+    if (!isRefresh) {
+      setLoading(true);
+    }
+    
     const s = await axios.post(`${config.host}/api/predictions/departure-points/`, {
       pointId: departurePointSelected?.["id"] ?? -1
     }).catch((error) => {
@@ -88,6 +93,7 @@ const useLiveComponent = () => {
       setError(error);
       setIsOriginalFetch(false);
       setDatetimeOriginalFetch(null);
+      if (!isRefresh) setLoading(false);
       return false;
     });
     
@@ -110,6 +116,9 @@ const useLiveComponent = () => {
     }
     
     setError(null);
+    if (!isRefresh) {
+      setLoading(false);
+    }
   };
   
   const fetchPhysicalPointId = async (pointId) => {
@@ -160,7 +169,7 @@ const useLiveComponent = () => {
     if (departurePointSelected) {
       setData([]);
       setDataNextDepartureTimes([]);
-      fetchData(departurePointSelected).then(() => {
+      fetchData(departurePointSelected, false).then(() => {
       });
     } else {
       setData(null);
@@ -192,7 +201,7 @@ const useLiveComponent = () => {
       }
       
       int = setInterval(() => {
-        if (moment().diff(datetimeOriginalFetch, "seconds") % 60) fetchData(departurePointSelected).then();
+        if (moment().diff(datetimeOriginalFetch, "seconds") % 60) fetchData(departurePointSelected, true).then();
       }, 1000 * 30);
     }
     
@@ -285,6 +294,8 @@ const useLiveComponent = () => {
     setDataNextDepartureTimes,
     error,
     setError,
+    loading,
+    setLoading,
     lines,
     setLines,
     departurePoints,

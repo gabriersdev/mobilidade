@@ -43,7 +43,7 @@ export default function LiveListSingleLine({data, configs}) {
                 
                 <div className="ms-auto text-end text-body-secondary ff-inherit text-sml d-flex align-items-center flex-wrap gap-1">
                   <div className={"monospace"}>
-                    <LiveShowItem d={{...d, i}} configs={configs} />
+                    <LiveShowItem d={{...d, i}} configs={configs}/>
                   </div>
                   <span className="text-muted text-sml monospace">- às {moment(d?.["expected_arrival_time"]).format("HH:mm")}</span>
                 </div>
