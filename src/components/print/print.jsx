@@ -181,9 +181,15 @@ const Print = ({variant, prevContentTarget}) => {
       
       if (element) {
         element = element.outerHTML;
+        
+        // Abre os acordões do Bootstrap
         element = element.replaceAll("class=\"accordion-collapse collapse\"", "class=\"accordion-collapse collapse show\"");
         element = element.replaceAll("type=\"button\" aria-expanded=\"false\" class=\"accordion-button collapsed\"", "type=\"button\" aria-expanded=\"true\" class=\"accordion-button\"");
         element = element.replaceAll("class=\"hide-print\"", "style=\"display: none;\"");
+        
+        // Abre os acordões nativos do HTML (details > summary)
+        element = element.replaceAll("<details>", "<details open>");
+        element = element.replaceAll("<summary ", "<summary open ");
         
         html = title + prevContent.outerHTML + "<div class='d-block mt-5'></div>" + element + footerInfos;
       } else {
@@ -227,6 +233,7 @@ const Print = ({variant, prevContentTarget}) => {
           .then(data => {
             
             if (data?.["error"] === "Você fez muitas solicitações para gerar PDFs. Por favor, aguarde.") {
+              // TODO - substituir por modal com aviso
               alert(`Espere um pouquinho! ${data?.["error"]}`);
               return;
             }
