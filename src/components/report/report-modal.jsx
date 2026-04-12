@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 
 import ReportForm from "./report-form.jsx";
-import {reportMail} from "../../assets/resources.js";
+import {reportMail} from "@/assets/resources.js";
 import {Link} from "react-router-dom";
 
 const ReportModal = () => {

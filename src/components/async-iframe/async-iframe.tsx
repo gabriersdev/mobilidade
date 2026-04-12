@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import FullscreenControl from "@/components/fullscreen-control/fullscreen-control";
@@ -15,14 +15,14 @@ const AsyncIframe: React.FC<AsyncIframeProps> = ({src, title, placeholder, ...pr
   const handleLoad = () => {
     setLoading(false);
   };
-
+  
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
     };
-
+    
     document.addEventListener('fullscreenchange', handleFullscreenChange);
-
+    
     return () => {
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
     };
@@ -60,7 +60,7 @@ const AsyncIframe: React.FC<AsyncIframeProps> = ({src, title, placeholder, ...pr
         </Tooltip>}
       >
         <div style={{position: 'relative'}}>
-          <FullscreenControl elementRef={containerRef} />
+          <FullscreenControl elementRef={containerRef}/>
           <iframe
             src={src}
             onLoad={handleLoad}

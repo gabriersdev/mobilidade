@@ -1,6 +1,6 @@
 import {Accordion, Form, FormCheck, FormLabel} from "react-bootstrap";
 import PropTypes from "prop-types";
-import {useEffect, useRef} from "react";
+import {useRef} from "react";
 
 function FormControlElement({elementType, params}) {
   const label = useRef(

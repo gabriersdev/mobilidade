@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {reportMail} from "../../assets/resources.js";
+import {reportMail} from "@/assets/resources.js";
 import {Dropdown, DropdownItem, DropdownItemText, DropdownMenu, DropdownToggle, Tooltip, OverlayTrigger} from "react-bootstrap";
 import useSuggestLabel from "./use-suggest-label.js";
 

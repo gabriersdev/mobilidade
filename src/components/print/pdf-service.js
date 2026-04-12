@@ -9,9 +9,7 @@ export const renderPdf = async (html, css) => {
     });
     const data = await response.json();
     
-    if (data?.error) {
-      throw new Error(data.error);
-    }
+    if (data?.error) throw new Error(data.error);
     
     return data;
   } catch (error) {
