@@ -17,6 +17,7 @@
 body * {
   font-size: 16px;
   font-family: 'Inter', sans-serif;
+  font-weight: 400 !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -43,6 +44,12 @@ main {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 250px;
+}
+
+.badge,
+.badge * {
+  font-weight: 600 !important;
+  letter-spacing: 0.25px;
 }
 
 .resize-none {
@@ -117,6 +124,7 @@ li.breadcrumb-item.bg-body {
   background: transparent !important;
 
   /*noinspection CssUnresolvedCustomProperty*/
+
   a {
     cursor: pointer !important;
     color: var(--bs-text-body) !important;

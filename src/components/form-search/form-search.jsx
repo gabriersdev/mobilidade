@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {FormGroup, Button, Image} from "react-bootstrap";
+import {Button, FormGroup, Image} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -69,7 +69,7 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
             ))}
           </div>
         </hgroup>
-        <div className="input-group d-flex flex-wrap align-items-center mt-2">
+        <div className="input-group d-flex align-items-center mt-2">
           <GenericCombobox
             items={searchHistory}
             itemToString={(item) => (item ? item.name : '')}
@@ -88,9 +88,17 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
             subLabel={"Pesquisas recentes"}
             required={true}
           />
-          <Button variant="default" className={"border text-body-tertiary"} type="submit" aria-hidden="true"><i className="bi bi-search"></i></Button>
+          
+          <Button variant="default" className={"border text-body-tertiary d-none d-md-block"} type="submit" aria-hidden="true">
+            <i className="bi bi-search"></i>
+          </Button>
         </div>
+        
+        <Button variant="secondary" className={"mt-2 w-100 rounded-0 d-md-none"} type="submit" aria-hidden="true">
+          <i className="bi bi-search"></i>
+        </Button>
       </FormGroup>
+      
       <SearchLinks/>
       {feedback && <span className={"d-block mt-2 text-danger"}>{feedback}</span>}
     </form>

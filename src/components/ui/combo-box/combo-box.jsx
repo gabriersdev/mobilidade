@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {useCombobox} from 'downshift';
-import {Form, InputGroup, Button, ListGroup} from 'react-bootstrap';
+import {Button, Form, InputGroup, ListGroup} from 'react-bootstrap';
 import PropTypes from "prop-types";
 
 export default function GenericCombobox({
@@ -21,12 +21,14 @@ export default function GenericCombobox({
   
   const getItemsFilter = (inputValue) => {
     let lowerCasedInputValue;
+    
     try {
       lowerCasedInputValue = inputValue?.toLowerCase()?.normalize("NFD")?.trim();
     } catch (error) {
       if (error.toString().includes("-1")) console.log(error);
       lowerCasedInputValue = "";
     }
+    
     return function itemsFilter(item) {
       return (
         !inputValue ||
@@ -89,8 +91,9 @@ export default function GenericCombobox({
   
   return (
     <div className={"flex-grow-1 flex-shrink-1"}>
-      <Form.Group className="w-72" data-element={"form-group"}>
+      <Form.Group className="" data-element={"form-group"}>
         {label && (<Form.Label {...getLabelProps()} className={"mb-1"}>{label}</Form.Label>)}
+        
         <InputGroup>
           <Form.Control
             {...getInputProps()}
@@ -98,6 +101,7 @@ export default function GenericCombobox({
             placeholder={placeholder}
             data-testid="combobox-input"
           />
+          
           <Button
             {...getToggleButtonProps()}
             aria-label="toggle menu"
@@ -109,10 +113,11 @@ export default function GenericCombobox({
           >
             {isOpen ? <>&#8593;</> : <>&#8595;</>}
           </Button>
+          
           <Button
             aria-label="clear selection"
             variant="outline-secondary"
-            className={"border text-body-tertiary bg-body"}
+            className={"border text-body-tertiary bg-body d-none d-md-block"}
             type={"button"}
             style={{borderRadius: 0}}
             onClick={() => reset()} // Reset clears the selection via the stateReducer.
@@ -121,6 +126,7 @@ export default function GenericCombobox({
           </Button>
         </InputGroup>
       </Form.Group>
+      
       <div>
         <ListGroup
           {...getMenuProps()}
@@ -132,36 +138,35 @@ export default function GenericCombobox({
           style={{maxHeight: '20rem', zIndex: 1000, marginLeft: '-0.75rem'}}
           data-testid="combobox-menu"
         >
-          {isOpen &&
-            items.map((item, index) => (
-              <>
-                {
-                  subLabel && index === 0 && (
-                    <ListGroup.Item className={"border-bottom-0 text-sml"}>
-                      {subLabel}
-                    </ListGroup.Item>
-                  )
-                }
-                
-                <ListGroup.Item
-                  as="li"
-                  id={`${item.id || item.name}-${index}`}
-                  key={`${item.id || item.name}-${index}`}
-                  {...getItemProps({item, index})}
-                  active={highlightedIndex === index}
-                  className={"cursor-pointer"}
-                  data-testid={`combobox-item-${index}`}
-                >
-                  {item.title && (
-                    <>
-                      <span>{item.title}</span>
-                      <br/>
-                    </>
-                  )}
-                  <span className={item.title ? "text-sml small" : ""}>{item.name}</span>
-                </ListGroup.Item>
-              </>
-            ))}
+          {isOpen && items.map((item, index) => (
+            <>
+              {
+                subLabel && index === 0 && (
+                  <ListGroup.Item className={"border-bottom-0 text-sml"}>
+                    {subLabel}
+                  </ListGroup.Item>
+                )
+              }
+              
+              <ListGroup.Item
+                as="li"
+                id={`${item.id || item.name}-${index}`}
+                key={`${item.id || item.name}-${index}`}
+                {...getItemProps({item, index})}
+                active={highlightedIndex === index}
+                className={"cursor-pointer"}
+                data-testid={`combobox-item-${index}`}
+              >
+                {item.title && (
+                  <>
+                    <span>{item.title}</span>
+                    <br/>
+                  </>
+                )}
+                <span className={item.title ? "text-sml small" : ""}>{item.name}</span>
+              </ListGroup.Item>
+            </>
+          ))}
         </ListGroup>
       </div>
     </div>
