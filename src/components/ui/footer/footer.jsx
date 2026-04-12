@@ -6,15 +6,22 @@ import InstallPWAButton from "../../install-PWA-button/install-PWA-button.jsx";
 import AnimatedComponents from "../animated-component/animated-components.jsx";
 import Util from "@/assets/Util.jsx";
 import moment from "moment";
-import {contactLotus} from "@/assets/resources.js";
+import {contactLotus, footerLinks, navLinks} from "@/assets/resources.js";
 import {useTheme} from "../theme-context/theme-context.jsx";
 import ThemeSelector from "./theme-selector.jsx";
+import useLines from "../../../hooks/useLines.js";
+import SeeMore from "@/components/ui/see-more/see-more.jsx";
 
 const Footer = () => {
   const [version, setVersion] = useState("1.17.0");
   const [cacheVersion, setCacheVersion] = useState("V40");
   const [dataBuild, setDataBuild] = useState({datetimeCreate: null});
+  const {data: listLines} = useLines();
   const {theme, handleTheme} = useTheme();
+  
+  const otherPages = navLinks.filter(navLink =>
+    !footerLinks.some(footerLink => footerLink.name.toLowerCase() === navLink.name.toLowerCase())
+  );
   
   useEffect(() => {
     fetch("/register.build.json")
@@ -39,24 +46,49 @@ const Footer = () => {
           <p className="mb-0 text-body-secondary">&copy; {new Date().getFullYear() || '2024'} Mobilidade</p>
           
           <section>
-            <p className="mb-0 text-body-secondary text-sml mb-2">Principais Linhas</p>
-            <div className={"d-flex flex-row gap-1 align-items-center justify-content-start"}>
-              {/*TODO - obter dados através de compartilhamento de contexto junto de algum outro componente que SEMPRE vai aparecer OU requisitar informação e compartilhar com outro componente para evitar múltiplas consultas/requisições à API e banco de dados. Depois manter documentado/comentado o que foi feito OU criar uma variante de principais linhas que renderiza o conteúdo abaixo.*/}
+            <p className="mb-0 text-body-secondary text-sml mb-2">Linhas em Sabará</p>
+            <SeeMore
+              height={100}
+              gradientColor="--bs-body-tertiary-bg"
+              secGradientColor={"#f8f8f8"}
+            >
+              <div className={"d-flex flex-row gap-1 align-items-center justify-content-start flex-wrap"}>
+                {
+                  [...listLines]
+                    .toSorted((a, b) => a.line_number - b.line_number)
+                    .map((line, i) => (
+                      <Link to={`/lines/${line.line_id}`} key={i}>
+                        <Badge bg={"primary"} pill={true} className={"d-inline-block"}>
+                          <span className={"text-sml"}>N.º {line.line_number}</span>
+                        </Badge>
+                      </Link>
+                    ))
+                }
+              </div>
+            </SeeMore>
+          </section>
+          
+          <section>
+            <p className="mb-0 text-body-secondary text-sml mb-2">Navegue por</p>
+            <div className={"d-flex flex-row gap-1 align-items-center justify-content-start flex-wrap"}>
               {
-                Array.from({length: 10}, (i => i + 1)).map((_, i) => (
-                  <Badge bg={"primary"} pill={true} className={"d-inline-block"} key={i}>
-                    <span className={"text-sml"}>N.º {i}</span>
-                  </Badge>
-                ))
+                [...otherPages]
+                  .toSorted((a, b) => a.name.localeCompare(b.name))
+                  .map((page, i) => (
+                    <Link to={page.path} key={i}>
+                      <Badge bg={"info"} pill={true} className={"d-inline-block"}>
+                        <span className={"text-sml d-block"} style={{paddingBottom: "2px", paddingTop: "1px"}}>{page.name}</span>
+                      </Badge>
+                    </Link>
+                  ))
               }
             </div>
           </section>
           
           <ul className="d-flex flex-column g-3 m-0 p-0 footer-link-list">
-            <Link to={"/development#topo"} className="footer-link-list-item">Desenvolvimento</Link>
-            <Link to="/terms-of-service#topo" className="footer-link-list-item">Termos de serviços</Link>
-            <Link to="/privacy#topo" className="footer-link-list-item">Privacidade</Link>
-            <Link to="/manifest#topo" className="footer-link-list-item">Manifesto</Link>
+            {footerLinks.map(page => (
+              <Link to={page.path} key={page.name} className="footer-link-list-item">{page.name}</Link>
+            ))}
             <Link to="https://github.com/gabriersdev/mobilidade/" className="footer-link-list-item">Repositório no Github</Link>
             <Link to="https://github.com/gabriersdev/mobilidade/issues/new" className="footer-link-list-item">Reportar erro</Link>
           </ul>

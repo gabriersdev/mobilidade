@@ -8,10 +8,14 @@ import PaginationWithItems from "../pagination-with-items/pagination-with-items.
 import GetCompanyIdentification from "./get-company-identification.jsx";
 import ScrollX from "../ui/scroll-x/scroll-x.jsx";
 import LineFilters from "./line-filters.jsx";
-import {motion, AnimatePresence} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
+import useLines from "../../hooks/useLines.js";
+import Grid from "../ui/grid/grid.jsx";
 
-const ListLines = ({data, variant}) => {
+const ListLines = ({data: initialData, variant}) => {
+  const {data: fetchedData, loading} = useLines(initialData ? null : 'all');
   const [content, setContent] = useState([]);
+  const [data, setData] = useState(initialData || []);
   
   const [filters, setFilters] = useState({
     sortOrder: "none",
@@ -22,6 +26,12 @@ const ListLines = ({data, variant}) => {
   
   const [lineTypes, setLineTypes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  
+  useEffect(() => {
+    if (!initialData && fetchedData) {
+      setData(fetchedData);
+    }
+  }, [initialData, fetchedData]);
   
   useEffect(() => {
     if (Array.isArray(data)) {
@@ -35,15 +45,9 @@ const ListLines = ({data, variant}) => {
       let filteredData = [...data];
       
       // Filtering
-      if (filters.lineType) {
-        filteredData = filteredData.filter(line => Convert.lineType(line.type) === filters.lineType);
-      }
-      if (filters.isMetropolitan) {
-        filteredData = filteredData.filter(line => (filters.isMetropolitan === 'yes' ? line.is_metropolitan : !line.is_metropolitan));
-      }
-      if (filters.company) {
-        filteredData = filteredData.filter(line => line.company_name === filters.company);
-      }
+      if (filters.lineType) filteredData = filteredData.filter(line => Convert.lineType(line.type) === filters.lineType);
+      if (filters.isMetropolitan) filteredData = filteredData.filter(line => (filters.isMetropolitan === 'yes' ? line.is_metropolitan : !line.is_metropolitan));
+      if (filters.company) filteredData = filteredData.filter(line => line.company_name === filters.company);
       
       // Sorting
       filteredData.sort((a, b) => {
@@ -119,6 +123,21 @@ const ListLines = ({data, variant}) => {
     setCurrentPage(pageNumber);
   };
   
+  if (loading && !initialData) {
+    return (
+      <div style={{marginTop: '1rem'}}>
+        <Grid>
+          <Card title="Carregando" subtitle="Aguarde...">
+            Estamos conectando ao banco de dados. Esse processo geralmente é rápido. Por favor, aguarde alguns instantes.
+          </Card>
+          {Array.from({length: 9}, (_, i) => i).map((_, key) => (
+            <Card key={key} variant={"placeholder"}></Card>
+          ))}
+        </Grid>
+      </div>
+    );
+  }
+  
   return (
     <div style={{marginTop: '1rem'}}>
       {variant !== "similar-lines" && (
@@ -147,7 +166,7 @@ const ListLines = ({data, variant}) => {
 }
 
 ListLines.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,
   variant: PropTypes.string,
 }
 

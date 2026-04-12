@@ -6,9 +6,28 @@ const linesWithManualIntegration = [
   4992
 ];
 
+const navLinks = [
+  {name: "Início", path: "./"},
+  {name: "Linhas", path: "./lines"},
+  {name: "Pesquisa", path: "./search", mobileOnly: true},
+  {name: "Notícias", path: "./news"},
+  {name: "Guia", path: "./guide"},
+  {name: "Ao vivo", path: "./live", isLive: true},
+  {name: "Cidade de Sabará", path: "./sabara", mobileOnly: true, showOnlyFooter: true},
+];
+
+const footerLinks = [
+  {name: "Desenvolvimento", path: "/development#topo"},
+  {name: "Termos de serviços", path: "/terms-of-service#topo"},
+  {name: "Privacidade", path: "/privacy#topo"},
+  {name: "Manifesto", path: "/manifest#topo"},
+]
+
 export {
   reportMail,
   contactLotus,
   currentTableFares,
-  linesWithManualIntegration
+  linesWithManualIntegration,
+  navLinks,
+  footerLinks
 }

@@ -6,11 +6,12 @@ import Tooltip from "react-bootstrap/Tooltip";
 import {Link, useLocation} from "react-router-dom";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import {useCallback, useEffect, useRef, useState} from "react";
-import {Nav as BootstrapNav, Navbar, Container, Badge} from "react-bootstrap";
+import {Badge, Container, Nav as BootstrapNav, Navbar} from "react-bootstrap";
 
 import FormNav from "./form-nav.jsx";
 import Util from "@/assets/Util.jsx";
 import infos from "@/assets/infos.jsx"
+import {navLinks} from "@/assets/resources.js";
 import AnimatedComponents from "../animated-component/animated-components.jsx";
 import InstallPWAButton from "../../install-PWA-button/install-PWA-button.jsx";
 import PropTypes from "prop-types";
@@ -77,7 +78,6 @@ const NavScrollspy = ({closeNav}) => {
   useEffect(() => {
     includeElements();
   }, [includeElements]);
-  // }, []);
   
   useEffect(() => {
     if (!elements || !Object.keys(elements).length) return;
@@ -114,7 +114,6 @@ const NavScrollspy = ({closeNav}) => {
       }
     };
   }, [includeElements, elements]);
-  // }, [elements]);
   
   const scrollTo = (e, id) => {
     e.preventDefault();
@@ -238,20 +237,28 @@ const Nav = () => {
               
               <Navbar.Collapse id="basic-navbar-nav">
                 <BootstrapNav className={"me-auto w-100 d-flex " + (width > 1200 ? "align-items-center" : "flex-column align-items-start justify-content-end my-3")}>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./" onClick={() => setExpanded(false)}>Início</BootstrapNav.Link>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./lines" onClick={() => setExpanded(false)}>Linhas</BootstrapNav.Link>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis d-inline-block d-lg-none"} to="./search" onClick={() => setExpanded(false)}>Pesquisa</BootstrapNav.Link>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./news" onClick={() => setExpanded(false)}>Notícias</BootstrapNav.Link>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./guide" onClick={() => setExpanded(false)}>Guia</BootstrapNav.Link>
-                  <BootstrapNav.Link as={Link} className={"text-primary-emphasis"} to="./live" onClick={() => setExpanded(false)}>
-                    <div className={"d-flex align-items-center flex-wrap"}>
-                      {moment().diff(moment("2025-11-14T23:59:00"), "minutes") < 0 && (<Badge className={"rounded-pill me-2 text-uppercase fw-bold"} style={{paddingBottom: "4.25px", paddingTop: "4.25px"}}>Novo</Badge>)}
-                      <div className={"live-indicator me-1"}>
-                        <div className={"live-dot"}></div>
-                      </div>
-                      <span className={"text-danger-emphasis"}>Ao vivo</span>
-                    </div>
-                  </BootstrapNav.Link>
+                  {
+                    navLinks
+                      .filter(n => !n.showOnlyFooter)
+                      .map(link => (
+                        <BootstrapNav.Link
+                          as={Link}
+                          className={`text-primary-emphasis ${link.mobileOnly ? 'd-inline-block d-lg-none' : ''}`}
+                          to={link.path}
+                          onClick={() => setExpanded(false)}
+                          key={link.name}
+                        >
+                          {link.isLive ? (
+                            <div className={"d-flex align-items-center flex-wrap"}>
+                              {moment().diff(moment("2025-11-14T23:59:00"), "minutes") < 0 && (<Badge className={"rounded-pill me-2 text-uppercase fw-bold"} style={{paddingBottom: "4.25px", paddingTop: "4.25px"}}>Novo</Badge>)}
+                              <div className={"live-indicator me-1"}>
+                                <div className={"live-dot"}></div>
+                              </div>
+                              <span className={"text-danger-emphasis"}>{link.name}</span>
+                            </div>
+                          ) : link.name}
+                        </BootstrapNav.Link>
+                      ))}
                   <OverlayTrigger overlay={
                     <Tooltip placement={"bottom"}>
                       <p className={"m-0 p-0 text-sml"}>
