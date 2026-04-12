@@ -108,7 +108,7 @@ const news = [
   {
     title: "Feriado de 21 de abril (Tiradentes) - mudanças no itinerário",
     resume: "Veja como ficam os horários de ônibus durante o feriado de Tiradentes, 21 de abril.",
-    img: "/news/marcopolo-44117.png",
+    img: "/news/neobus-44099.png",
     publishDate: "2026-04-10T00:00:00.000-03:00",
     content: [
       "Na terça-feira, 21 de abril, é celebrado o feriado de Tiradentes. Durante este dia, o quadro de horários das linhas de ônibus municipais e metropolitanas será equivalente ao de domingos e feriados.",

@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {Container} from "react-bootstrap";
+import {Badge, Container} from "react-bootstrap";
 import "./footer.css";
 import {useEffect, useState} from "react";
 import InstallPWAButton from "../../install-PWA-button/install-PWA-button.jsx";
@@ -19,9 +19,7 @@ const Footer = () => {
   useEffect(() => {
     fetch("/register.build.json")
       .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+        if (!response.ok) throw new Error('Network response was not ok');
         return response.json();
       })
       .then((data) => {
@@ -39,6 +37,21 @@ const Footer = () => {
       <footer className="footer border-top bg-body-tertiary">
         <Container className="d-flex flex-column gap-2rem">
           <p className="mb-0 text-body-secondary">&copy; {new Date().getFullYear() || '2024'} Mobilidade</p>
+          
+          <section>
+            <p className="mb-0 text-body-secondary text-sml mb-2">Principais Linhas</p>
+            <div className={"d-flex flex-row gap-1 align-items-center justify-content-start"}>
+              {/*TODO - obter dados através de compartilhamento de contexto junto de algum outro componente que SEMPRE vai aparecer OU requisitar informação e compartilhar com outro componente para evitar múltiplas consultas/requisições à API e banco de dados. Depois manter documentado/comentado o que foi feito OU criar uma variante de principais linhas que renderiza o conteúdo abaixo.*/}
+              {
+                Array.from({length: 10}, (i => i + 1)).map((_, i) => (
+                  <Badge bg={"primary"} pill={true} className={"d-inline-block"} key={i}>
+                    <span className={"text-sml"}>N.º {i}</span>
+                  </Badge>
+                ))
+              }
+            </div>
+          </section>
+          
           <ul className="d-flex flex-column g-3 m-0 p-0 footer-link-list">
             <Link to={"/development#topo"} className="footer-link-list-item">Desenvolvimento</Link>
             <Link to="/terms-of-service#topo" className="footer-link-list-item">Termos de serviços</Link>
@@ -64,7 +77,7 @@ const Footer = () => {
               <i className="bi bi-menu-button-fill"></i>
             </button>
             
-            <ThemeSelector theme={theme} onThemeChange={handleTheme} />
+            <ThemeSelector theme={theme} onThemeChange={handleTheme}/>
             
             <InstallPWAButton/>
             {
