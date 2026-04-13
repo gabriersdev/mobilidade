@@ -6,9 +6,14 @@ import CaptchaVerifier from "./components/captcha-verifier/captcha-verifier.jsx"
 import {Company, DeparturePoints, Development, Guide, HistoryDayDepartureTimes, HistoryDepartureTimes, HistoryFares, Home, Lines, Live, Manifest, News, NotFound, OneDeparturePoints, Privacy, SabaraInfo, Search, TermsOfService} from "./pages/index.d.ts";
 
 const AppRouter = () => {
-  const {isVerified} = useCaptcha();
+  // O hook agora também pode expor uma função para realizar a verificação no backend.
+  const {isVerified, handleVerification} = useCaptcha();
   useGlobalEffects();
-  if (!isVerified) return <CaptchaVerifier/>;
+
+  // Se o usuário não estiver verificado, mostramos o Captcha.
+  // A prop 'onSuccess' será chamada pelo CaptchaVerifier com o token do captcha,
+  // que então aciona a verificação completa no backend.
+  if (!isVerified) return <CaptchaVerifier onSuccess={handleVerification} />;
   
   return (
     <AppLayout>
