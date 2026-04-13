@@ -141,11 +141,21 @@ const NavScrollspy = ({closeNav}) => {
     <AnimatedComponents>
       <div className={"d-inline-flex gap-3 flex-wrap align-items-center justify-content-center py-2"}>
         <BootstrapNav.Item className={"h-100 align-items-center me-2 py-2 d-none gap-3 flex-wrap"}>Navegue por</BootstrapNav.Item>
-        <BootstrapNav.Link className={"text-primary p-0 d-none d-sm-inline-block"} style={areaFocus === "id" ? {fontWeight: "bold"} : {fontWeight: "normal"}} onClick={(e) => scrollTo(e, "#id")}>Informações</BootstrapNav.Link>
-        <BootstrapNav.Link className={"text-primary p-0"} style={areaFocus === "partidas" ? {fontWeight: "bold"} : {fontWeight: "normal"}} onClick={(e) => scrollTo(e, "#partidas")}>Horários</BootstrapNav.Link>
-        <BootstrapNav.Link className={"text-primary p-0"} style={areaFocus === "paradas" ? {fontWeight: "bold"} : {fontWeight: "normal"}} onClick={(e) => scrollTo(e, "#paradas")}>Paradas</BootstrapNav.Link>
-        <BootstrapNav.Link className={"text-primary p-0"} style={areaFocus === "pontos-de-recarga" ? {fontWeight: "bold"} : {fontWeight: "normal"}} onClick={(e) => scrollTo(e, "#pontos-de-recarga")}>Recarga</BootstrapNav.Link>
-        <BootstrapNav.Link className={"text-primary p-0 d-none"} style={areaFocus === "resume" ? {fontWeight: "bold"} : {fontWeight: "normal"}} onClick={(e) => scrollTo(e, "#resume")}>Sobre</BootstrapNav.Link>
+        <BootstrapNav.Link className={"text-primary p-0 d-none d-sm-inline-block"} onClick={(e) => scrollTo(e, "#id")}>
+          <span style={areaFocus === "id" ? {fontWeight: "600"} : {fontWeight: "normal"}}>Informações</span>
+        </BootstrapNav.Link>
+        <BootstrapNav.Link className={"text-primary p-0"} onClick={(e) => scrollTo(e, "#partidas")}>
+          <span style={areaFocus === "partidas" ? {fontWeight: "600"} : {fontWeight: "normal"}}>Horários</span>
+        </BootstrapNav.Link>
+        <BootstrapNav.Link className={"text-primary p-0"} onClick={(e) => scrollTo(e, "#paradas")}>
+          <span style={areaFocus === "paradas" ? {fontWeight: "600"} : {fontWeight: "normal"}}>Paradas</span>
+        </BootstrapNav.Link>
+        <BootstrapNav.Link className={"text-primary p-0"} onClick={(e) => scrollTo(e, "#pontos-de-recarga")}>
+          <span style={areaFocus === "pontos-de-recarga" ? {fontWeight: "600"} : {fontWeight: "normal"}}>Recarga</span>
+        </BootstrapNav.Link>
+        <BootstrapNav.Link className={"text-primary p-0 d-none"} onClick={(e) => scrollTo(e, "#resume")}>
+          <span style={areaFocus === "resume" ? {fontWeight: "600"} : {fontWeight: "normal"}}>Sobre</span>
+        </BootstrapNav.Link>
       </div>
     </AnimatedComponents>
   )
