@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
 @font-face {
   font-family: Arial;
@@ -28,11 +27,6 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Inter', sans-serif;
 }
 
-.font-monospace,
-.monospace {
-  font-family: 'JetBrains Mono', monospace !important;
-}
-
 main {
   min-height: calc(100vh - 80px);
 }
@@ -43,6 +37,12 @@ main {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 250px;
+}
+
+.badge,
+.badge * {
+  font-weight: 600 !important;
+  letter-spacing: 0.25px;
 }
 
 .resize-none {
@@ -117,6 +117,7 @@ li.breadcrumb-item.bg-body {
   background: transparent !important;
 
   /*noinspection CssUnresolvedCustomProperty*/
+
   a {
     cursor: pointer !important;
     color: var(--bs-text-body) !important;

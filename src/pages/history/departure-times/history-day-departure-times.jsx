@@ -102,7 +102,7 @@ export default function HistoryDayDepartureTimes() {
         </h1>
         
         <Alert variant={"warning"}>
-          <p className={"m-0"}>Você está vendo horários da linha {lineData?.[0]?.["line_number"] || ""} que <b>foram atualizados em {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}.</b> <Link to={`/lines/${lineId}`} className={"text-warning-emphasis"} target={"_blank"}>Clique aqui para visualizar os horários de partidas atuais.</Link></p>
+          <p className={"m-0"}>Você está vendo horários da linha {lineData?.[0]?.["line_number"] || ""} que <b>foram atualizados em {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}.</b> <Link to={`/lines/${lineId}`} className={"text-warning-emphasis"}>Clique aqui para visualizar os horários de partidas atuais.</Link></p>
         </Alert>
         
         <section className={"d-flex gap-5 mt-5 flex-column"}>

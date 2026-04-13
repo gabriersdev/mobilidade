@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import {Button} from "react-bootstrap";
 import PropTypes from "prop-types";
 
-const SeeMore = ({children, mobileOnly = false, height = 200}) => {
+const SeeMore = ({children, mobileOnly = false, height = 200, gradientColor = '--bs-body-bg', secGradientColor = '#fff'}) => {
   const [expanded, setExpanded] = useState(false);
   const [shouldShow, setShouldShow] = useState(false);
   const contentRef = useRef(null);
@@ -48,7 +48,7 @@ const SeeMore = ({children, mobileOnly = false, height = 200}) => {
             className="position-absolute bottom-0 start-0 w-100"
             style={{
               height: "100px",
-              background: "linear-gradient(to bottom, transparent, var(--bs-body-bg, #fff))",
+              background: `linear-gradient(to bottom, transparent, var(${gradientColor}, ${secGradientColor}))`,
               pointerEvents: "none"
             }}
           >
@@ -85,7 +85,8 @@ const SeeMore = ({children, mobileOnly = false, height = 200}) => {
 SeeMore.propTypes = {
   children: PropTypes.node.isRequired,
   mobileOnly: PropTypes.bool,
-  height: PropTypes.number
+  height: PropTypes.number,
+  gradientColor: PropTypes.string,
 }
 
 export default SeeMore;

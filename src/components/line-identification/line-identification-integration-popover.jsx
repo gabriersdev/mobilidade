@@ -1,12 +1,12 @@
 import {Button, ListGroup, ListGroupItem, Popover} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {currentTableFares, linesWithManualIntegration} from "../../assets/resources.js";
+import {currentTableFares, linesWithManualIntegration} from "@/assets/resources.js";
 import {forwardRef} from "react";
 import PropTypes from "prop-types";
 
 const LineIdentificationIntegrationPopover = forwardRef(({line, ...props}, ref) => {
   const lineHaveAIntegration = [...linesWithManualIntegration].map(s => s.toString()).includes(line.line_number);
-
+  
   if (!lineHaveAIntegration) return (
     <Popover id="no-accessibility-popover" ref={ref} {...props}>
       <Popover.Header as="h3" className={"inter"}>Integração</Popover.Header>
@@ -15,7 +15,7 @@ const LineIdentificationIntegrationPopover = forwardRef(({line, ...props}, ref) 
       </Popover.Body>
     </Popover>
   )
-
+  
   return (
     <Popover id="accessibility-popover" ref={ref} {...props}>
       <Popover.Header as="h3" className={"inter"}>Integração</Popover.Header>
@@ -30,7 +30,7 @@ const LineIdentificationIntegrationPopover = forwardRef(({line, ...props}, ref) 
             Não possui integração.
           </ListGroupItem>
         </ListGroup>
-
+        
         <Link to={currentTableFares} rel={"noreferrer noopener"} target={"_blank"} className={"mt-2 d-block"}>
           <Button size={"sm"} className={"text-sml"}>
             Tabela de tarifas <span className={"fs-inherit d-inline-block"} style={{rotate: "-45deg", marginBottom: "1.15px"}}>{"->"}</span>

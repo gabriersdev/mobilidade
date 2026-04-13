@@ -58,36 +58,36 @@ const AccordionOperationDays = () => {
         
         // Special handling for "dia util" vs "dias uteis"
         if (!nameHasDay && currentDayName === 'dia util') {
-            nameHasDay = normalizedName.includes('dias uteis') || normalizedName.includes('dia util');
+          nameHasDay = normalizedName.includes('dias uteis') || normalizedName.includes('dia util');
         }
         
         let score = -1;
         
         if (isVacation) {
-            // Today is Vacation
-            if (nameHasDay) {
-                if (nameHasVacation) {
-                    score = 2; // Exact match (Day + Vacation)
-                } else {
-                    score = 1; // Fallback (Day only)
-                }
+          // Today is Vacation
+          if (nameHasDay) {
+            if (nameHasVacation) {
+              score = 2; // Exact match (Day + Vacation)
+            } else {
+              score = 1; // Fallback (Day only)
             }
+          }
         } else {
-            // Today is Normal
-            if (nameHasDay) {
-                if (!nameHasVacation) {
-                    score = 2; // Exact match (Day only)
-                } else {
-                    // Day matches, but it is a vacation schedule.
-                    // If today is Normal, we should NOT show Vacation schedule.
-                    score = -1;
-                }
+          // Today is Normal
+          if (nameHasDay) {
+            if (!nameHasVacation) {
+              score = 2; // Exact match (Day only)
+            } else {
+              // Day matches, but it is a vacation schedule.
+              // If today is Normal, we should NOT show Vacation schedule.
+              score = -1;
             }
+          }
         }
         
         if (score > bestMatchScore) {
-            bestMatchScore = score;
-            bestMatchIndex = index;
+          bestMatchScore = score;
+          bestMatchIndex = index;
         }
       });
       

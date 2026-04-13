@@ -13,6 +13,7 @@ import PaginationWithItems from "../../components/pagination-with-items/paginati
 import Util from "../../assets/Util.jsx";
 
 import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 const Guide = () => {
@@ -96,6 +97,7 @@ const Guide = () => {
       const uniqueLetters = Object.keys(data).map(key => key[0]).filter((v, i, self) => self.indexOf(v) === i).toSorted();
       setIndicesLetters(uniqueLetters);
       
+      // TODO - refatorar este componente, implementar melhorias na navegabilidade: o conteúdo listado é extremamente extenso e melhorias no feedback de exibição ao usuário: se carregando ou organizando informações, jamais informar que nada foi encontrado ou obtido, e sim, que está carregando a informação.
       setContent(
         <AnimatedComponents>
           <div className={"d-flex flex-column gap-5"}>
@@ -235,7 +237,7 @@ const Guide = () => {
                   {content}
                 </AnimatedComponents>
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-4 mt-3 mt-lg-0">
                 <Card className="p-0 position-sticky" style={{top: "6rem"}}>
                   <CardHeader className="bg-body-secondary">
                     <CardTitle className={"fs-6 px-3 py-3 m-0 border-bottom"}>Índice de letras</CardTitle>

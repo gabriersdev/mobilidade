@@ -29,6 +29,7 @@ const Live = () => {
     data,
     dataNextDepartureTimes,
     error,
+    loading,
     lines,
     departurePoints,
     datetimeOriginalFetch,
@@ -37,8 +38,6 @@ const Live = () => {
     configs,
     setConfigs,
     labelsConfigs,
-    
-    // fetchData
   } = useLiveComponent();
   
   const alertShowSomeDepartureStartHasShowed = useRef(false);
@@ -51,14 +50,13 @@ const Live = () => {
   
   useEffect(() => {
     setLabel("live", "Ao vivo");
-  }, []);
+  }, [setLabel]);
   
   useEffect(() => {
-    // Definir o ?sei = departurePointSelected.id
-    const base = "/live"
+    const base = "/live";
     if (departurePointSelected?.id) navigate(base + "?sei=" + (departurePointSelected?.["id"] ?? ""));
     else navigate(base);
-  }, [departurePointSelected]);
+  }, [departurePointSelected, navigate]);
   
   return (
     <AnimatedComponents>
@@ -71,7 +69,7 @@ const Live = () => {
         {departurePoints ? <LiveFormDeparturePoints departurePoints={departurePoints} setDeparturePointSelected={setDeparturePointSelected}/> : <LoadingDeparturePoints/>}
       </div>
       
-      <div className={"rounded-3 bg-body-secondary p-3 mt-5"} ref={resultSection}>
+      <div className={"rounded-3 bg-body-secondary p-3 mt-5 position-relative"} ref={resultSection}>
         <div className={"d-flex flex-column gap-0"}>
           <Weather/>
           <AlertInfoFeature/>
@@ -79,47 +77,51 @@ const Live = () => {
         
         {error && <LiveGeneralError/>}
         
-        {
-          departurePointSelected && (
-            <>
-              <div className={"d-flex flex-column gap-0 mb-3"}>
-                <span className={"text-muted text-sml"}>Local</span>
-                <span>{Util.renderText(departurePointSelected?.["title"])}</span>
-              </div>
-              
-              {
-                (data && Array.isArray(data) && data.length) ? (
-                  <>
-                    <div className={"d-flex gap-3 flex-wrap mb-3"}>
-                      <div className={"d-flex flex-column gap-0 mb-3"}>
-                        <span className={"text-muted text-sml"}>Atualizado</span>
-                        <span>{moment.isMoment(datetimeOriginalFetch) ? Util.diffToHuman(datetimeOriginalFetch) : "-"}</span>
-                      </div>
-                      
-                      <div className={"d-flex flex-column gap-0 mb-3"}>
-                        <span className={"text-muted text-sml"}>Agora são</span>
-                        <span>{Util.renderText(moment.isMoment(now) ? now.format("HH:mm:ss") : "-")}</span>
-                      </div>
+        {departurePointSelected && (
+          <>
+            <div className={"d-flex flex-column gap-0 mb-3"}>
+              <span className={"text-muted text-sml"}>Local</span>
+              <span>{Util.renderText(departurePointSelected?.["title"])}</span>
+            </div>
+            
+            {loading ? <LoadingDeparturePoints /> : (
+              (data && Array.isArray(data) && data.length) ? (
+                <>
+                  <div className={"d-flex gap-3 flex-wrap mb-3"}>
+                    <div className={"d-flex flex-column gap-0 mb-3"}>
+                      <span className={"text-muted text-sml"}>Atualizado</span>
+                      <span>{moment.isMoment(datetimeOriginalFetch) ? Util.diffToHuman(datetimeOriginalFetch) : "-"}</span>
                     </div>
                     
-                    {configs?.["showSomeDepartureStart"] && <AlertInfoConfigSomeDepartureStart/>}
-                    {configs?.["showSingleLine"] ?
-                      <LiveListSingleLine data={data}/> :
-                      <LiveListResults data={data} dataNextDepartureTimes={dataNextDepartureTimes} configs={configs}/>
-                    }
-                  </>
-                ) : <AnyBusProximityError/>
-              }
-            </>
-          )
-        }
+                    <div className={"d-flex flex-column gap-0 mb-3"}>
+                      <span className={"text-muted text-sml"}>Agora são</span>
+                      <span>{Util.renderText(moment.isMoment(now) ? now.format("HH:mm:ss") : "-")}</span>
+                    </div>
+                  </div>
+                  
+                  {configs?.["showSomeDepartureStart"] && <AlertInfoConfigSomeDepartureStart/>}
+                  {configs?.["showSingleLine"] ?
+                    <LiveListSingleLine data={data} configs={configs}/> :
+                    <LiveListResults data={data} dataNextDepartureTimes={dataNextDepartureTimes} configs={configs} />
+                  }
+                </>
+              ) : <AnyBusProximityError/>
+            )}
+          </>
+        )}
         
-        {alertShowSomeDepartureStartHasShowed.current && !departurePointSelected && <SelectOneDeparturePoint/>}
+        {!departurePointSelected && <SelectOneDeparturePoint/>}
+        
         <LiveFullscreenControl resultSection={resultSection}/>
       </div>
       
       <div className={"d-flex flex-column gap-3 mt-3"}>
-        <LiveConfigs configs={configs} setConfigs={setConfigs} labelsConfigs={labelsConfigs}/>
+        <LiveConfigs
+          configs={configs}
+          setConfigs={setConfigs}
+          labelsConfigs={labelsConfigs}
+          resultSection={resultSection}
+        />
       </div>
     </AnimatedComponents>
   );

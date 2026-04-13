@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const BreadcrumbContext = createContext();
 
 // TODO - Move your component(s) to a separate file
-const BreadcrumbProvider = ({ children }) => {
+export const BreadcrumbProvider = ({ children }) => {
   const [labels, setLabels] = useState({});
 
   const setLabel = useCallback((key, value) => {

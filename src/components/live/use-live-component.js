@@ -15,6 +15,7 @@ const useLiveComponent = () => {
   const [data, setData] = useState([]);
   const [dataNextDepartureTimes, setDataNextDepartureTimes] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [lines, setLines] = useState(null);
   const [departurePoints, setDeparturePoints] = useState(null);
   const [configs, setConfigs] = useState(() => {
@@ -64,20 +65,27 @@ const useLiveComponent = () => {
     });
     
     await axios.get(`${config.host}/api/physical-departure-points/`).then((c) => {
-      setDeparturePoints(c.data?.[0].map(c => {
-        return {
+      setDeparturePoints(c.data?.[0].map((c, index) => {
+        const formattedObject = {
           id: c?.["stop_id"] ?? -1,
-          title: (((c?.["stop_name"] ? c?.["stop_name"] + " - " : "") + " " + c?.["address"])?.trim() ?? "").replaceAll("/", " - "),
+          title: (((c?.["stop_name"] ? c?.["stop_name"] + " - " : "") + " " + c?.["address"] + (index <= 14 ? ` ★` : ''))?.trim() ?? "").replaceAll("/", " - "),
           name: (c?.["address"]?.trim() ?? "").replaceAll("/", " - "),
         }
+        
+        if (formattedObject.id && parseInt(formattedObject.id, 10) === 4095) setDeparturePointSelected(formattedObject);
+        return formattedObject;
       }));
     }).catch((error) => {
       setError(error);
     });
   }, []);
   
-  const fetchData = async (departurePointSelected) => {
+  const fetchData = async (departurePointSelected, isRefresh = false) => {
     if (!departurePointSelected) return;
+    if (!isRefresh) {
+      setLoading(true);
+    }
+    
     const s = await axios.post(`${config.host}/api/predictions/departure-points/`, {
       pointId: departurePointSelected?.["id"] ?? -1
     }).catch((error) => {
@@ -85,6 +93,7 @@ const useLiveComponent = () => {
       setError(error);
       setIsOriginalFetch(false);
       setDatetimeOriginalFetch(null);
+      if (!isRefresh) setLoading(false);
       return false;
     });
     
@@ -107,6 +116,9 @@ const useLiveComponent = () => {
     }
     
     setError(null);
+    if (!isRefresh) {
+      setLoading(false);
+    }
   };
   
   const fetchPhysicalPointId = async (pointId) => {
@@ -157,7 +169,7 @@ const useLiveComponent = () => {
     if (departurePointSelected) {
       setData([]);
       setDataNextDepartureTimes([]);
-      fetchData(departurePointSelected).then(() => {
+      fetchData(departurePointSelected, false).then(() => {
       });
     } else {
       setData(null);
@@ -189,7 +201,7 @@ const useLiveComponent = () => {
       }
       
       int = setInterval(() => {
-        if (moment().diff(datetimeOriginalFetch, "seconds") % 60) fetchData(departurePointSelected).then();
+        if (moment().diff(datetimeOriginalFetch, "seconds") % 60) fetchData(departurePointSelected, true).then();
       }, 1000 * 30);
     }
     
@@ -282,6 +294,8 @@ const useLiveComponent = () => {
     setDataNextDepartureTimes,
     error,
     setError,
+    loading,
+    setLoading,
     lines,
     setLines,
     departurePoints,

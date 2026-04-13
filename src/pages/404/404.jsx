@@ -4,11 +4,12 @@ import {Link} from "react-router-dom";
 import {useEffect} from "react";
 
 import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 const NotFound = () => {
   document.title = `Mobilidade - Companhias`;
-  const { setLabel } = useBreadcrumb();
+  const {setLabel} = useBreadcrumb();
   
   useEffect(() => {
     // No contexto do 404, talvez queiramos limpar ou definir algo específico
