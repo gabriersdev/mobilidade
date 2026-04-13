@@ -1,217 +1,22 @@
 import "./nav.css";
-
-import moment from 'moment';
 import 'moment/locale/pt-br';
-import Tooltip from "react-bootstrap/Tooltip";
-import {Link, useLocation} from "react-router-dom";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import {useCallback, useEffect, useRef, useState} from "react";
-import {Badge, Container, Nav as BootstrapNav, Navbar} from "react-bootstrap";
+import moment from 'moment';
+import {Link} from "react-router-dom";
+import {Badge, Container, Nav as BootstrapNav, Navbar, OverlayTrigger, Tooltip} from "react-bootstrap";
 
-import FormNav from "./form-nav.jsx";
-import Util from "@/assets/Util.jsx";
-import infos from "@/assets/infos.jsx"
+import {useNavState} from "./use-nav-state.js";
 import {navLinks} from "@/assets/resources.js";
+import Util from "@/assets/Util.jsx";
+import FormNav from "./form-nav.jsx";
+import BarInfo from "./bar-info.jsx";
+import NavScrollspy from "./nav-scrollspy.jsx";
 import AnimatedComponents from "../animated-component/animated-components.jsx";
 import InstallPWAButton from "../../install-PWA-button/install-PWA-button.jsx";
-import PropTypes from "prop-types";
 
 moment.locale("pt-br");
 
-const BarInfo = () => {
-  const [show, setShow] = useState(false);
-  
-  useEffect(() => {
-    setShow(document.body.offsetWidth > 766);
-    
-    window.addEventListener("resize", () => {
-      setShow(document.body.offsetWidth > 766);
-    })
-  }, []);
-  
-  const isValidInfos = infos.filter(i => {
-    return new Date().getTime() >= new Date(i.init).getTime() &&
-      new Date().getTime() <= new Date(i.finish).getTime()
-  })
-  
-  const ret = (title, message) => (
-    <details className={"container"} open={show}>
-      <summary className={"fs-6 mb-0 fw-bold text-danger text-balance bar-info-summary sm-text-center"}>
-        <i className="bi bi-exclamation-triangle-fill me-2"></i>
-        {title}
-      </summary>
-      <p className={"text-sml mt-2 mb-0 text-balance sm-text-center text-danger-emphasis"}>{message}</p>
-    </details>
-  )
-  
-  return isValidInfos.map(({title, message, link}, index) => (
-    <div className={`py-4 bg-danger-subtle border-bottom border-danger-subtle`} style={infos.length - 1 === index ? {zIndex: 100} : {}} key={index}>
-      {
-        link ? (
-          <Link to={link} key={index} className={'text-decoration-none'}>
-            {ret(title, message)}
-          </Link>
-        ) : (
-          <>{ret(title, message)}</>
-        )
-      }
-    </div>
-  ))
-}
-
-const NavScrollspy = ({closeNav}) => {
-  const [elements, setElements] = useState({});
-  const [areaFocus, setAreaFocus] = useState(null);
-  const variable = useRef(null);
-  
-  const includeElements = useCallback(() => {
-    ["partidas", "paradas", "pontos-de-recarga", "resume"].forEach(i => {
-      setElements(prev => {
-        return {
-          ...prev,
-          [i]: document.querySelector(`#${i}`)
-        }
-      })
-    })
-  }, []);
-  
-  useEffect(() => {
-    includeElements();
-  }, [includeElements]);
-  
-  useEffect(() => {
-    if (!elements || !Object.keys(elements).length) return;
-    
-    const handleScroll = () => {
-      const distances = Object.entries(elements).map(([key, value]) => {
-        if (!value) return;
-        return {id: key, distance: value.getBoundingClientRect().y};
-      });
-      
-      if (!distances || distances.every(d => !d)) {
-        includeElements()
-        return
-      }
-      
-      distances.sort((a, b) => a.distance > b.distance);
-      let moreProximity;
-      
-      if (distances.every(d => d.distance < 0)) moreProximity = distances[distances.length - 1]
-      else if (distances.find(d => d.distance < 0)) moreProximity = distances.find(d => d.distance > 0);
-      else moreProximity = distances[0];
-      
-      if (moreProximity) setAreaFocus(moreProximity.id)
-      else setAreaFocus(null)
-    };
-    
-    variable.current = handleScroll;
-    window.addEventListener("scroll", handleScroll);
-    
-    return () => {
-      if (variable.current) {
-        window.removeEventListener("scroll", variable.current);
-        variable.current = null;
-      }
-    };
-  }, [includeElements, elements]);
-  
-  const scrollTo = (e, id) => {
-    e.preventDefault();
-    const el = document.querySelector(`${id}`);
-    const navbar = document.querySelector(`nav.navbar`);
-    
-    let offset = navbar.clientHeight;
-    if (closeNav) {
-      closeNav();
-      const toggler = navbar.querySelector('.navbar-toggler');
-      if (toggler && window.getComputedStyle(toggler).display !== 'none') {
-        const brand = navbar.querySelector('.navbar-brand');
-        if (brand) offset = brand.offsetHeight + 20;
-      }
-    }
-    
-    window.scrollTo({
-      top: el.offsetTop - offset,
-      behavior: "smooth"
-    });
-    window.location.hash = id;
-  }
-  
-  return (
-    <AnimatedComponents>
-      <div className={"d-inline-flex gap-3 flex-wrap align-items-center justify-content-center py-2"}>
-        <BootstrapNav.Item className={"h-100 align-items-center me-2 py-2 d-none gap-3 flex-wrap"}>Navegue por</BootstrapNav.Item>
-        <BootstrapNav.Link className={"text-primary p-0 d-none d-sm-inline-block"} onClick={(e) => scrollTo(e, "#id")}>
-          <span style={areaFocus === "id" ? {fontWeight: "600"} : {fontWeight: "normal"}}>Informações</span>
-        </BootstrapNav.Link>
-        <BootstrapNav.Link className={"text-primary p-0"} onClick={(e) => scrollTo(e, "#partidas")}>
-          <span style={areaFocus === "partidas" ? {fontWeight: "600"} : {fontWeight: "normal"}}>Horários</span>
-        </BootstrapNav.Link>
-        <BootstrapNav.Link className={"text-primary p-0"} onClick={(e) => scrollTo(e, "#paradas")}>
-          <span style={areaFocus === "paradas" ? {fontWeight: "600"} : {fontWeight: "normal"}}>Paradas</span>
-        </BootstrapNav.Link>
-        <BootstrapNav.Link className={"text-primary p-0"} onClick={(e) => scrollTo(e, "#pontos-de-recarga")}>
-          <span style={areaFocus === "pontos-de-recarga" ? {fontWeight: "600"} : {fontWeight: "normal"}}>Recarga</span>
-        </BootstrapNav.Link>
-        <BootstrapNav.Link className={"text-primary p-0 d-none"} onClick={(e) => scrollTo(e, "#resume")}>
-          <span style={areaFocus === "resume" ? {fontWeight: "600"} : {fontWeight: "normal"}}>Sobre</span>
-        </BootstrapNav.Link>
-      </div>
-    </AnimatedComponents>
-  )
-}
-
 const Nav = () => {
-  const [width, setWidth] = useState(document.body.offsetWidth);
-  const location = useLocation();
-  const [isInLinePage, setIsInLinePage] = useState(null);
-  const formatString = useRef("dddd DD/MM HH[h]mm[min]");
-  const [sabaraTime, setSabaraTime] = useState(moment().format(formatString.current));
-  const [expanded, setExpanded] = useState(false);
-  const navbarRef = useRef(null);
-  
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      setWidth(document.body.offsetWidth);
-    })
-  }, []);
-  
-  useEffect(() => {
-    if (location.pathname.match(/lines\/\d*/)) setIsInLinePage(true)
-    else setIsInLinePage(false)
-  }, [location]);
-  
-  useEffect(() => {
-    const int = setInterval(() => {
-      setSabaraTime(moment().format(formatString.current));
-    }, 1000);
-    
-    return () => {
-      clearInterval(int);
-    }
-  }, []);
-  
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) {
-          setExpanded(false);
-        }
-      },
-      {threshold: 0}
-    );
-    
-    const currentRef = navbarRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-    
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, []);
+  const {width, isInLinePage, sabaraTime, expanded, setExpanded, navbarRef} = useNavState();
   
   return (
     <>
@@ -219,84 +24,59 @@ const Nav = () => {
         <BarInfo/>
       </AnimatedComponents>
       
-      <div ref={navbarRef} className={`${width > 1200 ? "position-sticky top-0" : ""}`} style={width > 766 ? {zIndex: 200} : {zIndex: 100}}>
+      <div ref={navbarRef} className={`${width > 1200 ? "position-sticky top-0" : ""}`} style={{zIndex: width > 766 ? 200 : 100}}>
         <AnimatedComponents>
           <Navbar expand="lg" className={`bg-body-tertiary border-bottom ${width > 766 ? "position-sticky top-0" : ""}`} expanded={expanded} onToggle={setExpanded}>
-            <Container className="my-1 d-flex align-items-start justify-content-between flex-md-column  align-items-xl-center flex-xl-row w-100 flex-wrap ">
-              <div className={"d-flex align-items-center justify-content-between gap-1 flex-row w-100 flex-wrap"}>
-                <Navbar.Brand
-                  as={Link}
-                  to="./"
-                  onClick={() => setExpanded(false)}
-                  className={"text-body-secondary me-5 d-flex justify-content-center align-items-center flex-wrap"}
-                >
+            <Container className="my-1 d-flex align-items-start justify-content-between flex-md-column align-items-xl-center flex-xl-row w-100 flex-wrap">
+              <div className="d-flex align-items-center justify-content-between gap-1 flex-row w-100 flex-wrap">
+                <Navbar.Brand as={Link} to="./" onClick={() => setExpanded(false)} className="text-body-secondary me-5 d-flex justify-content-center align-items-center flex-wrap">
                   <img src={'/images/logo-transparent.png'} alt={'Logo'} className={'me-2'} style={{height: '3rem'}}/>
-                  <div style={{fontFamily: "'Inter', 'Inter Tight', sans-serif"}} className={"d-flex flex-column"}>
-                    <span className={"text-primary d-block"}>Mobilidade</span>
-                    <span className={"text-primary-emphasis text-sml d-none d-sm-inline-block"}>Transporte Público em Sabará-MG</span>
-                    <span className={"text-primary-emphasis text-sml d-inline-block d-sm-none"}>em Sabará-MG</span>
+                  <div style={{fontFamily: "'Inter', 'Inter Tight', sans-serif"}} className="d-flex flex-column">
+                    <span className="text-primary d-block">Mobilidade</span>
+                    <span className="text-primary-emphasis text-sml d-none d-sm-inline-block">Transporte Público em Sabará-MG</span>
+                    <span className="text-primary-emphasis text-sml d-inline-block d-sm-none">em Sabará-MG</span>
                   </div>
                 </Navbar.Brand>
                 
-                <div className={"d-none d-lg-block"}>
-                  <FormNav/>
-                </div>
-                
-                <Navbar.Toggle aria-controls="basic-navbar-nav" className={"mt-3 mt-sm-0 p-0 me-2 mb-2 border-0 rounded-0"} style={{boxShadow: "none"}}/>
+                <div className="d-none d-lg-block"><FormNav/></div>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className="mt-3 mt-sm-0 p-0 me-2 mb-2 border-0 rounded-0" style={{boxShadow: "none"}}/>
               </div>
               
               <Navbar.Collapse id="basic-navbar-nav">
-                <BootstrapNav className={"me-auto w-100 d-flex " + (width > 1200 ? "align-items-center" : "flex-column align-items-start justify-content-end my-3")}>
-                  {
-                    navLinks
-                      .filter(n => !n.showOnlyFooter)
-                      .map(link => (
-                        <BootstrapNav.Link
-                          as={Link}
-                          className={`text-primary-emphasis ${link.mobileOnly ? 'd-inline-block d-lg-none' : ''}`}
-                          to={link.path}
-                          onClick={() => setExpanded(false)}
-                          key={link.name}
-                        >
-                          {link.isLive ? (
-                            <div className={"d-flex align-items-center flex-wrap"}>
-                              {moment().diff(moment("2025-11-14T23:59:00"), "minutes") < 0 && (<Badge className={"rounded-pill me-2 text-uppercase fw-bold"} style={{paddingBottom: "4.25px", paddingTop: "4.25px"}}>Novo</Badge>)}
-                              <div className={"live-indicator me-1"}>
-                                <div className={"live-dot"}></div>
-                              </div>
-                              <span className={"text-danger-emphasis"}>{link.name}</span>
-                            </div>
-                          ) : link.name}
-                        </BootstrapNav.Link>
-                      ))}
-                  <OverlayTrigger overlay={
-                    <Tooltip placement={"bottom"}>
-                      <p className={"m-0 p-0 text-sml"}>
-                        {Util.translateWeekDay(sabaraTime?.split(" ")?.[0], {suffix: true})},{" "}
-                        {Util.renderText((sabaraTime?.split(" ")?.[1]))}
-                      </p>
-                    </Tooltip>
-                  }>
-                    <Link to={"/sabara"} onClick={() => setExpanded(false)} className={"d-flex flex-row align-items-center gap-1 text-decoration-none " + (width > 1200 ? "mx-2" : "mt-2 mx-0")}>
-                      <span className={"text-body-secondary d-inline-block"}>Sabará</span>
+                <BootstrapNav className={`me-auto w-100 d-flex ${width > 1200 ? "align-items-center" : "flex-column align-items-start justify-content-end my-3"}`}>
+                  {navLinks.filter(n => !n.showOnlyFooter).map(link => (
+                    <BootstrapNav.Link as={Link} className={`text-primary-emphasis ${link.mobileOnly ? 'd-inline-block d-lg-none' : ''}`} to={link.path} onClick={() => setExpanded(false)} key={link.name}>
+                      {link.isLive ? (
+                        <div className="d-flex align-items-center flex-wrap">
+                          {moment().diff(moment("2025-11-14T23:59:00"), "minutes") < 0 && (<Badge className="rounded-pill me-2 text-uppercase fw-bold" style={{paddingBottom: "4.25px", paddingTop: "4.25px"}}>Novo</Badge>)}
+                          <div className="live-indicator me-1">
+                            <div className="live-dot"></div>
+                          </div>
+                          <span className="text-danger-emphasis">{link.name}</span>
+                        </div>
+                      ) : link.name}
+                    </BootstrapNav.Link>
+                  ))}
+                  <OverlayTrigger overlay={<Tooltip placement="bottom"><p className="m-0 p-0 text-sml">{Util.translateWeekDay(sabaraTime?.split(" ")?.[0], {suffix: true})}, {Util.renderText((sabaraTime?.split(" ")?.[1]))}</p></Tooltip>}>
+                    <Link to="/sabara" onClick={() => setExpanded(false)} className={`d-flex flex-row align-items-center gap-1 text-decoration-none ${width > 1200 ? "mx-2" : "mt-2 mx-0"}`}>
+                      <span className="text-body-secondary d-inline-block">Sabará</span>
                       <i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i>
-                      <div className={"text-body-secondary d-none d-sm-inline-block"}>
-                        <span className={"text-uppercase"}>{Util.renderText((sabaraTime?.split(" ")?.[1]))}</span>
-                        <span>{" "}{sabaraTime?.split(" ")?.[2]}</span>
+                      <div className="text-body-secondary d-none d-sm-inline-block">
+                        <span className="text-uppercase">{Util.renderText((sabaraTime?.split(" ")?.[1]))}</span>
+                        <span> {sabaraTime?.split(" ")?.[2]}</span>
                       </div>
-                      <div className={"text-body-secondary d-inline-block d-sm-none"}>
-                        <span className={"text-uppercase"}>{Util.renderText((sabaraTime?.split(" ")?.[1])?.normalize("NFD"))}</span>
-                        <span>{" "}{sabaraTime?.split(" ")?.[2]}</span>
+                      <div className="text-body-secondary d-inline-block d-sm-none">
+                        <span className="text-uppercase">{Util.renderText((sabaraTime?.split(" ")?.[1])?.normalize("NFD"))}</span>
+                        <span> {sabaraTime?.split(" ")?.[2]}</span>
                       </div>
                     </Link>
                   </OverlayTrigger>
-                  <div className={"ms-2"}><InstallPWAButton onClick={() => setExpanded(false)}/></div>
-                  {isInLinePage && width > 766 ? (
-                    <div className={width > 991 ? "d-flex flex-wrap justify-content-end flex-grow-1" : ""} id={"nav-scrollspy"}>
+                  <div className="ms-2"><InstallPWAButton onClick={() => setExpanded(false)}/></div>
+                  {isInLinePage && width > 766 && (
+                    <div className={width > 991 ? "d-flex flex-wrap justify-content-end flex-grow-1" : ""} id="nav-scrollspy">
                       <NavScrollspy closeNav={() => setExpanded(false)}/>
                     </div>
-                  ) : ""
-                  }
+                  )}
                 </BootstrapNav>
               </Navbar.Collapse>
             </Container>
@@ -304,25 +84,19 @@ const Nav = () => {
         </AnimatedComponents>
       </div>
       
-      {
-        isInLinePage && width < 766 ? (
-          <div className={`${width < 766 ? "position-sticky top-0" : ""}`} style={width < 766 ? {zIndex: 200} : {zIndex: 100}}>
-            <AnimatedComponents>
-              <div className={"bg-body-tertiary border-bottom py-2"}>
-                <div className={"container d-flex align-items-center justify-content-center gap-3 flex-wrap"} id={"nav-scrollspy"}>
-                  <NavScrollspy/>
-                </div>
+      {isInLinePage && width < 766 && (
+        <div className="position-sticky top-0" style={{zIndex: 200}}>
+          <AnimatedComponents>
+            <div className="bg-body-tertiary border-bottom py-2">
+              <div className="container d-flex align-items-center justify-content-center gap-3 flex-wrap" id="nav-scrollspy">
+                <NavScrollspy/>
               </div>
-            </AnimatedComponents>
-          </div>
-        ) : ""
-      }
+            </div>
+          </AnimatedComponents>
+        </div>
+      )}
     </>
-  )
-}
-
-NavScrollspy.propTypes = {
-  closeNav: PropTypes.func
-}
+  );
+};
 
 export default Nav;
