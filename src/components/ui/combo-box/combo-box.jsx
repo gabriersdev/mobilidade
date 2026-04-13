@@ -1,69 +1,20 @@
-import {useEffect, useState} from 'react';
-import {useCombobox} from 'downshift';
-import {Button, Form, InputGroup, ListGroup} from 'react-bootstrap';
 import PropTypes from "prop-types";
+import {useComboBoxLogic} from './use-combo-box-logic.js';
+import {ComboBoxInput} from './combo-box-input.jsx';
+import {ComboBoxMenu} from './combo-box-menu.jsx';
 
 export default function GenericCombobox({
-                                          items: initialItems,
-                                          itemToString,
-                                          onSelectedItemChange,
-                                          onInputValueChange,
-                                          label,
-                                          subLabel,
-                                          required,
-                                          placeholder = '',
-                                        }) {
-  const [items, setItems] = useState(initialItems);
-  
-  useEffect(() => {
-    setItems(initialItems);
-  }, [initialItems]);
-  
-  const getItemsFilter = (inputValue) => {
-    let lowerCasedInputValue;
-    
-    try {
-      lowerCasedInputValue = inputValue?.toLowerCase()?.normalize("NFD")?.trim();
-    } catch (error) {
-      if (error.toString().includes("-1")) console.log(error);
-      lowerCasedInputValue = "";
-    }
-    
-    return function itemsFilter(item) {
-      return (
-        !inputValue ||
-        Object.values(item).some((value) =>
-          String(value)?.toLowerCase()?.normalize("NFD")?.trim()?.includes(lowerCasedInputValue),
-        )
-      );
-    };
-  };
-  
-  function stateReducer(state, actionAndChanges) {
-    const {type, changes} = actionAndChanges;
-    switch (type) {
-      case useCombobox.stateChangeTypes.InputChange:
-      case useCombobox.stateChangeTypes.InputBlur:
-        // Prevents the selected item from being cleared when the input value changes or blurs.
-        // The selection should only change when an item is clicked or the reset button is used.
-        return {
-          ...changes,
-          selectedItem: state.selectedItem,
-        };
-      case useCombobox.stateChangeTypes.FunctionReset:
-        // Handles the 'X' button click, clearing the input and selection.
-        return {
-          ...changes,
-          selectedItem: null,
-          inputValue: '',
-        };
-      default:
-        // Applies default behavior for other actions like item selection.
-        return changes;
-    }
-  }
-  
+  items: initialItems,
+  itemToString,
+  onSelectedItemChange,
+  onInputValueChange,
+  label,
+  subLabel,
+  required,
+  placeholder = '',
+}) {
   const {
+    items,
     isOpen,
     getToggleButtonProps,
     getLabelProps,
@@ -72,103 +23,33 @@ export default function GenericCombobox({
     getItemProps,
     highlightedIndex,
     reset,
-  } = useCombobox({
-    items,
+  } = useComboBoxLogic({
+    initialItems,
     itemToString,
-    stateReducer, // Use the custom state reducer.
-    onSelectedItemChange: (changes) => {
-      if (onSelectedItemChange) {
-        onSelectedItemChange(changes.selectedItem);
-      }
-    },
-    onInputValueChange: ({inputValue}) => {
-      setItems(initialItems.filter(getItemsFilter(inputValue)));
-      if (onInputValueChange) {
-        onInputValueChange(inputValue);
-      }
-    },
+    onSelectedItemChange,
+    onInputValueChange,
   });
-  
+
   return (
     <div className={"flex-grow-1 flex-shrink-1"}>
-      <Form.Group className="" data-element={"form-group"}>
-        {label && (<Form.Label {...getLabelProps()} className={"mb-1"}>{label}</Form.Label>)}
-        
-        <InputGroup>
-          <Form.Control
-            {...getInputProps()}
-            required={required}
-            placeholder={placeholder}
-            data-testid="combobox-input"
-          />
-          
-          <Button
-            {...getToggleButtonProps()}
-            aria-label="toggle menu"
-            variant="outline-secondary"
-            className={"border text-body-tertiary bg-body"}
-            data-testid="combobox-toggle-button"
-            type={"button"}
-            style={{borderRadius: 0}}
-          >
-            {isOpen ? <>&#8593;</> : <>&#8595;</>}
-          </Button>
-          
-          <Button
-            aria-label="clear selection"
-            variant="outline-secondary"
-            className={"border text-body-tertiary bg-body d-none d-md-block"}
-            type={"button"}
-            style={{borderRadius: 0}}
-            onClick={() => reset()} // Reset clears the selection via the stateReducer.
-          >
-            <i className="bi bi-x-lg"></i>
-          </Button>
-        </InputGroup>
-      </Form.Group>
-      
-      <div>
-        <ListGroup
-          {...getMenuProps()}
-          as="ul"
-          className={`mt-3 w-72 position-absolute shadow-sm overflow-auto
-            ${!(isOpen && items.length) ? 'd-none' : ''}
-            ${items.length > 1 ? '' : ''}
-          `}
-          style={{maxHeight: '20rem', zIndex: 1000, marginLeft: '-0.75rem'}}
-          data-testid="combobox-menu"
-        >
-          {isOpen && items.map((item, index) => (
-            <>
-              {
-                subLabel && index === 0 && (
-                  <ListGroup.Item className={"border-bottom-0 text-sml"}>
-                    {subLabel}
-                  </ListGroup.Item>
-                )
-              }
-              
-              <ListGroup.Item
-                as="li"
-                id={`${item.id || item.name}-${index}`}
-                key={`${item.id || item.name}-${index}`}
-                {...getItemProps({item, index})}
-                active={highlightedIndex === index}
-                className={"cursor-pointer"}
-                data-testid={`combobox-item-${index}`}
-              >
-                {item.title && (
-                  <>
-                    <span>{item.title}</span>
-                    <br/>
-                  </>
-                )}
-                <span className={item.title ? "text-sml small" : ""}>{item.name}</span>
-              </ListGroup.Item>
-            </>
-          ))}
-        </ListGroup>
-      </div>
+      <ComboBoxInput
+        label={label}
+        getLabelProps={getLabelProps}
+        getInputProps={getInputProps}
+        required={required}
+        placeholder={placeholder}
+        getToggleButtonProps={getToggleButtonProps}
+        isOpen={isOpen}
+        reset={reset}
+      />
+      <ComboBoxMenu
+        isOpen={isOpen}
+        items={items}
+        getMenuProps={getMenuProps}
+        subLabel={subLabel}
+        getItemProps={getItemProps}
+        highlightedIndex={highlightedIndex}
+      />
     </div>
   );
 }
