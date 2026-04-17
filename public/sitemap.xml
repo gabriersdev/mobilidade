@@ -1,4 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://mobilidade.lts.app.br/404/404</loc></url><url><loc>https://mobilidade.lts.app.br/company/company</loc></url><url><loc>https://mobilidade.lts.app.br/guide/guide</loc></url><url><loc>https://mobilidade.lts.app.br/development/development</loc></url><url><loc>https://mobilidade.lts.app.br/home/home</loc></url><url><loc>https://mobilidade.lts.app.br/lines/lines</loc></url><url><loc>https://mobilidade.lts.app.br/live/live</loc></url><url><loc>https://mobilidade.lts.app.br/manifest/manifest</loc></url><url><loc>https://mobilidade.lts.app.br/news/news</loc></url><url><loc>https://mobilidade.lts.app.br/privacy/privacy</loc></url><url><loc>https://mobilidade.lts.app.br/sabara-info/sabara-info</loc></url><url><loc>https://mobilidade.lts.app.br/search/search</loc></url><url><loc>https://mobilidade.lts.app.br/terms-of-service/terms-of-service</loc></url><url><loc>https://mobilidade.lts.app.br/history/departure-points/departure-points</loc></url><url><loc>https://mobilidade.lts.app.br/history/departure-points/one-departure-points</loc></url><url><loc>https://mobilidade.lts.app.br/history/departure-times/history-day-departure-times</loc></url><url><loc>https://mobilidade.lts.app.br/history/departure-times/history-departure-times</loc></url><url><loc>https://mobilidade.lts.app.br/history/fares/history-fares</loc></url>
-</urlset>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/0</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/1</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/2</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/3</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/4</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/5</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/6</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/7</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/8</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/9</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  </urlset>

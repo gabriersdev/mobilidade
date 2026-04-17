@@ -1,6 +1,11 @@
 import fs from 'fs';
+import path from 'path';
+import {fileURLToPath} from 'url';
 import {globby} from 'globby';
 import news from '../src/assets/news.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function generateSitemap() {
   const siteUrl = 'https://mobilidade.lts.app.br';
@@ -65,11 +70,12 @@ async function generateSitemap() {
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${staticUrls}${newsUrls}
   </urlset>`;
   
-  fs.writeFileSync('public/sitemap.xml', sitemap.trim());
+  const outputPath = path.join(__dirname, '..', 'public', 'sitemap.xml');
+  fs.writeFileSync(outputPath, sitemap.trim());
 }
 
 generateSitemap()
-  .then(r => {
+  .then(() => {
     console.log("OK! Sitemap gerado com sucesso.");
   })
   .catch((error) => {
