@@ -9,14 +9,15 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "node sync-version.js && node register.build.js && vite build",
+    "build": "node scripts/sync-version.js && node scripts/register.build.js && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "update": "npm update",
     "upgrade:deps": "npx npm-check-updates -i && npm install",
     "cypress": "npx cypress run",
-    "sync:version": "node sync-version.js"
+    "sync:version": "node scripts/sync-version.js",
+    "sitemap": "node scripts/generate-sitemap.js"
   },
   "compilerOptions": {
     "jsx": "react-jsx"
@@ -69,6 +70,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "0.5.2",
     "gh-pages": "^6.3.0",
+    "globby": "^14.0.1",
     "globals": "^17.4.0",
     "rollup-plugin-visualizer": "^7.0.1",
     "terser": "^5.46.1",

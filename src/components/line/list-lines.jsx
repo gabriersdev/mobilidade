@@ -101,7 +101,8 @@ const ListLines = ({data: initialData, variant}) => {
               </div>
             )}
             subtitle={
-              line.direction === 0 ? (`${line.departure_location} ⇄ ${line.destination_location} (ida e volta)`) : `${line.departure_location} ⇄ ${line.destination_location}`.trim()
+              // TODO - centralizar esta lógica
+              line.direction === 0 ? (`${line.departure_location} ⇄ ${line.destination_location}`) : `${line.departure_location} ⇄ ${line.destination_location}`.trim()
             }
           >
             {Util.resumeInfoLine(line)}
