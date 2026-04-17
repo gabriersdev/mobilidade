@@ -9,11 +9,11 @@ const AppRouter = () => {
   // O hook agora também pode expor uma função para realizar a verificação no backend.
   const {isVerified, handleVerification} = useCaptcha();
   useGlobalEffects();
-
+  
   // Se o usuário não estiver verificado, mostramos o Captcha.
   // A prop 'onSuccess' será chamada pelo CaptchaVerifier com o token do captcha,
   // que então aciona a verificação completa no backend.
-  if (!isVerified) return <CaptchaVerifier onSuccess={handleVerification} />;
+  if (!isVerified) return <CaptchaVerifier onSuccess={handleVerification}/>;
   
   return (
     <AppLayout>

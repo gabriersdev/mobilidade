@@ -1,21 +1,25 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import FormSearch from "../form-search/form-search";
+import FormSearch from "@/components/form-search/form-search";
 import PropTypes from "prop-types";
 
 const FormValidSearch = ({formTitle, inputPlaceholder, focus}) => {
   const [isValidSearch, setIsValidSearch] = useState(false);
   const [termSearch, setTermSearch] = useState(null);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
-    if (isValidSearch && termSearch) {
-      navigate(`/search/?term=${termSearch}`)
-    }
+    if (isValidSearch && termSearch) navigate(`/search/?term=${termSearch}`)
   }, [isValidSearch, termSearch]);
-
+  
   return (
-    <FormSearch formTitle={formTitle} inputPlaceholder={inputPlaceholder} fnSetIsValidSearch={setIsValidSearch} fnSetTermSearch={setTermSearch} focus={focus}/>
+    <FormSearch
+      formTitle={formTitle}
+      inputPlaceholder={inputPlaceholder}
+      fnSetIsValidSearch={setIsValidSearch}
+      fnSetTermSearch={setTermSearch}
+      focus={focus}
+    />
   )
 }
 

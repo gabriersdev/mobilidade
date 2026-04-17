@@ -12,6 +12,7 @@ import {AnimatePresence, motion} from "framer-motion";
 import useLines from "../../hooks/useLines.js";
 import Grid from "../ui/grid/grid.jsx";
 
+// TODO - refatorar componente "ListLines"
 const ListLines = ({data: initialData, variant}) => {
   const {data: fetchedData, loading} = useLines(initialData ? null : 'all');
   const [content, setContent] = useState([]);
@@ -28,9 +29,7 @@ const ListLines = ({data: initialData, variant}) => {
   const [currentPage, setCurrentPage] = useState(1);
   
   useEffect(() => {
-    if (!initialData && fetchedData) {
-      setData(fetchedData);
-    }
+    if (!initialData && fetchedData) setData(fetchedData);
   }, [initialData, fetchedData]);
   
   useEffect(() => {

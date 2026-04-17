@@ -1,5 +1,5 @@
 // Importa as funções necessárias do módulo 'fs/promises'
-import {writeFile, unlink, stat, readFile} from 'node:fs/promises';
+import {readFile, stat, unlink, writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 
@@ -16,12 +16,12 @@ const serviceWorkerPath = path.join(DIRNAME, "public", "service-worker.js");
 // Função principal assíncrona para criar ou recriar o arquivo JSON.
 async function managerFile() {
   try {
-    // 1. Lê o package.json para obter a versão
+    // Lê o package.json para obter a versão
     const packageJsonContent = await readFile(packageJsonPath, 'utf-8');
     const packageJson = JSON.parse(packageJsonContent);
     const version = packageJson.version;
-
-    // 2. Lê o service-worker.js para obter a versão do cache
+    
+    // Lê o service-worker.js para obter a versão do cache
     let cacheVersion = "Não definido";
     try {
       const swContent = await readFile(serviceWorkerPath, 'utf-8');
@@ -32,7 +32,7 @@ async function managerFile() {
     } catch (swError) {
       console.warn("Não foi possível ler o service-worker.js:", swError.message);
     }
-
+    
     const code = Date.now();
     const datetimeCreate = new Date().toISOString();
     
@@ -45,9 +45,9 @@ async function managerFile() {
     
     const dadosEmJson = JSON.stringify(data, null, 2);
     
-    // 3. Verifica se o arquivo já existe e o apaga
+    // Verifica se o arquivo já existe e o apaga
     try {
-      await stat(filePath); 
+      await stat(filePath);
       await unlink(filePath);
       console.log('Arquivo existente apagado com sucesso.');
     } catch (error) {
@@ -56,7 +56,7 @@ async function managerFile() {
       }
     }
     
-    // 4. Cria o novo arquivo com os dados
+    // Cria o novo arquivo com os dados
     await writeFile(filePath, dadosEmJson);
     console.log(`Arquivo JSON "${fileName}" foi criado com sucesso em: ${filePath}`);
     

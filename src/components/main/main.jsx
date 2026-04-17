@@ -5,7 +5,7 @@ import "./main.css";
 
 const Main = ({ children }) => {
   return (
-    <main className="main">
+    <main className="main mt-3 mb-3 mt-sm-5 mb-sm-5">
       <Container>
         {children}
       </Container>
