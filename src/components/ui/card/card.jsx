@@ -3,21 +3,26 @@ import "./card.css";
 import PropTypes from "prop-types";
 import {Card as BootstrapCard} from 'react-bootstrap';
 import {Link} from "react-router-dom";
-import {AnimatePresence} from "framer-motion";
-import Title from "../title/title.jsx";
-import Util from "@/assets/Util.jsx";
-import AnimatedComponent from "../animated-component/animated-component.jsx";
 
-const Card = ({title = "Card Title", subtitle = "Subtitle", badge, link, children, onclick, variant, headerColumn = false}) => {
+import Title from "@/components/ui/title/title.jsx";
+import Util from "@/assets/Util.jsx";
+
+const Card = (
+  {
+    title = "Card Title",
+    subtitle = "Subtitle",
+    badge,
+    link,
+    children,
+    onclick,
+    variant,
+    headerColumn = false
+  }
+) => {
   let content, returnCard;
   
-  const setContent = (newContent) => {
-    content = newContent;
-  }
-  
-  const setReturnCard = (newReturnCard) => {
-    returnCard = newReturnCard;
-  };
+  const setContent = (newContent) => content = newContent;
+  const setReturnCard = (newReturnCard) => returnCard = newReturnCard;
   
   if (variant === "placeholder") {
     setContent(
@@ -36,7 +41,33 @@ const Card = ({title = "Card Title", subtitle = "Subtitle", badge, link, childre
         </BootstrapCard.Body>
       </div>
     )
-  } else {
+  }
+  
+  //
+  else if (variant === "placeholder-news") {
+    setContent(
+      <>
+        <div style={{minHeight: "200px"}} className={"justify-content-between align-items-start"}>
+          <BootstrapCard.Header className={"d-flex flex-column placeholder-glow gap-1"}>
+            <div className={'placeholder fs-2'}></div>
+            <div className={'placeholder fs-2'}></div>
+          </BootstrapCard.Header><br/>
+          <div className={"d-flex flex-column placeholder-glow gap-1"}>
+            <div className={'placeholder fs-2'}></div>
+            <div className={'placeholder fs-2'}></div>
+          </div>
+          <br/>
+          <BootstrapCard.Body className={"d-flex flex-column placeholder-glow gap-1"} style={{flex: '0 0 auto'}}>
+            <div className={'placeholder fs-6'}></div>
+            <div className={'placeholder fs-6'}></div>
+          </BootstrapCard.Body>
+        </div>
+      </>
+    )
+  }
+  
+  //
+  else {
     setContent(
       <>
         <BootstrapCard.Header className={"d-flex flex-column"}>
@@ -57,32 +88,40 @@ const Card = ({title = "Card Title", subtitle = "Subtitle", badge, link, childre
   
   if (link) {
     setReturnCard(
-      <BootstrapCard className={"bg-body-tertiary"} as={Link} to={link ? link.trim() : ""} rel={"noreferrer noopener"} target={Util.isSameDomain(link ? link.trim() : "") ? "_self" : "_blank"} style={{minHeight: "200px"}} data-aos={"fade-up"}>
+      <BootstrapCard
+        className={"bg-body-tertiary"}
+        as={Link}
+        to={link ? link.trim() : ""}
+        rel={"noreferrer noopener"}
+        target={Util.isSameDomain(link ? link.trim() : "") ? "_self" : "_blank"}
+        style={{minHeight: "200px"}}
+      >
         {content}
       </BootstrapCard>
     )
-  } else if (typeof onclick === "function") {
+  }
+  
+  //
+  else if (typeof onclick === "function") {
     setReturnCard(
-      <BootstrapCard className={"bg-body-tertiary"} onClick={onclick} style={{minHeight: "200px"}}>
+      <BootstrapCard
+        className={"bg-body-tertiary"}
+        onClick={onclick}
+        style={{minHeight: "200px"}}
+      >
         {content}
       </BootstrapCard>
     )
   }
   
   return (
-    <AnimatePresence mode={"wait"}>
-      <AnimatedComponent>
-        {
-          returnCard ? (
-            returnCard
-          ) : (
-            <BootstrapCard className={"bg-body-tertiary"} style={{minHeight: "200px"}}>
-              {content}
-            </BootstrapCard>
-          )
-        }
-      </AnimatedComponent>
-    </AnimatePresence>
+    returnCard ? (
+      returnCard
+    ) : (
+      <BootstrapCard className={"bg-body-tertiary"} style={{minHeight: "200px"}}>
+        {content}
+      </BootstrapCard>
+    )
   )
 }
 

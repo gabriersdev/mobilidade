@@ -10,7 +10,11 @@ import Util from "../../assets/Util.jsx";
 import Title from "../ui/title/title.jsx";
 
 const ScrollX = ({children}) => {
-  return <div className={"overflow-x-scroll d-flex scroll-x pt-2 pb-3 gap-3 scroll-container"}>{children}</div>
+  return (
+    <div className={"overflow-x-scroll d-flex scroll-x pt-2 pb-3 gap-3 scroll-container"}>
+      {children}
+    </div>
+  )
 }
 
 ScrollX.propTypes = {
@@ -40,6 +44,7 @@ const LatestNews = () => {
         <ScrollX>
           {
             !isLoaded ? (
+              // false ? (
               [
                 ...news
                   .filter(n => moment().diff(moment(n.publishDate), "seconds") > 0)
@@ -70,7 +75,14 @@ const LatestNews = () => {
                 })
             ) : (
               Array.from({length: 9}, (_, i) => i).map((_, key) => {
-                return (<Card key={key} variant={"placeholder"}></Card>)
+                return (
+                  <div key={key}>
+                    <div className={"d-flex flex-column placeholder-glow gap-1 mb-2"}>
+                      <div className={'placeholder fs-2 rounded'} style={{minHeight: '150px'}} t></div>
+                    </div>
+                    <Card key={key} variant={"placeholder-news"}/>
+                  </div>
+                )
               })
             )
           }
