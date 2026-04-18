@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Grid from "@/components/ui/grid/grid.jsx";
 import Card from "@/components/ui/card/card.jsx";
 import ListLines from "@/components/line/list-lines.jsx";
-import useLines from "@/hooks/useLines.js";
+import useLines from "@/hooks/use-lines.js";
 
 const GetAndListLines = ({variant, content}) => {
   const {data: fetchedData, error, loading} = useLines(variant);

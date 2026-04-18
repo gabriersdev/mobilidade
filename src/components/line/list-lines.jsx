@@ -9,7 +9,7 @@ import GetCompanyIdentification from "./get-company-identification.jsx";
 import ScrollX from "../ui/scroll-x/scroll-x.jsx";
 import LineFilters from "./line-filters.jsx";
 import {AnimatePresence, motion} from "framer-motion";
-import useLines from "../../hooks/useLines.js";
+import useLines from "../../hooks/use-lines.js";
 import Grid from "../ui/grid/grid.jsx";
 
 // TODO - refatorar componente "ListLines"

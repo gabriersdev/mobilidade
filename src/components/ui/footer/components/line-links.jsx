@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import {Badge} from "react-bootstrap";
 import SeeMore from "@/components/ui/see-more/see-more.jsx";
-import useLines from "../../../../hooks/useLines.js";
+import useLines from "../../../../hooks/use-lines.js";
 
 const LineLinks = () => {
   const {data: listLines} = useLines();
