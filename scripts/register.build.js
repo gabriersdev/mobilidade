@@ -1,6 +1,7 @@
 // Importa as funções necessárias do módulo 'fs/promises'
 import {readFile, stat, unlink, writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
+import chalk from 'chalk';
 import path from 'node:path';
 
 // Config
@@ -9,9 +10,10 @@ const fileName = 'register.build.json';
 
 // Constrói o caminho absoluto para o arquivo de forma segura em ES Modules
 const DIRNAME = path.dirname(fileURLToPath(import.meta.url));
-const filePath = path.join(DIRNAME, "public", fileName);
-const packageJsonPath = path.join(DIRNAME, "package.json");
-const serviceWorkerPath = path.join(DIRNAME, "public", "service-worker.js");
+const projectRoot = path.join(DIRNAME, '..');
+const filePath = path.join(projectRoot, "public", fileName);
+const packageJsonPath = path.join(projectRoot, "package.json");
+const serviceWorkerPath = path.join(projectRoot, "public", "service-worker.js");
 
 // Função principal assíncrona para criar ou recriar o arquivo JSON.
 async function managerFile() {
@@ -30,7 +32,7 @@ async function managerFile() {
         cacheVersion = `V${match[1]}`;
       }
     } catch (swError) {
-      console.warn("Não foi possível ler o service-worker.js:", swError.message);
+      console.warn(chalk.yellow("Aviso: Não foi possível ler o service-worker.js:"), swError.message);
     }
     
     const code = Date.now();
@@ -49,19 +51,19 @@ async function managerFile() {
     try {
       await stat(filePath);
       await unlink(filePath);
-      console.log('Arquivo existente apagado com sucesso.');
+      console.log(chalk.yellow('Arquivo existente apagado com sucesso.'));
     } catch (error) {
       if (error.code !== 'ENOENT') {
-        console.error(error);
+        console.error(chalk.red(error));
       }
     }
     
     // Cria o novo arquivo com os dados
     await writeFile(filePath, dadosEmJson);
-    console.log(`Arquivo JSON "${fileName}" foi criado com sucesso em: ${filePath}`);
+    console.log(chalk.green(`Arquivo JSON "${fileName}" foi criado com sucesso em: ${filePath}`));
     
   } catch (err) {
-    console.error('Ocorreu um erro ao gerenciar o arquivo:', err);
+    console.error(chalk.red('Ocorreu um erro ao gerenciar o arquivo:'), err);
   }
 }
 
