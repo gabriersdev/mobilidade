@@ -3,8 +3,9 @@ import axios from 'axios';
 import config from '../../assets/config.js';
 import PropTypes from "prop-types";
 import moment from "moment";
+import {dateConfigs} from "@/assets/resources.js";
 
-moment.locale("pt-BR");
+moment.locale(dateConfigs.lang);
 
 const useDepartureTimes = (line_id, variant) => {
   const [data, setData] = useState([]);

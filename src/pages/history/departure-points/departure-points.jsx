@@ -11,10 +11,11 @@ import {Button, ListGroup} from "react-bootstrap";
 import Util from "@/assets/Util.jsx";
 
 import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
+import {dateConfigs} from "@/assets/resources.js";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
-moment.locale("pt-BR");
+moment.locale(dateConfigs.lang);
 
 export default function DeparturePoints() {
   // TODO - refatoar e remover código duplicado
@@ -85,7 +86,7 @@ export default function DeparturePoints() {
         </Title>
       </Link>
       
-      <section className={"d-flex gap-5 mt-5 flex-column"}>
+      <section className={"d-flex flex-column gap-4 gap-sm-5 mt-5 align-items-start"}>
         <AnimatedComponents>
           <ListGroup>
             <ListGroup.Item as={Link} className={"cursor-pointer"} to={`/lines/${id}#paradas`}>

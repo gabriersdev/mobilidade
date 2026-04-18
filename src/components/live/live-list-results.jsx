@@ -4,8 +4,9 @@ import {useCallback, useRef} from "react";
 
 import LiveListItem from "./live-list-item.jsx";
 import {filterUniqueLines, sortDataByArrivalTime, getNextDepartures} from "./live-list-helpers.js";
+import {dateConfigs} from "@/assets/resources.js";
 
-moment.locale("pt-BR");
+moment.locale(dateConfigs.lang);
 
 export default function LiveListResults({data, dataNextDepartureTimes, configs}) {
   const nextDepartureTimes = useRef(dataNextDepartureTimes);

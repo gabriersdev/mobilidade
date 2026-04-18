@@ -1,7 +1,8 @@
 // noinspection CypressCommandSubjectValidation,JSCheckFunctionSignatures
 
 import moment from "moment/moment";
-moment.locale("pt-BR");
+import {dateConfigs} from "@/assets/resources.js";
+moment.locale(dateConfigs.lang);
 const now = moment();
 
 describe('Guide Page - Departure Points Search Lines', () => { // Nome do bloco de testes mais descritivo

@@ -16,10 +16,11 @@ import {useEffect, useRef} from "react";
 import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 import LiveListSingleLine from "../../components/live/live-list-single-line.jsx";
 import {useNavigate} from "react-router-dom";
+import {dateConfigs} from "@/assets/resources.js";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
-moment.locale("pt-BR");
+moment.locale(dateConfigs.lang);
 
 const Live = () => {
   const {

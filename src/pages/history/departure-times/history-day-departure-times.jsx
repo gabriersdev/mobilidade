@@ -12,10 +12,11 @@ import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";
 import AnimatedComponents from "@/components/ui/animated-component/animated-components.jsx";
 import {ListDepartureTimes} from "@/components/list-departure-times/list-departure-times.jsx";
 import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
+import {dateConfigs} from "@/assets/resources.js";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
-moment.locale("pt-BR");
+moment.locale(dateConfigs.lang);
 
 export default function HistoryDayDepartureTimes() {
   const {id} = useParams();
@@ -105,7 +106,7 @@ export default function HistoryDayDepartureTimes() {
           <p className={"m-0"}>Você está vendo horários da linha {lineData?.[0]?.["line_number"] || ""} que <b>foram atualizados em {Util.renderText(departureTimeMomentInstance.format("DD"))} de {Util.translateMonth(departureTimeMomentInstance.format("MMMM")?.toLowerCase())} de {departureTimeMomentInstance.format("YYYY")}.</b> <Link to={`/lines/${lineId}`} className={"text-warning-emphasis"}>Clique aqui para visualizar os horários de partidas atuais.</Link></p>
         </Alert>
         
-        <section className={"d-flex gap-5 mt-5 flex-column"}>
+        <section className={"d-flex flex-column gap-4 gap-sm-5 align-items-start mt-5"}>
           {lineData && <ListDepartureTimes line_id={parseInt(lineId)} departure_location={lineData?.[0]?.["departure_location"]} destination_location={lineData?.[0]?.["destination_location"]} variant={{type: "history", departureTimeDate: departureTimeMomentInstance.add(1, "day").format("YYYY-MM-DD")}}/>}
         </section>
         

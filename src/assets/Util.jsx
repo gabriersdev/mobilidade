@@ -1,13 +1,13 @@
 import Moment from 'moment'
+import moment from 'moment'
 import Arial from "../components/ui/arial/arial.jsx";
 import axios from "axios";
 import config from "./config.js";
-import moment from 'moment';
-import 'moment/locale/pt-br';
 import {Link} from "react-router-dom";
 import {getAllHolidays, getVacation} from "./holidays.js";
+import {dateConfigs, numberConfigs} from "@/assets/resources.js";
 
-moment.locale('pt-br');
+moment.locale(dateConfigs.lang);
 
 export default class Util {
   // Mark link as active
@@ -134,7 +134,7 @@ export default class Util {
   }
   
   static formatMoney(value) {
-    return Intl.NumberFormat('pt-BR', {
+    return Intl.NumberFormat(numberConfigs.lang, {
       style: 'currency',
       currency: 'BRL',
       minimumFractionDigits: 2,

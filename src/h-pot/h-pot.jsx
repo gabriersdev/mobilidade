@@ -1,5 +1,6 @@
 import config from '../assets/config';
 
+// TODO - implementar verificação HONEY POT
 export default function HPot() {
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,13 +24,12 @@ export default function HPot() {
         body: JSON.stringify(data),
       });
       
-      if (response.ok) {
-        console.log("Form submitted successfully!");
-        // Handle successful submission (e.g., show a success message)
-      } else {
-        console.error("Form submission failed.");
-        // Handle submission error
-      }
+      // Handle successful submission (e.g., show a success message)
+      if (response.ok) console.log("Form submitted successfully!");
+      
+      // Handle submission error
+      else console.error("Form submission failed.");
+      
     } catch (error) {
       console.error("An error occurred during submission:", error);
     }

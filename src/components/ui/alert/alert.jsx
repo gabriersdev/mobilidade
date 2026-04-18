@@ -10,16 +10,20 @@ const getNodeText = (node) => {
   return "";
 };
 
-const Alert = ({
-                 variant, margin, children = <></>, dismissible = false, onClose = () => {
-  }, className
-               }) => {
+const Alert = (
+  {
+    variant,
+    margin,
+    children = <></>,
+    dismissible = false,
+    onClose = () => {},
+    className
+  }
+) => {
   const [show, setShow] = useState(true);
   const [propOpen, setPropOpen] = useState(false);
   
-  if (!show) {
-    return null;
-  }
+  if (!show) return null;
   
   let icon;
   switch (variant) {
@@ -63,7 +67,7 @@ const Alert = ({
         }} className={"alert-warning-summary d-flex gap-2 line-clamp-1"}>
           <span className={"d-block"}>{icon}</span>
           <div className={"d-flex align-items-center line-clamp-1"}>
-            <span className={"truncate-w-250 d-block"}>
+            <span className={"truncate-w-200 d-block"}>
               {summaryText}
             </span>
             <span className="ms-1 d-inline-flex" style={{transform: "rotate(180deg)"}}>

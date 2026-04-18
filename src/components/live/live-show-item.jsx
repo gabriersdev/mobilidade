@@ -2,8 +2,9 @@ import moment from "moment";
 import Util from "../../assets/Util.jsx";
 import {useCallback, useEffect, useRef, useState} from "react";
 import PropTypes from "prop-types";
+import {dateConfigs} from "@/assets/resources.js";
 
-moment.locale("pt-BR");
+moment.locale(dateConfigs.lang);
 
 
 export default function LiveShowItem({d, configs}) {

@@ -2,12 +2,12 @@ import Title from "@/components/ui/title/title";
 
 const IntegrationInfrastructure = () => (
   <section id="id" className="content-text">
-    <Title type='h2' classX=" text-primary-emphasis">Infraestrutura de Integração</Title>
+    <Title type='h2' classX=" text-primary-emphasis lh-sm">Infraestrutura de Integração</Title>
     <ul className={"list-group"}>
       <li className={"list-group-item text-balance py-3 text-body"}>Criar cápsulas e estações de integração para os sistemas metropolitano e municipal, com fácil acesso aos usuários do Transporte Público e estrutura para não permitir formas de burlar o sistema de integração.</li>
       <li className={"list-group-item text-balance py-3 text-body"}>
         <span>Estabelecer um sistema e valor único para cada uma das integrações entre os sistemas:</span>
-        <ul>
+        <ul className={"ps-3 mt-2"}>
           <li>Municipal ⇄ Municipal</li>
           <li>Municipal ⇄ Metropolitano</li>
           <li>Municipal ⇄ Intermunicipal</li>

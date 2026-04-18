@@ -1,6 +1,6 @@
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {Badge} from "react-bootstrap";
+import {Badge, Image} from "react-bootstrap";
 import axios from "axios";
 
 import config from "../../assets/config.js";
@@ -12,15 +12,17 @@ import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";
 import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
 import LineIdentificationCompanyLogo from "../../components/line-identification/line-identification-company-logo.jsx";
 import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+
 const useBreadcrumb = bcAll.useBreadcrumb;
 
+// TODO - refatorar componente
 const RenderCompany = () => {
   const {id} = useParams();
   const [error, setError] = useState(null);
   const [loaded, setIsLoaded] = useState(true);
   const [data, setData] = useState([{company_name: "", count_lines_actives: 0, contact: null, report_contact: null}]);
   const [linesData, setLinesData] = useState([]);
-  const { setLabel } = useBreadcrumb();
+  const {setLabel} = useBreadcrumb();
   
   const checkIsValid = (id) => {
     if (!id) return false
@@ -32,7 +34,6 @@ const RenderCompany = () => {
     try {
       const response = await axios.post(`${config.host}/api/company/`, {company_id: id});
       const lines = await axios.post(`${config.host}/api/company/lines`, {company_id: id});
-      
       setData(response.data);
       setLinesData(lines.data);
     } catch (error) {
@@ -46,8 +47,7 @@ const RenderCompany = () => {
   useEffect(() => {
     if (!checkIsValid(id)) return <Alert variant={'danger'} margin={"mt-0"}>O id da companhia não foi informado.</Alert>
     
-    getData(id).then(() => {
-    });
+    getData(id).then();
   }, [id])
   
   useEffect(() => {
@@ -55,6 +55,7 @@ const RenderCompany = () => {
   }, [])
   
   if (loaded) {
+    // TODO - aplicar placeholder
     return <>Carregando...</>
   } else if (error) {
     console.error(error);
@@ -81,7 +82,7 @@ const RenderCompany = () => {
           </Title>
         </div>
         
-        <section className={"d-flex gap-5 mt-5 flex-column"}>
+        <section className={"d-flex gap-4 gap-md-5 mt-5 flex-column"}>
           <AnimatedComponents>
             <div className="d-flex flex-column gap-1">
               <span className={"text-body-tertiary"}>Contato</span>
@@ -97,11 +98,20 @@ const RenderCompany = () => {
               {countLines ? `${countLines} ${countLines > 0 ? "linhas" : "linha"} operadas pela companhia.` : 'Opera linhas de transporte público no estado de Minas Gerais.'}
             </span>
             </div>
+            
             <div className="d-flex flex-column gap-1">
               <span className={"text-body-tertiary"}></span>
-              <div className={"d-flex flex-wrap column-gap-2 row-gap-3"}>
+              <div className={"d-flex flex-wrap gap-2"}>
                 {linesData ? linesData.map((line, index) => (
-                  <Badge key={index} variant="primary" className={"rounded-5text-decoration-none"} style={{letterSpacing: '0.5px'}} as={Link} to={`/lines/${line.line_id}`}>
+                  <Badge
+                    key={index}
+                    pill
+                    variant="info"
+                    className={"rounded-5 text-decoration-none"}
+                    style={{letterSpacing: '0.5px'}}
+                    as={Link}
+                    to={`/lines/${line.line_id}`}
+                  >
                     N.º {line.line_number}
                   </Badge>
                 )) : ""}
@@ -117,22 +127,55 @@ const RenderCompany = () => {
 const Company = () => {
   document.title = `Mobilidade - Companhias`;
   
-  const { setLabel } = useBreadcrumb();
+  const {setLabel} = useBreadcrumb();
   setLabel("company", "Companhias");
   
   if (!useParams()["id"]) {
     // return <Navigate to="/" replace/>;
     // return <Alert variant={'warning'} margin={"mt-0"}><span>O id da companhia precisa ser informado.</span></Alert>;
     return (
-      <div className={"d-flex flex-column gap-5"}>
-        <Title title="Companhias" id="topo" classX=" text-body-secondary"/>
+      <div className={"d-flex flex-column gap-4 gap-sm-5"}>
+        <hgroup>
+          <Title title="Companhias" id="topo" classX=" text-body-secondary"/>
+          <span>
+            {/* TODO - descrição sobre companhias */}
+          </span>
+        </hgroup>
+        
+        
         <Grid>
+          {/*TODO - refatorar e reaproveitar as companhias, usadas em outras partes do projeto. Definir companhias em @/assets/***/}
           {
             [
-              ["3", "Vinscol", "Viação Nossa Senhora da Conceição", "A companhia Vinscol opera no transporte público dentro da cidade de Sabará-MG."],
-              ["4", "Transporte Coletivo Metropolitano", "Transporte Coletivo Metropolitano", "A companhia Transporte Coletivo Metropolitano - MG opera no transporte público da RMBH."],
+              [
+                "3",
+                "Vinscol",
+                "Viação Nossa Senhora da Conceição",
+                "A companhia Vinscol opera no transporte público dentro da cidade de Sabará-MG.",
+                "vinscol.svg"
+              ],
+              [
+                "4",
+                "Transporte Coletivo Metropolitano",
+                "Transporte Coletivo Metropolitano",
+                "A companhia Transporte Coletivo Metropolitano - MG opera no transporte público da RMBH.",
+                "der-mg.png"
+              ],
             ].map((cmp, index) => (
-              <Card title={cmp[1]} subtitle={cmp[2]} link={`/company/${cmp[0]}`} key={index}>
+              <Card
+                title={cmp[1]}
+                subtitle={cmp[2]}
+                link={`/company/${cmp[0]}`}
+                badge={
+                  <Image
+                    src={`/images/companies/${cmp[4]}`}
+                    alt={`Logo da companhia ${cmp[1]}`}
+                    width={75}
+                    height={25}
+                    className="object-fit-contain rounded-1 mt-1"
+                  />
+                }
+                key={index}>
                 {cmp[3]}
               </Card>
             ))

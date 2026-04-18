@@ -16,6 +16,7 @@ import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
+// TODO - refatorar componente
 const Guide = () => {
   const [data, setData] = useState({});
   const [originalData, setOriginalData] = useState({});
@@ -90,6 +91,7 @@ const Guide = () => {
   }, [fetchData]);
   
   useEffect(() => {
+    // TODO - aplicar placeholder
     if (loading) setContent(<>Carregando...</>);
     else if (error) setContent(<Alert variant={"danger"}>{<>{error || "Ocorreu um erro"}</>}</Alert>);
     else if (data) {
@@ -100,7 +102,7 @@ const Guide = () => {
       // TODO - refatorar este componente, implementar melhorias na navegabilidade: o conteúdo listado é extremamente extenso e melhorias no feedback de exibição ao usuário: se carregando ou organizando informações, jamais informar que nada foi encontrado ou obtido, e sim, que está carregando a informação.
       setContent(
         <AnimatedComponents>
-          <div className={"d-flex flex-column gap-5"}>
+          <div className={"d-flex flex-column gap-4 gap-sm-5 align-items-start"}>
             {
               uniqueLetters.map((letter, i) => {
                 return (
@@ -191,7 +193,7 @@ const Guide = () => {
   
   return (
     <div>
-      <div className={"d-flex flex-column gap-5"}>
+      <div className={"d-flex flex-column gap-4 gap-sm-5 align-items-start"}>
         <Title title="Guia do Transporte Público de Sabará-MG" id="topo" classX=" text-body-secondary"/>
         <section>
           <AnimatedComponents>

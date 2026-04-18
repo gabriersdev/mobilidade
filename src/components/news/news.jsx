@@ -8,11 +8,25 @@ const News = ({title, resume, content, img, id, publishDate}) => {
   return (
     <section className={"d-flex flex-column gap-3 align-items-start"} key={id}>
       <hgroup className="d-flex flex-column gap-1">
-        <Title type={"h2"} classX={" text-balance text-body"}>{Util.renderText(title)}</Title>
-        <p className={"text-body-tertiary m-0 p-0"}>Sabará, {Util.renderText(moment(publishDate).format("DD/MM/YY"))} | {Util.renderText(resume)}</p>
+        <Title type={"h2"} classX={" text-balance text-body"}>
+          {Util.renderText(title)}
+        </Title>
+        
+        <p className={"text-body-tertiary m-0 p-0"}>
+          Sabará, {Util.renderText(moment(publishDate).format("DD/MM/YY"))} | {Util.renderText(resume)}
+        </p>
       </hgroup>
+      
       <>
-        {img && <Image src={img} className={"h-50 object-fit-contain rounded-3 w-auto"} style={{maxWidth: "100%"}} alt={`Imagem da notícia ${title}`}/>}
+        {/*TODO - implementar uma forma de carregamento de imagem com placeholder, tal qual em async-iframe... usar placeholder do bootstrap */}
+        {img && (
+          <Image
+            src={img}
+            className={"h-50 object-fit-contain rounded-3 w-auto"}
+            style={{maxWidth: "100%"}}
+            alt={`Imagem da notícia ${title}`}
+          />
+        )}
       </>
       {
         [...content].map((item, index) => (

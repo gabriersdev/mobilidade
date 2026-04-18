@@ -8,13 +8,36 @@ import AnimatedComponents from "@/components/ui/animated-component/animated-comp
 export default function Banner({data}) {
   return (
     <AnimatedComponents className={"h-100"}>
-      <Link to={data.link} className={`pt-4 px-4 pb-4 ${data.bg} rounded-3 border ${data.border} d-flex flex-column gap-3 text-decoration-none h-100`}>
-        <div className={"d-flex flex-column gap-4 align-items-start"}>
-          <Badge className={`badge ${data.bgBadge} ${data.colorTextBadge ? data.colorTextBadge : "text-body"} fs-6 rounded-pill`}>{data.textBadge}</Badge>
-          <Title type={"h2"} classX={` fs-3 m-0 p-0 ${data.colorEmphasis}`}>{data.title}</Title>
+      <Link
+        to={data.link}
+        className={`
+          py-4 px-3 ${data.bg} rounded-3 border ${data.border} d-flex flex-column gap-3
+          text-decoration-none justify-content-between h-100
+        `}
+      >
+        <div className={"d-flex flex-column gap-3 gap-sm-4 align-items-start"}>
+          <Badge className={`
+            badge ${data.bgBadge} ${data.colorTextBadge ? data.colorTextBadge : "text-body"}
+            fs-6 rounded-pill
+          `}>
+            <span>{data.textBadge}</span>
+          </Badge>
+          
+          <Title
+            type={"h2"}
+            classX={` fs-3 m-0 p-0 ${data.colorEmphasis} text-balance`}
+          >
+            {data.title}
+          </Title>
         </div>
+        
         <div>
-          <p className={`lh-base text-balance m-0 ${data.colorEmphasis}`} style={{maxWidth: "580px"}}>{data.text}</p>
+          <p
+            className={`lh-base text-balance m-0 ${data.colorEmphasis} line-clamp-2`}
+            style={{maxWidth: "580px"}}
+          >
+            {data.text}
+          </p>
         </div>
       </Link>
     </AnimatedComponents>

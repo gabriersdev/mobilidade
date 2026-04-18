@@ -7,15 +7,15 @@ const elementIds = ["id", "partidas", "paradas", "pontos-de-recarga", "resume"];
 
 const NavScrollspy = ({closeNav}) => {
   const areaFocus = useNavScrollspy(elementIds);
-
+  
   const scrollTo = (e, id) => {
     e.preventDefault();
     const el = document.querySelector(`${id}`);
     if (!el) return;
-
+    
     const navbar = document.querySelector(`nav.navbar`);
     let offset = navbar ? navbar.clientHeight : 0;
-
+    
     if (closeNav) {
       closeNav();
       const toggler = navbar?.querySelector('.navbar-toggler');
@@ -24,22 +24,23 @@ const NavScrollspy = ({closeNav}) => {
         if (brand) offset = brand.offsetHeight + 20;
       }
     }
-
+    
     window.scrollTo({
       top: el.offsetTop - offset,
       behavior: "smooth"
     });
     window.location.hash = id;
   };
-
+  
   const navLinks = [
     {id: "id", label: "Informações", className: "d-none d-sm-inline-block"},
     {id: "partidas", label: "Horários"},
     {id: "paradas", label: "Paradas"},
     {id: "pontos-de-recarga", label: "Recarga"},
+    {id: "mapa", label: "Mapa"},
     {id: "resume", label: "Sobre", className: "d-none"},
   ];
-
+  
   return (
     <AnimatedComponents>
       <div className={"d-inline-flex gap-3 flex-wrap align-items-center justify-content-center py-2"}>

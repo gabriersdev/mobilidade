@@ -14,6 +14,7 @@ const navLinks = [
   {name: "Guia", path: "./guide"},
   {name: "Ao vivo", path: "./live", isLive: true},
   {name: "Cidade de Sabará", path: "./sabara", mobileOnly: true, showOnlyFooter: true},
+  {name: "Companhias", path: "./company", mobileOnly: true, showOnlyFooter: true},
 ];
 
 const footerLinks = [
@@ -23,11 +24,26 @@ const footerLinks = [
   {name: "Manifesto", path: "/manifest#topo"},
 ]
 
+const dateConfigs = {
+  locale: "America/Sao_Paulo",
+  lang: "pt-BR",
+  UTC: -3,
+  UTC2: -180,
+  timeFormat: "HH:mm",
+  timeFormatFriendly: "HH[h]mm"
+}
+
+const numberConfigs = {
+  lang: "pt-BR"
+}
+
 export {
   reportMail,
   contactLotus,
   currentTableFares,
   linesWithManualIntegration,
   navLinks,
-  footerLinks
+  footerLinks,
+  dateConfigs,
+  numberConfigs
 }

@@ -21,7 +21,7 @@ const LineIdentificationHeader = ({line}) => {
           )
         }
       </div>
-
+      
       <LineIdentificationCompanyLogo companyId={line.company_id}/>
     </div>
   );

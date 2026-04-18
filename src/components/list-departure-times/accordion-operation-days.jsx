@@ -13,8 +13,9 @@ import {Badge} from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import {useLocation} from "react-router-dom";
+import {dateConfigs} from "@/assets/resources.js";
 
-moment.locale("pt-br");
+moment.locale(dateConfigs.lang);
 
 const AccordionOperationDays = () => {
   const {defaultEventKey, setDefaultEventKey} = useContext(TimeContext);

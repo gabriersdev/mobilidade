@@ -26,8 +26,10 @@ const Manifest = () => {
     <div>
       <hgroup>
         <Title title="Manifesto de Mobilidade para o Transporte Público de Sabará" type={"h1"} id="topo" classX=" d-none"/>
-        <Title title="Manifesto de Mobilidade" type={"h2"} id="topo" classX=" fs-2 text m-0 p-0 lh-sm text-primary"/>
-        <Title title="para o Transporte Público de Sabará" type={"h2"} id="topo" classX=" fs-2 text-body-secondary lh-sm"/>
+        <div className={"d-inline-block gap-3 text-balance"}>
+          <Title title="Manifesto de Mobilidade" type={"h2"} id="topo" classX=" fs-2 text m-0 p-0 lh-sm text-primary d-inline-block"/>
+          <Title title="para o Transporte Público de Sabará" type={"h2"} id="topo" classX=" fs-2 text-body-secondary lh-sm d-inline-block"/>
+        </div>
         <p>Última atualização: 27<span className="arial">/</span>02<span className="arial">/</span>2026</p>
       </hgroup>
       

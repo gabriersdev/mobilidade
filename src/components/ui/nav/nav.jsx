@@ -1,11 +1,10 @@
 import "./nav.css";
-import 'moment/locale/pt-br';
 import moment from 'moment';
 import {Link} from "react-router-dom";
 import {Badge, Container, Nav as BootstrapNav, Navbar, OverlayTrigger, Tooltip} from "react-bootstrap";
 
 import {useNavState} from "./use-nav-state.js";
-import {navLinks} from "@/assets/resources.js";
+import {dateConfigs, navLinks} from "@/assets/resources.js";
 import Util from "@/assets/Util.jsx";
 import FormNav from "./form-nav.jsx";
 import BarInfo from "./bar-info.jsx";
@@ -13,7 +12,7 @@ import NavScrollspy from "./nav-scrollspy.jsx";
 import AnimatedComponents from "../animated-component/animated-components.jsx";
 import InstallPWAButton from "../../install-PWA-button/install-PWA-button.jsx";
 
-moment.locale("pt-br");
+moment.locale(dateConfigs.lang);
 
 const Nav = () => {
   const {width, isInLinePage, sabaraTime, expanded, setExpanded, navbarRef} = useNavState();

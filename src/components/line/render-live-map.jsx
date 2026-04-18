@@ -1,10 +1,11 @@
-import AsyncIframe from "@/components/async-iframe/async-iframe.tsx";
-import liveMap from "../../assets/live-map.js";
-import {Link} from "react-router-dom";
-import Title from "../ui/title/title.jsx";
 import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
+
 import Util from "@/assets/Util.jsx";
+import liveMap from "@/assets/live-map.js";
+import Title from "@/components/ui/title/title.jsx";
+import AsyncIframe from "@/components/async-iframe/async-iframe.tsx";
 
 export default function RenderLiveMap({data}) {
   const lineId = data?.[0]?.line_id;

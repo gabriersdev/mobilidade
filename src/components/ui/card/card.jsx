@@ -1,4 +1,4 @@
-import "./card.css";
+import "@/components/ui/card/card.css";
 
 import PropTypes from "prop-types";
 import {Card as BootstrapCard} from 'react-bootstrap';
@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import Title from "@/components/ui/title/title.jsx";
 import Util from "@/assets/Util.jsx";
 
+// TODO - refatorar componente
 const Card = (
   {
     title = "Card Title",

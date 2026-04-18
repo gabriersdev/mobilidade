@@ -5,9 +5,11 @@ import axios from "axios";
 import config from "../../assets/config.js";
 import Util from "../../assets/Util.jsx";
 import {useLocation} from "react-router-dom";
+import {dateConfigs} from "@/assets/resources.js";
 
-moment.locale("pt-BR");
+moment.locale(dateConfigs.lang);
 
+// TODO - refatorar componente
 const useLiveComponent = () => {
   const [lineSelected, setLineSelected] = useState(null);
   const [departurePointSelected, setDeparturePointSelected] = useState(null);

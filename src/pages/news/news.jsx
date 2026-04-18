@@ -11,11 +11,13 @@ import UpdatePageData from "../../components/update-page-data/update-page-data.j
 import PaginationWithItems from "../../components/pagination-with-items/pagination-with-items.jsx";
 
 import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+
 const useBreadcrumb = bcAll.useBreadcrumb;
 
+// TODO - refatorar componente
 const News = () => {
   const {id} = useParams()
-  const { setLabel } = useBreadcrumb();
+  const {setLabel} = useBreadcrumb();
   const [currentPage, setCurrentPage] = useState(1);
   
   const checkIsValid = (id) => {
@@ -37,9 +39,10 @@ const News = () => {
               <Title classX={" text-body-secondary"}>Notícias</Title>
               <Alert variant={"info"}>As notícias estão ordenadas das mais recentes para as mais antigas</Alert>
             </div>
-            <div className="d-flex flex-column align-items-start gap-5">
+            
+            <div className={"d-flex flex-column gap-4 gap-sm-5 align-items-start"}>
               <AnimatedComponents>
-                <div className={"d-flex flex-column align-items-start gap-5"}>
+                <div className={"d-flex flex-column gap-4 gap-sm-5 align-items-start"}>
                   <PaginationWithItems
                     itemsPerPage={1}
                     currentPage={currentPage}
@@ -86,6 +89,8 @@ const News = () => {
           </>
         )
       }
+      
+      {/*  TODO - listar aqui a notícia ANTERIOR e a PRÓXIMA notícia, quando houver, tal qual é em documentação */}
     </div>
   )
 }

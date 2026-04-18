@@ -12,9 +12,10 @@ import GetAndListLines from "../../components/get-and-list-lines/get-and-list-li
 import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
 
 import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+import {dateConfigs} from "@/assets/resources.js";
 const useBreadcrumb = bcAll.useBreadcrumb;
 
-moment.locale("pt-br");
+moment.locale(dateConfigs.lang);
 
 function translateMonth(month) {
   const months = {
@@ -71,7 +72,7 @@ export default function SabaraInfo() {
             <Weather variant={"city-info"}/>
             <p className={"mb-0 mt-3 text-balance"}>
               É {sabaraTime.format("DD")} de {translateMonth(sabaraTime.format("MMMM"))} de {sabaraTime.format("YYYY")}.
-              No horário local (Horário de Brasília) são {sabaraTime.format("HH[h]mm[min]")}.
+              No horário local (Horário de Brasília) são {sabaraTime.format("HH[h]mm")}.
               A cidade possui 38 linhas de ônibus ativas e outras 3 linhas suspensas ou desativadas catalogadas aqui.
               Elas são operadas pelas companhias <Link to={"/company/4"} className={"text-primary"}>Transporte Coletivo Metropolitano - MG</Link> e <Link to={"/company/3"} className={"text-primary"}>Vinscol</Link>.
             </p>

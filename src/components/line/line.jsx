@@ -23,6 +23,7 @@ const Line = ({id}) => {
   
   if (isLoaded) {
     return (
+      // TODO - aplicar placeholder
       <AnimatedComponents>
         <div>Carregando...</div>
       </AnimatedComponents>
@@ -53,19 +54,21 @@ const Line = ({id}) => {
   const line = data[0];
   
   return (
-    <div className="d-flex flex-column" style={{gap: '3rem'}}>
-      <LineContext line={line}>
-        <div className="d-flex flex-column" style={{gap: '3rem'}}>
-          <LineHeader line={line}/>
-          <DepartureTimesSection line={line}/>
-          <DeparturePointsSection line={line} ref={paradasSection}/>
-          <RenderLiveMap data={data}/>
-          <RechargePointsSection line={line}/>
-          <SimilarLinesSection/>
-          <AboutSection line={line}/>
-        </div>
-      </LineContext>
-    </div>
+    <AnimatedComponents>
+      <div className="d-flex flex-column" style={{gap: '3rem'}}>
+        <LineContext line={line}>
+          <div className="d-flex flex-column" style={{gap: '3rem'}}>
+            <LineHeader line={line}/>
+            <DepartureTimesSection line={line}/>
+            <DeparturePointsSection line={line} ref={paradasSection}/>
+            <RenderLiveMap data={data}/>
+            <RechargePointsSection line={line}/>
+            <SimilarLinesSection/>
+            <AboutSection line={line}/>
+          </div>
+        </LineContext>
+      </div>
+    </AnimatedComponents>
   );
 };
 

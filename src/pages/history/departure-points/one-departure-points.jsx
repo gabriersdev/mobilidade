@@ -12,9 +12,10 @@ import AnimatedComponents from "@/components/ui/animated-component/animated-comp
 import Util from "@/assets/Util.jsx";
 
 import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
+import {dateConfigs} from "@/assets/resources.js";
 const useBreadcrumb = bcAll.useBreadcrumb;
 
-moment.locale("pt-BR");
+moment.locale(dateConfigs.lang);
 
 export default function OneDeparturePoints() {
   // TODO - refatoar e remover código duplicado
@@ -85,7 +86,7 @@ export default function OneDeparturePoints() {
         </Title>
       </Link>
       
-      <section className={"d-flex gap-5 mt-5 flex-column"}>
+      <section className={"d-flex flex-column gap-4 gap-sm-5 align-items-start"}>
         <AnimatedComponents>
           <ListGroup>
             <ListGroup.Item>

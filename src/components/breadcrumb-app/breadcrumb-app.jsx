@@ -1,25 +1,26 @@
-import './breadcrumb-app.css';
-
 import {useEffect, useRef, useState} from "react";
 import {Breadcrumb, BreadcrumbItem} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {useLocation, useNavigate} from 'react-router-dom';
-import AnimatedComponents from "../ui/animated-component/animated-components.jsx";
 
-import bcAll from './breadcrumb-context.jsx';
+import AnimatedComponents from "@/components/ui/animated-component/animated-components.jsx";
+import '@/components/breadcrumb-app/breadcrumb-app.css';
+import bcAll from '@/components/breadcrumb-app/breadcrumb-context.jsx';
+
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 const BreadcrumbItemFactory = ({path, url}) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { labels } = useBreadcrumb();
+  const {labels} = useBreadcrumb();
   let label;
   let isLinePage = "";
   
   // Verifica se existe um label customizado no contexto
-  if (labels[path]) {
-    label = labels[path];
-  } else {
+  if (labels[path]) label = labels[path];
+  
+  // TODO - refatorar código
+  else {
     switch (path.toLowerCase()) {
       case "../":
         label = "Mobilidade"
@@ -103,7 +104,7 @@ const BreadcrumbApp = () => {
     <div className={"d-none d-md-block"}>
       <AnimatedComponents>
         <Breadcrumb className="bg-body mb-5">
-          <BreadcrumbItemFactory path="../" url="/" />
+          <BreadcrumbItemFactory path="../" url="/"/>
           {
             segments.map((item, index) => {
               const url = "/" + segments.slice(0, index + 1).join("/");
