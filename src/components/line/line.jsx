@@ -15,17 +15,120 @@ import RenderLiveMap from "./render-live-map.jsx";
 import RechargePointsSection from "./recharge-points-section.jsx";
 import SimilarLinesSection from "./similar-lines-section.jsx";
 import AboutSection from "./about-section.jsx";
+import {Placeholder} from "react-bootstrap";
 
+// TODO - refatorar componente
 const Line = ({id}) => {
   const {data, error, isLoaded} = useLineData(id);
   const paradasSection = useRef(<></>);
   usePageEffects(data, paradasSection);
   
   if (isLoaded) {
+    // if (true) {
     return (
-      // TODO - aplicar placeholder
+      // Placeholder de carregamento de dados das linhas
       <AnimatedComponents>
-        <div>Carregando...</div>
+        {/*Toda a seção da página*/}
+        <section className={"d-flex flex-column gap-4 gap-sm-5"}>
+          {/*Título de identificação da linha e logo da operadora*/}
+          <div className={"d-flex align-items-start justify-content-between gap-3"}>
+            <Placeholder animation="glow" className={"w-50"}>
+              <Placeholder className={"rounded w-100 py-4"}/>
+            </Placeholder>
+            
+            <Placeholder animation="glow" className={"w-25"}>
+              <Placeholder className={"rounded w-100 py-5"}/>
+            </Placeholder>
+          </div>
+          
+          {/*Parte de informações básicas da linha*/}
+          <div className={"d-flex flex-column gap-2 mt-3 mt-md-5"}>
+            <div>
+              <Placeholder animation="glow">
+                <Placeholder className={"rounded-1 w-15 py-3"}/>
+              </Placeholder>
+              
+              <span>{" "}</span>
+              
+              <Placeholder animation="glow">
+                <Placeholder className={"rounded-1 w-10 py-3"}/>
+              </Placeholder>
+              
+              <span>{" "}</span>
+              
+              <Placeholder animation="glow">
+                <Placeholder className={"rounded-1 w-25 py-3"}/>
+              </Placeholder>
+            </div>
+            
+            <div>
+              <Placeholder animation="glow">
+                <Placeholder className={"rounded-1 w-10 py-3"}/>
+              </Placeholder>
+              
+              <span>{" "}</span>
+              
+              <Placeholder animation="glow">
+                <Placeholder className={"rounded-1 w-25 py-3"}/>
+              </Placeholder>
+            </div>
+            
+            <div>
+              <Placeholder animation="glow">
+                <Placeholder className={"rounded-1 w-15 py-3"}/>
+              </Placeholder>
+            </div>
+            
+            <div>
+              <Placeholder animation="glow">
+                <Placeholder className={"rounded-1 w-25 py-3"}/>
+              </Placeholder>
+            </div>
+            
+            <div className={"mt-3"}>
+              <Placeholder animation="glow">
+                <Placeholder className={"rounded-1 w-10 py-3"}/>
+              </Placeholder>
+              
+              <span>{" "}</span>
+              
+              <Placeholder animation="glow">
+                <Placeholder className={"rounded-1 w-15 py-3"}/>
+              </Placeholder>
+              
+              <span>{" "}</span>
+              
+              <Placeholder animation="glow">
+                <Placeholder className={"rounded-1 w-10 py-3"}/>
+              </Placeholder>
+            </div>
+          </div>
+          
+          {/*Correponde as seções de Horários de Partida, Pontos de Paradas e Recargas e banner's*/}
+          {
+            Array.from({length: 5}, i => i + 1).map((_, index) => (
+              <div className={"d-flex flex-column mt-3 mt-md-5"} key={index}>
+                <div className={"d-flex align-items-center justify-content-between gap-3"}>
+                  <Placeholder animation="glow" className={"w-25"}>
+                    <Placeholder className={"rounded-1 w-100 py-4"}/>
+                  </Placeholder>
+                  
+                  <Placeholder animation="glow" className={"w-10"}>
+                    <Placeholder className={"rounded-1 w-100 py-3"}/>
+                  </Placeholder>
+                </div>
+                
+                <Placeholder animation="glow" className={"w-100 mt-4"} key={index}>
+                  <Placeholder className={"rounded-1 w-100 py-5"}>
+                    <div className={"py-5"}></div>
+                    <div className={"py-5"}></div>
+                    <div className={"py-5"}></div>
+                  </Placeholder>
+                </Placeholder>
+              </div>
+            ))
+          }
+        </section>
       </AnimatedComponents>
     );
   }
@@ -57,15 +160,17 @@ const Line = ({id}) => {
     <AnimatedComponents>
       <div className="d-flex flex-column" style={{gap: '3rem'}}>
         <LineContext line={line}>
-          <div className="d-flex flex-column" style={{gap: '3rem'}}>
-            <LineHeader line={line}/>
-            <DepartureTimesSection line={line}/>
-            <DeparturePointsSection line={line} ref={paradasSection}/>
-            <RenderLiveMap data={data}/>
-            <RechargePointsSection line={line}/>
-            <SimilarLinesSection/>
-            <AboutSection line={line}/>
-          </div>
+          <AnimatedComponents>
+            <div className="d-flex flex-column" style={{gap: '3rem'}}>
+              <LineHeader line={line}/>
+              <DepartureTimesSection line={line}/>
+              <DeparturePointsSection line={line} ref={paradasSection}/>
+              <RenderLiveMap data={data}/>
+              <RechargePointsSection line={line}/>
+              <SimilarLinesSection/>
+              <AboutSection line={line}/>
+            </div>
+          </AnimatedComponents>
         </LineContext>
       </div>
     </AnimatedComponents>

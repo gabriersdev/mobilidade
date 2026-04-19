@@ -13,6 +13,8 @@ export default function RenderLiveMap({data}) {
   
   useEffect(() => {
     if (lineId) {
+      // É necessário monitorar a mudança da URL, e mudança de id de linha: /lines/:id - algumas linhas não tem mapa atribuído
+      // Verificar @/assets/live-map.js
       const existsLinkLiveMap = Object.entries(liveMap).find(item => item[0] === lineId.toString());
       
       const link = existsLinkLiveMap ? existsLinkLiveMap[1] : null;

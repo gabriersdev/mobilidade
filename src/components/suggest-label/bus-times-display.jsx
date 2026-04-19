@@ -4,13 +4,9 @@ import {Link} from 'react-router-dom';
 import BusTimePlaceholder from './bus-time-placeholder.jsx';
 
 const BusTimesDisplay = ({busTimes, loading}) => {
-  if (loading) {
-    return <BusTimePlaceholder/>;
-  }
+  if (loading) return <BusTimePlaceholder/>;
   
-  if (busTimes.length === 0) {
-    return <span className="text-muted">Nenhum ônibus por perto</span>;
-  }
+  if (busTimes.length === 0) return <span className="text-muted">Nenhum ônibus por perto</span>;
   
   return (
     <div className="d-flex gap-1 align-items-center flex-wrap text-sml">

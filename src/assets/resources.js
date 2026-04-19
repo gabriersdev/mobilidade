@@ -62,6 +62,24 @@ const labelMap = {
   "manifest": "Manifesto",
 }
 
+const navLinksPageLine = [
+  {id: "id", label: "Informações", className: "d-none d-sm-inline-block"},
+  {id: "partidas", label: "Horários"},
+  {id: "paradas", label: "Paradas"},
+  {id: "pontos-de-recarga", label: "Recarga"},
+  {id: "mapa", label: "Mapa"},
+  {id: "resume", label: "Sobre", className: "d-none"},
+];
+
+const elementIdsPageLine = [
+  "id",
+  "partidas",
+  "paradas",
+  "pontos-de-recarga",
+  "mapa",
+  "resume"
+];
+
 export {
   reportMail,
   contactLotus,
@@ -72,5 +90,7 @@ export {
   dateConfigs,
   numberConfigs,
   quickSearchLinks,
-  labelMap
+  labelMap,
+  navLinksPageLine,
+  elementIdsPageLine
 }

@@ -1,9 +1,8 @@
 import {Route, Routes} from 'react-router-dom';
-import {useCaptcha} from './components/captcha-verifier/use-captcha.js';
-import {useGlobalEffects} from './hooks/use-global-effects.js';
-import AppLayout from './components/layout/app-layout.jsx';
-import CaptchaVerifier from "./components/captcha-verifier/captcha-verifier.jsx";
-import {Company, DeparturePoints, Development, Guide, HistoryDayDepartureTimes, HistoryDepartureTimes, HistoryFares, Home, Lines, Live, Manifest, News, NotFound, OneDeparturePoints, Privacy, SabaraInfo, Search, TermsOfService} from "./pages/index.d.ts";
+import {useCaptcha} from '@/components/captcha-verifier/use-captcha.js';
+import {useGlobalEffects} from '@/hooks/use-global-effects.js';
+import AppLayout from '@/components/layout/app-layout.jsx';
+import {Company, DeparturePoints, Development, Guide, HistoryDayDepartureTimes, HistoryDepartureTimes, HistoryFares, Home, Lines, Live, Manifest, News, NotFound, OneDeparturePoints, Privacy, SabaraInfo, Search, TermsOfService} from "@/pages/index.d.ts";
 
 const AppRouter = () => {
   // O hook agora também pode expor uma função para realizar a verificação no backend.

@@ -1,13 +1,14 @@
 import React, {useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {Badge} from 'react-bootstrap';
+
 import {useCompany} from '@/hooks/use-company.js';
 import Title from '@/components/ui/title/title.jsx';
 import Alert from '@/components/ui/alert/alert.jsx';
 import FeedbackError from '@/components/ui/feedback-error/feedback-error.jsx';
 import AnimatedComponents from '@/components/ui/animated-component/animated-components.jsx';
 import LineIdentificationCompanyLogo from '@/components/line-identification/line-identification-company-logo.jsx';
-import CompanyPlaceholder from './company-placeholder.jsx';
+import CompanyPlaceholder from '@/pages/company/company-placeholder.jsx';
 import bcAll from '@/components/breadcrumb-app/breadcrumb-context.jsx';
 
 const useBreadcrumb = bcAll.useBreadcrumb;

@@ -1,21 +1,21 @@
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
-import Title from "../../components/ui/title/title.jsx";
-// import Util from "../../assets/Util.jsx";
-import ComponentSearch from "../../components/search/search.jsx";
-import Grid from "../../components/ui/grid/grid.jsx";
-import Card from "../../components/ui/card/card.jsx";
-import FormValidSearch from "../../components/form-valid-search/form-valid-search.jsx";
-import LatestNews from "../../components/latest-news/latest-news.jsx";
 
-import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+import Title from "@/components/ui/title/title.jsx";
+import ComponentSearch from "@/components/search/search.jsx";
+import Grid from "@/components/ui/grid/grid.jsx";
+import Card from "@/components/ui/card/card.jsx";
+import FormValidSearch from "@/components/form-valid-search/form-valid-search.jsx";
+import LatestNews from "@/components/latest-news/latest-news.jsx";
+import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
+
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 const Search = () => {
   const [isValidSearch, setIsValidSearch] = useState(false)
   const [termSearch, setTermSearch] = useState("")
   const location = useLocation()
-  const { setLabel } = useBreadcrumb();
+  const {setLabel} = useBreadcrumb();
   
   useEffect(() => {
     // Atualiza o título do documento

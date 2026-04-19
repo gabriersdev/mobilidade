@@ -11,6 +11,7 @@ const LABEL_MAP = Object.assign({}, {...labelMap});
 const getLabel = (path, customLabels) => {
   if (customLabels[path]) return customLabels[path];
   if (LABEL_MAP[path.toLowerCase()]) return LABEL_MAP[path.toLowerCase()];
+  // TODO - aplicar placeholder
   if (path.match(/^\\d+$/)) return <span>Carregando...</span>;
   return <p className="text-capitalize d-inline">{path}</p>;
 };

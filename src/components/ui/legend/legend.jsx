@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 
 import LegendItem from "./legend-item.jsx";
 import defaultLegendItems from "@/assets/default-legend-items.jsx";
+import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
 const Legend = ({items, marginTop, type}) => {
   
@@ -16,7 +17,21 @@ const Legend = ({items, marginTop, type}) => {
     (items.length > 0) && (
       <div className={`d-flex flex-wrap align-items-start flex-column gap-2 ${marginTop || 'mt-3'}`}>
         <span className={"mb-1 text-body-tertiary fs-6"}>Legenda</span>
-        {items.map((item, index) => <LegendItem key={index} i={index} item={item} className={"mb-1 text-body-tertiary fs-6"}/>)}
+        {items.map((item, index) => (
+          // TODO - fazer overlay funcionar
+          <OverlayTrigger key={index} overlay={
+            <Tooltip>
+              {item?.["label"]}
+            </Tooltip>
+          }>
+            <LegendItem
+              key={index}
+              i={index}
+              item={item}
+              className={"mb-1 text-body-tertiary fs-6"}
+            />
+          </OverlayTrigger>
+        ))}
       </div>
     )
   )

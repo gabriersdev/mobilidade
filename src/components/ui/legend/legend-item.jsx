@@ -1,17 +1,17 @@
 import {useState} from "react";
 import PropTypes from "prop-types";
-import { Badge } from "react-bootstrap";
+import {Badge} from "react-bootstrap";
 
 import data from "@/assets/data.js";
 
-const LegendItem = ({ item, i }) => {
-  const [clamp, setClamp] = useState(true);
-
+const LegendItem = ({item, i}) => {
+  const [clamp, setClamp] = useState(false);
+  
   const handleClamp = (event) => {
     event.preventDefault();
     setClamp(!clamp);
   }
-
+  
   const bootstrapBGColors = data.bootstrap.bg.colors;
   return (
     <div className={`d-flex align-items-center gap-1 ${!clamp ? "flex-wrap" : ""}`}>

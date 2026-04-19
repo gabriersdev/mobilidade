@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
-import {useNews} from '../../hooks/use-news.js';
-import NewsC from '../../components/news/news.jsx';
-import Alert from '../../components/ui/alert/alert.jsx';
-import UpdatePageData from '../../components/update-page-data/update-page-data.jsx';
-import NewsNavigation from './news-navigation.jsx';
-import bcAll from '../../components/breadcrumb-app/breadcrumb-context.jsx';
+import {useNews} from '@/hooks/use-news.js';
+import NewsC from '@/components/news/news.jsx';
+import Alert from '@/components/ui/alert/alert.jsx';
+import UpdatePageData from '@/components/update-page-data/update-page-data.jsx';
+import NewsNavigation from '@/pages/news/news-navigation.jsx';
+import bcAll from '@/components/breadcrumb-app/breadcrumb-context.jsx';
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 

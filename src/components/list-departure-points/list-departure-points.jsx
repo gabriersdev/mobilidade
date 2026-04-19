@@ -37,6 +37,7 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
     searchDeparturePoints().then(() => {});
   }, [line_id]);
   
+  // TODO - aplicar placeholder
   if (isLoaded) return <AnimatedComponents><div>Carregando...</div></AnimatedComponents>;
   else if (error) {
     console.log(error)

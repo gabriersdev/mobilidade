@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import Convert from '../assets/Convert.js';
 
 export const useLineFilters = (initialData) => {
@@ -9,23 +9,23 @@ export const useLineFilters = (initialData) => {
     isMetropolitan: '',
     company: '',
   });
-
+  
   useEffect(() => {
     if (initialData) {
       setData(initialData);
     }
   }, [initialData]);
-
+  
   const lineTypes = useMemo(() => {
     if (Array.isArray(data)) {
       return [...new Set(data.map((line) => Convert.lineType(line.type)).filter(Boolean))];
     }
     return [];
   }, [data]);
-
+  
   const filteredData = useMemo(() => {
     let processedData = [...data];
-
+    
     // Filtering
     if (filters.lineType) {
       processedData = processedData.filter(line => Convert.lineType(line.type) === filters.lineType);
@@ -36,7 +36,7 @@ export const useLineFilters = (initialData) => {
     if (filters.company) {
       processedData = processedData.filter(line => line.company_name === filters.company);
     }
-
+    
     // Sorting
     processedData.sort((a, b) => {
       switch (filters.sortOrder) {
@@ -51,10 +51,10 @@ export const useLineFilters = (initialData) => {
           return a.line_number.localeCompare(b.line_number);
       }
     });
-
+    
     return processedData;
   }, [data, filters]);
-
+  
   return {
     filteredData,
     filters,

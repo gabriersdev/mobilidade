@@ -105,3 +105,11 @@ p * {
   padding-top: 0.35rem !important;
   padding-bottom: 0.45rem !important;
 }
+
+.w-15 {
+  width: 15% !important;
+}
+
+.w-10 {
+  width: 10% !important;
+}

@@ -6,7 +6,6 @@ import {dateConfigs} from "@/assets/resources.js";
 
 moment.locale(dateConfigs.lang);
 
-
 export default function LiveShowItem({d, configs}) {
   // TODO - implementar logica e bloqueio para evitar ocasiões em que os audios de aviso toquem juntos
   const defaultAudio = "/audio/general.mp3";

@@ -82,6 +82,7 @@ export default function HistoryDayDepartureTimes() {
   else if (!checkIsValid(departureTimeDate.replace(/\D/, ""))) return <Alert variant={'danger'} margin={"mt-0"}>A data do histórico não foi informada.</Alert>
   else if (!departureTimeDateIsValid) return <Alert variant={'danger'} margin={"mt-0"}>A data do histórico não é válida.</Alert>
   
+  // TODO - aplicar placeholder
   if (loaded) return <>Carregando...</>
   else if (error) {
     console.error(error);
