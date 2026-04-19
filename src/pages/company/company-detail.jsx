@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { Badge } from 'react-bootstrap';
-import { useCompany } from '../../hooks/useCompany.js';
+import React, {useEffect} from 'react';
+import {Link, useParams} from 'react-router-dom';
+import {Badge} from 'react-bootstrap';
+import {useCompany} from '../../hooks/useCompany.js';
 import Title from '../../components/ui/title/title.jsx';
 import Alert from '../../components/ui/alert/alert.jsx';
 import FeedbackError from '../../components/ui/feedback-error/feedback-error.jsx';
@@ -13,32 +13,32 @@ import bcAll from '../../components/breadcrumb-app/breadcrumb-context.jsx';
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 const CompanyDetail = () => {
-  const { id } = useParams();
-  const { data, lines, loading, error } = useCompany(id);
-  const { setLabel } = useBreadcrumb();
-
+  const {id} = useParams();
+  const {data, lines, loading, error} = useCompany(id);
+  const {setLabel} = useBreadcrumb();
+  
   useEffect(() => {
     if (data) {
       document.title = `Mobilidade - Companhia ${data.company_name}`;
       setLabel(id, data.company_name);
     }
   }, [data, id, setLabel]);
-
-  if (loading) return <CompanyPlaceholder />;
-  if (error) return <FeedbackError code={error.response?.status || 500} text={error.message} type="card" />;
+  
+  if (loading) return <CompanyPlaceholder/>;
+  if (error) return <FeedbackError code={error.response?.status || 500} text={error.message} type="card"/>;
   if (!data) return <Alert variant="danger" margin="mt-0">Companhia não localizada.</Alert>;
-
+  
   const countLines = data.count_lines_actives;
-
+  
   return (
     <AnimatedComponents>
       <div className="mb-3">
-        <LineIdentificationCompanyLogo companyId={id} />
+        <LineIdentificationCompanyLogo companyId={id}/>
       </div>
       <span className="text-body-secondary">Companhia</span>
       <div>
         <Title classX="fs-3 d-inline text-body-emphasis mt-1 p-0 d-block">
-          <span className="text-balance" style={{ fontSize: 'inherit' }}>
+          <span className="text-balance" style={{fontSize: 'inherit'}}>
             {data.company_name}
           </span>
         </Title>
@@ -51,7 +51,8 @@ const CompanyDetail = () => {
         <div className="d-flex flex-column gap-1">
           <span className="text-body-tertiary">Canal de reclamações</span>
           <Link to={data.report_contact} rel="noreferrer noopener">
-            {new URL(data.report_contact).origin?.replace(/(https:|\\/\\/)|\\/|www\\./g, '') || 'Informação não cadastrada.'}
+            {/*TODO - implementar https://w* como regex*/}
+            {new URL(data.report_contact).origin?.replace(/(https)/g, '') || 'Informação não cadastrada.'}
           </Link>
         </div>
         <div className="d-flex flex-column gap-1">
@@ -70,7 +71,7 @@ const CompanyDetail = () => {
                 as={Link}
                 to={`/lines/${line.line_id}`}
                 className="rounded-5 text-decoration-none"
-                style={{ letterSpacing: '0.5px' }}
+                style={{letterSpacing: '0.5px'}}
               >
                 N.º {line.line_number}
               </Badge>
