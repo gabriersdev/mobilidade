@@ -19,7 +19,7 @@ const useBreadcrumb = bcAll.useBreadcrumb;
 moment.locale(dateConfigs.lang);
 
 export default function HistoryFares() {
-  // TODO - refatoar e remover código duplicado
+  // TODO - refatorar e remover código duplicado
   const {id} = useParams();
   
   const departureTimeDate = id;

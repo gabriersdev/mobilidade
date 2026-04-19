@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState} from 'react';
 import axios from 'axios';
-import config from '../assets/config.js';
-import Util from '../assets/Util.jsx';
+import config from '@/assets/config.js';
+import Util from '@/assets/Util.jsx';
 import {useLocation} from 'react-router-dom';
 
 const GENERIC_ERROR = "Ocorreu um erro na consulta do Guia. Aguarde alguns minutos e tente novamente mais tarde.";

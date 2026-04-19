@@ -2,13 +2,13 @@ import {useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import axios from 'axios';
 import AOS from 'aos';
-import config from '../assets/config.js';
-import Util from '../assets/Util.jsx';
+import config from '@/assets/config.js';
+import Util from '@/assets/Util.jsx';
 
 export const useGlobalEffects = () => {
   const [publicIp, setPublicIp] = useState(null);
   const location = useLocation();
-
+  
   // Efeito para registrar Service Worker e buscar IP público
   useEffect(() => {
     if ("serviceWorker" in navigator && window.location.hostname !== "localhost") {
@@ -17,7 +17,7 @@ export const useGlobalEffects = () => {
         .then(() => console.log("Service Worker registrado com sucesso!"))
         .catch((err) => console.error("Erro ao registrar o Service Worker:", err));
     }
-
+    
     if (window.location.hostname !== "localhost") {
       fetch("https://api64.ipify.org?format=json")
         .then(response => response.json())
@@ -28,7 +28,7 @@ export const useGlobalEffects = () => {
         });
     }
   }, []);
-
+  
   // Efeito para inicializar AOS e definir rel em links
   useEffect(() => {
     AOS.init({
@@ -43,7 +43,7 @@ export const useGlobalEffects = () => {
     });
     document.querySelectorAll('a').forEach(link => link.setAttribute('rel', 'noopener noreferrer'));
   }, []);
-
+  
   // Efeito para adicionar versão ao script principal
   useEffect(() => {
     let attempts = 0;
@@ -59,7 +59,7 @@ export const useGlobalEffects = () => {
     };
     addVersionToScript();
   }, []);
-
+  
   // Efeito para esconder o loader inicial
   useEffect(() => {
     const loader = document.querySelector('.overlay-mobi');
@@ -69,7 +69,7 @@ export const useGlobalEffects = () => {
       }, 1000);
     }
   }, []);
-
+  
   // Efeito para logging e rolagem da página
   useEffect(() => {
     if (publicIp && window.location.hostname !== "localhost") {
@@ -87,7 +87,7 @@ export const useGlobalEffects = () => {
         console.log(`Ocorreu um erro ao registrar log.`, error);
       });
     }
-
+    
     if (location.hash && !location.pathname.match(/lines\/\d+\/#\w+/)) {
       const id = location.hash.replace('#', '');
       const element = document.getElementById(id);
@@ -100,7 +100,7 @@ export const useGlobalEffects = () => {
       }, 100);
     }
   }, [location, publicIp]);
-
+  
   // Efeito para limpeza de cache do Service Worker
   useEffect(() => {
     Util.clearServiceWorker();

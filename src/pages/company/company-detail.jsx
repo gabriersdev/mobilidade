@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {Badge} from 'react-bootstrap';
-import {useCompany} from '../../hooks/useCompany.js';
-import Title from '../../components/ui/title/title.jsx';
-import Alert from '../../components/ui/alert/alert.jsx';
-import FeedbackError from '../../components/ui/feedback-error/feedback-error.jsx';
-import AnimatedComponents from '../../components/ui/animated-component/animated-components.jsx';
-import LineIdentificationCompanyLogo from '../../components/line-identification/line-identification-company-logo.jsx';
+import {useCompany} from '@/hooks/use-company.js';
+import Title from '@/components/ui/title/title.jsx';
+import Alert from '@/components/ui/alert/alert.jsx';
+import FeedbackError from '@/components/ui/feedback-error/feedback-error.jsx';
+import AnimatedComponents from '@/components/ui/animated-component/animated-components.jsx';
+import LineIdentificationCompanyLogo from '@/components/line-identification/line-identification-company-logo.jsx';
 import CompanyPlaceholder from './company-placeholder.jsx';
-import bcAll from '../../components/breadcrumb-app/breadcrumb-context.jsx';
+import bcAll from '@/components/breadcrumb-app/breadcrumb-context.jsx';
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
@@ -51,8 +51,7 @@ const CompanyDetail = () => {
         <div className="d-flex flex-column gap-1">
           <span className="text-body-tertiary">Canal de reclamações</span>
           <Link to={data.report_contact} rel="noreferrer noopener">
-            {/*TODO - implementar https://w* como regex*/}
-            {new URL(data.report_contact).origin?.replace(/(https)/g, '') || 'Informação não cadastrada.'}
+            {new URL(data.report_contact).origin?.replace(/(https:\/\/w*)/g, '') || 'Informação não cadastrada.'}
           </Link>
         </div>
         <div className="d-flex flex-column gap-1">

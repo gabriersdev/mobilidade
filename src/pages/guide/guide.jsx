@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {useGuide} from '@/hooks/useGuide.js';
+import {useGuide} from '@/hooks/use-guide.js';
 import Title from '@/components/ui/title/title.jsx';
 import Alert from '@/components/ui/alert/alert.jsx';
 import AnimatedComponents from '@/components/ui/animated-component/animated-components.jsx';

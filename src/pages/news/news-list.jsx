@@ -28,7 +28,6 @@ const NewsList = () => {
           ))}
         />
       </div>
-      {/*  TODO - implemewntar prev e next notícia aqui, tal qual em news-detail, do componente news-navigation*/}
     </>
   );
 };

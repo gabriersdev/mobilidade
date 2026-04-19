@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image } from 'react-bootstrap';
-import { companies } from '../../assets/companies.js';
+import {Image} from 'react-bootstrap';
+import {companies} from '../../assets/companies.js';
 import Title from '../../components/ui/title/title.jsx';
 import Grid from '../../components/ui/grid/grid.jsx';
 import Card from '../../components/ui/card/card.jsx';
@@ -8,7 +8,7 @@ import Card from '../../components/ui/card/card.jsx';
 const CompanyList = () => (
   <div className="d-flex flex-column gap-4 gap-sm-5">
     <hgroup>
-      <Title title="Companhias" id="topo" classX="text-body-secondary" />
+      <Title title="Companhias" id="topo" classX="text-body-secondary"/>
       <span>Informações sobre as companhias de transporte público.</span>
     </hgroup>
     <Grid>

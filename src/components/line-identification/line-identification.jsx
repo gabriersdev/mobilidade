@@ -62,7 +62,7 @@ const LineIdentification = () => {
     />
   );
   
-  // TODO - implementar retorno ou verificação do banco de dados de integração
+  // T1DO - implementar retorno ou verificação do banco de dados de integração
   const integrationPopover = (
     <LineIdentificationIntegrationPopover line={line}/>
   );

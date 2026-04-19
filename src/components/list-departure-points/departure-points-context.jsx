@@ -10,7 +10,7 @@ const DeparturePointsContext = ({children}) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // TODO - refatorar e usar camelCase ao invés de _
+  // T1DO - refatorar e usar camelCase ao invés de _
   const handlePointClick = (e, {address, point_name, points_length, point_order: point_order, departure_point_id}) => {
     e.preventScroll = true;
     setPointDataOffcanvas({

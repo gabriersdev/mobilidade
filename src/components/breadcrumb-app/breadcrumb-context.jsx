@@ -1,5 +1,5 @@
-import { BreadcrumbProvider } from './breadcrumb-provider.jsx';
-import { useBreadcrumb } from './use-breadcrumb.js';
+import {BreadcrumbProvider} from '@/components/breadcrumb-app/breadcrumb-provider.jsx';
+import {useBreadcrumb} from '@/components/breadcrumb-app/use-breadcrumb.js';
 
 export default {
   BreadcrumbProvider,

@@ -47,6 +47,21 @@ const quickSearchLinks = [
   "Rodoviária de Belo Horizonte",
 ]
 
+const labelMap = {
+  "lines": "Linhas",
+  "search": "Pesquisa",
+  "terms-of-service": "Termos de Serviço",
+  "privacy": "Privacidade",
+  "company": "Companhia",
+  "development": "Desenvolvimento",
+  "news": "Notícias",
+  "history": "Histórico",
+  "guide": "Guia",
+  "live": "Ao vivo",
+  "sabara": "Sabará",
+  "manifest": "Manifesto",
+}
+
 export {
   reportMail,
   contactLotus,
@@ -56,5 +71,6 @@ export {
   footerLinks,
   dateConfigs,
   numberConfigs,
-  quickSearchLinks
+  quickSearchLinks,
+  labelMap
 }
