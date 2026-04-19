@@ -37,6 +37,16 @@ const numberConfigs = {
   lang: "pt-BR"
 }
 
+const quickSearchLinks = [
+  "Rodoviária de Sabará",
+  "Terminal São Gabriel",
+  "Estação José Cândido da Silveira",
+  "Estação São Gabriel",
+  "Rua dos Caetés",
+  "Andradas",
+  "Rodoviária de Belo Horizonte",
+]
+
 export {
   reportMail,
   contactLotus,
@@ -45,5 +55,6 @@ export {
   navLinks,
   footerLinks,
   dateConfigs,
-  numberConfigs
+  numberConfigs,
+  quickSearchLinks
 }
