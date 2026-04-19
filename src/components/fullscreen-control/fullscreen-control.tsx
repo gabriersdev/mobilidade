@@ -15,11 +15,8 @@ const FullscreenControl: React.FC<FullscreenControlProps> = ({elementRef}) => {
       const isCurrentlyFullscreen = !!document.fullscreenElement;
       setIsFullscreen(isCurrentlyFullscreen);
       
-      if (isCurrentlyFullscreen) {
-        requestWakeLock();
-      } else {
-        releaseWakeLock();
-      }
+      if (isCurrentlyFullscreen) requestWakeLock().then();
+      else releaseWakeLock();
     };
     
     document.addEventListener('fullscreenchange', handleFullscreenChange);
@@ -58,9 +55,7 @@ const FullscreenControl: React.FC<FullscreenControlProps> = ({elementRef}) => {
         console.error("Error attempting to enable full-screen mode:", err);
         alert("Não é possível entrar no modo tela cheia neste navegador. Tente em outro.");
       });
-    } else {
-      document.exitFullscreen();
-    }
+    } else document.exitFullscreen().then();
   };
   
   return (
@@ -69,7 +64,7 @@ const FullscreenControl: React.FC<FullscreenControlProps> = ({elementRef}) => {
       size={"sm"}
       className={"d-flex align-items-center gap-2 flex-wrap"}
       onClick={toggleFullscreen}
-      style={{position: 'absolute', top: '1rem', right: '1rem', zIndex: 10}}
+      style={{position: 'absolute', top: '0.5rem', right: '0.5rem', zIndex: 10}}
     >
       <i className={`bi ${!isFullscreen ? 'bi-fullscreen' : 'bi-fullscreen-exit'}`}></i>
       <span className={"d-none d-md-inline-block text-sml"}>

@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
-import config from '../assets/config.js';
+import config from '@/assets/config.js';
 
 const cache = new Map();
 
@@ -8,7 +8,7 @@ const useLines = (variant = 'all') => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     const fetchLines = async () => {
       if (cache.has(variant)) {
@@ -16,12 +16,10 @@ const useLines = (variant = 'all') => {
         setLoading(false);
         return;
       }
-
+      
       let apiURL = `${config.host}/api/lines`;
-      if (variant === 'main') {
-        apiURL = `${config.host}/api/lines/main`;
-      }
-
+      if (variant === 'main') apiURL = `${config.host}/api/lines/main`;
+      
       try {
         const response = await axios.get(apiURL);
         const fetchedData = response.data;
@@ -33,11 +31,11 @@ const useLines = (variant = 'all') => {
         setLoading(false);
       }
     };
-
-    fetchLines();
+    
+    fetchLines().then();
   }, [variant]);
-
-  return { data, error, loading };
+  
+  return {data, error, loading};
 };
 
 export default useLines;

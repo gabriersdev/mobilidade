@@ -39,6 +39,13 @@ main {
   max-width: 250px;
 }
 
+.truncate-w-200 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
 .badge,
 .badge * {
   font-weight: 600 !important;

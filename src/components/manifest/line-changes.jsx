@@ -2,8 +2,8 @@ import Title from "@/components/ui/title/title";
 
 const LineChanges = () => (
   <section id="id" className="content-text">
-    <Title type='h2' classX=" text-primary-emphasis">Ampliação, reativação, alteração de itinerário e criação de linhas</Title>
-    <Title type='h3' classX=" text-primary-emphasis opacity-75">Linhas metropolitanas e intermunicipais</Title>
+    <Title type='h2' classX=" text-primary-emphasis lh-sm">Ampliação, reativação, alteração de itinerário e criação de linhas</Title>
+    <Title type='h3' classX=" text-primary-emphasis opacity-75 lh-sm fs-3">Linhas metropolitanas e intermunicipais</Title>
     <ul className={"list-group mb-5"}>
       <li className={"list-group-item text-balance py-3 text-body"}>Criação da linha 4985 - Sabará para Raposos via Nova Lima, passando pela estrada do bairro Paciência, com horários de partida em dias úteis (05, 09, 12 e 17 horas).</li>
       <li className={"list-group-item text-balance py-3 text-body"}>Ampliação da linha 4986 - Sabará para Belo Horizonte (Bandeirante) nos horários de partida de dias úteis (06, 08, 10, 16 e 18 horas) e criação de horários de partida nos horários de sábado e domingo (06 e 16 horas).</li>
@@ -23,7 +23,7 @@ const LineChanges = () => (
       <li className={"list-group-item text-balance py-3 text-body"}>Implementar integração das linhas 4970, 4985, 4986, 4987, 4988 e suas variantes, 4989, 4991, 4994 e 4995 com todas as linhas do sistema municipal.</li>
     </ul>
     
-    <Title type='h3' classX=" text-primary-emphasis opacity-75">Linhas municipais</Title>
+    <Title type='h3' classX=" text-primary-emphasis opacity-75 lh-sm fs-3">Linhas municipais</Title>
     <ul className={"list-group"}>
       <li className={"list-group-item text-balance py-3 text-body"}>Criação da linha 12, bairro Pompeu para Roças Grande, com atendimento a região conhecida como &#34;praia&#34; no bairro Pompeu.</li>
       <li className={"list-group-item text-balance py-3 text-body"}>Criação da linha 13, bairro Paciência para Campo Santo Antônio.</li>

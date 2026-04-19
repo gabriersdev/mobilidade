@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import Config from "@/assets/config.js";
 import {useCaptcha} from '@/components/captcha-verifier/use-captcha.js';
@@ -44,6 +44,7 @@ function CaptchaVerifier() {
             setIsVerified(false);
           }
         } catch (error) {
+          console.log(error);
           setVerificationStatus('Erro de comunicação com o servidor. Por favor tente novamente.');
           setIsVerified(false);
         }
@@ -75,7 +76,7 @@ function CaptchaVerifier() {
         <Button variant={"secondary"} className={"px-3"} onClick={onReset}>Resetar</Button>
       </div>
       <span className={"text-sml mx-auto text-balance d-block mt-2 text-body-secondary"} style={{maxWidth: 600}}>
-        Ao continuar você concorda com a nossa <Link to={"https://www.hcaptcha.com/privacy?hl=pt-BR"} hrefLang={"pt-BR"} className={"fs-inherit link-info"}>política de privacidade</Link> e os <Link to={"https://www.hcaptcha.com/terms?hl=pt-BR"} hrefLang={"pt-BR"} className={"fs-inherit link-info"}>termos de serviço</Link>. A responsabilidade pelo processamento deste captcha é nossa e do HCaptcha.
+        Ao continuar você concorda com a <Link to={"https://www.hcaptcha.com/privacy?hl=pt-BR"} hrefLang={"pt-BR"} className={"fs-inherit link-info"}>política de privacidade</Link> e os <Link to={"https://www.hcaptcha.com/terms?hl=pt-BR"} hrefLang={"pt-BR"} className={"fs-inherit link-info"}>termos de serviço</Link> do HCaptcha. A responsabilidade pelo processamento deste captcha é nossa e do HCaptcha.
       </span>
     </div>
   );

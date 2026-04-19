@@ -2,7 +2,6 @@
 
 import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
-import terser from '@rollup/plugin-terser'
 import {visualizer} from 'rollup-plugin-visualizer'
 import path from 'path'
 
@@ -20,8 +19,12 @@ export default defineConfig({
   optimizeDeps: {
     include: ['react-bootstrap', 'bootstrap/dist/js/bootstrap.bundle.min.js'],
   },
+  esbuild: {
+    drop: ['console', 'debugger'],
+    pure: ['console.info', 'console.debug', 'console.warn'],
+  },
   build: {
-    minify: 'terser',
+    minify: 'esbuild',
     sourcemap: true,
     commonjsOptions: {
       include: [/node_modules/]
@@ -46,23 +49,6 @@ export default defineConfig({
         chunkFileNames: 'assets/[name].[hash].js',
         assetFileNames: 'assets/[name].[hash][extname]',
         format: 'es',
-        plugins: [
-          terser({
-            format: {
-              // Remove comentários
-              comments: false,
-            },
-            compress: {
-              // Remove console.log
-              drop_console: true,
-              // Remove debugger
-              drop_debugger: true,
-              // Compressão mais agressiva
-              passes: 3,
-              pure_funcs: ['console.info', 'console.debug', 'console.warn'],
-            }
-          })
-        ]
       },
       treeshake: {
         moduleSideEffects: id => {

@@ -1,7 +1,7 @@
 const cacheNumber = 43;
 const cacheVersion = "V" + cacheNumber;
 const CACHE_NAME = `mobilidade-app-${cacheVersion}`;
-const STATIC_CACHE_NAME = `mobilidade-app-${cacheVersion}`;
+// const STATIC_CACHE_NAME = `mobilidade-app-${cacheVersion}`;
 const DYNAMIC_CACHE_NAME = `dynamic-mobilidade-app-${cacheVersion}`;
 
 // TODO - testar nova implementação de caching

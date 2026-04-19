@@ -5,9 +5,11 @@ import axios from "axios";
 import config from "../../assets/config.js";
 import Util from "../../assets/Util.jsx";
 import {useLocation} from "react-router-dom";
+import {dateConfigs} from "@/assets/resources.js";
 
-moment.locale("pt-BR");
+moment.locale(dateConfigs.lang);
 
+// TODO - refatorar componente
 const useLiveComponent = () => {
   const [lineSelected, setLineSelected] = useState(null);
   const [departurePointSelected, setDeparturePointSelected] = useState(null);
@@ -136,24 +138,25 @@ const useLiveComponent = () => {
     if (searchTerm && (lines || departurePoints)) {
       const searchTermLower = searchTerm.toLowerCase();
       
+      // TODO - bolar lógica para busca e pesquisa de itens e centralizá-la
       const foundLine = lines?.find(line =>
         line.title.toLowerCase().includes(searchTermLower) ||
         line.name.toLowerCase().includes(searchTermLower)
       );
       
       if (foundLine) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setLineSelected(foundLine);
         return;
       }
       
+      // TODO - bolar lógica para busca e pesquisa de itens e centralizá-la
       const foundDP = departurePoints?.find(dp =>
         dp.title.toLowerCase().includes(searchTermLower) ||
         dp.name.toLowerCase().includes(searchTermLower)
       );
       
-      if (foundDP) {
-        setDeparturePointSelected(foundDP);
-      }
+      if (foundDP) setDeparturePointSelected(foundDP);
     }
   }, [searchTerm, lines, departurePoints]);
   

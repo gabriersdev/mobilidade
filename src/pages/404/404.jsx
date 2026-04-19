@@ -1,9 +1,9 @@
-import Title from "../../components/ui/title/title.jsx";
+import Title from "@/components/ui/title/title.jsx";
 import {Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {useEffect} from "react";
 
-import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
+import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
@@ -19,7 +19,7 @@ const NotFound = () => {
   }, []);
   
   return (
-    <div className={"d-flex flex-column gap-5 align-items-start"}>
+    <div className={"d-flex flex-column gap-4 gap-sm-5 align-items-start"}>
       <Title classX={" text-secondary"}>A página não existe.</Title>
       <Button as={Link} role={"link"} to={"/"} variant={"primary"}>Voltar ao início</Button>
     </div>

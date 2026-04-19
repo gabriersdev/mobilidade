@@ -62,6 +62,7 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location, 
   
   // Lógica de Renderização
   
+  // TODO - aplicar placeholder
   if (isLoaded) return <AnimatedComponents><div>Carregando...</div></AnimatedComponents>;
   if (error) return <AnimatedComponents><FeedbackError code={error.response?.status || 500} text={error.message} type={'card'}/></AnimatedComponents>;
   if (processingError) return <AnimatedComponents><Alert variant={'danger'}><span>Ocorreu um erro ao organizar os horários. Tente novamente mais tarde.</span></Alert></AnimatedComponents>;

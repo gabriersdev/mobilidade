@@ -5,8 +5,9 @@ import Util from "../../assets/Util.jsx"
 
 import moment from "moment";
 import PropTypes from "prop-types";
+import {dateConfigs} from "@/assets/resources.js";
 
-moment.locale("pt-br");
+moment.locale(dateConfigs.lang);
 const getCurrentDayGroupName = () => Util.getCurrentDayGroupName();
 
 /**

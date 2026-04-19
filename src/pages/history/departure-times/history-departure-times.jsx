@@ -13,10 +13,13 @@ import AnimatedComponents from "@/components/ui/animated-component/animated-comp
 import PaginationWithItems from "@/components/pagination-with-items/pagination-with-items.jsx";
 
 import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
+import {dateConfigs} from "@/assets/resources.js";
+
 const useBreadcrumb = bcAll.useBreadcrumb;
 
-moment.locale("pt-BR");
+moment.locale(dateConfigs.locale);
 
+// TODO - refatorar componente
 export default function HistoryDepartureTimes() {
   const {id} = useParams();
   const [error, setError] = useState(null);
@@ -24,7 +27,7 @@ export default function HistoryDepartureTimes() {
   const [data, setData] = useState([]);
   const [lineData, setLineData] = useState([]);
   const [dataAll, setDataAll] = useState([]);
-  const { setLabel } = useBreadcrumb();
+  const {setLabel} = useBreadcrumb();
   const [currentPage, setCurrentPage] = useState(1);
   
   const handlePageChange = (page) => {
@@ -103,7 +106,7 @@ export default function HistoryDepartureTimes() {
           </Title>
         </Link>
         
-        <section className={"d-flex gap-5 mt-5 flex-column"}>
+        <section className={"d-flex flex-column gap-4 gap-sm-5 align-items-start mt-5"}>
           <AnimatedComponents>
             <ListGroup>
               {

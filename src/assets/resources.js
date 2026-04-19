@@ -14,6 +14,7 @@ const navLinks = [
   {name: "Guia", path: "./guide"},
   {name: "Ao vivo", path: "./live", isLive: true},
   {name: "Cidade de Sabará", path: "./sabara", mobileOnly: true, showOnlyFooter: true},
+  {name: "Companhias", path: "./company", mobileOnly: true, showOnlyFooter: true},
 ];
 
 const footerLinks = [
@@ -23,11 +24,73 @@ const footerLinks = [
   {name: "Manifesto", path: "/manifest#topo"},
 ]
 
+const dateConfigs = {
+  locale: "America/Sao_Paulo",
+  lang: "pt-BR",
+  UTC: -3,
+  UTC2: -180,
+  timeFormat: "HH:mm",
+  timeFormatFriendly: "HH[h]mm"
+}
+
+const numberConfigs = {
+  lang: "pt-BR"
+}
+
+const quickSearchLinks = [
+  "Rodoviária de Sabará",
+  "Terminal São Gabriel",
+  "Estação José Cândido da Silveira",
+  "Estação São Gabriel",
+  "Rua dos Caetés",
+  "Andradas",
+  "Rodoviária de Belo Horizonte",
+]
+
+const labelMap = {
+  "lines": "Linhas",
+  "search": "Pesquisa",
+  "terms-of-service": "Termos de Serviço",
+  "privacy": "Privacidade",
+  "company": "Companhia",
+  "development": "Desenvolvimento",
+  "news": "Notícias",
+  "history": "Histórico",
+  "guide": "Guia",
+  "live": "Ao vivo",
+  "sabara": "Sabará",
+  "manifest": "Manifesto",
+}
+
+const navLinksPageLine = [
+  {id: "id", label: "Informações", className: "d-none d-sm-inline-block"},
+  {id: "partidas", label: "Horários"},
+  {id: "paradas", label: "Paradas"},
+  {id: "pontos-de-recarga", label: "Recarga"},
+  {id: "mapa", label: "Mapa"},
+  {id: "resume", label: "Sobre", className: "d-none"},
+];
+
+const elementIdsPageLine = [
+  "id",
+  "partidas",
+  "paradas",
+  "pontos-de-recarga",
+  "mapa",
+  "resume"
+];
+
 export {
   reportMail,
   contactLotus,
   currentTableFares,
   linesWithManualIntegration,
   navLinks,
-  footerLinks
+  footerLinks,
+  dateConfigs,
+  numberConfigs,
+  quickSearchLinks,
+  labelMap,
+  navLinksPageLine,
+  elementIdsPageLine
 }

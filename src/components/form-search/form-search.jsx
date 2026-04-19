@@ -1,15 +1,24 @@
+import '@/components/form-search/form-search.css';
+
 import {useState} from "react";
 import PropTypes from "prop-types";
 import {FormGroup} from "react-bootstrap";
 
-import {useSearchHistory} from "./use-search-history.js";
-import Title from "../ui/title/title.jsx";
-import SearchLinks from "../search/search-links.jsx";
-import FeaturedCompanies from "./featured-companies.jsx";
-import SearchInput from "./search-input.jsx";
-import './form-search.css';
+import {useSearchHistory} from "@/components/form-search/use-search-history.js";
+import Title from "@/components/ui/title/title.jsx";
+import SearchLinks from "@/components/search/search-links.jsx";
+import FeaturedCompanies from "@/components/form-search/featured-companies.jsx";
+import SearchInput from "@/components/form-search/search-input.jsx";
 
-const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermSearch, initialValue = ""}) => {
+const FormSearch = (
+  {
+    formTitle,
+    inputPlaceholder,
+    fnSetIsValidSearch,
+    fnSetTermSearch,
+    initialValue = ""
+  }) => {
+  
   const [search, setSearch] = useState(initialValue || '');
   const [feedback, setFeedback] = useState('');
   const {searchHistory, addSearchTerm} = useSearchHistory();
@@ -51,6 +60,7 @@ const FormSearch = ({formTitle, inputPlaceholder, fnSetIsValidSearch, fnSetTermS
           </Title>
           <FeaturedCompanies/>
         </hgroup>
+        
         <SearchInput
           searchHistory={searchHistory}
           onSelectedItemChange={handleSelectedItemChange}

@@ -16,7 +16,7 @@ export default [
     init: "2026-01-01T00:00:00-03:00",
     finish: "2026-01-25T00:00:00-03:00",
   }, {
-    // TODO - link para matéria
+    // T1DO - link para matéria
     title: "Novas linhas de novas cidades: Caeté e Nova Lima",
     message: (<>Visando a expansão do sistema, incluímos as linhas das cidades de Caeté e Nova Lima - as municipais, intermunicipais e metropolitanas.</>),
     // ATT - definir ano para 2025

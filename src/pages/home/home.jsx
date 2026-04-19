@@ -2,12 +2,12 @@ import {useEffect} from "react";
 import {Link} from "react-router-dom";
 import {Button, CardTitle, Placeholder} from "react-bootstrap";
 
-import Title from "../../components/ui/title/title.jsx";
-import LatestNews from "../../components/latest-news/latest-news.jsx";
-import SuggestLabel from "../../components/suggest-label/suggest-label.jsx";
-import FormValidSearch from "../../components/form-valid-search/form-valid-search.jsx";
-import GetAndListLines from "../../components/get-and-list-lines/get-and-list-lines.jsx";
-import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
+import Title from "@/components/ui/title/title.jsx";
+import LatestNews from "@/components/latest-news/latest-news.jsx";
+import SuggestLabel from "@/components/suggest-label/suggest-label.jsx";
+import FormValidSearch from "@/components/form-valid-search/form-valid-search.jsx";
+import GetAndListLines from "@/components/get-and-list-lines/get-and-list-lines.jsx";
+import AnimatedComponents from "@/components/ui/animated-component/animated-components.jsx";
 
 const Home = () => {
   useEffect(() => {

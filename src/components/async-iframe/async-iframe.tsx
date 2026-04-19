@@ -1,20 +1,26 @@
 import React, {useEffect, useRef, useState} from 'react';
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import FullscreenControl from "@/components/fullscreen-control/fullscreen-control";
+import {IframeContent} from "@/components/async-iframe/iframe-content";
+import moment from "moment";
+import {dateConfigs} from "@/assets/resources";
+
+moment.locale(dateConfigs.lang);
 
 interface AsyncIframeProps extends React.IframeHTMLAttributes<HTMLIFrameElement> {
   placeholder?: React.ReactNode;
 }
 
-const AsyncIframe: React.FC<AsyncIframeProps> = ({src, title, placeholder, ...props}) => {
+const AsyncIframe: React.FC<AsyncIframeProps> = ({
+                                                   title,
+                                                   placeholder,
+                                                   ...props
+                                                 }) => {
   const [loading, setLoading] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   
-  const handleLoad = () => {
-    setLoading(false);
-  };
+  const handleLoad = () => setLoading(false);
   
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -28,17 +34,18 @@ const AsyncIframe: React.FC<AsyncIframeProps> = ({src, title, placeholder, ...pr
     };
   }, []);
   
-  // Placeholder padrão usando as classes do Bootstrap
   const defaultPlaceholder = (
     <div className="placeholder-glow w-100 h-100 rounded">
-      <span className="placeholder w-100 h-100 rounded"></span>
+      <span className="placeholder w-100 h-100 rounded"/>
     </div>
   );
+  
+  const containerClasses = `rounded ${!loading ? 'border' : ''}`;
   
   return (
     <div
       ref={containerRef}
-      className={(!loading && "border") + " rounded"}
+      className={containerClasses}
       style={{position: 'relative', width: '100%', height: '100%', backgroundColor: 'white'}}
     >
       {loading && (
@@ -54,26 +61,21 @@ const AsyncIframe: React.FC<AsyncIframeProps> = ({src, title, placeholder, ...pr
           {placeholder || defaultPlaceholder}
         </div>
       )}
-      <OverlayTrigger overlay={
-        <Tooltip>
-          <span>{title}</span>
-        </Tooltip>}
+      
+      <OverlayTrigger
+        overlay={
+          <Tooltip>
+            <span>{title}</span>
+          </Tooltip>
+        }
       >
-        <div style={{position: 'relative'}}>
-          <FullscreenControl elementRef={containerRef}/>
-          <iframe
-            src={src}
-            onLoad={handleLoad}
-            className={"rounded"}
-            style={{
-              width: '100%',
-              height: isFullscreen ? '100vh' : '500px',
-              border: 'none',
-              visibility: loading ? 'hidden' : 'visible',
-            }}
-            {...props}
-          />
-        </div>
+        <IframeContent
+          {...props}
+          onLoad={handleLoad}
+          loading={loading ? "lazy" : "eager"}
+          isFullscreen={isFullscreen}
+          containerRef={containerRef}
+        />
       </OverlayTrigger>
     </div>
   );

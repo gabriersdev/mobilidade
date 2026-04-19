@@ -13,8 +13,9 @@ import LineIdentificationIntegrationPopover from "./line-identification-integrat
 import LineIdentificationInfoList from "./line-identification-info-list.jsx";
 import LineIdentificationActions from "./line-identification-actions.jsx";
 import LineIdentificationLastUpdate from "./line-identification-last-update.jsx";
+import {dateConfigs} from "@/assets/resources.js";
 
-moment.locale("pt-BR");
+moment.locale(dateConfigs.lang);
 
 const LineIdentification = () => {
   const {line} = useContext(Context);
@@ -61,7 +62,7 @@ const LineIdentification = () => {
     />
   );
   
-  // TODO - implementar retorno ou verificação do banco de dados de integração
+  // T1DO - implementar retorno ou verificação do banco de dados de integração
   const integrationPopover = (
     <LineIdentificationIntegrationPopover line={line}/>
   );

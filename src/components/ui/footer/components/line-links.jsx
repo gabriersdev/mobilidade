@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import {Badge} from "react-bootstrap";
 import SeeMore from "@/components/ui/see-more/see-more.jsx";
-import useLines from "../../../../hooks/useLines.js";
+import useLines from "../../../../hooks/use-lines.js";
 
 const LineLinks = () => {
   const {data: listLines} = useLines();
@@ -21,7 +21,12 @@ const LineLinks = () => {
               .map((line, i) => (
                 <Link to={`/lines/${line.line_id}`} key={i}>
                   <Badge bg={"primary"} pill={true} className={"d-inline-block"}>
-                    <span className={"d-block"} style={{letterSpacing: "0.5px", fontSize: "12.5px"}}>N.º {line.line_number}</span>
+                    <span
+                      className={"d-block"}
+                      style={{letterSpacing: "0.5px", fontSize: "12.5px"}}
+                    >
+                      N.º {line.line_number}
+                    </span>
                   </Badge>
                 </Link>
               ))

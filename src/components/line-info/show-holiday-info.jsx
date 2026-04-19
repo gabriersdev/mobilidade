@@ -7,6 +7,7 @@ export default function ShowHolidayInfo({scope}) {
   const data = useRef(Util.getTodayHolidayData(scope))
   const vacation = useRef(Util.getTodayVacationData())
   
+  // Error: Cannot access refs during render
   if (data?.["current"]) {
     return (
       <Alert variant={"warning"} dismissible margin={"m-0"}>
@@ -17,6 +18,7 @@ export default function ShowHolidayInfo({scope}) {
     )
   }
 
+  // Error: Cannot access refs during render
   if (vacation?.["current"]) {
     return (
       <Alert variant={"info"} dismissible margin={"m-0"}>

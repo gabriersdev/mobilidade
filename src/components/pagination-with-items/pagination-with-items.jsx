@@ -12,7 +12,7 @@ const PaginationWithItems = ({items, itemsPerPage, beforeSelector, classNameOfCo
   
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(currentPage * itemsPerPage, totalItems);
-  const displayedItems =  items.slice(startIndex, endIndex);
+  const displayedItems = items.slice(startIndex, endIndex);
   
   const handleClick = (pageNumber) => {
     if (paginationElement.current) {
@@ -57,6 +57,7 @@ const PaginationWithItems = ({items, itemsPerPage, beforeSelector, classNameOfCo
   
   useEffect(() => {
     if (totalPages > 1) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setPaginationSelector(
         <Pagination className={"p-0 overflow-x-scroll m-0 p-0"}>
           <Pagination.First onClick={() => handleClick(1)} disabled={currentPage === 1}/>

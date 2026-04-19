@@ -1,11 +1,9 @@
-main.main {
-  margin-top: 4rem;
-  margin-bottom: 5rem;
-  /* min-height: calc(100vh - 7rem - 75px); */
-}
-
-.container>div {
+.container > div {
   display: flex;
   flex-direction: column;
   gap: 3rem;
+
+  @media screen and (max-width: 640px) {
+    gap: 2rem;
+  }
 }

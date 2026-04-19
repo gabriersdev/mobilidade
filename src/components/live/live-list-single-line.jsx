@@ -4,8 +4,9 @@ import {useCallback} from "react";
 import Util from "../../assets/Util.jsx";
 import {Link} from "react-router-dom";
 import LiveShowItem from "./live-show-item.jsx";
+import {dateConfigs} from "@/assets/resources.js";
 
-moment.locale("pt-BR");
+moment.locale(dateConfigs.lang);
 
 export default function LiveListSingleLine({data, configs}) {
   const filtered = useCallback((d, i, self) => {

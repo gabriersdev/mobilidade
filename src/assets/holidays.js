@@ -1,6 +1,7 @@
 import moment from "moment";
+import {dateConfigs} from "@/assets/resources.js";
 
-moment.locale("pt-BR");
+moment.locale(dateConfigs.lang);
 
 export const nationalFixedHolidays = [
   {name: "Confraternização Universal", month: 1, day: 1},

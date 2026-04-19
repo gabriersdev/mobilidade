@@ -1,10 +1,11 @@
-import AsyncIframe from "@/components/async-iframe/async-iframe.tsx";
-import liveMap from "../../assets/live-map.js";
-import {Link} from "react-router-dom";
-import Title from "../ui/title/title.jsx";
 import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
+
 import Util from "@/assets/Util.jsx";
+import liveMap from "@/assets/live-map.js";
+import Title from "@/components/ui/title/title.jsx";
+import AsyncIframe from "@/components/async-iframe/async-iframe.tsx";
 
 export default function RenderLiveMap({data}) {
   const lineId = data?.[0]?.line_id;
@@ -12,11 +13,14 @@ export default function RenderLiveMap({data}) {
   
   useEffect(() => {
     if (lineId) {
+      // É necessário monitorar a mudança da URL, e mudança de id de linha: /lines/:id - algumas linhas não tem mapa atribuído
+      // Verificar @/assets/live-map.js
       const existsLinkLiveMap = Object.entries(liveMap).find(item => item[0] === lineId.toString());
       
       const link = existsLinkLiveMap ? existsLinkLiveMap[1] : null;
       
       if (link) return (
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setContent(
           <section id={"mapa"} className={"pt-3"}>
             <div>

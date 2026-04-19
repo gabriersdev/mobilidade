@@ -9,6 +9,7 @@ export default function LineIdentificationCompanyLogo({companyId}) {
   useEffect(() => {
     switch (+companyId) {
       case 3:
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setImgSrc("/images/companies/vinscol.svg");
         break;
       
