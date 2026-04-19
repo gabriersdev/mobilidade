@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import GuideLetterSection from '@/components/guide-list-components/guide-letter-section.jsx';
@@ -9,9 +8,7 @@ const GuideList = ({data}) => {
     .filter((v, i, self) => self.indexOf(v) === i)
     .sort();
   
-  if (uniqueLetters.length === 0) {
-    return <p>Nenhum resultado encontrado.</p>;
-  }
+  if (uniqueLetters.length === 0) return <p>Nenhum resultado encontrado.</p>;
   
   return (
     <div className="d-flex flex-column gap-4 gap-sm-5 align-items-start">

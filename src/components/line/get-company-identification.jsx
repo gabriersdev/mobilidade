@@ -9,6 +9,7 @@ const GetCompanyIdentification = ({line}) => {
     if (!line.company_name) return;
     switch (line.company_name.toLowerCase().trim()) {
       case "Transporte Coletivo Metropolitano - MG".toLowerCase().trim():
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setCompanyIdentification(
           <Image
             src={"/images/companies/der-mg.png"}

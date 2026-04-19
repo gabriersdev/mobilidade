@@ -1,10 +1,9 @@
-import React from 'react';
 import {useLocation} from 'react-router-dom';
 import {Breadcrumb} from 'react-bootstrap';
 import {useBreadcrumbItems} from '@/hooks/use-breadcrumb-items.jsx';
-import AnimatedComponents from '../ui/animated-component/animated-components.jsx';
-import BreadcrumbItemFactory from './breadcrumb-item-factory.jsx';
-import './breadcrumb-app.css';
+import AnimatedComponents from '@/components/ui/animated-component/animated-components.jsx';
+import BreadcrumbItemFactory from '@/components/breadcrumb-app/breadcrumb-item-factory.jsx';
+import '@/components/breadcrumb-app/breadcrumb-app.css';
 
 const BreadcrumbApp = () => {
   const location = useLocation();

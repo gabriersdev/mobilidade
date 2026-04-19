@@ -18,6 +18,7 @@ const OffCanvasDepartureTimes = () => {
     
     if (first && direction) {
       const correspondence = firstPointByDirection[`${departureTimeOffCanvas.direction}`];
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (correspondence) setDataFirstPointByDirection(correspondence);
       else setDataFirstPointByDirection(null);
     } else setDataFirstPointByDirection(null);

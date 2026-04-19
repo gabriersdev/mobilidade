@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import Title from '../ui/title/title.jsx';
 import Util from '../../assets/Util.jsx';

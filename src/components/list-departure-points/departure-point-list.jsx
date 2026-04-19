@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import {useContext} from 'react';
 import PropTypes from 'prop-types';
 import PaginationWithItems from '../pagination-with-items/pagination-with-items.jsx';
 import {DPContext as DeparturePointsTheme} from './departure-points-context.jsx';

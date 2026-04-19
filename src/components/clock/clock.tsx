@@ -3,7 +3,7 @@ import {useClock} from '@/hooks/use-clock';
 
 export const Clock: React.FC = () => {
   const time = useClock();
-
+  
   return (
     <div
       className="btn btn-warning p-0 rounded-1 border border-warning"

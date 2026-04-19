@@ -54,8 +54,7 @@ export default function HistoryFares() {
   
   useEffect(() => {
     if (!checkIsValid(id)) return <Alert variant={'danger'} margin={"mt-0"}>O id da linha não foi informado.</Alert>
-    getData(id).then(() => {
-    });
+    getData(id).then();
   }, [departureTimeDate, id]);
   
   useEffect(() => {

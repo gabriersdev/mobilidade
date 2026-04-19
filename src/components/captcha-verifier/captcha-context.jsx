@@ -1,4 +1,4 @@
-import React, {createContext, useState, useEffect} from 'react';
+import {createContext, useEffect, useState} from 'react';
 import Config from "@/assets/config.js";
 
 export const CaptchaContext = createContext();

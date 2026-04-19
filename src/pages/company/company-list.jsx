@@ -1,4 +1,3 @@
-import React from 'react';
 import {Image} from 'react-bootstrap';
 
 import {companies} from '@/assets/companies.js';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 const BusTimePlaceholder = () => (
   <div className="d-flex flex-column gap-1 w-100">
     {Array.from({ length: 3 }).map((_, i) => (

@@ -78,7 +78,7 @@ const LatestNews = () => {
                 return (
                   <div key={key}>
                     <div className={"d-flex flex-column placeholder-glow gap-1 mb-2"}>
-                      <div className={'placeholder fs-2 rounded'} style={{minHeight: '150px'}} t></div>
+                      <div className={'placeholder fs-2 rounded'} style={{minHeight: '150px'}}></div>
                     </div>
                     <Card key={key} variant={"placeholder-news"}/>
                   </div>

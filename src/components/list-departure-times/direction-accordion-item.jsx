@@ -1,23 +1,22 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import AccordionItem from '../ui/accordion/accordion-item.jsx';
-import { ThemeContext } from '../ui/theme-context/theme-context.jsx';
+import {ThemeContext} from '../ui/theme-context/theme-context.jsx';
 import AccordionOperationDays from './accordion-operation-days.jsx';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import DirectionTitle from '../list-departure-points/direction-title.jsx';
 
 const DirectionAccordionItem = ({
-  direction,
-  departure_location,
-  destination_location,
-  eventKey,
-  departureTimes,
-  sortedDays,
-  observations,
-  type,
-  scope,
-}) => (
+                                  direction,
+                                  departure_location,
+                                  destination_location,
+                                  eventKey,
+                                  departureTimes,
+                                  sortedDays,
+                                  observations,
+                                  type,
+                                  scope,
+                                }) => (
   <AccordionItem
     title={
       <DirectionTitle
@@ -46,7 +45,7 @@ const DirectionAccordionItem = ({
         scope,
       }}
     >
-      <AccordionOperationDays />
+      <AccordionOperationDays/>
       <div className="d-flex gap-2 align-items-center mt-4">
         <OverlayTrigger overlay={<Tooltip>Não houve alteração no quadro de horários</Tooltip>}>
           <span>

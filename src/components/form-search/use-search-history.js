@@ -1,15 +1,16 @@
-import {useState, useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
 const SEARCH_LS_KEY = "search-history";
 
 export const useSearchHistory = () => {
   const [searchHistory, setSearchHistory] = useState([]);
-
+  
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem(SEARCH_LS_KEY)) || [];
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSearchHistory(history.map(term => ({name: term})));
   }, []);
-
+  
   const addSearchTerm = (term) => {
     if (!term) return;
     const history = JSON.parse(localStorage.getItem(SEARCH_LS_KEY)) || [];
@@ -19,6 +20,6 @@ export const useSearchHistory = () => {
       setSearchHistory(newHistory.map(t => ({name: t})));
     }
   };
-
+  
   return {searchHistory, addSearchTerm};
 };

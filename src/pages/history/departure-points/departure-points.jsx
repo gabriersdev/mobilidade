@@ -53,10 +53,11 @@ export default function DeparturePoints() {
   
   useEffect(() => {
     if (!checkIsValid(id)) return <Alert variant={'danger'} margin={"mt-0"}>O id da linha não foi informado.</Alert>
-    getData(id).then(() => {
-    });
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    getData(id).then();
   }, [departureTimeDate, id]);
   
+  // TODO - refatorar código duplicado
   useEffect(() => {
     document.title = "Mobilidade - Histórico de Pontos de Parada";
     

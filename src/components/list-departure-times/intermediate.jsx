@@ -1,33 +1,32 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import Accordion from '../ui/accordion/accordion.jsx';
 import OffCanvasDepartureTimes from './off-canvas-departure-times.jsx';
 import DirectionAccordionItem from './direction-accordion-item.jsx';
 
 export default function Intermediate({
-  data = [],
-  observations,
-  departure_location,
-  destination_location,
-  sortedDays,
-  type,
-  scope,
-}) {
+                                       data = [],
+                                       observations,
+                                       departure_location,
+                                       destination_location,
+                                       sortedDays,
+                                       type,
+                                       scope,
+                                     }) {
   const departureTimes = data.toSorted((a, b) => a.day - b.day);
   const uniqueDirections = [
     ...new Set(departureTimes.map((item) => item.direction)),
   ];
-
+  
   if (!departure_location || !uniqueDirections) {
     return <div>Organizando horários...</div>;
   }
-
+  
   const directionsToRender =
     uniqueDirections[0] === 2 ? uniqueDirections.toReversed() : uniqueDirections;
-
+  
   return (
     <Accordion defaultEventKey={['0']} id="departure-times-data">
-      <OffCanvasDepartureTimes />
+      <OffCanvasDepartureTimes/>
       {directionsToRender.map((direction, i) => (
         <DirectionAccordionItem
           key={i}

@@ -20,6 +20,7 @@ export default function RenderLiveMap({data}) {
       const link = existsLinkLiveMap ? existsLinkLiveMap[1] : null;
       
       if (link) return (
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setContent(
           <section id={"mapa"} className={"pt-3"}>
             <div>

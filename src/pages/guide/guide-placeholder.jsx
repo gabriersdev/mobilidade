@@ -1,4 +1,3 @@
-import React from 'react';
 import {Card, CardBody, CardHeader, ListGroup, ListGroupItem, Placeholder} from 'react-bootstrap';
 
 const GuidePlaceholder = () => (

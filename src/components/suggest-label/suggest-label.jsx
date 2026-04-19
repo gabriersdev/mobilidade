@@ -1,4 +1,3 @@
-import React from "react";
 import useSuggestLabel from "./use-suggest-label.js";
 import StopSelector from "./stop-selector.jsx";
 import BusTimesDisplay from "./bus-times-display.jsx";

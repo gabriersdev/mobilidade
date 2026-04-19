@@ -15,7 +15,7 @@ const PrintButton = ({loading, onClick}) => {
       >
         {loading ? (
           <>
-            <span className="me-2 d-none d-sm-inline">Imprimindo</span>
+            <span className="me-2 d-none d-sm-inline text-sml">Imprimindo</span>
             <Spinner animation="grow" role="status" size="sm">
               <span className="visually-hidden">Loading...</span>
             </Spinner>

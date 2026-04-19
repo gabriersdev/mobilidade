@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import CompanyList from '@/pages/company/company-list.jsx';
 import CompanyDetail from '@/pages/company/company-detail.jsx';

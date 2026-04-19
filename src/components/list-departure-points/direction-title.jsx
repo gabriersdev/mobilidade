@@ -1,8 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
-const DirectionTitle = ({ direction, departure, destination }) => {
+const DirectionTitle = ({direction, departure, destination}) => {
   let title;
+  
+  // TODO - centralizar lógica
   switch (direction) {
     case 1:
       title = `Sentido ida - ${departure} -> ${destination}`;

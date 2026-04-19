@@ -1,4 +1,3 @@
-import React from 'react';
 import {Badge, Button, FormControl, InputGroup} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 

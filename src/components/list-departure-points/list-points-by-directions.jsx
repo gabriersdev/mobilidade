@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import {useContext, useEffect} from 'react';
 import AccordionItem from '../ui/accordion/accordion-item.jsx';
-import { DeparturePointsDataContext } from './departure-points-context.jsx';
-import { Context as LineContext } from '../line/line-context.jsx';
+import {DeparturePointsDataContext} from './departure-points-context.jsx';
+import {Context as LineContext} from '../line/line-context.jsx';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import DirectionTitle from './direction-title.jsx';
@@ -16,8 +16,8 @@ const ListPointsByDirections = () => {
     paginationCurrentPages,
     handlePageChange,
   } = useContext(DeparturePointsDataContext);
-  const { setFirstPointByDirection } = useContext(LineContext);
-
+  const {setFirstPointByDirection} = useContext(LineContext);
+  
   useEffect(() => {
     uniqueDirections.forEach((direction, i) => {
       const firstPoint = departurePointsByDirection[i]?.[0];
@@ -29,7 +29,7 @@ const ListPointsByDirections = () => {
       }
     });
   }, [uniqueDirections, departurePointsByDirection, setFirstPointByDirection]);
-
+  
   return uniqueDirections.map((direction, i) => (
     <AccordionItem
       key={i}

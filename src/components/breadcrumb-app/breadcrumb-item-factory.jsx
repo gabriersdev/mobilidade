@@ -1,11 +1,10 @@
-import React from 'react';
-import { BreadcrumbItem } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import {BreadcrumbItem} from 'react-bootstrap';
+import {useNavigate} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const BreadcrumbItemFactory = ({ label, url }) => {
+const BreadcrumbItemFactory = ({label, url}) => {
   const navigate = useNavigate();
-
+  
   return (
     <BreadcrumbItem
       className="bg-body"
@@ -13,7 +12,7 @@ const BreadcrumbItemFactory = ({ label, url }) => {
         e.preventDefault();
         if (url) navigate(url);
       }}
-      style={{ cursor: 'pointer' }}
+      style={{cursor: 'pointer'}}
     >
       {label}
     </BreadcrumbItem>
