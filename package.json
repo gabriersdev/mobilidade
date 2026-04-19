@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/sync-version.js && node scripts/register.build.js && vite build",
+    "build": "node scripts/sync-version.js && node scripts/register.build.js && vite build && node scripts/generate-sitemap.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
