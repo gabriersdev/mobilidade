@@ -16,7 +16,7 @@ const LazyImage = ({src, alt, ...props}) => {
   );
 
   return (
-    <div style={{position: 'relative', width: '100%', height: '100%', minHeight: '200px'}}>
+    <div style={{position: 'relative', width: '100%', height: '100%', minHeight: '250px'}}>
       {loading && (
         <div
           style={{
@@ -24,6 +24,7 @@ const LazyImage = ({src, alt, ...props}) => {
             top: 0,
             left: 0,
             width: '100%',
+            maxWidth: 600,
             height: '100%',
           }}
         >

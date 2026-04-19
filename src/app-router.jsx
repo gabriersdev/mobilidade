@@ -13,7 +13,7 @@ const AppRouter = () => {
   // Se o usuário não estiver verificado, mostramos o Captcha.
   // A prop 'onSuccess' será chamada pelo CaptchaVerifier com o token do captcha,
   // que então aciona a verificação completa no backend.
-  if (!isVerified) return <CaptchaVerifier onSuccess={handleVerification}/>;
+  // if (!isVerified) return <CaptchaVerifier onSuccess={handleVerification}/>;
   
   return (
     <AppLayout>
