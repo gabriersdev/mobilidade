@@ -1,21 +1,14 @@
 import moment from "moment";
-
-import Util from "../../lib/Util.jsx";
-import LiveListResults from "../../components/live/live-list-results.jsx";
-import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
-import LiveFullscreenControl from "../../components/live/live-fullscreen-control.jsx";
-import Title from "../../components/ui/title/title.jsx";
-import useLiveComponent from "../../components/live/use-live-component.js";
-
-import {LiveConfigs} from "../../components/live/live-configs.jsx";
-import {LoadingDeparturePoints, AnyBusProximityError, LiveGeneralError, SelectOneDeparturePoint, AlertInfoFeature, AlertInfoConfigSomeDepartureStart} from "../../components/live/live-infos.jsx";
-import {LiveFormLines, LiveFormDeparturePoints} from "../../components/live/live-form.jsx";
-import Weather from "../../components/weather/weather.jsx";
-import {useEffect, useRef} from "react";
-
-import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
-import LiveListSingleLine from "../../components/live/live-list-single-line.jsx";
+import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
+
+import AnimatedComponents from "@/components/ui/animated-component/animated-components.jsx";
+import useLiveComponent from "@/components/live/use-live-component.js";
+import LiveHeader from "@/components/live/live-header.jsx";
+import LiveResultsDisplay from "@/components/live/live-results-display.jsx";
+import {LiveConfigs} from "@/components/live/live-configs.jsx";
+
+import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
 import {dateConfigs} from "@/assets/resources.js";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
@@ -41,13 +34,8 @@ const Live = () => {
     labelsConfigs,
   } = useLiveComponent();
   
-  const alertShowSomeDepartureStartHasShowed = useRef(false);
   const {setLabel} = useBreadcrumb();
   const navigate = useNavigate();
-  
-  useEffect(() => {
-    alertShowSomeDepartureStartHasShowed.current = !departurePointSelected;
-  }, [departurePointSelected]);
   
   useEffect(() => {
     setLabel("live", "Ao vivo");
@@ -55,66 +43,33 @@ const Live = () => {
   
   useEffect(() => {
     const base = "/live";
-    if (departurePointSelected?.id) navigate(base + "?sei=" + (departurePointSelected?.["id"] ?? ""));
-    else navigate(base);
+    if (departurePointSelected?.id) {
+      navigate(base + "?sei=" + (departurePointSelected?.["id"] ?? ""));
+    } else {
+      navigate(base);
+    }
   }, [departurePointSelected, navigate]);
   
   return (
     <AnimatedComponents>
-      <div className={"mb-3"}>
-        <Title title="Ao vivo" id="topo" classX=" text-body-secondary"/>
-      </div>
+      <LiveHeader
+        lines={lines}
+        setLineSelected={setLineSelected}
+        departurePoints={departurePoints}
+        setDeparturePointSelected={setDeparturePointSelected}
+      />
       
-      <div>
-        {lines && <LiveFormLines lines={lines} setLineSelected={setLineSelected}/>}
-        {departurePoints ? <LiveFormDeparturePoints departurePoints={departurePoints} setDeparturePointSelected={setDeparturePointSelected}/> : <LoadingDeparturePoints/>}
-      </div>
-      
-      <div className={"rounded-3 bg-body-secondary p-3 mt-5 position-relative"} ref={resultSection}>
-        <div className={"d-flex flex-column gap-0"}>
-          <Weather/>
-          <AlertInfoFeature/>
-        </div>
-        
-        {error && <LiveGeneralError/>}
-        
-        {departurePointSelected && (
-          <>
-            <div className={"d-flex flex-column gap-0 mb-3"}>
-              <span className={"text-muted text-sml"}>Local</span>
-              <span>{Util.renderText(departurePointSelected?.["title"])}</span>
-            </div>
-            
-            {loading ? <LoadingDeparturePoints /> : (
-              (data && Array.isArray(data) && data.length) ? (
-                <>
-                  <div className={"d-flex gap-3 flex-wrap mb-3"}>
-                    <div className={"d-flex flex-column gap-0 mb-3"}>
-                      <span className={"text-muted text-sml"}>Atualizado</span>
-                      <span>{moment.isMoment(datetimeOriginalFetch) ? Util.diffToHuman(datetimeOriginalFetch) : "-"}</span>
-                    </div>
-                    
-                    <div className={"d-flex flex-column gap-0 mb-3"}>
-                      <span className={"text-muted text-sml"}>Agora são</span>
-                      <span>{Util.renderText(moment.isMoment(now) ? now.format("HH:mm:ss") : "-")}</span>
-                    </div>
-                  </div>
-                  
-                  {configs?.["showSomeDepartureStart"] && <AlertInfoConfigSomeDepartureStart/>}
-                  {configs?.["showSingleLine"] ?
-                    <LiveListSingleLine data={data} configs={configs}/> :
-                    <LiveListResults data={data} dataNextDepartureTimes={dataNextDepartureTimes} configs={configs} />
-                  }
-                </>
-              ) : <AnyBusProximityError/>
-            )}
-          </>
-        )}
-        
-        {!departurePointSelected && <SelectOneDeparturePoint/>}
-        
-        <LiveFullscreenControl resultSection={resultSection}/>
-      </div>
+      <LiveResultsDisplay
+        departurePointSelected={departurePointSelected}
+        loading={loading}
+        data={data}
+        dataNextDepartureTimes={dataNextDepartureTimes}
+        error={error}
+        datetimeOriginalFetch={datetimeOriginalFetch}
+        now={now}
+        configs={configs}
+        resultSection={resultSection}
+      />
       
       <div className={"d-flex flex-column gap-3 mt-3"}>
         <LiveConfigs
@@ -126,6 +81,6 @@ const Live = () => {
       </div>
     </AnimatedComponents>
   );
-}
+};
 
 export default Live;
