@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import Util from "../../assets/Util.jsx";
+import Util from "../../lib/Util.jsx";
 import Alert from "../ui/alert/alert.jsx";
 import {DPContext} from "./departure-points-context.jsx";
 import {Button} from "react-bootstrap";

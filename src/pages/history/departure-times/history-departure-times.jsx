@@ -5,7 +5,7 @@ import {Link, useParams} from "react-router-dom";
 import {Button, ListGroup} from "react-bootstrap";
 
 import config from "@/assets/config.js";
-import Util from "@/assets/Util.jsx";
+import Util from "@/lib/Util.jsx";
 import Alert from "@/components/ui/alert/alert.jsx";
 import Title from "@/components/ui/title/title.jsx";
 import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";

@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useState} from 'react';
-import Convert from '../assets/Convert.js';
+import Convert from '../lib/Convert.js';
 
 export const useLineFilters = (initialData) => {
   const [data, setData] = useState(initialData || []);

@@ -3,7 +3,7 @@ import {useLocation} from 'react-router-dom';
 import axios from 'axios';
 import AOS from 'aos';
 import config from '@/assets/config.js';
-import Util from '@/assets/Util.jsx';
+import Util from '@/lib/Util.jsx';
 
 export const useGlobalEffects = () => {
   const [publicIp, setPublicIp] = useState(null);

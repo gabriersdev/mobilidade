@@ -3,7 +3,7 @@ import moment from "moment";
 import {Badge, OverlayTrigger, Tooltip} from "react-bootstrap";
 import {useLocation} from "react-router-dom";
 
-import Util from "@/assets/Util.jsx";
+import Util from "@/lib/Util.jsx";
 import AccordionItem from "@/components/ui/accordion/accordion-item.jsx";
 import Table from "@/components/list-departure-times/table-departure-times.jsx";
 import Legend from "@/components/ui/legend/legend.jsx";

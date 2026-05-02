@@ -1,14 +1,11 @@
 import {useState} from 'react';
-import {
-  Badge,
-  Modal
-} from 'react-bootstrap';
+import {Badge, Button, Modal} from 'react-bootstrap';
 
 import MonitorForm from "./monitor-form.jsx";
 
 const MonitorModal = () => {
   const [showModal, setShowModal] = useState(false);
-
+  
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
   
@@ -38,24 +35,22 @@ const MonitorModal = () => {
   return (
     <>
       <div className={"d-none"}>
-        <Badge className={"rounded-5 bg-primary-subtle p-0"}>
-          <button
-            className={"btn m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2"}
-            style={{lineHeight: "normal"}}
-            onClick={() => (async () => {
-              handleShowModal()
-              await clientNotificate()
-            })()}
-          >
-            <span>Acompanhar</span>
-            <i className="bi bi-bell"></i>
-          </button>
-        </Badge>
+        <Button
+          variant={"info"}
+          size={"sm"}
+          onClick={() => (async () => {
+            handleShowModal()
+            await clientNotificate()
+          })()}
+        >
+          <span>Acompanhar</span>
+          <i className="bi bi-bell"></i>
+        </Button>
       </div>
-
+      
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton className={"border-0"}>
-            <Modal.Title className={"fw-semibold"} style={{fontSize: "1.35rem"}}>Receber informações da linha</Modal.Title>
+          <Modal.Title className={"fw-semibold"} style={{fontSize: "1.35rem"}}>Receber informações da linha</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <MonitorForm handleCloseModal={handleCloseModal}/>

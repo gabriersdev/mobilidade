@@ -2,9 +2,9 @@ import Moment from 'moment'
 import moment from 'moment'
 import Arial from "../components/ui/arial/arial.jsx";
 import axios from "axios";
-import config from "./config.js";
+import config from "../assets/config.js";
 import {Link} from "react-router-dom";
-import {getAllHolidays, getVacation} from "./holidays.js";
+import {getAllHolidays, getVacation} from "../assets/holidays.js";
 import {dateConfigs, numberConfigs} from "@/assets/resources.js";
 
 moment.locale(dateConfigs.lang);
@@ -32,24 +32,12 @@ export default class Util {
     if (date !== "Invalid date") return date
   }
   
-  static resumeInfoLine({modal, departure_location, destination_location, operation_days}) {
+  static resumeInfoLine({modal, departure_location, destination_location}) {
     if (modal === 1) modal = 'ônibus'
     else if (modal === 2) modal = 'metrô'
     else modal = 'transporte público'
     
-    let newOperationDays = Array.isArray((operation_days)) ? operation_days.sort() : [1, 2, 3, 4]
-    
-    if (Util.arraysEqual(newOperationDays, [5, 6, 7])) newOperationDays = Util.createArray(7)
-    else if (Util.arraysEqual(newOperationDays, [5, 6])) newOperationDays = Util.createArray(6)
-    else if (Util.arraysEqual(newOperationDays, [5])) newOperationDays = Util.createArray(5)
-    
-    let qualifiedStarts;
-    
-    if (Util.arraysEqual(Util.createArray(7), newOperationDays)) qualifiedStarts = 'todos os dias da semana'
-    else if (Util.arraysEqual(Util.createArray(5), newOperationDays)) qualifiedStarts = 'de segunda à sexta'
-    else if (Util.arraysEqual(Util.createArray(6), newOperationDays)) qualifiedStarts = 'de segunda à sábado'
-    
-    return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. Partidas ${qualifiedStarts || 'durante a semana - verifique o quadro de horários'}. As informações são verificadas periodicamente. Se algo estiver errado, envie um reporte.`;
+    return `Linha de ${!modal || !departure_location ? "transporte público de Sabará-MG" : (modal + " de " + departure_location + " para " + destination_location)}. As informações são verificadas periodicamente. Se algo estiver errado, envie um reporte.`;
   }
   
   static isSameDomain(url) {

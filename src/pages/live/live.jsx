@@ -1,6 +1,6 @@
 import moment from "moment";
 
-import Util from "../../assets/Util.jsx";
+import Util from "../../lib/Util.jsx";
 import LiveListResults from "../../components/live/live-list-results.jsx";
 import AnimatedComponents from "../../components/ui/animated-component/animated-components.jsx";
 import LiveFullscreenControl from "../../components/live/live-fullscreen-control.jsx";

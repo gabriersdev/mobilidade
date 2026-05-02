@@ -21,37 +21,36 @@ const Alert = (
   }
 ) => {
   const [show, setShow] = useState(true);
-  const [propOpen, setPropOpen] = useState(false);
-  
+
   if (!show) return null;
-  
+
   let icon;
   switch (variant) {
     case 'danger':
       icon = <i className="bi bi-exclamation-triangle-fill"></i>;
       break;
-    
+
     case 'secondary':
       icon = <i className="bi bi-exclamation-square"></i>;
       break;
-    
+
     case 'weather':
       icon = <i className="bi bi-cloud-sun"></i>;
       break;
-    
+
     case 'info':
     default:
       icon = <i className="bi bi-arrow-right-square"></i>;
       break;
   }
-  
+
   const handleClose = () => {
     setShow(false);
     onClose();
   };
-  
+
   const summaryText = getNodeText(children) || "Aviso. Clique para visualizar";
-  
+
   return (
     <BootstrapAlert
       variant={variant === 'weather' ? 'info' : variant}
@@ -62,18 +61,22 @@ const Alert = (
       dismissible={dismissible}
     >
       <details>
-        <summary open={propOpen} onClick={() => {
-          setPropOpen(!propOpen)
-        }} className={"alert-warning-summary d-flex gap-2 line-clamp-1"}>
+        <summary
+          className={"alert-warning-summary list-unstyled"}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'auto 1fr auto',
+            gap: '0.5rem',
+            alignItems: 'center'
+          }}
+        >
           <span className={"d-block"}>{icon}</span>
-          <div className={"d-flex align-items-center line-clamp-1"}>
-            <span className={"truncate-w-200 d-block"}>
-              {summaryText}
-            </span>
-            <span className="ms-1 d-inline-flex" style={{transform: "rotate(180deg)"}}>
-              <i className="bi bi-arrow-up-short"></i>
-            </span>
+          <div className={"text-truncate"}>
+            {summaryText}
           </div>
+          <span className="d-inline-flex alert-summary-arrow">
+            <i className="bi bi-arrow-up-short"></i>
+          </span>
         </summary>
         <div className={"mt-3"}>
           {children}

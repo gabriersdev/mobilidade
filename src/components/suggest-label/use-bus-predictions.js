@@ -2,7 +2,7 @@ import {useCallback, useEffect, useState} from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import config from '../../assets/config.js';
-import Util from '../../assets/Util.jsx';
+import Util from '../../lib/Util.jsx';
 
 export const useBusPredictions = (selectedStop) => {
   const [data, setData] = useState([]);

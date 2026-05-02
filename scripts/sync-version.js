@@ -1,9 +1,14 @@
 import fs from "fs";
 import path from "path";
 import {execSync} from "child_process";
+import {fileURLToPath} from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 function getGitTags() {
   try {
+    execSync("git pull", {encoding: "utf8"});
     const output = execSync("git tag", {encoding: "utf8"});
     return output
       .split("\n")
@@ -33,7 +38,7 @@ function getLatestTag(tags) {
 }
 
 function updatePackageJson(version) {
-  const pkgPath = path.resolve(process.cwd(), "package.json");
+  const pkgPath = path.resolve(__dirname, "..", "package.json");
   const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
   
   pkg.version = version;

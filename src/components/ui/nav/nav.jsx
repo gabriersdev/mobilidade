@@ -5,7 +5,7 @@ import {Badge, Container, Nav as BootstrapNav, Navbar, OverlayTrigger, Tooltip} 
 
 import {useNavState} from "./use-nav-state.js";
 import {dateConfigs, navLinks} from "@/assets/resources.js";
-import Util from "@/assets/Util.jsx";
+import Util from "@/lib/Util.jsx";
 import FormNav from "./form-nav.jsx";
 import BarInfo from "./bar-info.jsx";
 import NavScrollspy from "./nav-scrollspy.jsx";
@@ -56,6 +56,7 @@ const Nav = () => {
                       ) : link.name}
                     </BootstrapNav.Link>
                   ))}
+                  
                   <OverlayTrigger overlay={<Tooltip placement="bottom"><p className="m-0 p-0 text-sml">{Util.translateWeekDay(sabaraTime?.split(" ")?.[0], {suffix: true})}, {Util.renderText((sabaraTime?.split(" ")?.[1]))}</p></Tooltip>}>
                     <Link to="/sabara" onClick={() => setExpanded(false)} className={`d-flex flex-row align-items-center gap-1 text-decoration-none ${width > 1200 ? "mx-2" : "mt-2 mx-0"}`}>
                       <span className="text-body-secondary d-inline-block">Sabará</span>
@@ -70,6 +71,7 @@ const Nav = () => {
                       </div>
                     </Link>
                   </OverlayTrigger>
+                  
                   <div className="ms-2"><InstallPWAButton onClick={() => setExpanded(false)}/></div>
                   {isInLinePage && width > 766 && (
                     <div className={width > 991 ? "d-flex flex-wrap justify-content-end flex-grow-1" : ""} id="nav-scrollspy">

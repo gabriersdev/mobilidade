@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import {motion} from 'framer-motion';
 import {Badge} from 'react-bootstrap';
 import Card from '@/components/ui/card/card.jsx';
-import Util from '@/assets/Util.jsx';
-import Convert from '@/assets/Convert.js';
+import Util from '@/lib/Util.jsx';
+import Convert from '@/lib/Convert.js';
 import GetCompanyIdentification from '@/components/line/get-company-identification.jsx';
 
 const LineCard = ({line}) => {

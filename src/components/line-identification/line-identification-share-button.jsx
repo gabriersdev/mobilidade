@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from "react";
-import {Badge} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import {Tooltip} from "bootstrap";
 import PropTypes from "prop-types"
 
@@ -30,45 +30,44 @@ const LineIdentificationShareButton = ({line}) => {
   }, [showTooltip]);
   
   return (
-    <Badge className={"rounded-5 bg-primary-subtle p-0"}>
-      <button
-        ref={btnShareRef}
-        className={"btn pv-05 m-0 border-0 px-2 py-1 d-inline-block text-body text-decoration-none d-flex gap-2 border-0 outline-none"}
-        style={{lineHeight: "normal"}}
-        onClick={async () => {
-          if (navigator.share) {
-            try {
-              await navigator.share({
-                title: document.title || `Linha ${line.line_number} | ${line.line_name}`,
-                text: "Confira as informações da linha: horários de partida, pontos de recarga e parada, valor da tarifa, integração, compania entre outros.",
-                url: window.location.href
-              });
-              console.log("Conteúdo compartilhado com sucesso!");
-            } catch (error) {
-              // if (!error.toString().includes("Share canceled")) alert("Erro ao compartilhar:" + error);
-              console.log(error.toString());
-            }
-          } else {
-            const instanceURL = new URL(window.location);
-            await navigator.clipboard.writeText(`${instanceURL.origin}${instanceURL.pathname}`);
-            
-            if (Notification.permission === "granted") {
-              setMessageTooltip("Link copiado!")
-              setShowTooltip(true);
-            } else if (Notification.permission !== "denied") {
-              Notification.requestPermission().then(permission => {
-                if (permission === "granted") {
-                  new Notification("Link copiado!");
-                }
-              });
-            }
+    <Button
+      variant={"info"}
+      size={"sm"}
+      className={"d-inline-flex gap-1 align-items-center"}
+      ref={btnShareRef}
+      onClick={async () => {
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: document.title || `Linha ${line.line_number} | ${line.line_name}`,
+              text: "Confira as informações da linha: horários de partida, pontos de recarga e parada, valor da tarifa, integração, compania entre outros.",
+              url: window.location.href
+            });
+            console.log("Conteúdo compartilhado com sucesso!");
+          } catch (error) {
+            // if (!error.toString().includes("Share canceled")) alert("Erro ao compartilhar:" + error);
+            console.log(error.toString());
           }
-        }}
-      >
-        <span>Compartilhar</span>
-        <i className="bi bi-share"></i>
-      </button>
-    </Badge>
+        } else {
+          const instanceURL = new URL(window.location);
+          await navigator.clipboard.writeText(`${instanceURL.origin}${instanceURL.pathname}`);
+          
+          if (Notification.permission === "granted") {
+            setMessageTooltip("Link copiado!")
+            setShowTooltip(true);
+          } else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then(permission => {
+              if (permission === "granted") {
+                new Notification("Link copiado!");
+              }
+            });
+          }
+        }
+      }}
+    >
+      <span>Compartilhar</span>
+      <i className="bi bi-share text-sml"></i>
+    </Button>
   );
 };
 

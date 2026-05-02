@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 
-import Util from "../../assets/Util.jsx";
+import Util from "../../lib/Util.jsx";
 import Title from "../../components/ui/title/title.jsx";
 import bcAll from "../../components/breadcrumb-app/breadcrumb-context.jsx";
 

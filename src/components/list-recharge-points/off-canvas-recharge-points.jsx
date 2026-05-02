@@ -1,7 +1,7 @@
 import {useContext} from "react";
-import {RechargeContext} from "./recharge-points-context.jsx";
+import Util from "@//lib/Util.jsx";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import Util from "../../assets/Util.jsx";
+import {RechargeContext} from "@/components/list-recharge-points/recharge-points-context.jsx";
 
 const OffCanvasRechargePoints = () => {
   const {show, handleClose, rechargePointOffCanvas} = useContext(RechargeContext);
@@ -11,10 +11,12 @@ const OffCanvasRechargePoints = () => {
       <Offcanvas.Header closeButton>
         <Offcanvas.Title className={"fs-6 text-muted m-0 p-0"}>Ponto de recarga</Offcanvas.Title>
       </Offcanvas.Header>
+      
       <Offcanvas.Body className={"d-flex flex-column gap-3"}>
         <h3 className={"fs-3 m-0 p-0"}>
           {rechargePointOffCanvas.point_name}
         </h3>
+        
         <section>
           <div className={"d-flex flex-column gap-2 mb-3"}>
             <p className={"m-0 p-0 text-balance"}>{rechargePointOffCanvas.address}</p>

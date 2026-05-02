@@ -2,7 +2,7 @@ import {useCallback} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import moment from 'moment';
-import Util from '../../assets/Util.jsx';
+import Util from '../../lib/Util.jsx';
 import Title from '../ui/title/title.jsx';
 import Grid from '../ui/grid/grid.jsx';
 import LiveBanner from '../banners/live-banner.jsx';

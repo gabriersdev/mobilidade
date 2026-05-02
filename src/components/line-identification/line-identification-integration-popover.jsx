@@ -11,7 +11,7 @@ const LineIdentificationIntegrationPopover = forwardRef(({line, ...props}, ref) 
     <Popover id="no-accessibility-popover" ref={ref} {...props}>
       <Popover.Header as="h3" className={"inter"}>Integração</Popover.Header>
       <Popover.Body className={"text-sml"}>
-        Esta linha não possui integração. Isso significa que, se você precisar fazer baldeação para chegar ao seu destino, precisará desembolsar o valor integral da passagem.
+        Esta linha não possui integração. Isso significa que, se você precisar fazer baldeação para chegar ao seu destino, precisará desembolsar o valor integral da baldeação.
       </Popover.Body>
     </Popover>
   )

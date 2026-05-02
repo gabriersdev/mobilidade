@@ -1,11 +1,12 @@
 import {useContext, useEffect, useState} from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import {TimeContext} from "./departure-time-context.jsx";
-import Legend from "../ui/legend/legend.jsx";
-import Alert from "../ui/alert/alert.jsx";
-import {Context as LineContext} from "../line/line-context.jsx";
 import {Badge} from "react-bootstrap";
-import LiveBanner from "../banners/live-banner.jsx";
+
+import {TimeContext} from "@/components/list-departure-times/departure-time-context.jsx";
+import Legend from "@/components/ui/legend/legend.jsx";
+import Alert from "@/components/ui/alert/alert.jsx";
+import {Context as LineContext} from "@/components/line/line-context.jsx";
+import LiveBanner from "@/components/banners/live-banner.jsx";
 
 const OffCanvasDepartureTimes = () => {
   const {show, handleClose, departureTimeOffCanvas} = useContext(TimeContext);
@@ -38,7 +39,7 @@ const OffCanvasDepartureTimes = () => {
         </section>
         
         <section>
-          <span className={'text-muted d-block text-balance'}>{departureTimeOffCanvas.directionName}</span>
+          <span className={'text-muted d-block'}>{departureTimeOffCanvas.directionName}</span>
           {departureTimeOffCanvas.observations ?
             <div className={'mt-4'}>
               <h4 className={"fs-6 fw-bold my-2 p-0"}>Observações:</h4>

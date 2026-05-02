@@ -1,4 +1,4 @@
-import Util from "@/assets/Util.jsx";
+import Util from "@/lib/Util.jsx";
 import ThemeSelector from "../theme-selector.jsx";
 import InstallPWAButton from "@/components/install-PWA-button/install-PWA-button.jsx";
 import {useTheme} from "@/components/ui/theme-context/theme-context.jsx";

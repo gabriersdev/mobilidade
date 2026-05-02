@@ -3,7 +3,7 @@ import moment from "moment";
 import axios from "axios";
 
 import config from "../../assets/config.js";
-import Util from "../../assets/Util.jsx";
+import Util from "../../lib/Util.jsx";
 import {useLocation} from "react-router-dom";
 import {dateConfigs} from "@/assets/resources.js";
 

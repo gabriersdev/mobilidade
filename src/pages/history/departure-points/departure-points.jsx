@@ -8,7 +8,7 @@ import Title from "@/components/ui/title/title.jsx";
 import AnimatedComponents from "@/components/ui/animated-component/animated-components.jsx";
 import moment from "moment";
 import {Button, ListGroup} from "react-bootstrap";
-import Util from "@/assets/Util.jsx";
+import Util from "@/lib/Util.jsx";
 
 import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
 import {dateConfigs} from "@/assets/resources.js";

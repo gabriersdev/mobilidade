@@ -9,7 +9,7 @@ import {Button, ListGroup} from "react-bootstrap";
 import Title from "@/components/ui/title/title.jsx";
 import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";
 import AnimatedComponents from "@/components/ui/animated-component/animated-components.jsx";
-import Util from "@/assets/Util.jsx";
+import Util from "@/lib/Util.jsx";
 
 import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
 import {dateConfigs} from "@/assets/resources.js";

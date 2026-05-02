@@ -1,23 +1,22 @@
 import {useRef} from "react";
 import PropTypes from "prop-types";
-
-import {LineContext} from "./line-context.jsx";
-import {useLineData} from "./use-line-data.js";
-import {usePageEffects} from "./use-page-effects.js";
-
-import AnimatedComponents from "../ui/animated-component/animated-component.jsx";
-import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";
-import Alert from "../ui/alert/alert.jsx";
-import LineHeader from "./line-header.jsx";
-import DepartureTimesSection from "./departure-times-section.jsx";
-import DeparturePointsSection from "./departure-points-section.jsx";
-import RenderLiveMap from "./render-live-map.jsx";
-import RechargePointsSection from "./recharge-points-section.jsx";
-import SimilarLinesSection from "./similar-lines-section.jsx";
-import AboutSection from "./about-section.jsx";
 import {Placeholder} from "react-bootstrap";
 
 // TODO - refatorar componente
+import {LineContext} from "@/components/line/line-context.jsx";
+import {useLineData} from "@/components/line/use-line-data.js";
+import {usePageEffects} from "@/components/line/use-page-effects.js";
+import AnimatedComponents from "@/components/ui/animated-component/animated-component.jsx";
+import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";
+import Alert from "@/components/ui/alert/alert.jsx";
+import LineHeader from "@/components/line/line-header.jsx";
+import DepartureTimesSection from "@/components/line/departure-times-section.jsx";
+import DeparturePointsSection from "@/components/line/departure-points-section.jsx";
+import RenderLiveMap from "@/components/line/render-live-map.jsx";
+import RechargePointsSection from "@/components/line/recharge-points-section.jsx";
+import SimilarLinesSection from "@/components/line/similar-lines-section.jsx";
+import AboutSection from "@/components/line/about-section.jsx";
+
 const Line = ({id}) => {
   const {data, error, isLoaded} = useLineData(id);
   const paradasSection = useRef(<></>);

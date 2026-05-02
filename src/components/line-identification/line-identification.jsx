@@ -1,18 +1,17 @@
 import moment from "moment";
-// import {useContext, useEffect} from "react";
 import {useContext} from "react";
 
-import Util from "../../assets/Util";
-import Convert from "../../assets/Convert.js";
-import {Context} from "../line/line-context.jsx";
-import SeeMore from "../../components/ui/see-more/see-more.jsx";
-import LineIdentificationHeader from "./line-identification-header.jsx";
-import LineIdentificationComfortPopover from "./line-identification-comfort-popover.jsx";
-import LineIdentificationAccessibilityPopover from "./line-identification-accessibility-popover.jsx";
-import LineIdentificationIntegrationPopover from "./line-identification-integration-popover.jsx";
-import LineIdentificationInfoList from "./line-identification-info-list.jsx";
-import LineIdentificationActions from "./line-identification-actions.jsx";
-import LineIdentificationLastUpdate from "./line-identification-last-update.jsx";
+import Util from "@/lib/Util.jsx";
+import Convert from "@/lib/Convert.js";
+import {Context} from "@/components/line/line-context.jsx";
+import SeeMore from "@/components/ui/see-more/see-more.jsx";
+import LineIdentificationHeader from "@/components/line-identification/line-identification-header.jsx";
+import LineIdentificationComfortPopover from "@/components/line-identification/line-identification-comfort-popover.jsx";
+import LineIdentificationAccessibilityPopover from "@/components/line-identification/line-identification-accessibility-popover.jsx";
+import LineIdentificationIntegrationPopover from "@/components/line-identification/line-identification-integration-popover.jsx";
+import LineIdentificationInfoList from "@/components/line-identification/line-identification-info-list.jsx";
+import LineIdentificationActions from "@/components/line-identification/line-identification-actions.jsx";
+import LineIdentificationLastUpdate from "@/components/line-identification/line-identification-last-update.jsx";
 import {dateConfigs} from "@/assets/resources.js";
 
 moment.locale(dateConfigs.lang);

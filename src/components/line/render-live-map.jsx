@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
-import Util from "@/assets/Util.jsx";
+import Util from "@/lib/Util.jsx";
 import liveMap from "@/assets/live-map.js";
 import Title from "@/components/ui/title/title.jsx";
 import AsyncIframe from "@/components/async-iframe/async-iframe.tsx";

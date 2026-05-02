@@ -51,8 +51,8 @@ const CompanyDetail = () => {
         </div>
         <div className="d-flex flex-column gap-1">
           <span className="text-body-tertiary">Canal de reclamações</span>
-          <Link to={data.report_contact} rel="noreferrer noopener">
-            {new URL(data.report_contact).origin?.replace(/(https:\/\/w*)/g, '') || 'Informação não cadastrada.'}
+          <Link to={data.report_contact} rel="noreferrer noopener" target={"_blank"}>
+            {new URL(data.report_contact).origin?.replace(/(https:\/\/w*)/g, '').replace(/^\./, '') || 'Informação não cadastrada.'}
           </Link>
         </div>
         <div className="d-flex flex-column gap-1">

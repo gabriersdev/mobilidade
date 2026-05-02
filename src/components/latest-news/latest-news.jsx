@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 
 import news from "../../assets/news.js";
 import Card from "../ui/card/card.jsx";
-import Util from "../../assets/Util.jsx";
+import Util from "../../lib/Util.jsx";
 import Title from "../ui/title/title.jsx";
 
 const ScrollX = ({children}) => {

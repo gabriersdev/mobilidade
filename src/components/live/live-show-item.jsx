@@ -1,5 +1,5 @@
 import moment from "moment";
-import Util from "../../assets/Util.jsx";
+import Util from "../../lib/Util.jsx";
 import {useCallback, useEffect, useRef, useState} from "react";
 import PropTypes from "prop-types";
 import {dateConfigs} from "@/assets/resources.js";

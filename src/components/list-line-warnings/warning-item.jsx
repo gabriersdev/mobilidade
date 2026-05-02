@@ -1,7 +1,7 @@
 import {useState} from "react";
 import PropTypes from "prop-types";
 import {Button} from "react-bootstrap";
-import Util from "../../assets/Util.jsx";
+import Util from "../../lib/Util.jsx";
 
 const WarningItem = ({warning, onDismiss}) => {
   const [propOpen, setPropOpen] = useState(false);

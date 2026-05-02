@@ -63,9 +63,17 @@ export default function SabaraInfo() {
     <div>
       <AnimatedComponents>
         <hgroup>
-          <Title title="Sabará Minas Gerais - Informações" type={"h1"} id="topo" classX=" d-none"/>
-          <Title title="Sabará" type={"h2"} id="topo" classX=" fs-2 text m-0 p-0 lh-sm text-primary"/>
-          <Title title="Cidade do estado de Minas Gerais" type={"h2"} id="topo" classX=" fs-2 text-body-secondary m-0 p-0 lh-sm"/>
+          <Title title="Sabará - cidade do estado de Minas Gerais - Informações" type={"h1"} id="topo" classX=" d-none"/>
+          <Title type={"h2"} id="topo" classX=" text m-0 p-0 lh-sm text-primary">
+            <span className={"fs-2"} style={{letterSpacing: "-1px"}}>
+              Sabará
+            </span>
+          </Title>
+          <Title type={"h2"} id="topo" classX=" text-body-secondary m-0 p-0 lh-sm">
+            <span className={"fs-2"} style={{letterSpacing: "-1px"}}>
+              Cidade do estado de Minas Gerais
+            </span>
+          </Title>
         </hgroup>
         
         <div className={"d-flex flex-column gap-3"}>

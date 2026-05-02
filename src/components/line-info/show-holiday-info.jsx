@@ -1,4 +1,4 @@
-import Util from "../../assets/Util.jsx";
+import Util from "../../lib/Util.jsx";
 import Alert from "../ui/alert/alert.jsx";
 import PropTypes from "prop-types";
 import {useRef} from "react";

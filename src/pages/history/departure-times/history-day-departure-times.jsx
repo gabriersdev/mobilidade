@@ -4,7 +4,7 @@ import {Button} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {Link, useLocation, useParams} from "react-router-dom";
 
-import Util from "@/assets/Util.jsx";
+import Util from "@/lib/Util.jsx";
 import config from "@/assets/config.js";
 import Alert from "@/components/ui/alert/alert.jsx";
 import Title from "@/components/ui/title/title.jsx";
