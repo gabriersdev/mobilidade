@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {useNews} from '../../hooks/use-news.js';
+import {useNews} from '@/hooks/use-news.js';
 import Title from '../../components/ui/title/title.jsx';
 import Alert from '../../components/ui/alert/alert.jsx';
 import PaginationWithItems from '../../components/pagination-with-items/pagination-with-items.jsx';
 import NewsC from '../../components/news/news.jsx';
+import {useState} from "react";
 
 const NewsList = () => {
   const [currentPage, setCurrentPage] = useState(1);

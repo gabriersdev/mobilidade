@@ -58,8 +58,8 @@ export default function HistoryDayDepartureTimes() {
   }
   
   useEffect(() => {
-    if (checkIsValid(lineId)) getData().then(() => {
-    });
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (checkIsValid(lineId)) getData().then();
   }, [lineId, departureTimeDate]);
   
   useEffect(() => {

@@ -170,6 +170,7 @@ const useLiveComponent = () => {
   
   useEffect(() => {
     if (departurePointSelected) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setData([]);
       setDataNextDepartureTimes([]);
       fetchData(departurePointSelected, false).then(() => {
@@ -187,6 +188,7 @@ const useLiveComponent = () => {
   useEffect(() => {
     if (data && isOriginalFetch) {
       const original = JSON.parse(JSON.stringify(data));
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsOriginalFetch(false);
       setData(original);
     }

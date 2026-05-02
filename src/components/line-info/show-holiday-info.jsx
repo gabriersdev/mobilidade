@@ -4,9 +4,11 @@ import PropTypes from "prop-types";
 import {useRef} from "react";
 
 export default function ShowHolidayInfo({scope}) {
+  
   const data = useRef(Util.getTodayHolidayData(scope))
   const vacation = useRef(Util.getTodayVacationData())
   
+  // TODO - usar uma variável de estado e um HOOK para verificar o useRef e permitir alterar o .current dele diretamente
   // Error: Cannot access refs during render
   if (data?.["current"]) {
     return (

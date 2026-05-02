@@ -1,4 +1,4 @@
-import {useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 
 import PropTypes from "prop-types";
 import "@/components/ui/grid/grid.css";
@@ -9,11 +9,17 @@ const Grid = ({className, children, variant}) => {
     (variant ? ` ${variant}` : "")
   );
   
-  return (
-    <div className={classNameValue.current}>
-      {children}
-    </div>
-  );
+  const [ret, setRet] = useState(<></>);
+  
+  useEffect(() => {
+    if (classNameValue.current) setRet(
+      <div className={classNameValue.current}>
+        {children}
+      </div>
+    );
+  }, [classNameValue])
+  
+  return ret;
 }
 
 Grid.propTypes = {

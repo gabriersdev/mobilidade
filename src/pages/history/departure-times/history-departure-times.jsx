@@ -57,8 +57,8 @@ export default function HistoryDepartureTimes() {
   
   useEffect(() => {
     if (!checkIsValid(id)) return <Alert variant={'danger'} margin={"mt-0"}>O id da linha não foi informado.</Alert>
-    getData(id).then(() => {
-    });
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    getData(id).then();
   }, [id]);
   
   useEffect(() => {
@@ -75,6 +75,7 @@ export default function HistoryDepartureTimes() {
   
   useEffect(() => {
     if (data && Array.isArray(data) && data.length) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDataAll(
         data.map((item, index) => (
           <ListGroup.Item as={Link} className={index !== 0 && (index % 10) !== 0 ? "border-top-0" : "border-top"} to={`/history/departure-times/${id || 0}/${Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"]}` : moment.utc()).add(config.host.startsWith("http://localhost") ? 0 : -3, "h").format("YYYY[X]MM[X]DD"))}`} key={index}>

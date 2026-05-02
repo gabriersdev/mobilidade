@@ -1,6 +1,7 @@
 import {createContext, useEffect, useState} from 'react';
 import Config from "@/assets/config.js";
 
+// TODO - separar Context para um arquivo separado para melhorar refresh
 export const CaptchaContext = createContext();
 
 export const CaptchaProvider = ({children}) => {

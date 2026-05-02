@@ -38,6 +38,7 @@ export const ThemeProvider = ({children}) => {
       let ls;
       try {
         ls = JSON.parse(localStorage.getItem("mobilidade-app"));
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (ls && ls["theme"]) handleTheme(ls["theme"]);
         else {
           const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;

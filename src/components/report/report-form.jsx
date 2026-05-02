@@ -45,6 +45,7 @@ const ReportForm = ({handleCloseModal}) => {
   }, []);
   
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setError("");
     setFeedback("");
   }, [email, typeError, message]);

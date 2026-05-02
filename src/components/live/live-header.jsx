@@ -1,20 +1,19 @@
-import React from 'react';
 import Title from "../ui/title/title.jsx";
-import { LiveFormLines, LiveFormDeparturePoints } from "./live-form.jsx";
-import { LoadingDeparturePoints } from "./live-infos.jsx";
+import {LiveFormDeparturePoints, LiveFormLines} from "./live-form.jsx";
+import {LoadingDeparturePoints} from "./live-infos.jsx";
 
-const LiveHeader = ({ lines, setLineSelected, departurePoints, setDeparturePointSelected }) => {
+const LiveHeader = ({lines, setLineSelected, departurePoints, setDeparturePointSelected}) => {
   return (
     <>
       <div className={"mb-3"}>
         <Title title="Ao vivo" id="topo" classX=" text-body-secondary"/>
       </div>
       <div>
-        {lines && <LiveFormLines lines={lines} setLineSelected={setLineSelected} />}
+        {lines && <LiveFormLines lines={lines} setLineSelected={setLineSelected}/>}
         {departurePoints ? (
-          <LiveFormDeparturePoints departurePoints={departurePoints} setDeparturePointSelected={setDeparturePointSelected} />
+          <LiveFormDeparturePoints departurePoints={departurePoints} setDeparturePointSelected={setDeparturePointSelected}/>
         ) : (
-          <LoadingDeparturePoints />
+          <LoadingDeparturePoints/>
         )}
       </div>
     </>

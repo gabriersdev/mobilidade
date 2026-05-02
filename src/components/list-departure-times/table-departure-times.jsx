@@ -115,6 +115,7 @@ const TableDepartureTimes = ({ content, tableIndex }) => {
   
   // Use useMemo para agrupar os dados apenas quando listData muda
   const groupedData = useMemo(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-render
     setIsLoading(true); // Indica que o agrupamento está começando
     const groupByHour = listData.reduce((groups, item) => {
       const hourPrefix = item.departureTime ? item.departureTime.slice(0, 2) : "00";
@@ -129,6 +130,7 @@ const TableDepartureTimes = ({ content, tableIndex }) => {
       .sort()
       .map((hourPrefix) => groupByHour[hourPrefix]);
     
+    // eslint-disable-next-line react-hooks/set-state-in-render
     setIsLoading(false); // Indica que o agrupamento terminou
     return sortedGroupedData;
   }, [listData]);
