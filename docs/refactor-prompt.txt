@@ -1,0 +1,1 @@
+Por favor refatore o arquivo [@/path], seguindo as boas práticas já usadas e mantendo a estrutura e lógica usada. Separe em outros componentes se for pertinente, de acordo com separação de responsabilidades e "contêinerização". Leia os T.O.D.O.'s no arquivo, se existir(em).
