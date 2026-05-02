@@ -1,6 +1,7 @@
 import {createContext, useCallback, useEffect, useState} from 'react';
 import apiClient from '@/assets/axios-config.js';
 
+// TODO - separar Context para um arquivo separado para melhorar refresh
 export const CaptchaContext = createContext();
 
 export const CaptchaProvider = ({children}) => {
