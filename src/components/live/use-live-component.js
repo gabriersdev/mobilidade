@@ -1,11 +1,9 @@
 import {useCallback, useEffect, useRef, useState} from "react";
 import moment from "moment";
-import axios from "axios";
-
-import config from "../../assets/config.js";
 import Util from "../../lib/Util.jsx";
 import {useLocation} from "react-router-dom";
 import {dateConfigs} from "@/assets/resources.js";
+import apiClient from "@/assets/axios-config.js";
 
 moment.locale(dateConfigs.lang);
 
@@ -54,7 +52,7 @@ const useLiveComponent = () => {
   const [now, setNow] = useState(moment());
   
   const fetchInitialData = useCallback(async () => {
-    await axios.get(`${config.host}/api/lines/`).then((c) => {
+    await apiClient.get(`/lines/`).then((c) => {
       setLines(c.data.map(c => {
         return {
           id: c?.["line_id"] ?? -1,
@@ -66,7 +64,7 @@ const useLiveComponent = () => {
       setError(error);
     });
     
-    await axios.get(`${config.host}/api/physical-departure-points/`).then((c) => {
+    await apiClient.get(`/physical-departure-points/`).then((c) => {
       setDeparturePoints(c.data?.[0].map((c, index) => {
         const formattedObject = {
           id: c?.["stop_id"] ?? -1,
@@ -88,7 +86,7 @@ const useLiveComponent = () => {
       setLoading(true);
     }
     
-    const s = await axios.post(`${config.host}/api/predictions/departure-points/`, {
+    const s = await apiClient.post(`/predictions/departure-points/`, {
       pointId: departurePointSelected?.["id"] ?? -1
     }).catch((error) => {
       console.log("Error", error);
@@ -105,11 +103,8 @@ const useLiveComponent = () => {
     const axiosMainData = s?.data[0]?.[0]?.[0]?.["get_arrival_predictions(?, ?)"];
     const axiosNextDepartureTimes = s?.data[1]?.[0]?.[0]?.["@out"];
     
-    if (Array.isArray(axiosMainData)) {
-      setData(JSON.parse(JSON.stringify(axiosMainData)).map(Util.parseDatetimeTimezone));
-    } else {
-      setData([]);
-    }
+    if (Array.isArray(axiosMainData)) setData(JSON.parse(JSON.stringify(axiosMainData)).map(Util.parseDatetimeTimezone));
+    else setData([]);
     
     if (Array.isArray(JSON.parse(axiosNextDepartureTimes))) {
       setDataNextDepartureTimes(JSON.parse(axiosNextDepartureTimes).map(Util.parseDatetimeTimezone));
@@ -118,13 +113,11 @@ const useLiveComponent = () => {
     }
     
     setError(null);
-    if (!isRefresh) {
-      setLoading(false);
-    }
+    if (!isRefresh) setLoading(false);
   };
   
   const fetchPhysicalPointId = async (pointId) => {
-    const s = await axios.post(`${config.host}/api/departure-points/physical-point`, {pointId})
+    const s = await apiClient.post(`/departure-points/physical-point`, {pointId})
       .catch((error) => {
         console.log(error);
         setError("Ocorreu um erro ao consultar o banco de dados");
@@ -195,8 +188,7 @@ const useLiveComponent = () => {
   }, [data, isOriginalFetch]);
   
   useEffect(() => {
-    let int = setInterval(() => {
-    }, 100000);
+    let int = setInterval(() => {}, 100000);
     
     if (departurePointSelected && datetimeOriginalFetch) {
       try {
@@ -226,6 +218,7 @@ const useLiveComponent = () => {
   
   useEffect(() => {
     const id = Util.getSearchParamId(location);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (id !== null) setSearchDPId(id);
   }, [location]);
   
@@ -237,6 +230,7 @@ const useLiveComponent = () => {
       if (typeof searchDPId === 'string' && searchDPId.endsWith("S")) {
         PPI = +searchDPId.match(/\d/g).join("");
         if (PPI) correspondence = departurePoints.find(dp => dp.id === PPI);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (correspondence) setDeparturePointSelected(correspondence);
       } else if (searchDPId >= 0) {
         fetchPhysicalPointId(searchDPId).then(physicalPointId => {

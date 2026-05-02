@@ -1,56 +1,65 @@
-import {createContext, useEffect, useState} from 'react';
-import Config from "@/assets/config.js";
+import {createContext, useCallback, useEffect, useState} from 'react';
+import apiClient from '@/assets/axios-config.js';
 
-// TODO - separar Context para um arquivo separado para melhorar refresh
 export const CaptchaContext = createContext();
 
-// Responsável por PERMITIR que o usuário interaja com a aplicação, para evitar acessos automatizados de BOTS
-// TODO - precisa REGISTRAR no navegador uma sessão com a aprovação do TOKEN ou bolar uma forma de que, ao abrir outra página da aplicação ou
-// ao atualizar a página, não seja solicitado imediatamente que o captcha seja feito.
-// O terreno já está preparado para integração com JWT com a API. Precisa finalizar a implementação
 export const CaptchaProvider = ({children}) => {
   const [isVerified, setIsVerified] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   useEffect(() => {
     const checkSessionStatus = async () => {
       try {
-        const response = await fetch(Config.host + '/api/check-auth', {
-          credentials: 'include',
-        });
-        
-        if (response.ok) {
-          const data = await response.json();
-          if (data.isVerified) {
-            setIsVerified(true);
-          }
-        } else if (response.status !== 401) {
-          // Apenas loga erros que não são 'Não Autorizado'
-          console.error(`Error checking session: ${response.status}`);
+        // Usa o apiClient, que já tem a baseURL e withCredentials configurados
+        const response = await apiClient.get('/check-auth');
+        if (response.data.isVerified) {
+          setIsVerified(true);
         }
       } catch (error) {
-        // Erros de rede ou falhas na requisição
-        console.error("Failed to fetch session status:", error);
+        // O erro 401 é esperado se não houver sessão, e o interceptor não vai redirecionar.
+        // Apenas logamos outros erros inesperados.
+        if (error.response?.status !== 401) {
+          console.error("Erro ao verificar a sessão:", error);
+        }
       } finally {
         setIsLoading(false);
       }
     };
-    
-    
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    checkSessionStatus().then();
+
+    checkSessionStatus();
   }, []);
-  
-  const setVerified = (verified) => {
-    setIsVerified(verified);
-  };
-  
+
+  const verifyToken = useCallback(async (token) => {
+    if (!token) {
+      return {success: false, message: 'Token não fornecido.'};
+    }
+    
+    try {
+      const response = await apiClient.post('/verify-session', {hcaptchaToken: token});
+      if (response.data.success) {
+        setIsVerified(true);
+        return {success: true, message: 'Sessão verificada com sucesso!'};
+      } else {
+        setIsVerified(false);
+        return {success: false, message: response.data.message ?? "Erro não mapeado"};
+      }
+    } catch (error) {
+      console.error("Erro ao verificar o token:", error);
+      setIsVerified(false);
+      return {success: false, message: 'Erro de comunicação com o servidor.'};
+    }
+  }, []);
+
+  const resetVerification = useCallback(() => {
+    setIsVerified(false);
+  }, []);
+
   if (isLoading) {
     return null;
   }
-  
+
   return (
-    <CaptchaContext.Provider value={{isVerified, setIsVerified: setVerified}}>
+    <CaptchaContext.Provider value={{isVerified, verifyToken, resetVerification}}>
       {children}
     </CaptchaContext.Provider>
   );

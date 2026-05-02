@@ -1,4 +1,3 @@
-import axios from "axios";
 import moment from "moment";
 import {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
@@ -14,6 +13,7 @@ import PaginationWithItems from "@/components/pagination-with-items/pagination-w
 
 import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
 import {dateConfigs} from "@/assets/resources.js";
+import apiClient from "@/assets/axios-config.js";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
@@ -42,8 +42,8 @@ export default function HistoryDepartureTimes() {
   
   const getData = async (id) => {
     try {
-      const response = await axios.get(`${config.host}/api/history/lines/${id || "-1"}`);
-      const line = await axios.post(`${config.host}/api/lines/`, {id: id});
+      const response = await apiClient.get(`/history/lines/${id || "-1"}`);
+      const line = await apiClient.post(`/lines/`, {id: id});
       
       setData(response.data?.[0]);
       setLineData(line.data);

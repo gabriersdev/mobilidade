@@ -163,6 +163,7 @@ const ReportForm = ({handleCloseModal}) => {
               </FormGroup>
               <FormGroup>
                 <FormLabel props={{htmlFor: "mail"}}>E-mail</FormLabel>
+                {/*TODO - usar uma variável de estado e um HOOK para verificar o useRef e permitir alterar o .current dele diretamente*/}
                 <FormControl type={"email"} id={"mail"} className={"mb-0"} required={true} value={email} onChange={(e) => setEmail(e.target.value)} {...propsInput.current} maxLength={100}/>
               </FormGroup>
               <FormGroup>

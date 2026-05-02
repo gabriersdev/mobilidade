@@ -1,6 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import Config from "@/assets/config.js";
 import {useCaptcha} from '@/components/captcha-verifier/use-captcha.js';
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
@@ -8,7 +7,7 @@ import {Button} from "react-bootstrap";
 function CaptchaVerifier() {
   const [token, setToken] = useState(null);
   const [verificationStatus, setVerificationStatus] = useState('Complete o desafio para continuar.');
-  const {setIsVerified} = useCaptcha();
+  const {verifyToken, resetVerification} = useCaptcha();
   const captchaRef = useRef(null);
   
   const onVerify = (token) => {
@@ -20,39 +19,20 @@ function CaptchaVerifier() {
     if (captchaRef.current) captchaRef.current.resetCaptcha();
     setToken(null);
     setVerificationStatus('Complete o desafio para continuar.');
-    setIsVerified(false);
-  }
+    resetVerification();
+  };
   
   useEffect(() => {
     if (token) {
-      const verifySession = async () => {
-        try {
-          const response = await fetch(Config.host + '/api/verify-session', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({hcaptchaToken: token}),
-            credentials: 'include', // Adicionado para estabelecer a sessão com cookie
-          });
-          
-          const data = await response.json();
-          
-          if (data.success) {
-            setVerificationStatus('Sessão verificada com sucesso!');
-            setIsVerified(true);
-          } else {
-            setVerificationStatus(`Falha na verificação: ${data.message ?? "Erro não mapeado"}. Por favor tente novamente.`);
-            setIsVerified(false);
-          }
-        } catch (error) {
-          console.log(error);
-          setVerificationStatus('Erro de comunicação com o servidor. Por favor tente novamente.');
-          setIsVerified(false);
-        }
+      const verify = async () => {
+        const result = await verifyToken(token);
+        if (result.success) setVerificationStatus(result.message);
+        else setVerificationStatus(`Falha na verificação: ${result.message}. Por favor tente novamente.`);
       };
       
-      verifySession().then();
+      verify();
     }
-  }, [token, setIsVerified]);
+  }, [token, verifyToken]);
   
   const containerStyle = {
     display: 'flex',

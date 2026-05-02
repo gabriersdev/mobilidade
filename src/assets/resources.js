@@ -60,6 +60,7 @@ const labelMap = {
   "live": "Ao vivo",
   "sabara": "Sabará",
   "manifest": "Manifesto",
+  "re-valid-session": "Validação de nova sessão",
 }
 
 const navLinksPageLine = [

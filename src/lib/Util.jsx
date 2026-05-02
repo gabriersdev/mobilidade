@@ -1,11 +1,9 @@
-import Moment from 'moment'
 import moment from 'moment'
-import Arial from "../components/ui/arial/arial.jsx";
-import axios from "axios";
-import config from "../assets/config.js";
+import Arial from "@/components/ui/arial/arial.jsx";
 import {Link} from "react-router-dom";
-import {getAllHolidays, getVacation} from "../assets/holidays.js";
+import {getAllHolidays, getVacation} from "@/assets/holidays.js";
 import {dateConfigs, numberConfigs} from "@/assets/resources.js";
+import apiClient from "@/assets/axios-config.js";
 
 moment.locale(dateConfigs.lang);
 
@@ -28,7 +26,7 @@ export default class Util {
   }
   
   static formatTime(time, format) {
-    const date = new Moment(time).format(format)
+    const date = moment(time).format(format)
     if (date !== "Invalid date") return date
   }
   
@@ -77,7 +75,7 @@ export default class Util {
     
     const table = []
     
-    await axios.get(`${config.host}/api/day-tipes/`).then((response) => {
+    await apiClient.get(`/day-tipes/`).then((response) => {
       response.data.forEach((row) => {
         table.push([row["day_type_id"], transformDayTypeName(row["day_type_name"]?.toLowerCase())]);
       })

@@ -1,8 +1,8 @@
 import {useCallback, useEffect, useState} from 'react';
-import axios from 'axios';
 import moment from 'moment';
-import config from '../../assets/config.js';
-import Util from '../../lib/Util.jsx';
+
+import Util from '@/lib/Util.jsx';
+import apiClient from "@/assets/axios-config.js";
 
 export const useBusPredictions = (selectedStop) => {
   const [data, setData] = useState([]);
@@ -13,7 +13,7 @@ export const useBusPredictions = (selectedStop) => {
     if (!selectedStop) return;
     
     try {
-      const response = await axios.post(`${config.host}/api/predictions/departure-points/`, {
+      const response = await apiClient.post(`/predictions/departure-points/`, {
         pointId: selectedStop.id
       });
       const axiosMainData = response?.data[0]?.[0]?.[0]?.["get_arrival_predictions(?, ?)"];

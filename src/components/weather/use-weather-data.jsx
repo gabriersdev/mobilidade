@@ -1,6 +1,5 @@
-import {useState, useEffect} from 'react';
-import axios from 'axios';
-import config from "../../assets/config.js";
+import {useEffect, useState} from 'react';
+import apiClient from "@/assets/axios-config.js";
 
 const useWeatherData = (cityName) => {
   const [weatherData, setWeatherData] = useState(null);
@@ -17,7 +16,7 @@ const useWeatherData = (cityName) => {
     const fetchWeatherData = async () => {
       setStatus('loading');
       try {
-        const response = await axios.post(`${config.host}/api/weather/`, {
+        const response = await apiClient.post(`/weather/`, {
           city_name: cityName,
         });
         setWeatherData(response.data);
@@ -28,7 +27,8 @@ const useWeatherData = (cityName) => {
       }
     };
     
-    fetchWeatherData().then(() => {});
+    fetchWeatherData().then(() => {
+    });
   }, [cityName]); // A requisição será refeita se o nome da cidade mudar
   
   return {weatherData, status};

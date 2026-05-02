@@ -1,14 +1,15 @@
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
-import config from "../../assets/config.js";
-import Alert from "../ui/alert/alert.jsx";
-import Accordion from "../ui/accordion/accordion.jsx";
-import OffCanvasDeparturePoints from "./off-canvas-departure-points.jsx";
-import ListPointsByDirections from "./list-points-by-directions.jsx";
-import {DeparturePointsContext, DeparturePointsDataContext} from "./departure-points-context.jsx";
-import RouteMap from "../route-map/route-map.jsx";
-import AnimatedComponents from "../ui/animated-component/animated-components.jsx";
+
+import apiClient from "@/assets/axios-config.js";
+
+import Alert from "@/components/ui/alert/alert.jsx";
+import RouteMap from "@/components/route-map/route-map.jsx";
+import Accordion from "@/components//ui/accordion/accordion.jsx";
+import AnimatedComponents from "@/components/ui/animated-component/animated-components.jsx";
+import ListPointsByDirections from "@/components/list-departure-points/list-points-by-directions.jsx";
+import {DeparturePointsContext, DeparturePointsDataContext} from "@/components/list-departure-points/departure-points-context.jsx";
+import OffCanvasDeparturePoints from "@/components/list-departure-points/off-canvas-departure-points.jsx";
 
 const ListDeparturePoints = ({line_id, departure_location, destination_location}) => {
   const [data, setData] = useState([]);
@@ -23,7 +24,7 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
   useEffect(() => {
     const searchDeparturePoints = async () => {
       try {
-        const response = await axios.post(`${config.host}/api/departure_points/`, {line_id: line_id}); // URL completa da sua API
+        const response = await apiClient.post(`/departure_points/`, {line_id: line_id}); // URL completa da sua API
         setData(response.data);
         // console.log('Dados carregados com sucesso:', response.data);
       } catch (error) {
@@ -34,14 +35,19 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
       }
     };
     
-    searchDeparturePoints().then(() => {});
+    searchDeparturePoints().then(() => {
+    });
   }, [line_id]);
   
   // TODO - aplicar placeholder
-  if (isLoaded) return <AnimatedComponents><div>Carregando...</div></AnimatedComponents>;
+  if (isLoaded) return <AnimatedComponents>
+    <div>Carregando...</div>
+  </AnimatedComponents>;
   else if (error) {
     console.log(error)
-    return <AnimatedComponents><div>Erro: {error.message}</div></AnimatedComponents>;
+    return <AnimatedComponents>
+      <div>Erro: {error.message}</div>
+    </AnimatedComponents>;
   } else if (data.length === 0) return <AnimatedComponents><Alert variant={"info"}><span>Não localizamos pontos de parada para esta linha.</span></Alert></AnimatedComponents>
   else {
     // Ordena os pontos de parada por direção e ordem

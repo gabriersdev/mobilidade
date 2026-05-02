@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react';
-import axios from 'axios';
-import config from '../../assets/config.js';
+import apiClient from '@/assets/axios-config.js';
 
 export const useLineData = (id) => {
   const [data, setData] = useState([]);
@@ -10,10 +9,12 @@ export const useLineData = (id) => {
   useEffect(() => {
     const searchLine = async (id) => {
       try {
-        const response = await axios.post(`${config.host}/api/lines/`, {id: id});
+        // Usa a instância apiClient, que já tem a baseURL e withCredentials configurados
+        const response = await apiClient.post(`/lines/`, {id: id});
         setData(response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
+        // O tratamento do erro 401 agora é feito globalmente pelo interceptor do apiClient
         setError(error);
       } finally {
         setIsLoaded(false);

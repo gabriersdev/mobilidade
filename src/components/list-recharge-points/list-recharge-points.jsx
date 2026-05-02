@@ -1,17 +1,16 @@
-import './list-recharge-points.css';
+import '@/components/list-recharge-points/list-recharge-points.css';
 
-import axios from "axios";
 import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
 import {FormGroup, FormLabel, FormSelect} from "react-bootstrap";
 
-import Grid from "../ui/grid/grid.jsx";
-import Card from "../ui/card/card.jsx";
-import config from "../../assets/config.js";
-import ListPoints from "./list-points.jsx";
-import AnimatedComponents from "../ui/animated-component/animated-components.jsx";
-import {RechargePointsContext} from "./recharge-points-context.jsx";
-import OffCanvasRechargePoints from "./off-canvas-recharge-points.jsx";
+import apiClient from "@/assets/axios-config.js";
+import Grid from "@/components/ui/grid/grid.jsx";
+import Card from "@/components/ui/card/card.jsx";
+import ListPoints from "@/components/list-recharge-points/list-points.jsx";
+import AnimatedComponents from "@/components/ui/animated-component/animated-components.jsx";
+import {RechargePointsContext} from "@/components/list-recharge-points/recharge-points-context.jsx";
+import OffCanvasRechargePoints from "@/components/list-recharge-points/off-canvas-recharge-points.jsx";
 
 const ListRechargePoints = ({id_company, company_name}) => {
   const [data, setData] = useState([]);
@@ -21,7 +20,7 @@ const ListRechargePoints = ({id_company, company_name}) => {
   useEffect(() => {
     const searchRechargePoints = async () => {
       try {
-        const response = await axios.post(`${config.host}/api/recharge_points/`, {id_company: id_company}); // URL completa da sua API
+        const response = await apiClient.post(`/recharge_points/`, {id_company: id_company}); // URL completa da sua API
         setData(response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
@@ -31,7 +30,8 @@ const ListRechargePoints = ({id_company, company_name}) => {
       }
     }
     
-    searchRechargePoints().then(()=> {});
+    searchRechargePoints().then(() => {
+    });
   }, [id_company]);
   
   if (isLoaded) {

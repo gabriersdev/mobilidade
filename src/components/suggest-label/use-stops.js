@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
-import axios from 'axios';
-import config from '../../assets/config.js';
+import apiClient from "@/assets/axios-config.js";
 
 export const useStops = () => {
   const [stops, setStops] = useState([]);
@@ -9,7 +8,7 @@ export const useStops = () => {
   useEffect(() => {
     const fetchStops = async () => {
       try {
-        const response = await axios.get(`${config.host}/api/physical-departure-points/`);
+        const response = await apiClient.get(`/physical-departure-points/`);
         const formattedStops = response.data?.[0].map(c => ({
           id: c?.["stop_id"] ?? -1,
           label: (((c?.["stop_name"] ? c?.["stop_name"] + " - " : "") + " " + c?.["address"])?.trim() ?? "").replaceAll("/", " - "),

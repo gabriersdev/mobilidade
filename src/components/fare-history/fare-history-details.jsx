@@ -1,9 +1,8 @@
-import React from 'react';
-import { ListGroup } from 'react-bootstrap';
+import {ListGroup} from 'react-bootstrap';
 import moment from 'moment';
 import Util from '@/lib/Util.jsx';
 
-export default function FareHistoryDetails({ fare, lastModified }) {
+export default function FareHistoryDetails({fare, lastModified}) {
   return (
     <ListGroup>
       <ListGroup.Item>

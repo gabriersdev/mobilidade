@@ -1,11 +1,9 @@
-import axios from "axios";
 import moment from "moment";
 import {Button} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {Link, useLocation, useParams} from "react-router-dom";
 
 import Util from "@/lib/Util.jsx";
-import config from "@/assets/config.js";
 import Alert from "@/components/ui/alert/alert.jsx";
 import Title from "@/components/ui/title/title.jsx";
 import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";
@@ -13,6 +11,7 @@ import AnimatedComponents from "@/components/ui/animated-component/animated-comp
 import {ListDepartureTimes} from "@/components/list-departure-times/list-departure-times.jsx";
 import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
 import {dateConfigs} from "@/assets/resources.js";
+import apiClient from "@/assets/axios-config.js";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
@@ -45,7 +44,7 @@ export default function HistoryDayDepartureTimes() {
   const getData = async () => {
     try {
       const response = {data: [[1]]};
-      const line = await axios.post(`${config.host}/api/lines/`, {id: lineId});
+      const line = await apiClient.post(`/lines/`, {id: lineId});
       
       setData(response.data?.[0]);
       setLineData(line.data);
