@@ -10,6 +10,7 @@ export const useComboBoxLogic = ({
   const [items, setItems] = useState(initialItems);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setItems(initialItems);
   }, [initialItems]);
 

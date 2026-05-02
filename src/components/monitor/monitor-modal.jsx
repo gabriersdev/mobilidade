@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Badge, Button, Modal} from 'react-bootstrap';
+import {Button, Modal} from 'react-bootstrap';
 
 import MonitorForm from "./monitor-form.jsx";
 

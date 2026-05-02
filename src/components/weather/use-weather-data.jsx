@@ -9,6 +9,7 @@ const useWeatherData = (cityName) => {
   useEffect(() => {
     // Se não houver nome de cidade, não faz a requisição.
     if (!cityName) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setStatus('error');
       return;
     }

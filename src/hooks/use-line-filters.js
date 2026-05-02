@@ -12,6 +12,7 @@ export const useLineFilters = (initialData) => {
   
   useEffect(() => {
     if (initialData) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setData(initialData);
     }
   }, [initialData]);

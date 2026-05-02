@@ -84,6 +84,7 @@ const useDepartureTimes = (line_id, variant) => {
         return d;
       });
       // console.log(newDataThinking);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setData(newDataThinking);
     }
   }, [observations]);

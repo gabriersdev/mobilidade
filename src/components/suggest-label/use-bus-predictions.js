@@ -25,7 +25,8 @@ export const useBusPredictions = (selectedStop) => {
   }, [selectedStop]);
   
   useEffect(() => {
-    fetchData();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchData().then();
     const interval = setInterval(fetchData, 30000);
     return () => clearInterval(interval);
   }, [fetchData]);
@@ -37,6 +38,7 @@ export const useBusPredictions = (selectedStop) => {
   
   useEffect(() => {
     if (!data || data.length === 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setBusTimes([]);
       return;
     }

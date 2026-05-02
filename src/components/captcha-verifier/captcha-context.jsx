@@ -1,8 +1,13 @@
 import {createContext, useEffect, useState} from 'react';
 import Config from "@/assets/config.js";
 
+// TODO - separar Context para um arquivo separado para melhorar refresh
 export const CaptchaContext = createContext();
 
+// Responsável por PERMITIR que o usuário interaja com a aplicação, para evitar acessos automatizados de BOTS
+// TODO - precisa REGISTRAR no navegador uma sessão com a aprovação do TOKEN ou bolar uma forma de que, ao abrir outra página da aplicação ou
+// ao atualizar a página, não seja solicitado imediatamente que o captcha seja feito.
+// O terreno já está preparado para integração com JWT com a API. Precisa finalizar a implementação
 export const CaptchaProvider = ({children}) => {
   const [isVerified, setIsVerified] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +36,9 @@ export const CaptchaProvider = ({children}) => {
       }
     };
     
-    checkSessionStatus();
+    
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    checkSessionStatus().then();
   }, []);
   
   const setVerified = (verified) => {

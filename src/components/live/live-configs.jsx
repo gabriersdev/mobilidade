@@ -8,6 +8,8 @@ function FormControlElement({elementType, params}) {
   )
   
   const content = useRef(<></>);
+  // TODO - usar uma variável de estado e um HOOK para verificar o useRef e permitir alterar o .current dele diretamente
+  
   if (elementType === "check") {
     content.current = (
       <FormCheck
