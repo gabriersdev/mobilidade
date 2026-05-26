@@ -5,6 +5,7 @@ import AppLayout from '@/components/layout/app-layout.jsx';
 import {Company, DeparturePoints, Development, Guide, HistoryDayDepartureTimes, HistoryDepartureTimes, HistoryFares, Home, Lines, Live, Manifest, News, NotFound, OneDeparturePoints, Privacy, SabaraInfo, Search, TermsOfService} from "@/pages/index.d.ts";
 import CaptchaVerifier from "@/components/captcha-verifier/captcha-verifier.jsx";
 import {Alert} from "react-bootstrap";
+import Busao0800 from "@/pages/busao-0800/busao-0800.jsx";
 
 const AppRouter = () => {
   // O hook agora também pode expor uma função para realizar a verificação no backend.
@@ -38,6 +39,7 @@ const AppRouter = () => {
         <Route path="/history/departure-points/:id/:id" element={<OneDeparturePoints/>}/>
         <Route path="/sabara" element={<SabaraInfo/>}/>
         <Route path="/manifest" element={<Manifest/>}/>
+        <Route path="/busao-0800" element={<Busao0800/>}/>
         <Route path="/re-valid-session" element={
           <div className={"d-flex flex-column gap-3"}>
             <Alert variant={"danger"}>

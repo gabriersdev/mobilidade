@@ -22,5 +22,11 @@ export default [
     // ATT - definir ano para 2025
     init: "3026-01-15T00:00:00-03:00",
     finish: "3026-01-30T00:00:00-03:00",
-  },
+  }, {
+    title: "Pressione para um transporte público gratuito - Busão 0800",
+    message: (<>Já imaginou um país com transporte de graça todos os dias? Temos a chance de tirar esse sonho do papel no Brasil, mas pra isso acontecer, precisamos pressionar o Congresso pela aprovação do Sistema Único de Mobilidade.</>),
+    link: "https://busao0800.com",
+    init: "2026-05-25T00:00:00-03:00",
+    finish: "2026-06-15T00:00:00-03:00",
+  }
 ]
