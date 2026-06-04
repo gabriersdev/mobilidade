@@ -1,9 +1,10 @@
 import {useNews} from '@/hooks/use-news.js';
-import Title from '../../components/ui/title/title.jsx';
-import Alert from '../../components/ui/alert/alert.jsx';
-import PaginationWithItems from '../../components/pagination-with-items/pagination-with-items.jsx';
-import NewsC from '../../components/news/news.jsx';
 import {useState} from "react";
+import Title from '@/components/ui/title/title.jsx';
+import Alert from '@/components/ui/alert/alert.jsx';
+import PaginationWithItems from '@/components/pagination-with-items/pagination-with-items.jsx';
+import NewsC from '@/components/news/news.jsx';
+import NewsNavigation from './news-navigation.jsx';
 
 const NewsList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,11 +22,17 @@ const NewsList = () => {
           itemsPerPage={1}
           currentPage={currentPage}
           onPageChange={setCurrentPage}
-          items={newsItems.map((item) => (
-            <div className={'pb-5'} key={item.id}>
-              <NewsC {...item} />
-            </div>
-          ))}
+          items={newsItems.map((item, index) => {
+            const prevArticle = newsItems[index - 1];
+            const nextArticle = newsItems[index + 1];
+            
+            return (
+              <div className={'pb-5'} key={item.id}>
+                <NewsC {...item} />
+                <NewsNavigation prevArticle={prevArticle} nextArticle={nextArticle}/>
+              </div>
+            );
+          })}
         />
       </div>
     </>
