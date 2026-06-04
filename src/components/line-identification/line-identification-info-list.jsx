@@ -71,7 +71,7 @@ const LineIdentificationInfoList = ({
       <Link className={"text-decoration-none text-body"} to={"#partidas"}>
         <LineInfo label={{ref: "Horários", value: ""}}>
           <i className="bi bi-calendar-date d-inline-block"></i>
-          <span className={"ms-2"}>{countDepartureTimes.toLocaleString() || "Nenhuma"} {countDepartureTimes > 1 ? "partidas" : "partida"}</span>
+          <span className={"ms-2"}>{countDepartureTimes.toLocaleString() || "Nenhuma"} {countDepartureTimes > 1 ? "partidas" : "partida"} durante a semana</span>
         </LineInfo>
       </Link>
     </div>

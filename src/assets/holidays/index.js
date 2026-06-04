@@ -39,3 +39,4 @@ export * from './national';
 export * from './regional';
 export * from './movable';
 export * from './vacations';
+export * from './facultative-operation-days.js';

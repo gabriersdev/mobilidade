@@ -70,5 +70,3 @@ function getFacultativeOperationDays(year, region = null) {
 }
 
 export {getFacultativeOperationDays};
-
-console.log(getFacultativeOperationDays(2026))
