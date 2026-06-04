@@ -1,4 +1,4 @@
-import {holidaysForAllScopes} from "./national";
+import {holidaysForAllScopes} from "./national.js";
 
 // Container for regional fixed-date holidays, keyed by region code string (e.g. "SP", "RJ", "MG", or "BH" / "município")
 export const regionalFixedHolidays = {

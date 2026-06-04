@@ -1,17 +1,27 @@
-/** Easter calculation (Meets/Jones algorithm)
+import moment from "moment";
+import {dateConfigs} from "../../assets/resources.js";
+
+moment.locale(dateConfigs.lang)
+
+/** Easter calculation (Anonymous Gregorian algorithm)
  * @param year {number}
  * @return {{month: number, day: number}}
  */
 function getEasterDate(year) {
-  const f = Math.floor;
-  const G = year % 19;
-  const C = f(year / 100);
-  const H = (C - f(C / 4) - f((8 * C + 13) / 25) + 19 * G + 15) % 30;
-  const I = (H - f(H / 28) * (1 - f(29 / (H + 1)) * f((21 - G) / 11))) % 30;
-  const J = (year + f(year / 4) + H + 2 - C + f(C / 4)) % 7;
-  const L = (I - J) % 7;
-  const month = 3 + f((I + L + 40) / 44);
-  const day = I + L + 28 - 31 * f(month / 4);
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const month = Math.floor((h + l - 7 * m + 114) / 31);
+  const day = ((h + l - 7 * m + 114) % 31) + 1;
   return {month, day};
 }
 
@@ -34,11 +44,7 @@ function addDaysToDate(year, dateObj, days) {
  * @return {[{name: string, month: number, day: number},{name: string, month: number, day: number},{name: string, month: number, day: number},{name: string, month: number, day: number}]} array of movable holidays based on Easter
  */
 export function getMovableHolidays(year) {
+  if (!year) year = +moment().get("year");
   const easter = getEasterDate(year);
-  return [
-    {name: "Carnaval", ...addDaysToDate(year, easter, -47)},
-    {name: "Sexta-feira Santa", ...addDaysToDate(year, easter, -2)},
-    {name: "Páscoa", ...easter},
-    {name: "Corpus Christi", ...addDaysToDate(year, easter, 60)}
-  ];
+  return [{name: "Carnaval", ...addDaysToDate(year, easter, -47)}, {name: "Sexta-feira Santa", ...addDaysToDate(year, easter, -2)}, {name: "Páscoa", ...easter}, {name: "Corpus Christi", ...addDaysToDate(year, easter, 60)}];
 }
