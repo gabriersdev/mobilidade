@@ -7,6 +7,12 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://mobilidade.lts.app.br/busao-0800/busao-0800</loc>
+    <lastmod>2026-05-26T02:01:56.012Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://mobilidade.lts.app.br/company/company-detail</loc>
     <lastmod>2026-05-02T10:14:00.805Z</lastmod>
     <changefreq>monthly</changefreq>
@@ -31,20 +37,8 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://mobilidade.lts.app.br/busao-0800/busao-0800</loc>
-    <lastmod>2026-05-26T02:01:56.012Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://mobilidade.lts.app.br/development/development</loc>
     <lastmod>2026-05-02T14:31:39.158Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://mobilidade.lts.app.br/home/home</loc>
-    <lastmod>2026-04-17T22:38:42.261Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -79,6 +73,12 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://mobilidade.lts.app.br/home/home</loc>
+    <lastmod>2026-04-17T22:38:42.261Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://mobilidade.lts.app.br/lines/lines</loc>
     <lastmod>2026-04-18T16:14:56.627Z</lastmod>
     <changefreq>monthly</changefreq>
@@ -104,7 +104,7 @@
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/news/news-list</loc>
-    <lastmod>2026-05-02T19:19:33.644Z</lastmod>
+    <lastmod>2026-06-04T19:11:19.265Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -232,6 +232,11 @@
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/news/10</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/11</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
