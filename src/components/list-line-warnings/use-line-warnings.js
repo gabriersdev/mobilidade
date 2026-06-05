@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import axios from "axios";
 import moment from "moment";
-import config from "../../assets/config.js";
+
+import apiClient from "@/assets/axios-config.js";
 
 export const useLineWarnings = (line_id) => {
   const [data, setData] = useState([]);
@@ -12,7 +12,7 @@ export const useLineWarnings = (line_id) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post(`${config.host}/api/line_warnings/`, {line_id: line_id});
+        const response = await apiClient.post(`/line_warnings/`, {line_id: line_id});
         const responseWithId = response.data.map((d, i) => ({...d, id: i}));
         setData(responseWithId);
         setVisibleWarningIds(responseWithId.map(warning => warning.id));

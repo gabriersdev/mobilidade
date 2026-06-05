@@ -17,7 +17,7 @@ export default [
       "public/service-worker.js",
     ],
   },
-
+  
   // 2. Main configuration for all JS/JSX files
   {
     files: ["src/**/*.{js,jsx,ts,tsx}"],
@@ -51,15 +51,15 @@ export default [
       ...react.configs.recommended.rules,
       ...react.configs["jsx-runtime"].rules,
       ...reactHooks.configs.recommended.rules,
-
+      
       // Custom rule overrides
       "react/jsx-no-target-blank": "off",
-      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+      "react-refresh/only-export-components": ["warn", {allowConstantExport: true}],
       "react-hooks/exhaustive-deps": "off",
       "react/prop-types": "off",
     },
   },
-
+  
   // 3. Cypress overrides
   {
     files: ["cypress/**/*.{js,jsx,ts,tsx}"],
@@ -77,4 +77,6 @@ export default [
       "react-hooks/exhaustive-deps": "off",
     },
   },
+  
+  // TODO - usar extends, como extends TS aqui para evitar problemas com palavras reservadas ao TS, como "interface"
 ];

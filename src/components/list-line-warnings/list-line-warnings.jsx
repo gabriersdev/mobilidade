@@ -1,18 +1,16 @@
 import PropTypes from "prop-types";
 import {AnimatePresence} from "framer-motion";
 
-import './list-line-warnings.css'
-import AnimatedComponent from "../ui/animated-component/animated-component.jsx";
-import {useLineWarnings} from "./use-line-warnings.js";
-import WarningItem from "./warning-item.jsx";
+import '@/components/list-line-warnings/list-line-warnings.css';
+import AnimatedComponent from "@/components/ui/animated-component/animated-component.jsx";
+import {useLineWarnings} from "@/components/list-line-warnings/use-line-warnings.js";
+import WarningItem from "@/components/list-line-warnings/warning-item.jsx";
 
 const ListLineWarnings = ({line_id}) => {
   const {warnings, loading, error, handleDismissWarning} = useLineWarnings(line_id);
   
   if (loading || error || !warnings || warnings.length === 0) {
-    if (error) {
-      console.error('Falha ao carregar avisos:', error);
-    }
+    if (error) console.error('Falha ao carregar avisos:', error);
     return null;
   }
   
@@ -21,13 +19,15 @@ const ListLineWarnings = ({line_id}) => {
       <AnimatedComponent>
         <div className={"mt-0 d-flex gap-3 flex-column"}>
           {
-            warnings.toSorted((a, b) => a.title.localeCompare(b.title)).map((warning) => (
-              <WarningItem
-                key={warning.id}
-                warning={warning}
-                onDismiss={handleDismissWarning}
-              />
-            ))
+            warnings
+              .toSorted((a, b) => a.title.localeCompare(b.title))
+              .map((warning) => (
+                <WarningItem
+                  key={warning.id}
+                  warning={warning}
+                  onDismiss={handleDismissWarning}
+                />
+              ))
           }
         </div>
       </AnimatedComponent>

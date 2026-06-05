@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {useNews} from '@/hooks/use-news.js';
 import NewsC from '@/components/news/news.jsx';

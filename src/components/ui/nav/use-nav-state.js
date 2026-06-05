@@ -17,6 +17,7 @@ export const useNavState = () => {
   }, []);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsInLinePage(location.pathname.match(/lines\/\d*/));
   }, [location]);
 

@@ -22,6 +22,7 @@ describe('Live Page - Departure Points Combobox Interaction', () => { // Nome do
     const divMontitorInfo = `${divMonitor} > .d-flex.flex-column.gap-0.mb-3 span:nth-child(2)`;
     const divMonitorUpdateInfo = `${divMonitor} > .d-flex.gap-3.flex-wrap.mb-3 div.d-flex.flex-column.gap-0.mb-3:nth-child(1) span:nth-child(2)`;
     
+    // eslint-disable-next-line cypress/unsafe-to-chain-command
     cy.scrollTo(0, 1000).then();
     
     cy.get(divMontitorInfo)

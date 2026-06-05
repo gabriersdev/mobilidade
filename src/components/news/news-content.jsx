@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Util from '../../assets/Util.jsx';
+import Util from '../../lib/Util.jsx';
 
 const NewsContent = ({content}) => (
   <>

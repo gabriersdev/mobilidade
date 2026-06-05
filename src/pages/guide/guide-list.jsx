@@ -16,9 +16,10 @@ const GuideList = ({data}) => {
         const addressesForLetter = Object.entries(data)
           .filter(([key]) => key[0] === letter)
           .reduce((acc, [key, value]) => {
-            acc[key] = value;
-            return acc;
-          }, {});
+              acc[key] = value;
+              return acc;
+            }, {}
+          );
         
         return (
           <GuideLetterSection

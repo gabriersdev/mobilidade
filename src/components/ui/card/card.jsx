@@ -5,7 +5,7 @@ import {Card as BootstrapCard} from 'react-bootstrap';
 import {Link} from "react-router-dom";
 
 import Title from "@/components/ui/title/title.jsx";
-import Util from "@/assets/Util.jsx";
+import Util from "@/lib/Util.jsx";
 
 // TODO - refatorar componente
 const Card = (

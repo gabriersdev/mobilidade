@@ -8,7 +8,8 @@ import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 const NotFound = () => {
-  document.title = `Mobilidade - Companhias`;
+  // eslint-disable-next-line react-hooks/immutability
+  document.title = `Mobilidade - A página não foi encontrada`;
   const {setLabel} = useBreadcrumb();
   
   useEffect(() => {

@@ -1,7 +1,7 @@
 import {useContext} from "react";
 import {TimeContext} from "./departure-time-context.jsx";
 import Alert from "../ui/alert/alert.jsx";
-import Util from "../../assets/Util.jsx"
+import Util from "../../lib/Util.jsx"
 
 import moment from "moment";
 import PropTypes from "prop-types";

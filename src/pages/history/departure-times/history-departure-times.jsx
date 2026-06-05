@@ -1,11 +1,10 @@
-import axios from "axios";
 import moment from "moment";
 import {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {Button, ListGroup} from "react-bootstrap";
 
 import config from "@/assets/config.js";
-import Util from "@/assets/Util.jsx";
+import Util from "@/lib/Util.jsx";
 import Alert from "@/components/ui/alert/alert.jsx";
 import Title from "@/components/ui/title/title.jsx";
 import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";
@@ -14,6 +13,7 @@ import PaginationWithItems from "@/components/pagination-with-items/pagination-w
 
 import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
 import {dateConfigs} from "@/assets/resources.js";
+import apiClient from "@/assets/axios-config.js";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
@@ -42,8 +42,8 @@ export default function HistoryDepartureTimes() {
   
   const getData = async (id) => {
     try {
-      const response = await axios.get(`${config.host}/api/history/lines/${id || "-1"}`);
-      const line = await axios.post(`${config.host}/api/lines/`, {id: id});
+      const response = await apiClient.get(`/history/lines/${id || "-1"}`);
+      const line = await apiClient.post(`/lines/`, {id: id});
       
       setData(response.data?.[0]);
       setLineData(line.data);
@@ -57,8 +57,8 @@ export default function HistoryDepartureTimes() {
   
   useEffect(() => {
     if (!checkIsValid(id)) return <Alert variant={'danger'} margin={"mt-0"}>O id da linha não foi informado.</Alert>
-    getData(id).then(() => {
-    });
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    getData(id).then();
   }, [id]);
   
   useEffect(() => {
@@ -75,6 +75,7 @@ export default function HistoryDepartureTimes() {
   
   useEffect(() => {
     if (data && Array.isArray(data) && data.length) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDataAll(
         data.map((item, index) => (
           <ListGroup.Item as={Link} className={index !== 0 && (index % 10) !== 0 ? "border-top-0" : "border-top"} to={`/history/departure-times/${id || 0}/${Util.renderText(moment(item?.["update_date"] ? `${item?.["update_date"]}` : moment.utc()).add(config.host.startsWith("http://localhost") ? 0 : -3, "h").format("YYYY[X]MM[X]DD"))}`} key={index}>

@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 
-import Util from "@/assets/Util.jsx";
+import Util from "@/lib/Util.jsx";
 import Title from "@/components/ui/title/title.jsx";
 import GetAndListLines from "@/components/get-and-list-lines/get-and-list-lines.jsx";
 

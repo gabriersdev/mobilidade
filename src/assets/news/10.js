@@ -1,0 +1,14 @@
+export default {
+  title: "Mobilização Nacional Pressiona pela Aprovação da Tarifa Zero no Transporte Público",
+  resume: "Campanha defende a PEC 25/23 para criar o Sistema Único de Mobilidade, propondo um modelo de financiamento que garante transporte gratuito sem criar novos impostos.",
+  img: "/news/busao-0800.png",
+  publishDate: "2026-05-25T00:00:00.000-03:00",
+  fixed: true,
+  content: [
+    "Uma mobilização liderada pela organização Nossas está pressionando o Congresso Nacional pelo avanço da Proposta de Emenda à Constituição (PEC) 25/23, de autoria da deputada Luiza Erundina. O projeto propõe a criação do Sistema Único de Mobilidade (SUM), estruturado aos moldes do SUS, para implementar a Tarifa Zero em todo o país. Atualmente, a atenção está voltada para o presidente da CCJ, deputado Leur Lomanto Jr., de quem se exige a inclusão da matéria na pauta do dia para dar início à comissão especial que debaterá o mérito do texto.",
+    "A viabilidade financeira do projeto baseia-se em um estudo da Universidade de Brasília (UnB), que demonstra ser possível custear o transporte gratuito em todas as 706 cidades brasileiras com mais de 50 mil habitantes. A estratégia consiste na reformulação do sistema do Vale-Transporte atual, eliminando a necessidade de novos impostos. Com essa mudança, as empresas concessionárias deixariam de receber por passageiro integrado — lógica que hoje incentiva a superlotação — e passariam a ser remuneradas puramente pelo serviço prestado, permitindo exigir mais frequência e qualidade nas linhas.",
+    "Além do alívio no bolso do trabalhador, que deixará de ter o desconto de 6% do salário em folha, a iniciativa foca na reparação de desigualdades históricas. O custo do transporte público afeta de maneira desproporcional as populações vulneráveis e periféricas, limitando o acesso a serviços básicos como saúde, educação e lazer. O SUM defende a transição para o conceito de 'triplo zero': zero mortes no trânsito, zero emissões de poluentes e zero tarifa, estabelecendo o transporte coletivo como um direito constitucional prático e uma alternativa real de sustentabilidade contra a crise climática.",
+    "A eficácia da gratuidade já é uma realidade consolidada em 146 municípios brasileiros, beneficiando cerca de 8 milhões de pessoas. Estudos realizados por pesquisadores da UFMG e da USP sobre o Programa Tarifa Zero na cidade de Mariana (MG) comprovam os impactos altamente positivos da medida, como a ampliação da igualdade de oportunidades e o fortalecimento do comércio local. A campanha reforça que o modelo tarifário atual é caro e insustentável, convocando a sociedade civil a pressionar as lideranças políticas para que a mobilidade urbana justa se torne realidade.",
+    "<>Apoie a iniciativa em <Link to={\"/busao-0800\"}>busao0800.com</Link></>"
+  ]
+};

@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
-import axios from 'axios';
-import config from '@/assets/config.js';
+import apiClient from "@/assets/axios-config.js";
 
 const cache = new Map();
 
@@ -17,11 +16,11 @@ const useLines = (variant = 'all') => {
         return;
       }
       
-      let apiURL = `${config.host}/api/lines`;
-      if (variant === 'main') apiURL = `${config.host}/api/lines/main`;
+      let apiURL = `/lines/`;
+      if (variant === 'main') apiURL = `/lines/main`;
       
       try {
-        const response = await axios.get(apiURL);
+        const response = await apiClient.get(apiURL);
         const fetchedData = response.data;
         cache.set(variant, fetchedData);
         setData(fetchedData);

@@ -7,7 +7,7 @@ const BreadcrumbItemFactory = ({label, url}) => {
   
   return (
     <BreadcrumbItem
-      className="bg-body"
+      className="bg-body text-body-secondary"
       onClick={(e) => {
         e.preventDefault();
         if (url) navigate(url);

@@ -29,6 +29,7 @@ const Search = () => {
       let queryParams = null
       if (location.search) queryParams = new URLSearchParams(location.search)
       if (queryParams?.get('term')) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setTermSearch(queryParams?.get('term'));
         setIsValidSearch(true);
         

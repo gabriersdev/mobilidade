@@ -1,8 +1,8 @@
 import {useCallback, useEffect, useState} from 'react';
-import axios from 'axios';
-import config from '@/assets/config.js';
-import Util from '@/assets/Util.jsx';
 import {useLocation} from 'react-router-dom';
+
+import Util from '@/lib/Util.jsx';
+import apiClient from "@/assets/axios-config.js";
 
 const GENERIC_ERROR = "Ocorreu um erro na consulta do Guia. Aguarde alguns minutos e tente novamente mais tarde.";
 
@@ -16,7 +16,7 @@ export const useGuide = () => {
   
   const fetchAddress = async (url, params) => {
     try {
-      const response = await axios.post(url, params);
+      const response = await apiClient.post(url, params);
       return response.data?.[0]?.[0]?.address;
     } catch (err) {
       console.error("Erro ao buscar endereço:", err);
@@ -28,7 +28,7 @@ export const useGuide = () => {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${config.host}/api/guide`);
+      const response = await apiClient.get(`/guide`);
       if (response.data) {
         setOriginalData(response.data);
         setFilteredData(response.data);
@@ -44,18 +44,20 @@ export const useGuide = () => {
   }, []);
   
   useEffect(() => {
-    fetchData();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchData().then();
   }, [fetchData]);
   
   useEffect(() => {
     const searchDPId = Util.getSearchParamId(location);
     if (searchDPId !== null && Object.keys(originalData).length > 0) {
       if (typeof searchDPId === 'string' && searchDPId.endsWith("S")) {
-        const physicalId = +searchDPId.match(/\\d/g).join("");
+        // const physicalId = +searchDPId.match(/\\d/g).join("");
         // This function was not fully implemented in the original component, so we are calling a placeholder.
         // You might need to implement fetchPhysicalPointAddressByPhysicalId in a similar way to fetchAddress.
       } else if (searchDPId >= 0) {
-        fetchAddress(`${config.host}/api/departure-points/physical-point`, {pointId: searchDPId}).then(address => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        fetchAddress(`/departure-points/physical-point`, {pointId: searchDPId}).then(address => {
           if (address) setSearchTerm(address);
         });
       }
@@ -64,15 +66,14 @@ export const useGuide = () => {
   
   useEffect(() => {
     if (!searchTerm) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFilteredData(originalData);
       return;
     }
     
     const lowercasedTerm = searchTerm.toLowerCase().trim();
     const results = Object.entries(originalData).reduce((acc, [key, value]) => {
-      if (key.toLowerCase().includes(lowercasedTerm)) {
-        acc[key] = value;
-      }
+      if (key.toLowerCase().includes(lowercasedTerm)) acc[key] = value;
       return acc;
     }, {});
     

@@ -1,13 +1,13 @@
 import {useEffect, useState} from "react";
-import PropTypes from "prop-types";
-import axios from "axios";
-import Grid from "../ui/grid/grid.jsx";
-import Card from "../ui/card/card.jsx";
 import {Navigate} from "react-router-dom";
+import PropTypes from "prop-types";
 
-import config from "../../assets/config.js";
-import ListLines from "../line/list-lines.jsx";
-import AnimatedComponents from "../ui/animated-component/animated-components.jsx";
+import Grid from "@/components/ui/grid/grid.jsx";
+import Card from "@/components/ui/card/card.jsx";
+import ListLines from "@/components/line/list-lines.jsx";
+import AnimatedComponents from "@/components/ui/animated-component/animated-components.jsx";
+import apiClient from "@/assets/axios-config.js";
+
 const Search = ({value}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -21,7 +21,7 @@ const Search = ({value}) => {
     const searchDatabase = async () => {
       setIsLoaded(true);
       try {
-        const response = await axios.post(`${config.host}/api/lines/search/`, {search: searchSanitized});
+        const response = await apiClient.post(`/lines/search/`, {search: searchSanitized});
         // console.log("Response: ", response);
         setData(response.data);
       } catch (error) {

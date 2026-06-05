@@ -5,7 +5,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
 import Title from "../ui/title/title.jsx";
-import Util from "../../assets/Util.jsx";
+import Util from "../../lib/Util.jsx";
 import LiveShowItem from "./live-show-item.jsx";
 
 const NextDeparture = ({times, lineId}) => {

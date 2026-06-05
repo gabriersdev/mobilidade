@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useState} from 'react';
-import Convert from '../assets/Convert.js';
+import Convert from '../lib/Convert.js';
 
 export const useLineFilters = (initialData) => {
   const [data, setData] = useState(initialData || []);
@@ -12,6 +12,7 @@ export const useLineFilters = (initialData) => {
   
   useEffect(() => {
     if (initialData) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setData(initialData);
     }
   }, [initialData]);

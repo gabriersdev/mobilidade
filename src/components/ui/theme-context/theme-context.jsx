@@ -6,12 +6,12 @@ export const ThemeContext = createContext(undefined);
 
 export const ThemeProvider = ({children}) => {
   const [theme, setTheme] = useState("light");
-
+  
   const handleTheme = useCallback((themeParam) => {
     if (!["default", "light", "dark"].includes(themeParam)) {
       throw new Error(`Theme "${themeParam}" is not supported`);
     }
-
+    
     if ("localStorage" in window) {
       try {
         let ls = JSON.parse(localStorage.getItem("mobilidade-app"));
@@ -30,7 +30,7 @@ export const ThemeProvider = ({children}) => {
       }
     }
   }, []);
-
+  
   useEffect(() => {
     if (!("localStorage" in window)) {
       console.log("Navegador não suporta localStorage");
@@ -38,6 +38,7 @@ export const ThemeProvider = ({children}) => {
       let ls;
       try {
         ls = JSON.parse(localStorage.getItem("mobilidade-app"));
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (ls && ls["theme"]) handleTheme(ls["theme"]);
         else {
           const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -49,7 +50,7 @@ export const ThemeProvider = ({children}) => {
       }
     }
   }, [handleTheme]);
-
+  
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => {
@@ -62,7 +63,7 @@ export const ThemeProvider = ({children}) => {
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
-
+  
   return (
     <ThemeContext.Provider value={{theme, handleTheme}}>
       {children}
@@ -74,7 +75,7 @@ ThemeProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-// TODO - Use a new file to share constants or functions between components
+// TODO - Use a new file to share constants or functions between fare-history
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {

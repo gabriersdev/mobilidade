@@ -5,9 +5,9 @@
   justify-content: space-between;
   align-content: center;
 
-  &:hover, &:focus {
-    border-color: var(--bs-primary-border-subtle);
-  }
+  /*&:hover, &:focus {*/
+  /*  border-color: var(--bs-primary-border-subtle);*!
+  /*}*/
 
   .card-header {
     background-color: inherit;

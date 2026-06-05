@@ -45,7 +45,7 @@ const LineIdentificationInfoList = ({
           <OverlayTrigger trigger="click" placement="auto" overlay={accessibilityPopover}>
             <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
               <i className="bi bi-person-wheelchair text-warning"></i>
-              Acessível
+              Acessibilidade
               <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
             </div>
           </OverlayTrigger>
@@ -55,7 +55,7 @@ const LineIdentificationInfoList = ({
       <OverlayTrigger trigger="click" placement="auto" overlay={comfortPopover}>
         <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
           <i className="bi bi-star-fill text-primary"></i>
-          Confortável
+          Conforto
           <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
         </div>
       </OverlayTrigger>
@@ -71,7 +71,7 @@ const LineIdentificationInfoList = ({
       <Link className={"text-decoration-none text-body"} to={"#partidas"}>
         <LineInfo label={{ref: "Horários", value: ""}}>
           <i className="bi bi-calendar-date d-inline-block"></i>
-          <span className={"ms-2"}>{countDepartureTimes.toLocaleString() || "Nenhuma"} {countDepartureTimes > 1 ? "partidas" : "partida"}</span>
+          <span className={"ms-2"}>{countDepartureTimes.toLocaleString() || "Nenhuma"} {countDepartureTimes > 1 ? "partidas" : "partida"} durante a semana</span>
         </LineInfo>
       </Link>
     </div>

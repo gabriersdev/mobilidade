@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import Title from '../ui/title/title.jsx';
-import Util from '../../assets/Util.jsx';
+import Util from '../../lib/Util.jsx';
 import moment from 'moment';
 
 const NewsHeader = ({title, publishDate, resume}) => (

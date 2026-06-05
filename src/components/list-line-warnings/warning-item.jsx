@@ -1,7 +1,7 @@
 import {useState} from "react";
 import PropTypes from "prop-types";
 import {Button} from "react-bootstrap";
-import Util from "../../assets/Util.jsx";
+import Util from "../../lib/Util.jsx";
 
 const WarningItem = ({warning, onDismiss}) => {
   const [propOpen, setPropOpen] = useState(false);
@@ -12,7 +12,7 @@ const WarningItem = ({warning, onDismiss}) => {
         <summary open={propOpen} onClick={() => {
           setPropOpen(!propOpen)
         }} className={"alert-warning-summary"}>
-          <p className="alert-heading d-inline-block fw-bold mb-0 text-balance">
+          <p className="alert-heading d-inline-block fw-bold mb-0">
             <span>{`${warning.title.endsWith('.') ? warning.title : `${warning.title}.`}`.trim()}</span>
             <span className={"ms-1"}>Saiba mais</span>
             <span className={"ms-1 d-inline-flex"} style={{transform: "rotate(180deg)"}}>

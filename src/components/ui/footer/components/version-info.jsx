@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import moment from "moment";
-import Util from "@/assets/Util.jsx";
+import Util from "@/lib/Util.jsx";
 
 const VersionInfo = () => {
   const [version, setVersion] = useState("1.17.0");

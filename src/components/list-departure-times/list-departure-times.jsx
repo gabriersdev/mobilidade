@@ -4,7 +4,7 @@ import useDepartureTimes from "./use-departure-times.js";
 import Alert from "../ui/alert/alert.jsx";
 import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";
 import {DepartureTimeContext} from "./departure-time-context.jsx";
-import Util from "../../assets/Util.jsx";
+import Util from "../../lib/Util.jsx";
 import {AnimatePresence} from "framer-motion";
 import AnimatedComponent from "../ui/animated-component/animated-component.jsx";
 import Intermediate from "./intermediate.jsx";

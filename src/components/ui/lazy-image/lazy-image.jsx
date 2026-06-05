@@ -1,20 +1,20 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {Image} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const LazyImage = ({src, alt, ...props}) => {
   const [loading, setLoading] = useState(true);
-
+  
   const handleLoad = () => {
     setLoading(false);
   };
-
+  
   const placeholder = (
     <div className="placeholder-glow w-100 h-100 rounded">
       <span className="placeholder w-100 h-100 rounded"></span>
     </div>
   );
-
+  
   return (
     <div style={{position: 'relative', width: '100%', height: '100%', minHeight: '250px'}}>
       {loading && (

@@ -1,5 +1,5 @@
 import LineInfo from "../line-info/line-info.jsx";
-import Util from "../../assets/Util.jsx";
+import Util from "../../lib/Util.jsx";
 import PropTypes from "prop-types";
 
 const LineIdentificationLastUpdate = ({datetimeLastModify}) => {
