@@ -10,7 +10,7 @@ const LineIdentificationComfortPopover = forwardRef(({aircon, teraflex, bench, f
         {
           [
             {text: "Ar-condicionado", has: aircon ?? false,},
-            {text: "Assoalho em teraflex", has: teraflex ?? false,},
+            {text: "Assoalho em taraflex", has: teraflex ?? false,},
             {text: "Banco de encosto alto", has: bench ?? false,},
             {text: "Frota com menos de 10 anos", has: fleet ?? false,},
             {text: "Rastreável", has: conc ?? false,},

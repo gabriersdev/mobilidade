@@ -370,4 +370,49 @@ export default class Util {
     
     return null;
   }
+  
+  static async getBestMatchDayIndex(uniqueDays, scope) {
+    if (!uniqueDays || uniqueDays.length === 0) return -1;
+    const convertedDayNames = await Promise.all(
+      uniqueDays.map(day => Util.convertNumberToDay(day))
+    );
+    
+    const dayGroup = Util.getCurrentDayGroupName(scope);
+    const currentDayNameRaw = Array.isArray(dayGroup) ? dayGroup[0] : dayGroup;
+    const currentDayNameIsVacationRaw = Array.isArray(dayGroup) ? dayGroup[1] : null;
+    
+    const currentDayName = Util.normalize(currentDayNameRaw.toLowerCase());
+    const isVacation = currentDayNameIsVacationRaw && (currentDayNameIsVacationRaw.includes('ferias') || currentDayNameIsVacationRaw.includes('férias'));
+    
+    let bestMatchIndex = -1;
+    let bestMatchScore = -1;
+    
+    convertedDayNames.forEach((name, index) => {
+      const normalizedName = Util.normalize(name.toLowerCase());
+      const nameHasVacation = normalizedName.includes('ferias') || normalizedName.includes('férias');
+      let nameHasDay = normalizedName.includes(currentDayName);
+      
+      if (!nameHasDay && currentDayName === 'dia util') nameHasDay = normalizedName.includes('dias uteis') || normalizedName.includes('dia util');
+      
+      let score = -1;
+      if (isVacation) {
+        if (nameHasDay) {
+          if (nameHasVacation) score = 2;
+          else score = 1;
+        }
+      } else {
+        if (nameHasDay) {
+          if (!nameHasVacation) score = 2;
+          else score = -1;
+        }
+      }
+      
+      if (score > bestMatchScore) {
+        bestMatchScore = score;
+        bestMatchIndex = index;
+      }
+    });
+    
+    return bestMatchIndex;
+  }
 }
