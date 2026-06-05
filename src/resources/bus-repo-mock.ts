@@ -52,7 +52,8 @@ export const mockVehicles: Vehicle[] = [
         description: 'Troca de pneus e revisão de freios'
       }
     ],
-    generalNotes: 'Veículo com bom histórico de manutenção.'
+    generalNotes: 'Veículo com bom histórico de manutenção.',
+    lastUpdate: '10/05/2026'
   },
   {
     id: 'v2',
@@ -91,6 +92,7 @@ export const mockVehicles: Vehicle[] = [
       }
     ],
     maintenances: [],
-    generalNotes: 'Aguardando peças para suspensão.'
+    generalNotes: 'Aguardando peças para suspensão.',
+    lastUpdate: '04/06/2026'
   }
 ];

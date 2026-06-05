@@ -4,8 +4,12 @@ import AnimatedComponents from "@/components/ui/animated-component/animated-comp
 import {useNavScrollspy} from "@/components/ui/nav/use-nav-scrollspy.js";
 import {elementIdsPageLine, navLinksPageLine} from "@/assets/resources.js";
 
-const NavScrollspy = ({closeNav}) => {
-  const areaFocus = useNavScrollspy(elementIdsPageLine);
+const NavScrollspy = ({
+  closeNav, 
+  navLinks = navLinksPageLine, 
+  elementIds = elementIdsPageLine
+}) => {
+  const areaFocus = useNavScrollspy(elementIds);
   
   // TODO - debuggar e verificar o problmea de não marcar quando o #mapa é alcançado
   const scrollTo = (e, id) => {
@@ -38,7 +42,7 @@ const NavScrollspy = ({closeNav}) => {
       <div className={"d-inline-flex gap-3 flex-wrap align-items-center justify-content-center py-2"}>
         <BootstrapNav.Item className={"h-100 align-items-center me-2 py-2 d-none gap-3 flex-wrap"}>Navegue por</BootstrapNav.Item>
         
-        {navLinksPageLine.map(link => (
+        {navLinks.map(link => (
           <BootstrapNav.Link
             key={link.id}
             className={`text-primary p-0 ${link.className || ''}`}
@@ -55,7 +59,9 @@ const NavScrollspy = ({closeNav}) => {
 };
 
 NavScrollspy.propTypes = {
-  closeNav: PropTypes.func
+  closeNav: PropTypes.func,
+  navLinks: PropTypes.array,
+  elementIds: PropTypes.array
 };
 
 export default NavScrollspy;

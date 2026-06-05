@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {Badge, Container, Nav as BootstrapNav, Navbar, OverlayTrigger, Tooltip} from "react-bootstrap";
 
 import {useNavState} from "./use-nav-state.js";
-import {dateConfigs, navLinks} from "@/assets/resources.js";
+import {dateConfigs, navLinks, navLinksPageBus, elementIdsPageBus} from "@/assets/resources.js";
 import Util from "@/lib/Util.jsx";
 import FormNav from "./form-nav.jsx";
 import BarInfo from "./bar-info.jsx";
@@ -15,7 +15,7 @@ import InstallPWAButton from "../../install-PWA-button/install-PWA-button.jsx";
 moment.locale(dateConfigs.lang);
 
 const Nav = () => {
-  const {width, isInLinePage, sabaraTime, expanded, setExpanded, navbarRef} = useNavState();
+  const {width, isInLinePage, isInBusPage, sabaraTime, expanded, setExpanded, navbarRef} = useNavState();
   
   return (
     <>
@@ -81,9 +81,10 @@ const Nav = () => {
                   </OverlayTrigger>
                   
                   <div className="ms-2"><InstallPWAButton onClick={() => setExpanded(false)}/></div>
-                  {isInLinePage && width > 766 && (
+                  {(isInLinePage || isInBusPage) && width > 766 && (
                     <div className={width > 991 ? "d-flex flex-wrap justify-content-end flex-grow-1" : ""} id="nav-scrollspy">
-                      <NavScrollspy closeNav={() => setExpanded(false)}/>
+                      {isInLinePage && <NavScrollspy closeNav={() => setExpanded(false)}/>}
+                      {isInBusPage && <NavScrollspy closeNav={() => setExpanded(false)} navLinks={navLinksPageBus} elementIds={elementIdsPageBus}/>}
                     </div>
                   )}
                 </BootstrapNav>
@@ -93,12 +94,13 @@ const Nav = () => {
         </AnimatedComponents>
       </div>
       
-      {isInLinePage && width < 766 && (
+      {(isInLinePage || isInBusPage) && width < 766 && (
         <div className="position-sticky top-0" style={{zIndex: 200}}>
           <AnimatedComponents>
             <div className="bg-body-tertiary border-bottom py-2">
               <div className="container d-flex align-items-center justify-content-center gap-3 flex-wrap" id="nav-scrollspy">
-                <NavScrollspy/>
+                {isInLinePage && <NavScrollspy/>}
+                {isInBusPage && <NavScrollspy navLinks={navLinksPageBus} elementIds={elementIdsPageBus}/>}
               </div>
             </div>
           </AnimatedComponents>

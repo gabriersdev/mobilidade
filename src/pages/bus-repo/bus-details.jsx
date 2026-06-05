@@ -1,11 +1,14 @@
 import {useEffect, useState} from 'react';
-import {Link, useParams} from 'react-router-dom';
-import {Alert, Container, Spinner} from 'react-bootstrap';
+import {useParams} from 'react-router-dom';
 import {busRepoService} from '../../lib/bus-repo-service';
-import TechnicalSpecs from '../../components/bus-repo/technical-specs';
-import HistoryTimeline from '../../components/bus-repo/history-timeline';
+import AnimatedComponents from '@/components/ui/animated-component/animated-components.jsx';
+import FeedbackError from '@/components/ui/feedback-error/feedback-error.jsx';
+import LinePlaceholder from '@/components/line/line-placeholder.jsx';
+import Alert from '@/components/ui/alert/alert.jsx';
 import BusDetailsHeader from '../../components/bus-repo/bus-details-header';
 import BusOperatedLines from '../../components/bus-repo/bus-operated-lines';
+import TechnicalSpecs from '../../components/bus-repo/technical-specs';
+import HistoryTimeline from '../../components/bus-repo/history-timeline';
 import bcAll from '../../components/breadcrumb-app/breadcrumb-context.jsx';
 
 const useBreadcrumb = bcAll.useBreadcrumb;
@@ -32,58 +35,47 @@ export default function BusDetails() {
         setLoading(true);
         const data = await busRepoService.getVehicleById(id);
         setVehicle(data);
-        // eslint-disable-next-line no-unused-vars
       } catch (err) {
         setError('Veículo não encontrado ou erro ao carregar os dados.');
       } finally {
         setLoading(false);
       }
     };
-    fetchVehicle().then();
+    fetchVehicle();
   }, [id]);
   
   if (loading) {
-    return (
-      <Container className="py-5 text-center" style={{minHeight: '60vh'}}>
-        <Spinner animation="border" variant="primary"/>
-        <p className="mt-3 text-muted">Carregando detalhes do veículo...</p>
-      </Container>
-    );
+    return <div className="mt-4"><LinePlaceholder/></div>;
   }
   
   if (error || !vehicle) {
     return (
-      <Container className="py-5" style={{minHeight: '60vh'}}>
-        <Alert variant="danger">
-          <h4 className="alert-heading">Ops!</h4>
-          <p>{error}</p>
-          <hr/>
-          <Link to="/bus-repo" className="btn btn-outline-danger">Voltar para a listagem</Link>
-        </Alert>
-      </Container>
+      <AnimatedComponents>
+        <FeedbackError code={404} text={error || 'Veículo não encontrado.'} type={'card'}/>
+      </AnimatedComponents>
     );
   }
   
   return (
-    <Container className="py-5 pb-5">
-      <BusDetailsHeader vehicle={vehicle}/>
-      
-      <BusOperatedLines operatedLines={vehicle.operatedLines}/>
-      
-      {/* Observações Gerais */}
-      {vehicle.generalNotes && (
-        <Alert variant="info" className="border-0 mb-4">
-          <i className="bi bi-info-circle-fill me-2"></i>
-          <strong>Observações Gerais:</strong> {vehicle.generalNotes}
-        </Alert>
-      )}
-      
-      {/* Especificações Técnicas e Conforto */}
-      <TechnicalSpecs vehicle={vehicle}/>
-      
-      {/* Linha do Tempo / Histórico */}
-      <HistoryTimeline incidents={vehicle.incidents} maintenances={vehicle.maintenances}/>
-    
-    </Container>
+    <AnimatedComponents>
+      <div className="d-flex flex-column mt-4" style={{gap: '3rem', marginBottom: '4rem'}}>
+        <BusDetailsHeader vehicle={vehicle} />
+        
+        {vehicle.generalNotes && (
+          <section>
+            <Alert variant="info" margin="m-0">
+              <div className="d-flex flex-column gap-1">
+                <span className="fw-bold">Observações Gerais</span>
+                <span>{vehicle.generalNotes}</span>
+              </div>
+            </Alert>
+          </section>
+        )}
+        
+        <BusOperatedLines operatedLines={vehicle.operatedLines} />
+        <TechnicalSpecs vehicle={vehicle}/>
+        <HistoryTimeline incidents={vehicle.incidents} maintenances={vehicle.maintenances}/>
+      </div>
+    </AnimatedComponents>
   );
 }

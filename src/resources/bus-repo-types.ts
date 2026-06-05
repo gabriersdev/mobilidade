@@ -87,4 +87,5 @@ export interface Vehicle {
   incidents: VehicleIncident[];
   maintenances: VehicleMaintenance[];
   generalNotes: string;
+  lastUpdate?: string;
 }

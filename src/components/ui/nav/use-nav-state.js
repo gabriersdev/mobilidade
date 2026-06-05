@@ -5,6 +5,7 @@ import moment from 'moment';
 export const useNavState = () => {
   const [width, setWidth] = useState(document.body.offsetWidth);
   const [isInLinePage, setIsInLinePage] = useState(false);
+  const [isInBusPage, setIsInBusPage] = useState(false);
   const [sabaraTime, setSabaraTime] = useState(moment().format("dddd DD/MM HH[h]mm[min]"));
   const [expanded, setExpanded] = useState(false);
   const navbarRef = useRef(null);
@@ -19,6 +20,8 @@ export const useNavState = () => {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsInLinePage(location.pathname.match(/lines\/\d*/));
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsInBusPage(location.pathname.match(/bus-repo\/[^\/]+/));
   }, [location]);
 
   useEffect(() => {
@@ -50,5 +53,5 @@ export const useNavState = () => {
     };
   }, []);
 
-  return {width, isInLinePage, sabaraTime, expanded, setExpanded, navbarRef};
+  return {width, isInLinePage, isInBusPage, sabaraTime, expanded, setExpanded, navbarRef};
 };

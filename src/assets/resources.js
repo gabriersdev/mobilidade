@@ -83,6 +83,22 @@ const elementIdsPageLine = [
   "resume"
 ];
 
+const navLinksPageBus = [
+  {id: "id", label: "Identificação", className: "d-none d-sm-inline-block"},
+  {id: "linhas-operadas", label: "Linhas"},
+  {id: "especificacoes-tecnicas", label: "Técnica"},
+  {id: "conforto-e-acessibilidade", label: "Conforto"},
+  {id: "historico", label: "Histórico"},
+];
+
+const elementIdsPageBus = [
+  "id",
+  "linhas-operadas",
+  "especificacoes-tecnicas",
+  "conforto-e-acessibilidade",
+  "historico"
+];
+
 export {
   reportMail,
   contactLotus,
@@ -95,5 +111,7 @@ export {
   quickSearchLinks,
   labelMap,
   navLinksPageLine,
-  elementIdsPageLine
+  elementIdsPageLine,
+  navLinksPageBus,
+  elementIdsPageBus
 }
