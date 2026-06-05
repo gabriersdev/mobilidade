@@ -11,6 +11,7 @@ function FormControlElement({elementType, params}) {
   // TODO - usar uma variável de estado e um HOOK para verificar o useRef e permitir alterar o .current dele diretamente
   
   if (elementType === "check") {
+    // eslint-disable-next-line react-hooks/refs
     content.current = (
       <FormCheck
         type="switch"
@@ -18,6 +19,7 @@ function FormControlElement({elementType, params}) {
       />
     );
   } else if (elementType === "range") {
+    // eslint-disable-next-line react-hooks/refs
     content.current = (
       <div className={"d-inline-flex align-items-center gap-1"}>
         <Form.Range
@@ -33,10 +35,13 @@ function FormControlElement({elementType, params}) {
     )
   }
   
+  // eslint-disable-next-line react-hooks/refs
   if (label.current && content.current) {
     return (
       <div className={"d-inline-flex align-items-center gap-3 flex-wrap"}>
+        {/* eslint-disable-next-line react-hooks/refs */}
         {label.current}
+        {/* eslint-disable-next-line react-hooks/refs */}
         {content.current}
       </div>
     )
