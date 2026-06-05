@@ -44,14 +44,7 @@ const AppRouter = () => {
         {/*<Route path="/bus-repo/:id" element={<BusDetails/>}/>*/}
         
         <Route path="/busao-0800" element={<Busao0800/>}/>
-        <Route path="/re-valid-session" element={
-          <div className={"d-flex flex-column gap-3"}>
-            <Alert variant={"danger"}>
-              A sessão expirou. Faça a verificação novamente.
-            </Alert>
-            <CaptchaVerifier onSuccess={handleVerification}/>
-          </div>
-        }/>
+
       </Routes>
     </AppLayout>
   );
