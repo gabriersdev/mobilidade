@@ -57,7 +57,15 @@ const Nav = () => {
                     </BootstrapNav.Link>
                   ))}
                   
-                  <OverlayTrigger overlay={<Tooltip placement="bottom"><p className="m-0 p-0 text-sml">{Util.translateWeekDay(sabaraTime?.split(" ")?.[0], {suffix: true})}, {Util.renderText((sabaraTime?.split(" ")?.[1]))}</p></Tooltip>}>
+                  <OverlayTrigger
+                    overlay={
+                      <Tooltip placement="bottom">
+                        <p className="m-0 p-0 text-sml">
+                          {Util.translateWeekDay(sabaraTime?.split(" ")?.[0], {suffix: true})}, {Util.renderText((sabaraTime?.split(" ")?.[1]))}
+                        </p>
+                      </Tooltip>
+                    }
+                  >
                     <Link to="/sabara" onClick={() => setExpanded(false)} className={`d-flex flex-row align-items-center gap-1 text-decoration-none ${width > 1200 ? "mx-2" : "mt-2 mx-0"}`}>
                       <span className="text-body-secondary d-inline-block">Sabará</span>
                       <i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i>

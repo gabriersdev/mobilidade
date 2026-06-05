@@ -1,8 +1,9 @@
 export default {
   title: "Calendário do Aniversário de Sabará 2025",
   resume: "Confira o calendário dos eventos do Aniversário de Sabará 2025",
-  img: "",
+  img: "/news/marcopolo-44117.png",
   publishDate: "2025-07-05T00:00:00.000-03:00",
+  // fixed: true,
   content: [
     "Durante as datas listadas abaixo os ônibus operados pela Vinscol não passarão pelo Centro Histórico. Está previsto para que, entre os dias 12 e 20 de julho, todas as linha da Vinscol e as linhas 4986, 4987, 4988 e 4991 operadas pela viação Cuiabá não passarão pela Av. Perimetral e parte da Av. Prefeito Victor Fantini, sendo parte do itinerário transferido para a Av. Central.",
     "Sexta-feira - 4 de julho: 18h - Abertura Oficial (Praça Getúlio Vargas), 20h - Primeiro Arraiá de Sabará",
