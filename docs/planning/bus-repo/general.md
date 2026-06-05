@@ -30,6 +30,7 @@ Cada veículo no repositório será representado pela seguinte estrutura de dado
 - **Status:** `Em atividade`, `Substituído`, `Desativado`, `Em manutenção`, `Desconhecido`.
 - **Empresa Proprietária:** (e.g., `Viação Cuiabá`).
 - **Geração/Leva:** Agrupamento de aquisição (e.g., `Renovação Viação Cuiabá - FEV 2018`).
+- **Última Atualização:** Data que indica quando os dados do veículo foram atualizados pela última vez (e.g., `10/05/2026`).
 
 ### Especificações Técnicas
 - **Fabricante do Chassi:** (e.g., `Mercedes Benz`).
@@ -65,8 +66,11 @@ Cada veículo no repositório será representado pela seguinte estrutura de dado
 
 ## 4. Funcionalidades da Interface
 
-A interface de usuário permitirá as seguintes ações:
+A interface de usuário permitirá as seguintes ações e utilidades:
 
-- **Página de Listagem:** Exibirá todos os veículos em um formato de lista, semelhante à listagem de linhas.
+- **Página de Listagem:** Exibirá todos os veículos em um formato de lista ou cards amigáveis, semelhante à listagem de linhas.
 - **Pesquisa e Filtros:** Os usuários poderão pesquisar veículos por placa, empresa, modelo ou linha. Filtros avançados permitirão refinar a busca por características como "possui ar condicionado" ou "status em atividade".
-- **Página de Detalhes:** Cada veículo terá uma página dedicada exibindo todas as informações do modelo de dados, incluindo seu histórico de incidentes e manutenção.
+- **Página de Detalhes:** Cada veículo terá uma página dedicada exibindo todas as informações técnicas e históricas formatadas em componentes modulares.
+- **Scrollspy Inteligente:** A barra de navegação global adapta-se para atuar como menu rápido de âncoras na página de detalhes, facilitando pular entre a Identificação, Linhas Operadas, Técnica, Conforto e Histórico.
+- **Componentes Base Centralizados (UI):** O design prioriza o reuso de componentes padronizados como o `InfoItem`, que exibe meta-dados com ícones consistentes de forma linear.
+- **Ações e Interações:** A tela de detalhes oferece componentes para compartilhar informações com links, reportar ocorrências ou apontar bugs integrados na mesma interface de `Ações`.

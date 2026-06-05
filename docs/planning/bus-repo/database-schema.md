@@ -49,6 +49,7 @@ Tabela principal que centraliza as informações do ônibus.
 - `doors_quantity` (Int): Número total de portas.
 - `conservation_state` (Enum): `EXCELLENT`, `GOOD`, `REGULAR`, `BAD`, `PRECARIOUS`.
 - `general_notes` (Text): Observações livres.
+- `last_update` (DateTime): Data e hora da última atualização dos dados do veículo.
 
 ### 5. `vehicle_lines` (Relação Veículo-Linha)
 Relacionamento N:M entre veículos e as linhas de operação que eles atendem rotineiramente.

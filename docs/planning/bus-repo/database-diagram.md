@@ -55,6 +55,7 @@ erDiagram
         int doors_quantity
         string conservation_state
         text general_notes
+        datetime last_update
     }
 
     VEHICLE_LINES {

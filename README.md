@@ -19,6 +19,10 @@ Até o momento, o projeto atende principalmente as linhas de ônibus municipais 
 - **Guia de Transporte**: Ferramenta para descobrir quais linhas atendem a determinados locais.
 - **Verificação de Dias Facultativos**: Componente e scripts para verificação de dias facultativos.
 - **Notícias**: Atualizações sobre as linhas e o sistema de transporte.
+- **Repositório de Veículos (Frota)**:
+  - Banco de dados unificado de veículos de transporte com busca por placa, prefixo ou modelo.
+  - Informações técnicas, configurações de chassi/carroceria e detalhes operacionais.
+  - Histórico de manutenções e incidentes vinculados a cada veículo.
 - **Histórico**:
   - Histórico de quadros de horários antigos.
   - Histórico de alterações de tarifas.
@@ -35,6 +39,7 @@ A aplicação utiliza `react-router-dom` para navegação. As principais rotas s
 - `/` - Página Inicial
 - `/search` - Busca de linhas
 - `/lines/:id?` - Detalhes e horários de uma linha específica
+- `/bus-repo/:id?` - Repositório e detalhes técnicos de veículos da frota
 - `/live` - Monitoramento em tempo real
 - `/guide` - Guia de transporte público
 - `/news/:id?` - Notícias
