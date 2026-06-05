@@ -39,58 +39,7 @@ const AccordionOperationDays = () => {
             daysForDirection.map(day => Util.convertNumberToDay(day))
           );
           
-          const dayGroup = getCurrentDayGroupName();
-          // Ensure dayGroup is an array
-          const currentDayNameRaw = Array.isArray(dayGroup) ? dayGroup[0] : dayGroup;
-          const currentDayNameIsVacationRaw = Array.isArray(dayGroup) ? dayGroup[1] : null;
-          
-          const currentDayName = Util.normalize(currentDayNameRaw.toLowerCase());
-          const isVacation = currentDayNameIsVacationRaw && (currentDayNameIsVacationRaw.includes('ferias') || currentDayNameIsVacationRaw.includes('férias'));
-          
-          let bestMatchIndex = -1;
-          let bestMatchScore = -1;
-          
-          convertedDayNames.forEach((name, index) => {
-              const normalizedName = Util.normalize(name.toLowerCase());
-              const nameHasVacation = normalizedName.includes('ferias') || normalizedName.includes('férias');
-              let nameHasDay = normalizedName.includes(currentDayName);
-              
-              // Special handling for "dia util" vs "dias uteis"
-              if (!nameHasDay && currentDayName === 'dia util') nameHasDay = normalizedName.includes('dias uteis') || normalizedName.includes('dia util');
-              
-              let score = -1;
-              
-              if (isVacation) {
-                // Today is Vacation
-                if (nameHasDay) {
-                  // Exact match (Day + Vacation)
-                  if (nameHasVacation) score = 2;
-                  // Fallback (Day only)
-                  else score = 1;
-                }
-              }
-              
-              //
-              else {
-                // Today is Normal
-                if (nameHasDay) {
-                  // Exact match (Day only)
-                  if (!nameHasVacation) score = 2;
-                    
-                  // Day matches, but it is a vacation schedule.
-                  // If today is Normal, we should NOT show Vacation schedule.
-                  else score = -1;
-                }
-              }
-              
-              if (score > bestMatchScore) {
-                bestMatchScore = score;
-                bestMatchIndex = index;
-              }
-            }
-          );
-          
-          const defaultIndex = bestMatchIndex;
+          const defaultIndex = await Util.getBestMatchDayIndex(daysForDirection, scope);
           
           // Define a chave do accordion que deve vir aberta
           const newDefaultKey = defaultIndex !== -1 ? [defaultIndex.toString()] : [];
