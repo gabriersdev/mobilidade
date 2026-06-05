@@ -22,7 +22,7 @@ export default function BusDetails() {
   
   useEffect(() => {
     if (vehicle) {
-      document.title = `Ônibus ${vehicle.licensePlate} | ${vehicle.company.name} | Mobilidade`;
+      document.title = `Ônibus ${vehicle.fleetNumber} | ${vehicle.licensePlate} | ${vehicle.company.name} | Mobilidade`;
       setLabel(vehicle.id, `Ônibus ${vehicle.licensePlate}`);
     } else {
       document.title = `Detalhes do Ônibus | Mobilidade`;
@@ -59,22 +59,22 @@ export default function BusDetails() {
   return (
     <AnimatedComponents>
       <div className="d-flex flex-column mt-4" style={{gap: '3rem', marginBottom: '4rem'}}>
-        <BusDetailsHeader vehicle={vehicle} />
+        <BusDetailsHeader vehicle={vehicle}/>
         
         {vehicle.generalNotes && (
           <section>
             <Alert variant="info" margin="m-0">
               <div className="d-flex flex-column gap-1">
-                <span className="fw-bold">Observações Gerais</span>
+                <span className="fw-bold">Observações Gerais:{" "}</span>
                 <span>{vehicle.generalNotes}</span>
               </div>
             </Alert>
           </section>
         )}
         
-        <BusOperatedLines operatedLines={vehicle.operatedLines} />
+        <BusOperatedLines operatedLines={vehicle.operatedLines}/>
         <TechnicalSpecs vehicle={vehicle}/>
-        <HistoryTimeline incidents={vehicle.incidents} maintenances={vehicle.maintenances}/>
+        <HistoryTimeline vehicle={vehicle}/>
       </div>
     </AnimatedComponents>
   );

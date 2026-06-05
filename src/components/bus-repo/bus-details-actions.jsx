@@ -102,6 +102,25 @@ const BusDetailsActions = ({vehicle}) => {
         )
       }
       
+      {
+        (
+          <Link
+            className={"outline-none"}
+            to={"#"}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              size={"sm"}
+              variant={"warning"}
+            >
+              <span className={"me-1"}>Reclamar</span>
+              <i className="bi bi-arrow-up-right-square"></i>
+            </Button>
+          </Link>
+        )
+      }
+      
       <Dropdown>
         <DropdownToggle
           variant={"secondary"}

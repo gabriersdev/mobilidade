@@ -1,4 +1,4 @@
-import { Vehicle, VehicleStatus, ConservationState, IncidentType } from './bus-repo-types';
+import {ConservationState, IncidentType, Vehicle, VehicleStatus} from './bus-repo-types';
 
 export const mockVehicles: Vehicle[] = [
   {
@@ -6,10 +6,10 @@ export const mockVehicles: Vehicle[] = [
     licensePlate: 'O1N3E09',
     fleetNumber: '44089',
     status: VehicleStatus.ACTIVE,
-    generationBatch: 'Renovação Viação Cuiabá - FEV 2018',
-    company: { id: 'c1', name: 'Viação Cuiabá' },
-    chassis: { id: 'ch1', manufacturer: 'Mercedes Benz', model: 'OF-1721' },
-    bodywork: { id: 'bw1', manufacturer: 'Marcopolo', model: 'Mega Plus' },
+    generationBatch: 'Aquis. com rec. próprios - Renovação Viação Cuiabá - FEV 2018',
+    company: {id: 'c1', name: 'Viação Cuiabá'},
+    chassis: {id: 'ch1', manufacturer: 'Mercedes Benz', model: 'OF-1721'},
+    bodywork: {id: 'bw1', manufacturer: 'Marcopolo', model: 'Mega Plus'},
     manufactureYear: 2017,
     modelYear: 2018,
     dimensionDescription: 'Carroceria de 11 metros',
@@ -19,7 +19,7 @@ export const mockVehicles: Vehicle[] = [
     hasAc: false,
     hasAirSuspension: false,
     floorType: 'Taraflex',
-    seatType: 'Acolchoado',
+    seatType: 'Acolchoado - encosto alto',
     hasWifi: true,
     accessibilityElevator: 'Elevador para cadeira de rodas',
     accessibilityExclusiveSeats: 'Possui assentos exclusivos',
@@ -53,17 +53,17 @@ export const mockVehicles: Vehicle[] = [
       }
     ],
     generalNotes: 'Veículo com bom histórico de manutenção.',
-    lastUpdate: '10/05/2026'
+    lastUpdate: '2026-05-10T00:00:00-03:00'
   },
   {
     id: 'v2',
     licensePlate: 'P2M4A10',
     fleetNumber: '55012',
     status: VehicleStatus.MAINTENANCE,
-    generationBatch: 'Aquisição Expresso Atual - JAN 2020',
-    company: { id: 'c2', name: 'Expresso Atual' },
-    chassis: { id: 'ch2', manufacturer: 'Volkswagen', model: '17.230 OD' },
-    bodywork: { id: 'bw2', manufacturer: 'Caio', model: 'Apache VIP IV' },
+    generationBatch: 'Aquis. com rec. próprios - Expresso Atual - JAN 2020',
+    company: {id: 'c2', name: 'Expresso Atual'},
+    chassis: {id: 'ch2', manufacturer: 'Volkswagen', model: '17.230 OD'},
+    bodywork: {id: 'bw2', manufacturer: 'Caio', model: 'Apache VIP IV'},
     manufactureYear: 2020,
     modelYear: 2020,
     dimensionDescription: 'Carroceria de 13.2 metros',
