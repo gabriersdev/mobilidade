@@ -1,23 +1,23 @@
 import React from 'react';
-import { Form, Row, Col, Card } from 'react-bootstrap';
+import {Col, Form, Row} from 'react-bootstrap';
 
-export default function BusFilters({ filters, onChange }) {
+export default function BusFilters({filters, onChange}) {
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const {name, value, type, checked} = e.target;
     onChange({
       ...filters,
       [name]: type === 'checkbox' ? checked : value
     });
   };
-
+  
   return (
-    <Card className="border-0 shadow-sm mb-4">
-      <Card.Body>
-        <h5 className="mb-3"><i className="bi bi-funnel me-2"></i> Filtros de Busca</h5>
+    <div className="border-0 mb-4 p-0">
+      <div>
         <Form>
           <Row className="g-3">
-            <Col md={12}>
+            <Col>
               <Form.Group controlId="searchQuery">
+                {/*TODO: utilizar combobox, tal qual no componente de formulário da página de live*/}
                 <Form.Control
                   type="text"
                   placeholder="Pesquisar por Placa, Frota ou Empresa..."
@@ -27,6 +27,7 @@ export default function BusFilters({ filters, onChange }) {
                 />
               </Form.Group>
             </Col>
+            
             <Col md={6}>
               <Form.Group controlId="statusFilter">
                 <Form.Select name="status" value={filters.status} onChange={handleChange}>
@@ -38,8 +39,9 @@ export default function BusFilters({ filters, onChange }) {
                 </Form.Select>
               </Form.Group>
             </Col>
+            
             <Col md={6} className="d-flex align-items-center flex-wrap gap-3">
-              <Form.Check 
+              <Form.Check
                 type="checkbox"
                 id="hasAc"
                 name="hasAc"
@@ -47,7 +49,7 @@ export default function BusFilters({ filters, onChange }) {
                 checked={filters.hasAc}
                 onChange={handleChange}
               />
-              <Form.Check 
+              <Form.Check
                 type="checkbox"
                 id="hasWifi"
                 name="hasWifi"
@@ -55,7 +57,7 @@ export default function BusFilters({ filters, onChange }) {
                 checked={filters.hasWifi}
                 onChange={handleChange}
               />
-              <Form.Check 
+              <Form.Check
                 type="checkbox"
                 id="hasAirSuspension"
                 name="hasAirSuspension"
@@ -66,7 +68,7 @@ export default function BusFilters({ filters, onChange }) {
             </Col>
           </Row>
         </Form>
-      </Card.Body>
-    </Card>
+      </div>
+    </div>
   );
 }

@@ -32,6 +32,7 @@ const Line = ({id}) => {
         <Alert variant={'danger'} margin={"mt-0"}>
           <div className={"d-flex flex-column gap-1"}>
             <span>Informações sobre a linha não foram encontradas.</span>
+            <span>{" "}</span>
             <span className={"text-sml"}>Isso pode acontecer se a linha foi desativada, suspensa ou não existe.</span>
           </div>
         </Alert>

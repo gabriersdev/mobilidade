@@ -1,20 +1,26 @@
-import React from 'react';
-import { Card, Badge, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import 'react';
+import {Badge, Card, Col, Row} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 const getStatusVariant = (status) => {
   switch (status) {
-    case 'Em atividade': return 'success';
-    case 'Em manutenção': return 'warning';
-    case 'Desativado': return 'danger';
-    case 'Substituído': return 'secondary';
-    default: return 'light';
+    case 'Em atividade':
+      return 'success';
+    case 'Em manutenção':
+      return 'warning';
+    case 'Desativado':
+      return 'danger';
+    case 'Substituído':
+      return 'secondary';
+    default:
+      return 'light';
   }
 };
 
-export default function BusCard({ vehicle }) {
+export default function BusCard({vehicle}) {
   return (
-    <Card className="mb-4 shadow-sm border-0 h-100">
+    // TODO - reutilizar o componente de card que já é usado para listar as linhas, apenas fazer adaptações necessárias, como passar as badges e fornecer informações básicas para formação dos cards
+    <Card className="mb-4 border-0 h-100">
       <Card.Body>
         <div className="d-flex justify-content-between align-items-start mb-2">
           <Card.Title className="mb-0 fw-bold fs-4">
@@ -30,7 +36,7 @@ export default function BusCard({ vehicle }) {
         <Card.Subtitle className="mb-3 text-muted">
           Frota: <strong>{vehicle.fleetNumber}</strong> • {vehicle.company.name}
         </Card.Subtitle>
-
+        
         <Row className="mb-2">
           <Col xs={12} className="text-muted small">
             <i className="bi bi-bus-front me-2"></i>
@@ -44,7 +50,7 @@ export default function BusCard({ vehicle }) {
             Ano/Modelo: {vehicle.manufactureYear}/{vehicle.modelYear}
           </Col>
         </Row>
-
+        
         <div className="d-flex flex-wrap gap-2 mt-auto pt-2 border-top">
           {vehicle.hasAc && (
             <Badge bg="info" text="dark"><i className="bi bi-snow me-1"></i> Ar Condicionado</Badge>

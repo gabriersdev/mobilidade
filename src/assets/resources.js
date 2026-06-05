@@ -62,6 +62,7 @@ const labelMap = {
   "manifest": "Manifesto",
   "re-valid-session": "Validação de nova sessão",
   "busao-0800": "Busão 0800",
+  "bus-repo": "Informações de Ônibus",
 }
 
 const navLinksPageLine = [

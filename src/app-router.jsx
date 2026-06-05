@@ -39,8 +39,10 @@ const AppRouter = () => {
         <Route path="/history/departure-points/:id/:id" element={<OneDeparturePoints/>}/>
         <Route path="/sabara" element={<SabaraInfo/>}/>
         <Route path="/manifest" element={<Manifest/>}/>
+        
         <Route path="/bus-repo" element={<BusList/>}/>
         <Route path="/bus-repo/:id" element={<BusDetails/>}/>
+        
         <Route path="/busao-0800" element={<Busao0800/>}/>
         <Route path="/re-valid-session" element={
           <div className={"d-flex flex-column gap-3"}>
