@@ -2,6 +2,7 @@ import {createContext, useCallback, useState} from 'react';
 import PropTypes from 'prop-types';
 
 // TODO - separar Context para um arquivo separado para melhorar refresh
+// react-refresh/only-export-components
 export const BreadcrumbContext = createContext();
 
 export const BreadcrumbProvider = ({children}) => {
