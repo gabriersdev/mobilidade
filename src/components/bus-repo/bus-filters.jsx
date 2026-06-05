@@ -1,7 +1,16 @@
-import React from 'react';
+import {useEffect, useState} from 'react';
 import {Col, Form, Row} from 'react-bootstrap';
+import GenericCombobox from '../ui/combo-box/combo-box.jsx';
 
 export default function BusFilters({filters, onChange}) {
+  const [searchHistory, setSearchHistory] = useState([]);
+  
+  useEffect(() => {
+    const history = JSON.parse(localStorage.getItem('busSearchHistory')) || [];
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSearchHistory(history.map(term => ({name: term})));
+  }, []);
+  
   const handleChange = (e) => {
     const {name, value, type, checked} = e.target;
     onChange({
@@ -10,20 +19,28 @@ export default function BusFilters({filters, onChange}) {
     });
   };
   
+  const handleSearchChange = (value) => {
+    onChange({
+      ...filters,
+      searchQuery: value || ''
+    });
+  };
+  
   return (
     <div className="border-0 mb-4 p-0">
       <div>
         <Form>
           <Row className="g-3">
-            <Col>
-              <Form.Group controlId="searchQuery">
-                {/*TODO: utilizar combobox, tal qual no componente de formulário da página de live*/}
-                <Form.Control
-                  type="text"
-                  placeholder="Pesquisar por Placa, Frota ou Empresa..."
-                  name="searchQuery"
-                  value={filters.searchQuery}
-                  onChange={handleChange}
+            <Col xs={12}>
+              <Form.Group controlId="searchQuery" className="w-100">
+                <GenericCombobox
+                  items={searchHistory}
+                  itemToString={(item) => (item ? item.name : '')}
+                  onSelectedItemChange={(item) => handleSearchChange(item ? item.name : '')}
+                  onInputValueChange={handleSearchChange}
+                  label="Pesquisar por placa, frota ou empresa"
+                  placeholder="Informe um termo ou selecione um veículo"
+                  required={false}
                 />
               </Form.Group>
             </Col>
