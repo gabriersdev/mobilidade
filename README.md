@@ -17,6 +17,7 @@ Até o momento, o projeto atende principalmente as linhas de ônibus municipais 
   - Sugestão de linhas similares.
 - **Acompanhamento em Tempo Real (Live)**: Monitoramento da aproximação de ônibus em pontos de parada com base em estatísticas e previsibilidade.
 - **Guia de Transporte**: Ferramenta para descobrir quais linhas atendem a determinados locais.
+- **Verificação de Dias Facultativos**: Componente e scripts para verificação de dias facultativos.
 - **Notícias**: Atualizações sobre as linhas e o sistema de transporte.
 - **Histórico**:
   - Histórico de quadros de horários antigos.
@@ -47,6 +48,10 @@ A aplicação utiliza `react-router-dom` para navegação. As principais rotas s
 - `/terms-of-service` - Termos de serviço
 - `/privacy` - Política de privacidade
 
+## SEO
+
+O projeto inclui um `sitemap.xml` para melhorar a indexação de páginas em mecanismos de busca.
+
 ## Tecnologias
 
 - **Frontend**: React, Vite, React Router Dom
@@ -55,6 +60,10 @@ A aplicação utiliza `react-router-dom` para navegação. As principais rotas s
 - **Requisições**: Axios
 - **Testes**: Cypress
 - **Outros**: Moment.js, hCaptcha
+
+## Build
+
+O projeto utiliza um script de build validado em `register.build.json` para automatizar e padronizar o processo de compilação.
 
 ## Testes
 
