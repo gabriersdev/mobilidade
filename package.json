@@ -16,7 +16,7 @@
     "update": "npm update",
     "upgrade:deps": "npx npm-check-updates -i && npm install",
     "cypress": "npx cypress run",
-    "sync:version": "node scripts/sync-version.js",
+    "sync:version": "node scripts/sync-version.js && git add package.json && git commit -m \"build: update version\"",
     "sitemap": "node scripts/generate-sitemap.js"
   },
   "compilerOptions": {
