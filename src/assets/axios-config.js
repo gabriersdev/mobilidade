@@ -22,9 +22,9 @@ apiClient.interceptors.response.use(
     // A verificação `failedUrl !== '/check-auth'` é crucial para evitar o loop de redirecionamento,
     // pois a primeira chamada ao carregar a página é justamente para verificar a sessão,
     // e um 401 nesse caso é esperado e tratado localmente no CaptchaProvider.
-    if (error.response && error.response.status === 401 && failedUrl !== '/check-auth') {
-      // Redireciona para a página para forçar a revalidação do captcha.
-      window.location.assign('/re-valid-session/');
+    if (error.response && error.response.status === 401 && !failedUrl.includes('/check-auth')) {
+      console.warn(`Sessão expirada ou não autorizada ao tentar acessar: ${failedUrl}. Disparando evento session-expired para revalidação sem recarregar a página.`);
+      window.dispatchEvent(new CustomEvent('session-expired'));
     }
     
     // Rejeita a promise para que o erro possa ser tratado localmente se necessário

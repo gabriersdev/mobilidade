@@ -35,13 +35,14 @@ export default function BusDetails() {
         setLoading(true);
         const data = await busRepoService.getVehicleById(id);
         setVehicle(data);
+        // eslint-disable-next-line no-unused-vars
       } catch (err) {
         setError('Veículo não encontrado ou erro ao carregar os dados.');
       } finally {
         setLoading(false);
       }
     };
-    fetchVehicle();
+    fetchVehicle().then();
   }, [id]);
   
   if (loading) {

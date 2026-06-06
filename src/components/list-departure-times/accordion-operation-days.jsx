@@ -22,7 +22,7 @@ const AccordionOperationDays = () => {
     const navigation = useLocation();
     
     // Função helper para obter o nome do dia atual
-    const getCurrentDayGroupName = () => Util.getCurrentDayGroupName(scope);
+    // const getCurrentDayGroupName = () => Util.getCurrentDayGroupName(scope);
     
     // Cria estados para o conteúdo assíncrono e a chave padrão do accordion
     const [accordionItems, setAccordionItems] = useState(null);

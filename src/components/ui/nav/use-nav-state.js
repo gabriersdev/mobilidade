@@ -20,8 +20,9 @@ export const useNavState = () => {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsInLinePage(location.pathname.match(/lines\/\d*/));
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsInBusPage(location.pathname.match(/bus-repo\/[^\/]+/));
+    
+    // TODO - testar expressões regex
+    setIsInBusPage(location.pathname.match(/bus-repo\/[^\\?/]+/));
   }, [location]);
 
   useEffect(() => {

@@ -164,11 +164,30 @@ const ReportForm = ({handleCloseModal}) => {
               <FormGroup>
                 <FormLabel props={{htmlFor: "mail"}}>E-mail</FormLabel>
                 {/*TODO - usar uma variável de estado e um HOOK para verificar o useRef e permitir alterar o .current dele diretamente*/}
-                <FormControl type={"email"} id={"mail"} className={"mb-0"} required={true} value={email} onChange={(e) => setEmail(e.target.value)} {...propsInput.current} maxLength={100}/>
+                { }
+                <FormControl
+                  type={"email"}
+                  id={"mail"}
+                  className={"mb-0"}
+                  required={true}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  /* eslint-disable-next-line react-hooks/refs */
+                  {...propsInput.current}
+                  maxLength={100}
+                />
               </FormGroup>
               <FormGroup>
                 <FormLabel props={{htmlFor: "error-message"}}>Descreva o erro</FormLabel>
-                <Form.Control as="textarea" className={"resize-none"} rows={"5"} id={"error-message"} value={message} onChange={(e) => setMessage(e.target.value)} maxLength={200}/>
+                <Form.Control
+                  as="textarea"
+                  className={"resize-none"}
+                  rows={"5"}
+                  id={"error-message"}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  maxLength={200}
+                />
               </FormGroup>
               <div>
                 <HCaptcha
@@ -185,7 +204,18 @@ const ReportForm = ({handleCloseModal}) => {
             <>
               <FormGroup>
                 <FormLabel props={{htmlFor: "verification-code"}}>Código de verificação</FormLabel>
-                <FormControl type={"number"} id={"verification-code"} {...propsInput.current} value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} mask={"999999"} {...propsInput.current} ref={inputVerificationCode}/>
+                <FormControl
+                  type={"number"}
+                  id={"verification-code"}
+                  /* eslint-disable-next-line react-hooks/refs */
+                  {...propsInput.current}
+                  value={verificationCode}
+                  onChange={(e) => setVerificationCode(e.target.value)}
+                  mask={"999999"}
+                  /* eslint-disable-next-line react-hooks/refs */
+                  {...propsInput.current}
+                  ref={inputVerificationCode}
+                />
               </FormGroup>
             </>
           ) : ""

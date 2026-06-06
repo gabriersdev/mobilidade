@@ -31,6 +31,17 @@ export const CaptchaProvider = ({children}) => {
     checkSessionStatus();
   }, []);
 
+  useEffect(() => {
+    const handleSessionExpired = () => {
+      setIsVerified(false);
+    };
+
+    window.addEventListener('session-expired', handleSessionExpired);
+    return () => {
+      window.removeEventListener('session-expired', handleSessionExpired);
+    };
+  }, []);
+
   const verifyToken = useCallback(async (token) => {
     if (!token) {
       return {success: false, message: 'Token não fornecido.'};

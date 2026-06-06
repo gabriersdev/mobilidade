@@ -2,6 +2,7 @@ import {createContext, useCallback, useContext, useEffect, useState} from "react
 import PropTypes from "prop-types";
 
 // TODO - Move your component(s) to a separate file
+// Fast refresh only works when a file only exports components. Move your React context(s) to a separate file
 export const ThemeContext = createContext(undefined);
 
 export const ThemeProvider = ({children}) => {
@@ -76,6 +77,7 @@ ThemeProvider.propTypes = {
 };
 
 // TODO - Use a new file to share constants or functions between fare-history
+// Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {

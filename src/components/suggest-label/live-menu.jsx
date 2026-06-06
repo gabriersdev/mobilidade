@@ -12,9 +12,9 @@ const LiveMenu = ({selectedStop}) => (
       <span className="text-sml">Ao vivo</span>
     </DropdownToggle>
     <DropdownMenu>
-      <DropdownItem as={Link} to={`/live?sei=${selectedStop?.id}`}>Acompanhar as partidas deste ponto</DropdownItem>
+      <DropdownItem as={Link} to={`/live?sei=${selectedStop?.id ?? 4095}`}>Acompanhar as partidas deste ponto</DropdownItem>
       <DropdownItem as={Link} to="/live">Ir para a página de Ao vivo</DropdownItem>
-      <DropdownItem as={Link} to={`/guide?sei=${selectedStop?.id}`}>Linhas que param neste ponto</DropdownItem>
+      <DropdownItem as={Link} to={`/guide?sei=${selectedStop?.id ?? 4095}`}>Linhas que param neste ponto</DropdownItem>
       <DropdownItem as={Link} to={`mailto:${reportMail}`}>
         Reportar um problema
       </DropdownItem>
