@@ -28,5 +28,11 @@ export default [
     link: "https://busao0800.com",
     init: "2026-05-25T00:00:00-03:00",
     finish: "2026-06-15T00:00:00-03:00",
+  }, {
+    title: "Remoção dos horários de partida para todas as linhas municipais",
+    message: (<>Em razão do descumprimento do quadro de horários, da redução das viagens e a falta de clareza nas informações quanto aos horários de partidas das linhas municipais, decidimos por remover todos os horários de partidas das linhas operadas pela Vinscol.</>),
+    link: "https://busao0800.com",
+    init: "2026-06-10T00:00:00-03:00",
+    finish: "2026-06-30T00:00:00-03:00",
   }
 ]
