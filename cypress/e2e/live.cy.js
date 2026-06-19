@@ -18,7 +18,7 @@ describe('Live Page - Departure Points Combobox Interaction', () => { // Nome do
   
   it('Should display info contains truthy info"', () => {
     // eslint-disable-next-line cypress/unsafe-to-chain-command
-    cy.scrollTo(0, 1000).then();
+    cy.scrollTo(0, 1000);
     
     cy.contains('Av. Prefeito Vitor Fantini, 21', { timeout: 10000 }).should('be.visible');
     

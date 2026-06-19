@@ -28,10 +28,8 @@ describe('Page /lines/33', () => {
   });
   
   it('Should opened modal "Informar um erro"', () => {
-    cy.get('.btn.m-0.px-2.pv-15.d-inline-block.text-white.text-decoration-none.border-0.outline-none')
-      .find('span.me-1')
-      .contains('Informar um erro')
-      .click();
+    cy.contains('Reportar').click();
+    cy.contains('Informar um erro').click();
     
     const modal = '.fade.modal.show[role="dialog"]';
     

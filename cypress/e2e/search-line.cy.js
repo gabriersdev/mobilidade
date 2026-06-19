@@ -17,7 +17,7 @@ describe('Search Page Flow', () => { // Nome do bloco de testes
     
     // Parte da busca (antigo "Search line using input")
     const inputGroupSelector = '.input-group';
-    cy.get(`${inputGroupSelector} #input-search`)
+    cy.get(`${inputGroupSelector} [data-testid="combobox-input"]`)
       .should('be.visible')
       .type('bandeirante', {delay: 100});
     

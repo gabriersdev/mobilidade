@@ -36,6 +36,19 @@ export function directionToText(number) {
   }
 }
 
+export function getDirectionTitle(direction, departure, destination) {
+  switch (direction) {
+    case 1:
+      return `Sentido ida - ${departure} -> ${destination}`;
+    case 0:
+      return `Sentido único - ${departure} ⇄ ${destination} (ida e volta)`;
+    case 2:
+      return `Sentido volta - ${destination} -> ${departure}`;
+    default:
+      return '';
+  }
+}
+
 export function formatMoney(value) {
   return Intl.NumberFormat(numberConfigs.lang, {
     style: 'currency',

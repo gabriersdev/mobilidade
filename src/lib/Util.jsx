@@ -4,7 +4,7 @@ import { updateActiveLink, isSameDomain, clearServiceWorker, getSearchParamId } 
 import { getTodayHolidayData, getTodayVacationData, getCurrentDayGroupName } from "./holiday-utils.js";
 import { convertNumberToDay, getBestMatchDayIndex } from "./day-utils.js";
 import { renderText, wrapTextInArialIfNeeded, processContents } from "./react-utils.jsx";
-import { resumeInfoLine, convertToSafeText, normalize, directionToText, formatMoney, checkIsValid } from "./string-utils.js";
+import { resumeInfoLine, convertToSafeText, normalize, directionToText, getDirectionTitle, formatMoney, checkIsValid } from "./string-utils.js";
 
 export default class Util {
   static updateActiveLink = updateActiveLink;
@@ -17,6 +17,7 @@ export default class Util {
   static normalize = normalize;
   static convertNumberToDay = convertNumberToDay;
   static directionToText = directionToText;
+  static getDirectionTitle = getDirectionTitle;
   static formatMoney = formatMoney;
   static renderText = renderText;
   static processContents = processContents;

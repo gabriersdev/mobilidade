@@ -34,7 +34,7 @@ const Search = () => {
         setIsValidSearch(true);
         
         setTimeout(() => {
-          const input = document.querySelector('input#input-search');
+          const input = document.querySelector('input[data-testid="combobox-input"]');
           if (!input) return false;
           input.value = queryParams.get('term');
           console.log(termSearch);
