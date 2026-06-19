@@ -47,7 +47,7 @@ export default function CityInfoHeader() {
           <p className="mb-0 mt-3 text-balance">
             É {sabaraTime.format("DD")} de {translateMonth(sabaraTime.format("MMMM"))} de {sabaraTime.format("YYYY")}.
             No horário local (Horário de Brasília) são {sabaraTime.format("HH[h]mm")}.
-            A cidade possui 38 linhas de ônibus ativas e outras 3 linhas suspensas ou desativadas catalogadas aqui.
+            A cidade possui {"{\"00\"}"} linhas de ônibus ativas e outras {"{\"00\"}"} linhas suspensas ou desativadas catalogadas aqui.
             Elas são operadas pelas companhias <Link to="/company/4" className="text-primary">Transporte Coletivo Metropolitano - MG</Link> e <Link to="/company/3" className="text-primary">Vinscol</Link>.
           </p>
         </div>

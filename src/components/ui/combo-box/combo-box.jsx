@@ -12,6 +12,7 @@ export default function GenericCombobox({
   subLabel,
   required,
   placeholder = '',
+  onKeyDown,
 }) {
   const {
     items,
@@ -28,6 +29,7 @@ export default function GenericCombobox({
     itemToString,
     onSelectedItemChange,
     onInputValueChange,
+    onKeyDown,
   });
 
   return (
@@ -63,4 +65,5 @@ GenericCombobox.propTypes = {
   subLabel: PropTypes.string,
   required: PropTypes.bool.isRequired,
   placeholder: PropTypes.string,
+  onKeyDown: PropTypes.func,
 };
