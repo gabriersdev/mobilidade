@@ -1,9 +1,7 @@
 import {createContext, useCallback, useEffect, useState} from 'react';
 import apiClient from '@/assets/axios-config.js';
 
-// TODO - separar Context para um arquivo separado para melhorar refresh
-// TODO - verificar o motivo de, no momento de refresh solicitar novamente a validação CAPTCHA, sendo que ela já deveria estar constando como OK, já que o usuário passou por ela UMA VEZ e o cookie ainda não deu tempo de expirar!
-export const CaptchaContext = createContext();
+import {CaptchaContext} from './captcha-context-obj.js';
 
 export const CaptchaProvider = ({children}) => {
   const [isVerified, setIsVerified] = useState(false);

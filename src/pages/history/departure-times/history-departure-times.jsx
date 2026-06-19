@@ -1,7 +1,7 @@
 import moment from "moment";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useCallback} from "react";
 import {Link, useParams} from "react-router-dom";
-import {Button, ListGroup} from "react-bootstrap";
+import {Button, ListGroup, Placeholder} from "react-bootstrap";
 
 import config from "@/assets/config.js";
 import Util from "@/lib/Util.jsx";
@@ -14,51 +14,27 @@ import PaginationWithItems from "@/components/pagination-with-items/pagination-w
 import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
 import {dateConfigs} from "@/assets/resources.js";
 import apiClient from "@/assets/axios-config.js";
+import {useHistoryData} from "@/hooks/use-history-data.jsx";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 moment.locale(dateConfigs.locale);
 
-// TODO - refatorar componente
 export default function HistoryDepartureTimes() {
   const {id} = useParams();
-  const [error, setError] = useState(null);
-  const [loaded, setIsLoaded] = useState(true);
-  const [data, setData] = useState([]);
-  const [lineData, setLineData] = useState([]);
   const [dataAll, setDataAll] = useState([]);
   const {setLabel} = useBreadcrumb();
   const [currentPage, setCurrentPage] = useState(1);
+  
+  const fetchHistoryFn = useCallback(() => apiClient.get(`/history/lines/${id || "-1"}`), [id]);
+  const {error, loaded, data, setData, lineData} = useHistoryData(Util.checkIsValid(id) ? id : null, fetchHistoryFn);
   
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
   
-  const checkIsValid = (id) => {
-    if (!id) return false
-    if (!id.length) return false
-    return id.match(/\d/g)
-  }
-  
-  const getData = async (id) => {
-    try {
-      const response = await apiClient.get(`/history/lines/${id || "-1"}`);
-      const line = await apiClient.post(`/lines/`, {id: id});
-      
-      setData(response.data?.[0]);
-      setLineData(line.data);
-    } catch (error) {
-      console.error('Erro ao buscar dados:', error);
-      setError(error);
-    } finally {
-      setIsLoaded(false);
-    }
-  }
-  
   useEffect(() => {
-    if (!checkIsValid(id)) return <Alert variant={'danger'} margin={"mt-0"}>O id da linha não foi informado.</Alert>
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    getData(id).then();
+    if (!Util.checkIsValid(id)) return;
   }, [id]);
   
   useEffect(() => {
@@ -87,8 +63,15 @@ export default function HistoryDepartureTimes() {
     }
   }, [data]);
   
+  if (!Util.checkIsValid(id)) return <Alert variant={'danger'} margin={"mt-0"}>O id da linha não foi informado.</Alert>
+  
   if (loaded) {
-    return <>Carregando...</>
+    return (
+      <AnimatedComponents>
+        <Placeholder as="h1" animation="glow"><Placeholder xs={6} /></Placeholder>
+        <Placeholder as="h2" animation="glow"><Placeholder xs={4} /></Placeholder>
+      </AnimatedComponents>
+    )
   } else if (error) {
     console.error(error);
     return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;

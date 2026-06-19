@@ -43,3 +43,9 @@ export function formatMoney(value) {
     minimumFractionDigits: 2,
   }).format(value)
 }
+
+export function checkIsValid(id) {
+  if (!id) return false
+  if (!id.length) return false
+  return id.match(/\d/g)
+}

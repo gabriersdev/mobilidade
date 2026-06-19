@@ -3,51 +3,41 @@ import PropTypes from "prop-types";
 import {useRef} from "react";
 
 function FormControlElement({elementType, params}) {
-  const label = useRef(
-    <FormLabel className={(["check", "radio"].includes(elementType)) ? "d-none" : "m-0 p-0"}>{params.label}</FormLabel>
-  )
+  const label = <FormLabel className={(["check", "radio"].includes(elementType)) ? "d-none" : "m-0 p-0"}>{params.label}</FormLabel>;
   
-  const content = useRef(<></>);
-  // TODO - usar uma variável de estado e um HOOK para verificar o useRef e permitir alterar o .current dele diretamente
+  let content = null;
   
   if (elementType === "check") {
-    // eslint-disable-next-line react-hooks/refs
-    content.current = (
+    content = (
       <FormCheck
         type="switch"
         {...params}
       />
     );
   } else if (elementType === "range") {
-    // eslint-disable-next-line react-hooks/refs
-    content.current = (
+    content = (
       <div className={"d-inline-flex align-items-center gap-1"}>
         <Form.Range
           style={{maxWidth: "100px"}}
           {...params}
         />
         <span className={"text-sml text-muted"}>
-          {
-            params.value === 0 ? <>sem som</> : <>{params.value}%</>
-          }
+          {params.value === 0 ? <>sem som</> : <>{params.value}%</>}
         </span>
       </div>
-    )
+    );
   }
   
-  // eslint-disable-next-line react-hooks/refs
-  if (label.current && content.current) {
+  if (label && content) {
     return (
       <div className={"d-inline-flex align-items-center gap-3 flex-wrap"}>
-        {/* eslint-disable-next-line react-hooks/refs */}
-        {label.current}
-        {/* eslint-disable-next-line react-hooks/refs */}
-        {content.current}
+        {label}
+        {content}
       </div>
-    )
+    );
   }
   
-  return <></>
+  return null;
 }
 
 export function LiveConfigs({configs, setConfigs, labelsConfigs, resultSection}) {

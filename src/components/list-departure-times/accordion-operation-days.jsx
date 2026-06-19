@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from "react";
 import Accordion from "@/components/ui/accordion/accordion.jsx";
-import {ThemeContext} from "@/components/ui/theme-context/theme-context.jsx";
+import {ThemeContext} from "@/components/ui/theme-context/theme-context-obj.js";
 import {TimeContext} from "@/components/list-departure-times/departure-time-context.jsx";
 import Util from "@/lib/Util.jsx";
 import AccordionOperationDayItem from "./accordion-operation-day-item.jsx";

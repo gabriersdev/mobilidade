@@ -1,9 +1,6 @@
-import {createContext, useCallback, useContext, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import PropTypes from "prop-types";
-
-// TODO - Move your component(s) to a separate file
-// Fast refresh only works when a file only exports components. Move your React context(s) to a separate file
-export const ThemeContext = createContext(undefined);
+import {ThemeContext} from './theme-context-obj.js';
 
 export const ThemeProvider = ({children}) => {
   const [theme, setTheme] = useState("light");
@@ -76,12 +73,4 @@ ThemeProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-// TODO - Use a new file to share constants or functions between fare-history
-// Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
-  return context;
-};
+

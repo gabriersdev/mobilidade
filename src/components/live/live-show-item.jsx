@@ -7,7 +7,6 @@ import {dateConfigs} from "@/assets/resources.js";
 moment.locale(dateConfigs.lang);
 
 export default function LiveShowItem({d, configs}) {
-  // TODO - implementar logica e bloqueio para evitar ocasiões em que os audios de aviso toquem juntos
   const defaultAudio = "/audio/general.mp3";
   const audioRef = useRef();
   
@@ -27,18 +26,22 @@ export default function LiveShowItem({d, configs}) {
   }, [d]);
   
   useEffect(() => {
-    // BUG - verificar
-    if (audioRef.current) {
-      const refId = audioRef.current?.dataset?.dataRefId;
-      setTimeout(() => {
-        setAudioAditionalProps({
-          autoPlay: true
-        });
-        
-        if (refId) document.querySelector(`[data-ref-id=${refId}]`).volume = configs?.["volume"] ? +configs.volume > 0 ? +configs.volume : 70 : 70;
-      }, +(1000 + (10 * 1000 * (+refId))));
+    if (audioRef.current && configs?.["warningSound"]) {
+      const tryPlay = () => {
+        // Check if any audio is currently playing
+        const isPlaying = Array.from(document.querySelectorAll('audio')).some(a => !a.paused && !a.muted);
+        if (isPlaying) {
+          setTimeout(tryPlay, 2000);
+          return;
+        }
+        audioRef.current.volume = configs?.["volume"] > 0 ? configs.volume / 100 : 0.7;
+        audioRef.current.play().catch(console.warn);
+      };
+      
+      const timeoutId = setTimeout(tryPlay, 500 + Math.random() * 1000);
+      return () => clearTimeout(timeoutId);
     }
-  }, [audioRef])
+  }, [configs?.["warningSound"], configs?.["volume"]]);
   
   return (
     <div className={"fs-inherit"}>
@@ -53,19 +56,13 @@ export default function LiveShowItem({d, configs}) {
           <div>
             {
               configs?.["warningSound"] && (
-                // TODO - separar as linhas que possuem áudios dedicados
                 <audio
                   ref={audioRef}
                   data-ref-id={d?.["i"] ?? 0}
                   className={"d-none"}
-                  src={[4986, 4987, 4988].map(x => x.toString()).includes(d?.["line_number"] ?? -1) ? `/audio/${d?.["line_number"]}.mp3` : audio}
-                  onError={() => {
-                    setAudio(defaultAudio)
-                  }}
-                  autoPlay
-                  {...audioAditionalProps}
-                >
-                </audio>
+                  src={d?.["srcAudio"] || ([4986, 4987, 4988].includes(parseInt(d?.["line_number"])) ? `/audio/${d?.["line_number"]}.mp3` : audio)}
+                  onError={() => setAudio(defaultAudio)}
+                />
               )
             }
             <span>{textOrderDeparturePointNow((d?.["order_departure_point"] ?? -1))}</span>

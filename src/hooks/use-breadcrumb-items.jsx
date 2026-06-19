@@ -1,4 +1,5 @@
 import {useLocation} from 'react-router-dom';
+import {Placeholder} from 'react-bootstrap';
 
 import bcAll from '@/components/breadcrumb-app/breadcrumb-context.jsx';
 import {labelMap} from "@/assets/resources.js";
@@ -10,8 +11,7 @@ const LABEL_MAP = Object.assign({}, {...labelMap});
 const getLabel = (path, customLabels) => {
   if (customLabels[path]) return customLabels[path];
   if (LABEL_MAP[path.toLowerCase()]) return LABEL_MAP[path.toLowerCase()];
-  // TODO - aplicar placeholder
-  if (path.match(/^\\d+$/)) return <span>Carregando...</span>;
+  if (path.match(/^\d+$/)) return <Placeholder as="span" animation="glow" style={{width: "50px"}}><Placeholder xs={12} /></Placeholder>;
   return <p className="text-capitalize d-inline">{path}</p>;
 };
 

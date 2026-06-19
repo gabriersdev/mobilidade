@@ -1,5 +1,5 @@
 import moment from "moment";
-import {Button} from "react-bootstrap";
+import {Button, Placeholder} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {Link, useLocation, useParams} from "react-router-dom";
 
@@ -12,6 +12,7 @@ import {ListDepartureTimes} from "@/components/list-departure-times/list-departu
 import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
 import {dateConfigs} from "@/assets/resources.js";
 import apiClient from "@/assets/axios-config.js";
+import {useHistoryData} from "@/hooks/use-history-data.jsx";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
@@ -29,36 +30,11 @@ export default function HistoryDayDepartureTimes() {
   
   const lineId = pathname.split("/")[pathname.split("/").length - 2];
   
-  const [error, setError] = useState(null);
-  const [loaded, setIsLoaded] = useState(true);
-  const [data, setData] = useState([]);
-  const [lineData, setLineData] = useState([]);
   const {setLabel} = useBreadcrumb();
-  
-  const checkIsValid = (id) => {
-    if (!id) return false
-    if (!id.length) return false
-    return id.match(/\d/g)
-  }
-  
-  const getData = async () => {
-    try {
-      const response = {data: [[1]]};
-      const line = await apiClient.post(`/lines/`, {id: lineId});
-      
-      setData(response.data?.[0]);
-      setLineData(line.data);
-    } catch (error) {
-      console.error('Erro ao buscar dados:', error);
-      setError(error);
-    } finally {
-      setIsLoaded(false);
-    }
-  }
+  const {error, loaded, data, setData, lineData} = useHistoryData(Util.checkIsValid(lineId) ? lineId : null, null);
   
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (checkIsValid(lineId)) getData().then();
+    //
   }, [lineId, departureTimeDate]);
   
   useEffect(() => {
@@ -77,12 +53,16 @@ export default function HistoryDayDepartureTimes() {
     }
   }, [lineData, departureTimeDate, departureTimeDateIsValid, lineId, id, departureTimeDateFormatted]);
   
-  if (!lineId || !checkIsValid(lineId)) return <Alert variant={'danger'} margin={"mt-0"}>O id da linha não foi informado.</Alert>
-  else if (!checkIsValid(departureTimeDate.replace(/\D/, ""))) return <Alert variant={'danger'} margin={"mt-0"}>A data do histórico não foi informada.</Alert>
+  if (!lineId || !Util.checkIsValid(lineId)) return <Alert variant={'danger'} margin={"mt-0"}>O id da linha não foi informado.</Alert>
+  else if (!Util.checkIsValid(departureTimeDate.replace(/\D/, ""))) return <Alert variant={'danger'} margin={"mt-0"}>A data do histórico não foi informada.</Alert>
   else if (!departureTimeDateIsValid) return <Alert variant={'danger'} margin={"mt-0"}>A data do histórico não é válida.</Alert>
   
-  // TODO - aplicar placeholder
-  if (loaded) return <>Carregando...</>
+  if (loaded) return (
+    <AnimatedComponents>
+      <Placeholder as="h1" animation="glow"><Placeholder xs={6} /></Placeholder>
+      <Placeholder as="h2" animation="glow"><Placeholder xs={4} /></Placeholder>
+    </AnimatedComponents>
+  )
   else if (error) {
     console.error(error);
     return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;
