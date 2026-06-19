@@ -21,13 +21,14 @@ const Card = (
   }
 ) => {
   let content, returnCard;
+  const minHeight = "365px";
   
   const setContent = (newContent) => content = newContent;
   const setReturnCard = (newReturnCard) => returnCard = newReturnCard;
   
   if (variant === "placeholder") {
     setContent(
-      <div style={{minHeight: "200px"}} className={"justify-content-between align-items-start"}>
+      <div style={{minHeight: minHeight}} className={"justify-content-between align-items-start"}>
         <BootstrapCard.Header className={"d-flex flex-column placeholder-glow gap-1"}>
           <div className={'placeholder fs-2'}></div>
         </BootstrapCard.Header><br/>
@@ -48,7 +49,7 @@ const Card = (
   else if (variant === "placeholder-news") {
     setContent(
       <>
-        <div style={{minHeight: "200px"}} className={"justify-content-between align-items-start"}>
+        <div style={{minHeight: minHeight}} className={"justify-content-between align-items-start"}>
           <BootstrapCard.Header className={"d-flex flex-column placeholder-glow gap-1"}>
             <div className={'placeholder fs-2'}></div>
             <div className={'placeholder fs-2'}></div>
@@ -73,14 +74,23 @@ const Card = (
       <>
         <BootstrapCard.Header className={"d-flex flex-column"}>
           <div className={'d-flex gap-2 ' + (headerColumn ? "flex-column align-items-start" : "flex-wrap align-items-center")}>
-            <Title type="h2" title={title.trim()} classX={" text-ellipsis-2 text-body"}/>
+            <Title
+              type="h2"
+              title={title.trim()}
+              classX={" text-ellipsis-2 text-body"}
+            />
             {badge}
           </div>
           <Title type="h2" title={subtitle ? subtitle.trim() : ""} classX={" text-ellipsis-2 text-body-secondary text-balance"} color="#4C4C4C"/>
         </BootstrapCard.Header>
         {children && (
           <BootstrapCard.Body style={{flex: '0 0 auto'}}>
-            <BootstrapCard.Text className="mt-3 line-clamp-2" title={String(children).replace(/[\r\n\b]/g, '')?.substring(0, 200)?.match(/<(\w+)>\s*\S*<\/\1>/g) || String(children).includes('[object Object]') ? "" : (children?.toString()?.substring(0, 200) + "...")}>{children}</BootstrapCard.Text>
+            <BootstrapCard.Text
+              className="mt-3 line-clamp-2"
+              title={String(children).replace(/[\r\n\b]/g, '')?.substring(0, 200)?.match(/<(\w+)>\s*\S*<\/\1>/g) || String(children).includes('[object Object]') ? "" : (children?.toString()?.substring(0, 200) + "...")}
+            >
+              {children}
+            </BootstrapCard.Text>
           </BootstrapCard.Body>
         )}
       </>
@@ -95,7 +105,7 @@ const Card = (
         to={link ? link.trim() : ""}
         rel={"noreferrer noopener"}
         target={Util.isSameDomain(link ? link.trim() : "") ? "_self" : "_blank"}
-        style={{minHeight: "200px"}}
+        style={{minHeight: minHeight}}
       >
         {content}
       </BootstrapCard>
@@ -108,7 +118,7 @@ const Card = (
       <BootstrapCard
         className={"bg-body-tertiary"}
         onClick={onclick}
-        style={{minHeight: "200px"}}
+        style={{minHeight: minHeight}}
       >
         {content}
       </BootstrapCard>
@@ -119,7 +129,10 @@ const Card = (
     returnCard ? (
       returnCard
     ) : (
-      <BootstrapCard className={"bg-body-tertiary"} style={{minHeight: "200px"}}>
+      <BootstrapCard
+        className={"bg-body-tertiary"}
+        style={{minHeight: minHeight}}
+      >
         {content}
       </BootstrapCard>
     )
