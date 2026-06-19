@@ -2,7 +2,7 @@ import {Link, useParams} from "react-router-dom";
 import Alert from "@/components/ui/alert/alert.jsx";
 import {useEffect, useState} from "react";
 import moment from "moment";
-import {Button, ListGroup} from "react-bootstrap";
+import {Button, ListGroup, Placeholder} from "react-bootstrap";
 
 import Title from "@/components/ui/title/title.jsx";
 import FeedbackError from "@/components/ui/feedback-error/feedback-error.jsx";
@@ -12,49 +12,23 @@ import Util from "@/lib/Util.jsx";
 import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
 import {dateConfigs} from "@/assets/resources.js";
 import apiClient from "@/assets/axios-config.js";
+import {useHistoryData} from "@/hooks/use-history-data.jsx";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 moment.locale(dateConfigs.lang);
 
 export default function OneDeparturePoints() {
-  // TODO - refatoar e remover código duplicado
   const {id} = useParams();
   
   const departureTimeDate = id;
   const departureTimeDateIsValid = departureTimeDate.match(/^(\d+)X(\d+)X(\d+)$/) || false;
   
-  const [error, setError] = useState(null);
-  const [loaded, setIsLoaded] = useState(true);
-  const [data, setData] = useState([]);
-  const [lineData, setLineData] = useState([]);
   const {setLabel} = useBreadcrumb();
-  
-  const checkIsValid = (id) => {
-    if (!id) return false
-    if (!id.length) return false
-    return id.match(/\d/g);
-  }
-  
-  const getData = async (id) => {
-    try {
-      const response = {data: [[1]]};
-      const line = await apiClient.post(`/lines/`, {id: id});
-      
-      setData(response.data?.[0]);
-      setLineData(line.data);
-    } catch (error) {
-      console.error('Erro ao buscar dados:', error);
-      setError(error);
-    } finally {
-      setIsLoaded(false);
-    }
-  }
+  const {error, loaded, data, setData, lineData} = useHistoryData(Util.checkIsValid(id) ? id : null, null);
   
   useEffect(() => {
-    if (!checkIsValid(id)) return <Alert variant={'danger'} margin={"mt-0"}>O id da linha não foi informado.</Alert>
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    getData(id).then();
+    //
   }, [departureTimeDate, id]);
   
   useEffect(() => {
@@ -69,10 +43,14 @@ export default function OneDeparturePoints() {
     }
   }, [lineData, departureTimeDate, departureTimeDateIsValid, id]);
   
-  if (!checkIsValid(id)) return <Alert variant={'danger'} margin={"mt-0"}>O id da linha não foi informado.</Alert>
+  if (!Util.checkIsValid(id)) return <Alert variant={'danger'} margin={"mt-0"}>O id da linha não foi informado.</Alert>
   
-  // TODO - aplicar placeholder
-  if (loaded) return <>Carregando...</>
+  if (loaded) return (
+    <AnimatedComponents>
+      <Placeholder as="h1" animation="glow"><Placeholder xs={6} /></Placeholder>
+      <Placeholder as="h2" animation="glow"><Placeholder xs={4} /></Placeholder>
+    </AnimatedComponents>
+  )
   else if (error) {
     console.error(error);
     return <FeedbackError code={error.response ? error.response.status || 500 : 500} text={error.message} type={'card'}/>;

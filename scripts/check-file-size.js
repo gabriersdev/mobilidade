@@ -1,6 +1,7 @@
-import {readdir, readFile} from 'fs/promises';
+import {readFile} from 'fs/promises';
 import path from 'path';
 import {fileURLToPath} from 'url';
+import {getFiles} from '../src/lib/Util.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,19 +12,6 @@ const srcDir = path.join(rootDir, 'src');
 
 const allowedExtensions = ['.js', '.jsx', '.ts', '.tsx'];
 
-async function* getFiles(dir) {
-  const dirents = await readdir(dir, {withFileTypes: true});
-  
-  for (const dirent of dirents) {
-    const res = path.resolve(dir, dirent.name);
-    
-    if (dirent.isDirectory()) yield* getFiles(res);
-    else {
-      if (allowedExtensions.includes(path.extname(res))) yield res;
-    }
-  }
-}
-
 (async () => {
   try {
     console.log(`Buscando arquivos com mais de ${lineLimit} linhas...\n`);
@@ -32,6 +20,10 @@ async function* getFiles(dir) {
     let count = 0;
     
     for await (const filePath of getFiles(srcDir)) {
+      if (!allowedExtensions.includes(path.extname(filePath))) {
+        continue;
+      }
+      
       try {
         const content = await readFile(filePath, 'utf8');
         const lines = content.split('\n').length;

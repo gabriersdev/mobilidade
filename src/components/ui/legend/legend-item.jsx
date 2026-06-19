@@ -1,10 +1,10 @@
-import {useState} from "react";
+import {useState, forwardRef} from "react";
 import PropTypes from "prop-types";
 import {Badge} from "react-bootstrap";
 
 import data from "@/assets/data.js";
 
-const LegendItem = ({item, i}) => {
+const LegendItem = forwardRef(({item, i, ...props}, ref) => {
   const [clamp, setClamp] = useState(false);
   
   const handleClamp = (event) => {
@@ -14,12 +14,14 @@ const LegendItem = ({item, i}) => {
   
   const bootstrapBGColors = data.bootstrap.bg.colors;
   return (
-    <div className={`d-flex align-items-center gap-1 ${!clamp ? "flex-wrap" : ""}`}>
+    <div ref={ref} {...props} className={`d-flex align-items-center gap-1 ${!clamp ? "flex-wrap" : ""}`}>
       <span><Badge bg={item.color || bootstrapBGColors.at(i) || "primary"} className={"rounded-5"}>{item.abrev}</Badge></span>
       <span className={clamp ? "line-clamp-1" : 0} onClick={handleClamp}>{item.label}</span>
     </div>
   )
-}
+});
+
+LegendItem.displayName = "LegendItem";
 
 LegendItem.propTypes = {
   item: PropTypes.shape({

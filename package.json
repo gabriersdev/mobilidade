@@ -52,10 +52,10 @@
     "react-dom": "^19.2.7",
     "react-input-mask": "^2.0.4",
     "react-leaflet": "^5.0.0",
-    "react-router-dom": "^7.17.0",
-    "rolldown": "^1.1.1",
+    "react-router-dom": "^7.18.0",
+    "rolldown": "1.0.3",
     "semantic-release": "^25.0.5",
-    "vercel": "^54.13.0"
+    "vercel": "^54.14.2"
   },
   "devDependencies": {
     "@eslint/compat": "^2.1.0",
@@ -64,7 +64,7 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.61.1",
-    "@typescript-eslint/parser": "^8.61.0",
+    "@typescript-eslint/parser": "^8.61.1",
     "@vitejs/plugin-react": "^6.0.2",
     "chalk": "^5.6.2",
     "cypress": "^15.17.0",
@@ -82,11 +82,12 @@
     "vite": "8.0.16"
   },
   "overrides": {
+    "js-yaml": "^4.2.0",
     "qs": "^6.14.1",
     "undici": "^6.23.0",
     "esbuild": "^0.28.1",
     "path-to-regexp": "^6.3.0",
-    "rolldown": "^1.1.1",
+    "rolldown": "1.0.3",
     "diff": "^8.0.3",
     "got": "^11.8.5",
     "tar": "^7.5.7",

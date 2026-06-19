@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {Placeholder} from "react-bootstrap";
 import PropTypes from "prop-types";
 
 import apiClient from "@/assets/axios-config.js";
@@ -39,10 +40,15 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
     });
   }, [line_id]);
   
-  // TODO - aplicar placeholder
-  if (isLoaded) return <AnimatedComponents>
-    <div>Carregando...</div>
-  </AnimatedComponents>;
+  if (isLoaded) return (
+    <AnimatedComponents>
+      <Placeholder as="div" animation="glow" className="mt-3">
+        <Placeholder xs={12} className="mb-2" />
+        <Placeholder xs={10} className="mb-2" />
+        <Placeholder xs={8} />
+      </Placeholder>
+    </AnimatedComponents>
+  );
   else if (error) {
     console.log(error)
     return <AnimatedComponents>

@@ -1,15 +1,14 @@
 import config from '../assets/config';
 
-// TODO - implementar verificação HONEY POT
 export default function HPot() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
     
-    // Client-side check (optional, but good for quick feedback)
+    // Client-side check
     if (data.honeypot) {
-      console.log("Honeypot triggered on client-side!");
+      console.warn("Spam detectado! Envio bloqueado.");
       return;
     }
     

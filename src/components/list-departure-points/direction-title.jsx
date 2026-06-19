@@ -1,23 +1,8 @@
 import PropTypes from 'prop-types';
+import Util from '@/lib/Util.jsx';
 
 const DirectionTitle = ({direction, departure, destination}) => {
-  let title;
-  
-  // TODO - centralizar lógica
-  switch (direction) {
-    case 1:
-      title = `Sentido ida - ${departure} -> ${destination}`;
-      break;
-    case 0:
-      title = `Sentido único - ${departure} ⇄ ${destination} (ida e volta)`;
-      break;
-    case 2:
-      title = `Sentido volta - ${destination} -> ${departure}`;
-      break;
-    default:
-      title = '';
-  }
-  return <>{title}</>;
+  return <>{Util.getDirectionTitle(direction, departure, destination)}</>;
 };
 
 DirectionTitle.propTypes = {

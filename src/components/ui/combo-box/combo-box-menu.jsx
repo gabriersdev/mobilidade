@@ -13,7 +13,7 @@ export const ComboBoxMenu = ({
     <ListGroup
       {...getMenuProps()}
       as="ul"
-      className={`mt-3 w-72 position-absolute shadow-sm overflow-auto
+      className={`mt-3 w-72 position-absolute shadow-sm rounded-0 overflow-auto
         ${!(isOpen && items.length) ? 'd-none' : ''}
         ${items.length > 1 ? '' : ''}
       `}

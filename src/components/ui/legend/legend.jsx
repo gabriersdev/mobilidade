@@ -18,7 +18,6 @@ const Legend = ({items, marginTop, type}) => {
       <div className={`d-flex flex-wrap align-items-start flex-column gap-2 ${marginTop || 'mt-3'}`}>
         <span className={"mb-1 text-body-tertiary fs-6"}>Legenda</span>
         {items.map((item, index) => (
-          // TODO - fazer overlay funcionar
           <OverlayTrigger key={index} overlay={
             <Tooltip>
               {item?.["label"]}

@@ -11,7 +11,6 @@ const NavScrollspy = ({
 }) => {
   const areaFocus = useNavScrollspy(elementIds);
   
-  // TODO - debuggar e verificar o problmea de não marcar quando o #mapa é alcançado
   const scrollTo = (e, id) => {
     e.preventDefault();
     const el = document.querySelector(`${id}`);

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import AccordionItem from '../ui/accordion/accordion-item.jsx';
-import {ThemeContext} from '../ui/theme-context/theme-context.jsx';
+import {ThemeContext} from '../ui/theme-context/theme-context-obj.js';
 import AccordionOperationDays from './accordion-operation-days.jsx';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';

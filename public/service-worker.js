@@ -4,7 +4,6 @@ const CACHE_NAME = `mobilidade-app-${cacheVersion}`;
 // const STATIC_CACHE_NAME = `mobilidade-app-${cacheVersion}`;
 const DYNAMIC_CACHE_NAME = `dynamic-mobilidade-app-${cacheVersion}`;
 
-// TODO - testar nova implementação de caching
 // Arquivos essenciais que DEVEM estar no cache imediatamente (App Shell)
 const ASSETS_TO_CACHE = [
   '/',

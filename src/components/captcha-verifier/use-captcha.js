@@ -1,4 +1,4 @@
 import {useContext} from "react";
-import {CaptchaContext} from "@/components/captcha-verifier/captcha-context.jsx";
+import {CaptchaContext} from "./captcha-context-obj.js";
 
 export const useCaptcha = () => useContext(CaptchaContext);

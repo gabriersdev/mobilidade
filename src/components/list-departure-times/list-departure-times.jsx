@@ -1,4 +1,5 @@
 import {useState, useEffect} from "react";
+import {Placeholder} from "react-bootstrap";
 import PropTypes from "prop-types";
 import useDepartureTimes from "./use-departure-times.js";
 import Alert from "../ui/alert/alert.jsx";
@@ -62,8 +63,15 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location, 
   
   // Lógica de Renderização
   
-  // TODO - aplicar placeholder
-  if (isLoaded) return <AnimatedComponents><div>Carregando...</div></AnimatedComponents>;
+  if (isLoaded) return (
+    <AnimatedComponents>
+      <Placeholder as="div" animation="glow" className="mt-3">
+        <Placeholder xs={12} className="mb-2" />
+        <Placeholder xs={10} className="mb-2" />
+        <Placeholder xs={8} />
+      </Placeholder>
+    </AnimatedComponents>
+  );
   if (error) return <AnimatedComponents><FeedbackError code={error.response?.status || 500} text={error.message} type={'card'}/></AnimatedComponents>;
   if (processingError) return <AnimatedComponents><Alert variant={'danger'}><span>Ocorreu um erro ao organizar os horários. Tente novamente mais tarde.</span></Alert></AnimatedComponents>;
   if (data.length === 0) return <AnimatedComponents><Alert variant={'info'}><span>Não localizamos horários para esta linha.</span></Alert></AnimatedComponents>;

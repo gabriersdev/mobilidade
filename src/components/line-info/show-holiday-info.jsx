@@ -4,38 +4,30 @@ import PropTypes from "prop-types";
 import {useRef} from "react";
 
 export default function ShowHolidayInfo({scope}) {
+  const data = Util.getTodayHolidayData(scope);
+  const vacation = Util.getTodayVacationData();
   
-  const data = useRef(Util.getTodayHolidayData(scope))
-  const vacation = useRef(Util.getTodayVacationData())
-  
-  // TODO - usar uma variável de estado e um HOOK para verificar o useRef e permitir alterar o .current dele diretamente
-  // Error: Cannot access refs during render
-  // eslint-disable-next-line react-hooks/refs
-  if (data?.["current"]) {
+  if (data) {
     return (
       <Alert variant={"warning"} dismissible margin={"m-0"}>
         <div className={"d-flex flex-column gap-1"}>
-          {/* eslint-disable-next-line react-hooks/refs */}
-          <p className={"m-0"}>Feriado: hoje é {(data?.["current"]?.["name"])}! As linhas operam no horário de domingo e feriado.</p>
+          <p className={"m-0"}>Feriado: hoje é {data.name}! As linhas operam no horário de domingo e feriado.</p>
         </div>
       </Alert>
-    )
+    );
   }
   
-  // Error: Cannot access refs during render
-  // eslint-disable-next-line react-hooks/refs
-  if (vacation?.["current"]) {
+  if (vacation) {
     return (
       <Alert variant={"info"} dismissible margin={"m-0"}>
         <div className={"d-flex flex-column gap-1"}>
-          {/* eslint-disable-next-line react-hooks/refs */}
-          <p className={"m-0"}>Período de {vacation?.["current"]?.["name"]}! Verifique se a linha possui horários específicos para este período.</p>
+          <p className={"m-0"}>Período de {vacation.name}! Verifique se a linha possui horários específicos para este período.</p>
         </div>
       </Alert>
-    )
+    );
   }
   
-  return <></>
+  return null;
 }
 
 ShowHolidayInfo.propTypes = {

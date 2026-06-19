@@ -19,7 +19,7 @@ export default [
     // T1DO - link para matéria
     title: "Novas linhas de novas cidades: Caeté e Nova Lima",
     message: (<>Visando a expansão do sistema, incluímos as linhas das cidades de Caeté e Nova Lima - as municipais, intermunicipais e metropolitanas.</>),
-    // ATT - definir ano para 2025
+    // ATT - definir ano para 2026
     init: "3026-01-15T00:00:00-03:00",
     finish: "3026-01-30T00:00:00-03:00",
   }, {
@@ -30,7 +30,7 @@ export default [
     finish: "2026-06-15T00:00:00-03:00",
   }, {
     title: "Remoção dos horários de partida para todas as linhas municipais",
-    message: (<>Em razão do descumprimento do quadro de horários, da redução das viagens e a falta de clareza nas informações quanto aos horários de partidas das linhas municipais, decidimos por remover todos os horários de partidas das linhas operadas pela Vinscol.</>),
+    message: (<>Devido ao descumprimento dos horários divulgados, à redução das viagens realizadas e à insuficiência de informações confiáveis sobre os horários de partida das linhas municipais, optamos por remover de nossa plataforma todos os horários de partidas referentes às linhas operadas pela Vinscol.</>),
     link: "https://busao0800.com",
     init: "2026-06-10T00:00:00-03:00",
     finish: "2026-06-30T00:00:00-03:00",

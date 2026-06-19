@@ -78,5 +78,4 @@ export default [
     },
   },
   
-  // TODO - usar extends, como extends TS aqui para evitar problemas com palavras reservadas ao TS, como "interface"
 ];

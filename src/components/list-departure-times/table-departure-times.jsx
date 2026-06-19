@@ -4,7 +4,7 @@ import moment from "moment";
 import {Badge, Table as BootstrapTable} from "react-bootstrap";
 
 import data from "../../assets/data.js";
-import {ThemeContext} from "../ui/theme-context/theme-context.jsx";
+import {ThemeContext} from "../ui/theme-context/theme-context-obj.js";
 import {TimeContext} from "./departure-time-context.jsx";
 
 // Componente para a lógica de 'Próximo' e 'Avançar' que precisa de atualização em tempo real

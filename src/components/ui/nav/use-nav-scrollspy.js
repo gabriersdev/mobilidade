@@ -36,7 +36,11 @@ export const useNavScrollspy = (elementIds) => {
       distances.sort((a, b) => a.distance - b.distance);
       
       let moreProximity;
-      if (distances.every(d => d.distance < 0)) {
+      const isAtBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 10;
+      
+      if (isAtBottom) {
+        moreProximity = distances[distances.length - 1];
+      } else if (distances.every(d => d.distance < 0)) {
         moreProximity = distances[distances.length - 1];
       } else {
         moreProximity = distances.find(d => d.distance > 0) || distances[0];
