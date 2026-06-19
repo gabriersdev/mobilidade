@@ -8,17 +8,17 @@ import Title from "@/components/ui/title/title.jsx";
 import Util from "@/lib/Util.jsx";
 
 const Card = ({
-  title = "Card Title",
-  subtitle = "Subtitle",
-  badge,
-  link,
-  children,
-  onclick,
-  variant,
-  headerColumn = false
-}) => {
-  const minHeight = "365px";
-
+                title = "Card Title",
+                subtitle = "Subtitle",
+                badge,
+                link,
+                children,
+                onclick,
+                variant,
+                headerColumn = false
+              }) => {
+  const minHeight = "265px";
+  
   const CardContent = () => {
     if (variant === "placeholder") {
       return (
@@ -29,7 +29,8 @@ const Card = ({
           <div className="d-flex flex-column placeholder-glow gap-1">
             <div className="placeholder fs-1"></div>
             <div className="placeholder fs-1"></div>
-          </div><br/>
+          </div>
+          <br/>
           <BootstrapCard.Body className="d-flex flex-column placeholder-glow gap-1" style={{flex: '0 0 auto'}}>
             <div className="placeholder fs-6"></div>
             <div className="placeholder fs-6"></div>
@@ -48,7 +49,8 @@ const Card = ({
           <div className="d-flex flex-column placeholder-glow gap-1">
             <div className="placeholder fs-2"></div>
             <div className="placeholder fs-2"></div>
-          </div><br/>
+          </div>
+          <br/>
           <BootstrapCard.Body className="d-flex flex-column placeholder-glow gap-1" style={{flex: '0 0 auto'}}>
             <div className="placeholder fs-6"></div>
             <div className="placeholder fs-6"></div>
@@ -61,25 +63,31 @@ const Card = ({
       <>
         <BootstrapCard.Header className="d-flex flex-column">
           <div className={`d-flex gap-2 ${headerColumn ? "flex-column align-items-start" : "flex-wrap align-items-center"}`}>
-            <Title type="h2" title={title.trim()} classX=" text-ellipsis-2 text-body" />
+            <Title type="h2" title={title.trim()} classX=" text-ellipsis-2 text-body"/>
             {badge}
           </div>
-          <Title type="h2" title={subtitle ? subtitle.trim() : ""} classX=" text-ellipsis-2 text-body-secondary text-balance" color="#4C4C4C" />
+          <Title type="h2" title={subtitle ? subtitle.trim() : ""} classX=" text-ellipsis-2 text-body-secondary text-balance" color="#4C4C4C"/>
         </BootstrapCard.Header>
         {children && (
           <BootstrapCard.Body style={{flex: '0 0 auto'}}>
-            <BootstrapCard.Text
+            <div
               className="mt-3 line-clamp-2"
-              title={String(children).replace(/[\r\n\b]/g, '')?.substring(0, 200)?.match(/<(\w+)>\s*\S*<\/\1>/g) || String(children).includes('[object Object]') ? "" : (children?.toString()?.substring(0, 200) + "...")}
+              title={
+                String(children)
+                  .replace(/[\r\n\b]/g, '')
+                  ?.substring(0, 200)
+                  ?.match(/<(\w+)>\s*\S*<\/\1>/g) || String(children).includes('[object Object]') ?
+                  "" : (children?.toString()?.substring(0, 200) + "...")
+              }
             >
               {children}
-            </BootstrapCard.Text>
+            </div>
           </BootstrapCard.Body>
         )}
       </>
     );
   };
-
+  
   if (link) {
     return (
       <BootstrapCard
@@ -90,7 +98,8 @@ const Card = ({
         target={Util.isSameDomain(link ? link.trim() : "") ? "_self" : "_blank"}
         style={{minHeight}}
       >
-        <CardContent />
+        {/* eslint-disable-next-line react-hooks/static-components */}
+        <CardContent/>
       </BootstrapCard>
     );
   }
@@ -98,14 +107,16 @@ const Card = ({
   if (typeof onclick === "function") {
     return (
       <BootstrapCard className="bg-body-tertiary cursor-pointer" onClick={onclick} style={{minHeight}}>
-        <CardContent />
+        {/* eslint-disable-next-line react-hooks/static-components */}
+        <CardContent/>
       </BootstrapCard>
     );
   }
-
+  
   return (
     <BootstrapCard className="bg-body-tertiary" style={{minHeight}}>
-      <CardContent />
+      {/* eslint-disable-next-line react-hooks/static-components */}
+      <CardContent/>
     </BootstrapCard>
   );
 };

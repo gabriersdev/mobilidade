@@ -47,19 +47,38 @@ export default function BusList() {
     return vehicles.filter(v => {
       if (filters.searchQuery) {
         const query = filters.searchQuery.toLowerCase();
-        const matchPlate = v.licensePlate.toLowerCase().includes(query);
-        const matchFleet = v.fleetNumber.toLowerCase().includes(query);
-        const matchCompany = v.company.name.toLowerCase().includes(query);
-        if (!matchPlate && !matchFleet && !matchCompany) return false;
+        const matchPlate = v.licensePlate?.toLowerCase().includes(query);
+        const matchFleet = v.fleetNumber?.toLowerCase().includes(query);
+        const matchCompany = v.company?.name?.toLowerCase().includes(query);
+        const matchStatus = v.status?.toLowerCase().includes(query);
+        const matchConservationState = v.conservationState?.toLowerCase().includes(query);
+        const matchChassisManufacturer = v.chassis?.manufacturer?.toLowerCase().includes(query);
+        const matchChassisModel = v.chassis?.model?.toLowerCase().includes(query);
+        const matchBodyworkManufacturer = v.bodywork?.manufacturer?.toLowerCase().includes(query);
+        const matchBodyworkModel = v.bodywork?.model?.toLowerCase().includes(query);
+
+        if (
+          !matchPlate && 
+          !matchFleet && 
+          !matchCompany && 
+          !matchStatus && 
+          !matchConservationState && 
+          !matchChassisManufacturer && 
+          !matchChassisModel && 
+          !matchBodyworkManufacturer && 
+          !matchBodyworkModel
+        ) {
+          return false;
+        }
       }
       
       if (filters.status && v.status !== filters.status) return false;
       
       if (filters.hasAc && !v.hasAc) return false;
       if (filters.hasWifi && !v.hasWifi) return false;
-      if (filters.hasAirSuspension && !v.hasAirSuspension) return false;
+      return !(filters.hasAirSuspension && !v.hasAirSuspension);
       
-      return true;
+      
     });
   }, [vehicles, filters]);
   

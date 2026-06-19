@@ -1,9 +1,11 @@
 import {useEffect, useState} from 'react';
-import {Col, Form, Row} from 'react-bootstrap';
+import {Button, Col, Form, Row} from 'react-bootstrap';
 import GenericCombobox from '../ui/combo-box/combo-box.jsx';
+import FilterItem from '../line/filter-item.jsx';
 
 export default function BusFilters({filters, onChange}) {
   const [searchHistory, setSearchHistory] = useState([]);
+  const [localSearchQuery, setLocalSearchQuery] = useState(filters.searchQuery || '');
   
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem('busSearchHistory')) || [];
@@ -11,76 +13,142 @@ export default function BusFilters({filters, onChange}) {
     setSearchHistory(history.map(term => ({name: term})));
   }, []);
   
-  const handleChange = (e) => {
-    const {name, value, type, checked} = e.target;
+  const handleFilterChange = (name, value) => {
+    let newValue = value;
+    if (value === "true") newValue = true;
+    else if (value === "false") newValue = false;
+    else if (value === "") newValue = undefined;
+    
     onChange({
       ...filters,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: newValue
     });
   };
   
-  const handleSearchChange = (value) => {
+  const handleSubmit = (e) => {
+    if (e) e.preventDefault();
+    
+    const query = localSearchQuery.trim();
+    if (query) {
+      const history = JSON.parse(localStorage.getItem('busSearchHistory')) || [];
+      const newHistory = [query, ...history.filter(t => t !== query)].slice(0, 10);
+      localStorage.setItem('busSearchHistory', JSON.stringify(newHistory));
+      setSearchHistory(newHistory.map(term => ({name: term})));
+    }
+    
     onChange({
       ...filters,
-      searchQuery: value || ''
+      searchQuery: query
     });
+  };
+
+  const handleSelectedItemChange = (item) => {
+    const val = item ? item.name : '';
+    setLocalSearchQuery(val);
+    onChange({
+      ...filters,
+      searchQuery: val
+    });
+  };
+  
+  const statusOptions = [
+    ["", "Todos os Status"],
+    ["Em atividade", "Em atividade"],
+    ["Em manutenção", "Em manutenção"],
+    ["Desativado", "Desativado"],
+    ["Substituído", "Substituído"],
+  ];
+  
+  const booleanOptions = [
+    ["", "Todos"],
+    ["true", "Sim"],
+    ["false", "Não"]
+  ];
+  
+  const getStatusLabel = (val) => {
+    const opt = statusOptions.find(o => o[0] === val);
+    return opt ? opt[1] : "Todos os Status";
+  };
+  
+  const getBooleanLabel = (val) => {
+    if (val === true || val === "true") return "Sim";
+    if (val === false || val === "false") return "Não";
+    return "Todos";
+  };
+  
+  const getBooleanStringValue = (val) => {
+    if (val === true) return "true";
+    if (val === false) return "false";
+    return "";
+  };
+  
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleSubmit();
+    }
   };
   
   return (
     <div className="border-0 mb-4 p-0">
       <div>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Row className="g-3">
             <Col xs={12}>
               <Form.Group controlId="searchQuery" className="w-100">
-                <GenericCombobox
-                  items={searchHistory}
-                  itemToString={(item) => (item ? item.name : '')}
-                  onSelectedItemChange={(item) => handleSearchChange(item ? item.name : '')}
-                  onInputValueChange={handleSearchChange}
-                  label="Pesquisar por placa, frota ou empresa"
-                  placeholder="Informe um termo ou selecione um veículo"
-                  required={false}
-                />
+                <div className="input-group d-flex align-items-center">
+                  <GenericCombobox
+                    items={searchHistory}
+                    itemToString={(item) => (item ? item.name : '')}
+                    onSelectedItemChange={handleSelectedItemChange}
+                    onInputValueChange={setLocalSearchQuery}
+                    label=""
+                    placeholder="Pesquise pelo o que quiser"
+                    required={false}
+                    onKeyDown={handleKeyDown}
+                    initialValue={localSearchQuery}
+                  />
+                  <Button variant="default" className="border text-body-tertiary d-none d-md-block" type="submit" aria-hidden="true">
+                    <i className="bi bi-search"></i>
+                  </Button>
+                </div>
+                <Button variant="secondary" className="mt-2 w-100 rounded-0 d-md-none" type="submit" aria-hidden="true">
+                  <i className="bi bi-search"></i>
+                </Button>
               </Form.Group>
             </Col>
             
-            <Col md={6}>
-              <Form.Group controlId="statusFilter">
-                <Form.Select name="status" value={filters.status} onChange={handleChange}>
-                  <option value="">Todos os Status</option>
-                  <option value="Em atividade">Em atividade</option>
-                  <option value="Em manutenção">Em manutenção</option>
-                  <option value="Desativado">Desativado</option>
-                  <option value="Substituído">Substituído</option>
-                </Form.Select>
-              </Form.Group>
-            </Col>
-            
-            <Col md={6} className="d-flex align-items-center flex-wrap gap-3">
-              <Form.Check
-                type="checkbox"
-                id="hasAc"
-                name="hasAc"
+            <Col xs={12} className="d-flex align-items-center flex-wrap gap-3 mt-4">
+              <FilterItem
+                label="Status"
+                value={getStatusLabel(filters.status || "")}
+                options={statusOptions}
+                activeValue={filters.status || ""}
+                onSelect={value => handleFilterChange("status", value)}
+              />
+              
+              <FilterItem
                 label="Ar Condicionado"
-                checked={filters.hasAc}
-                onChange={handleChange}
+                value={getBooleanLabel(filters.hasAc)}
+                options={booleanOptions}
+                activeValue={getBooleanStringValue(filters.hasAc)}
+                onSelect={value => handleFilterChange("hasAc", value)}
               />
-              <Form.Check
-                type="checkbox"
-                id="hasWifi"
-                name="hasWifi"
+              
+              <FilterItem
                 label="Wi-Fi"
-                checked={filters.hasWifi}
-                onChange={handleChange}
+                value={getBooleanLabel(filters.hasWifi)}
+                options={booleanOptions}
+                activeValue={getBooleanStringValue(filters.hasWifi)}
+                onSelect={value => handleFilterChange("hasWifi", value)}
               />
-              <Form.Check
-                type="checkbox"
-                id="hasAirSuspension"
-                name="hasAirSuspension"
+              
+              <FilterItem
                 label="Suspensão a Ar"
-                checked={filters.hasAirSuspension}
-                onChange={handleChange}
+                value={getBooleanLabel(filters.hasAirSuspension)}
+                options={booleanOptions}
+                activeValue={getBooleanStringValue(filters.hasAirSuspension)}
+                onSelect={value => handleFilterChange("hasAirSuspension", value)}
               />
             </Col>
           </Row>
