@@ -43,6 +43,14 @@ export default function GenericCombobox({
         getToggleButtonProps={getToggleButtonProps}
         isOpen={isOpen}
         reset={reset}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' && isOpen && highlightedIndex < 0) {
+            if (event.nativeEvent) {
+              event.nativeEvent.preventDownshiftDefault = true;
+            }
+          }
+          if (onKeyDown) onKeyDown(event);
+        }}
       />
       <ComboBoxMenu
         isOpen={isOpen}

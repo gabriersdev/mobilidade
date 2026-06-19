@@ -43,8 +43,8 @@ export const ThemeProvider = ({children}) => {
           const initialTheme = prefersDarkMode ? "dark" : "light";
           handleTheme(initialTheme);
         }
-      } catch (err) {
-        console.log(err.message);
+      } catch (error) {
+        console.log(error.message);
       }
     }
   }, [handleTheme]);

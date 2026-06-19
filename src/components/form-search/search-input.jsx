@@ -1,24 +1,22 @@
 import PropTypes from 'prop-types';
-import {Button} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import GenericCombobox from "@/components/ui/combo-box/combo-box.jsx";
 
 const SearchInput = ({
-                       searchHistory,
-                       onSelectedItemChange,
-                       onInputValueChange,
-                       placeholder,
-                       initialValue,
-                       onSearch,
-                     }) => {
+  searchHistory,
+  onSelectedItemChange,
+  onInputValueChange,
+  placeholder,
+  initialValue,
+  onSearch,
+}) => {
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault();
-      if (onSearch) {
-        onSearch();
-      }
+      // Allow form submission by default. Only call onSearch if it's explicitly passed.
+      if (onSearch) onSearch(event);
     }
   };
-  
+
   return (
     <>
       <div className="input-group d-flex align-items-center mt-2">

@@ -10,12 +10,13 @@ export const ComboBoxInput = ({
   getToggleButtonProps,
   isOpen,
   reset,
+  onKeyDown,
 }) => (
   <Form.Group className="" data-element={"form-group"}>
     {label && (<Form.Label {...getLabelProps()} className={"mb-1"}>{label}</Form.Label>)}
     <InputGroup>
       <Form.Control
-        {...getInputProps()}
+        {...getInputProps({ onKeyDown })}
         required={required}
         placeholder={placeholder}
         data-testid="combobox-input"
@@ -54,4 +55,5 @@ ComboBoxInput.propTypes = {
   getToggleButtonProps: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
   reset: PropTypes.func.isRequired,
+  onKeyDown: PropTypes.func,
 };
