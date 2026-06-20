@@ -27,6 +27,7 @@ export default function HistoryTimeline({vehicle}) {
     ...(incidents || []).map(inc => ({...inc, isMaintenance: false})),
     ...(maintenances || []).map(maint => ({...maint, isMaintenance: true, type: 'Manutenção'})),
   ];
+  // .map(inc => ({...inc, date: inc.date.replace("Z", "-03:00")}))
   
   if (operationStartDate) {
     timelineEvents.push({
@@ -48,7 +49,7 @@ export default function HistoryTimeline({vehicle}) {
       isMaintenance: false
     });
   }
-
+  
   if (operationEndDate) {
     timelineEvents.push({
       id: 'end',
@@ -59,8 +60,15 @@ export default function HistoryTimeline({vehicle}) {
       isMaintenance: false
     });
   }
-
+  
   timelineEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
+  
+  // Se for o de finalização da operação, tem que ser exibido ANTES dos demais
+  timelineEvents.sort((a, b) => {
+    if (a.id === "end" && b.id !== "end") return -1;
+    if (a.id !== "end" && b.id === "end") return 1;
+    return 0;
+  });
   
   return (
     <section id="historico">

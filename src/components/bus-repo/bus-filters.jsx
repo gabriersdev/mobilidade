@@ -52,13 +52,13 @@ export default function BusFilters({filters, onChange}) {
   };
   
   const statusOptions = [
-    ["", "Todos os Status"],
-    ["Ativo", "Atividade"],
-    // ["Em atividade", "Em atividade"],
-    ["Manutenção", "Manutenção"],
-    // ["Em manutenção", "Em manutenção"],
+    ["", "Todos os Status"],2
+    ["Em atividade", "Em atividade"],
+    ["Em manutenção", "Em manutenção"],
     ["Desativado", "Desativado"],
     ["Substituído", "Substituído"],
+    // ["Ativo", "Atividade"],
+    // ["Manutenção", "Manutenção"],
   ];
   
   const booleanOptions = [

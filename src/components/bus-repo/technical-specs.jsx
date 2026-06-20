@@ -8,9 +8,9 @@ export default function TechnicalSpecs({vehicle}) {
     {label: 'Modelo do chassi', value: vehicle.chassis.model || "-"},
     {label: 'Encarroçadora', value: vehicle.bodywork.manufacturer || "-"},
     {label: 'Modelo da carroceria', value: vehicle.bodywork.model || "-"},
-    {label: 'Dimensão', value: vehicle.dimensionDescription || "-"},
+    {label: 'Dimensão', value: vehicle.dimensionDescription ? `${vehicle.dimensionDescription} metros` : "-"},
     {label: 'Tecnologia de otimização', value: vehicle.optimizationTechnology || "-"},
-    {label: 'Geração/Leva', value: vehicle.generationBatch || "-"}
+    {label: 'Geração/Leva', value: vehicle.generationBatch?.name || "-"}
   ];
   
   const comfortSpecsData = [
@@ -22,10 +22,10 @@ export default function TechnicalSpecs({vehicle}) {
     {label: 'Wi-Fi', value: vehicle.hasWifi ? 'Sim' : 'Não'},
     {label: 'Tipo de piso', value: vehicle.floorType || "-"},
     {label: 'Tipo de banco', value: vehicle.seatType || "-"},
-    {label: 'Elevador', value: vehicle.accessibilityElevator || "-"},
-    {label: 'Bancos exclusivos', value: vehicle.accessibilityExclusiveSeats || "-"},
-    {label: 'Contraste visual', value: vehicle.accessibilityVisualContrast || "-"},
-    {label: 'Portas', value: `${vehicle.doorsQuantity} (${vehicle.accessibilityDisembarkDoor} exclusiva${vehicle.accessibilityDisembarkDoor > 1 ? "s" : ""} para desembarque)`}
+    {label: 'Elevador', value: vehicle.accessibilityElevator ? `Possui ${vehicle.accessibilityElevator} elevador${vehicle.accessibilityElevator > 1 ? "es" : ""}` : "-"},
+    {label: 'Bancos exclusivos para acessibilidade', value: vehicle.accessibilityExclusiveSeats ? "Possui" : "-"},
+    {label: 'Contraste visual', value: vehicle.accessibilityVisualContrast ? "Possui" :  "-"},
+    {label: 'Portas (quantidade)', value: `${vehicle.doorsQuantity} (${vehicle.accessibilityDisembarkDoor} exclusiva${vehicle.accessibilityDisembarkDoor > 1 ? "s" : ""} para desembarque)`}
   ];
   
   return (

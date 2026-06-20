@@ -2,7 +2,6 @@ import 'react';
 import {Badge, Col, Row} from 'react-bootstrap';
 import Card from '../ui/card/card.jsx';
 import Util from "@/lib/Util.jsx";
-import {VehicleStatus} from "@/resources/bus-repo-types.ts";
 
 const getStatusVariant = (status) => {
   switch (status) {
@@ -51,7 +50,7 @@ export default function BusCard({vehicle}) {
         </Col>
       </Row>
       
-      <div className={"d-flex flex-wrap gap-1 mt-auto flex-nowrap overflow-x-scroll " + (vehicle.hasAc || vehicle.hasWifi || vehicle.hasAirSuspension ? "mt-3" : "")}>
+      <div className={"d-flex flex-wrap gap-1 flex-nowrap overflow-x-scroll " + (vehicle.hasAc || vehicle.hasWifi || vehicle.hasAirSuspension ? "mt-3" : "mt-auto")}>
         {vehicle.hasAc && (
           <Badge bg="info" pill text="light">
             <div className='text-sml d-flex align-items-center justify-content-center'>

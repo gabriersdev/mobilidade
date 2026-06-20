@@ -25,6 +25,11 @@ export interface Company {
   name: string;
 }
 
+export interface GenerationBatch {
+  id: string;
+  name: string;
+}
+
 export interface Operator {
   id: string;
   name: string;
@@ -65,7 +70,7 @@ export interface Vehicle {
   licensePlate: string;
   fleetNumber: string;
   status: VehicleStatus;
-  generationBatch: string;
+  generationBatch: GenerationBatch;
   operationStartDate?: string;
   operationEndDate?: string;
   
