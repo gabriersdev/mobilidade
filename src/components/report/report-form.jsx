@@ -2,7 +2,6 @@ import {Alert, Button, Form, FormControl, FormGroup, FormLabel as BSFormLabel, F
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import PropTypes from "prop-types";
 import {useReportForm} from "./use-report-form.jsx";
-import {reportOptions} from "@/resources/report-options.js";
 
 const FormLabel = ({props, children}) => {
   return <BSFormLabel component="label" column="sm" className="fs-6 m-0 p-0 mb-2" {...props}>{children}</BSFormLabel>
@@ -13,7 +12,7 @@ FormLabel.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-const ReportForm = ({handleCloseModal}) => {
+const ReportForm = ({handleCloseModal, options}) => {
   const {
     email, setEmail,
     typeError, setTypeError,
@@ -33,10 +32,10 @@ const ReportForm = ({handleCloseModal}) => {
         !codeIsSent ? (
             <>
               <FormGroup>
-                <FormLabel props={{htmlFor: "type-error"}}>Qual o erro?</FormLabel>
+                <FormLabel props={{htmlFor: "type-error"}}>Qual o problema?</FormLabel>
                 <FormSelect required id={"type-error"} value={typeError} onChange={(e) => setTypeError(e.target.value)} ref={refTypeError}>
                   <option value="">Selecione</option>
-                  {reportOptions.map(opt => (
+                  {options.map(opt => (
                     <option key={opt.value} value={opt.value}>{opt.label}</option>
                   ))}
                 </FormSelect>
@@ -93,6 +92,10 @@ const ReportForm = ({handleCloseModal}) => {
 
 ReportForm.propTypes = {
   handleCloseModal: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    label: PropTypes.string.isRequired
+  })).isRequired
 }
 
 export default ReportForm;
