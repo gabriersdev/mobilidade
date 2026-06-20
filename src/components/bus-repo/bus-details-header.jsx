@@ -5,8 +5,7 @@ import InfoItem from '@/components/ui/info-item/info-item.jsx';
 import BusDetailsActions from './bus-details-actions.jsx';
 import LineIdentificationCompanyLogo from '@/components/line-identification/line-identification-company-logo.jsx';
 import Util from "@/lib/Util.jsx";
-import {getStatusConfig, getConservationConfig} from "./bus-details-helpers.js";
-import {ConservationState, VehicleStatus} from "@/resources/bus-repo-types.ts";
+import {getConservationConfig, getStatusConfig} from "./bus-details-helpers.js";
 
 export default function BusDetailsHeader({vehicle}) {
   const statusConfig = getStatusConfig(vehicle.status);
@@ -34,21 +33,22 @@ export default function BusDetailsHeader({vehicle}) {
         </hgroup>
         
         <div className="d-flex align-items-center gap-4 flex-wrap mt-5">
-          <InfoItem icon={statusConfig.icon} iconClass={statusConfig.color} value={vehicle.status} />
-          <InfoItem icon={conservationConfig.icon} iconClass={conservationConfig.color} label="Estado" value={vehicle.conservationState} />
-          <InfoItem icon="bi-hash" iconClass="text-secondary" label="Veículo" value={vehicle.fleetNumber} />
+          <InfoItem icon={statusConfig.icon} iconClass={statusConfig.color} value={vehicle.status}/>
+          <InfoItem icon={conservationConfig.icon} iconClass={conservationConfig.color} label="Estado" value={vehicle.conservationState}/>
+          <InfoItem icon="bi-hash" iconClass="text-secondary" label="Veículo" value={vehicle.fleetNumber}/>
         </div>
         
         <div className="d-flex align-items-center gap-4 flex-wrap">
-          <InfoItem icon="bi-building" iconClass="text-primary" label="Operadora" value={vehicle.company.name} />
+          <InfoItem icon="bi-building" iconClass="text-primary" label="Operadora" value={vehicle.company.name}/>
           <Link to={`/company/${vehicle.company.id}`} className="text-decoration-none">
-            <InfoItem icon="bi-buildings-fill" iconClass="text-primary" label="Companhia" value={vehicle.company.name} />
+            <InfoItem icon="bi-buildings-fill" iconClass="text-primary" label="Companhia" value={vehicle.company.name}/>
           </Link>
           {vehicle.lastUpdate && (
             <InfoItem>
               <div className="d-flex align-items-center gap-1">
                 <i className="bi bi-stopwatch"></i>
-                <span className="ms-1 text-body fw-medium">Infos. atualizadas {Util.renderText(Util.diffToHuman(vehicle.lastUpdate))}</span>
+                {/*TODO - o retorno vem assim: 2026-06-20T15:21:13.000Z, quando a atualização foi feita em 2026-06-20T09:21:13.000-03:00. Verificar onde está o problema e tratar para evitar esta substituição grosseira*/}
+                <span className="ms-1 text-body fw-medium">Infos. atualizadas {Util.renderText(Util.diffToHuman(vehicle.lastUpdate.replace("Z", "+03:00")))}</span>
               </div>
             </InfoItem>
           )}
