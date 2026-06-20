@@ -1,11 +1,12 @@
-import {useEffect, useState} from 'react';
-import {Button, Col, Form, Row} from 'react-bootstrap';
+import {useEffect, useRef, useState} from 'react';
+import {Button, Col, Form, OverlayTrigger, Popover, PopoverBody, PopoverHeader, Row} from 'react-bootstrap';
 import GenericCombobox from '../ui/combo-box/combo-box.jsx';
 import FilterItem from '../line/filter-item.jsx';
 
 export default function BusFilters({filters, onChange}) {
   const [searchHistory, setSearchHistory] = useState([]);
   const [localSearchQuery, setLocalSearchQuery] = useState(filters.searchQuery || '');
+  const popoverFlagsExplanationRef = useRef(null);
   
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem('busSearchHistory')) || [];
@@ -41,7 +42,7 @@ export default function BusFilters({filters, onChange}) {
       searchQuery: query
     });
   };
-
+  
   const handleSelectedItemChange = (item) => {
     const val = item ? item.name : '';
     setLocalSearchQuery(val);
@@ -52,13 +53,28 @@ export default function BusFilters({filters, onChange}) {
   };
   
   const statusOptions = [
-    ["", "Todos os Status"],2
+    ["", "Todos os Status"],
     ["Em atividade", "Em atividade"],
     ["Em manutenção", "Em manutenção"],
     ["Desativado", "Desativado"],
     ["Substituído", "Substituído"],
     // ["Ativo", "Atividade"],
     // ["Manutenção", "Manutenção"],
+  ];
+  
+  const conservationStateOptions = [
+    ["", "Todos os Estados"],
+    ["Excelente", "Excelente"],
+    ["Bom", "Bom"],
+    ["Regular", "Regular"],
+    ["Ruim", "Ruim"],
+    ["Precário", "Precário"],
+  ];
+  
+  const sortOptions = [
+    ["", "Padrão"],
+    ["age_desc", "Idade (Mais novos)"],
+    ["age_asc", "Idade (Mais velhos)"]
   ];
   
   const booleanOptions = [
@@ -70,6 +86,16 @@ export default function BusFilters({filters, onChange}) {
   const getStatusLabel = (val) => {
     const opt = statusOptions.find(o => o[0] === val);
     return opt ? opt[1] : "Todos os Status";
+  };
+  
+  const getConservationStateLabel = (val) => {
+    const opt = conservationStateOptions.find(o => o[0] === val);
+    return opt ? opt[1] : "Todos os Estados";
+  };
+  
+  const getSortLabel = (val) => {
+    const opt = sortOptions.find(o => o[0] === val);
+    return opt ? opt[1] : "Padrão";
   };
   
   const getBooleanLabel = (val) => {
@@ -118,6 +144,23 @@ export default function BusFilters({filters, onChange}) {
                   <i className="bi bi-search"></i>
                 </Button>
               </Form.Group>
+              
+              <div className={"mb-0 mt-1 line-clamp-1 d-flex"}>
+                <OverlayTrigger overlay={
+                  <Popover id="flags-explanation-popover" ref={popoverFlagsExplanationRef}>
+                    <PopoverHeader className={"text-sml"}>
+                      Flags de pesquisa
+                    </PopoverHeader>
+                    <PopoverBody className={"text-sml"}>
+                      A flag <span className={"fs-inherit"}>&quot;ano: 2016&quot;</span> retorna veículos com ano de fabricação ou modelo 2016. A flag <span className={"fs-inherit"}>&quot;chassi: OF-1619L&quot;</span> pesquisa especificamente por modelos de chassi. Você pode combinar as flags com texto livre para refinar a busca.
+                    </PopoverBody>
+                  </Popover>
+                }>
+                  <p className={"text-sml text-warning mb-0"}>
+                    <i className="bi bi-lightbulb"></i> <span className={"text-decoration-underline"}>Use flags para pesquisar.</span>
+                  </p>
+                </OverlayTrigger>
+              </div>
             </Col>
             
             <Col xs={12} className="d-flex align-items-center flex-wrap gap-3 mt-4">
@@ -127,6 +170,22 @@ export default function BusFilters({filters, onChange}) {
                 options={statusOptions}
                 activeValue={filters.status || ""}
                 onSelect={value => handleFilterChange("status", value)}
+              />
+              
+              <FilterItem
+                label="Estado de Conservação"
+                value={getConservationStateLabel(filters.conservationState || "")}
+                options={conservationStateOptions}
+                activeValue={filters.conservationState || ""}
+                onSelect={value => handleFilterChange("conservationState", value)}
+              />
+              
+              <FilterItem
+                label="Ordenação"
+                value={getSortLabel(filters.sortBy || "")}
+                options={sortOptions}
+                activeValue={filters.sortBy || ""}
+                onSelect={value => handleFilterChange("sortBy", value)}
               />
               
               <FilterItem

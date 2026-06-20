@@ -17,7 +17,7 @@ export enum ConservationState {
 export enum IncidentType {
   ACCIDENT = 'Acidente',
   MECHANICAL_DEFECT = 'Defeito Mecânico',
-  VANDALISM = 'Vandalismo/Depreciação',
+  VANDALISM = 'Vandalismo e depreciação',
 }
 
 export interface Company {

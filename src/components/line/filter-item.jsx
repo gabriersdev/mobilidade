@@ -13,15 +13,19 @@ const FilterItem = ({label, value, options, onSelect, activeValue}) => {
         <span className="text-body text-truncate fs-inherit">{value}</span>
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        {options.map(([val, lab]) => (
-          <Dropdown.Item
-            key={val}
-            active={activeValue === val}
-            onClick={() => onSelect(val)}
-          >
-            {lab}
-          </Dropdown.Item>
-        ))}
+        {
+          options ? (
+            options.map(([val, lab]) => (
+              <Dropdown.Item
+                key={val}
+                active={activeValue === val}
+                onClick={() => onSelect(val)}
+              >
+                {lab}
+              </Dropdown.Item>
+            ))
+          ) : ""
+        }
       </Dropdown.Menu>
     </Dropdown>
   );

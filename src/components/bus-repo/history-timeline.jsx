@@ -8,7 +8,7 @@ const getIconForIncident = (type) => {
       return 'bi-exclamation-triangle text-danger';
     case 'Defeito Mecânico':
       return 'bi-wrench text-warning';
-    case 'Vandalismo/Depreciação':
+    case 'Vandalismo e depreciação':
       return 'bi-slash-circle text-dark';
     case 'Início da operação':
       return 'bi-play-circle text-success';
@@ -76,12 +76,18 @@ export default function HistoryTimeline({vehicle}) {
       {timelineEvents.length === 0 ? (
         <p className="text-body">Nenhum evento registrado no histórico deste veículo.</p>
       ) : (
-        <div className="position-relative ms-3 border-start border-2 pb-2 border-primary-subtle">
+        <div className="position-relative ms-3 pb-2">
           {timelineEvents.map((event, index) => (
-            <div key={event.id || index} className="position-relative mb-4 ps-4">
+            <div key={event.id || index} className="position-relative pb-4 ps-4">
+              {index !== timelineEvents.length - 1 && (
+                <div
+                  className="position-absolute bg-primary-subtle"
+                  style={{ width: '2px', left: '-1px', top: '15px', height: '100%', zIndex: 0 }}
+                />
+              )}
               <div
                 className="position-absolute bg-white border border-2 border-primary-subtle rounded-circle d-flex justify-content-center align-items-center"
-                style={{width: '30px', height: '30px', left: '-16px', top: '0'}}
+                style={{width: '30px', height: '30px', left: '-15px', top: '0', zIndex: 1}}
               >
                 <i className={`bi ${event.isMaintenance ? 'bi-tools text-success' : getIconForIncident(event.type)} fs-6`}></i>
               </div>
