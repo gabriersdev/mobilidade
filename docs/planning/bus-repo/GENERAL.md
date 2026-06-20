@@ -61,7 +61,7 @@ Cada veículo no repositório será representado pela seguinte estrutura de dado
 - **Histórico de Incidentes:**
     - **Acidentes:** (e.g., `Batida leve em Junho de 2026: laceração lateral`).
     - **Defeitos Mecânicos:** (e.g., `Estouro de pneu em Maio de 2019`).
-    - **Vandalismo/Depreciação:** (e.g., `12 assentos reformados por vandalismo`).
+    - **Vandalismo e depreciação:** (e.g., `12 assentos reformados por vandalismo`).
 - **Histórico de Manutenção:** Registros de substituições e desativações.
 - **Observações Gerais:** Campo de texto livre para informações pertinentes.
 
