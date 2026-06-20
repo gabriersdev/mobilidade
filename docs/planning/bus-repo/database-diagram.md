@@ -1,81 +1,134 @@
 # Diagrama do Banco de Dados: Repositório de Ônibus
 
-Abaixo está a representação visual (Entity-Relationship Diagram) do esquema lógico do banco de dados projetado para o módulo de Repositório de Ônibus.
+Abaixo está a representação visual (Entity-Relationship Diagram) do esquema lógico do banco de dados projetado para o módulo de Repositório de Ônibus, atualizado de acordo com as novas diretrizes de nomenclatura e auditoria.
 
 ```mermaid
 erDiagram
-    COMPANIES ||--o{ VEHICLES : "owns"
-    CHASSIS_MODELS ||--o{ VEHICLES : "has"
-    BODYWORK_MODELS ||--o{ VEHICLES : "has"
-    VEHICLES ||--o{ VEHICLE_LINES : "operates on"
-    VEHICLES ||--o{ VEHICLE_INCIDENTS : "has history of"
-    VEHICLES ||--o{ VEHICLE_MAINTENANCES : "undergoes"
+    company ||--o{ vehicle : "owns"
+    chassisModel ||--o{ vehicle : "has"
+    bodyworkModel ||--o{ vehicle : "has"
+    vehicle ||--o{ vehicleLine : "operates on"
+    vehicle ||--o{ vehicleIncident : "has history of"
+    vehicle ||--o{ vehicleMaintenance : "undergoes"
 
-    COMPANIES {
+    company {
         uuid id PK
         string name "Unique"
+        timestamp createdAt
+        timestamp updatedAt
+        uuid createdBy
+        uuid updatedBy
+        boolean isActive
+        timestamp deletedAt
     }
 
-    CHASSIS_MODELS {
+    chassisModel {
         uuid id PK
         string manufacturer
         string model
+        timestamp createdAt
+        timestamp updatedAt
+        uuid createdBy
+        uuid updatedBy
+        boolean isActive
+        timestamp deletedAt
     }
 
-    BODYWORK_MODELS {
+    bodyworkModel {
         uuid id PK
         string manufacturer
         string model
+        timestamp createdAt
+        timestamp updatedAt
+        uuid createdBy
+        uuid updatedBy
+        boolean isActive
+        timestamp deletedAt
     }
 
-    VEHICLES {
+    vehicle {
         uuid id PK
-        string license_plate "Unique"
-        string fleet_number "Unique"
+        string licensePlate "Unique"
+        string fleetNumber "Unique"
         string status "ACTIVE, MAINTENANCE, REPLACED, DEACTIVATED, UNKNOWN"
-        string generation_batch
-        uuid company_id FK
-        uuid chassis_id FK
-        uuid bodywork_id FK
-        int manufacture_year
-        int model_year
-        string dimension_description
-        string optimization_technology
-        int capacity_seated
-        int capacity_standing
-        boolean has_ac
-        boolean has_air_suspension
-        string floor_type
-        string seat_type
-        boolean has_wifi
-        string accessibility_elevator
-        string accessibility_exclusive_seats
-        string accessibility_visual_contrast
-        string accessibility_disembark_door
-        int doors_quantity
-        string conservation_state
-        text general_notes
-        datetime last_update
+        string generationBatch
+        uuid companyId FK
+        uuid chassisModelId FK
+        uuid bodyworkModelId FK
+        int manufactureYear
+        int modelYear
+        string dimensionDescription
+        string optimizationTechnology
+        int capacitySeated
+        int capacityStanding
+        boolean hasAc
+        boolean hasAirSuspension
+        string floorType
+        string seatType
+        boolean hasWifi
+        string accessibilityElevator
+        string accessibilityExclusiveSeats
+        string accessibilityVisualContrast
+        string accessibilityDisembarkDoor
+        int doorsQuantity
+        string conservationState
+        text generalNotes
+        timestamp createdAt
+        timestamp updatedAt
+        uuid createdBy
+        uuid updatedBy
+        boolean isActive
+        timestamp deletedAt
     }
 
-    VEHICLE_LINES {
-        uuid vehicle_id FK
-        string line_number
-    }
-
-    VEHICLE_INCIDENTS {
+    vehicleLine {
         uuid id PK
-        uuid vehicle_id FK
-        string incident_type "ACCIDENT, VANDALISM, etc"
-        datetime incident_date
-        text description
+        uuid vehicleId FK
+        string lineNumber
+        timestamp createdAt
+        timestamp updatedAt
+        uuid createdBy
+        uuid updatedBy
+        boolean isActive
+        timestamp deletedAt
     }
 
-    VEHICLE_MAINTENANCES {
+    vehicleIncident {
         uuid id PK
-        uuid vehicle_id FK
-        datetime maintenance_date
+        uuid vehicleId FK
+        string incidentType "ACCIDENT, VANDALISM, etc"
+        datetime incidentDate
         text description
+        timestamp createdAt
+        timestamp updatedAt
+        uuid createdBy
+        uuid updatedBy
+        boolean isActive
+        timestamp deletedAt
+    }
+
+    vehicleMaintenance {
+        uuid id PK
+        uuid vehicleId FK
+        datetime maintenanceDate
+        text description
+        timestamp createdAt
+        timestamp updatedAt
+        uuid createdBy
+        uuid updatedBy
+        boolean isActive
+        timestamp deletedAt
+    }
+
+    auditLog {
+        uuid id PK
+        string tableName
+        uuid recordId
+        string action "INSERT, UPDATE, DELETE"
+        jsonb oldData
+        jsonb newData
+        uuid performedBy
+        timestamp performedAt
     }
 ```
 
