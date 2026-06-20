@@ -57,6 +57,8 @@ erDiagram
         string fleetNumber "Unique"
         string status "ACTIVE, MAINTENANCE, REPLACED, DEACTIVATED, UNKNOWN"
         string generationBatch
+        date operationStartDate
+        date operationEndDate
         int companyId FK
         uuid chassisModelId FK
         uuid bodyworkModelId FK

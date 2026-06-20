@@ -52,6 +52,8 @@ Tabela principal que centraliza as informações do ônibus.
 - `fleetNumber` (String, Unique): Identificação interna na frota.
 - `status` (Enum): `ACTIVE`, `REPLACED`, `DEACTIVATED`, `MAINTENANCE`, `UNKNOWN`.
 - `generationBatch` (String): Descrição da leva ou lote de aquisição.
+- `operationStartDate` (Date): Data de início de operação.
+- `operationEndDate` (Date): Data de término de operação.
 - `companyId` (FK -> companies.company_id, INT): Relacionamento com tabela existente.
 - `chassisModelId` (FK -> chassisModel.id, UUID)
 - `bodyworkModelId` (FK -> bodyworkModel.id, UUID)
@@ -109,4 +111,4 @@ Tabela central para registrar o histórico completo de alterações (Audit Trail
 ## Considerações
 - O campo `status` em `vehicle` deve ser atualizado automaticamente ou impedido de ser `ACTIVE` caso existam incidentes com severidade alta.
 - Todas as exclusões das tabelas novas devem ser lógicas (`isActive` = false).
-- A tabela `auditLog` deve ser alimentada via Triggers no banco de dados.
+- A tabela `auditLog` deve ser alimentada via Triggers no banco de dados. Um trigger específico (`trg_vehicle_operation_dates`) deve registrar alterações nas datas de início e término de operação (`operationStartDate` e `operationEndDate`).

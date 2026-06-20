@@ -3,7 +3,7 @@
 -- e estabelece os relacionamentos com as tabelas legadas (companies e lines).
 
 -- 1. chassisModel
-CREATE TABLE `chassisModel` (
+CREATE TABLE IF NOT EXISTS `chassisModel` (
     `id` CHAR(36) NOT NULL,
     `manufacturer` VARCHAR(255) NOT NULL,
     `model` VARCHAR(255) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE `chassisModel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 2. bodyworkModel
-CREATE TABLE `bodyworkModel` (
+CREATE TABLE IF NOT EXISTS `bodyworkModel` (
     `id` CHAR(36) NOT NULL,
     `manufacturer` VARCHAR(255) NOT NULL,
     `model` VARCHAR(255) NOT NULL,
@@ -37,12 +37,14 @@ CREATE TABLE `bodyworkModel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 3. vehicle
-CREATE TABLE `vehicle` (
+CREATE TABLE IF NOT EXISTS `vehicle` (
     `id` CHAR(36) NOT NULL,
     `licensePlate` VARCHAR(20) NOT NULL,
     `fleetNumber` VARCHAR(20) NOT NULL,
     `status` ENUM('ACTIVE', 'REPLACED', 'DEACTIVATED', 'MAINTENANCE', 'UNKNOWN') NOT NULL DEFAULT 'UNKNOWN',
     `generationBatch` VARCHAR(255),
+    `operationStartDate` DATE,
+    `operationEndDate` DATE,
     
     `companyId` INT NOT NULL,
     `chassisModelId` CHAR(36) NOT NULL,
@@ -84,7 +86,7 @@ CREATE TABLE `vehicle` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 4. vehicleLine
-CREATE TABLE `vehicleLine` (
+CREATE TABLE IF NOT EXISTS `vehicleLine` (
     `id` CHAR(36) NOT NULL,
     `vehicleId` CHAR(36) NOT NULL,
     `lineId` INT NOT NULL,
@@ -103,7 +105,7 @@ CREATE TABLE `vehicleLine` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 5. vehicleIncident
-CREATE TABLE `vehicleIncident` (
+CREATE TABLE IF NOT EXISTS `vehicleIncident` (
     `id` CHAR(36) NOT NULL,
     `vehicleId` CHAR(36) NOT NULL,
     `incidentType` ENUM('ACCIDENT', 'MECHANICAL_DEFECT', 'VANDALISM') NOT NULL,
@@ -123,7 +125,7 @@ CREATE TABLE `vehicleIncident` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 6. vehicleMaintenance
-CREATE TABLE `vehicleMaintenance` (
+CREATE TABLE IF NOT EXISTS `vehicleMaintenance` (
     `id` CHAR(36) NOT NULL,
     `vehicleId` CHAR(36) NOT NULL,
     `maintenanceDate` DATETIME NOT NULL,
@@ -142,7 +144,7 @@ CREATE TABLE `vehicleMaintenance` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 7. auditLog (Audit Trail - Camada 2)
-CREATE TABLE `auditLog` (
+CREATE TABLE IF NOT EXISTS `auditLog` (
     `id` CHAR(36) NOT NULL,
     `tableName` VARCHAR(100) NOT NULL,
     `recordId` VARCHAR(50) NOT NULL,
@@ -154,3 +156,28 @@ CREATE TABLE `auditLog` (
     
     CONSTRAINT `pkAuditLog` PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 8. Trigger para registrar modificações nas datas de operação
+DROP TRIGGER IF EXISTS `trg_vehicle_operation_dates`;
+
+DELIMITER //
+
+CREATE TRIGGER `trg_vehicle_operation_dates`
+AFTER UPDATE ON `vehicle`
+FOR EACH ROW
+BEGIN
+    IF NOT (OLD.operationStartDate <=> NEW.operationStartDate) OR NOT (OLD.operationEndDate <=> NEW.operationEndDate) THEN
+        INSERT INTO `auditLog` (`id`, `tableName`, `recordId`, `action`, `oldData`, `newData`, `performedBy`)
+        VALUES (
+            UUID(),
+            'vehicle',
+            NEW.id,
+            'UPDATE',
+            JSON_OBJECT('operationStartDate', OLD.operationStartDate, 'operationEndDate', OLD.operationEndDate),
+            JSON_OBJECT('operationStartDate', NEW.operationStartDate, 'operationEndDate', NEW.operationEndDate),
+            NEW.updatedBy
+        );
+    END IF;
+END //
+
+DELIMITER ;
