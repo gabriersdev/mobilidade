@@ -14,8 +14,7 @@ Os componentes e páginas foram organizados para garantir o reuso e a escalabili
 Todos os componentes utilizam o React Bootstrap para manter o padrão visual do projeto:
 - **`bus-card.jsx`**: Representação de um veículo em formato de "Card". Exibe badges de status e resumos de tecnologia embarcada (Ar Condicionado, Wi-fi).
 - **`bus-filters.jsx`**: Painel de busca e filtros. Envia dados para o estado "filters" na página pai, permitindo a separação de responsabilidades.
-- **`technical-specs.jsx`**: Estrutura tabular para detalhamento de chassi, carroceria e facilidades de acessibilidade e conforto.
-- **`history-timeline.jsx`**: Componente visual customizado que combina arrays de manutenções e incidentes, os ordena cronologicamente e os exibe em uma linha do tempo vertical com ícones contextuais.
+- **`history-timeline.jsx`**: Componente visual customizado que combina arrays de manutenções e incidentes, os ordena cronologicamente e os exibe em uma linha do tempo vertical com ícones contextuais. Também exibe o início e término da operação do veículo utilizando as datas de entrada e saída.
 
 ### 3. Lógica de Negócio e Serviços (`src/lib/`)
 - **`bus-repo-service.js`**: Único ponto de contato com a camada de dados. Possui funções abstratas como `getVehicles()` e `getVehicleById(id)`. Atualmente, resolve requisições baseadas no arquivo de mock local (simulando delays de rede via setTimeout), mas no futuro poderá realizar chamadas HTTP usando `Axios` para consumir endpoints de uma API.

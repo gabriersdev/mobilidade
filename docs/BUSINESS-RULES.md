@@ -22,6 +22,7 @@ Esta seção fornece uma visão geral de alto nível das regras de negócio da a
 
 - Descreva os principais processos de negócio que a aplicação suporta.
 - Descreva os fluxos de trabalho e as transições de estado.
+- **Repositório de Veículos:** Veículos devem possuir registros claros de suas datas de entrada e saída na operação (status ativo e histórico). As datas de início e término (`operationStartDate`, `operationEndDate`) devem basear os relatórios e a cronologia do histórico de cada frota.
 
 ## Regras de Relatórios e Análises
 

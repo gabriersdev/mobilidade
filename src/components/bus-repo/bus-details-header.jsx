@@ -34,8 +34,8 @@ export default function BusDetailsHeader({vehicle}) {
         </hgroup>
         
         <div className="d-flex align-items-center gap-4 flex-wrap mt-5">
-          <InfoItem icon={statusConfig.icon} iconClass={statusConfig.color} value={VehicleStatus[vehicle.status]} />
-          <InfoItem icon={conservationConfig.icon} iconClass={conservationConfig.color} label="Estado" value={ConservationState[vehicle.conservationState]} />
+          <InfoItem icon={statusConfig.icon} iconClass={statusConfig.color} value={vehicle.status} />
+          <InfoItem icon={conservationConfig.icon} iconClass={conservationConfig.color} label="Estado" value={vehicle.conservationState} />
           <InfoItem icon="bi-hash" iconClass="text-secondary" label="Veículo" value={vehicle.fleetNumber} />
         </div>
         

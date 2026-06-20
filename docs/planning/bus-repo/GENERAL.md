@@ -55,6 +55,7 @@ Cada veículo no repositório será representado pela seguinte estrutura de dado
 - **Quantidade de Portas:** (e.g., `3`).
 
 ### Histórico e Operação
+- **Entrada e Saída:** Registro das datas em que o veículo entrou (`operationStartDate`) e saiu (`operationEndDate`) da operação da frota.
 - **Linhas Operadas:** Registro das linhas onde o veículo já operou (e.g., `4988`, `4989`).
 - **Estado de Conservação:** `Excelente`, `Bom`, `Regular`, `Ruim`, `Precário`.
 - **Histórico de Incidentes:**

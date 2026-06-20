@@ -31,8 +31,8 @@ export default function BusCard({vehicle}) {
       title={`${vehicle.licensePlate}`}
       link={`/bus-repo/${vehicle.id}`}
       badge={
-        <Badge pill bg={getStatusVariant(VehicleStatus[vehicle.status])} className="text-sml">
-          <SpanE>{VehicleStatus[vehicle.status]}</SpanE>
+        <Badge pill bg={getStatusVariant(vehicle.status)} className="text-sml">
+          <SpanE>{vehicle.status}</SpanE>
         </Badge>
       }
       subtitle={`Carro ${vehicle.fleetNumber} - ${vehicle.company.name}`}

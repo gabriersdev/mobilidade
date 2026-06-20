@@ -58,6 +58,8 @@ export interface Vehicle {
   fleetNumber: string;
   status: VehicleStatus;
   generationBatch: string;
+  operationStartDate?: string;
+  operationEndDate?: string;
   
   company: Company;
   chassis: ChassisModel;

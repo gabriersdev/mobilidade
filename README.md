@@ -22,7 +22,7 @@ Até o momento, o projeto atende principalmente as linhas de ônibus municipais 
 - **Repositório de Veículos (Frota)**:
   - Banco de dados unificado de veículos de transporte com busca por placa, prefixo ou modelo.
   - Informações técnicas, configurações de chassi/carroceria e detalhes operacionais.
-  - Histórico de manutenções e incidentes vinculados a cada veículo.
+  - Histórico de manutenções, incidentes vinculados a cada veículo e informações de entrada e saída da operação.
 - **Histórico**:
   - Histórico de quadros de horários antigos.
   - Histórico de alterações de tarifas.
