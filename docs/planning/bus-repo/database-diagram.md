@@ -1,25 +1,30 @@
 # Diagrama do Banco de Dados: Repositório de Ônibus
 
-Abaixo está a representação visual (Entity-Relationship Diagram) do esquema lógico do banco de dados projetado para o módulo de Repositório de Ônibus, atualizado de acordo com as novas diretrizes de nomenclatura e auditoria.
+Abaixo está a representação visual (Entity-Relationship Diagram) do esquema lógico do banco de dados projetado para o módulo de Repositório de Ônibus. 
+
+Este diagrama inclui as tabelas legadas existentes em `structure-dump.sql` (`companies` e `lines`) relacionando-se corretamente com as novas tabelas (projetadas com `DATABASE-GUIDELINES.md`).
 
 ```mermaid
 erDiagram
-    company ||--o{ vehicle : "owns"
+    companies ||--o{ vehicle : "owns"
     chassisModel ||--o{ vehicle : "has"
     bodyworkModel ||--o{ vehicle : "has"
+    lines ||--o{ vehicleLine : "assigned to"
     vehicle ||--o{ vehicleLine : "operates on"
     vehicle ||--o{ vehicleIncident : "has history of"
     vehicle ||--o{ vehicleMaintenance : "undergoes"
 
-    company {
-        uuid id PK
-        string name "Unique"
-        timestamp createdAt
-        timestamp updatedAt
-        uuid createdBy
-        uuid updatedBy
-        boolean isActive
-        timestamp deletedAt
+    companies {
+        int company_id PK
+        string company_name "Unique"
+        text contact
+        text report_contact
+    }
+
+    lines {
+        int line_id PK
+        string line_number
+        string line_name
     }
 
     chassisModel {
@@ -28,8 +33,8 @@ erDiagram
         string model
         timestamp createdAt
         timestamp updatedAt
-        uuid createdBy
-        uuid updatedBy
+        int createdBy
+        int updatedBy
         boolean isActive
         timestamp deletedAt
     }
@@ -40,8 +45,8 @@ erDiagram
         string model
         timestamp createdAt
         timestamp updatedAt
-        uuid createdBy
-        uuid updatedBy
+        int createdBy
+        int updatedBy
         boolean isActive
         timestamp deletedAt
     }
@@ -52,7 +57,7 @@ erDiagram
         string fleetNumber "Unique"
         string status "ACTIVE, MAINTENANCE, REPLACED, DEACTIVATED, UNKNOWN"
         string generationBatch
-        uuid companyId FK
+        int companyId FK
         uuid chassisModelId FK
         uuid bodyworkModelId FK
         int manufactureYear
@@ -75,8 +80,8 @@ erDiagram
         text generalNotes
         timestamp createdAt
         timestamp updatedAt
-        uuid createdBy
-        uuid updatedBy
+        int createdBy
+        int updatedBy
         boolean isActive
         timestamp deletedAt
     }
@@ -84,11 +89,11 @@ erDiagram
     vehicleLine {
         uuid id PK
         uuid vehicleId FK
-        string lineNumber
+        int lineId FK
         timestamp createdAt
         timestamp updatedAt
-        uuid createdBy
-        uuid updatedBy
+        int createdBy
+        int updatedBy
         boolean isActive
         timestamp deletedAt
     }
@@ -101,8 +106,8 @@ erDiagram
         text description
         timestamp createdAt
         timestamp updatedAt
-        uuid createdBy
-        uuid updatedBy
+        int createdBy
+        int updatedBy
         boolean isActive
         timestamp deletedAt
     }
@@ -114,8 +119,8 @@ erDiagram
         text description
         timestamp createdAt
         timestamp updatedAt
-        uuid createdBy
-        uuid updatedBy
+        int createdBy
+        int updatedBy
         boolean isActive
         timestamp deletedAt
     }
@@ -123,11 +128,11 @@ erDiagram
     auditLog {
         uuid id PK
         string tableName
-        uuid recordId
+        string recordId
         string action "INSERT, UPDATE, DELETE"
         jsonb oldData
         jsonb newData
-        uuid performedBy
+        int performedBy
         timestamp performedAt
     }
 ```

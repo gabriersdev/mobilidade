@@ -1,99 +1,112 @@
 # Projeto de Banco de Dados: Repositório de Ônibus
 
-Este documento descreve o modelo relacional lógico para o módulo de Repositório de Ônibus. Embora a aplicação atual seja um Single Page Application (SPA) que utiliza dados em formato JSON mockado, este esquema serve como base para a futura implementação de uma API e um banco de dados relacional.
+Este documento descreve o modelo relacional lógico para o módulo de Repositório de Ônibus. O esquema integra as novas entidades — que seguem rigorosamente as diretrizes de banco de dados (`DATABASE-GUIDELINES.md`) — com as tabelas já existentes na estrutura atual do banco de dados (conforme `structure-dump.sql`).
 
-## Entidades e Relacionamentos
+## Tabelas Existentes (Legado)
 
-### Padrão de Auditoria (Aplicado a todas as entidades de negócio)
-Todas as tabelas de negócio abaixo possuem as seguintes colunas de auditoria padrão (conforme as diretrizes):
+Estas tabelas já existem no banco de dados, possuindo suas próprias regras de nomenclatura (snake_case) e não contêm os campos padronizados de auditoria das novas diretrizes. Elas são referenciadas pelas novas entidades.
+
+### `companies` (Empresas Proprietárias e Operadoras)
+- `company_id` (PK, INT): Identificador único.
+- `company_name` (String, Unique): Nome da empresa.
+- `contact` (Text): Contatos gerais.
+- `report_contact` (Text): Contato para relatórios.
+
+### `lines` (Linhas de Operação)
+- `line_id` (PK, INT): Identificador único.
+- `line_number` (String): Número da linha.
+- `line_name` (String): Nome da linha.
+- *(Outras colunas existentes omitidas por brevidade)*
+
+---
+
+## Novas Entidades (Seguindo DATABASE-GUIDELINES.md)
+
+### Padrão de Auditoria
+Todas as tabelas de negócio abaixo possuem as seguintes colunas de auditoria padrão:
 - `createdAt` (Timestamp): Data e hora exatas da inserção.
 - `updatedAt` (Timestamp): Data e hora da última alteração.
-- `createdBy` (UUID): ID do usuário ou sistema que criou o registro.
-- `updatedBy` (UUID): ID do usuário que modificou o registro pela última vez.
+- `createdBy` (INT): ID do usuário (`users.id`) que criou o registro.
+- `updatedBy` (INT): ID do usuário que modificou o registro pela última vez.
 - `isActive` (Boolean): Flag de exclusão lógica (Soft Delete).
 - `deletedAt` (Timestamp, Nullable): Momento da exclusão lógica.
 
 ---
 
-### 1. `company` (Empresa Proprietária e Operadora)
-Armazena as empresas responsáveis pelos veículos.
-- `id` (PK, UUID): Identificador único.
-- `name` (String, Unique): Nome da empresa (ex: Viação Cuiabá).
-
-### 2. `chassisModel` (Modelo de Chassi)
+### 1. `chassisModel` (Modelo de Chassi)
 Catálogo unificado de chassis para evitar redundância.
 - `id` (PK, UUID)
-- `manufacturer` (String): Fabricante (ex: Mercedes Benz, Volkswagen).
-- `model` (String): Modelo do chassi (ex: OF-1721, 17.230 OD).
+- `manufacturer` (String): Fabricante (ex: Mercedes Benz).
+- `model` (String): Modelo do chassi (ex: OF-1721).
 
-### 3. `bodyworkModel` (Modelo de Carroceria)
+### 2. `bodyworkModel` (Modelo de Carroceria)
 Catálogo unificado de carrocerias.
 - `id` (PK, UUID)
-- `manufacturer` (String): Encarroçadora (ex: Marcopolo, Caio).
-- `model` (String): Modelo (ex: Mega Plus, Apache VIP IV).
+- `manufacturer` (String): Encarroçadora (ex: Marcopolo).
+- `model` (String): Modelo (ex: Mega Plus).
 
-### 4. `vehicle` (Veículo)
+### 3. `vehicle` (Veículo)
 Tabela principal que centraliza as informações do ônibus.
 - `id` (PK, UUID)
-- `licensePlate` (String, Unique): Placa do veículo (ex: O1N3E09).
-- `fleetNumber` (String, Unique): Identificação interna na frota (ex: 44089).
+- `licensePlate` (String, Unique): Placa do veículo.
+- `fleetNumber` (String, Unique): Identificação interna na frota.
 - `status` (Enum): `ACTIVE`, `REPLACED`, `DEACTIVATED`, `MAINTENANCE`, `UNKNOWN`.
 - `generationBatch` (String): Descrição da leva ou lote de aquisição.
-- `companyId` (FK -> company.id)
-- `chassisModelId` (FK -> chassisModel.id)
-- `bodyworkModelId` (FK -> bodyworkModel.id)
+- `companyId` (FK -> companies.company_id, INT): Relacionamento com tabela existente.
+- `chassisModelId` (FK -> chassisModel.id, UUID)
+- `bodyworkModelId` (FK -> bodyworkModel.id, UUID)
 - `manufactureYear` (Int): Ano de fabricação.
 - `modelYear` (Int): Ano do modelo.
-- `dimensionDescription` (String): (ex: Carroceria de 11 metros).
-- `optimizationTechnology` (String): Tecnologia empregada (ex: Bluetec 5).
-- `capacitySeated` (Int): Número de assentos.
-- `capacityStanding` (Int): Capacidade de pessoas em pé.
-- `hasAc` (Boolean): Ar condicionado.
-- `hasAirSuspension` (Boolean): Suspensão a ar.
-- `floorType` (String): Material ou tipo do piso (ex: Taraflex).
-- `seatType` (String): Tipo do assento (ex: Acolchoado).
-- `hasWifi` (Boolean): Disponibilidade de Wi-Fi.
-- `accessibilityElevator` (String): Descrição do elevador de acessibilidade.
-- `accessibilityExclusiveSeats` (String): Descrição de assentos preferenciais.
-- `accessibilityVisualContrast` (String): Contraste visual para deficientes visuais.
-- `accessibilityDisembarkDoor` (String): Informações sobre portas adaptadas.
-- `doorsQuantity` (Int): Número total de portas.
+- `dimensionDescription` (String)
+- `optimizationTechnology` (String)
+- `capacitySeated` (Int)
+- `capacityStanding` (Int)
+- `hasAc` (Boolean)
+- `hasAirSuspension` (Boolean)
+- `floorType` (String)
+- `seatType` (String)
+- `hasWifi` (Boolean)
+- `accessibilityElevator` (String)
+- `accessibilityExclusiveSeats` (String)
+- `accessibilityVisualContrast` (String)
+- `accessibilityDisembarkDoor` (String)
+- `doorsQuantity` (Int)
 - `conservationState` (Enum): `EXCELLENT`, `GOOD`, `REGULAR`, `BAD`, `PRECARIOUS`.
-- `generalNotes` (Text): Observações livres.
+- `generalNotes` (Text)
 
-### 5. `vehicleLine` (Relação Veículo-Linha)
-Relacionamento N:M entre veículos e as linhas de operação que eles atendem rotineiramente.
+### 4. `vehicleLine` (Relação Veículo-Linha)
+Relacionamento N:M entre veículos e as linhas de operação existentes.
 - `id` (PK, UUID)
-- `vehicleId` (FK -> vehicle.id)
-- `lineNumber` (String): Identificador ou número da linha (ex: 4988).
+- `vehicleId` (FK -> vehicle.id, UUID)
+- `lineId` (FK -> lines.line_id, INT): Relacionamento com a tabela de linhas existente.
 
-### 6. `vehicleIncident` (Histórico de Incidentes)
+### 5. `vehicleIncident` (Histórico de Incidentes)
 Registra acidentes, defeitos e atos de vandalismo.
 - `id` (PK, UUID)
-- `vehicleId` (FK -> vehicle.id)
+- `vehicleId` (FK -> vehicle.id, UUID)
 - `incidentType` (Enum): `ACCIDENT`, `MECHANICAL_DEFECT`, `VANDALISM`.
-- `incidentDate` (DateTime): Data e hora da ocorrência.
-- `description` (Text): Detalhamento do incidente.
+- `incidentDate` (DateTime)
+- `description` (Text)
 
-### 7. `vehicleMaintenance` (Histórico de Manutenção)
+### 6. `vehicleMaintenance` (Histórico de Manutenção)
 Registra revisões e trocas de peças.
 - `id` (PK, UUID)
-- `vehicleId` (FK -> vehicle.id)
-- `maintenanceDate` (DateTime): Data e hora da manutenção.
-- `description` (Text): Detalhamento do serviço realizado.
+- `vehicleId` (FK -> vehicle.id, UUID)
+- `maintenanceDate` (DateTime)
+- `description` (Text)
 
-### 8. `auditLog` (Histórico de Auditoria)
-Tabela central para registrar o histórico completo de alterações dos registros (Audit Trail).
+### 7. `auditLog` (Histórico de Auditoria)
+Tabela central para registrar o histórico completo de alterações (Audit Trail).
 - `id` (PK, UUID)
 - `tableName` (String): Nome da tabela afetada (ex: "vehicle").
-- `recordId` (UUID): ID do registro afetado na tabela de origem.
+- `recordId` (String): ID do registro afetado (convertido para string pois pode ser INT do legado ou UUID do novo modelo).
 - `action` (Enum): `INSERT`, `UPDATE`, `DELETE`.
-- `oldData` (JSONB): Estado completo do registro ANTES da alteração.
-- `newData` (JSONB): Estado completo do registro DEPOIS da alteração.
-- `performedBy` (UUID): ID do usuário ou sistema que executou a ação.
-- `performedAt` (Timestamp): Timestamp da ocorrência.
+- `oldData` (JSONB): Estado do registro ANTES da alteração.
+- `newData` (JSONB): Estado do registro DEPOIS da alteração.
+- `performedBy` (INT): ID do usuário (`users.id`).
+- `performedAt` (Timestamp): Data e hora da ocorrência.
 
 ## Considerações
-- O campo `status` em `vehicle` deve ser atualizado automaticamente ou impedido de ser `ACTIVE` caso existam registros recentes de `vehicleIncident` com severidade alta, o que demandará validações a nível de aplicação.
-- Todas as exclusões devem ser lógicas (`isActive` = false), exceto em tabelas estritamente relacionais como `vehicleLine` se o modelo de negócio permitir a exclusão física desta.
-- Operações de `UPDATE` e soft `DELETE` devem preencher a tabela `auditLog` via Triggers (gatilhos) no banco de dados.
+- O campo `status` em `vehicle` deve ser atualizado automaticamente ou impedido de ser `ACTIVE` caso existam incidentes com severidade alta.
+- Todas as exclusões das tabelas novas devem ser lógicas (`isActive` = false).
+- A tabela `auditLog` deve ser alimentada via Triggers no banco de dados.
