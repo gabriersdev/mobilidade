@@ -32,7 +32,7 @@ erDiagram
         uuid id PK
         string license_plate "Unique"
         string fleet_number "Unique"
-        string status "ACTIVE, MAINTENANCE, etc"
+        string status "ACTIVE, MAINTENANCE, REPLACED, DEACTIVATED, UNKNOWN"
         string generation_batch
         uuid company_id FK
         uuid chassis_id FK
