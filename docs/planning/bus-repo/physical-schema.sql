@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `vehicle` (
   `licensePlate` VARCHAR(20) NOT NULL,
   `fleetNumber` VARCHAR(20) NOT NULL,
   `status` ENUM('ACTIVE', 'REPLACED', 'DEACTIVATED', 'MAINTENANCE', 'UNKNOWN') NOT NULL DEFAULT 'UNKNOWN',
-  `generationBatch` VARCHAR(255),
+  `generationBatchId` CHAR(36),
   `operationStartDate` DATE,
   `operationEndDate` DATE,
 
@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `vehicle` (
   CONSTRAINT `uqVehicleFleetNumber` UNIQUE (`fleetNumber`),
   CONSTRAINT `fkVehicleOperators` FOREIGN KEY (`operatorId`) REFERENCES `operators`(`id`),
   CONSTRAINT `fkVehicleCompanies` FOREIGN KEY (`companyId`) REFERENCES `companies`(`company_id`),
+  CONSTRAINT `fkVehicleGenerationBatch` FOREIGN KEY (`generationBatchId`) REFERENCES `generationBatch`(`id`),
   CONSTRAINT `fkVehicleChassisModel` FOREIGN KEY (`chassisModelId`) REFERENCES `chassisModel`(`id`),
   CONSTRAINT `fkVehicleBodyworkModel` FOREIGN KEY (`bodyworkModelId`) REFERENCES `bodyworkModel`(`id`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -194,3 +195,19 @@ CREATE TABLE IF NOT EXISTS operators (
 
   CONSTRAINT `pkOperator` PRIMARY KEY (`id`)
   );
+
+-- 10. Tabela para informações da geração de renovação (Leva/Lote)
+CREATE TABLE IF NOT EXISTS `generationBatch` (
+    `id` CHAR(36) NOT NULL,
+    `name` VARCHAR(255) NOT NULL,
+
+    -- Colunas de Auditoria
+    `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `createdBy` INT NOT NULL,
+    `updatedBy` INT NOT NULL,
+    `isActive` BOOLEAN NOT NULL DEFAULT TRUE,
+    `deletedAt` TIMESTAMP NULL,
+
+    CONSTRAINT `pkGenerationBatch` PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

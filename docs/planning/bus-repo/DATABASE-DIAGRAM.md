@@ -6,6 +6,7 @@ Este diagrama inclui as tabelas legadas existentes em `structure-dump.sql` (`com
 
 ```mermaid
 erDiagram
+    generationBatch ||--o{ vehicle : "has"
     operators ||--o{ vehicle : "operated by"
     companies ||--o{ vehicle : "owns"
     chassisModel ||--o{ vehicle : "has"
@@ -21,6 +22,17 @@ erDiagram
         string CNPJ
         text contact
         text report
+    }
+
+    generationBatch {
+        uuid id PK
+        string name
+        timestamp createdAt
+        timestamp updatedAt
+        int createdBy
+        int updatedBy
+        boolean isActive
+        timestamp deletedAt
     }
 
     companies {
@@ -65,7 +77,7 @@ erDiagram
         string licensePlate "Unique"
         string fleetNumber "Unique"
         string status "ACTIVE, MAINTENANCE, REPLACED, DEACTIVATED, UNKNOWN"
-        string generationBatch
+        uuid generationBatchId FK
         date operationStartDate
         date operationEndDate
         int operatorId FK

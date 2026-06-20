@@ -51,7 +51,7 @@ Tabela principal que centraliza as informações do ônibus.
 - `licensePlate` (String, Unique): Placa do veículo.
 - `fleetNumber` (String, Unique): Identificação interna na frota.
 - `status` (Enum): `ACTIVE`, `REPLACED`, `DEACTIVATED`, `MAINTENANCE`, `UNKNOWN`.
-- `generationBatch` (String): Descrição da leva ou lote de aquisição.
+- `generationBatchId` (FK -> generationBatch.id, UUID): Identificação da leva ou lote de aquisição.
 - `operationStartDate` (Date): Data de início de operação.
 - `operationEndDate` (Date): Data de término de operação.
 - `operatorId` (FK -> operators.id, INT): Operador responsável pelo veículo.
@@ -116,6 +116,11 @@ Tabela para informações da operadora (empresa de ônibus, consórcio ou órgã
 - `CNPJ` (String): CNPJ da operadora.
 - `contact` (Text, Nullable): Contatos gerais.
 - `report` (Text, Nullable): Contatos para relatórios.
+
+### 9. `generationBatch` (Geração/Leva)
+Tabela para o catálogo e informações da geração/lote de renovação da frota.
+- `id` (PK, UUID)
+- `name` (String): Nome descritivo da geração/lote (ex: Aquis. com rec. próprios - Renovação Viação Cuiabá - FEV 2018).
 
 ## Considerações
 - O campo `status` em `vehicle` deve ser atualizado automaticamente ou impedido de ser `ACTIVE` caso existam incidentes com severidade alta.
