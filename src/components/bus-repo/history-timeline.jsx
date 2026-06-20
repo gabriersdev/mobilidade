@@ -27,7 +27,7 @@ export default function HistoryTimeline({vehicle}) {
     {
       id: 'init',
       vehicleId: vehicle.id,
-      date: `${manufactureYear}-01-01T00:00:00Z`,
+      date: `${manufactureYear}-01-01T00:00:00-03:00`,
       description: `Início estimado da operação do veículo modelo ${vehicle.modelYear} fabricado em ${manufactureYear}.`,
       type: "Início da operação",
       isMaintenance: false

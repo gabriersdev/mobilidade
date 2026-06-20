@@ -2,6 +2,7 @@ import 'react';
 import {Badge, Col, Row} from 'react-bootstrap';
 import Card from '../ui/card/card.jsx';
 import Util from "@/lib/Util.jsx";
+import {VehicleStatus} from "@/resources/bus-repo-types.ts";
 
 const getStatusVariant = (status) => {
   switch (status) {
@@ -30,8 +31,8 @@ export default function BusCard({vehicle}) {
       title={`${vehicle.licensePlate}`}
       link={`/bus-repo/${vehicle.id}`}
       badge={
-        <Badge pill bg={getStatusVariant(vehicle.status)} className="text-sml">
-          <SpanE>{vehicle.status}</SpanE>
+        <Badge pill bg={getStatusVariant(VehicleStatus[vehicle.status])} className="text-sml">
+          <SpanE>{VehicleStatus[vehicle.status]}</SpanE>
         </Badge>
       }
       subtitle={`Carro ${vehicle.fleetNumber} - ${vehicle.company.name}`}
@@ -43,14 +44,14 @@ export default function BusCard({vehicle}) {
         </Col>
       </Row>
       
-      <Row className="mb-3">
+      <Row className="">
         <Col xs={12} className="text-body text-sml line-clamp-1">
           {/*<i className="bi bi-calendar3 me-2"></i>*/}
           {Util.renderText(`Ano/Modelo: ${vehicle.manufactureYear}/${vehicle.modelYear}`)}
         </Col>
       </Row>
       
-      <div className="d-flex flex-wrap gap-1 mt-auto flex-nowrap overflow-x-scroll">
+      <div className={"d-flex flex-wrap gap-1 mt-auto flex-nowrap overflow-x-scroll " + (vehicle.hasAc || vehicle.hasWifi || vehicle.hasAirSuspension ? "mt-3" : "")}>
         {vehicle.hasAc && (
           <Badge bg="info" pill text="light">
             <div className='text-sml d-flex align-items-center justify-content-center'>

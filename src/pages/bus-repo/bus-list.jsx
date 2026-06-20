@@ -58,14 +58,14 @@ export default function BusList() {
         const matchBodyworkModel = v.bodywork?.model?.toLowerCase().includes(query);
 
         if (
-          !matchPlate && 
-          !matchFleet && 
-          !matchCompany && 
-          !matchStatus && 
-          !matchConservationState && 
-          !matchChassisManufacturer && 
-          !matchChassisModel && 
-          !matchBodyworkManufacturer && 
+          !matchPlate &&
+          !matchFleet &&
+          !matchCompany &&
+          !matchStatus &&
+          !matchConservationState &&
+          !matchChassisManufacturer &&
+          !matchChassisModel &&
+          !matchBodyworkManufacturer &&
           !matchBodyworkModel
         ) {
           return false;
@@ -77,7 +77,6 @@ export default function BusList() {
       if (filters.hasAc && !v.hasAc) return false;
       if (filters.hasWifi && !v.hasWifi) return false;
       return !(filters.hasAirSuspension && !v.hasAirSuspension);
-      
       
     });
   }, [vehicles, filters]);

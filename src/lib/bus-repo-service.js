@@ -1,36 +1,34 @@
-import { mockVehicles } from '../resources/bus-repo-mock';
+import axios from 'axios';
+import config from '@/assets/config.js';
 
 /**
  * Service para interagir com o repositório de veículos.
- * Atualmente utiliza dados em memória (mock), mas no futuro
- * pode ser facilmente substituído por chamadas de API (e.g. Axios).
+ * Substituído de mock para chamadas da API real via Axios.
  */
 export const busRepoService = {
   /**
    * Retorna a lista de todos os veículos.
    */
   async getVehicles() {
-    // Simular delay de rede
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(mockVehicles);
-      }, 300);
-    });
+    try {
+      const response = await axios.get(`${config.host}/api/vehicles`);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao buscar lista de veículos:', error);
+      throw error;
+    }
   },
 
   /**
    * Retorna os detalhes de um veículo específico pelo ID.
    */
   async getVehicleById(id) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const vehicle = mockVehicles.find(v => v.id === id);
-        if (vehicle) {
-          resolve(vehicle);
-        } else {
-          reject(new Error('Veículo não encontrado'));
-        }
-      }, 300);
-    });
+    try {
+      const response = await axios.get(`${config.host}/api/vehicles/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Erro ao buscar detalhes do veículo ${id}:`, error);
+      throw error;
+    }
   }
 };

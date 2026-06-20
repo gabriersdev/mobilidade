@@ -6,6 +6,7 @@ import BusDetailsActions from './bus-details-actions.jsx';
 import LineIdentificationCompanyLogo from '@/components/line-identification/line-identification-company-logo.jsx';
 import Util from "@/lib/Util.jsx";
 import {getStatusConfig, getConservationConfig} from "./bus-details-helpers.js";
+import {ConservationState, VehicleStatus} from "@/resources/bus-repo-types.ts";
 
 export default function BusDetailsHeader({vehicle}) {
   const statusConfig = getStatusConfig(vehicle.status);
@@ -33,8 +34,8 @@ export default function BusDetailsHeader({vehicle}) {
         </hgroup>
         
         <div className="d-flex align-items-center gap-4 flex-wrap mt-5">
-          <InfoItem icon={statusConfig.icon} iconClass={statusConfig.color} value={vehicle.status} />
-          <InfoItem icon={conservationConfig.icon} iconClass={conservationConfig.color} label="Estado" value={vehicle.conservationState} />
+          <InfoItem icon={statusConfig.icon} iconClass={statusConfig.color} value={VehicleStatus[vehicle.status]} />
+          <InfoItem icon={conservationConfig.icon} iconClass={conservationConfig.color} label="Estado" value={ConservationState[vehicle.conservationState]} />
           <InfoItem icon="bi-hash" iconClass="text-secondary" label="Veículo" value={vehicle.fleetNumber} />
         </div>
         

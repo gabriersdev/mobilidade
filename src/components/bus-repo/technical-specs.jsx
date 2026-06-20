@@ -4,28 +4,28 @@ import Util from "@/lib/Util.jsx";
 
 export default function TechnicalSpecs({vehicle}) {
   const techSpecsData = [
-    {label: 'Fabricante do chassi', value: vehicle.chassis.manufacturer},
-    {label: 'Modelo do chassi', value: vehicle.chassis.model},
-    {label: 'Encarroçadora', value: vehicle.bodywork.manufacturer},
-    {label: 'Modelo da carroceria', value: vehicle.bodywork.model},
-    {label: 'Dimensão', value: vehicle.dimensionDescription},
-    {label: 'Tecnologia de otimização', value: vehicle.optimizationTechnology},
-    {label: 'Geração/Leva', value: vehicle.generationBatch}
+    {label: 'Fabricante do chassi', value: vehicle.chassis.manufacturer || "-"},
+    {label: 'Modelo do chassi', value: vehicle.chassis.model || "-"},
+    {label: 'Encarroçadora', value: vehicle.bodywork.manufacturer || "-"},
+    {label: 'Modelo da carroceria', value: vehicle.bodywork.model || "-"},
+    {label: 'Dimensão', value: vehicle.dimensionDescription || "-"},
+    {label: 'Tecnologia de otimização', value: vehicle.optimizationTechnology || "-"},
+    {label: 'Geração/Leva', value: vehicle.generationBatch || "-"}
   ];
   
   const comfortSpecsData = [
-    {label: 'Capacidade (sentados)', value: vehicle.capacitySeated},
-    {label: 'Capacidade (em pé)', value: vehicle.capacityStanding},
+    {label: 'Capacidade (sentados)', value: vehicle.capacitySeated || "-"},
+    {label: 'Capacidade (em pé)', value: vehicle.capacityStanding || "-"},
     {label: 'Capacidade de acomodação total', value: vehicle.capacitySeated + vehicle.capacityStanding},
     {label: 'Ar condicionado', value: vehicle.hasAc ? 'Sim' : 'Não'},
     {label: 'Suspensão a Ar', value: vehicle.hasAirSuspension ? 'Sim' : 'Não'},
     {label: 'Wi-Fi', value: vehicle.hasWifi ? 'Sim' : 'Não'},
-    {label: 'Tipo de piso', value: vehicle.floorType},
-    {label: 'Tipo de banco', value: vehicle.seatType},
-    {label: 'Elevador', value: vehicle.accessibilityElevator},
-    {label: 'Bancos exclusivos', value: vehicle.accessibilityExclusiveSeats},
-    {label: 'Contraste visual', value: vehicle.accessibilityVisualContrast},
-    {label: 'Portas', value: `${vehicle.doorsQuantity} (${vehicle.accessibilityDisembarkDoor})`}
+    {label: 'Tipo de piso', value: vehicle.floorType || "-"},
+    {label: 'Tipo de banco', value: vehicle.seatType || "-"},
+    {label: 'Elevador', value: vehicle.accessibilityElevator || "-"},
+    {label: 'Bancos exclusivos', value: vehicle.accessibilityExclusiveSeats || "-"},
+    {label: 'Contraste visual', value: vehicle.accessibilityVisualContrast || "-"},
+    {label: 'Portas', value: `${vehicle.doorsQuantity} (${vehicle.accessibilityDisembarkDoor} exclusiva${vehicle.accessibilityDisembarkDoor > 1 ? "s" : ""} para desembarque)`}
   ];
   
   return (
