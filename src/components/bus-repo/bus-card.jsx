@@ -19,7 +19,7 @@ const getStatusVariant = (status) => {
 };
 
 function SpanE({children}) {
-  const spanBadgeStyle = {letterSpacing: "0.5px", fontSize: "0.75rem"};
+  const spanBadgeStyle = {fontSize: "0.75rem"};
   const spanBadgeClassNames = "";
   return <span style={spanBadgeStyle} className={spanBadgeClassNames}>{children}</span>
 }
