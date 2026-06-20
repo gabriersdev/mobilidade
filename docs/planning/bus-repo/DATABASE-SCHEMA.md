@@ -54,6 +54,7 @@ Tabela principal que centraliza as informações do ônibus.
 - `generationBatch` (String): Descrição da leva ou lote de aquisição.
 - `operationStartDate` (Date): Data de início de operação.
 - `operationEndDate` (Date): Data de término de operação.
+- `operatorId` (FK -> operators.id, INT): Operador responsável pelo veículo.
 - `companyId` (FK -> companies.company_id, INT): Relacionamento com tabela existente.
 - `chassisModelId` (FK -> chassisModel.id, UUID)
 - `bodyworkModelId` (FK -> bodyworkModel.id, UUID)
@@ -107,6 +108,14 @@ Tabela central para registrar o histórico completo de alterações (Audit Trail
 - `newData` (JSONB): Estado do registro DEPOIS da alteração.
 - `performedBy` (INT): ID do usuário (`users.id`).
 - `performedAt` (Timestamp): Data e hora da ocorrência.
+
+### 8. `operators` (Operadora)
+Tabela para informações da operadora (empresa de ônibus, consórcio ou órgão/instituição pública).
+- `id` (PK, INT, Auto Increment)
+- `name` (String): Nome da operadora.
+- `CNPJ` (String): CNPJ da operadora.
+- `contact` (Text, Nullable): Contatos gerais.
+- `report` (Text, Nullable): Contatos para relatórios.
 
 ## Considerações
 - O campo `status` em `vehicle` deve ser atualizado automaticamente ou impedido de ser `ACTIVE` caso existam incidentes com severidade alta.

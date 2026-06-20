@@ -6,6 +6,7 @@ Este diagrama inclui as tabelas legadas existentes em `structure-dump.sql` (`com
 
 ```mermaid
 erDiagram
+    operators ||--o{ vehicle : "operated by"
     companies ||--o{ vehicle : "owns"
     chassisModel ||--o{ vehicle : "has"
     bodyworkModel ||--o{ vehicle : "has"
@@ -13,6 +14,14 @@ erDiagram
     vehicle ||--o{ vehicleLine : "operates on"
     vehicle ||--o{ vehicleIncident : "has history of"
     vehicle ||--o{ vehicleMaintenance : "undergoes"
+
+    operators {
+        int id PK
+        string name
+        string CNPJ
+        text contact
+        text report
+    }
 
     companies {
         int company_id PK
@@ -59,6 +68,7 @@ erDiagram
         string generationBatch
         date operationStartDate
         date operationEndDate
+        int operatorId FK
         int companyId FK
         uuid chassisModelId FK
         uuid bodyworkModelId FK
