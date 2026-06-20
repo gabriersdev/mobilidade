@@ -39,7 +39,7 @@ export default function BusDetailsHeader({vehicle}) {
         </div>
         
         <div className="d-flex align-items-center gap-4 flex-wrap">
-          <InfoItem icon="bi-building" iconClass="text-primary" label="Operadora" value={vehicle.company.name}/>
+          <InfoItem icon="bi-building" iconClass="text-primary" label="Operadora" value={vehicle.operator.name}/>
           <Link to={`/company/${vehicle.company.id}`} className="text-decoration-none">
             <InfoItem icon="bi-buildings-fill" iconClass="text-primary" label="Companhia" value={vehicle.company.name}/>
           </Link>

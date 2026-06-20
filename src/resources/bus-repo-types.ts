@@ -25,6 +25,14 @@ export interface Company {
   name: string;
 }
 
+export interface Operator {
+  id: string;
+  name: string;
+  CNPJ: string;
+  contact?: string;
+  report?: string;
+}
+
 export interface ChassisModel {
   id: string;
   manufacturer: string;
@@ -61,6 +69,7 @@ export interface Vehicle {
   operationStartDate?: string;
   operationEndDate?: string;
   
+  operator: Operator;
   company: Company;
   chassis: ChassisModel;
   bodywork: BodyworkModel;
