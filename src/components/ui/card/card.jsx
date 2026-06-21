@@ -17,7 +17,7 @@ const Card = ({
                 variant,
                 headerColumn = false
               }) => {
-  const minHeight = "265px";
+  const minHeight = "200px";
   
   const CardContent = () => {
     if (variant === "placeholder") {

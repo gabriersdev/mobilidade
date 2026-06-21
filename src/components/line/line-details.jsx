@@ -19,7 +19,7 @@ const LineDetails = ({line, paradasSection, data}) => (
             <DeparturePointsSection line={line} ref={paradasSection}/>
             <RenderLiveMap data={data}/>
             <RechargePointsSection line={line}/>
-            <SimilarLinesSection/>
+            <SimilarLinesSection line={line}/>
             <AboutSection line={line}/>
           </div>
         </AnimatedComponents>
