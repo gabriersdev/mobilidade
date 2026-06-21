@@ -70,7 +70,7 @@ const navLinksPageLine = [
   {id: "partidas", label: "Horários"},
   {id: "paradas", label: "Paradas"},
   {id: "pontos-de-recarga", label: "Recarga"},
-  {id: "mapa", label: "Mapa"},
+  {id: "mapa", label: "Mapa", hideIfNotFound: true},
   {id: "resume", label: "Sobre", className: "d-none"},
 ];
 

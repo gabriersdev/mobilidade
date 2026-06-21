@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
+import {useLocation} from 'react-router-dom';
 import {Nav as BootstrapNav} from "react-bootstrap";
 import AnimatedComponents from "@/components/ui/animated-component/animated-components.jsx";
 import {useNavScrollspy} from "@/components/ui/nav/use-nav-scrollspy.js";
 import {elementIdsPageLine, navLinksPageLine} from "@/assets/resources.js";
+import liveMap from "@/assets/live-map.js";
 
 const NavScrollspy = ({
   closeNav, 
@@ -10,6 +12,7 @@ const NavScrollspy = ({
   elementIds = elementIdsPageLine
 }) => {
   const areaFocus = useNavScrollspy(elementIds);
+  const location = useLocation();
   
   const scrollTo = (e, id) => {
     e.preventDefault();
@@ -35,13 +38,23 @@ const NavScrollspy = ({
     
     window.location.hash = id;
   };
+
+  const lineIdMatch = location.pathname.match(/\/lines\/(\d+)/);
+  const lineId = lineIdMatch ? lineIdMatch[1] : null;
+
+  const visibleLinks = navLinks.filter(link => {
+    if (link.id === 'mapa') {
+      return lineId && Object.keys(liveMap).includes(lineId);
+    }
+    return true;
+  });
   
   return (
     <AnimatedComponents>
       <div className={"d-inline-flex gap-3 flex-wrap align-items-center justify-content-center py-2"}>
         <BootstrapNav.Item className={"h-100 align-items-center me-2 py-2 d-none gap-3 flex-wrap"}>Navegue por</BootstrapNav.Item>
         
-        {navLinks.map(link => (
+        {visibleLinks.map(link => (
           <BootstrapNav.Link
             key={link.id}
             className={`text-primary p-0 ${link.className || ''}`}
