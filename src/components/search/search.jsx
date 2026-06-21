@@ -20,6 +20,8 @@ const Search = ({value}) => {
     
     const searchDatabase = async () => {
       setIsLoaded(true);
+      setError(null);
+      setData([]);
       try {
         const response = await apiClient.post(`/lines/search/`, {search: searchSanitized});
         // console.log("Response: ", response);

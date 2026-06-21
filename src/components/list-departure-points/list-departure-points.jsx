@@ -24,6 +24,9 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
   
   useEffect(() => {
     const searchDeparturePoints = async () => {
+      setIsLoaded(true);
+      setError(null);
+      setData([]);
       try {
         const response = await apiClient.post(`/departure_points/`, {line_id: line_id}); // URL completa da sua API
         setData(response.data);

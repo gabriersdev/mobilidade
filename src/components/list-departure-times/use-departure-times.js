@@ -16,6 +16,10 @@ const useDepartureTimes = (line_id, variant) => {
   
   useEffect(() => {
     const fetchDepartureTimes = async () => {
+      setIsLoaded(true);
+      setError(null);
+      setData([]);
+      setObservations([]);
       try {
         const isHistory = variant && variant.type === "history";
         const urlTimes = isHistory ? `${config.host}/api/history/lines` : `${config.host}/api/departure_times/`;
