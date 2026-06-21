@@ -5,8 +5,8 @@ import AppLayout from '@/components/layout/app-layout.jsx';
 import {Company, DeparturePoints, Development, Guide, HistoryDayDepartureTimes, HistoryDepartureTimes, HistoryFares, Home, Lines, Live, Manifest, News, NotFound, OneDeparturePoints, Privacy, SabaraInfo, Search, TermsOfService} from "@/pages/index.d.ts";
 import CaptchaVerifier from "@/components/captcha-verifier/captcha-verifier.jsx";
 import Busao0800 from "@/pages/busao-0800/busao-0800.jsx";
-import BusDetails from "@/pages/bus-repo/bus-details.jsx";
-import BusList from "@/pages/bus-repo/bus-list.jsx";
+// import BusDetails from "@/pages/bus-repo/bus-details.jsx";
+// import BusList from "@/pages/bus-repo/bus-list.jsx";
 
 const AppRouter = () => {
   // O hook agora também pode expor uma função para realizar a verificação no backend.
@@ -41,8 +41,8 @@ const AppRouter = () => {
         <Route path="/sabara" element={<SabaraInfo/>}/>
         <Route path="/manifest" element={<Manifest/>}/>
         
-        <Route path="/bus-repo" element={<BusList/>}/>
-        <Route path="/bus-repo/:id" element={<BusDetails/>}/>
+        {/*<Route path="/bus-repo" element={<BusList/>}/>*/}
+        {/*<Route path="/bus-repo/:id" element={<BusDetails/>}/>*/}
         
         <Route path="/busao-0800" element={<Busao0800/>}/>
       </Routes>
