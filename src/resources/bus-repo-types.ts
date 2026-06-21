@@ -17,12 +17,25 @@ export enum ConservationState {
 export enum IncidentType {
   ACCIDENT = 'Acidente',
   MECHANICAL_DEFECT = 'Defeito Mecânico',
-  VANDALISM = 'Vandalismo/Depreciação',
+  VANDALISM = 'Vandalismo e depreciação',
 }
 
 export interface Company {
   id: string;
   name: string;
+}
+
+export interface GenerationBatch {
+  id: string;
+  name: string;
+}
+
+export interface Operator {
+  id: string;
+  name: string;
+  CNPJ: string;
+  contact?: string;
+  report?: string;
 }
 
 export interface ChassisModel {
@@ -57,8 +70,11 @@ export interface Vehicle {
   licensePlate: string;
   fleetNumber: string;
   status: VehicleStatus;
-  generationBatch: string;
+  generationBatch: GenerationBatch;
+  operationStartDate?: string;
+  operationEndDate?: string;
   
+  operator: Operator;
   company: Company;
   chassis: ChassisModel;
   bodywork: BodyworkModel;

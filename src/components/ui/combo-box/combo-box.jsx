@@ -12,6 +12,7 @@ export default function GenericCombobox({
   subLabel,
   required,
   placeholder = '',
+  onKeyDown,
 }) {
   const {
     items,
@@ -28,6 +29,7 @@ export default function GenericCombobox({
     itemToString,
     onSelectedItemChange,
     onInputValueChange,
+    onKeyDown,
   });
 
   return (
@@ -41,6 +43,14 @@ export default function GenericCombobox({
         getToggleButtonProps={getToggleButtonProps}
         isOpen={isOpen}
         reset={reset}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' && isOpen && highlightedIndex < 0) {
+            if (event.nativeEvent) {
+              event.nativeEvent.preventDownshiftDefault = true;
+            }
+          }
+          if (onKeyDown) onKeyDown(event);
+        }}
       />
       <ComboBoxMenu
         isOpen={isOpen}
@@ -63,4 +73,5 @@ GenericCombobox.propTypes = {
   subLabel: PropTypes.string,
   required: PropTypes.bool.isRequired,
   placeholder: PropTypes.string,
+  onKeyDown: PropTypes.func,
 };

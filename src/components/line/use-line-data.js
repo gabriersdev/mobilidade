@@ -8,6 +8,9 @@ export const useLineData = (id) => {
 
   useEffect(() => {
     const searchLine = async (id) => {
+      setIsLoaded(true);
+      setError(null);
+      setData([]);
       try {
         // Usa a instância apiClient, que já tem a baseURL e withCredentials configurados
         const response = await apiClient.post(`/lines/`, {id: id});

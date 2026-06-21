@@ -8,31 +8,67 @@ const getIconForIncident = (type) => {
       return 'bi-exclamation-triangle text-danger';
     case 'Defeito Mecânico':
       return 'bi-wrench text-warning';
-    case 'Vandalismo/Depreciação':
+    case 'Vandalismo e depreciação':
       return 'bi-slash-circle text-dark';
+    case 'Início da operação':
+      return 'bi-play-circle text-success';
+    case 'Término da operação':
+      return 'bi-stop-circle text-danger';
     default:
       return 'bi-info-circle text-primary';
   }
 };
 
 export default function HistoryTimeline({vehicle}) {
-  const {incidents, maintenances, manufactureYear} = vehicle;
+  const {incidents, maintenances, manufactureYear, operationStartDate, operationEndDate} = vehicle;
   
   // Combinar incidentes e manutenções em uma única timeline e ordenar
   const timelineEvents = [
     ...(incidents || []).map(inc => ({...inc, isMaintenance: false})),
     ...(maintenances || []).map(maint => ({...maint, isMaintenance: true, type: 'Manutenção'})),
-    
-    // Início da operação baseado no ano de fabricação
-    {
+  ];
+  // .map(inc => ({...inc, date: inc.date.replace("Z", "-03:00")}))
+  
+  if (operationStartDate) {
+    timelineEvents.push({
       id: 'init',
       vehicleId: vehicle.id,
-      date: `${manufactureYear}-01-01T00:00:00Z`,
+      date: operationStartDate,
+      description: `Entrada do veículo modelo ${vehicle.modelYear} fabricado em ${manufactureYear} na operação da frota.`,
+      type: "Início da operação",
+      isMaintenance: false
+    });
+  } else {
+    // Início da operação baseado no ano de fabricação
+    timelineEvents.push({
+      id: 'init-est',
+      vehicleId: vehicle.id,
+      date: `${manufactureYear}-01-01T00:00:00-03:00`,
       description: `Início estimado da operação do veículo modelo ${vehicle.modelYear} fabricado em ${manufactureYear}.`,
       type: "Início da operação",
       isMaintenance: false
-    }
-  ].sort((a, b) => new Date(b.date) - new Date(a.date));
+    });
+  }
+  
+  if (operationEndDate) {
+    timelineEvents.push({
+      id: 'end',
+      vehicleId: vehicle.id,
+      date: operationEndDate,
+      description: `Saída do veículo da operação.`,
+      type: "Término da operação",
+      isMaintenance: false
+    });
+  }
+  
+  timelineEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
+  
+  // Se for o de finalização da operação, tem que ser exibido ANTES dos demais
+  timelineEvents.sort((a, b) => {
+    if (a.id === "end" && b.id !== "end") return -1;
+    if (a.id !== "end" && b.id === "end") return 1;
+    return 0;
+  });
   
   return (
     <section id="historico">
@@ -40,12 +76,18 @@ export default function HistoryTimeline({vehicle}) {
       {timelineEvents.length === 0 ? (
         <p className="text-body">Nenhum evento registrado no histórico deste veículo.</p>
       ) : (
-        <div className="position-relative ms-3 border-start border-2 pb-2 border-primary-subtle">
+        <div className="position-relative ms-3 pb-2">
           {timelineEvents.map((event, index) => (
-            <div key={event.id || index} className="position-relative mb-4 ps-4">
+            <div key={event.id || index} className="position-relative pb-4 ps-4">
+              {index !== timelineEvents.length - 1 && (
+                <div
+                  className="position-absolute bg-primary-subtle"
+                  style={{ width: '2px', left: '-1px', top: '15px', height: '100%', zIndex: 0 }}
+                />
+              )}
               <div
                 className="position-absolute bg-white border border-2 border-primary-subtle rounded-circle d-flex justify-content-center align-items-center"
-                style={{width: '30px', height: '30px', left: '-16px', top: '0'}}
+                style={{width: '30px', height: '30px', left: '-15px', top: '0', zIndex: 1}}
               >
                 <i className={`bi ${event.isMaintenance ? 'bi-tools text-success' : getIconForIncident(event.type)} fs-6`}></i>
               </div>

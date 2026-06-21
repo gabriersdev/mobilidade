@@ -17,6 +17,8 @@ export default function BusList() {
   const [filters, setFilters] = useState({
     searchQuery: '',
     status: '',
+    conservationState: '',
+    sortBy: '',
     hasAc: false,
     hasWifi: false,
     hasAirSuspension: false,
@@ -44,23 +46,80 @@ export default function BusList() {
   }, []);
   
   const filteredVehicles = useMemo(() => {
-    return vehicles.filter(v => {
+    let result = vehicles.filter(v => {
       if (filters.searchQuery) {
-        const query = filters.searchQuery.toLowerCase();
-        const matchPlate = v.licensePlate.toLowerCase().includes(query);
-        const matchFleet = v.fleetNumber.toLowerCase().includes(query);
-        const matchCompany = v.company.name.toLowerCase().includes(query);
-        if (!matchPlate && !matchFleet && !matchCompany) return false;
+        let query = filters.searchQuery.toLowerCase();
+        
+        // Extrair flags de ano e chassi
+        const yearMatch = query.match(/ano:\s*(\d{4})/);
+        const chassisMatch = query.match(/chassi:\s*([a-zA-Z0-9-.]+)/i);
+
+        let flagYear = yearMatch ? parseInt(yearMatch[1], 10) : null;
+        let flagChassis = chassisMatch ? chassisMatch[1].toLowerCase() : null;
+
+        // Remover flags da query para manter a busca genérica com o texto restante
+        if (yearMatch) query = query.replace(yearMatch[0], '').trim();
+        if (chassisMatch) query = query.replace(chassisMatch[0], '').trim();
+
+        // Validar filtro de ano
+        if (flagYear && Number(v.manufactureYear) !== flagYear && Number(v.modelYear) !== flagYear) {
+          return false;
+        }
+        
+        // Validar filtro de chassi
+        if (flagChassis && !v.chassis?.model?.toLowerCase().includes(flagChassis)) {
+          return false;
+        }
+
+        // Se sobrar algum texto na query, fazer a busca padrão
+        if (query.length > 0) {
+          const matchPlate = v.licensePlate?.toLowerCase().includes(query);
+          const matchFleet = v.fleetNumber?.toLowerCase().includes(query);
+          const matchCompany = v.company?.name?.toLowerCase().includes(query);
+          const matchStatus = v.status?.toLowerCase().includes(query);
+          const matchConservationState = v.conservationState?.toLowerCase().includes(query);
+          const matchChassisManufacturer = v.chassis?.manufacturer?.toLowerCase().includes(query);
+          const matchChassisModel = v.chassis?.model?.toLowerCase().includes(query);
+          const matchBodyworkManufacturer = v.bodywork?.manufacturer?.toLowerCase().includes(query);
+          const matchBodyworkModel = v.bodywork?.model?.toLowerCase().includes(query);
+
+          if (
+            !matchPlate &&
+            !matchFleet &&
+            !matchCompany &&
+            !matchStatus &&
+            !matchConservationState &&
+            !matchChassisManufacturer &&
+            !matchChassisModel &&
+            !matchBodyworkManufacturer &&
+            !matchBodyworkModel
+          ) {
+            return false;
+          }
+        }
       }
       
       if (filters.status && v.status !== filters.status) return false;
+      if (filters.conservationState && v.conservationState !== filters.conservationState) return false;
       
       if (filters.hasAc && !v.hasAc) return false;
       if (filters.hasWifi && !v.hasWifi) return false;
-      if (filters.hasAirSuspension && !v.hasAirSuspension) return false;
+      return !(filters.hasAirSuspension && !v.hasAirSuspension);
       
-      return true;
     });
+
+    if (filters.sortBy) {
+      result.sort((a, b) => {
+        if (filters.sortBy === 'age_asc') {
+          return (a.modelYear || 0) - (b.modelYear || 0); // Mais velhos primeiro
+        } else if (filters.sortBy === 'age_desc') {
+          return (b.modelYear || 0) - (a.modelYear || 0); // Mais novos primeiro
+        }
+        return 0;
+      });
+    }
+
+    return result;
   }, [vehicles, filters]);
   
   return (

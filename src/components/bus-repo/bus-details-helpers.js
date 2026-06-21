@@ -1,8 +1,10 @@
 export const getStatusConfig = (status) => {
   switch (status) {
     case 'Em atividade':
+    case 'Ativo':
       return {icon: 'bi-check-circle-fill', color: 'text-success'};
     case 'Em manutenção':
+    case 'Manutenção':
       return {icon: 'bi-tools', color: 'text-warning'};
     case 'Desativado':
       return {icon: 'bi-x-circle-fill', color: 'text-danger'};

@@ -5,8 +5,8 @@ import Card from "@/components/ui/card/card.jsx";
 import ListLines from "@/components/line/list-lines.jsx";
 import useLines from "@/hooks/use-lines.js";
 
-const GetAndListLines = ({variant, content}) => {
-  const {data: fetchedData, error, loading} = useLines(variant);
+const GetAndListLines = ({variant, content, params}) => {
+  const {data: fetchedData, error, loading} = useLines(variant, params);
   const data = content || fetchedData;
   
   if (loading && !content) {
@@ -52,6 +52,7 @@ const GetAndListLines = ({variant, content}) => {
   const sortedData = [...data].sort(sortFn);
   
   const shuffleArray = (array) => {
+    if (variant === 'similar-lines') return array.toReversed();
     const copy = [...array];
     for (let i = copy.length - 1; i > 0; i--) {
       // eslint-disable-next-line react-hooks/purity
@@ -72,6 +73,7 @@ const GetAndListLines = ({variant, content}) => {
 GetAndListLines.propTypes = {
   variant: PropTypes.string,
   content: PropTypes.array,
+  params: PropTypes.object,
 };
 
 export default GetAndListLines;

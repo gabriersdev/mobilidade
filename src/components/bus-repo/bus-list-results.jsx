@@ -54,6 +54,8 @@ export default function BusListResults({loading, error, vehicles}) {
           </Col>
         ))}
       </Row>
+      
+      <p className={"mb-0 mt-3 text-sml text-muted"}>{vehicles.length} veículos encontrados</p>
     </div>
   );
 }

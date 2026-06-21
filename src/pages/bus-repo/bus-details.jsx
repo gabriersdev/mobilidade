@@ -10,6 +10,7 @@ import BusOperatedLines from '../../components/bus-repo/bus-operated-lines';
 import TechnicalSpecs from '../../components/bus-repo/technical-specs';
 import HistoryTimeline from '../../components/bus-repo/history-timeline';
 import bcAll from '../../components/breadcrumb-app/breadcrumb-context.jsx';
+import {VehicleStatus} from "@/resources/bus-repo-types.ts";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
@@ -73,7 +74,17 @@ export default function BusDetails() {
           </section>
         )}
         
-        <BusOperatedLines operatedLines={vehicle.operatedLines}/>
+        {
+          ![
+            VehicleStatus.DEACTIVATED.toLowerCase(),
+            "desativado"
+          ]
+            .includes(vehicle.status.toLowerCase())
+          && (
+            <BusOperatedLines operatedLines={vehicle.operatedLines}/>
+          )
+        }
+        
         <TechnicalSpecs vehicle={vehicle}/>
         <HistoryTimeline vehicle={vehicle}/>
       </div>

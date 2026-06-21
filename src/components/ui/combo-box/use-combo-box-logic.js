@@ -6,6 +6,7 @@ export const useComboBoxLogic = ({
   itemToString,
   onSelectedItemChange,
   onInputValueChange,
+  onKeyDown,
 }) => {
   const [items, setItems] = useState(initialItems);
 
@@ -69,6 +70,7 @@ export const useComboBoxLogic = ({
         onInputValueChange(inputValue);
       }
     },
+    onKeyDown,
   });
 
   return {items, ...comboboxProps};

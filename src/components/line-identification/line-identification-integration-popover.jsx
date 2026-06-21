@@ -11,7 +11,7 @@ const LineIdentificationIntegrationPopover = forwardRef(({line, ...props}, ref) 
     <Popover id="no-accessibility-popover" ref={ref} {...props}>
       <Popover.Header as="h3" className={"inter"}>Integração</Popover.Header>
       <Popover.Body className={"text-sml"}>
-        Esta linha não possui integração. Isso significa que, se você precisar fazer baldeação para chegar ao seu destino, precisará desembolsar o valor integral da baldeação.
+        Esta linha não possui integração. Isso significa que, se você precisar fazer baldeação para chegar ao seu destino, precisará desembolsar o valor integral de ambas as passagens.
       </Popover.Body>
     </Popover>
   )
@@ -22,12 +22,18 @@ const LineIdentificationIntegrationPopover = forwardRef(({line, ...props}, ref) 
       <Popover.Body className={"text-sml"}>
         <ListGroup className={"fs-inherit"}>
           <ListGroupItem className={"fs-inherit"}>
-            <span className={"fs-inherit text-primary lh-base mb-1 d-block"}>4991 {"->"} Integração MOVE Metropolitano</span>
-            <span className={"fs-inherit"}>BRL 8,80 (tarifa da linha 4991) + BRL 0,15 na integração.</span>
+            <span className={"fs-inherit text-primary lh-base mb-2 d-block"}>Linha atual {"->"} Integração MOVE Metropolitano exceto Conexão Aeroporto</span>
+            <span className={"fs-inherit"}>Valor à pagar na integração = BRL 8,95 - Tarifa atual</span>
           </ListGroupItem>
           <ListGroupItem className={"fs-inherit"}>
-            <span className={"fs-inherit text-primary lh-base"}>4991 {"->"} TREM Belo Horizonte</span><br/>
-            Não possui integração.
+            <span className={"fs-inherit text-primary lh-base mb-2 d-block"}>Linha atual {"->"} Outra linha metropolitana de RIT diferente</span>
+            <span className={"fs-inherit"}>Aprox. 50% de desconto na tarifa da linha de destino.</span>
+          </ListGroupItem>
+          <ListGroupItem className={"fs-inherit"}>
+            <span className={"fs-inherit text-primary lh-base mb-2 d-block"}>Linha atual {"->"} Metrô (trem) Belo Horizonte</span>
+            <Link to={currentTableFares} rel={"noreferrer noopener"} target={"_blank"} className={"fs-inherit"}>
+              <span className={"fs-inherit"}>Consulte a tabela de tarifas</span>
+            </Link>
           </ListGroupItem>
         </ListGroup>
         

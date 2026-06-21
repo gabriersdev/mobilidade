@@ -19,6 +19,9 @@ const ListRechargePoints = ({id_company, company_name}) => {
   
   useEffect(() => {
     const searchRechargePoints = async () => {
+      setIsLoaded(true);
+      setError(null);
+      setData([]);
       try {
         const response = await apiClient.post(`/recharge_points/`, {id_company: id_company}); // URL completa da sua API
         setData(response.data);

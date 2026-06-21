@@ -37,7 +37,6 @@ const Search = () => {
           const input = document.querySelector('input[data-testid="combobox-input"]');
           if (!input) return false;
           input.value = queryParams.get('term');
-          console.log(termSearch);
           const event = new Event("input", {bubbles: true});
           input.dispatchEvent(event);
         }, 1000);

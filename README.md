@@ -14,7 +14,7 @@ Até o momento, o projeto atende principalmente as linhas de ônibus municipais 
   - Destaque para os próximos horários do dia e partidas nos próximos 15 minutos.
   - Dados completos: Nome, origem/destino, tarifa, tipo (coletivo, executivo, etc.), abrangência, integração, concessionária e informações sobre acessibilidade.
   - Visualização de pontos de recarga e pontos de parada no mapa.
-  - Sugestão de linhas similares.
+  - Sugestão de linhas similares (algoritmo dinâmico de pontuação por localidade, empresa e proximidade numérica).
 - **Acompanhamento em Tempo Real (Live)**: Monitoramento da aproximação de ônibus em pontos de parada com base em estatísticas e previsibilidade.
 - **Guia de Transporte**: Ferramenta para descobrir quais linhas atendem a determinados locais.
 - **Verificação de Dias Facultativos**: Componente e scripts para verificação de dias facultativos.
@@ -22,7 +22,7 @@ Até o momento, o projeto atende principalmente as linhas de ônibus municipais 
 - **Repositório de Veículos (Frota)**:
   - Banco de dados unificado de veículos de transporte com busca por placa, prefixo ou modelo.
   - Informações técnicas, configurações de chassi/carroceria e detalhes operacionais.
-  - Histórico de manutenções e incidentes vinculados a cada veículo.
+  - Histórico de manutenções, incidentes vinculados a cada veículo e informações de entrada e saída da operação.
 - **Histórico**:
   - Histórico de quadros de horários antigos.
   - Histórico de alterações de tarifas.

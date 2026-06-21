@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {Modal} from 'react-bootstrap';
 import ReportForm from "@/components/report/report-form.jsx";
+import {incidentOptions} from "@/resources/incident-options.js";
 
 const ReportIncidentModal = () => {
   const [showModal, setShowModal] = useState(false);
@@ -25,7 +26,7 @@ const ReportIncidentModal = () => {
           <Modal.Title className={"fw-semibold"} style={{fontSize: "1.35rem"}}>Informar um incidente</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <ReportForm handleCloseModal={handleCloseModal}/>
+          <ReportForm handleCloseModal={handleCloseModal} options={incidentOptions}/>
         </Modal.Body>
       </Modal>
     </>

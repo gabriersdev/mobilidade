@@ -11,6 +11,9 @@ export const useLineWarnings = (line_id) => {
   
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      setData([]);
       try {
         const response = await apiClient.post(`/line_warnings/`, {line_id: line_id});
         const responseWithId = response.data.map((d, i) => ({...d, id: i}));
