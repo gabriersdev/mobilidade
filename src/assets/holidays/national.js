@@ -17,4 +17,6 @@ export const holidaysForAllScopes = [
   {name: "Assunção de Nossa Senhora", month: 12, day: 8},
   {name: "Véspera de Natal", month: 12, day: 24},
   {name: "Véspera de Ano Novo", month: 12, day: 31},
-]
+  // WARNING - lançando AQUI para que o sistema rode as previsões com o quadro de horários de sábado, já que este dia será ponto facultativo A PARTIR DAS 12H. Contudo, não há validação nem tratamento no sistema para que ele interprete a mudança de horário...
+  {name: "Ponto facultativo: Jogo Brasil - Copa do Mundo 2026", month: 6, day: 29},
+];

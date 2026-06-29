@@ -34,5 +34,11 @@ export default [
     link: "https://busao0800.com",
     init: "2026-06-10T00:00:00-03:00",
     finish: "2026-06-30T00:00:00-03:00",
+  }, {
+    title: "Jogo do Brasil em 29/06 - Copa do Mundo: Mudança no quadro de horários",
+    message: (<>As linhas metropolitanas operarão até as 12h no quadro de horários de dia útil atípico e, a partir, das 12h01, quadro de horário de sábados. Para as linhas municipais não obtivemos informações.</>),
+    link: "/news/12",
+    init: "2026-06-28T00:00:00-03:00",
+    finish: "2026-06-30T00:00:00-03:00",
   }
 ]

@@ -10,6 +10,7 @@ import news8 from './8.js';
 import news9 from './9.js';
 import news10 from './10.js';
 import news11 from './11.js';
+import news12 from './12.js';
 
 const news = [
   news0,
@@ -23,7 +24,8 @@ const news = [
   news8,
   news9,
   news10,
-  news11
+  news11,
+  news12
 ];
 
 const returnNews = news.map((n, i) => {
