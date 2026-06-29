@@ -27,7 +27,7 @@ export const busRepoService = {
       const response = await axios.get(`${config.host}/api/vehicles/${id}`);
       return response.data;
     } catch (error) {
-      console.error(`Erro ao buscar detalhes do veículo ${id}:`, error);
+      console.error('Erro ao buscar detalhes do veículo %s:', id, error);
       throw error;
     }
   }
