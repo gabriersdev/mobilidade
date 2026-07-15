@@ -52,7 +52,7 @@
     "react-dom": "^19.2.7",
     "react-input-mask": "^2.0.4",
     "react-leaflet": "^5.0.0",
-    "react-router-dom": "^7.18.0",
+    "react-router-dom": "^7.18.1",
     "rolldown": "1.0.3",
     "semantic-release": "^25.0.7",
     "vercel": "^54.15.0"
