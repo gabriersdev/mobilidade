@@ -69,7 +69,7 @@ const LineIdentificationInfoList = ({
           <div className="d-flex align-items-center gap-1">
             <i className="bi bi-calendar-date d-inline-block"></i>
             <span className="text-body fw-medium ms-1">
-              {countDepartureTimes > 0 ? countDepartureTimes.toLocaleString() : "Nenhuma"} {countDepartureTimes > 1 ? "partidas" : "partida"} durante a semana
+              {countDepartureTimes > 0 ? countDepartureTimes.toLocaleString() : "Nenhuma"} {countDepartureTimes > 1 ? "partidas" : "partida"} nos quadros de horários durante a semana
             </span>
           </div>
         </InfoItem>
