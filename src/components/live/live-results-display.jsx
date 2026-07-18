@@ -5,6 +5,8 @@ import {AlertInfoConfigSomeDepartureStart, AlertInfoFeature, AnyBusProximityErro
 import LiveListSingleLine from "./live-list-single-line.jsx";
 import LiveListResults from "./live-list-results.jsx";
 import LiveFullscreenControl from "./live-fullscreen-control.jsx";
+import {OverlayTrigger, Tooltip} from "react-bootstrap";
+import LiveLinesAtPoint from "./live-lines-at-point.jsx";
 
 const LiveResultsDisplay = ({
                               departurePointSelected,
@@ -28,9 +30,13 @@ const LiveResultsDisplay = ({
       
       {departurePointSelected ? (
         <>
-          <div className={"d-flex flex-column gap-0 mb-3"}>
-            <span className={"text-muted text-sml"}>Local</span>
-            <span>{Util.renderText(departurePointSelected?.["title"])}</span>
+          <div className={"d-flex align-items-center justify-content-between gap-3"}>
+            <div className={"d-flex flex-column gap-0 mb-3 flex-grow-1 flex-shrink-1"}>
+              <span className={"text-muted text-sml"}>Local</span>
+              <span>{Util.renderText(departurePointSelected?.["title"])}</span>
+            </div>
+            
+            <LiveLinesAtPoint data={data} />
           </div>
           
           {loading ? (
