@@ -12,8 +12,27 @@ export const useLineData = (id) => {
       setError(null);
       setData([]);
       try {
-        // Usa a instância apiClient, que já tem a baseURL e withCredentials configurados
-        const response = await apiClient.post(`/lines/`, {id: id});
+        let finalId = id;
+        
+        // Verifica se é um UUID (padrão 36 caracteres com hifens)
+        const isUuid = typeof finalId === 'string' && /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(finalId);
+        
+        if (!isUuid) {
+          // Se não for UUID, assumimos que é o número da linha ou formato 'linha-XXXX'
+          let searchTerm = typeof finalId === 'string' ? finalId.replace('linha-', '') : finalId;
+          
+          const searchResponse = await apiClient.post(`/lines/search/`, {search: searchTerm});
+          if (searchResponse.data && searchResponse.data.length > 0) {
+            finalId = searchResponse.data[0].line_id;
+          } else {
+            setData([]);
+            setIsLoaded(false);
+            return;
+          }
+        }
+        
+        // Faz a busca da linha pelo verdadeiro UUID
+        const response = await apiClient.post(`/lines/`, {id: finalId});
         setData(response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);

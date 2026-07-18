@@ -12,7 +12,7 @@ import LineDetails from "@/components/line/line-details.jsx";
 const Line = ({id}) => {
   const {data, error, isLoaded} = useLineData(id);
   const paradasSection = useRef(null);
-  usePageEffects(data, paradasSection);
+  usePageEffects(id, data, paradasSection);
   
   if (isLoaded) {
     return <LinePlaceholder/>;
@@ -33,7 +33,7 @@ const Line = ({id}) => {
           <div className={"d-flex flex-column gap-1"}>
             <span>Informações sobre a linha não foram encontradas.</span>
             <span>{" "}</span>
-            <span className={"text-sml"}>Isso pode acontecer se a linha foi desativada, suspensa ou não existe.</span>
+            <span className={"text-sml"}>Isso acontece caso a linha tenha sido desativada, for suspensa ou não existir.</span>
           </div>
         </Alert>
       </AnimatedComponents>
