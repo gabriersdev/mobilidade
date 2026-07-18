@@ -14,12 +14,14 @@ export const useLineData = (id) => {
       try {
         let finalId = id;
         
-        // Verifica se é um UUID (padrão 36 caracteres com hifens)
-        const isUuid = typeof finalId === 'string' && /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(finalId);
+        const finalIdStr = String(finalId);
         
-        if (!isUuid) {
-          // Se não for UUID, assumimos que é o número da linha ou formato 'linha-XXXX'
-          let searchTerm = typeof finalId === 'string' ? finalId.replace('linha-', '') : finalId;
+        // Verifica se a busca deve ser feita pelo número da linha
+        // Isso ocorre apenas se o ID tiver exatamente 4 dígitos ou começar com 'linha-'
+        const isLineNumberSearch = finalIdStr.startsWith('linha-') || /^\d{4}$/.test(finalIdStr);
+        
+        if (isLineNumberSearch) {
+          let searchTerm = finalIdStr.replace('linha-', '');
           
           const searchResponse = await apiClient.post(`/lines/search/`, {search: searchTerm});
           if (searchResponse.data && searchResponse.data.length > 0) {
