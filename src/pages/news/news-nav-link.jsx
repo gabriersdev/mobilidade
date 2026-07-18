@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Util from "@/lib/Util.jsx";
 
 const NavLink = ({article, direction}) => {
   if (!article) return <div/>;
@@ -17,7 +18,7 @@ const NavLink = ({article, direction}) => {
         {label}
         {direction === "next" && <>{" "}<i className="bi bi-arrow-right-short"></i></>}
       </small>
-      <span className="line-clamp-1" style={{maxWidth: 200}}>{isPrev && arrow} {article.title} {!isPrev && arrow}</span>
+      <span className="line-clamp-1" style={{maxWidth: 200}}>{isPrev && arrow} {Util.renderText(article.title)} {!isPrev && arrow}</span>
     </Link>
   );
 };

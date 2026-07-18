@@ -4,7 +4,7 @@ import bcAll from '../breadcrumb-app/breadcrumb-context.jsx';
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
-export const usePageEffects = (data, paradasSection) => {
+export const usePageEffects = (id, data, paradasSection) => {
   const params = useLocation();
   const {setLabel} = useBreadcrumb();
 
@@ -12,11 +12,11 @@ export const usePageEffects = (data, paradasSection) => {
     if (data && data.length > 0) {
       const line = data[0];
       document.title = `Linha ${line.line_number} | ${line.departure_location} - ${line.destination_location} | Transporte Público em Sabará - MG`;
-      setLabel(line.line_id, `${line.line_number} - ${line.departure_location} ⇄ ${line.destination_location}`);
+      setLabel(id, `${line.line_number} - ${line.departure_location} ⇄ ${line.destination_location}`);
     } else {
       document.title = "Mobilidade - Consulta Linha - Transporte Público em Sabará - MG";
     }
-  }, [data, setLabel]);
+  }, [id, data, setLabel]);
 
   useEffect(() => {
     const {hash} = params;

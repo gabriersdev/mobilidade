@@ -1,10 +1,11 @@
-import { arraysEqual, createArray, greaterThan } from "./array-utils.js";
-import { formatTime, translateMonth, diffToHuman, translateWeekDay, parseDatetimeTimezone } from "./date-utils.js";
-import { updateActiveLink, isSameDomain, clearServiceWorker, getSearchParamId } from "./dom-utils.js";
-import { getTodayHolidayData, getTodayVacationData, getCurrentDayGroupName } from "./holiday-utils.js";
-import { convertNumberToDay, getBestMatchDayIndex } from "./day-utils.js";
-import { renderText, wrapTextInArialIfNeeded, processContents } from "./react-utils.jsx";
-import { resumeInfoLine, convertToSafeText, normalize, directionToText, getDirectionTitle, formatMoney, checkIsValid } from "./string-utils.js";
+import {arraysEqual, createArray, greaterThan} from "./array-utils.js";
+import {diffToHuman, formatTime, parseDatetimeTimezone, translateMonth, translateWeekDay} from "./date-utils.js";
+import {clearServiceWorker, getSearchParamId, isSameDomain, updateActiveLink} from "./dom-utils.js";
+import {getCurrentDayGroupName, getTodayHolidayData, getTodayVacationData} from "./holiday-utils.js";
+import {convertNumberToDay, getBestMatchDayIndex} from "./day-utils.js";
+import {processContents, renderText, wrapTextInArialIfNeeded} from "./react-utils.jsx";
+import {checkIsValid, convertToSafeText, directionToText, formatMoney, getDirectionTitle, normalize, resumeInfoLine} from "./string-utils.js";
+import {compareIntervals, formatFriendlyDuration} from "@/lib/interval-utils.js";
 
 export default class Util {
   static updateActiveLink = updateActiveLink;
@@ -34,4 +35,6 @@ export default class Util {
   static getSearchParamId = getSearchParamId;
   static getBestMatchDayIndex = getBestMatchDayIndex;
   static checkIsValid = checkIsValid;
+  static compareIntervals = compareIntervals;
+  static formatFriendlyDuration = formatFriendlyDuration;
 }

@@ -24,7 +24,7 @@ const AccordionOperationDays = () => {
       const newDefaultKey = defaultIndex !== -1 ? [defaultIndex.toString()] : [];
       setDefaultEventKey(newDefaultKey);
       
-      setDayData({ daysForDirection, convertedDayNames, defaultIndex });
+      setDayData({daysForDirection, convertedDayNames, defaultIndex});
     };
     
     fetchData().then();
@@ -32,7 +32,7 @@ const AccordionOperationDays = () => {
   
   if (!dayData) return <div>Carregando dias de operação...</div>;
   
-  const { daysForDirection, convertedDayNames, defaultIndex } = dayData;
+  const {daysForDirection, convertedDayNames, defaultIndex} = dayData;
   const totalItems = daysForDirection.length;
   
   return (

@@ -12,8 +12,29 @@ export const useLineData = (id) => {
       setError(null);
       setData([]);
       try {
-        // Usa a instância apiClient, que já tem a baseURL e withCredentials configurados
-        const response = await apiClient.post(`/lines/`, {id: id});
+        let finalId = id;
+        
+        const finalIdStr = String(finalId);
+        
+        // Verifica se a busca deve ser feita pelo número da linha
+        // Isso ocorre apenas se o ID tiver exatamente 4 dígitos ou começar com 'linha-'
+        const isLineNumberSearch = finalIdStr.startsWith('linha-') || /^\d{4}$/.test(finalIdStr);
+        
+        if (isLineNumberSearch) {
+          let searchTerm = finalIdStr.replace('linha-', '');
+          
+          const searchResponse = await apiClient.post(`/lines/search/`, {search: searchTerm});
+          if (searchResponse.data && searchResponse.data.length > 0) {
+            finalId = searchResponse.data[0].line_id;
+          } else {
+            setData([]);
+            setIsLoaded(false);
+            return;
+          }
+        }
+        
+        // Faz a busca da linha pelo verdadeiro UUID
+        const response = await apiClient.post(`/lines/`, {id: finalId});
         setData(response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);

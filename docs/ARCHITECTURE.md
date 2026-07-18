@@ -38,3 +38,10 @@ Para o gerenciamento de estado, a aplicação pode usar uma combinação de esta
 ## Estilo
 
 Os estilos são definidos no diretório `styles/` e podem estar usando uma variedade de abordagens, como CSS Modules, Styled Components ou uma biblioteca de UI como Material-UI.
+
+## Build e Performance (Cache)
+
+O processo de build do projeto é gerenciado pelo Vite, utilizando internamente o Rollup. O projeto já implementa estratégias de cache e otimização para a entrega da aplicação em produção, configuradas no `vite.config.js`:
+
+- **Cache Busting (Hashing):** Todos os assets e chunks gerados incluem um hash dinâmico em seus nomes (ex: `[name].[hash].js`). Isso garante que os navegadores baixem as versões mais recentes sempre que houver mudanças no código, enquanto mantêm o cache agressivo para os arquivos intactos.
+- **Code Splitting (Vendor Chunks):** Bibliotecas e dependências de terceiros maiores (como `react-bootstrap`, `bootstrap-icons`, `moment` e o conteúdo da pasta `node_modules`) são separadas de forma explícita da lógica da aplicação por meio da configuração `manualChunks`. Como essas bibliotecas são atualizadas com menos frequência, elas permanecem no cache do navegador por longos períodos em deploys sucessivos, melhorando substancialmente o tempo de carregamento da aplicação.

@@ -30,8 +30,34 @@ export const useGuide = () => {
     try {
       const response = await apiClient.get(`/guide`);
       if (response.data) {
-        setOriginalData(response.data);
-        setFilteredData(response.data);
+        const normalized = {};
+        for (const [key, value] of Object.entries(response.data)) {
+          let cleanKey = key.trim().replace(/\s+/g, ' ');
+          if (cleanKey.length > 0) {
+            cleanKey = cleanKey.charAt(0).toUpperCase() + cleanKey.slice(1);
+          }
+          
+          const existingKey = Object.keys(normalized).find(
+            k => k.toLowerCase() === cleanKey.toLowerCase()
+          );
+          
+          if (existingKey) {
+            const mergedLines = [...normalized[existingKey], ...value];
+            const uniqueLinesMap = new Map();
+            mergedLines.forEach(line => {
+              if (line && line.lineId) {
+                uniqueLinesMap.set(line.lineId, line);
+              } else if (line) {
+                uniqueLinesMap.set(JSON.stringify(line), line);
+              }
+            });
+            normalized[existingKey] = Array.from(uniqueLinesMap.values());
+          } else {
+            normalized[cleanKey] = [...value];
+          }
+        }
+        setOriginalData(normalized);
+        setFilteredData(normalized);
       } else {
         setError(GENERIC_ERROR);
       }

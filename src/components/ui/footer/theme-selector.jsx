@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const ThemeSelector = ({theme, onThemeChange}) => {
   return (
-    <DropdownButton id="dropdown-basic-button" title="Tema" variant="secondary" className="mt-1 rounded-circle">
+    <DropdownButton id="dropdown-theme-button" title="Tema" variant="secondary" className="mt-1 rounded-circle">
       <DropdownItem active={["default", "light"].includes(theme)} onClick={() => onThemeChange("light")}>
         Claro
       </DropdownItem>
