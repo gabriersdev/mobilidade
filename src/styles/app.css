@@ -70,7 +70,9 @@
   text-wrap: balance;
 }
 
-.text-sml {
+.text-sml,
+.small,
+.text-small {
   font-size: 13px !important;
 }
 
