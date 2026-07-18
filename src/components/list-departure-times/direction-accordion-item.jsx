@@ -16,49 +16,52 @@ const DirectionAccordionItem = ({
                                   observations,
                                   type,
                                   scope,
-                                }) => (
-  <AccordionItem
-    title={
-      <DirectionTitle
-        direction={direction}
-        departure={departure_location}
-        destination={destination_location}
-      />
-    }
-    eventKey={eventKey}
-  >
-    <ThemeContext.Provider
-      value={{
-        departureTimes,
-        uniqueDaysForDirection: sortedDays,
-        index: eventKey,
-        direction,
-        directionName: (
-          <DirectionTitle
-            direction={direction}
-            departure={departure_location}
-            destination={destination_location}
-          />
-        ),
-        observations,
-        type,
-        scope,
-      }}
+                                }) => {
+  
+  return (
+    <AccordionItem
+      title={
+        <DirectionTitle
+          direction={direction}
+          departure={departure_location}
+          destination={destination_location}
+        />
+      }
+      eventKey={eventKey}
     >
-      <AccordionOperationDays/>
-      <div className="d-flex gap-2 align-items-center mt-4">
-        <OverlayTrigger overlay={<Tooltip>Não houve alteração no quadro de horários</Tooltip>}>
+      <ThemeContext.Provider
+        value={{
+          departureTimes,
+          uniqueDaysForDirection: sortedDays,
+          index: eventKey,
+          direction,
+          directionName: (
+            <DirectionTitle
+              direction={direction}
+              departure={departure_location}
+              destination={destination_location}
+            />
+          ),
+          observations,
+          type,
+          scope,
+        }}
+      >
+        <AccordionOperationDays/>
+        <div className="d-flex gap-2 align-items-center mt-4">
+          <OverlayTrigger overlay={<Tooltip>Não houve alteração no quadro de horários</Tooltip>}>
           <span>
             <i className="bi bi-dash-circle-fill text-primary"></i>
           </span>
-        </OverlayTrigger>
-        <span className="text-body-secondary line-clamp-1 text-sml">
+          </OverlayTrigger>
+          <span className="text-body-secondary line-clamp-1 text-sml">
           {departureTimes.length.toLocaleString()} horários de partidas neste sentido.
         </span>
-      </div>
-    </ThemeContext.Provider>
-  </AccordionItem>
-);
+        </div>
+      </ThemeContext.Provider>
+    </AccordionItem>
+  );
+}
 
 DirectionAccordionItem.propTypes = {
   direction: PropTypes.number.isRequired,

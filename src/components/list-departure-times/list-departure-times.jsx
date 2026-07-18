@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import {Placeholder} from "react-bootstrap";
 import PropTypes from "prop-types";
 import useDepartureTimes from "./use-departure-times.js";
@@ -66,9 +66,9 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location, 
   if (isLoaded) return (
     <AnimatedComponents>
       <Placeholder as="div" animation="glow" className="mt-3">
-        <Placeholder xs={12} className="mb-2" />
-        <Placeholder xs={10} className="mb-2" />
-        <Placeholder xs={8} />
+        <Placeholder xs={12} className="mb-2"/>
+        <Placeholder xs={10} className="mb-2"/>
+        <Placeholder xs={8}/>
       </Placeholder>
     </AnimatedComponents>
   );
@@ -83,7 +83,16 @@ const ListDepartureTimes = ({line_id, departure_location, destination_location, 
     <AnimatePresence mode={"wait"}>
       <AnimatedComponent>
         <DepartureTimeContext>
-          <Intermediate data={data} observations={observations} line_id={line_id} departure_location={departure_location} destination_location={destination_location} sortedDays={sortedDays} type={variant?.type || "current"} scope={scope} />
+          <Intermediate
+            data={data}
+            observations={observations}
+            line_id={line_id}
+            departure_location={departure_location}
+            destination_location={destination_location}
+            sortedDays={sortedDays}
+            type={variant?.type || "current"}
+            scope={scope}
+          />
         </DepartureTimeContext>
       </AnimatedComponent>
     </AnimatePresence>

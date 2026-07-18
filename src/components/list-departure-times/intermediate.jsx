@@ -3,15 +3,17 @@ import Accordion from '../ui/accordion/accordion.jsx';
 import OffCanvasDepartureTimes from './off-canvas-departure-times.jsx';
 import DirectionAccordionItem from './direction-accordion-item.jsx';
 
-export default function Intermediate({
-                                       data = [],
-                                       observations,
-                                       departure_location,
-                                       destination_location,
-                                       sortedDays,
-                                       type,
-                                       scope,
-                                     }) {
+export default function Intermediate(
+  {
+    data = [],
+    observations,
+    departure_location,
+    destination_location,
+    sortedDays,
+    type,
+    scope,
+  }
+) {
   const departureTimes = data.toSorted((a, b) => a.day - b.day);
   const uniqueDirections = [
     ...new Set(departureTimes.map((item) => item.direction)),
