@@ -12,11 +12,8 @@ export default function TechnicalSpecs({vehicle}) {
     {label: 'Tecnologia de otimização', value: vehicle.optimizationTechnology || "-"},
     {label: 'Geração/Leva', value: vehicle.generationBatch?.name || "-"},
     
-    // TODO - adicionar a documentação, ao schema e ao banco de dados
-    // TODO - Tem que criar uma tabela de formatações e um script separado apenas para esta tabela de formatacao do veiculo - puxar com id para o ônibus (mais uma chave est.)
-    {label: 'Identificador da formatação do veículo', value: '-'},
-    // TODO - Tem que criar uma tabela de identidades e um script separado apenas para esta tabela de identidades - puxar com id para o ônibus (mais uma chave est.)
-    {label: 'Identidade', value: 'Adesivação "TREM" - ônibus sem ar-condicionado'},
+    {label: 'Identificador da formatação do veículo', value: vehicle.formatting?.name || "-"},
+    {label: 'Identidade', value: vehicle.identity?.name || "-"},
   ];
   
   const comfortSpecsData = [

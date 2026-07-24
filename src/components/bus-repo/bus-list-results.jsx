@@ -3,8 +3,15 @@ import Grid from '../ui/grid/grid.jsx';
 import Card from '../ui/card/card.jsx';
 import BusCard from './bus-card.jsx';
 import {Col, Row} from 'react-bootstrap';
+import {useState, useEffect} from 'react';
+import PaginationWithItems from '../pagination-with-items/pagination-with-items.jsx';
 
 export default function BusListResults({loading, error, vehicles}) {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [vehicles]);
   if (loading) {
     return (
       <div className="mt-5">
@@ -47,13 +54,18 @@ export default function BusListResults({loading, error, vehicles}) {
   return (
     <div className={"mt-5"}>
       {/*<p className="text-muted mb-3">{vehicles.length} veículo(s) encontrado(s).</p>*/}
-      <Row className="g-4">
-        {vehicles.map(vehicle => (
+      <PaginationWithItems
+        items={vehicles.map(vehicle => (
           <Col xs={12} md={6} lg={4} key={vehicle.id}>
             <BusCard vehicle={vehicle}/>
           </Col>
         ))}
-      </Row>
+        itemsPerPage={12}
+        classNameOfContainer="row g-4"
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
+        beforeSelector={true}
+      />
       
       <p className={"mb-0 mt-3 text-sml text-muted"}>{vehicles.length} veículos encontrados</p>
     </div>

@@ -2,6 +2,38 @@
 -- Este script cria as novas tabelas seguindo as diretrizes (DATABASE-GUIDELINES.md)
 -- e estabelece os relacionamentos com as tabelas legadas (companies e lines).
 
+-- 0.1 vehicleFormatting
+CREATE TABLE IF NOT EXISTS `vehicleFormatting` (
+  `id` CHAR(36) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+
+  -- Colunas de Auditoria
+  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `createdBy` INT NOT NULL,
+  `updatedBy` INT NOT NULL,
+  `isActive` BOOLEAN NOT NULL DEFAULT TRUE,
+  `deletedAt` TIMESTAMP NULL,
+
+  CONSTRAINT `pkVehicleFormatting` PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 0.2 vehicleIdentity
+CREATE TABLE IF NOT EXISTS `vehicleIdentity` (
+  `id` CHAR(36) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+
+  -- Colunas de Auditoria
+  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `createdBy` INT NOT NULL,
+  `updatedBy` INT NOT NULL,
+  `isActive` BOOLEAN NOT NULL DEFAULT TRUE,
+  `deletedAt` TIMESTAMP NULL,
+
+  CONSTRAINT `pkVehicleIdentity` PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- 1. chassisModel
 CREATE TABLE IF NOT EXISTS `chassisModel` (
                                             `id` CHAR(36) NOT NULL,
@@ -50,6 +82,8 @@ CREATE TABLE IF NOT EXISTS `vehicle` (
   `companyId` INT NOT NULL,
   `chassisModelId` CHAR(36) NOT NULL,
   `bodyworkModelId` CHAR(36) NOT NULL,
+  `vehicleFormattingId` CHAR(36),
+  `vehicleIdentityId` CHAR(36),
 
   `manufactureYear` INT,
   `modelYear` INT,
@@ -85,7 +119,9 @@ CREATE TABLE IF NOT EXISTS `vehicle` (
   CONSTRAINT `fkVehicleCompanies` FOREIGN KEY (`companyId`) REFERENCES `companies`(`company_id`),
   CONSTRAINT `fkVehicleGenerationBatch` FOREIGN KEY (`generationBatchId`) REFERENCES `generationBatch`(`id`),
   CONSTRAINT `fkVehicleChassisModel` FOREIGN KEY (`chassisModelId`) REFERENCES `chassisModel`(`id`),
-  CONSTRAINT `fkVehicleBodyworkModel` FOREIGN KEY (`bodyworkModelId`) REFERENCES `bodyworkModel`(`id`)
+  CONSTRAINT `fkVehicleBodyworkModel` FOREIGN KEY (`bodyworkModelId`) REFERENCES `bodyworkModel`(`id`),
+  CONSTRAINT `fkVehicleFormatting` FOREIGN KEY (`vehicleFormattingId`) REFERENCES `vehicleFormatting`(`id`),
+  CONSTRAINT `fkVehicleIdentity` FOREIGN KEY (`vehicleIdentityId`) REFERENCES `vehicleIdentity`(`id`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 4. vehicleLine

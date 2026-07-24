@@ -8,8 +8,7 @@ export default function VehicleIdentity() {
         <Title type="h2" title="Identidade" classX="text-body-secondary mb-4"/>
         <div className={"d-flex flex-column gap-4"} id="identidade">
           <div className="d-flex gap-2 align-items-start flex-wrap">
-            {/*TODO - deve ser um circulo de duas cores separadas transversalmente (+- 45deg), sendo 1 a #2631FF e outra #FF00FF*/}
-            <div style={{width: 32, height: 32, background: "#2631FF"}} className={"rounded-circle"}></div>
+            <div style={{width: 32, height: 32, background: "linear-gradient(135deg, #2631FF 50%, #FF00FF 50%)"}} className={"rounded-circle"}></div>
             {/*Fim do circulo*/}
             <div className={"d-flex flex-column gap-2"}>
               <h3 className={"fs-6 text-body lh-base inter d-block fw-semibold m-0 p-0"}>Adesivação TREM - ônibus sem ar-condicionado</h3>
@@ -17,8 +16,7 @@ export default function VehicleIdentity() {
             </div>
           </div>
           <div>
-            {/*TODO - formar grid de imagens com os LazyImage's*/}
-            <div className={"overflow-x-scroll d-flex gap-3 pb-3"}>
+            <div className={"d-grid gap-3 pb-3"} style={{gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))"}}>
               <LazyImage src={"#"} alt={""} width={600} height={600}/>
               <LazyImage src={"#"} alt={""} width={600} height={300}/>
               <LazyImage src={"#"} alt={""} width={600} height={300}/>
