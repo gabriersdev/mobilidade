@@ -47,8 +47,9 @@ const navLinks = [
   {name: "Início", path: "./"},
   {name: "Linhas", path: "./lines"},
   {name: "Pesquisa", path: "./search", mobileOnly: true},
-  {name: "Notícias", path: "./news"},
   {name: "Guia", path: "./guide"},
+  {name: "Frotas", path: "./bus-repo", newTagLimit: "2026-08-25T00:00:00"},
+  {name: "Notícias", path: "./news"},
   {name: "Ao vivo", path: "./live", isLive: true},
   {name: "Cidade de Sabará", path: "./sabara", mobileOnly: true, showOnlyFooter: true},
   {name: "Companhias", path: "./company", mobileOnly: true, showOnlyFooter: true},
@@ -122,9 +123,10 @@ const elementIdsPageLine = [
 
 const navLinksPageBus = [
   {id: "id", label: "Identificação", className: "d-none d-sm-inline-block"},
-  {id: "linhas-operadas", label: "Linhas"},
+  // {id: "linhas-operadas", label: "Linhas"},
   {id: "especificacoes-tecnicas", label: "Técnica"},
   {id: "conforto-e-acessibilidade", label: "Conforto"},
+  // {id: "identidade", label: "Identidade"},
   {id: "historico", label: "Histórico"},
 ];
 
@@ -133,6 +135,7 @@ const elementIdsPageBus = [
   "linhas-operadas",
   "especificacoes-tecnicas",
   "conforto-e-acessibilidade",
+  "identidade",
   "historico"
 ];
 

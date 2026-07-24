@@ -34,7 +34,7 @@ export default function HistoryTimeline({vehicle}) {
       id: 'init',
       vehicleId: vehicle.id,
       date: operationStartDate,
-      description: `Entrada do veículo modelo ${vehicle.modelYear} fabricado em ${manufactureYear} na operação da frota.`,
+      description: `Entrada do veículo modelo ${vehicle.modelYear} fabricado em ${manufactureYear} na operação da frota do operador "${vehicle.operator.name}".`,
       type: "Início da operação",
       isMaintenance: false
     });

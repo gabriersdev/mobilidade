@@ -1,14 +1,14 @@
 import {Link} from "react-router-dom";
 import {Image, OverlayTrigger, Tooltip} from "react-bootstrap";
 
-const FEATURED_COMPANIES = [
+const featureCompanies = [
   {name: "Vinscol", path: "/company/3", logo: "vinscol.svg"},
   {name: "Transporte Coletivo Metropolitano - MG", path: "/company/4", logo: "der-mg.png"},
 ];
 
 const FeaturedCompanies = () => (
   <div className="d-flex align-items-center flex-wrap gap-1 justify-content-center my-2 my-md-0">
-    {FEATURED_COMPANIES.map((company) => (
+    {featureCompanies.map((company) => (
       <OverlayTrigger
         key={company.path}
         overlay={

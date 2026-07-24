@@ -5,6 +5,7 @@ import AnimatedComponents from "@/components/ui/animated-component/animated-comp
 import Title from "@/components/ui/title/title.jsx";
 import BusListResults from '../../components/bus-repo/bus-list-results';
 import bcAll from '../../components/breadcrumb-app/breadcrumb-context.jsx';
+import PaginationWithItems from "@/components/pagination-with-items/pagination-with-items.jsx";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
@@ -25,8 +26,8 @@ export default function BusList() {
   });
   
   useEffect(() => {
-    document.title = "Mobilidade - Frota de Ônibus";
-    setLabel("bus-repo", "Frota de Ônibus");
+    document.title = "Mobilidade - Frotas de Ônibus";
+    setLabel("bus-repo", "Frotas de Ônibus");
   }, [setLabel]);
   
   useEffect(() => {
@@ -53,14 +54,14 @@ export default function BusList() {
         // Extrair flags de ano e chassi
         const yearMatch = query.match(/ano:\s*(\d{4})/);
         const chassisMatch = query.match(/chassi:\s*([a-zA-Z0-9-.]+)/i);
-
+        
         let flagYear = yearMatch ? parseInt(yearMatch[1], 10) : null;
         let flagChassis = chassisMatch ? chassisMatch[1].toLowerCase() : null;
-
+        
         // Remover flags da query para manter a busca genérica com o texto restante
         if (yearMatch) query = query.replace(yearMatch[0], '').trim();
         if (chassisMatch) query = query.replace(chassisMatch[0], '').trim();
-
+        
         // Validar filtro de ano
         if (flagYear && Number(v.manufactureYear) !== flagYear && Number(v.modelYear) !== flagYear) {
           return false;
@@ -70,7 +71,7 @@ export default function BusList() {
         if (flagChassis && !v.chassis?.model?.toLowerCase().includes(flagChassis)) {
           return false;
         }
-
+        
         // Se sobrar algum texto na query, fazer a busca padrão
         if (query.length > 0) {
           const matchPlate = v.licensePlate?.toLowerCase().includes(query);
@@ -82,7 +83,7 @@ export default function BusList() {
           const matchChassisModel = v.chassis?.model?.toLowerCase().includes(query);
           const matchBodyworkManufacturer = v.bodywork?.manufacturer?.toLowerCase().includes(query);
           const matchBodyworkModel = v.bodywork?.model?.toLowerCase().includes(query);
-
+          
           if (
             !matchPlate &&
             !matchFleet &&
@@ -107,7 +108,7 @@ export default function BusList() {
       return !(filters.hasAirSuspension && !v.hasAirSuspension);
       
     });
-
+    
     if (filters.sortBy) {
       result.sort((a, b) => {
         if (filters.sortBy === 'age_asc') {
@@ -118,7 +119,7 @@ export default function BusList() {
         return 0;
       });
     }
-
+    
     return result;
   }, [vehicles, filters]);
   
@@ -126,12 +127,14 @@ export default function BusList() {
     <div>
       <div className="d-flex flex-column gap-4 gap-sm-5">
         <AnimatedComponents>
-          <Title title="Informações de Ônibus" id="topo" classX="text-body-secondary"/>
+          <Title title="Frotas de Ônibus" id="topo" classX="text-body-secondary"/>
+          {/*TODO - adicionar componente FeaturedCompanies para navegar entre os ônibus do sistema por companhia*/}
           
           <section className="w-100">
             <AnimatedComponents>
               <BusFilters filters={filters} onChange={setFilters}/>
               
+              {/*TODO - adicione o PaginationWithItems para paginar os itens de ônibus*/}
               <BusListResults
                 loading={loading}
                 error={error}

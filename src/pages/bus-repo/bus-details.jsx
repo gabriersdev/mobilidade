@@ -1,15 +1,16 @@
 import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {busRepoService} from '../../lib/bus-repo-service';
+import {busRepoService} from "../../lib/bus-repo-service.js";
 import AnimatedComponents from '@/components/ui/animated-component/animated-components.jsx';
 import FeedbackError from '@/components/ui/feedback-error/feedback-error.jsx';
 import LinePlaceholder from '@/components/line/line-placeholder.jsx';
 import Alert from '@/components/ui/alert/alert.jsx';
+import bcAll from '../../components/breadcrumb-app/breadcrumb-context.jsx';
 import BusDetailsHeader from '../../components/bus-repo/bus-details-header';
 import BusOperatedLines from '../../components/bus-repo/bus-operated-lines';
 import TechnicalSpecs from '../../components/bus-repo/technical-specs';
 import HistoryTimeline from '../../components/bus-repo/history-timeline';
-import bcAll from '../../components/breadcrumb-app/breadcrumb-context.jsx';
+import VehicleIdentity from "../../components/bus-repo/vehicle-identity.jsx";
 import {VehicleStatus} from "@/resources/bus-repo-types.ts";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
@@ -23,8 +24,8 @@ export default function BusDetails() {
   
   useEffect(() => {
     if (vehicle) {
-      document.title = `Ônibus ${vehicle.fleetNumber} | ${vehicle.licensePlate} | ${vehicle.company.name} | Mobilidade`;
-      setLabel(vehicle.id, `Ônibus ${vehicle.licensePlate}`);
+      document.title = `Carro ${vehicle.fleetNumber} | ${vehicle.licensePlate} | ${vehicle.operator.name} | ${vehicle.company.name} | Mobilidade`;
+      setLabel(vehicle.id, `Carro ${vehicle.fleetNumber} - ${vehicle.operator.name}`);
     } else {
       document.title = `Detalhes do Ônibus | Mobilidade`;
     }
@@ -86,6 +87,7 @@ export default function BusDetails() {
         }
         
         <TechnicalSpecs vehicle={vehicle}/>
+        <VehicleIdentity vehicle={vehicle}/>
         <HistoryTimeline vehicle={vehicle}/>
       </div>
     </AnimatedComponents>

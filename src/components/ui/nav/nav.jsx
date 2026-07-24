@@ -42,9 +42,16 @@ const Nav = () => {
               </div>
               
               <Navbar.Collapse id="basic-navbar-nav">
-                <BootstrapNav className={`me-auto w-100 d-flex ${width > 1200 ? "align-items-center" : "flex-column align-items-start justify-content-end my-3"}`}>
+                <BootstrapNav
+                  className={`me-auto w-100 d-flex ${width > 1200 ? "align-items-center" : "flex-column align-items-start justify-content-end my-3"}`}
+                >
                   {navLinks.filter(n => !n.showOnlyFooter).map(link => (
-                    <BootstrapNav.Link as={Link} className={`text-primary-emphasis ${link.mobileOnly ? 'd-inline-block d-lg-none' : ''}`} to={link.path} onClick={() => setExpanded(false)} key={link.name}>
+                    <BootstrapNav.Link
+                      as={Link}
+                      className={`text-primary-emphasis ${link.mobileOnly ? 'd-inline-block d-lg-none' : ''}`}
+                      to={link.path}
+                      onClick={() => setExpanded(false)} key={link.name}
+                    >
                       {link.isLive ? (
                         <div className="d-flex align-items-center flex-wrap">
                           {moment().diff(moment("2025-11-14T23:59:00"), "minutes") < 0 && (<Badge className="rounded-pill me-2 text-uppercase fw-bold" style={{paddingBottom: "4.25px", paddingTop: "4.25px"}}>Novo</Badge>)}
@@ -54,6 +61,18 @@ const Nav = () => {
                           <span className="text-danger-emphasis">{link.name}</span>
                         </div>
                       ) : link.name}
+                      
+                      {
+                        link.newTagLimit && (
+                          <Badge className="rounded-pill text-uppercase fw-bold ms-1">
+                            {
+                              moment().diff(moment(link.newTagLimit), "seconds") < 0 && (
+                                <>Novo</>
+                              )
+                            }
+                          </Badge>
+                        )
+                      }
                     </BootstrapNav.Link>
                   ))}
                   
