@@ -54,7 +54,7 @@
     "react-leaflet": "^5.0.0",
     "react-router-dom": "^7.18.1",
     "rolldown": "1.0.3",
-    "semantic-release": "^25.0.7",
+    "semantic-release": "^25.0.8",
     "vercel": "^56.4.1"
   },
   "devDependencies": {
