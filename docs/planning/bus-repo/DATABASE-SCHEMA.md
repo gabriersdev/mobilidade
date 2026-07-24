@@ -133,6 +133,9 @@ Tabela para padronização de formatações aplicadas aos veículos.
 Tabela para os padrões de identidade visual e adesivação.
 - `id` (PK, UUID)
 - `name` (String): Nome da identidade (ex: Adesivação TREM).
+- `description` (String, Nullable): Descrição detalhada da identidade visual.
+- `color1` (String, CHAR(7)): Primeira cor em formato HEX (ex: #2631FF).
+- `color2` (String, CHAR(7)): Segunda cor em formato HEX (ex: #FF00FF).
 
 ## Considerações
 - O campo `status` em `vehicle` deve ser atualizado automaticamente ou impedido de ser `ACTIVE` caso existam incidentes com severidade alta.

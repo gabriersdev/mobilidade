@@ -22,6 +22,9 @@ CREATE TABLE IF NOT EXISTS `vehicleFormatting` (
 CREATE TABLE IF NOT EXISTS `vehicleIdentity` (
   `id` CHAR(36) NOT NULL,
   `name` VARCHAR(255) NOT NULL,
+  `description` VARCHAR(200) NULL,
+  `color1` CHAR(7) NULL,
+  `color2` CHAR(7) NULL,
 
   -- Colunas de Auditoria
   `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
