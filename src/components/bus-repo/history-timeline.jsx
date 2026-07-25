@@ -30,11 +30,19 @@ export default function HistoryTimeline({vehicle}) {
   // .map(inc => ({...inc, date: inc.date.replace("Z", "-03:00")}))
   
   if (operationStartDate) {
+    const descriptionStr = (
+      Util.diffToHuman(
+        moment(),
+        moment(operationStartDate.replace("Z", "-03:00")),
+        true
+      )
+    )
+    
     timelineEvents.push({
       id: 'init',
       vehicleId: vehicle.id,
       date: operationStartDate,
-      description: `Entrada do veículo modelo ${vehicle.modelYear} fabricado em ${manufactureYear} na operação da frota do operador "${vehicle.operator.name}".`,
+      description: `Entrada do veículo modelo ${vehicle.modelYear} fabricado em ${manufactureYear} na operação da frota do operador "${vehicle.operator.name}" - ${descriptionStr.trim()}.`,
       type: "Início da operação",
       isMaintenance: false
     });
@@ -50,12 +58,22 @@ export default function HistoryTimeline({vehicle}) {
     });
   }
   
+  
   if (operationEndDate) {
+    const removeMarcDiff = (str) => str.replace(/(há)|(em)/g, "");
+    const descriptionStr = removeMarcDiff(
+      Util.diffToHuman(
+        moment(operationEndDate.replace("Z", "-03:00")),
+        moment(operationStartDate.replace("Z", "-03:00")),
+        true
+      )
+    )
+    
     timelineEvents.push({
       id: 'end',
       vehicleId: vehicle.id,
       date: operationEndDate,
-      description: `Saída do veículo da operação.`,
+      description: `Saída do veículo da operação. O veículo ficou ${descriptionStr.trim()} em operação.`,
       type: "Término da operação",
       isMaintenance: false
     });
@@ -82,7 +100,7 @@ export default function HistoryTimeline({vehicle}) {
               {index !== timelineEvents.length - 1 && (
                 <div
                   className="position-absolute bg-primary-subtle"
-                  style={{ width: '2px', left: '-1px', top: '15px', height: '100%', zIndex: 0 }}
+                  style={{width: '2px', left: '-1px', top: '15px', height: '100%', zIndex: 0}}
                 />
               )}
               <div

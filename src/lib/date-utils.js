@@ -27,28 +27,41 @@ export function translateMonth(month) {
   return o[month] || month;
 }
 
-export function diffToHuman(date) {
-  const now = moment();
-  const target = moment(date);
+export function diffToHuman(argOne, argTwo, amigableHighDiffs) {
+  if (typeof argTwo === 'boolean') {
+    amigableHighDiffs = argTwo;
+    argTwo = undefined;
+  }
+
+  const lastDate = argTwo ? moment(argOne) : moment();
+  const initDate = argTwo ? moment(argTwo) : moment(argOne);
   
-  if (!target.isValid()) return 'Data inválida';
+  if (!initDate.isValid()) return 'Data inválida';
   
-  const diffSeconds = target.diff(now, 'seconds');
+  const diffSeconds = initDate.diff(lastDate, 'seconds');
   const absDiff = Math.abs(diffSeconds);
+  const isFuture = diffSeconds > 0;
   
-  if (diffSeconds > 0) {
-    if (absDiff < 60) return 'em alguns segundos';
-    if (absDiff < 3600) return `em ${target.diff(now, 'minutes')} minuto${target.diff(now, 'minutes') > 1 ? "s" : ""}`;
-    if (absDiff < 86400) return `em ${target.diff(now, 'hours')} hora${target.diff(now, 'hours') > 1 ? "s" : ""}`;
-    if (absDiff < (86400 * 30)) return `em ${target.diff(now, 'days')} dia${target.diff(now, 'days') > 1 ? "s" : ""}`;
-    return `${target.format('DD/MM/YYYY')}`;
+  const prefix = isFuture ? 'em' : 'há';
+  
+  const format = (unit, name, pluralName) => {
+    const value = Math.abs(initDate.diff(lastDate, unit));
+    return `${prefix} ${value} ${value > 1 ? pluralName : name}`;
+  };
+  
+  if (absDiff < 60) return `${prefix} alguns segundos`;
+  if (absDiff < 3600) return format('minutes', 'minuto', 'minutos');
+  if (absDiff < 86400) return format('hours', 'hora', 'horas');
+  if (absDiff < (86400 * 30)) return format('days', 'dia', 'dias');
+  
+  if (amigableHighDiffs) {
+    const diffMonths = Math.abs(initDate.diff(lastDate, 'months'));
+    if (diffMonths < 1) return format('days', 'dia', 'dias');
+    if (diffMonths < 12) return format('months', 'mês', 'meses');
+    return format('years', 'ano', 'anos');
   }
   
-  if (absDiff < 60) return 'há alguns segundos';
-  if (absDiff < 3600) return `há ${now.diff(target, 'minutes')} minuto${now.diff(target, 'minutes') > 1 ? "s" : ""}`;
-  if (absDiff < 86400) return `há ${now.diff(target, 'hours')} hora${now.diff(target, 'hours') > 1 ? "s" : ""}`;
-  if (absDiff < (86400 * 30)) return `há ${now.diff(target, 'days')} dia${now.diff(target, 'days') > 1 ? "s" : ""}`;
-  return `${target.format('DD/MM/YYYY')}`;
+  return `${initDate.format('DD/MM/YYYY')}`;
 }
 
 export function translateWeekDay(weekDay, props) {

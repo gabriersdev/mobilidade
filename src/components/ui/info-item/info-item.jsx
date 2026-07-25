@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const InfoItem = ({ icon, iconClass, label, value, children }) => {
+const InfoItem = ({icon, iconClass, label, value, children}) => {
   return (
     <div className="d-flex align-items-center gap-1 line-clamp-1">
       {icon && <i className={`bi ${icon} ${iconClass || ''}`}></i>}

@@ -9,7 +9,7 @@ export const useLiveConfigs = () => {
       showSingleLine: false,
     };
     try {
-      const savedConfigs = localStorage.getItem("live-configs");
+      const savedConfigs = localStorage.getItem("mobilidade-app-live-configs");
       if (savedConfigs) {
         return {...defaultConfig, ...JSON.parse(savedConfigs)};
       }
@@ -28,7 +28,7 @@ export const useLiveConfigs = () => {
 
   useEffect(() => {
     try {
-      localStorage.setItem("live-configs", JSON.stringify(configs));
+      localStorage.setItem("mobilidade-app-live-configs", JSON.stringify(configs));
     } catch (error) {
       console.error("Error saving configs to localStorage", error);
     }

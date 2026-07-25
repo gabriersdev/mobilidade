@@ -7,6 +7,7 @@ const featureCompanies = [
 ];
 
 const FeaturedCompanies = () => (
+  // TODO - implementar em FeaturedCompanies o retorno dos veículos vinculados à companhia
   <div className="d-flex align-items-center flex-wrap gap-1 justify-content-center my-2 my-md-0">
     {featureCompanies.map((company) => (
       <OverlayTrigger

@@ -9,7 +9,7 @@ export default function BusFilters({filters, onChange}) {
   const popoverFlagsExplanationRef = useRef(null);
   
   useEffect(() => {
-    const history = JSON.parse(localStorage.getItem('busSearchHistory')) || [];
+    const history = JSON.parse(localStorage.getItem('mobilidade-app-bus-search-history')) || [];
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setSearchHistory(history.map(term => ({name: term})));
   }, []);
@@ -31,9 +31,9 @@ export default function BusFilters({filters, onChange}) {
     
     const query = localSearchQuery.trim();
     if (query) {
-      const history = JSON.parse(localStorage.getItem('busSearchHistory')) || [];
+      const history = JSON.parse(localStorage.getItem('mobilidade-app-bus-search-history')) || [];
       const newHistory = [query, ...history.filter(t => t !== query)].slice(0, 10);
-      localStorage.setItem('busSearchHistory', JSON.stringify(newHistory));
+      localStorage.setItem('mobilidade-app-bus-search-history', JSON.stringify(newHistory));
       setSearchHistory(newHistory.map(term => ({name: term})));
     }
     

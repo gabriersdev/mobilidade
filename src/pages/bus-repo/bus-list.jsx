@@ -5,8 +5,8 @@ import AnimatedComponents from "@/components/ui/animated-component/animated-comp
 import Title from "@/components/ui/title/title.jsx";
 import BusListResults from '../../components/bus-repo/bus-list-results';
 import bcAll from '../../components/breadcrumb-app/breadcrumb-context.jsx';
-import PaginationWithItems from "@/components/pagination-with-items/pagination-with-items.jsx";
 import FeaturedCompanies from "@/components/form-search/featured-companies.jsx";
+
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 export default function BusList() {
@@ -127,8 +127,10 @@ export default function BusList() {
     <div>
       <div className="d-flex flex-column gap-4 gap-sm-5">
         <AnimatedComponents>
-          <Title title="Frotas de Ônibus" id="topo" classX="text-body-secondary"/>
-          <FeaturedCompanies />
+          <hgroup className="d-flex align-items-center justify-content-between flex-wrap flex-column flex-md-row mb-1">
+            <Title title="Frotas de Ônibus" id="topo" classX="text-body-secondary"/>
+            <FeaturedCompanies/>
+          </hgroup>
           
           <section className="w-100">
             <AnimatedComponents>

@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {DropdownButton, DropdownItem} from "react-bootstrap";
 import Util from "@/lib/Util.jsx";
 import CacheManagerModal from "./cache-manager-modal.jsx";
+import StorageManagerModal from "./storage-manager-modal.jsx";
 
 export default function CacheControl() {
   const [show, setShow] = useState(false);
@@ -10,6 +11,12 @@ export default function CacheControl() {
   
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
+  const [showStorage, setShowStorage] = useState(false);
+  const [storageList, setStorageList] = useState([]);
+  
+  const handleCloseStorage = () => setShowStorage(false);
+  const handleShowStorage = () => setShowStorage(true);
   
   const fetchCaches = async () => {
     if ('caches' in window) {
@@ -37,6 +44,23 @@ export default function CacheControl() {
       fetchCaches().then();
     }
   }, [show]);
+
+  const fetchStorage = () => {
+    const keys = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith('mobilidade-app-')) {
+        keys.push(key);
+      }
+    }
+    setStorageList(keys);
+  };
+
+  useEffect(() => {
+    if (showStorage) {
+      fetchStorage();
+    }
+  }, [showStorage]);
   
   const handleDeleteCache = async (cacheName) => {
     if ('caches' in window) {
@@ -72,12 +96,22 @@ export default function CacheControl() {
       }
     }
   };
+
+  const handleDeleteStorage = (key) => {
+    localStorage.removeItem(key);
+    fetchStorage();
+  };
+
+  const handleClearAllStorage = () => {
+    storageList.forEach(key => localStorage.removeItem(key));
+    fetchStorage();
+  };
   
   return (
     <>
       <DropdownButton
         id="dropdown-cache-button"
-        title="Controlar cache"
+        title="Controlar armazenamento"
         variant="secondary"
         className="mt-1"
       >
@@ -93,6 +127,9 @@ export default function CacheControl() {
         }}>
           Limpar outros dados
         </DropdownItem>
+        <DropdownItem onClick={handleShowStorage}>
+          Gerenciar dados e configurações...
+        </DropdownItem>
         <DropdownItem onClick={handleShow}>
           Gerenciar arquivos de cache...
         </DropdownItem>
@@ -106,6 +143,14 @@ export default function CacheControl() {
         handleDeleteCache={handleDeleteCache}
         handleDeleteCacheFile={handleDeleteCacheFile}
         handleClearAll={handleClearAll}
+      />
+      
+      <StorageManagerModal
+        show={showStorage}
+        handleClose={handleCloseStorage}
+        storageList={storageList}
+        handleDeleteStorage={handleDeleteStorage}
+        handleClearAllStorage={handleClearAllStorage}
       />
     </>
   );
