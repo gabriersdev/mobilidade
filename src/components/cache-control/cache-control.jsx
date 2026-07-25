@@ -128,10 +128,10 @@ export default function CacheControl() {
           Limpar outros dados
         </DropdownItem>
         <DropdownItem onClick={handleShowStorage}>
-          Gerenciar dados e configurações...
+          Gerenciar dados e configurações
         </DropdownItem>
         <DropdownItem onClick={handleShow}>
-          Gerenciar arquivos de cache...
+          Gerenciar arquivos de cache
         </DropdownItem>
       </DropdownButton>
       

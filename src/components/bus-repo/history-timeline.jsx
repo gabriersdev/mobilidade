@@ -73,7 +73,7 @@ export default function HistoryTimeline({vehicle}) {
       id: 'end',
       vehicleId: vehicle.id,
       date: operationEndDate,
-      description: `Saída do veículo da operação. O veículo ficou ${descriptionStr.trim()} em operação.`,
+      description: `Saída do veículo do sistema. O carro ficou ${descriptionStr.trim()} em operação.`,
       type: "Término da operação",
       isMaintenance: false
     });

@@ -15,7 +15,7 @@ const FeaturedCompanies = () => (
         overlay={
           <Tooltip>
             <p className="m-0 p-0 line-clamp-2">
-              Veja as linhas ativas da companhia {company.name}
+              Veja as informações da companhia {company.name}
             </p>
           </Tooltip>
         }
