@@ -128,6 +128,7 @@ Tabela para o catálogo e informações da geração/lote de renovação da frot
 Tabela para padronização de formatações aplicadas aos veículos.
 - `id` (PK, UUID)
 - `name` (String): Nome descritivo da formatação.
+- `description` (Text, Nullable): Detalhes da formatação do veículo.
 
 ### 11. `vehicleIdentity` (Identidade Visual)
 Tabela para os padrões de identidade visual e adesivação.

@@ -6,6 +6,7 @@
 CREATE TABLE IF NOT EXISTS `vehicleFormatting` (
   `id` CHAR(36) NOT NULL,
   `name` VARCHAR(255) NOT NULL,
+  `description` TEXT NULL,
 
   -- Colunas de Auditoria
   `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
