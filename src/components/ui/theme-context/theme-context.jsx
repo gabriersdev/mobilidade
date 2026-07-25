@@ -12,14 +12,14 @@ export const ThemeProvider = ({children}) => {
     
     if ("localStorage" in window) {
       try {
-        let ls = JSON.parse(localStorage.getItem("mobilidade-app"));
+        let ls = JSON.parse(localStorage.getItem("mobilidade-app-configs"));
         if (ls) {
-          localStorage.setItem("mobilidade-app", JSON.stringify({
+          localStorage.setItem("mobilidade-app-configs", JSON.stringify({
             ...ls,
             theme: themeParam
           }));
         } else {
-          localStorage.setItem("mobilidade-app", JSON.stringify({theme: themeParam}));
+          localStorage.setItem("mobilidade-app-configs", JSON.stringify({theme: themeParam}));
         }
         setTheme(themeParam);
         document.querySelector('html').dataset.bsTheme = themeParam;
@@ -35,7 +35,7 @@ export const ThemeProvider = ({children}) => {
     } else {
       let ls;
       try {
-        ls = JSON.parse(localStorage.getItem("mobilidade-app"));
+        ls = JSON.parse(localStorage.getItem("mobilidade-app-configs"));
         // eslint-disable-next-line react-hooks/set-state-in-effect
         if (ls && ls["theme"]) handleTheme(ls["theme"]);
         else {

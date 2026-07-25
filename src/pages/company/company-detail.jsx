@@ -38,7 +38,7 @@ const CompanyDetail = () => {
       </div>
       <span className="text-body-secondary">Companhia</span>
       <div>
-        <Title classX="fs-3 d-inline text-body-emphasis mt-1 p-0 d-block">
+        <Title classX="fs-3 d-inline text-body mt-1 p-0 d-block">
           <span className="text-balance" style={{fontSize: 'inherit'}}>
             {data.company_name}
           </span>

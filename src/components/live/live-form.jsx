@@ -9,7 +9,7 @@ export function LiveFormSearch({setSearchTerm}) {
   const [searchHistory, setSearchHistory] = useState([]);
   
   useEffect(() => {
-    const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    const history = JSON.parse(localStorage.getItem('mobilidade-app-search-history')) || [];
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setSearchHistory(history.map(term => ({name: term})));
   }, []);

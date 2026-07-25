@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 
-const SEARCH_LS_KEY = "search-history";
+const SEARCH_LS_KEY = "mobilidade-app-search-history";
 
 export const useSearchHistory = () => {
   const [searchHistory, setSearchHistory] = useState([]);

@@ -4,8 +4,9 @@ import {clearServiceWorker, getSearchParamId, isSameDomain, updateActiveLink} fr
 import {getCurrentDayGroupName, getTodayHolidayData, getTodayVacationData} from "./holiday-utils.js";
 import {convertNumberToDay, getBestMatchDayIndex} from "./day-utils.js";
 import {processContents, renderText, wrapTextInArialIfNeeded} from "./react-utils.jsx";
-import {checkIsValid, convertToSafeText, directionToText, formatMoney, getDirectionTitle, normalize, resumeInfoLine} from "./string-utils.js";
+import {checkIsValid, convertToSafeText, directionToText, formatMoney, getDirectionTitle, includeDotIfNotExists, normalize, resumeInfoLine} from "./string-utils.js";
 import {compareIntervals, formatFriendlyDuration} from "@/lib/interval-utils.js";
+import generateVehicleDescription from "@/lib/bus-repo-utils.js";
 
 export default class Util {
   static updateActiveLink = updateActiveLink;
@@ -37,4 +38,6 @@ export default class Util {
   static checkIsValid = checkIsValid;
   static compareIntervals = compareIntervals;
   static formatFriendlyDuration = formatFriendlyDuration;
+  static includeDotIfNotExists = includeDotIfNotExists;
+  static generateVehicleDescription = generateVehicleDescription;
 }

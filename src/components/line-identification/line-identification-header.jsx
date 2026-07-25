@@ -11,7 +11,7 @@ const LineIdentificationHeader = ({line}) => {
             Linha {line.line_number} - {line.departure_location} para {line.destination_location}
           </h1>
           
-          <Title type="h2" classX=" d-inline text-body-emphasis fw-semibold m-0 p-0">
+          <Title type="h2" classX=" d-inline text-body fw-semibold m-0 p-0">
             <span className={"fs-2"} style={{letterSpacing: "-1px"}}>
               Linha {line.line_number}
             </span>

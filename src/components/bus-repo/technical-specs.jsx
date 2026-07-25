@@ -10,7 +10,10 @@ export default function TechnicalSpecs({vehicle}) {
     {label: 'Modelo da carroceria', value: vehicle.bodywork.model || "-"},
     {label: 'Dimensão', value: vehicle.dimensionDescription ? `${vehicle.dimensionDescription} metros` : "-"},
     {label: 'Tecnologia de otimização', value: vehicle.optimizationTechnology || "-"},
-    {label: 'Geração/Leva', value: vehicle.generationBatch?.name || "-"}
+    {label: 'Geração/Leva', value: vehicle.generationBatch?.name || "-"},
+    
+    {label: 'Identificador da formatação do veículo', value: vehicle.formatting?.name || "-"},
+    {label: 'Identidade', value: vehicle.identity?.name || "-"},
   ];
   
   const comfortSpecsData = [

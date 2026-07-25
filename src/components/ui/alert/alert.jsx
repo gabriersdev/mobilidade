@@ -17,7 +17,8 @@ const Alert = (
     children = <></>,
     dismissible = false,
     onClose = () => {},
-    className
+    className,
+    title
   }
 ) => {
   const [show, setShow] = useState(true);
@@ -49,7 +50,7 @@ const Alert = (
     onClose();
   };
 
-  const summaryText = getNodeText(children) || "Aviso. Clique para visualizar";
+  const summaryText = title ? title : (getNodeText(children) || "Aviso. Clique para visualizar");
 
   return (
     <BootstrapAlert
@@ -92,7 +93,8 @@ Alert.propTypes = {
   children: PropTypes.node,
   dismissible: PropTypes.bool,
   onClose: PropTypes.func,
-  className: PropTypes.string
+  className: PropTypes.string,
+  title: PropTypes.string
 };
 
 export default Alert;

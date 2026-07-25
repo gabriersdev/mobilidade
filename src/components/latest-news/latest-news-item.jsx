@@ -38,7 +38,8 @@ const LatestNewsItem = ({ns}) => {
         </div>
         <div
           className={"position-absolute w-100 h-100 rounded-1"}
-          style={{top: "0", left: "0", transform: "translate(0, -45%)", background: "#00000025", minHeight: 150}}
+          // style={{top: "0", left: "0", transform: "translate(0, -45%)", background: "#00000025", minHeight: 150}}
+          style={{top: "0", left: "0", transform: "translate(0, -45%)", minHeight: 150}}
         >
         </div>
       </Link>

@@ -27,14 +27,15 @@ export function compareIntervals(array) {
     .toReversed();
   
   const intervalSorted = diffs.toSorted((a, b) => b[0] - a[0]).toSorted((a, b) => b[0] - a[0]);
+  let avgIntervals = (accDiff / (nsarray.length - 1));
+  
+  if (isNaN(avgIntervals) || !isFinite(avgIntervals)) avgIntervals = 0;
   
   const [
-    avgIntervals,
     frequencyOccurrenceInterval,
     maxInterval,
     minInterval,
   ] = [
-    (accDiff / (nsarray.length - 1)),
     diffs.length > 0 ? [...diffs].pop() : [avgIntervals, 0],
     diffs.length > 0 ? intervalSorted?.[0][0] ?? 0 : 0,
     diffs.length > 0 ? intervalSorted?.toReversed()?.[0][0] ?? 0 : 0,
@@ -60,5 +61,6 @@ export function formatFriendlyDuration(minutes) {
   
   if (hours > 0 && remainingMinutes > 0) return `${hours.toFixed(fixed)}h ${zeroInLFT(remainingMinutes)}${remainingMinutes.toFixed(fixed)}m`;
   if (hours > 0) return `${hours.toFixed(fixed)}h`;
+  if (minutes === 0) return `-`;
   return `${zeroInLFT(minutes)}${minutes.toFixed(fixed)} min`;
 }

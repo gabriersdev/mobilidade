@@ -27,14 +27,14 @@ function SpanE({children}) {
 export default function BusCard({vehicle}) {
   return (
     <Card
-      title={`${vehicle.licensePlate}`}
+      title={`Carro ${vehicle.fleetNumber}`}
       link={`/bus-repo/${vehicle.id}`}
       badge={
         <Badge pill bg={getStatusVariant(vehicle.status)} className="text-sml">
           <SpanE>{vehicle.status}</SpanE>
         </Badge>
       }
-      subtitle={`Carro ${vehicle.fleetNumber} - ${vehicle.company.name}`}
+      subtitle={`${vehicle.company.name} - Placa: ${vehicle.licensePlate}`}
     >
       <Row className="mb-1">
         <Col xs={12} className="text-body text-sml line-clamp-1">

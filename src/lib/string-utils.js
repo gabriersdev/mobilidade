@@ -62,3 +62,7 @@ export function checkIsValid(id) {
   if (!id.length) return false
   return id.match(/\d/g)
 }
+
+export function includeDotIfNotExists(str) {
+  return [...str.trim().split()].pop() === "." ? str.trim() : `${str.trim()}.`
+}

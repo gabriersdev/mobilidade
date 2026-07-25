@@ -18,6 +18,14 @@ Este documento fornece diretrizes de codificação para o projeto.
 - Tipos: `src/types/`
 - Páginas: `/src/pages/[nome-da-pagina]/[nome-do-arquivo]` e importar em `src/app-router.jsx`
 
+## Armazenamento Local (localStorage / sessionStorage)
+
+- **Padronização de chaves (keys):** Todas as chaves utilizadas para armazenar configurações, histórico de pesquisa ou qualquer outro dado persistido no projeto através do `localStorage` ou `sessionStorage` devem OBRIGATORIAMENTE possuir o prefixo `mobilidade-app-`.
+- **Formato:** O restante da chave deve seguir o formato de palavras separadas por traço (`kebab-case`). 
+  - *Exemplos corretos:* `mobilidade-app-configs`, `mobilidade-app-search-history`, `mobilidade-app-bus-search-history`.
+  - *Exemplos incorretos:* `mobilidadeAppConfigs`, `searchHistory`, `live-configs`.
+- **Gerenciamento:** Essa padronização permite o controle e a exclusão seletiva das configurações da aplicação (através do gerenciador nativo do sistema), evitando conflitos e vazamentos de dados, facilitando a manutenção de estado entre os módulos.
+
 ## Padrões de Código
 
 - Use `eslint` para garantir a consistência do código.

@@ -1,16 +1,18 @@
 import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {busRepoService} from '../../lib/bus-repo-service';
 import AnimatedComponents from '@/components/ui/animated-component/animated-components.jsx';
 import FeedbackError from '@/components/ui/feedback-error/feedback-error.jsx';
 import LinePlaceholder from '@/components/line/line-placeholder.jsx';
 import Alert from '@/components/ui/alert/alert.jsx';
+import bcAll from '../../components/breadcrumb-app/breadcrumb-context.jsx';
 import BusDetailsHeader from '../../components/bus-repo/bus-details-header';
 import BusOperatedLines from '../../components/bus-repo/bus-operated-lines';
 import TechnicalSpecs from '../../components/bus-repo/technical-specs';
 import HistoryTimeline from '../../components/bus-repo/history-timeline';
-import bcAll from '../../components/breadcrumb-app/breadcrumb-context.jsx';
+import VehicleIdentity from "../../components/bus-repo/vehicle-identity.jsx";
 import {VehicleStatus} from "@/resources/bus-repo-types.ts";
+import Util from "@/lib/Util.jsx";
+import {busRepoService} from "@/lib/bus-repo-service.js";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
@@ -23,8 +25,8 @@ export default function BusDetails() {
   
   useEffect(() => {
     if (vehicle) {
-      document.title = `Ônibus ${vehicle.fleetNumber} | ${vehicle.licensePlate} | ${vehicle.company.name} | Mobilidade`;
-      setLabel(vehicle.id, `Ônibus ${vehicle.licensePlate}`);
+      document.title = `Carro ${vehicle.fleetNumber} | ${vehicle.licensePlate} | ${vehicle.operator.name} | ${vehicle.company.name} | Mobilidade`;
+      setLabel(vehicle.id, `Carro ${vehicle.fleetNumber} - ${vehicle.operator.name}`);
     } else {
       document.title = `Detalhes do Ônibus | Mobilidade`;
     }
@@ -63,12 +65,19 @@ export default function BusDetails() {
       <div className="d-flex flex-column mt-4" style={{gap: '3rem', marginBottom: '4rem'}}>
         <BusDetailsHeader vehicle={vehicle}/>
         
-        {vehicle.generalNotes && (
+        {vehicle.generalNotes ? (
           <section>
             <Alert variant="info" margin="m-0">
               <div className="d-flex flex-column gap-1">
-                <span className="fw-bold">Observações Gerais:{" "}</span>
-                <span>{vehicle.generalNotes}</span>
+                <span>{Util.includeDotIfNotExists(vehicle.generalNotes)}</span>
+              </div>
+            </Alert>
+          </section>
+        ) : (
+          <section>
+            <Alert variant="info" margin="m-0" title={"Informações sobre o veículo"}>
+              <div className="d-flex flex-column gap-1">
+                <span><i className="bi bi-stars"></i> {Util.includeDotIfNotExists(Util.generateVehicleDescription(vehicle))}</span>
               </div>
             </Alert>
           </section>
@@ -86,6 +95,7 @@ export default function BusDetails() {
         }
         
         <TechnicalSpecs vehicle={vehicle}/>
+        <VehicleIdentity vehicle={vehicle}/>
         <HistoryTimeline vehicle={vehicle}/>
       </div>
     </AnimatedComponents>

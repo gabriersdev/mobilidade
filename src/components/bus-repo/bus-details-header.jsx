@@ -19,15 +19,15 @@ export default function BusDetailsHeader({vehicle}) {
             Veículo {vehicle.fleetNumber} - Placa {vehicle.licensePlate}
           </h1>
           
-          <Title type="h2" classX="d-inline text-body-emphasis fw-semibold m-0 p-0">
+          <Title type="h2" classX="d-inline text-body fw-semibold m-0 p-0">
             <span className="fs-2" style={{letterSpacing: "-1px"}}>
-              Veículo {vehicle.fleetNumber}
+              Carro {vehicle.fleetNumber}
             </span>
           </Title>
           <span className="fs-5 text-body-secondary">|</span>
           <Title type="h2" classX="fs-2 d-inline text-body-secondary fw-semibold m-0 p-0 lh-sm">
             <span className="fs-2" style={{letterSpacing: "-1px"}}>
-              {vehicle.licensePlate}
+              {vehicle.operator.name}
             </span>
           </Title>
         </hgroup>
@@ -35,7 +35,8 @@ export default function BusDetailsHeader({vehicle}) {
         <div className="d-flex align-items-center gap-4 flex-wrap mt-5">
           <InfoItem icon={statusConfig.icon} iconClass={statusConfig.color} value={vehicle.status}/>
           <InfoItem icon={conservationConfig.icon} iconClass={conservationConfig.color} label="Estado" value={vehicle.conservationState}/>
-          <InfoItem icon="bi-hash" iconClass="text-secondary" label="Veículo" value={vehicle.fleetNumber}/>
+          <InfoItem icon="bi-hash" iconClass="text-secondary" label="Carro N." value={vehicle.fleetNumber}/>
+          <InfoItem icon="bi-hash" iconClass="text-secondary" label="Placa" value={vehicle.licensePlate}/>
         </div>
         
         <div className="d-flex align-items-center gap-4 flex-wrap">
@@ -47,7 +48,7 @@ export default function BusDetailsHeader({vehicle}) {
             <InfoItem>
               <div className="d-flex align-items-center gap-1">
                 <i className="bi bi-stopwatch"></i>
-                {/*TODO - o retorno vem assim: 2026-06-20T15:21:13.000Z, quando a atualização foi feita em 2026-06-20T09:21:13.000-03:00. Verificar onde está o problema e tratar para evitar esta substituição grosseira*/}
+                {/* Tratamento para corrigir o timezone que vem incorreto do banco */}
                 <span className="ms-1 text-body fw-medium">Infos. atualizadas {Util.renderText(Util.diffToHuman(vehicle.lastUpdate.replace("Z", "+03:00")))}</span>
               </div>
             </InfoItem>
