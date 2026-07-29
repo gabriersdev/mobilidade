@@ -54,7 +54,7 @@
     "react-router-dom": "^7.11.0",
     "rolldown": "1.2.0",
     "semantic-release": "^25.0.8",
-    "vercel": "^57.0.0"
+    "vercel": "^58.1.0"
   },
   "devDependencies": {
     "@eslint/compat": "^2.1.0",
