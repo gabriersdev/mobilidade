@@ -148,7 +148,7 @@ export default function BusFilters({filters, onChange}) {
               <div className={"mb-0 mt-1 line-clamp-1 d-flex"}>
                 <OverlayTrigger overlay={
                   <Popover id="flags-explanation-popover" ref={popoverFlagsExplanationRef}>
-                    <PopoverHeader className={"text-sml"}>
+                    <PopoverHeader className={"fw-medium"}>
                       Flags de pesquisa
                     </PopoverHeader>
                     <PopoverBody className={"text-sml"}>
@@ -163,7 +163,7 @@ export default function BusFilters({filters, onChange}) {
               </div>
             </Col>
             
-            <Col xs={12} className="d-flex align-items-center flex-wrap gap-3 mt-4">
+            <Col xs={12} className="d-none d-md-flex align-items-center gap-2 flex-wrap mt-5">
               <FilterItem
                 label="Status"
                 value={getStatusLabel(filters.status || "")}

@@ -72,7 +72,8 @@ const dateConfigs = {
 }
 
 const numberConfigs = {
-  lang: "pt-BR"
+  lang: "pt-BR",
+  fixed: 2
 }
 
 const quickSearchLinks = [

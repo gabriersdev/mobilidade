@@ -50,7 +50,7 @@ export default function BusCard({vehicle}) {
         </Col>
       </Row>
       
-      <div className={"d-flex flex-wrap gap-1 flex-nowrap overflow-x-scroll " + (vehicle.hasAc || vehicle.hasWifi || vehicle.hasAirSuspension ? "mt-3" : "mt-auto")}>
+      <div className={"d-flex flex-wrap gap-1 flex-nowrap overflow-x-hidden " + (vehicle.hasAc || vehicle.hasWifi || vehicle.hasAirSuspension ? "mt-3" : "mt-auto")}>
         {vehicle.hasAc && (
           <Badge bg="info" pill text="light">
             <div className='text-sml d-flex align-items-center justify-content-center'>

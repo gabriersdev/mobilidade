@@ -10,11 +10,12 @@ export default function BusListResults({loading, error, vehicles}) {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCurrentPage(1);
   }, [vehicles]);
   if (loading) {
     return (
-      <div className="mt-5">
+      <div className="mt-1">
         <Grid>
           <Card title="Carregando" subtitle="Aguarde...">
             Estamos buscando as informações dos veículos. Esse processo geralmente é rápido. Por favor, aguarde alguns instantes.
@@ -29,7 +30,7 @@ export default function BusListResults({loading, error, vehicles}) {
   
   if (error) {
     return (
-      <div className="mt-5">
+      <div className="mt-1">
         <Grid>
           <Card title="Erro" subtitle="Falha ao carregar">
             {error}
@@ -41,7 +42,7 @@ export default function BusListResults({loading, error, vehicles}) {
   
   if (!vehicles || vehicles.length === 0) {
     return (
-      <div className={"mt-5"}>
+      <div className={"mt-1"}>
         <Grid>
           <Card title="Nenhum veículo encontrado" subtitle="Não há resultados">
             Não encontramos nenhum veículo com os filtros selecionados.
@@ -52,7 +53,7 @@ export default function BusListResults({loading, error, vehicles}) {
   }
   
   return (
-    <div className={"mt-5"}>
+    <div className={"mt-0"}>
       {/*<p className="text-muted mb-3">{vehicles.length} veículo(s) encontrado(s).</p>*/}
       <PaginationWithItems
         items={vehicles.map(vehicle => (
@@ -61,7 +62,7 @@ export default function BusListResults({loading, error, vehicles}) {
           </Col>
         ))}
         itemsPerPage={12}
-        classNameOfContainer="row g-4"
+        classNameOfContainer="row g-3 pt-3"
         currentPage={currentPage}
         onPageChange={setCurrentPage}
         beforeSelector={true}
