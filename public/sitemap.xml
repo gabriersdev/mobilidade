@@ -2,193 +2,193 @@
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://mobilidade.lts.app.br/404/404</loc>
-    <lastmod>2026-05-02T19:22:21.304Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.771Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/bus-repo/bus-details</loc>
-    <lastmod>2026-06-05T22:51:37.995Z</lastmod>
+    <lastmod>2026-07-25T03:17:19.634Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/bus-repo/bus-list</loc>
-    <lastmod>2026-06-05T19:54:30.179Z</lastmod>
+    <lastmod>2026-07-25T02:13:19.868Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/company/company-detail</loc>
-    <lastmod>2026-05-02T10:14:00.805Z</lastmod>
+    <lastmod>2026-07-24T00:38:51.367Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/company/company-list</loc>
-    <lastmod>2026-05-02T10:08:44.901Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.773Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/company/company-placeholder</loc>
-    <lastmod>2026-04-19T14:05:27.274Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.774Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/company/company</loc>
-    <lastmod>2026-04-19T14:05:32.559Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.774Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/busao-0800/busao-0800</loc>
-    <lastmod>2026-05-26T02:01:56.012Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://mobilidade.lts.app.br/guide/guide-index</loc>
-    <lastmod>2026-04-19T14:05:39.212Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://mobilidade.lts.app.br/guide/guide-list</loc>
-    <lastmod>2026-05-02T15:00:35.209Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://mobilidade.lts.app.br/guide/guide-placeholder</loc>
-    <lastmod>2026-05-02T14:59:29.119Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://mobilidade.lts.app.br/guide/guide-search</loc>
-    <lastmod>2026-04-19T14:05:54.252Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://mobilidade.lts.app.br/guide/guide</loc>
-    <lastmod>2026-05-02T14:55:17.040Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.772Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/development/development</loc>
-    <lastmod>2026-05-02T14:31:39.158Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.775Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/guide/guide-index</loc>
+    <lastmod>2026-07-23T19:54:45.775Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/guide/guide-list</loc>
+    <lastmod>2026-07-23T19:54:45.775Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/guide/guide-placeholder</loc>
+    <lastmod>2026-07-23T19:54:45.776Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/guide/guide-search</loc>
+    <lastmod>2026-07-23T19:54:45.776Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/guide/guide</loc>
+    <lastmod>2026-07-23T19:54:45.776Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/home/home</loc>
-    <lastmod>2026-04-17T22:38:42.261Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.779Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/lines/lines</loc>
-    <lastmod>2026-04-18T16:14:56.627Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.780Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/live/live</loc>
-    <lastmod>2026-05-02T18:56:14.909Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.781Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/manifest/manifest</loc>
-    <lastmod>2026-05-02T14:31:39.021Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.781Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/news/news-detail</loc>
-    <lastmod>2026-05-02T19:19:39.325Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.782Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/news/news-list</loc>
-    <lastmod>2026-06-04T19:11:19.265Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.783Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/news/news-nav-link</loc>
-    <lastmod>2026-04-19T14:16:31.344Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.783Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/news/news-navigation</loc>
-    <lastmod>2026-04-19T14:16:40.731Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.783Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/news/news</loc>
-    <lastmod>2026-04-18T22:39:51.911Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.783Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/privacy/privacy</loc>
-    <lastmod>2026-05-02T14:31:39.068Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.784Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/sabara-info/sabara-info</loc>
-    <lastmod>2026-05-02T18:54:56.651Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.784Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/search/search</loc>
-    <lastmod>2026-06-19T15:23:24.172Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.785Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/terms-of-service/terms-of-service</loc>
-    <lastmod>2026-05-02T14:31:39.149Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.785Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/history/departure-points/departure-points</loc>
-    <lastmod>2026-06-19T14:56:27.126Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.777Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/history/departure-points/one-departure-points</loc>
-    <lastmod>2026-06-19T14:56:15.267Z</lastmod>
+    <lastmod>2026-07-24T00:38:33.013Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/history/departure-times/history-day-departure-times</loc>
-    <lastmod>2026-06-19T14:56:03.016Z</lastmod>
+    <lastmod>2026-07-24T00:38:39.302Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/history/departure-times/history-departure-times</loc>
-    <lastmod>2026-06-19T14:55:41.560Z</lastmod>
+    <lastmod>2026-07-24T00:38:50.893Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/history/fares/history-fares</loc>
-    <lastmod>2026-05-02T19:08:18.065Z</lastmod>
+    <lastmod>2026-07-23T19:54:45.778Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -249,6 +249,26 @@
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/news/11</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/12</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/13</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/14</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/15</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
