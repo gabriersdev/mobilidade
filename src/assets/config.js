@@ -6,7 +6,7 @@ if (window.location.hostname === 'localhost') {
   };
 } else {
   config = {
-    host: 'https://mobilidade-server-production.up.railway.app'
+    host: 'https://server.mobilidade.lts.app.br'
   };
 }
 
