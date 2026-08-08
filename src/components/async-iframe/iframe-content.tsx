@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Clock from "@/components/clock/clock";
 import FullscreenControl from "@/components/fullscreen-control/fullscreen-control";
 import {Button} from "react-bootstrap";
@@ -7,6 +7,7 @@ interface IframeContentProps extends React.IframeHTMLAttributes<HTMLIFrameElemen
   isFullscreen: boolean;
   containerRef: React.RefObject<HTMLDivElement | null>;
   loading: "eager" | "lazy";
+  onReload?: () => void;
 }
 
 export const IframeContent: React.FC<IframeContentProps> = (
@@ -14,9 +15,12 @@ export const IframeContent: React.FC<IframeContentProps> = (
     isFullscreen,
     containerRef,
     loading,
+    onReload,
     ...props
   }
 ) => {
+  const [refreshKey, setRefreshKey] = useState(0);
+  
   return (
     <div style={{position: 'relative'}}>
       <div
@@ -31,12 +35,13 @@ export const IframeContent: React.FC<IframeContentProps> = (
         <Clock/>
       </div>
       
-      {/*TODO - implementar recarregamento do iframe inteiro*/}
       <Button
         variant={"primary"}
         size={"sm"}
         className={"d-flex align-items-center gap-2 flex-wrap"}
         onClick={() => {
+          if (onReload) onReload();
+          setRefreshKey(prev => prev + 1);
         }}
         style={{position: 'absolute', top: '0.5rem', left: '0.5rem', zIndex: 10}}
       >
@@ -48,6 +53,7 @@ export const IframeContent: React.FC<IframeContentProps> = (
       
       <FullscreenControl elementRef={containerRef}/>
       <iframe
+        key={refreshKey}
         className="rounded"
         style={{
           width: '100%',

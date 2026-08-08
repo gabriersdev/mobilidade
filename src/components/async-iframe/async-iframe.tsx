@@ -23,6 +23,7 @@ const AsyncIframe: React.FC<AsyncIframeProps> = (
   const containerRef = useRef<HTMLDivElement>(null);
   
   const handleLoad = () => setLoading(false);
+  const handleReload = () => setLoading(true);
   
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -74,6 +75,7 @@ const AsyncIframe: React.FC<AsyncIframeProps> = (
         <IframeContent
           {...props}
           onLoad={handleLoad}
+          onReload={handleReload}
           loading={loading ? "lazy" : "eager"}
           isFullscreen={isFullscreen}
           containerRef={containerRef}
