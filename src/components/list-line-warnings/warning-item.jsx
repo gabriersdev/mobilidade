@@ -12,7 +12,7 @@ const WarningItem = ({warning, onDismiss}) => {
         <summary open={propOpen} onClick={() => {
           setPropOpen(!propOpen)
         }} className={"alert-warning-summary"}>
-          <p className="alert-heading d-inline-block fw-bold mb-0">
+          <p className="alert-heading fw-bold mb-0 text-ellipsis-1">
             <span>{`${warning.title.endsWith('.') ? warning.title : `${warning.title}.`}`.trim()}</span>
             <span className={"ms-1"}>Saiba mais</span>
             <span className={"ms-1 d-inline-flex"} style={{transform: "rotate(180deg)"}}>

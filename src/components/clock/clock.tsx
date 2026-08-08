@@ -7,12 +7,9 @@ export const Clock: React.FC = () => {
   return (
     <div
       className="btn btn-warning p-0 rounded-1 border border-warning"
-      style={{pointerEvents: 'none', width: 90}}
+      style={{pointerEvents: 'none', width: 95}}
     >
-      <div className="py-1 px-2 d-flex align-items-center justify-content-between gap-1">
-        <span>
-          <i className="bi bi-watch"/>
-        </span>
+      <div className="py-1 px-2 d-flex align-items-center justify-content-center gap-1">
         <span className="d-block line-clamp-1 fw-bold">
           {time.format("HH[h]mm")}
         </span>

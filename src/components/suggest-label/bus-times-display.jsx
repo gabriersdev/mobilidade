@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import BusTimePlaceholder from './bus-time-placeholder.jsx';
 
 const BusTimesDisplay = ({busTimes, loading}) => {
+  // TODO - implementar aparecimento de placholder se o componente tiver acabado de ter sido carregado + delay de 3 segundos também
   if (loading) return <BusTimePlaceholder/>;
   
   if (busTimes.length === 0) return <span className="text-muted">Nenhum ônibus por perto</span>;

@@ -19,6 +19,18 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://mobilidade.lts.app.br/busao-0800/busao-0800</loc>
+    <lastmod>2026-07-23T19:54:45.772Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/development/development</loc>
+    <lastmod>2026-07-23T19:54:45.775Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://mobilidade.lts.app.br/company/company-detail</loc>
     <lastmod>2026-07-24T00:38:51.367Z</lastmod>
     <changefreq>monthly</changefreq>
@@ -39,18 +51,6 @@
   <url>
     <loc>https://mobilidade.lts.app.br/company/company</loc>
     <lastmod>2026-07-23T19:54:45.774Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://mobilidade.lts.app.br/busao-0800/busao-0800</loc>
-    <lastmod>2026-07-23T19:54:45.772Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://mobilidade.lts.app.br/development/development</loc>
-    <lastmod>2026-07-23T19:54:45.775Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

@@ -5,20 +5,23 @@ import Weather from '@/components/weather/weather.jsx';
 import LineIdentification from '@/components/line-identification/line-identification.jsx';
 import ListLineWarnings from '@/components/list-line-warnings/list-line-warnings.jsx';
 import ShowHolidayInfo from '@/components/line-info/show-holiday-info.jsx';
+import SeeMore from "@/components/ui/see-more/see-more.jsx";
 
 const LineHeader = ({line}) => (
   <section id="id">
     <LineIdentification/>
-    <Grid className="align-items-stretch mt-5 w-100">
-      {line.observations && (
-        <Alert variant="secondary" margin="m-0">
-          <span>{line.observations}</span>
-        </Alert>
-      )}
-      <Weather/>
-      <ListLineWarnings line_id={line.line_id}/>
-      <ShowHolidayInfo scope={line.scope}/>
-    </Grid>
+    <SeeMore height={225}>
+      <Grid className="align-items-stretch mt-5 w-100">
+        {line.observations && (
+          <Alert variant="secondary" margin="m-0">
+            <span>{line.observations}</span>
+          </Alert>
+        )}
+        <Weather/>
+        <ListLineWarnings line_id={line.line_id}/>
+        <ShowHolidayInfo scope={line.scope}/>
+      </Grid>
+    </SeeMore>
   </section>
 );
 

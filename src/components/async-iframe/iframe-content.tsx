@@ -1,6 +1,7 @@
 import React from 'react';
 import Clock from "@/components/clock/clock";
 import FullscreenControl from "@/components/fullscreen-control/fullscreen-control";
+import {Button} from "react-bootstrap";
 
 interface IframeContentProps extends React.IframeHTMLAttributes<HTMLIFrameElement> {
   isFullscreen: boolean;
@@ -8,12 +9,14 @@ interface IframeContentProps extends React.IframeHTMLAttributes<HTMLIFrameElemen
   loading: "eager" | "lazy";
 }
 
-export const IframeContent: React.FC<IframeContentProps> = ({
-                                                              isFullscreen,
-                                                              containerRef,
-                                                              loading,
-                                                              ...props
-                                                            }) => {
+export const IframeContent: React.FC<IframeContentProps> = (
+  {
+    isFullscreen,
+    containerRef,
+    loading,
+    ...props
+  }
+) => {
   return (
     <div style={{position: 'relative'}}>
       <div
@@ -27,6 +30,21 @@ export const IframeContent: React.FC<IframeContentProps> = ({
       >
         <Clock/>
       </div>
+      
+      {/*TODO - implementar recarregamento do iframe inteiro*/}
+      <Button
+        variant={"primary"}
+        size={"sm"}
+        className={"d-flex align-items-center gap-2 flex-wrap"}
+        onClick={() => {
+        }}
+        style={{position: 'absolute', top: '0.5rem', left: '0.5rem', zIndex: 10}}
+      >
+        <i className="bi bi-arrow-clockwise"></i>
+        <span className={"d-none d-md-inline-block text-sml"}>
+          Recarregar mapa
+        </span>
+      </Button>
       
       <FullscreenControl elementRef={containerRef}/>
       <iframe

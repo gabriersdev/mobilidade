@@ -49,9 +49,9 @@ const DirectionAccordionItem = ({
       >
         <AccordionOperationDays/>
         <div className="d-flex gap-2 align-items-center mt-4">
-          <OverlayTrigger overlay={<Tooltip>Não houve alteração no quadro de horários</Tooltip>}>
+          <OverlayTrigger overlay={<Tooltip><span className={"text-sml lh-base d-block text-balance"}>Não houve alteração no quadro de horários</span></Tooltip>}>
           <span>
-            <i className="bi bi-dash-circle-fill text-primary"></i>
+            <i className="bi bi-dash text-primary"></i>
           </span>
           </OverlayTrigger>
           <span className="text-body-secondary line-clamp-1 text-sml">

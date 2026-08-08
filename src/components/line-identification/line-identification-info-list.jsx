@@ -64,16 +64,18 @@ const LineIdentificationInfoList = ({
         <InfoItem value={line.company_name}><i className="bi bi-buildings green-sheets"></i></InfoItem>
       </Link>
       
-      <Link className={"text-decoration-none text-body"} to={"#partidas"}>
-        <InfoItem>
-          <div className="d-flex align-items-center gap-1">
-            <i className="bi bi-calendar-date d-inline-block"></i>
-            <span className="text-body fw-medium ms-1">
+      <div className={"d-none"}>
+        <Link className={"text-decoration-none text-body"} to={"#partidas"}>
+          <InfoItem>
+            <div className="d-flex align-items-center gap-1">
+              <i className="bi bi-calendar-date d-inline-block"></i>
+              <span className="text-body fw-medium ms-1">
               {countDepartureTimes > 0 ? countDepartureTimes.toLocaleString() : "Nenhuma"} {countDepartureTimes > 1 ? "partidas" : "partida"} nos quadros de horários durante a semana
             </span>
-          </div>
-        </InfoItem>
-      </Link>
+            </div>
+          </InfoItem>
+        </Link>
+      </div>
     </div>
   );
 };
