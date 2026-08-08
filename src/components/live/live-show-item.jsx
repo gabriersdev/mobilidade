@@ -12,6 +12,7 @@ export default function LiveShowItem({d, configs}) {
   
   const [audio, setAudio] = useState(defaultAudio);
   const [audioAditionalProps, setAudioAditionalProps] = useState({});
+  const hasPlayedRef = useRef(false);
   
   const textOrderDeparturePoint = useCallback((number) => {
     if (number === 1) return "Saindo";
@@ -24,9 +25,18 @@ export default function LiveShowItem({d, configs}) {
     else if (parseInt(number ?? "-1", 10) === parseInt(d?.["total_departure_points"] ?? "-2", 10)) return "Somente desembarque - Aproximando...";
     else return "Aproximando...";
   }, [d]);
+
+  const isApproaching = moment(d?.["expected_arrival_time"]).diff(moment(), "minutes") <= 0;
+
+  useEffect(() => {
+    if (!isApproaching) {
+      hasPlayedRef.current = false;
+    }
+  }, [isApproaching]);
   
   useEffect(() => {
-    if (audioRef.current && configs?.["warningSound"]) {
+    if (isApproaching && audioRef.current && configs?.["warningSound"] && !hasPlayedRef.current) {
+      hasPlayedRef.current = true;
       const tryPlay = () => {
         // Check if any audio is currently playing
         const isPlaying = Array.from(document.querySelectorAll('audio')).some(a => !a.paused && !a.muted);
@@ -41,12 +51,22 @@ export default function LiveShowItem({d, configs}) {
       const timeoutId = setTimeout(tryPlay, 500 + Math.random() * 1000);
       return () => clearTimeout(timeoutId);
     }
-  }, [configs?.["warningSound"], configs?.["volume"]]);
+  }, [isApproaching, configs?.["warningSound"], configs?.["volume"]]);
   
   return (
     <div className={"fs-inherit"}>
+      {configs?.["warningSound"] && (
+        <audio
+          ref={audioRef}
+          data-ref-id={d?.["i"] ?? 0}
+          className={"d-none"}
+          preload="auto"
+          src={d?.["srcAudio"] || ([4986, 4987, 4988].includes(parseInt(d?.["line_number"])) ? `/audio/${d?.["line_number"]}.mp3` : audio)}
+          onError={() => setAudio(defaultAudio)}
+        />
+      )}
       {
-        moment(d?.["expected_arrival_time"]).diff(moment(), "minutes") > 0 ? (
+        !isApproaching ? (
           <div>
             <span>{textOrderDeparturePoint((d?.["order_departure_point"] ?? -1))}</span>
             <span>{" "}</span>
@@ -54,17 +74,6 @@ export default function LiveShowItem({d, configs}) {
           </div>
         ) : (
           <div>
-            {
-              configs?.["warningSound"] && (
-                <audio
-                  ref={audioRef}
-                  data-ref-id={d?.["i"] ?? 0}
-                  className={"d-none"}
-                  src={d?.["srcAudio"] || ([4986, 4987, 4988].includes(parseInt(d?.["line_number"])) ? `/audio/${d?.["line_number"]}.mp3` : audio)}
-                  onError={() => setAudio(defaultAudio)}
-                />
-              )
-            }
             <span>{textOrderDeparturePointNow((d?.["order_departure_point"] ?? -1))}</span>
           </div>
         )

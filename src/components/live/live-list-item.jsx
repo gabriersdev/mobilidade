@@ -47,7 +47,7 @@ NextDeparture.propTypes = {
 
 
 const LiveListItem = ({d, i, configs, getNextDepartureTimes}) => {
-  const nextTimes = getNextDepartureTimes(d?.["line_id"], d?.["expected_arrival_time"], d?.["departure_time_trip"]);
+  const nextTimes = getNextDepartureTimes(d?.["line_id"], d?.["expected_arrival_time"], d?.["departure_time_trip"], d?.["order_departure_point"]);
   
   return (
     <li className={configs?.["showSomeDepartureStart"] && (d?.["order_departure_point"] ?? -1) !== 1 ? "d-none" : ""}>
@@ -103,8 +103,6 @@ const LiveListItem = ({d, i, configs, getNextDepartureTimes}) => {
               <LiveShowItem d={{...d, i}} configs={configs}/>
               <span className={"text-muted text-sml"}>- às {moment(d?.["expected_arrival_time"]).format("HH:mm")}</span>
             </div>
-            
-            {/*TODO - alterar regra de exibição de informações adicionais e informação para exibição de informação: SE o horário corrente for de APROXIMAÇÃO (conferir regra) exibir APENAS próximos horários de aproximação. SE o horário corrente for de PARTIDA/SAÏDA (conferir regra), exibir APENAS os próximos horários de PARTIDA/SAIDA*/}
             {configs?.["showAdditionalInfo"] && (
               <div className={""}>
                 <p className={"text-sml m-0 d-inline-flex align-items-center gap-1 flex-wrap lh-base"}>
@@ -112,7 +110,7 @@ const LiveListItem = ({d, i, configs, getNextDepartureTimes}) => {
                       <svg className={"d-none d-sm-inline-block"} style={{rotate: "180deg", marginRight: "0.125rem"}} xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#BBBBBB">
                         <path d="M860-240 500-480l360-240v480Zm-400 0L100-480l360-240v480Zm-80-240Zm400 0Zm-400 90v-180l-136 90 136 90Zm400 0v-180l-136 90 136 90Z"/>
                       </svg>
-                      <i className={"fst-normal"}>Depois - aproxima ou saí</i>
+                      <i className={"fst-normal"}>Depois - {(d?.["order_departure_point"] ?? -1) === 1 ? "sai" : "aproxima"}</i>
                     </span>
                   <NextDeparture times={nextTimes} lineId={d?.["line_id"]}/>
                 </p>

@@ -19,7 +19,7 @@ export const useLiveConfigs = () => {
     return defaultConfig;
   });
   
-  // TODO - revisar configuração de aviso sonoro: carregar ele antes de ser necessário tocá-lo (para deixar ele já pre-carregado e tocar mais facilmente) e verificar se ele está sendo tocado quando a configuração determina (parece que não está sendo tocado em nenhuma ocasião). Corrigir se for o caso.
+
   const labelsConfigs = useRef({
     warningSound: "Aviso sonoro",
     showSomeDepartureStart: "Exibir apenas partidas",

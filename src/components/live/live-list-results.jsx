@@ -11,8 +11,8 @@ moment.locale(dateConfigs.lang);
 export default function LiveListResults({data, dataNextDepartureTimes, configs}) {
   const nextDepartureTimes = useRef(dataNextDepartureTimes);
   
-  const handleGetNextDepartures = useCallback((lineId, expectedArrivalTime, departureTimeTrip) => {
-    return getNextDepartures(nextDepartureTimes.current, lineId, expectedArrivalTime, departureTimeTrip);
+  const handleGetNextDepartures = useCallback((lineId, expectedArrivalTime, departureTimeTrip, orderDeparturePoint) => {
+    return getNextDepartures(nextDepartureTimes.current, lineId, expectedArrivalTime, departureTimeTrip, orderDeparturePoint);
   }, []);
   
   const processedData = data
