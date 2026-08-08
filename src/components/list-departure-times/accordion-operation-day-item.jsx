@@ -8,6 +8,7 @@ import Legend from "@/components/ui/legend/legend.jsx";
 import NoDepartureTimes from "@/components/list-departure-times/no-departure-times.jsx";
 import {useEffect, useState} from "react";
 import SeeMore from "@/components/ui/see-more/see-more.jsx";
+import InfoPopover from "@/components/ui/info-popover/info-popover.jsx";
 
 const AccordionOperationDayItem = (
   {
@@ -74,8 +75,7 @@ const AccordionOperationDayItem = (
             <Legend items={observations} type={type || "current"}/>
           </SeeMore>
           
-          {/*TODO - usar componente InfoPopover*/}
-          <OverlayTrigger overlay={
+          <InfoPopover className={"mt-4"} trigger={['hover', 'focus']} placement={"top"} overlay={
             <Popover placement={"top"}>
               <PopoverHeader className={"fw-medium"}>
                 Intervalos entre partidas
@@ -107,12 +107,12 @@ const AccordionOperationDayItem = (
               </PopoverBody>
             </Popover>
           }>
-            <div className={"d-flex flex-column gap-2 text-body-secondary mt-4 text-sml"}>
+            <div className={"d-flex flex-column gap-2 text-body-secondary text-sml"}>
               <span className={"d-block text-balance fs-inherit"}>
                 {departureTimesDay.length.toLocaleString()} horários de partidas no horário de {dayConverted.substring(0, 1).toLowerCase() + dayConverted.substring(1)}.
               </span>
             </div>
-          </OverlayTrigger>
+          </InfoPopover>
         </AccordionItem>
       </div>
     </div>

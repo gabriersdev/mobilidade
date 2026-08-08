@@ -1,21 +1,7 @@
 import {Link} from "react-router-dom";
-import {OverlayTrigger} from "react-bootstrap";
 import InfoItem from "@/components/ui/info-item/info-item.jsx";
 import PropTypes from "prop-types";
-
-const InfoPopover = ({ overlay, children }) => (
-  <OverlayTrigger trigger="click" placement="auto" overlay={overlay}>
-    <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
-      {children}
-      <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
-    </div>
-  </OverlayTrigger>
-);
-
-InfoPopover.propTypes = {
-  overlay: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired
-};
+import InfoPopover from "@/components/ui/info-popover/info-popover.jsx";
 
 const LineIdentificationInfoList = ({
   lineType, scope, integrationPopover, hasIntegration,
