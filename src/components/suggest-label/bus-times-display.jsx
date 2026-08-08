@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import BusTimePlaceholder from './bus-time-placeholder.jsx';
 
 const BusTimesDisplay = ({busTimes, loading}) => {
-  // TODO - implementar aparecimento de placholder se o componente tiver acabado de ter sido carregado + delay de 3 segundos também
-  if (loading) return <BusTimePlaceholder/>;
+  const [initialLoading, setInitialLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setInitialLoading(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading || initialLoading) return <BusTimePlaceholder/>;
   
   if (busTimes.length === 0) return <span className="text-muted">Nenhum ônibus por perto</span>;
   
