@@ -3,9 +3,9 @@ import moment from "moment";
 import Util from "../../lib/Util.jsx";
 import {useLocation} from "react-router-dom";
 import {dateConfigs} from "@/assets/resources.js";
-import { useLiveConfigs } from "./use-live-configs.js";
-import { useWakeLock } from "./use-wake-lock.js";
-import { useLiveData } from "./use-live-data.js";
+import {useLiveConfigs} from "./use-live-configs.js";
+import {useWakeLock} from "./use-wake-lock.js";
+import {useLiveData} from "./use-live-data.js";
 
 moment.locale(dateConfigs.lang);
 
@@ -14,7 +14,7 @@ const useLiveComponent = () => {
   const [departurePointSelected, setDeparturePointSelected] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   
-  const { configs, setConfigs, labelsConfigs } = useLiveConfigs();
+  const {configs, setConfigs, labelsConfigs} = useLiveConfigs();
   useWakeLock();
   
   const {
@@ -57,13 +57,14 @@ const useLiveComponent = () => {
       if (foundDP) setDeparturePointSelected(foundDP);
     }
   }, [searchTerm, lines, departurePoints]);
-
+  
   useEffect(() => {
     if (!lines && !departurePoints) fetchInitialData(setDeparturePointSelected).then();
   }, [lines, departurePoints, lineSelected, fetchInitialData]);
   
   useEffect(() => {
     const id = Util.getSearchParamId(location);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (id !== null) setSearchDPId(id);
   }, [location]);
   
@@ -75,16 +76,17 @@ const useLiveComponent = () => {
       if (typeof searchDPId === 'string' && searchDPId.endsWith("S")) {
         PPI = +searchDPId.match(/\d/g).join("");
         if (PPI) correspondence = departurePoints.find(dp => dp.id === PPI);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (correspondence) setDeparturePointSelected(correspondence);
       } else if (searchDPId >= 0) {
         fetchPhysicalPointId(searchDPId).then(physicalPointId => {
-          PPI = physicalPointId
+          PPI = physicalPointId;
           if (PPI) correspondence = departurePoints.find(dp => dp.id === PPI);
           if (correspondence) setDeparturePointSelected(correspondence);
         });
       }
     }
-   
+    
   }, [searchDPId, departurePoints]);
   
   useEffect(() => {

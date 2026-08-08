@@ -103,6 +103,8 @@ const LiveListItem = ({d, i, configs, getNextDepartureTimes}) => {
               <LiveShowItem d={{...d, i}} configs={configs}/>
               <span className={"text-muted text-sml"}>- às {moment(d?.["expected_arrival_time"]).format("HH:mm")}</span>
             </div>
+            
+            {/*TODO - alterar regra de exibição de informações adicionais e informação para exibição de informação: SE o horário corrente for de APROXIMAÇÃO (conferir regra) exibir APENAS próximos horários de aproximação. SE o horário corrente for de PARTIDA/SAÏDA (conferir regra), exibir APENAS os próximos horários de PARTIDA/SAIDA*/}
             {configs?.["showAdditionalInfo"] && (
               <div className={""}>
                 <p className={"text-sml m-0 d-inline-flex align-items-center gap-1 flex-wrap lh-base"}>

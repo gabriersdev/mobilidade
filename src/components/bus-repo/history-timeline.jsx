@@ -33,6 +33,7 @@ export default function HistoryTimeline({vehicle}) {
     const descriptionStr = (
       Util.diffToHuman(
         moment(),
+        // TODO - esta forma de fazer esta substituição NEM SEMPRE FUNCIONA. Há casos, dependendo da configuração do navegador, em que é dito que um evento ocorreu mas aparece o dia anterior... Verificar incidência de uma substituição grosseira assim em outras partes do projeto e resolver se necessário.
         moment(operationStartDate.replace("Z", "-03:00")),
         true
       )

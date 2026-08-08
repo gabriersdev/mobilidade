@@ -1,6 +1,5 @@
 import {Accordion, Form, FormCheck, FormLabel} from "react-bootstrap";
 import PropTypes from "prop-types";
-import {useRef} from "react";
 
 function FormControlElement({elementType, params}) {
   const label = <FormLabel className={(["check", "radio"].includes(elementType)) ? "d-none" : "m-0 p-0"}>{params.label}</FormLabel>;
@@ -66,7 +65,7 @@ export function LiveConfigs({configs, setConfigs, labelsConfigs, resultSection})
       <Accordion.Item eventKey="0">
         <Accordion.Header className={"inter"}>Configurações</Accordion.Header>
         <Accordion.Body>
-          <Form className={"d-flex align-items-center flex-wrap gap-4 mt-1"}>
+          <Form className={"d-flex align-items-center flex-wrap gap-2 justify-content-evenly mt-1"}>
             {
               typeof configs === "object" ? Object.entries(configs)
                 .map((c, index) => {
