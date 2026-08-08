@@ -2,6 +2,7 @@ import moment from 'moment';
 import Title from '@/components/ui/title/title.jsx';
 import Util from "@/lib/Util.jsx";
 
+
 const getIconForIncident = (type) => {
   switch (type) {
     case 'Acidente':
@@ -33,8 +34,7 @@ export default function HistoryTimeline({vehicle}) {
     const descriptionStr = (
       Util.diffToHuman(
         moment(),
-        // TODO - esta forma de fazer esta substituição NEM SEMPRE FUNCIONA. Há casos, dependendo da configuração do navegador, em que é dito que um evento ocorreu mas aparece o dia anterior... Verificar incidência de uma substituição grosseira assim em outras partes do projeto e resolver se necessário.
-        moment(operationStartDate.replace("Z", "-03:00")),
+        Util.safeParseDate(operationStartDate),
         true
       )
     )
@@ -64,8 +64,8 @@ export default function HistoryTimeline({vehicle}) {
     const removeMarcDiff = (str) => str.replace(/(há)|(em)/g, "");
     const descriptionStr = removeMarcDiff(
       Util.diffToHuman(
-        moment(operationEndDate.replace("Z", "-03:00")),
-        moment(operationStartDate.replace("Z", "-03:00")),
+        Util.safeParseDate(operationEndDate),
+        Util.safeParseDate(operationStartDate),
         true
       )
     )
@@ -114,7 +114,7 @@ export default function HistoryTimeline({vehicle}) {
                 <h6 className="fw-bold mb-1">{Util.renderText(event.type)}</h6>
                 <span className="text-muted d-block mb-2">
                   <i className="bi bi-calendar me-1"></i>
-                  {Util.renderText(Util.diffToHuman(moment(event.date)))}
+                  {Util.renderText(Util.diffToHuman(Util.safeParseDate(event.date)))}
                 </span>
                 <p className="mb-0 text-body">{Util.renderText(event.description)}</p>
               </div>

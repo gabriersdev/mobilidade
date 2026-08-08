@@ -70,7 +70,7 @@ export default function OneDeparturePoints() {
           <ListGroup>
             <ListGroup.Item>
               <span>-</span>
-              <span className={"text-body-tertiary"}>Pontos atualizados em {Util.renderText(moment(lineData?.[0]?.["datetime_last_modify"]?.toString()?.replace("Z", "-03:00") ?? "").format("DD/MM/YYYY"))}</span>
+              <span className={"text-body-tertiary"}>Pontos atualizados em {Util.renderText(Util.safeParseDate(lineData?.[0]?.["datetime_last_modify"]?.toString()).format("DD/MM/YYYY"))}</span>
             </ListGroup.Item>
           </ListGroup>
         </AnimatedComponents>

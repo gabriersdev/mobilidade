@@ -81,7 +81,12 @@ export function translateWeekDay(weekDay, props) {
 export function parseDatetimeTimezone(d) {
   return {
     ...d,
-    "departure_time_trip": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["departure_time_trip"].replace("Z", "-03:00") : d?.["departure_time_trip"],
-    "expected_arrival_time": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 ? d?.["expected_arrival_time"].replace("Z", "-03:00") : d?.["expected_arrival_time"],
+    "departure_time_trip": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 && d?.["departure_time_trip"] ? d?.["departure_time_trip"].replace(/Z$/i, "-03:00") : d?.["departure_time_trip"],
+    "expected_arrival_time": parseInt(import.meta.env?.["VITE_MODE"], 10) === 0 && d?.["expected_arrival_time"] ? d?.["expected_arrival_time"].replace(/Z$/i, "-03:00") : d?.["expected_arrival_time"],
   }
+}
+
+export function safeParseDate(dateStr) {
+  if (!dateStr) return moment();
+  return moment.parseZone(dateStr.replace(/Z$/i, '-03:00'));
 }

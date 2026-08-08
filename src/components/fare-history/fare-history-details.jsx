@@ -8,7 +8,7 @@ export default function FareHistoryDetails({fare, lastModified}) {
       <ListGroup.Item>
         <span className="d-block text-primary">BRL {fare?.toString()?.replace(".", ",")}</span>
         <span className="text-body-tertiary">
-          Tarifa atualizada em {Util.renderText(moment(lastModified?.toString()?.replace("Z", "-03:00") ?? "").format("DD/MM/YYYY"))}
+          Tarifa atualizada em {Util.renderText(Util.safeParseDate(lastModified?.toString()).format("DD/MM/YYYY"))}
         </span>
       </ListGroup.Item>
     </ListGroup>
