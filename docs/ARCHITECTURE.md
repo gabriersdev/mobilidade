@@ -27,6 +27,10 @@ A estrutura de diretórios do projeto é a seguinte:
 
 A aplicação usa um fluxo de dados unidirecional, que é um padrão comum em aplicações React. Os dados fluem do componente pai para o componente filho através de props. As atualizações de estado são manipuladas no componente que possui o estado e passadas para os componentes filhos através de callbacks.
 
+## Comunicação em Tempo Real (WebSockets)
+
+Além das requisições REST tradicionais via Axios, a aplicação mantém uma instância única (Singleton) do cliente `socket.io-client` (em `src/lib/socket.js`). Isso garante que o tráfego de dados ao vivo, como as previsões de ônibus, aproveite a mesma origem da API, reagindo passivamente a eventos de estado do Socket de forma centralizada através dos Hooks customizados do React.
+
 ## Roteamento
 
 O roteamento é tratado pelo `app-router.jsx`, que usa uma biblioteca de roteamento do lado do cliente (provavelmente React Router) para mapear as URLs para os componentes de página apropriados.

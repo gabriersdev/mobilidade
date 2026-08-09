@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import apiClient from "@/assets/axios-config.js";
+import socket, { connectSocket, disconnectSocket } from '@/lib/socket.js';
 import Util from "../../lib/Util.jsx";
 import moment from "moment";
 
@@ -12,6 +13,11 @@ export const useLiveData = (departurePointSelected) => {
   const [departurePoints, setDeparturePoints] = useState(null);
   const [isOriginalFetch, setIsOriginalFetch] = useState(false);
   const [datetimeOriginalFetch, setDatetimeOriginalFetch] = useState(null);
+
+  useEffect(() => {
+    connectSocket();
+    return () => disconnectSocket();
+  }, []);
 
   const fetchInitialData = useCallback(async (setDeparturePointSelected) => {
     await apiClient.get(`/lines/`).then((c) => {
@@ -43,38 +49,38 @@ export const useLiveData = (departurePointSelected) => {
    
   }, []);
 
+  const handlePredictionsData = useCallback((response) => {
+    try {
+      const axiosMainData = response?.[0]?.[0]?.[0]?.["get_arrival_predictions(?, ?)"];
+      const axiosNextDepartureTimes = response?.[1]?.[0]?.[0]?.["@out"];
+      
+      if (Array.isArray(axiosMainData)) {
+        setData(JSON.parse(JSON.stringify(axiosMainData)).map(Util.parseDatetimeTimezone));
+      } else {
+        setData([]);
+      }
+      
+      if (axiosNextDepartureTimes && Array.isArray(JSON.parse(axiosNextDepartureTimes))) {
+        setDataNextDepartureTimes(JSON.parse(axiosNextDepartureTimes).map(Util.parseDatetimeTimezone));
+      } else {
+        setDataNextDepartureTimes([]);
+      }
+      
+      setIsOriginalFetch(true);
+      setDatetimeOriginalFetch(moment());
+      setError(null);
+    } catch (err) {
+      console.error("Error processing live data from socket:", err);
+      setError("Erro ao processar dados.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   const fetchData = async (pointSelected, isRefresh = false) => {
     if (!pointSelected) return;
     if (!isRefresh) setLoading(true);
-    
-    const s = await apiClient.post(`/predictions/departure-points/`, {
-      pointId: pointSelected?.["id"] ?? -1
-    }).catch((error) => {
-      console.log("Error", error);
-      setError(error);
-      setIsOriginalFetch(false);
-      setDatetimeOriginalFetch(null);
-      if (!isRefresh) setLoading(false);
-      return false;
-    });
-    
-    setIsOriginalFetch(true);
-    setDatetimeOriginalFetch(moment());
-    
-    const axiosMainData = s?.data[0]?.[0]?.[0]?.["get_arrival_predictions(?, ?)"];
-    const axiosNextDepartureTimes = s?.data[1]?.[0]?.[0]?.["@out"];
-    
-    if (Array.isArray(axiosMainData)) setData(JSON.parse(JSON.stringify(axiosMainData)).map(Util.parseDatetimeTimezone));
-    else setData([]);
-    
-    if (Array.isArray(JSON.parse(axiosNextDepartureTimes))) {
-      setDataNextDepartureTimes(JSON.parse(axiosNextDepartureTimes).map(Util.parseDatetimeTimezone));
-    } else {
-      setDataNextDepartureTimes([]);
-    }
-    
-    setError(null);
-    if (!isRefresh) setLoading(false);
+    socket.emit('subscribe_predictions', { pointId: pointSelected?.["id"] ?? -1 });
   };
 
   const fetchPhysicalPointId = async (pointId) => {
@@ -92,13 +98,20 @@ export const useLiveData = (departurePointSelected) => {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setData([]);
       setDataNextDepartureTimes([]);
-      fetchData(departurePointSelected, false).then(() => {});
+      setLoading(true);
+      
+      socket.on('predictions_data', handlePredictionsData);
+      socket.emit('subscribe_predictions', { pointId: departurePointSelected.id });
+
+      return () => {
+        socket.off('predictions_data', handlePredictionsData);
+        socket.emit('unsubscribe_predictions', { pointId: departurePointSelected.id });
+      };
     } else {
       setData(null);
       setDataNextDepartureTimes(null);
     }
-   
-  }, [departurePointSelected]);
+  }, [departurePointSelected, handlePredictionsData]);
 
   // Effect to restore data when original fetch flag is true
   useEffect(() => {
@@ -109,24 +122,6 @@ export const useLiveData = (departurePointSelected) => {
       setData(original);
     }
   }, [data, isOriginalFetch]);
-
-  // Effect for polling interval
-  useEffect(() => {
-    let int = setInterval(() => {}, 100000);
-    
-    if (departurePointSelected && datetimeOriginalFetch) {
-      try { clearInterval(int); } catch { /* ignore */ }
-      
-      int = setInterval(() => {
-        if (moment().diff(datetimeOriginalFetch, "seconds") % 60) fetchData(departurePointSelected, true).then();
-      }, 1000 * 30);
-    } else {
-      try { clearInterval(int); } catch { /* ignore */ }
-    }
-    
-    return () => clearInterval(int);
-   
-  }, [departurePointSelected, datetimeOriginalFetch]);
 
   return {
     data, setData,

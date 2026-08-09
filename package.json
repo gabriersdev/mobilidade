@@ -54,6 +54,7 @@
     "react-router-dom": "^7.18.2",
     "rolldown": "1.2.0",
     "semantic-release": "^25.0.8",
+    "socket.io-client": "^4.8.3",
     "vercel": "^58.4.0"
   },
   "devDependencies": {
