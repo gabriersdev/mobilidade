@@ -1,7 +1,7 @@
 import {readFile} from 'fs/promises';
 import path from 'path';
 import {fileURLToPath} from 'url';
-import {getFiles} from '@/lib/util.js';
+import {getFiles} from '../src/lib/util.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
