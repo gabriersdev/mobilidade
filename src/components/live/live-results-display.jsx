@@ -5,7 +5,6 @@ import {AlertInfoConfigSomeDepartureStart, AlertInfoFeature, AnyBusProximityErro
 import LiveListSingleLine from "./live-list-single-line.jsx";
 import LiveListResults from "./live-list-results.jsx";
 import LiveFullscreenControl from "./live-fullscreen-control.jsx";
-import {OverlayTrigger, Tooltip} from "react-bootstrap";
 import LiveLinesAtPoint from "./live-lines-at-point.jsx";
 
 const LiveResultsDisplay = ({
@@ -36,7 +35,7 @@ const LiveResultsDisplay = ({
               <span>{Util.renderText(departurePointSelected?.["title"])}</span>
             </div>
             
-            <LiveLinesAtPoint data={data} />
+            <LiveLinesAtPoint data={data}/>
           </div>
           
           {loading ? (

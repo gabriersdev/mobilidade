@@ -1,6 +1,6 @@
 import moment from "moment";
 import {Button, Placeholder} from "react-bootstrap";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {Link, useLocation, useParams} from "react-router-dom";
 
 import Util from "@/lib/Util.jsx";
@@ -11,7 +11,6 @@ import AnimatedComponents from "@/components/ui/animated-component/animated-comp
 import {ListDepartureTimes} from "@/components/list-departure-times/list-departure-times.jsx";
 import bcAll from "@/components/breadcrumb-app/breadcrumb-context.jsx";
 import {dateConfigs} from "@/assets/resources.js";
-import apiClient from "@/assets/axios-config.js";
 import {useHistoryData} from "@/hooks/use-history-data.jsx";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
@@ -31,11 +30,7 @@ export default function HistoryDayDepartureTimes() {
   const lineId = pathname.split("/")[pathname.split("/").length - 2];
   
   const {setLabel} = useBreadcrumb();
-  const {error, loaded, data, setData, lineData} = useHistoryData(Util.checkIsValid(lineId) ? lineId : null, null);
-  
-  useEffect(() => {
-    //
-  }, [lineId, departureTimeDate]);
+  const {error, loaded, data, lineData} = useHistoryData(Util.checkIsValid(lineId) ? lineId : null, null);
   
   useEffect(() => {
     document.title = "Mobilidade - Histórico de horários";
@@ -59,8 +54,8 @@ export default function HistoryDayDepartureTimes() {
   
   if (loaded) return (
     <AnimatedComponents>
-      <Placeholder as="h1" animation="glow"><Placeholder xs={6} /></Placeholder>
-      <Placeholder as="h2" animation="glow"><Placeholder xs={4} /></Placeholder>
+      <Placeholder as="h1" animation="glow"><Placeholder xs={6}/></Placeholder>
+      <Placeholder as="h2" animation="glow"><Placeholder xs={4}/></Placeholder>
     </AnimatedComponents>
   )
   else if (error) {

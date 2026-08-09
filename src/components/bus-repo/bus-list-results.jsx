@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Grid from '../ui/grid/grid.jsx';
 import Card from '../ui/card/card.jsx';
 import BusCard from './bus-card.jsx';
-import {Col, Row} from 'react-bootstrap';
+import {Col} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
 import PaginationWithItems from '../pagination-with-items/pagination-with-items.jsx';
 

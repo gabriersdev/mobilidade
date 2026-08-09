@@ -7,7 +7,6 @@ import liveMap from "@/assets/live-map.js";
 import Title from "@/components/ui/title/title.jsx";
 import AsyncIframe from "@/components/async-iframe/async-iframe.tsx";
 import useDepartureTimes from "@/components/list-departure-times/use-departure-times.js";
-import {Button} from "react-bootstrap";
 
 export default function RenderLiveMap({data}) {
   const lineId = data?.[0]?.line_id;

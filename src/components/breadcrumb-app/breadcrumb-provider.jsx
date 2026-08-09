@@ -1,4 +1,4 @@
-import {createContext, useCallback, useState} from 'react';
+import {useCallback, useState} from 'react';
 import PropTypes from 'prop-types';
 
 import {BreadcrumbContext} from './breadcrumb-context-obj.js';

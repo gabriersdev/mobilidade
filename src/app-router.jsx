@@ -2,7 +2,7 @@ import {Route, Routes} from 'react-router-dom';
 import {useCaptcha} from '@/components/captcha-verifier/use-captcha.js';
 import {useGlobalEffects} from '@/hooks/use-global-effects.js';
 import AppLayout from '@/components/layout/app-layout.jsx';
-import {Company, DeparturePoints, Development, Guide, HistoryDayDepartureTimes, HistoryDepartureTimes, HistoryFares, Home, Lines, Live, Manifest, News, NotFound, OneDeparturePoints, Privacy, SabaraInfo, Search, TermsOfService} from "@/pages/index.d.ts";
+import {Company, DeparturePoints, Development, Guide, HistoryDayDepartureTimes, HistoryDepartureTimes, HistoryFares, Home, Lines, Live, Manifest, News, NotFound, Privacy, SabaraInfo, Search, TermsOfService} from "@/pages/index.d.ts";
 import CaptchaVerifier from "@/components/captcha-verifier/captcha-verifier.jsx";
 import Busao0800 from "@/pages/busao-0800/busao-0800.jsx";
 import BusDetails from "@/pages/bus-repo/bus-details.jsx";
@@ -37,7 +37,6 @@ const AppRouter = () => {
         <Route path="/history/departure-times/:id/:id" element={<HistoryDayDepartureTimes/>}/>
         <Route path="/history/fares/:id" element={<HistoryFares/>}/>
         <Route path="/history/departure-points/:id" element={<DeparturePoints/>}/>
-        <Route path="/history/departure-points/:id/:id" element={<OneDeparturePoints/>}/>
         <Route path="/sabara" element={<SabaraInfo/>}/>
         <Route path="/manifest" element={<Manifest/>}/>
         

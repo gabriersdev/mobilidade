@@ -1,11 +1,10 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import moment from "moment";
 import {Button, ListGroup, Placeholder} from "react-bootstrap";
 import {Link, useParams} from "react-router-dom";
 
 import Util from "@/lib/Util.jsx";
 import {dateConfigs} from "@/assets/resources.js";
-import apiClient from "@/assets/axios-config.js";
 import {useHistoryData} from "@/hooks/use-history-data.jsx";
 
 import Alert from "@/components/ui/alert/alert.jsx";
@@ -25,11 +24,8 @@ export default function DeparturePoints() {
   const departureTimeDateIsValid = departureTimeDate.match(/^(\d+)X(\d+)X(\d+)$/) || false;
   
   const {setLabel} = useBreadcrumb();
-  const {error, loaded, data, setData, lineData} = useHistoryData(Util.checkIsValid(id) ? id : null, null);
+  const {error, loaded, data, lineData} = useHistoryData(Util.checkIsValid(id) ? id : null, null);
   
-  useEffect(() => {
-    //
-  }, [departureTimeDate, id]);
   useEffect(() => {
     document.title = "Mobilidade - Histórico de Pontos de Parada";
     
@@ -46,8 +42,8 @@ export default function DeparturePoints() {
   
   if (loaded) return (
     <AnimatedComponents>
-      <Placeholder as="h1" animation="glow"><Placeholder xs={6} /></Placeholder>
-      <Placeholder as="h2" animation="glow"><Placeholder xs={4} /></Placeholder>
+      <Placeholder as="h1" animation="glow"><Placeholder xs={6}/></Placeholder>
+      <Placeholder as="h2" animation="glow"><Placeholder xs={4}/></Placeholder>
     </AnimatedComponents>
   )
   else if (error) {

@@ -1,4 +1,4 @@
-import {createContext, useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import apiClient from '@/assets/axios-config.js';
 
 import {CaptchaContext} from './captcha-context-obj.js';

@@ -14,7 +14,6 @@ import HistoryDayDepartureTimes from "@/pages/history/departure-times/history-da
 import SabaraInfo from "@/pages/sabara-info/sabara-info";
 import HistoryFares from "@/pages/history/fares/history-fares";
 import DeparturePoints from "@/pages/history/departure-points/departure-points";
-import OneDeparturePoints from "@/pages/history/departure-points/one-departure-points";
 import Manifest from "@/pages/manifest/manifest";
 import BusList from "@/pages/bus-repo/bus-list";
 import BusDetails from "@/pages/bus-repo/bus-details";
@@ -36,7 +35,6 @@ export {
   SabaraInfo,
   HistoryFares,
   DeparturePoints,
-  OneDeparturePoints,
   Manifest,
   BusList,
   BusDetails

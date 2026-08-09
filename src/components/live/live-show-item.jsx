@@ -11,7 +11,7 @@ export default function LiveShowItem({d, configs}) {
   const audioRef = useRef();
   
   const [audio, setAudio] = useState(defaultAudio);
-  const [audioAditionalProps, setAudioAditionalProps] = useState({});
+  // const [audioAditionalProps, setAudioAditionalProps] = useState({});
   const hasPlayedRef = useRef(false);
   
   const textOrderDeparturePoint = useCallback((number) => {
