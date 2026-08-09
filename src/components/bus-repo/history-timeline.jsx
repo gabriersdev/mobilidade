@@ -21,7 +21,7 @@ const getIconForIncident = (type) => {
 };
 
 export default function HistoryTimeline({vehicle}) {
-  const {incidents, maintenances, manufactureYear, operationStartDate, operationEndDate} = vehicle;
+  const {status, incidents, maintenances, manufactureYear, operationStartDate, operationEndDate} = vehicle;
   
   // Combinar incidentes e manutenções em uma única timeline e ordenar
   const timelineEvents = [
@@ -59,8 +59,7 @@ export default function HistoryTimeline({vehicle}) {
     });
   }
   
-  
-  if (operationEndDate) {
+  if (operationEndDate && ["DESATIVADO", "SUBSTITUÍDO"].map(s => s.toLowerCase()) .includes(status.toLowerCase())) {
     const removeMarcDiff = (str) => str.replace(/(há)|(em)/g, "");
     const descriptionStr = removeMarcDiff(
       Util.diffToHuman(

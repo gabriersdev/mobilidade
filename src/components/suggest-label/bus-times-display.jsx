@@ -9,7 +9,7 @@ const BusTimesDisplay = ({busTimes, loading}) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setInitialLoading(false);
-    }, 3000);
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
