@@ -27,7 +27,7 @@
     "react-dom": "18.2.0"
   },
   "dependencies": {
-    "@hcaptcha/react-hcaptcha": "^2.0.2",
+    "@hcaptcha/react-hcaptcha": "^2.1.0",
     "@rollup/plugin-terser": "^1.0.0",
     "@semantic-release/changelog": "^7.0.0",
     "@semantic-release/commit-analyzer": "^13.0.1",
