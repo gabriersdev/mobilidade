@@ -67,7 +67,7 @@
     "@vitejs/plugin-react": "^6.0.4",
     "chalk": "^6.0.0",
     "cypress": "^15.19.0",
-    "eslint": "^10.8.0",
+    "eslint": "^10.8.1",
     "eslint-plugin-cypress": "7.0.0",
     "eslint-plugin-import": "^1.14.0",
     "eslint-plugin-react": "^7.22.0",
