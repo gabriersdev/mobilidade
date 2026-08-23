@@ -11,10 +11,12 @@ export const sortDataByArrivalTime = (a, b) => {
   return moment(a?.["expected_arrival_time"]).utc() - moment(b?.["expected_arrival_time"]).utc();
 };
 
-export const getNextDepartures = (nextDepartureTimes, lineId, expectedArrivalTime, departureTimeTrip) => {
+export const getNextDepartures = (nextDepartureTimes, lineId, expectedArrivalTime, departureTimeTrip, orderDeparturePoint) => {
   if (!nextDepartureTimes || !lineId) {
     return [];
   }
+  
+  const isDeparture = parseInt(orderDeparturePoint ?? "-1", 10) === 1;
   
   return nextDepartureTimes.filter(d => {
     const lineItemExpectedArrivalTimeM = moment(expectedArrivalTime);
@@ -28,6 +30,9 @@ export const getNextDepartures = (nextDepartureTimes, lineId, expectedArrivalTim
     // Ela verifica se a previsão não é [0, 1] OU se a diferença de tempo é maior que 60 segundos.
     const isRelevant = !([0, 1].includes(d?.["prediction_line_order"])) ? true : lineItemDepartureTimeTripM.diff(lineItemExpectedArrivalTimeM, "seconds") > 60;
     
-    return isSameLine && isAfter && isRelevant;
+    const isNtDeparture = parseInt(d?.["order_departure_point"] ?? "-1", 10) === 1;
+    const matchesDepartureType = isDeparture ? isNtDeparture : !isNtDeparture;
+    
+    return isSameLine && isAfter && isRelevant && matchesDepartureType;
   }).slice(0, 3);
 };

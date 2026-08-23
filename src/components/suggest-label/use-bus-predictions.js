@@ -2,34 +2,39 @@ import {useCallback, useEffect, useState} from 'react';
 import moment from 'moment';
 
 import Util from '@/lib/Util.jsx';
-import apiClient from "@/assets/axios-config.js";
+import socket, { connectSocket, disconnectSocket } from '@/lib/socket.js';
 
 export const useBusPredictions = (selectedStop) => {
   const [data, setData] = useState([]);
   const [busTimes, setBusTimes] = useState([]);
   const [now, setNow] = useState(moment());
   
-  const fetchData = useCallback(async () => {
-    if (!selectedStop) return;
-    
-    try {
-      const response = await apiClient.post(`/predictions/departure-points/`, {
-        pointId: selectedStop.id
-      });
-      const axiosMainData = response?.data[0]?.[0]?.[0]?.["get_arrival_predictions(?, ?)"];
-      setData(Array.isArray(axiosMainData) ? JSON.parse(JSON.stringify(axiosMainData)).map(Util.parseDatetimeTimezone) : []);
-    } catch (error) {
-      console.error("Error fetching predictions:", error);
-      setData([]);
-    }
-  }, [selectedStop]);
-  
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    fetchData().then();
-    const interval = setInterval(fetchData, 30000);
-    return () => clearInterval(interval);
-  }, [fetchData]);
+    connectSocket();
+    return () => disconnectSocket();
+  }, []);
+
+  useEffect(() => {
+    if (!selectedStop) return;
+
+    const handlePredictionsData = (response) => {
+      try {
+        const axiosMainData = response?.[0]?.[0]?.[0]?.["get_arrival_predictions(?, ?)"];
+        setData(Array.isArray(axiosMainData) ? JSON.parse(JSON.stringify(axiosMainData)).map(Util.parseDatetimeTimezone) : []);
+      } catch (error) {
+        console.error("Error processing predictions data from socket:", error);
+        setData([]);
+      }
+    };
+
+    socket.on('predictions_data', handlePredictionsData);
+    socket.emit('subscribe_predictions', { pointId: selectedStop.id });
+
+    return () => {
+      socket.off('predictions_data', handlePredictionsData);
+      socket.emit('unsubscribe_predictions', { pointId: selectedStop.id });
+    };
+  }, [selectedStop]);
   
   useEffect(() => {
     const interval = setInterval(() => setNow(moment()), 1000);

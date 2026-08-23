@@ -66,3 +66,16 @@ export function checkIsValid(id) {
 export function includeDotIfNotExists(str) {
   return [...str.trim().split()].pop() === "." ? str.trim() : `${str.trim()}.`
 }
+
+export function getContrastColor(hexColor) {
+  if (!hexColor) return '#000000';
+  const hex = hexColor.replace('#', '');
+  if (hex.length !== 6 && hex.length !== 3) return '#000000';
+  
+  let r = parseInt(hex.length === 3 ? hex.slice(0, 1).repeat(2) : hex.slice(0, 2), 16);
+  let g = parseInt(hex.length === 3 ? hex.slice(1, 2).repeat(2) : hex.slice(2, 4), 16);
+  let b = parseInt(hex.length === 3 ? hex.slice(2, 3).repeat(2) : hex.slice(4, 6), 16);
+  
+  const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+  return (yiq >= 128) ? '#000000' : '#ffffff';
+}

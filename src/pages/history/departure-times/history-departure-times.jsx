@@ -27,7 +27,7 @@ export default function HistoryDepartureTimes() {
   const [currentPage, setCurrentPage] = useState(1);
   
   const fetchHistoryFn = useCallback(() => apiClient.get(`/history/lines/${id || "-1"}`), [id]);
-  const {error, loaded, data, setData, lineData} = useHistoryData(Util.checkIsValid(id) ? id : null, fetchHistoryFn);
+  const {error, loaded, data, lineData} = useHistoryData(Util.checkIsValid(id) ? id : null, fetchHistoryFn);
   
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -68,8 +68,8 @@ export default function HistoryDepartureTimes() {
   if (loaded) {
     return (
       <AnimatedComponents>
-        <Placeholder as="h1" animation="glow"><Placeholder xs={6} /></Placeholder>
-        <Placeholder as="h2" animation="glow"><Placeholder xs={4} /></Placeholder>
+        <Placeholder as="h1" animation="glow"><Placeholder xs={6}/></Placeholder>
+        <Placeholder as="h2" animation="glow"><Placeholder xs={4}/></Placeholder>
       </AnimatedComponents>
     )
   } else if (error) {

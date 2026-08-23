@@ -1,10 +1,10 @@
 import {arraysEqual, createArray, greaterThan} from "./array-utils.js";
-import {diffToHuman, formatTime, parseDatetimeTimezone, translateMonth, translateWeekDay} from "./date-utils.js";
+import {diffToHuman, formatTime, parseDatetimeTimezone, safeParseDate, translateMonth, translateWeekDay} from "./date-utils.js";
 import {clearServiceWorker, getSearchParamId, isSameDomain, updateActiveLink} from "./dom-utils.js";
 import {getCurrentDayGroupName, getTodayHolidayData, getTodayVacationData} from "./holiday-utils.js";
 import {convertNumberToDay, getBestMatchDayIndex} from "./day-utils.js";
 import {processContents, renderText, wrapTextInArialIfNeeded} from "./react-utils.jsx";
-import {checkIsValid, convertToSafeText, directionToText, formatMoney, getDirectionTitle, includeDotIfNotExists, normalize, resumeInfoLine} from "./string-utils.js";
+import {checkIsValid, convertToSafeText, directionToText, formatMoney, getDirectionTitle, includeDotIfNotExists, normalize, resumeInfoLine, getContrastColor} from "./string-utils.js";
 import {compareIntervals, formatFriendlyDuration} from "@/lib/interval-utils.js";
 import generateVehicleDescription from "@/lib/bus-repo-utils.js";
 
@@ -33,6 +33,7 @@ export default class Util {
   static greaterThan = greaterThan;
   static translateWeekDay = translateWeekDay;
   static parseDatetimeTimezone = parseDatetimeTimezone;
+  static safeParseDate = safeParseDate;
   static getSearchParamId = getSearchParamId;
   static getBestMatchDayIndex = getBestMatchDayIndex;
   static checkIsValid = checkIsValid;
@@ -40,4 +41,5 @@ export default class Util {
   static formatFriendlyDuration = formatFriendlyDuration;
   static includeDotIfNotExists = includeDotIfNotExists;
   static generateVehicleDescription = generateVehicleDescription;
+  static getContrastColor = getContrastColor;
 }

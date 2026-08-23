@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import {Badge, OverlayTrigger, Tooltip} from "react-bootstrap";
+import {Badge, OverlayTrigger, Popover, PopoverBody, PopoverHeader, Tooltip} from "react-bootstrap";
 import {useLocation} from "react-router-dom";
 import Util from "@/lib/Util.jsx";
 import AccordionItem from "@/components/ui/accordion/accordion-item.jsx";
@@ -7,6 +7,8 @@ import Table from "@/components/list-departure-times/table-departure-times.jsx";
 import Legend from "@/components/ui/legend/legend.jsx";
 import NoDepartureTimes from "@/components/list-departure-times/no-departure-times.jsx";
 import {useEffect, useState} from "react";
+import SeeMore from "@/components/ui/see-more/see-more.jsx";
+import InfoPopover from "@/components/ui/info-popover/info-popover.jsx";
 
 const AccordionOperationDayItem = (
   {
@@ -48,56 +50,69 @@ const AccordionOperationDayItem = (
                   </OverlayTrigger>
                 )}
               </div>
-              <div className={"d-flex align-items-center gap-2 justify-content-center me-2"}>
-                <OverlayTrigger overlay={<Tooltip><span className={"text-sml lh-base d-block text-balance"}>A média do intervalo entre partidas</span></Tooltip>}>
-                  <span className={"text-primary-emphasis opacity-75"}>~ {Util.formatFriendlyDuration(infosIntervalDeparturesTimes?.avgIntervals ?? 0)}</span>
+              <div className={"d-none d-md-flex align-items-center gap-2 justify-content-center me-2"}>
+                <OverlayTrigger overlay={<Tooltip><span className={"text-sml lh-base d-block text-balance"}>Média do intervalo entre partidas</span></Tooltip>}>
+                  <span className={"text-primary-emphasis text-sml opacity-75"}>~ {Util.formatFriendlyDuration(infosIntervalDeparturesTimes?.avgIntervals ?? 0)}</span>
                 </OverlayTrigger>
               </div>
             </div>
           }
         >
-          <Table
-            content={{
-              data: departureTimesDay.map((item) => ({
-                departureTime: Util.formatTime(`2020-01-01 ${item["departure_time"]}`, 'HH:mm'),
-                observations: item.observations ? item.observations : null
-              })),
-              directionName: directionName,
-              dayName: dayConverted
-            }}
-            observations={observations}
-            tableIndex={j}
-          />
-          <Legend items={observations} type={type || "current"}/>
-          <div className={"d-flex flex-column gap-2 text-body-secondary mt-4 text-sml"}>
-            <span className={"d-block text-balance fs-inherit"}>
-              {departureTimesDay.length.toLocaleString()} horários de partidas no horário de {dayConverted.substring(0, 1).toLowerCase() + dayConverted.substring(1)}.
-            </span>
-            <div className={"d-flex gap-1 fs-inherit flex-md-row flex-column flex-wrap"}>
-              {
-                [
-                  <>Intervalos entre partidas: </>,
-                  <>
-                    <i className="bi bi-slash-circle-fill text-primary-emphasis opacity-50 fs-inherit"></i>{" "}
-                    Média: {Util.formatFriendlyDuration(infosIntervalDeparturesTimes?.avgIntervals ?? 0)}
-                  </>,
-                  <>
-                    <i className="bi bi-arrow-up-circle-fill text-primary-emphasis opacity-50 fs-inherit"></i>{" "}
-                    Maior intervalo: {Util.formatFriendlyDuration(infosIntervalDeparturesTimes?.details?.maxInterval ?? 0)}
-                  </>,
-                  <>
-                    <i className="bi bi-arrow-down-circle-fill text-primary-emphasis opacity-50 fs-inherit"></i>{" "}
-                    Menor intervalo: {Util.formatFriendlyDuration(infosIntervalDeparturesTimes?.details?.minInterval ?? 0)}{" - "}
-                    incidência: {infosIntervalDeparturesTimes?.frequencyOccurrenceInterval?.[1] ?? 0} vezes
-                  </>
-                ].map((item, i) => (
-                  <span key={i} className={"text-ellipsis fs-inherit"}>
+          <SeeMore height={225}>
+            <Table
+              content={{
+                data: departureTimesDay.map((item) => ({
+                  departureTime: Util.formatTime(`2020-01-01 ${item["departure_time"]}`, 'HH:mm'),
+                  observations: item.observations ? item.observations : null
+                })),
+                directionName: directionName,
+                dayName: dayConverted
+              }}
+              observations={observations}
+              tableIndex={j}
+            />
+            
+            <Legend items={observations} type={type || "current"}/>
+          </SeeMore>
+          
+          <InfoPopover className={"mt-4"} trigger={['hover', 'focus']} placement={"top"} overlay={
+            <Popover placement={"top"}>
+              <PopoverHeader className={"fw-medium"}>
+                Intervalos entre partidas
+              </PopoverHeader>
+              <PopoverBody>
+                <div className={"text-sml d-flex gap-1 flex-column"}>
+                  {
+                    [
+                      <>
+                        <i className="bi bi-slash-circle-fill text-primary-emphasis opacity-50 fs-inherit"></i>{" "}
+                        Média: {Util.formatFriendlyDuration(infosIntervalDeparturesTimes?.avgIntervals ?? 0)}
+                      </>,
+                      <>
+                        <i className="bi bi-arrow-up-circle-fill text-primary-emphasis opacity-50 fs-inherit"></i>{" "}
+                        Maior intervalo: {Util.formatFriendlyDuration(infosIntervalDeparturesTimes?.details?.maxInterval ?? 0)}
+                      </>,
+                      <>
+                        <i className="bi bi-arrow-down-circle-fill text-primary-emphasis opacity-50 fs-inherit"></i>{" "}
+                        Menor intervalo: {Util.formatFriendlyDuration(infosIntervalDeparturesTimes?.details?.minInterval ?? 0)}{" - "}
+                        incidência: {infosIntervalDeparturesTimes?.frequencyOccurrenceInterval?.[1] ?? 0} vezes
+                      </>
+                    ].map((item, i) => (
+                      <span key={i} className={"text-ellipsis fs-inherit"}>
                     {item}
                   </span>
-                ))
-              }
+                    ))
+                  }
+                </div>
+              </PopoverBody>
+            </Popover>
+          }>
+            <div className={"d-flex flex-column gap-2 text-body-secondary text-sml"}>
+              <span className={"d-block text-balance fs-inherit"}>
+                {departureTimesDay.length.toLocaleString()} horários de partidas no horário de {dayConverted.substring(0, 1).toLowerCase() + dayConverted.substring(1)}.
+              </span>
             </div>
-          </div>
+          </InfoPopover>
         </AccordionItem>
       </div>
     </div>

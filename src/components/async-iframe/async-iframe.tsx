@@ -11,16 +11,19 @@ interface AsyncIframeProps extends React.IframeHTMLAttributes<HTMLIFrameElement>
   placeholder?: React.ReactNode;
 }
 
-const AsyncIframe: React.FC<AsyncIframeProps> = ({
-                                                   title,
-                                                   placeholder,
-                                                   ...props
-                                                 }) => {
+const AsyncIframe: React.FC<AsyncIframeProps> = (
+  {
+    title,
+    placeholder,
+    ...props
+  }
+) => {
   const [loading, setLoading] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   
   const handleLoad = () => setLoading(false);
+  const handleReload = () => setLoading(true);
   
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -72,6 +75,7 @@ const AsyncIframe: React.FC<AsyncIframeProps> = ({
         <IframeContent
           {...props}
           onLoad={handleLoad}
+          onReload={handleReload}
           loading={loading ? "lazy" : "eager"}
           isFullscreen={isFullscreen}
           containerRef={containerRef}

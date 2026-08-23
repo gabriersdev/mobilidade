@@ -10,12 +10,13 @@ import AnimatedComponents from '@/components/ui/animated-component/animated-comp
 import LineIdentificationCompanyLogo from '@/components/line-identification/line-identification-company-logo.jsx';
 import CompanyPlaceholder from '@/pages/company/company-placeholder.jsx';
 import bcAll from '@/components/breadcrumb-app/breadcrumb-context.jsx';
+import VehicleBadge from "@/components/bus-repo/vehicle-badge.jsx";
 
 const useBreadcrumb = bcAll.useBreadcrumb;
 
 const CompanyDetail = () => {
   const {id} = useParams();
-  const {data, lines, loading, error} = useCompany(id);
+  const {data, lines, vehicles, loading, error} = useCompany(id);
   const {setLabel} = useBreadcrumb();
   
   useEffect(() => {
@@ -78,6 +79,16 @@ const CompanyDetail = () => {
             ))}
           </div>
         </div>
+        {vehicles && vehicles.length > 0 && (
+          <div className="d-flex flex-column gap-1">
+            <span className="text-body-tertiary">Veículos</span>
+            <div className="d-flex flex-wrap gap-2">
+              {vehicles.map((vehicle) => (
+                <VehicleBadge key={vehicle.id} vehicle={vehicle} />
+              ))}
+            </div>
+          </div>
+        )}
       </section>
     </AnimatedComponents>
   );

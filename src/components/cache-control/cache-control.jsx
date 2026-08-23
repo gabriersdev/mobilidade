@@ -58,6 +58,7 @@ export default function CacheControl() {
 
   useEffect(() => {
     if (showStorage) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       fetchStorage();
     }
   }, [showStorage]);

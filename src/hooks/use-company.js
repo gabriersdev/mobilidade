@@ -5,6 +5,7 @@ import config from '@/assets/config.js';
 export const useCompany = (id) => {
   const [data, setData] = useState(null);
   const [lines, setLines] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
@@ -17,12 +18,14 @@ export const useCompany = (id) => {
     
     const fetchData = async () => {
       try {
-        const [companyRes, linesRes] = await Promise.all([
+        const [companyRes, linesRes, vehiclesRes] = await Promise.all([
           axios.post(`${config.host}/api/company/`, {company_id: id}),
-          axios.post(`${config.host}/api/company/lines`, {company_id: id})
+          axios.post(`${config.host}/api/company/lines`, {company_id: id}),
+          axios.post(`${config.host}/api/company/vehicles`, {company_id: id})
         ]);
         setData(companyRes.data[0]);
         setLines(linesRes.data);
+        setVehicles(vehiclesRes.data || []);
       } catch (err) {
         setError(err);
       } finally {
@@ -33,5 +36,5 @@ export const useCompany = (id) => {
     fetchData();
   }, [id]);
   
-  return {data, lines, loading, error};
+  return {data, lines, vehicles, loading, error};
 };

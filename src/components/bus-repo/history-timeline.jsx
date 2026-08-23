@@ -2,6 +2,7 @@ import moment from 'moment';
 import Title from '@/components/ui/title/title.jsx';
 import Util from "@/lib/Util.jsx";
 
+
 const getIconForIncident = (type) => {
   switch (type) {
     case 'Acidente':
@@ -20,7 +21,7 @@ const getIconForIncident = (type) => {
 };
 
 export default function HistoryTimeline({vehicle}) {
-  const {incidents, maintenances, manufactureYear, operationStartDate, operationEndDate} = vehicle;
+  const {status, incidents, maintenances, manufactureYear, operationStartDate, operationEndDate} = vehicle;
   
   // Combinar incidentes e manutenções em uma única timeline e ordenar
   const timelineEvents = [
@@ -33,7 +34,7 @@ export default function HistoryTimeline({vehicle}) {
     const descriptionStr = (
       Util.diffToHuman(
         moment(),
-        moment(operationStartDate.replace("Z", "-03:00")),
+        Util.safeParseDate(operationStartDate),
         true
       )
     )
@@ -58,13 +59,12 @@ export default function HistoryTimeline({vehicle}) {
     });
   }
   
-  
-  if (operationEndDate) {
+  if (operationEndDate && ["DESATIVADO", "SUBSTITUÍDO"].map(s => s.toLowerCase()) .includes(status.toLowerCase())) {
     const removeMarcDiff = (str) => str.replace(/(há)|(em)/g, "");
     const descriptionStr = removeMarcDiff(
       Util.diffToHuman(
-        moment(operationEndDate.replace("Z", "-03:00")),
-        moment(operationStartDate.replace("Z", "-03:00")),
+        Util.safeParseDate(operationEndDate),
+        Util.safeParseDate(operationStartDate),
         true
       )
     )
@@ -113,7 +113,7 @@ export default function HistoryTimeline({vehicle}) {
                 <h6 className="fw-bold mb-1">{Util.renderText(event.type)}</h6>
                 <span className="text-muted d-block mb-2">
                   <i className="bi bi-calendar me-1"></i>
-                  {Util.renderText(Util.diffToHuman(moment(event.date)))}
+                  {Util.renderText(Util.diffToHuman(Util.safeParseDate(event.date)))}
                 </span>
                 <p className="mb-0 text-body">{Util.renderText(event.description)}</p>
               </div>

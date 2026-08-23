@@ -31,7 +31,7 @@ export function renderText(text) {
   } catch {
     return text;
   }
-};
+}
 
 export function wrapTextInArialIfNeeded(text, keyPrefix) {
   const parts = [];

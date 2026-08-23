@@ -1,21 +1,7 @@
 import {Link} from "react-router-dom";
-import {OverlayTrigger} from "react-bootstrap";
 import InfoItem from "@/components/ui/info-item/info-item.jsx";
 import PropTypes from "prop-types";
-
-const InfoPopover = ({ overlay, children }) => (
-  <OverlayTrigger trigger="click" placement="auto" overlay={overlay}>
-    <div className={"d-flex align-items-center flex-wrap gap-1 cursor-pointer"}>
-      {children}
-      <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
-    </div>
-  </OverlayTrigger>
-);
-
-InfoPopover.propTypes = {
-  overlay: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired
-};
+import InfoPopover from "@/components/ui/info-popover/info-popover.jsx";
 
 const LineIdentificationInfoList = ({
   lineType, scope, integrationPopover, hasIntegration,
@@ -64,16 +50,18 @@ const LineIdentificationInfoList = ({
         <InfoItem value={line.company_name}><i className="bi bi-buildings green-sheets"></i></InfoItem>
       </Link>
       
-      <Link className={"text-decoration-none text-body"} to={"#partidas"}>
-        <InfoItem>
-          <div className="d-flex align-items-center gap-1">
-            <i className="bi bi-calendar-date d-inline-block"></i>
-            <span className="text-body fw-medium ms-1">
+      <div className={"d-none"}>
+        <Link className={"text-decoration-none text-body"} to={"#partidas"}>
+          <InfoItem>
+            <div className="d-flex align-items-center gap-1">
+              <i className="bi bi-calendar-date d-inline-block"></i>
+              <span className="text-body fw-medium ms-1">
               {countDepartureTimes > 0 ? countDepartureTimes.toLocaleString() : "Nenhuma"} {countDepartureTimes > 1 ? "partidas" : "partida"} nos quadros de horários durante a semana
             </span>
-          </div>
-        </InfoItem>
-      </Link>
+            </div>
+          </InfoItem>
+        </Link>
+      </div>
     </div>
   );
 };

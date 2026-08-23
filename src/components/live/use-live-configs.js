@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import {useState, useRef, useEffect} from "react";
 
 export const useLiveConfigs = () => {
   const [configs, setConfigs] = useState(() => {
@@ -18,6 +18,7 @@ export const useLiveConfigs = () => {
     }
     return defaultConfig;
   });
+  
 
   const labelsConfigs = useRef({
     warningSound: "Aviso sonoro",
@@ -25,7 +26,7 @@ export const useLiveConfigs = () => {
     showAdditionalInfo: "Exibir informações extras",
     showSingleLine: "Exibir em linha única"
   });
-
+  
   useEffect(() => {
     try {
       localStorage.setItem("mobilidade-app-live-configs", JSON.stringify(configs));
@@ -33,6 +34,6 @@ export const useLiveConfigs = () => {
       console.error("Error saving configs to localStorage", error);
     }
   }, [configs]);
-
-  return { configs, setConfigs, labelsConfigs };
+  
+  return {configs, setConfigs, labelsConfigs};
 };

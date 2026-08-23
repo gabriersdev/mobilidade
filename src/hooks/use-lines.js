@@ -44,7 +44,7 @@ const useLines = (variant = 'all', params = {}) => {
     };
     
     fetchLines().then();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [variant, JSON.stringify(params)]);
   
   return {data, error, loading};
