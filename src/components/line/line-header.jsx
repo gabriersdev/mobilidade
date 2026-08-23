@@ -6,10 +6,12 @@ import LineIdentification from '@/components/line-identification/line-identifica
 import ListLineWarnings from '@/components/list-line-warnings/list-line-warnings.jsx';
 import ShowHolidayInfo from '@/components/line-info/show-holiday-info.jsx';
 import SeeMore from "@/components/ui/see-more/see-more.jsx";
+import LineFloatingInfo from "@/components/line/line-floating-info.jsx";
 
 const LineHeader = ({line}) => (
   <section id="id">
     <LineIdentification/>
+    <LineFloatingInfo line={line}/>
     <SeeMore height={225}>
       <Grid className="align-items-stretch mt-5 w-100">
         {line.observations && (

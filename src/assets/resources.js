@@ -101,7 +101,7 @@ const labelMap = {
   "manifest": "Manifesto",
   "re-valid-session": "Validação de nova sessão",
   "busao-0800": "Busão 0800",
-  "bus": "Informações de ônibus",
+  "bus": "Frotas",
 }
 
 const navLinksPageLine = [
@@ -140,6 +140,13 @@ const elementIdsPageBus = [
   "historico"
 ];
 
+const vehiclePropertiesImagesSRC = {
+  "marcopolo": "/images/bus/bodywork-manufacturers/marcopolo.png",
+  "neobus": "/images/bus/bodywork-manufacturers/neobus.png",
+  "mercedes-benz": "/images/bus/chassis-manufacters/mercedes-benz.png",
+}
+
+
 export {
   reportMail,
   contactLotus,
@@ -155,5 +162,7 @@ export {
   elementIdsPageLine,
   navLinksPageBus,
   elementIdsPageBus,
-  linesWithManualIntegrationWithSubwayBH
+  linesWithManualIntegrationWithSubwayBH,
+  
+  vehiclePropertiesImagesSRC,
 }

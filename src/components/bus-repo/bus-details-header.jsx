@@ -6,6 +6,8 @@ import BusDetailsActions from './bus-details-actions.jsx';
 import LineIdentificationCompanyLogo from '@/components/line-identification/line-identification-company-logo.jsx';
 import Util from "@/lib/Util.jsx";
 import {getConservationConfig, getStatusConfig} from "./bus-details-helpers.js";
+import VehicleFleetNumberView from "@/components/bus-repo/vehicle-fleet-number-view.jsx";
+import VehiclePropertiesImages from "@/components/bus-repo/vehicle-properties-images.jsx";
 
 export default function BusDetailsHeader({vehicle}) {
   const statusConfig = getStatusConfig(vehicle.status);
@@ -32,11 +34,19 @@ export default function BusDetailsHeader({vehicle}) {
           </Title>
         </hgroup>
         
-        <div className="d-flex align-items-center gap-4 flex-wrap mt-5">
-          <InfoItem icon={statusConfig.icon} iconClass={statusConfig.color} value={vehicle.status}/>
-          <InfoItem icon={conservationConfig.icon} iconClass={conservationConfig.color} label="Estado" value={vehicle.conservationState}/>
-          <InfoItem icon="bi-hash" iconClass="text-secondary" label="Carro N." value={vehicle.fleetNumber}/>
-          <InfoItem icon="bi-hash" iconClass="text-secondary" label="Placa" value={vehicle.licensePlate}/>
+        <div>
+          <VehiclePropertiesImages vehicle={vehicle}/>
+        </div>
+        
+        <VehicleFleetNumberView vehicle={vehicle}/>
+        
+        <div className={"mt-lg-5"}>
+          <div className="d-flex align-items-center gap-4 flex-wrap">
+            <InfoItem icon={statusConfig.icon} iconClass={statusConfig.color} value={vehicle.status}/>
+            <InfoItem icon={conservationConfig.icon} iconClass={conservationConfig.color} label="Estado" value={vehicle.conservationState}/>
+            <InfoItem icon="bi-hash" iconClass="text-secondary" label="Carro N." value={vehicle.fleetNumber}/>
+            <InfoItem icon="bi-hash" iconClass="text-secondary" label="Placa" value={vehicle.licensePlate}/>
+          </div>
         </div>
         
         <div className="d-flex align-items-center gap-4 flex-wrap">
@@ -62,6 +72,6 @@ export default function BusDetailsHeader({vehicle}) {
   );
 }
 
-BusDetailsHeader.propTypes = {
-  vehicle: PropTypes.object.isRequired
-};
+// BusDetailsHeader.propTypes = {
+//   vehicle: PropTypes.object.isRequired
+// };
