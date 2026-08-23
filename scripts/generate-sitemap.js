@@ -7,6 +7,8 @@ import news from '../src/assets/news.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// TODO - verificar: sitemap.xml gerado possui APENAS notícias
+// TODO - implementar tratamento para o caso de "bus-repo", que o path utilizado difere do nome do diretório usado para organizar os arquivos aqui (veja app-router.jsx)
 async function generateSitemap() {
   const siteUrl = 'https://mobilidade.lts.app.br';
   

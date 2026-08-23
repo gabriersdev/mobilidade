@@ -48,7 +48,7 @@ const navLinks = [
   {name: "Linhas", path: "./lines"},
   {name: "Pesquisa", path: "./search", mobileOnly: true},
   {name: "Guia", path: "./guide"},
-  {name: "Frotas", path: "./bus-repo", newTagLimit: "2026-08-25T00:00:00"},
+  {name: "Frotas", path: "./bus", newTagLimit: "2026-08-25T00:00:00"},
   {name: "Notícias", path: "./news"},
   {name: "Ao vivo", path: "./live", isLive: true},
   {name: "Cidade de Sabará", path: "./sabara", mobileOnly: true, showOnlyFooter: true},
@@ -101,7 +101,7 @@ const labelMap = {
   "manifest": "Manifesto",
   "re-valid-session": "Validação de nova sessão",
   "busao-0800": "Busão 0800",
-  "bus-repo": "Informações de Ônibus",
+  "bus": "Informações de ônibus",
 }
 
 const navLinksPageLine = [

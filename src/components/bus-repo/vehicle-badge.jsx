@@ -8,7 +8,7 @@ const VehicleBadge = ({vehicle, fontSize = '12.5px', className = ''}) => {
   
   return (
     <Link
-      to={`/bus-repo/${vehicle.id}`}
+      to={`/bus/${vehicle.id}`}
       className={`badge rounded-pill rounded-5 text-decoration-none ${className}`}
       style={{letterSpacing: '0.5px', backgroundColor: bgColor, color: textColor, fontSize}}
     >

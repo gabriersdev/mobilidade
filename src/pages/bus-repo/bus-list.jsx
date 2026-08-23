@@ -26,8 +26,8 @@ export default function BusList() {
   });
   
   useEffect(() => {
-    document.title = "Mobilidade - Frotas de Ônibus";
-    setLabel("bus-repo", "Frotas de Ônibus");
+    document.title = "Mobilidade - Frotas";
+    setLabel("bus", "Frotas");
   }, [setLabel]);
   
   useEffect(() => {
@@ -128,7 +128,7 @@ export default function BusList() {
       <div className="d-flex flex-column gap-4 gap-sm-5">
         <AnimatedComponents>
           <hgroup className="d-flex align-items-center justify-content-between flex-wrap flex-column flex-md-row mb-1">
-            <Title title="Frotas de Ônibus" id="topo" classX="text-body-secondary"/>
+            <Title title="Frotas" id="topo" classX="text-body-secondary"/>
             <FeaturedCompanies/>
           </hgroup>
           

@@ -28,7 +28,7 @@ export default function BusCard({vehicle}) {
   return (
     <Card
       title={`Carro ${vehicle.fleetNumber}`}
-      link={`/bus-repo/${vehicle.id}`}
+      link={`/bus/${vehicle.id}`}
       badge={
         <Badge pill bg={getStatusVariant(vehicle.status)} className="text-sml">
           <SpanE>{vehicle.status}</SpanE>
