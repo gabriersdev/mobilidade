@@ -67,7 +67,7 @@
     "@typescript-eslint/parser": "^8.64.0",
     "@vitejs/plugin-react": "^6.0.4",
     "chalk": "^6.0.0",
-    "cypress": "^15.20.1",
+    "cypress": "^15.21.1",
     "eslint": "^10.9.1",
     "eslint-plugin-cypress": "7.0.1",
     "eslint-plugin-import": "^1.14.0",
