@@ -78,7 +78,7 @@
     "globals": "^17.11.0",
     "globby": "^16.2.3",
     "rollup-plugin-visualizer": "^7.1.1",
-    "terser": "^5.50.0",
+    "terser": "^5.51.2",
     "vite": "8.2.2"
   },
   "overrides": {
