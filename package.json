@@ -51,7 +51,7 @@
     "react-dom": "^19.2.8",
     "react-input-mask": "^2.0.4",
     "react-leaflet": "^5.0.0",
-    "react-router-dom": "^7.18.2",
+    "react-router-dom": "^7.18.3",
     "rolldown": "1.2.0",
     "semantic-release": "^25.0.8",
     "socket.io-client": "^4.8.3",
