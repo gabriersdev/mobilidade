@@ -16,7 +16,7 @@ const BreadcrumbApp = () => {
   return (
     <div className="d-none d-md-block">
       <AnimatedComponents>
-        <Breadcrumb className="bg-body mb-5">
+        <Breadcrumb className="mb-5" style={{background: "transparent"}}>
           {breadcrumbItems.map((item, index) => (
             <BreadcrumbItemFactory key={index} label={item.label} url={item.url}/>
           ))}

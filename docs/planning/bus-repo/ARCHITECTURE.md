@@ -8,7 +8,7 @@ Os componentes e páginas foram organizados para garantir o reuso e a escalabili
 
 ### 1. Páginas (`src/pages/bus-repo/`)
 - **`bus-list.jsx`**: A tela principal da funcionalidade. Responsável por exibir a listagem em formato de grid. Controla o estado de busca e de carregamento inicial dos veículos.
-- **`bus-details.jsx`**: Tela dedicada para o roteamento individual de cada ônibus (`/bus-repo/:id`). Agrega os dados operacionais e de conservação do veículo e carrega componentes filhos de especificações e linha do tempo.
+- **`bus-details.jsx`**: Tela dedicada para o roteamento individual de cada ônibus (`/bus/:id`). Agrega os dados operacionais e de conservação do veículo e carrega componentes filhos de especificações e linha do tempo.
 
 ### 2. Componentes de UI (`src/components/bus-repo/`)
 Todos os componentes utilizam o React Bootstrap para manter o padrão visual do projeto:

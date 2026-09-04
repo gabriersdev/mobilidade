@@ -32,16 +32,35 @@ async function generateSitemap() {
   };
   
   const staticUrls = pages
+    .filter(page => {
+      const parts = page.split('/');
+      // Considera apenas arquivos um nível dentro de src/pages
+      if (parts.length !== 4) return false;
+      
+      const folder = parts[2];
+      const file = parts[3].replace('.jsx', '');
+      
+      // Pega o arquivo principal que tem o mesmo nome da pasta
+      if (file === folder) return true;
+      // Exceção para bus-repo que o arquivo principal é bus-list
+      if (folder === 'bus-repo' && file === 'bus-list') return true;
+      
+      return false;
+    })
     .map((page) => {
       const stats = fs.statSync(page);
       const lastmod = stats.mtime.toISOString();
       
-      let path = page
-        .replace('src/pages', '')
-        .replace('.jsx', '')
-        .replace('/index', '');
+      const parts = page.split('/');
+      const folder = parts[2];
       
-      const route = (path === '/home' || path === '') ? '/' : path;
+      let route = '/' + folder;
+      if (folder === 'home') route = '/';
+      if (folder === 'bus-repo') route = '/bus';
+      if (folder === 'sabara-info') route = '/sabara';
+      
+      if (folder === '404') return '';
+      
       const config = routeConfigurations[route] || defaultConfiguration;
       
       return `
@@ -52,6 +71,7 @@ async function generateSitemap() {
     <priority>${config.priority}</priority>
   </url>`;
     })
+    .filter(url => url !== '')
     .join('');
   
   const newsUrls = news
