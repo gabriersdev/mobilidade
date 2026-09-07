@@ -24,7 +24,7 @@ const BarInfo = () => {
         <i className="bi bi-exclamation-triangle-fill me-2"></i>
         {Util.renderText(title)}
       </summary>
-      <p className={"text-sml mt-2 mb-0 text-balance sm-text-center text-danger-emphasis"}>{Util.renderText(message)}</p>
+      <p className={"text-small mt-2 mb-0 text-balance sm-text-center text-danger-emphasis"}>{Util.renderText(message)}</p>
     </details>
   );
   

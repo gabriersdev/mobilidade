@@ -66,7 +66,7 @@ const LineIdentificationShareButton = ({line}) => {
       }}
     >
       <span>Compartilhar</span>
-      <i className="bi bi-share text-sml"></i>
+      <i className="bi bi-share text-small"></i>
     </Button>
   );
 };

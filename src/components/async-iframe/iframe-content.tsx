@@ -46,7 +46,7 @@ export const IframeContent: React.FC<IframeContentProps> = (
         style={{position: 'absolute', top: '0.5rem', left: '0.5rem', zIndex: 10}}
       >
         <i className="bi bi-arrow-clockwise"></i>
-        <span className={"d-none d-md-inline-block text-sml"}>
+        <span className={"d-none d-md-inline-block text-small"}>
           Recarregar mapa
         </span>
       </Button>

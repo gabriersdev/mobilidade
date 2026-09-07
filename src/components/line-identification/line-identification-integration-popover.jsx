@@ -10,7 +10,7 @@ const LineIdentificationIntegrationPopover = forwardRef(({line, ...props}, ref) 
   if (!lineHaveAIntegration) return (
     <Popover id="no-accessibility-popover" ref={ref} {...props}>
       <Popover.Header as="h3" className={"inter"}>Integração</Popover.Header>
-      <Popover.Body className={"text-sml"}>
+      <Popover.Body className={"text-small"}>
         Esta linha não possui integração. Isso significa que, se você precisar fazer baldeação para chegar ao seu destino, precisará desembolsar o valor integral de ambas as passagens.
       </Popover.Body>
     </Popover>
@@ -19,7 +19,7 @@ const LineIdentificationIntegrationPopover = forwardRef(({line, ...props}, ref) 
   return (
     <Popover id="accessibility-popover" ref={ref} {...props}>
       <Popover.Header as="h3" className={"inter"}>Integração</Popover.Header>
-      <Popover.Body className={"text-sml"}>
+      <Popover.Body className={"text-small"}>
         <ListGroup className={"fs-inherit"}>
           <ListGroupItem className={"fs-inherit"}>
             <span className={"fs-inherit text-primary lh-base mb-2 d-block"}>Linha atual {"->"} Integração MOVE Metropolitano exceto Conexão Aeroporto</span>
@@ -38,7 +38,7 @@ const LineIdentificationIntegrationPopover = forwardRef(({line, ...props}, ref) 
         </ListGroup>
         
         <Link to={currentTableFares} rel={"noreferrer noopener"} target={"_blank"} className={"mt-2 d-block"}>
-          <Button size={"sm"} className={"text-sml"}>
+          <Button size={"sm"} className={"text-small"}>
             Tabela de tarifas <span className={"fs-inherit d-inline-block"} style={{rotate: "-45deg", marginBottom: "1.15px"}}>{"->"}</span>
           </Button>
         </Link>

@@ -30,21 +30,21 @@ export default function BusCard({vehicle}) {
       title={`Carro ${vehicle.fleetNumber}`}
       link={`/bus/${vehicle.id}`}
       badge={
-        <Badge pill bg={getStatusVariant(vehicle.status)} className="text-sml">
+        <Badge pill bg={getStatusVariant(vehicle.status)} className="text-small">
           <SpanE>{vehicle.status}</SpanE>
         </Badge>
       }
       subtitle={`${vehicle.company.name} - Placa: ${vehicle.licensePlate}`}
     >
       <Row className="mb-1">
-        <Col xs={12} className="text-body text-sml line-clamp-1">
+        <Col xs={12} className="text-body text-small line-clamp-1">
           {/*<i className="bi bi-bus-front me-2"></i>*/}
           {Util.renderText(`${vehicle.bodywork.model} - ${vehicle.chassis.manufacturer} - ${vehicle.chassis.model}`)}
         </Col>
       </Row>
       
       <Row className="">
-        <Col xs={12} className="text-body text-sml line-clamp-1">
+        <Col xs={12} className="text-body text-small line-clamp-1">
           {/*<i className="bi bi-calendar3 me-2"></i>*/}
           {Util.renderText(`Ano/Modelo: ${vehicle.manufactureYear}/${vehicle.modelYear}`)}
         </Col>
@@ -53,24 +53,24 @@ export default function BusCard({vehicle}) {
       <div className={"d-flex flex-wrap gap-1 flex-nowrap overflow-x-hidden " + (vehicle.hasAc || vehicle.hasWifi || vehicle.hasAirSuspension ? "mt-3" : "mt-auto")}>
         {vehicle.hasAc && (
           <Badge bg="info" pill text="light">
-            <div className='text-sml d-flex align-items-center justify-content-center'>
-              <i className="bi bi-snow me-1 text-sml"></i> <SpanE>Ar Condicionado</SpanE>
+            <div className='text-small d-flex align-items-center justify-content-center'>
+              <i className="bi bi-snow me-1 text-small"></i> <SpanE>Ar Condicionado</SpanE>
             </div>
           </Badge>
         )}
         
         {vehicle.hasWifi && (
           <Badge bg="primary" pill text={"light"}>
-            <div className='text-sml d-flex align-items-center justify-content-center'>
-              <i className="bi bi-wifi me-1 text-sml"></i> <SpanE>Wi-Fi</SpanE>
+            <div className='text-small d-flex align-items-center justify-content-center'>
+              <i className="bi bi-wifi me-1 text-small"></i> <SpanE>Wi-Fi</SpanE>
             </div>
           </Badge>
         )}
         
         {vehicle.hasAirSuspension && (
           <Badge bg="secondary" pill>
-            <div className='text-sml d-flex align-items-center justify-content-center'>
-              <i className="bi bi-arrow-up-right-circle-fill me-1 text-sml"></i> <SpanE>Suspensão a Ar</SpanE>
+            <div className='text-small d-flex align-items-center justify-content-center'>
+              <i className="bi bi-arrow-up-right-circle-fill me-1 text-small"></i> <SpanE>Suspensão a Ar</SpanE>
             </div>
           </Badge>
         )}

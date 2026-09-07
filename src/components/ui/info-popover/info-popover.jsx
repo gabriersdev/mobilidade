@@ -5,7 +5,7 @@ const InfoPopover = ({ overlay, children, placement = "auto", trigger = "click",
   <OverlayTrigger trigger={trigger} placement={placement} overlay={overlay}>
     <div className={`d-flex align-items-center flex-wrap gap-1 cursor-pointer ${className}`}>
       {children}
-      <span className="text-body-tertiary bg-body-secondary rounded-circle text-sml font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
+      <span className="text-body-tertiary bg-body-secondary rounded-circle text-small font-monospace " style={{padding: "1px 0.5rem"}}>i</span>
     </div>
   </OverlayTrigger>
 );

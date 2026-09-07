@@ -8,7 +8,7 @@ const LineLinks = () => {
   
   return (
     <section>
-      <p className="mb-0 text-body-secondary text-sml mb-2">Linhas em Sabará</p>
+      <p className="mb-0 text-body-secondary text-small mb-2">Linhas em Sabará</p>
       <SeeMore
         height={100}
         gradientColor="--bs-body-tertiary-bg"

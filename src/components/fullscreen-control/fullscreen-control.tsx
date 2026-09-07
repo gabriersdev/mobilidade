@@ -67,7 +67,7 @@ const FullscreenControl: React.FC<FullscreenControlProps> = ({elementRef}) => {
       style={{position: 'absolute', top: '0.5rem', right: '0.5rem', zIndex: 10}}
     >
       <i className={`bi ${!isFullscreen ? 'bi-fullscreen' : 'bi-fullscreen-exit'}`}></i>
-      <span className={"d-none d-md-inline-block text-sml"}>
+      <span className={"d-none d-md-inline-block text-small"}>
         {!isFullscreen ? 'Abrir em tela cheia' : 'Sair da tela cheia'}
       </span>
     </Button>

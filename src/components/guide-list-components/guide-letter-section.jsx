@@ -10,7 +10,7 @@ const GuideLetterSection = ({letter, addresses, nextLetter}) => (
     <div className="d-inline-flex justify-content-between gap-2 flex-wrap w-100">
       <Title type="h4" classX="fs-6 fw-bold">{letter}</Title>
       {nextLetter && (
-        <Link to={`#${nextLetter}`} className="text-decoration-none text-sml text-body-tertiary">
+        <Link to={`#${nextLetter}`} className="text-decoration-none text-small text-body-tertiary">
           Ir para a próxima letra do índice
         </Link>
       )}

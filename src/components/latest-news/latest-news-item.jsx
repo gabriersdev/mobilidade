@@ -13,7 +13,7 @@ const LatestNewsItem = ({ns}) => {
             ns.fixed && (
               <OverlayTrigger overlay={
                 <Tooltip placement="bottom">
-                  <p className="m-0 p-0 text-sml">
+                  <p className="m-0 p-0 text-small">
                     Notícia fixada
                   </p>
                 </Tooltip>

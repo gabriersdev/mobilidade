@@ -19,8 +19,8 @@ const LineIdentificationComfortPopover = forwardRef(({aircon, teraflex, bench, f
           ].map((item, index) => {
             return (
               <div className={"d-flex align-items-center flex-wrap gap-1 " + (item.has ? "text-primary" : "text-body-secondary text-decoration-line-through")} key={index}>
-                <i className="bi bi-check2 text-sml"></i>
-                <span className={"text-sml"}>{item.text}</span>
+                <i className="bi bi-check2 text-small"></i>
+                <span className={"text-small"}>{item.text}</span>
               </div>
             )
           })

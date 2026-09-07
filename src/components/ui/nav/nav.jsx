@@ -32,8 +32,8 @@ const Nav = () => {
                   <img src={'/images/logo-transparent.png'} alt={'Logo'} className={'me-2'} style={{height: '3rem'}}/>
                   <div style={{fontFamily: "'Inter', 'Inter Tight', sans-serif"}} className="d-flex flex-column">
                     <span className="text-primary d-block">Mobilidade</span>
-                    <span className="text-primary-emphasis text-sml d-none d-sm-inline-block">Transporte Público em Sabará-MG</span>
-                    <span className="text-primary-emphasis text-sml d-inline-block d-sm-none">em Sabará-MG</span>
+                    <span className="text-primary-emphasis text-small d-none d-sm-inline-block">Transporte Público em Sabará-MG</span>
+                    <span className="text-primary-emphasis text-small d-inline-block d-sm-none">em Sabará-MG</span>
                   </div>
                 </Navbar.Brand>
                 
@@ -79,7 +79,7 @@ const Nav = () => {
                   <OverlayTrigger
                     overlay={
                       <Tooltip placement="bottom">
-                        <p className="m-0 p-0 text-sml">
+                        <p className="m-0 p-0 text-small">
                           {Util.translateWeekDay(sabaraTime?.split(" ")?.[0], {suffix: true})}, {Util.renderText((sabaraTime?.split(" ")?.[1]))}
                         </p>
                       </Tooltip>

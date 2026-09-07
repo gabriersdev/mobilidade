@@ -24,7 +24,7 @@ const VersionInfo = () => {
   }, []);
   
   return (
-    <div className={"d-b lock mt-2 text-sml d-flex flex-column gap-1"}>
+    <div className={"d-b lock mt-2 text-small d-flex flex-column gap-1"}>
       <p className={"text-body-secondary p-0 m-0 fs-inherit"}>Versão: {version} | Cache: {cacheVersion} </p>
       <p className={"text-body-secondary p-0 m-0 fs-inherit"}>
         {dataBuild.datetimeCreate && (

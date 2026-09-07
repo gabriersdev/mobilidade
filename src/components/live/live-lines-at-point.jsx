@@ -54,12 +54,12 @@ export default function LiveLinesAtPoint({data, departurePointSelected}) {
   return (
     <div>
       <div className="d-flex flex-column gap-0 mb-3" style={{maxWidth: 600}}>
-        <span className="text-muted text-sml">Linhas que param ou partem daqui ({sortedLines.length})</span>
+        <span className="text-muted text-small">Linhas que param ou partem daqui ({sortedLines.length})</span>
         <div className="">
           <OverlayTrigger
             overlay={
               <Tooltip>
-                <div className="text-sml d-inline-block text-balance">
+                <div className="text-small d-inline-block text-balance">
                   {sortedLines.map((item, index) => (
                     <span key={index} className={`fs-inherit ${!item.hasPredictions ? 'opacity-50' : ''}`}>
                       {index !== 0 ? <i className="bi bi-dot opacity-50"></i> : ""}{item.line}

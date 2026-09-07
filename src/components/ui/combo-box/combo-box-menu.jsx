@@ -24,7 +24,7 @@ export const ComboBoxMenu = ({
         <>
           {
             subLabel && index === 0 && (
-              <ListGroup.Item className={"border-bottom-0 text-sml"}>
+              <ListGroup.Item className={"border-bottom-0 text-small"}>
                 {subLabel}
               </ListGroup.Item>
             )
@@ -44,7 +44,7 @@ export const ComboBoxMenu = ({
                 <br/>
               </>
             )}
-            <span className={item.title ? "text-sml small" : ""}>{item.name}</span>
+            <span className={item.title ? "text-small small" : ""}>{item.name}</span>
           </ListGroup.Item>
         </>
       ))}

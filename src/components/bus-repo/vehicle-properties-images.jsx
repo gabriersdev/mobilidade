@@ -23,7 +23,7 @@ export default function VehiclePropertiesImages({vehicle}) {
   }
   
   return (
-    <div className={"d-flex flex-wrap gap-5 align-items-center"}>
+    <div className={"d-flex flex-wrap gap-3 align-items-center"}>
       <div className={"d-flex gap-1 flex-column"}>
         {
           returnIMGSourceIfExists(chassisManufacturer) ? (
@@ -32,7 +32,7 @@ export default function VehiclePropertiesImages({vehicle}) {
               width={150}
               height={50}
               alt={"Logo da " + chassisManufacturer}
-              className={"w-full object-fit-contain object-center"}
+              className={"w-full object-fit-contain object-center bg-white rounded-1 p-1"}
             />
           ) : chassisManufacturer
         }
@@ -48,7 +48,7 @@ export default function VehiclePropertiesImages({vehicle}) {
               width={150}
               height={50}
               alt={"Logo da " + bodyworkManufacturer}
-              className={"w-full object-fit-contain object-center"}
+              className={"w-full object-fit-contain object-center bg-white rounded-1 p-1 mb-1"}
             />
           ) : bodyworkManufacturer
         }

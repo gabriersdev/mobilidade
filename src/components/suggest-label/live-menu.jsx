@@ -9,7 +9,7 @@ const LiveMenu = ({selectedStop}) => (
       <div className="live-indicator me-1">
         <div className="live-dot"></div>
       </div>
-      <span className="text-sml">Ao vivo</span>
+      <span className="text-small">Ao vivo</span>
     </DropdownToggle>
     <DropdownMenu>
       <DropdownItem as={Link} to={`/live?sei=${selectedStop?.id ?? 4095}`}>Acompanhar as partidas deste ponto</DropdownItem>
