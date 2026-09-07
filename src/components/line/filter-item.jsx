@@ -6,7 +6,7 @@ const FilterItem = ({label, value, options, onSelect, activeValue}) => {
     <Dropdown>
       <Dropdown.Toggle
         variant="light"
-        className="border-0 p-0 m-0 d-flex flex-nowrap gap-1 align-items-center text-sml"
+        className="border-0 p-0 m-0 d-flex flex-nowrap gap-1 align-items-center text-small"
         style={{background: "unset", maxWidth: 200}}
       >
         <span className={"text-truncate fs-inherit text-body-secondary"}>{label}:</span>

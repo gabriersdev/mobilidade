@@ -68,7 +68,7 @@ export default function BusListResults({loading, error, vehicles}) {
         beforeSelector={true}
       />
       
-      <p className={"mb-0 mt-3 text-sml text-muted"}>{vehicles.length} {vehicles.length > 1 ? "veículos encontrados" : "veículo encontrado"}</p>
+      <p className={"mb-0 mt-3 text-small text-muted"}>{vehicles.length} {vehicles.length > 1 ? "veículos encontrados" : "veículo encontrado"}</p>
     </div>
   );
 }

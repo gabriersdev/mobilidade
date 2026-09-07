@@ -24,7 +24,7 @@ const ListPoints = ({data}) => {
                   <>
                     <div className={"text-primary align-items-center gap-1 d-none d-md-flex"}>
                       <i className="bi bi-credit-card-2-front-fill"></i>
-                      <span className={"text-sml"}>Ponto oficial de Recarga</span>
+                      <span className={"text-small"}>Ponto oficial de Recarga</span>
                     </div>
                   </>
                 )}

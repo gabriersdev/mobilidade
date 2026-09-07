@@ -5,6 +5,7 @@ import '@/components/list-line-warnings/list-line-warnings.css';
 import AnimatedComponent from "@/components/ui/animated-component/animated-component.jsx";
 import {useLineWarnings} from "@/components/list-line-warnings/use-line-warnings.js";
 import WarningItem from "@/components/list-line-warnings/warning-item.jsx";
+import moment from "moment";
 
 const ListLineWarnings = ({line_id}) => {
   const {warnings, loading, error, handleDismissWarning} = useLineWarnings(line_id);
@@ -21,6 +22,23 @@ const ListLineWarnings = ({line_id}) => {
           {
             warnings
               .toSorted((a, b) => a.title.localeCompare(b.title))
+              .filter((warning) => {
+                try {
+                  if (warning?.text && warning?.title?.toLowerCase().includes("informe sobre o quadro de horários em operação")) {
+                    const existsDateInText = warning.text.match(/\d{2}\/\d{2}\/\d{4}/g);
+                    if (existsDateInText) {
+                      const existsDateInFuture = existsDateInText
+                        .map(e => moment(e.split("/").toReversed().join("-") + "T00:00:00"))
+                        .find(d => moment().diff(d, "days") <= 0);
+                      return !!existsDateInFuture;
+                    } else return true;
+                  } else return true;
+                  
+                  //
+                } catch {
+                  return true;
+                }
+              })
               .map((warning) => (
                 <WarningItem
                   key={warning.id}

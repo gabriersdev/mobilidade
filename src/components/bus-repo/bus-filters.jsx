@@ -151,12 +151,12 @@ export default function BusFilters({filters, onChange}) {
                     <PopoverHeader className={"fw-medium"}>
                       Flags de pesquisa
                     </PopoverHeader>
-                    <PopoverBody className={"text-sml"}>
+                    <PopoverBody className={"text-small"}>
                       A flag <span className={"fs-inherit"}>&quot;ano: 2016&quot;</span> retorna veículos com ano de fabricação ou modelo 2016. A flag <span className={"fs-inherit"}>&quot;chassi: OF-1619L&quot;</span> pesquisa especificamente por modelos de chassi. Você pode combinar as flags com texto livre para refinar a busca.
                     </PopoverBody>
                   </Popover>
                 }>
-                  <p className={"text-sml text-warning mb-0"}>
+                  <p className={"text-small text-warning mb-0"}>
                     <i className="bi bi-lightbulb"></i> <span className={"text-decoration-underline"}>Use flags para pesquisar.</span>
                   </p>
                 </OverlayTrigger>

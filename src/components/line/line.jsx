@@ -33,7 +33,7 @@ const Line = ({id}) => {
           <div className={"d-flex flex-column gap-1"}>
             <span>Informações sobre a linha não foram encontradas.</span>
             <span>{" "}</span>
-            <span className={"text-sml"}>Isso acontece caso a linha tenha sido desativada, for suspensa ou não existir.</span>
+            <span className={"text-small"}>Isso acontece caso a linha tenha sido desativada, for suspensa ou não existir.</span>
           </div>
         </Alert>
       </AnimatedComponents>

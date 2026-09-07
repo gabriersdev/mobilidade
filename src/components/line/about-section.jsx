@@ -10,6 +10,7 @@ import GuideBanner from '../banners/guide-banner.jsx';
 import NewsBanner from '../banners/news-banner.jsx';
 import SeeMore from "@/components/ui/see-more/see-more.jsx";
 import {numberConfigs} from "@/assets/resources.js";
+import {Badge} from "react-bootstrap";
 
 const AboutSection = ({line}) => {
   const defaultImage = "/images/banner.png";
@@ -29,12 +30,15 @@ const AboutSection = ({line}) => {
           <img src={defaultImage} alt={`Imagem de veículo da linha ${line.line_number}. Banner do Mobilidade.`} width="100" height="500px" className="w-100 object-fit-cover rounded-3"/>
           <div className="p-3 position-absolute top-0 w-100 h-100 rounded-3" style={{background: "linear-gradient(to bottom,#00000025 1%, #00000060 75%)", backgroundColor: "#00000015"}}></div>
           <div className="position-absolute bottom-0 mb-4 ms-4 text-balance" style={{maxWidth: "calc(100% - 3rem)"}}>
-            <div className="mb-3">
-              <h2 className="text-white fs-1 fw-bold">{line.line_number}</h2>
-            </div>
-            <p className="m-0 text-white">{Util.resumeInfoLine({})}</p>
+            <h2 className="text-white fs-1 fw-bold">
+              {line.line_number}
+            </h2>
+            <p className="m-0 text-white" style={{maxWidth: 900}}>
+              RIT {line.line_number.toString().at(0)}. {Util.resumeInfoLine({})}
+            </p>
           </div>
         </div>
+        
         <div className="mt-3 d-flex column-gap-3 row-gap-1 flex-wrap">
           <Link to={`/history/departure-times/${line.line_id}`} className="text-decoration-none">Histórico de horários</Link>
           <span className="text-body-tertiaryd-inline-flex align-items-center justify-content-center"><i style={{fontSize: "2px"}} className="bi bi-circle-fill"></i></span>
@@ -63,12 +67,12 @@ const AboutSection = ({line}) => {
         <details className="text-muted d-inline-block mb-0">
           <summary className="">
             <div className="mt-1">
-              <p className="text-sml line-clamp-1 p-0 m-0">
+              <p className="text-small line-clamp-1 p-0 m-0">
                 Informações carregadas em {renderText(moment().format("DD/MM/YYYY"))} às {moment().format("HH[h]mm[m]")}.
               </p>
             </div>
           </summary>
-          <p className="mb-0 text-body-tertiary  text-sml">
+          <p className="mb-0 text-body-tertiary  text-small">
             {renderText(moment().format("DD/MM/YYYY HH:mm:ss"))} {"- Horário de Brasília"}
           </p>
         </details>

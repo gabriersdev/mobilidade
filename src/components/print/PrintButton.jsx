@@ -15,15 +15,15 @@ const PrintButton = ({loading, onClick}) => {
       >
         {loading ? (
           <>
-            <span className="me-2 d-none d-sm-inline text-sml">Imprimindo</span>
+            <span className="me-2 d-none d-sm-inline text-small">Imprimindo</span>
             <Spinner animation="grow" role="status" size="sm">
               <span className="visually-hidden">Loading...</span>
             </Spinner>
           </>
         ) : (
           <>
-            <span className="me-2 d-none d-sm-inline text-sml">Imprimir</span>
-            <i className="bi bi-printer-fill text-sml"></i>
+            <span className="me-2 d-none d-sm-inline text-small">Imprimir</span>
+            <i className="bi bi-printer-fill text-small"></i>
           </>
         )}
       </Button>

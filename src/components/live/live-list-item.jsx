@@ -73,27 +73,27 @@ const LiveListItem = ({d, i, configs, getNextDepartureTimes}) => {
                   <span>
                       {configs?.["showAdditionalInfo"] && (
                         <span className={"fs-initial d-flex flex-wrap gap-1 opacity-75"}>
-                          <i className={"fst-normal text-sml"}>Sentido {Util.directionToText(d?.["direction"] ?? -1)?.toLowerCase()}.</i>
-                          <i className={"fst-normal text-sml"}>Partida às {moment(d?.["departure_time_trip"]).format("HH:mm")}.</i>
+                          <i className={"fst-normal text-small"}>Sentido {Util.directionToText(d?.["direction"] ?? -1)?.toLowerCase()}.</i>
+                          <i className={"fst-normal text-small"}>Partida às {moment(d?.["departure_time_trip"]).format("HH:mm")}.</i>
                         </span>
                       )}
                     </span>
                 </Title>
                 <div className={"d-flex align-items-start justify-content-center gap-1 mt-1"}>
                   {configs?.["showAdditionalInfo"] && Util.getTodayHolidayData() && (
-                    <OverlayTrigger overlay={<Tooltip><p className={"m-0 p-0 text-sml text-balance line-clamp-3"}>A linha está operando no horário de domingo e feriado. O horário possui observações.</p></Tooltip>}>
+                    <OverlayTrigger overlay={<Tooltip><p className={"m-0 p-0 text-small text-balance line-clamp-3"}>A linha está operando no horário de domingo e feriado. O horário possui observações.</p></Tooltip>}>
                       <i className="bi bi-exclamation-circle-fill text-"></i>
                     </OverlayTrigger>
                   )}
-                  <OverlayTrigger overlay={<Tooltip><p className={"m-0 p-0 text-sml text-balance line-clamp-3"}>Somente desembarque. Linhas encerrando viagem.</p></Tooltip>}>
+                  <OverlayTrigger overlay={<Tooltip><p className={"m-0 p-0 text-small text-balance line-clamp-3"}>Somente desembarque. Linhas encerrando viagem.</p></Tooltip>}>
                     <i className="bi bi-arrow-down-left-circle-fill d-none"></i>
                   </OverlayTrigger>
-                  <OverlayTrigger overlay={<Tooltip><p className={"m-0 p-0 text-sml text-balance line-clamp-3"}>Linhas partindo. Somente embarque.</p></Tooltip>}>
+                  <OverlayTrigger overlay={<Tooltip><p className={"m-0 p-0 text-small text-balance line-clamp-3"}>Linhas partindo. Somente embarque.</p></Tooltip>}>
                     <i className="bi bi-arrow-up-right-circle-fill d-none"></i>
                   </OverlayTrigger>
                 </div>
               </div>
-              <span className={"d-none text-sml opacity-50"}>({d?.["departure_time_trip"]}) | ({d?.["expected_arrival_time"]})</span>
+              <span className={"d-none text-small opacity-50"}>({d?.["departure_time_trip"]}) | ({d?.["expected_arrival_time"]})</span>
             </Link>
           </td>
         </tr>
@@ -101,11 +101,11 @@ const LiveListItem = ({d, i, configs, getNextDepartureTimes}) => {
           <td className={"bg-body-secondary"} colSpan={2}>
             <div className={"d-flex align-items-center flex-wrap gap-1"}>
               <LiveShowItem d={{...d, i}} configs={configs}/>
-              <span className={"text-muted text-sml"}>- às {moment(d?.["expected_arrival_time"]).format("HH:mm")}</span>
+              <span className={"text-muted text-small"}>- às {moment(d?.["expected_arrival_time"]).format("HH:mm")}</span>
             </div>
             {configs?.["showAdditionalInfo"] && (
               <div className={""}>
-                <p className={"text-sml m-0 d-inline-flex align-items-center gap-1 flex-wrap lh-base"}>
+                <p className={"text-small m-0 d-inline-flex align-items-center gap-1 flex-wrap lh-base"}>
                     <span className={"text-muted"}>
                       <svg className={"d-none d-sm-inline-block"} style={{rotate: "180deg", marginRight: "0.125rem"}} xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#BBBBBB">
                         <path d="M860-240 500-480l360-240v480Zm-400 0L100-480l360-240v480Zm-80-240Zm400 0Zm-400 90v-180l-136 90 136 90Zm400 0v-180l-136 90 136 90Z"/>

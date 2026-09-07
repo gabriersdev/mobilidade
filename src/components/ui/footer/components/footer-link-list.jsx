@@ -4,7 +4,7 @@ import {footerLinks} from "@/assets/resources.js";
 const FooterLinkList = () => {
   return (
     <ul className="d-flex flex-column g-3 m-0 p-0 footer-link-list">
-      <p className="mb-0 text-body-secondary text-sml mb-0">Outros links</p>
+      <p className="mb-0 text-body-secondary text-small mb-0">Outros links</p>
       {footerLinks.map((page, index) => (
         <Link to={page.path} key={index} className={"footer-link-list-item "}>{page.name}</Link>
       ))}

@@ -17,7 +17,7 @@ const CacheManagerModal = ({
         <Modal.Title className={"fw-semibold"} style={{fontSize: "1.35rem"}}>Gerenciar Cache</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p className="text-muted text-sml">
+        <p className="text-muted text-small">
           Gerencie os arquivos armazenados em cache pela aplicação. Você pode apagar arquivos de bundle e páginas salvas, ou mantê-los para acesso offline mais rápido.
         </p>
         {cachesList.length === 0 ? (

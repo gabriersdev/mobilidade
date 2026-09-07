@@ -45,14 +45,14 @@ const AccordionOperationDayItem = (
               <div className={"d-flex align-items-center gap-2 justify-content-center"}>
                 {dayConverted}{" "}
                 {isToday && !navigation.pathname.startsWith("/history/") && (
-                  <OverlayTrigger overlay={<Tooltip><span className={"text-sml lh-base d-block text-balance"}>Este é o itinerário de hoje</span></Tooltip>}>
+                  <OverlayTrigger overlay={<Tooltip><span className={"text-small lh-base d-block text-balance"}>Este é o itinerário de hoje</span></Tooltip>}>
                     <Badge bg={"primary"} className={"rounded-pill border-0"}>HOJE</Badge>
                   </OverlayTrigger>
                 )}
               </div>
               <div className={"d-none d-md-flex align-items-center gap-2 justify-content-center me-2"}>
-                <OverlayTrigger overlay={<Tooltip><span className={"text-sml lh-base d-block text-balance"}>Média do intervalo entre partidas</span></Tooltip>}>
-                  <span className={"text-primary-emphasis text-sml opacity-75"}>~ {Util.formatFriendlyDuration(infosIntervalDeparturesTimes?.avgIntervals ?? 0)}</span>
+                <OverlayTrigger overlay={<Tooltip><span className={"text-small lh-base d-block text-balance"}>Média do intervalo entre partidas</span></Tooltip>}>
+                  <span className={"text-primary-emphasis text-small opacity-75"}>~ {Util.formatFriendlyDuration(infosIntervalDeparturesTimes?.avgIntervals ?? 0)}</span>
                 </OverlayTrigger>
               </div>
             </div>
@@ -81,7 +81,7 @@ const AccordionOperationDayItem = (
                 Intervalos entre partidas
               </PopoverHeader>
               <PopoverBody>
-                <div className={"text-sml d-flex gap-1 flex-column"}>
+                <div className={"text-small d-flex gap-1 flex-column"}>
                   {
                     [
                       <>
@@ -107,7 +107,7 @@ const AccordionOperationDayItem = (
               </PopoverBody>
             </Popover>
           }>
-            <div className={"d-flex flex-column gap-2 text-body-secondary text-sml"}>
+            <div className={"d-flex flex-column gap-2 text-body-secondary text-small"}>
               <span className={"d-block text-balance fs-inherit"}>
                 {departureTimesDay.length.toLocaleString()} horários de partidas no horário de {dayConverted.substring(0, 1).toLowerCase() + dayConverted.substring(1)}.
               </span>

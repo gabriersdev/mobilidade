@@ -15,7 +15,7 @@ const CacheAccordionItem = ({cacheName, index, cachesData, handleDeleteCache, ha
       : url;
     return (
       <ListGroup.Item key={index} className="d-flex justify-content-between align-items-center p-2 text-ellipsis">
-        <span className="text-truncate text-sml text-muted me-2" title={displayUrl} style={{maxWidth: '350px'}}>
+        <span className="text-truncate text-small text-muted me-2" title={displayUrl} style={{maxWidth: '350px'}}>
           {displayUrl}
         </span>
         <Button variant="danger" size="sm" onClick={() => handleDeleteCacheFile(cacheName, url)} title="Apagar arquivo">
@@ -29,12 +29,12 @@ const CacheAccordionItem = ({cacheName, index, cachesData, handleDeleteCache, ha
     <Accordion.Item eventKey={index.toString()} key={cacheName}>
       <Accordion.Header>
         <span className="text-truncate fw-semibold me-2" title={cacheName} style={{maxWidth: '220px'}}>{cacheName}</span>
-        <span className={"text-sml"}>- {cacheUrls.length} arquivos</span>
+        <span className={"text-small"}>- {cacheUrls.length} arquivos</span>
       </Accordion.Header>
       <Accordion.Body className="p-0">
         <div className="p-2 border-bottom bg-light d-flex justify-content-between align-items-center gap-1 flex-wrap">
-          <span className="text-muted text-sml">Ações para este cache:</span>
-          <Button variant="danger" size="sm" onClick={() => handleDeleteCache(cacheName)} className={"text-sml"}>
+          <span className="text-muted text-small">Ações para este cache:</span>
+          <Button variant="danger" size="sm" onClick={() => handleDeleteCache(cacheName)} className={"text-small"}>
             Apagar todos os itens
           </Button>
         </div>
@@ -51,7 +51,7 @@ const CacheAccordionItem = ({cacheName, index, cachesData, handleDeleteCache, ha
             />
           </div>
         ) : (
-          <div className="p-3 text-muted text-center text-sml">Nenhum arquivo encontrado.</div>
+          <div className="p-3 text-muted text-center text-small">Nenhum arquivo encontrado.</div>
         )}
       </Accordion.Body>
     </Accordion.Item>

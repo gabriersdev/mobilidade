@@ -16,7 +16,7 @@ const Legend = ({items, marginTop, type}) => {
   return (
     (items.length > 0) && (
       <div className={`d-flex flex-wrap align-items-start flex-column gap-2 ${marginTop || 'mt-3'}`}>
-        <span className={"mb-1 text-body-tertiary text-sml"}>Legenda</span>
+        <span className={"mb-1 text-body-tertiary text-small"}>Legenda</span>
         {items.map((item, index) => (
           <OverlayTrigger key={index} overlay={
             <Tooltip>

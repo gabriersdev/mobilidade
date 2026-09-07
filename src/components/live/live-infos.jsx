@@ -54,7 +54,7 @@ export function AlertInfoConfigSomeDepartureStart() {
       <Alert variant={"warning"} dismissible={true} margin={"m-0"}>
         <div className={"d-flex flex-column gap-1"}>
           <p className={"m-0"}>A UI está configurada para exibir apenas horários de partida.</p>
-          <p className={"m-0 text-sml"}>Você pode alterar isso nas configurações.</p>
+          <p className={"m-0 text-small"}>Você pode alterar isso nas configurações.</p>
         </div>
       </Alert>
     </div>

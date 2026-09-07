@@ -66,13 +66,13 @@ const SeeMore = ({children, mobileOnly = false, height = 200, gradientColor = '-
           >
             {expanded ? (
               <div className={"d-flex gap-1"}>
-                <span className={"text-sml"}>Ver menos</span>
-                <i className="bi bi-arrow-bar-down ms-1 text-sml"></i>
+                <span className={"text-small"}>Ver menos</span>
+                <i className="bi bi-arrow-bar-down ms-1 text-small"></i>
               </div>
             ) : (
               <div className={"d-flex gap-1"}>
-                <span className={"text-sml"}>Ver mais</span>
-                <i className="bi bi-arrow-bar-down ms-1 text-sml"></i>
+                <span className={"text-small"}>Ver mais</span>
+                <i className="bi bi-arrow-bar-down ms-1 text-small"></i>
               </div>
             )}
           </Button>

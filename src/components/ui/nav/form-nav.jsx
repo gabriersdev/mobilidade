@@ -80,7 +80,7 @@ export default function FormNav() {
           name="term"
           type="search"
           autoComplete="off"
-          className="p-0 border-0 bg-transparent shadow-none w-100 text-sml"
+          className="p-0 border-0 bg-transparent shadow-none w-100 text-small"
           value={term}
           onChange={(e) => setTerm(e.target.value)}
           onFocus={handleFocusedTrue}
@@ -95,10 +95,10 @@ export default function FormNav() {
             className="d-flex align-items-center border-0 shadow-none bg-body"
             onClick={handleFocusedTrue}
           >
-            <kbd className="mb-0 me-2 text-sml px-1 py-0 bg-body-secondary text-body-tertiary font-monospace text-nowrap">
+            <kbd className="mb-0 me-2 text-small px-1 py-0 bg-body-secondary text-body-tertiary font-monospace text-nowrap">
               CTRL + K
             </kbd>
-            <span className="text-muted text-sml">Pesquisar</span>
+            <span className="text-muted text-small">Pesquisar</span>
           </button>
         )}
       </div>

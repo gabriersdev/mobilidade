@@ -20,7 +20,7 @@ function FormControlElement({elementType, params}) {
           style={{maxWidth: "100px"}}
           {...params}
         />
-        <span className={"text-sml text-muted"}>
+        <span className={"text-small text-muted"}>
           {params.value === 0 ? <>sem som</> : <>{params.value}%</>}
         </span>
       </div>

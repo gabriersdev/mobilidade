@@ -18,7 +18,7 @@ const BusTimesDisplay = ({busTimes, loading}) => {
   if (busTimes.length === 0) return <span className="text-muted">Nenhum ônibus por perto</span>;
   
   return (
-    <div className="d-flex gap-1 align-items-center flex-wrap text-sml">
+    <div className="d-flex gap-1 align-items-center flex-wrap text-small">
       {busTimes.map((busTime, index) => (
         <React.Fragment key={busTime.id}>
           <div>

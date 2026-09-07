@@ -37,16 +37,16 @@ export default function LiveListSingleLine({data, configs}) {
                 </span>
                 
                 {configs?.["showAdditionalInfo"] && (
-                  <span className="text-body-secondary ff-inherit text-sml">
+                  <span className="text-body-secondary ff-inherit text-small">
                     (Partida: {moment(d?.["departure_time_trip"]).format("HH:mm")})
                   </span>
                 )}
                 
-                <div className="ms-auto text-end text-body-secondary ff-inherit text-sml d-flex align-items-center flex-wrap gap-1">
+                <div className="ms-auto text-end text-body-secondary ff-inherit text-small d-flex align-items-center flex-wrap gap-1">
                   <div className={"monospace"}>
                     <LiveShowItem d={{...d, i}} configs={configs}/>
                   </div>
-                  <span className="text-muted text-sml monospace">- às {moment(d?.["expected_arrival_time"]).format("HH:mm")}</span>
+                  <span className="text-muted text-small monospace">- às {moment(d?.["expected_arrival_time"]).format("HH:mm")}</span>
                 </div>
               </Link>
             </li>

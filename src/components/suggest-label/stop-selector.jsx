@@ -4,10 +4,10 @@ import {Dropdown, DropdownItem, DropdownItemText, DropdownMenu, DropdownToggle, 
 const StopSelector = ({stops, selectedStop, onSelectStop}) => (
   <Dropdown>
     <DropdownToggle variant="default" className="border-0 p-0 m-0 text-body-secondary line-clamp-w-200">
-      <span className="text-sml">{selectedStop ? selectedStop.label : "Selecione um ponto"}</span>
+      <span className="text-small">{selectedStop ? selectedStop.label : "Selecione um ponto"}</span>
     </DropdownToggle>
     <DropdownMenu style={{maxHeight: "150px"}} className="overflow-y-scroll">
-      <DropdownItemText className="text-sml text-body-secondary">
+      <DropdownItemText className="text-small text-body-secondary">
         Principais paradas ({stops.length})
       </DropdownItemText>
       {[...stops].map((stop) => (
@@ -17,7 +17,7 @@ const StopSelector = ({stops, selectedStop, onSelectStop}) => (
           className="line-clamp-1"
           style={{maxWidth: "300px"}}
         >
-          <OverlayTrigger overlay={<Tooltip placement="left-start"><span className="text-sml">Endereço do ponto de parada</span></Tooltip>}>
+          <OverlayTrigger overlay={<Tooltip placement="left-start"><span className="text-small">Endereço do ponto de parada</span></Tooltip>}>
             <span>{stop.label}</span>
           </OverlayTrigger>
         </DropdownItem>

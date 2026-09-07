@@ -44,7 +44,7 @@ export default function Intermediate(
         />
       ))}
       <div className="mt-2">
-        <p className="d-block text-body-tertiary text-sml m-0 p-0 text-balance">
+        <p className="d-block text-body-tertiary text-small m-0 p-0 text-balance">
           Os horários são atualizados periodicamente via integração com a companhia.
         </p>
       </div>

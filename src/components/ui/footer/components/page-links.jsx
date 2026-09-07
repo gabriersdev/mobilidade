@@ -9,7 +9,7 @@ const PageLinks = () => {
   
   return (
     <section>
-      <p className="mb-0 text-body-secondary text-sml mb-2">Navegue por</p>
+      <p className="mb-0 text-body-secondary text-small mb-2">Navegue por</p>
       <div className={"d-flex flex-row gap-1 align-items-center justify-content-start flex-wrap"}>
         {
           [...otherPages]
@@ -17,7 +17,7 @@ const PageLinks = () => {
             .map((page, i) => (
               <Link to={page.path} key={i}>
                 <Badge bg={"info"} pill={true} className={"d-inline-block"}>
-                  <span className={"text-sml d-block"} style={{paddingBottom: "2px", paddingTop: "1px"}}>{page.name}</span>
+                  <span className={"text-small d-block"} style={{paddingBottom: "2px", paddingTop: "1px"}}>{page.name}</span>
                 </Badge>
               </Link>
             ))

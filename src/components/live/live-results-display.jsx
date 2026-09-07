@@ -31,11 +31,11 @@ const LiveResultsDisplay = ({
         <>
           <div className={"d-flex align-items-center justify-content-between gap-3"}>
             <div className={"d-flex flex-column gap-0 mb-3 flex-grow-1 flex-shrink-1"}>
-              <span className={"text-muted text-sml"}>Local</span>
+              <span className={"text-muted text-small"}>Local</span>
               <span>{Util.renderText(departurePointSelected?.["title"])}</span>
             </div>
             
-            <LiveLinesAtPoint data={data}/>
+            <LiveLinesAtPoint data={data} departurePointSelected={departurePointSelected} />
           </div>
           
           {loading ? (
@@ -44,12 +44,12 @@ const LiveResultsDisplay = ({
             <>
               <div className={"d-flex gap-3 flex-wrap mb-3"}>
                 <div className={"d-flex flex-column gap-0 mb-3"}>
-                  <span className={"text-muted text-sml"}>Atualizado</span>
+                  <span className={"text-muted text-small"}>Atualizado</span>
                   <span>{moment.isMoment(datetimeOriginalFetch) ? Util.diffToHuman(datetimeOriginalFetch) : "-"}</span>
                 </div>
                 
                 <div className={"d-flex flex-column gap-0 mb-3"}>
-                  <span className={"text-muted text-sml"}>Agora são</span>
+                  <span className={"text-muted text-small"}>Agora são</span>
                   <span>{Util.renderText(moment.isMoment(now) ? now.format("HH:mm:ss") : "-")}</span>
                 </div>
               </div>

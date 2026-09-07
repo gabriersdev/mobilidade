@@ -43,11 +43,8 @@ const Live = () => {
   
   useEffect(() => {
     const base = "/live";
-    if (departurePointSelected?.id) {
-      navigate(base + "?sei=" + (departurePointSelected?.["id"] ?? ""));
-    } else {
-      navigate(base);
-    }
+    if (departurePointSelected?.id) navigate(base + "?sei=" + (departurePointSelected?.["id"] ?? ""));
+    else navigate(base);
   }, [departurePointSelected, navigate]);
   
   return (

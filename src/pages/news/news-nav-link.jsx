@@ -13,7 +13,7 @@ const NavLink = ({article, direction}) => {
   
   return (
     <Link to={`/news/${article.id}`} className={`text-decoration-none d-flex flex-column gap-1 ${align}`}>
-      <small className={"text-sml  text-primary-emphasis"}>
+      <small className={"text-small  text-primary-emphasis"}>
         {direction === "prev" && <><i className="bi bi-arrow-left-short"></i>{" "}</>}
         {label}
         {direction === "next" && <>{" "}<i className="bi bi-arrow-right-short"></i></>}
