@@ -58,7 +58,7 @@ export function wrapTextInArialIfNeeded(text, keyPrefix) {
   });
   
   return parts;
-};
+}
 
 export function processContents(text) {
   const regex = /<Link\s+to={["']([^"']+)["']}>(.*?)<\/Link>/g;
@@ -92,4 +92,4 @@ export function processContents(text) {
   const afterText = text.slice(lastIndex);
   if (afterText) elements.push(...wrapTextInArialIfNeeded(afterText, key));
   return elements;
-};
+}

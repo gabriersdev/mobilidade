@@ -35,7 +35,7 @@ const LiveResultsDisplay = ({
               <span>{Util.renderText(departurePointSelected?.["title"])}</span>
             </div>
             
-            <LiveLinesAtPoint data={data}/>
+            <LiveLinesAtPoint data={data} departurePointSelected={departurePointSelected} />
           </div>
           
           {loading ? (
