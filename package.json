@@ -111,6 +111,6 @@
   "allowScripts": {
     "es5-ext@0.10.64": true,
     "esbuild@0.28.2": true,
-    "cypress@15.21.1": true
+    "cypress@16.0.0": true
   }
 }
