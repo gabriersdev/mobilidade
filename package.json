@@ -55,7 +55,7 @@
     "rolldown": "1.2.0",
     "semantic-release": "^25.0.8",
     "socket.io-client": "^4.8.3",
-    "vercel": "^59.15.1"
+    "vercel": "^59.16.0"
   },
   "devDependencies": {
     "@eslint/compat": "^2.1.0",
