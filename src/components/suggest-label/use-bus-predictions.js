@@ -8,6 +8,7 @@ export const useBusPredictions = (selectedStop) => {
   const [data, setData] = useState([]);
   const [busTimes, setBusTimes] = useState([]);
   const [now, setNow] = useState(moment());
+  const [lastUpdate, setLastUpdate] = useState(moment());
   
   useEffect(() => {
     connectSocket();
@@ -16,23 +17,30 @@ export const useBusPredictions = (selectedStop) => {
 
   useEffect(() => {
     if (!selectedStop) return;
+    
+    let isCurrent = true;
+    const subscribedAt = Date.now();
 
     const handlePredictionsData = (response) => {
+      if (!isCurrent) return;
+      if (Date.now() - subscribedAt < 800) return; // Ignore old in-flight packets
       try {
         const axiosMainData = response?.[0]?.[0]?.[0]?.["get_arrival_predictions(?, ?)"];
         setData(Array.isArray(axiosMainData) ? JSON.parse(JSON.stringify(axiosMainData)).map(Util.parseDatetimeTimezone) : []);
+        setLastUpdate(moment());
       } catch (error) {
         console.error("Error processing predictions data from socket:", error);
         setData([]);
       }
     };
 
-    socket.on('predictions_data', handlePredictionsData);
-    socket.emit('subscribe_predictions', { pointId: selectedStop.id });
+    socket.on('predictions-data', handlePredictionsData);
+    socket.emit('subscribe-predictions', { pointId: selectedStop.id });
 
     return () => {
-      socket.off('predictions_data', handlePredictionsData);
-      socket.emit('unsubscribe_predictions', { pointId: selectedStop.id });
+      isCurrent = false;
+      socket.off('predictions-data', handlePredictionsData);
+      socket.emit('unsubscribe-predictions', { pointId: selectedStop.id });
     };
   }, [selectedStop]);
   
@@ -40,6 +48,13 @@ export const useBusPredictions = (selectedStop) => {
     const interval = setInterval(() => setNow(moment()), 1000);
     return () => clearInterval(interval);
   }, []);
+  
+  useEffect(() => {
+    if (selectedStop && now.diff(lastUpdate, 'seconds') > 60) {
+      socket.emit('subscribe-predictions', { pointId: selectedStop.id });
+      setLastUpdate(moment());
+    }
+  }, [now, lastUpdate, selectedStop]);
   
   useEffect(() => {
     if (!data || data.length === 0) {
