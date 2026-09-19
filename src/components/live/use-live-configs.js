@@ -4,7 +4,7 @@ export const useLiveConfigs = () => {
   const [configs, setConfigs] = useState(() => {
     const defaultConfig = {
       // TODO - implementar agrupamento de informações de partida: SE a linha FOR A MESMA, agrupar em uma única linha as informações e incidência de partida
-      groupInfos: false,
+      // groupInfos: false,
       warningSound: true,
       showSomeDepartureStart: false,
       showAdditionalInfo: true,
@@ -23,7 +23,7 @@ export const useLiveConfigs = () => {
   
   
   const labelsConfigs = useRef({
-    groupInfos: "Agrupar informações de partida",
+    // groupInfos: "Agrupar informações de partida",
     warningSound: "Aviso sonoro",
     showSomeDepartureStart: "Exibir apenas partidas",
     showAdditionalInfo: "Exibir informações extras",
