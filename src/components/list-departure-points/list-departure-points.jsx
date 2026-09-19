@@ -39,25 +39,37 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
       }
     };
     
-    searchDeparturePoints().then(() => {
-    });
+    searchDeparturePoints().then();
   }, [line_id]);
   
   if (isLoaded) return (
     <AnimatedComponents>
       <Placeholder as="div" animation="glow" className="mt-3">
-        <Placeholder xs={12} className="mb-2" />
-        <Placeholder xs={10} className="mb-2" />
-        <Placeholder xs={8} />
+        <Placeholder xs={12} className="mb-2"/>
+        <Placeholder xs={10} className="mb-2"/>
+        <Placeholder xs={8}/>
       </Placeholder>
     </AnimatedComponents>
-  );
+  )
+  
+  // #
   else if (error) {
     console.log(error)
-    return <AnimatedComponents>
-      <div>Erro: {error.message}</div>
-    </AnimatedComponents>;
-  } else if (data.length === 0) return <AnimatedComponents><Alert variant={"info"}><span>Não localizamos pontos de parada para esta linha.</span></Alert></AnimatedComponents>
+    return (
+      <AnimatedComponents>
+        <div>Erro: {error.message}</div>
+      </AnimatedComponents>
+    );
+  }
+  
+  // #
+  else if (data.length === 0) return (
+    <AnimatedComponents>
+      <Alert variant={"info"}><span>Não localizamos pontos de parada para esta linha.</span></Alert>
+    </AnimatedComponents>
+  );
+  
+  // #
   else {
     // Ordena os pontos de parada por direção e ordem
     const departurePoints = data.toSorted((a, b) => a.order_departure_point - b.order_departure_point);
@@ -79,12 +91,13 @@ const ListDeparturePoints = ({line_id, departure_location, destination_location}
           paginationCurrentPages,
           handlePageChange
         })}>
-          <RouteMap/>
           <Accordion id={"departure-points-data"}>
             <OffCanvasDeparturePoints/>
             <ListPointsByDirections/>
             <div className={"mt-2"}>
-              <p className={"d-block text-body-tertiary text-small m-0 p-0 text-balance"}>Os pontos de partida são atualizados ocasionalmente via integração com o Moovit.</p>
+              <p className={"d-block text-body-tertiary text-small m-0 p-0 text-balance"}>
+                Os pontos de partida são atualizados ocasionalmente via integração com o Moovit.
+              </p>
             </div>
           </Accordion>
         </DeparturePointsDataContext.Provider>

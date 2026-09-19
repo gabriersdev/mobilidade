@@ -2,6 +2,7 @@ import {useContext} from 'react';
 import PropTypes from 'prop-types';
 import PaginationWithItems from '../pagination-with-items/pagination-with-items.jsx';
 import {DPContext as DeparturePointsTheme} from './departure-points-context.jsx';
+import Util from "@/lib/Util.jsx";
 
 const DeparturePointList = ({points, currentPage, onPageChange}) => {
   const {handlePointClick} = useContext(DeparturePointsTheme);
@@ -23,7 +24,7 @@ const DeparturePointList = ({points, currentPage, onPageChange}) => {
         tabIndex={-1}
         style={{textDecoration: 'none', textAlign: 'left'}}
       >
-        {(point.address + (point.point_name ? ' - ' + point.point_name : '')).replace(/\\/g, ' - ')}
+        {Util.renderText((point.address + (point.point_name ? ' - ' + point.point_name : '')).replace(/\\/g, ' - '))}
       </button>
     </li>
   );

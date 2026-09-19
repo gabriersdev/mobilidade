@@ -45,7 +45,7 @@ export default function RenderLiveMap({data}) {
                 
                 <div className={"d-flex flex-column gap-2"}>
                   <Alert variant={"info"} className={"m-0"}>
-                    Para consultar o mapa ao vivo da linha é necessário{" "}
+                    <span>Para consultar o mapa ao vivo da linha é necessário{" "}</span>
                     <Link
                       to={link}
                       rel={"noreferrer noopener"}
@@ -75,9 +75,10 @@ export default function RenderLiveMap({data}) {
               </div>
             </section>
           );
-        } else {
-          setContent(<></>);
         }
+        
+        //
+        else setContent(<></>);
       }
     };
     
