@@ -10,9 +10,7 @@ export default function LiveLinesAtPoint({data, departurePointSelected}) {
     if (departurePointSelected?.id) {
       apiClient.post('/predictions/departure-points/lines', {pointId: departurePointSelected.id})
         .then(res => {
-          if (Array.isArray(res.data)) {
-            setAllLines(res.data);
-          }
+          if (Array.isArray(res.data)) setAllLines(res.data);
         })
         .catch(err => console.error("Error fetching lines at point:", err));
     }

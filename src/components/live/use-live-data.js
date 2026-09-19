@@ -80,7 +80,7 @@ export const useLiveData = (departurePointSelected) => {
   const fetchData = async (pointSelected, isRefresh = false) => {
     if (!pointSelected) return;
     if (!isRefresh) setLoading(true);
-    socket.emit('subscribe_predictions', { pointId: pointSelected?.["id"] ?? -1 });
+    socket.emit('subscribe-predictions', { pointId: pointSelected?.["id"] ?? -1 });
   };
 
   const fetchPhysicalPointId = async (pointId) => {
@@ -99,13 +99,21 @@ export const useLiveData = (departurePointSelected) => {
       setData([]);
       setDataNextDepartureTimes([]);
       setLoading(true);
+      let isCurrent = true;
+      const subscribedAt = Date.now();
+      const scopedHandlePredictionsData = (response) => {
+        if (!isCurrent) return;
+        if (Date.now() - subscribedAt < 800) return; // Ignore old in-flight packets
+        handlePredictionsData(response);
+      };
       
-      socket.on('predictions_data', handlePredictionsData);
-      socket.emit('subscribe_predictions', { pointId: departurePointSelected.id });
+      socket.on('predictions-data', scopedHandlePredictionsData);
+      socket.emit('subscribe-predictions', { pointId: departurePointSelected.id });
 
       return () => {
-        socket.off('predictions_data', handlePredictionsData);
-        socket.emit('unsubscribe_predictions', { pointId: departurePointSelected.id });
+        isCurrent = false;
+        socket.off('predictions-data', scopedHandlePredictionsData);
+        socket.emit('unsubscribe-predictions', { pointId: departurePointSelected.id });
       };
     } else {
       setData(null);
@@ -113,15 +121,22 @@ export const useLiveData = (departurePointSelected) => {
     }
   }, [departurePointSelected, handlePredictionsData]);
 
-  // Effect to restore data when original fetch flag is true
+
+
   useEffect(() => {
-    if (data && isOriginalFetch) {
-      const original = JSON.parse(JSON.stringify(data));
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setIsOriginalFetch(false);
-      setData(original);
-    }
-  }, [data, isOriginalFetch]);
+    if (!departurePointSelected || !datetimeOriginalFetch) return;
+    
+    const intervalId = setInterval(() => {
+      const diffSeconds = moment().diff(datetimeOriginalFetch, 'seconds');
+      if (diffSeconds > 60) {
+        socket.emit('subscribe-predictions', { pointId: departurePointSelected.id });
+        setDatetimeOriginalFetch(moment());
+      }
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [departurePointSelected, datetimeOriginalFetch]);
+
 
   return {
     data, setData,

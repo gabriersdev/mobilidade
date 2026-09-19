@@ -12,9 +12,12 @@ const NextDeparture = ({times, lineId}) => {
   if (!times.length) {
     return (
       <>
-        amanhã ou no próximo dia útil.
-        <Link to={`/lines/${lineId ?? ""}`} className={"text-primary"}>
-          Consulte
+        <Link
+          to={`/lines/${lineId ?? ""}`}
+          target={"_blank"}
+          className={"text-primary"}
+        >
+          <span>Consulte o quadro de horários</span>
           <svg style={{marginLeft: "0.125rem"}} xmlns="http://www.w3.org/2000/svg" height="13px" viewBox="0 -960 960 960" width="13px" fill={"#2FA4E7"}>
             <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/>
           </svg>
@@ -61,6 +64,7 @@ const LiveListItem = ({d, i, configs, getNextDepartureTimes}) => {
               </Title>
             </Link>
           </td>
+          
           <td className={"bg-body-secondary"} style={{verticalAlign: "top"}}>
             <Link to={`/lines/${d?.["line_id"] ?? ""}`} className={"text-decoration-none d-flex align-items-center justify-content-start"}>
               <div className={"d-flex gap-2"}>
@@ -79,6 +83,7 @@ const LiveListItem = ({d, i, configs, getNextDepartureTimes}) => {
                       )}
                     </span>
                 </Title>
+                
                 <div className={"d-flex align-items-start justify-content-center gap-1 mt-1"}>
                   {configs?.["showAdditionalInfo"] && Util.getTodayHolidayData() && (
                     <OverlayTrigger overlay={<Tooltip><p className={"m-0 p-0 text-small text-balance line-clamp-3"}>A linha está operando no horário de domingo e feriado. O horário possui observações.</p></Tooltip>}>
@@ -93,16 +98,26 @@ const LiveListItem = ({d, i, configs, getNextDepartureTimes}) => {
                   </OverlayTrigger>
                 </div>
               </div>
-              <span className={"d-none text-small opacity-50"}>({d?.["departure_time_trip"]}) | ({d?.["expected_arrival_time"]})</span>
+              
+              <span className={"d-none text-small opacity-50"}>
+                ({d?.["departure_time_trip"]}) | ({d?.["expected_arrival_time"]})
+              </span>
             </Link>
           </td>
         </tr>
+        
         <tr>
           <td className={"bg-body-secondary"} colSpan={2}>
             <div className={"d-flex align-items-center flex-wrap gap-1"}>
               <LiveShowItem d={{...d, i}} configs={configs}/>
-              <span className={"text-muted text-small"}>- às {moment(d?.["expected_arrival_time"]).format("HH:mm")}</span>
+              
+              <div className={""}>
+                <span className={"text-muted text-small"}>
+                - às {moment(d?.["expected_arrival_time"]).format("HH:mm")}
+              </span>
+              </div>
             </div>
+            
             {configs?.["showAdditionalInfo"] && (
               <div className={""}>
                 <p className={"text-small m-0 d-inline-flex align-items-center gap-1 flex-wrap lh-base"}>
@@ -110,8 +125,12 @@ const LiveListItem = ({d, i, configs, getNextDepartureTimes}) => {
                       <svg className={"d-none d-sm-inline-block"} style={{rotate: "180deg", marginRight: "0.125rem"}} xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#BBBBBB">
                         <path d="M860-240 500-480l360-240v480Zm-400 0L100-480l360-240v480Zm-80-240Zm400 0Zm-400 90v-180l-136 90 136 90Zm400 0v-180l-136 90 136 90Z"/>
                       </svg>
-                      <i className={"fst-normal"}>Depois - {(d?.["order_departure_point"] ?? -1) === 1 ? "sai" : "aproxima"}</i>
+                      <i className={"fst-normal"}>
+                        <span>Depois</span>
+                        {(d?.["order_departure_point"] ?? -1) === 1 ? (!nextTimes.length ? ":" : " - sai") : (!nextTimes.length ? ":" : " - aproxima")}
+                      </i>
                     </span>
+                  
                   <NextDeparture times={nextTimes} lineId={d?.["line_id"]}/>
                 </p>
               </div>

@@ -1,32 +1,34 @@
 import moment from "moment";
 import Util from "../../lib/Util.jsx";
 import Weather from "../weather/weather.jsx";
-import {AlertInfoConfigSomeDepartureStart, AlertInfoFeature, AnyBusProximityError, LiveGeneralError, LoadingDeparturePoints, SelectOneDeparturePoint} from "./live-infos.jsx";
+import { AlertInfoConfigSomeDepartureStart, AlertInfoFeature, AnyBusProximityError, LiveGeneralError, LoadingDeparturePoints, SelectOneDeparturePoint } from "./live-infos.jsx";
 import LiveListSingleLine from "./live-list-single-line.jsx";
 import LiveListResults from "./live-list-results.jsx";
 import LiveFullscreenControl from "./live-fullscreen-control.jsx";
 import LiveLinesAtPoint from "./live-lines-at-point.jsx";
 
-const LiveResultsDisplay = ({
-                              departurePointSelected,
-                              loading,
-                              data,
-                              dataNextDepartureTimes,
-                              error,
-                              datetimeOriginalFetch,
-                              now,
-                              configs,
-                              resultSection
-                            }) => {
+const LiveResultsDisplay = (
+  {
+    departurePointSelected,
+    loading,
+    data,
+    dataNextDepartureTimes,
+    error,
+    datetimeOriginalFetch,
+    now,
+    configs,
+    resultSection
+  }
+) => {
   return (
     <div className={"rounded-3 bg-body-secondary p-3 mt-5 position-relative"} ref={resultSection}>
       <div className={"d-flex flex-column gap-0"}>
-        <Weather/>
-        <AlertInfoFeature/>
+        <Weather />
+        <AlertInfoFeature />
       </div>
-      
-      {error && <LiveGeneralError/>}
-      
+
+      {error && <LiveGeneralError />}
+
       {departurePointSelected ? (
         <>
           <div className={"d-flex align-items-center justify-content-between gap-3"}>
@@ -34,12 +36,12 @@ const LiveResultsDisplay = ({
               <span className={"text-muted text-small"}>Local</span>
               <span>{Util.renderText(departurePointSelected?.["title"])}</span>
             </div>
-            
+
             <LiveLinesAtPoint data={data} departurePointSelected={departurePointSelected} />
           </div>
-          
+
           {loading ? (
-            <LoadingDeparturePoints/>
+            <LoadingDeparturePoints />
           ) : data && Array.isArray(data) && data.length ? (
             <>
               <div className={"d-flex gap-3 flex-wrap mb-3"}>
@@ -47,29 +49,29 @@ const LiveResultsDisplay = ({
                   <span className={"text-muted text-small"}>Atualizado</span>
                   <span>{moment.isMoment(datetimeOriginalFetch) ? Util.diffToHuman(datetimeOriginalFetch) : "-"}</span>
                 </div>
-                
+
                 <div className={"d-flex flex-column gap-0 mb-3"}>
                   <span className={"text-muted text-small"}>Agora são</span>
                   <span>{Util.renderText(moment.isMoment(now) ? now.format("HH:mm:ss") : "-")}</span>
                 </div>
               </div>
-              
-              {configs?.["showSomeDepartureStart"] && <AlertInfoConfigSomeDepartureStart/>}
+
+              {configs?.["showSomeDepartureStart"] && <AlertInfoConfigSomeDepartureStart />}
               {configs?.["showSingleLine"] ? (
-                <LiveListSingleLine data={data} configs={configs}/>
+                <LiveListSingleLine data={data} configs={configs} />
               ) : (
-                <LiveListResults data={data} dataNextDepartureTimes={dataNextDepartureTimes} configs={configs}/>
+                <LiveListResults data={data} dataNextDepartureTimes={dataNextDepartureTimes} configs={configs} />
               )}
             </>
           ) : (
-            <AnyBusProximityError/>
+            <AnyBusProximityError />
           )}
         </>
       ) : (
-        <SelectOneDeparturePoint/>
+        <SelectOneDeparturePoint />
       )}
-      
-      <LiveFullscreenControl resultSection={resultSection}/>
+
+      <LiveFullscreenControl resultSection={resultSection} />
     </div>
   );
 };
