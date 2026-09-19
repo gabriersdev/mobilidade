@@ -5,8 +5,8 @@ import {Link} from "react-router-dom";
 import Util from "@/lib/Util.jsx";
 import liveMap from "@/assets/live-map.js";
 import Title from "@/components/ui/title/title.jsx";
-import AsyncIframe from "@/components/async-iframe/async-iframe.tsx";
 import useDepartureTimes from "@/components/list-departure-times/use-departure-times.js";
+import Alert from "@/components/ui/alert/alert.jsx";
 
 export default function RenderLiveMap({data}) {
   const lineId = data?.[0]?.line_id;
@@ -43,28 +43,35 @@ export default function RenderLiveMap({data}) {
               <div>
                 <Title type="h3" classX={" pb-2 text-body-secondary"}>Mapa ao vivo da linha</Title>
                 
-                <AsyncIframe
-                  src={link}
-                  title="Mapa ao vivo da linha"
-                />
-                
-                <span className={"text-small d-none"}>
-                  {Util.renderText(JSON.stringify(link))}
-                </span>
-                
-                <Link
-                  className={"link-opacity-100 d-flex gap-1 align-items-center mt-2"}
-                  style={{textDecoration: 'none'}}
-                  to={link}
-                  rel={"noreferrer noopener"}
-                  target={"_blank"}
-                >
-                  <span className={"text-small"}>Abrir website</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill={"#7BBEFE"}>
-                    <path
-                      d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/>
-                  </svg>
-                </Link>
+                <div className={"d-flex flex-column gap-2"}>
+                  <Alert variant={"info"} className={"m-0"}>
+                    Para consultar o mapa ao vivo da linha é necessário{" "}
+                    <Link
+                      to={link}
+                      rel={"noreferrer noopener"}
+                      target={"_blank"}
+                      className={"text-info-emphasis fw-semibold"}
+                    >
+                      <span>acessar o website do Mobilibus</span>
+                    </Link>.
+                  </Alert>
+                  
+                  <div className={"d-flex"}>
+                    <Link
+                      className={"btn btn-primary d-flex gap-1 align-items-center mt-2"}
+                      style={{textDecoration: 'none'}}
+                      to={link}
+                      rel={"noreferrer noopener"}
+                      target={"_blank"}
+                    >
+                      <span className={""}>Abrir website</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill={"currentcolor"}>
+                        <path
+                          d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/>
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </section>
           );
