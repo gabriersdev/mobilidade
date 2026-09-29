@@ -44,11 +44,10 @@ export default function CityInfoHeader() {
       <div className="d-flex flex-column gap-3">
         <div>
           <Weather variant="city-info"/>
-          <p className="mb-0 mt-3 text-balance">
+          <p className="mb-0 mt-1 text-balance">
             É {sabaraTime.format("DD")} de {translateMonth(sabaraTime.format("MMMM"))} de {sabaraTime.format("YYYY")}.
-            No horário local (Horário de Brasília) são {sabaraTime.format("HH[h]mm")}.
-            A cidade possui {"{\"00\"}"} linhas de ônibus ativas e outras {"{\"00\"}"} linhas suspensas ou desativadas catalogadas aqui.
-            Elas são operadas pelas companhias <Link to="/company/4" className="text-primary">Transporte Coletivo Metropolitano - MG</Link> e <Link to="/company/3" className="text-primary">Vinscol</Link>.
+            No Horário de Brasília são {sabaraTime.format("HH[h]mm[min]")}.
+            As linhas na cidade são operadas pelas companhias <Link to="/company/4" className="text-primary">Transporte Coletivo Metropolitano - MG</Link> e <Link to="/company/3" className="text-primary">Vinscol</Link>.
           </p>
         </div>
         <div>
