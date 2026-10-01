@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://mobilidade.lts.app.br/company</loc>
-    <lastmod>2026-07-23T19:54:45.774Z</lastmod>
+    <loc>https://mobilidade.lts.app.br/busao-0800</loc>
+    <lastmod>2026-07-23T19:54:45.772Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -13,16 +13,16 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://mobilidade.lts.app.br/busao-0800</loc>
-    <lastmod>2026-07-23T19:54:45.772Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://mobilidade.lts.app.br/guide</loc>
     <lastmod>2026-07-23T19:54:45.776Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/company</loc>
+    <lastmod>2026-07-23T19:54:45.774Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/development</loc>
@@ -44,7 +44,7 @@
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/live</loc>
-    <lastmod>2026-07-23T19:54:45.781Z</lastmod>
+    <lastmod>2026-09-07T14:42:46.417Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -161,6 +161,11 @@
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/news/15</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/news/16</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
