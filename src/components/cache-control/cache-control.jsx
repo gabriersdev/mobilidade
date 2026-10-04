@@ -116,6 +116,12 @@ export default function CacheControl() {
         variant="secondary"
         className="mt-1"
       >
+        <DropdownItem onClick={handleShow}>
+          Gerenciar arquivos de cache
+        </DropdownItem>
+        <DropdownItem onClick={handleShowStorage}>
+          Gerenciar dados e configurações
+        </DropdownItem>
         <DropdownItem onClick={() => {
           Util.clearServiceWorker();
           window.location.reload();
@@ -127,12 +133,6 @@ export default function CacheControl() {
           window.location.reload();
         }}>
           Limpar outros dados
-        </DropdownItem>
-        <DropdownItem onClick={handleShowStorage}>
-          Gerenciar dados e configurações
-        </DropdownItem>
-        <DropdownItem onClick={handleShow}>
-          Gerenciar arquivos de cache
         </DropdownItem>
       </DropdownButton>
       
