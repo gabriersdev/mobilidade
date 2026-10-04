@@ -19,12 +19,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ['react-bootstrap', 'bootstrap/dist/js/bootstrap.bundle.min.js'],
   },
-  esbuild: {
-    drop: ['console', 'debugger'],
-    pure: ['console.info', 'console.debug', 'console.warn'],
-  },
   build: {
-    minify: 'esbuild',
     sourcemap: true,
     commonjsOptions: {
       include: [/node_modules/]
@@ -61,7 +56,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(import.meta.dirname, './src'),
       react: 'react',
       'react-dom': 'react-dom',
     },
