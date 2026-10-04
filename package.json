@@ -1,14 +1,14 @@
 {
   "name": "mobilidade",
   "private": true,
-  "version": "1.42.0",
+  "version": "1.43.0",
   "type": "module",
   "homepage": "https://gabriersdev.github.io/mobilidade",
   "engines": {
     "node": "^22.23.1"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run sync:version && vite",
     "build": "node scripts/sync-version.js && node scripts/register.build.js && vite build && node scripts/generate-sitemap.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
