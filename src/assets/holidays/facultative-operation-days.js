@@ -2,7 +2,7 @@ import moment from "moment";
 import {getMovableHolidays} from "./movable.js";
 import {holidaysForAllScopes, nationalFixedHolidays} from "./national.js";
 import {regionalFixedHolidays} from "./regional.js";
-import {dateConfigs} from "../../assets/resources.js";
+import {dateConfigs} from "@/assets/resources.js";
 
 moment.locale(dateConfigs.lang)
 

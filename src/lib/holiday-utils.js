@@ -1,5 +1,6 @@
 import moment from 'moment';
 import {getAllHolidays, getVacation} from "@/assets/holidays.js";
+import {getAllExceptions} from "@/assets/holidays/exceptions.js";
 
 export function getTodayHolidayData(scope) {
   let codeScope;
@@ -30,7 +31,39 @@ export function getTodayVacationData() {
   return getVacation(now);
 }
 
+export function getTodayExceptionData(scope) {
+  let codeScope;
+  
+  switch (typeof scope === "string" ? scope.toLowerCase() : scope) {
+    case "metropolitano":
+    case 2:
+      codeScope = 4;
+      break;
+    case "municipal":
+    case 1:
+    default:
+      codeScope = 3;
+      break;
+  }
+  
+  const m = moment();
+  const now = moment(`${m.get("year")}-${('0' + (m.get("month") + 1)).slice(-2)}-${('0' + m.get("date")).slice(-2)}T00:00:00-03:00`);
+  
+  let exceptionsScope = getAllExceptions(now.year(), {includeRegion: `SC${('0' + codeScope).slice(-2)}`});
+  return exceptionsScope.find((e) => now.diff(e.date, "days") === 0);
+}
+
 export function getCurrentDayGroupName(scope, consideringVacations) {
+  const exception = getTodayExceptionData(scope);
+  
+  if (exception) {
+    if ([null, undefined, true].includes(consideringVacations)) {
+      const vacation = getTodayVacationData();
+      if (vacation) return [exception.groupName, 'ferias'];
+    }
+    return [exception.groupName];
+  }
+  
   if (getTodayHolidayData(scope)) return ['domingo'];
   
   function theDayIs() {
@@ -51,4 +84,4 @@ export function getCurrentDayGroupName(scope, consideringVacations) {
   }
   
   return [theDayIs()];
-};
+}
