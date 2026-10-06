@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://mobilidade.lts.app.br/bus</loc>
-    <lastmod>2026-08-23T20:23:04.446Z</lastmod>
+    <loc>https://mobilidade.lts.app.br/company</loc>
+    <lastmod>2026-07-23T19:54:45.774Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://mobilidade.lts.app.br/company</loc>
-    <lastmod>2026-07-23T19:54:45.774Z</lastmod>
+    <loc>https://mobilidade.lts.app.br/bus</loc>
+    <lastmod>2026-08-23T20:23:04.446Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -19,16 +19,16 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://mobilidade.lts.app.br/guide</loc>
-    <lastmod>2026-07-23T19:54:45.776Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://mobilidade.lts.app.br/development</loc>
     <lastmod>2026-07-23T19:54:45.775Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://mobilidade.lts.app.br/guide</loc>
+    <lastmod>2026-07-23T19:54:45.776Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mobilidade.lts.app.br/</loc>
