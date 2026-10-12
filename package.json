@@ -9,8 +9,9 @@
   },
   "scripts": {
     "dev": "vite",
-    "local:build": "node scripts/sync-version.js && node scripts/register.build.js && vite build && node scripts/generate-sitemap.js && git add package.json && git add sitemap.xml && git commit -m \"build: build logging and sitemap generation\"",
-    "build": "node scripts/sync-version.js && node scripts/register.build.js && vite build && node scripts/generate-sitemap.js",
+    "local:build": "node scripts/sync-version.js && node scripts/sync-news.js && node scripts/register.build.js && vite build && node scripts/generate-sitemap.js && git add package.json && git add sitemap.xml && git commit -m \"build: build logging and sitemap generation\"",
+    "build": "node scripts/sync-version.js && node scripts/sync-news.js && node scripts/register.build.js && vite build && node scripts/generate-sitemap.js",
+    "sync:news": "node scripts/sync-news.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",

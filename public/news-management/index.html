@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciador de Notícias - Mobilidade</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="/favicon.png" type="image/png">
+  <style>
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+    
+    input[type=number] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+    
+    input.is-invalid {
+      border-color: #FFA9B1 !important;
+    }
+    
+    .text-small,
+    .btn-sm {
+      font-size: 13px !important;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app" class="my-5">
+  <vueapp></vueapp>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+<script type="module">
+  let existingNews = [];
+  try {
+    const response = await fetch('./news.json');
+    if (response.ok) {
+      existingNews = await response.json();
+    }
+  } catch (error) {
+    console.error('Falha ao carregar news.json:', error);
+  }
+  
+  const defaultNewItem = {
+    title: "",
+    resume: "",
+    img: "",
+    publishDate: `${new Date().toISOString().split('T')[0]}T00:00`,
+    fixed: false,
+    content: [""]
+  };
+  
+  const newsDefault = [
+    {...defaultNewItem},
+    ...existingNews.map((n, i) => {
+      return {
+        ...n,
+        recuperate: `Notícia recuperada - N.º ${i + 1}`,
+        class: 'd-none'
+      };
+    })
+  ];
+  
+  const vueapp = {
+    template: `
+      <div class="container-fluid">
+        <div class="row">
+          <aside class="col-md-3">
+            <h2 class="text-body-tertiary mb-4 pb-2">lista de notícias</h2>
+            <div class="list-group">
+              <a v-for="(item, index) in items" :key="index" href="#" @click.prevent="scrollToNews(index)" class="list-group-item list-group-item-action text-truncate text-small">
+                {{ item.title || 'Nova Notícia' }}
+              </a>
+            </div>
+          </aside>
+          <main class="col-md-9 mt-md-0 mt-5">
+            <hr class="d-md-none">
+            <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-4">
+              <h1 class="fs-2 fw-medium text-lowercase" style="letter-spacing: -0.5px">notícias</h1>
+              <div class="d-flex flex-wrap align-items-center gap-1">
+                <button @click="adicionarItem" type="button" class="btn btn-primary">Adicionar item</button>
+                <button class="btn btn-secondary" @click="copiarItens">Copiar</button>
+              </div>
+            </div>
+            <div class="accordion" id="newsAccordion">
+              <div class="accordion-item" v-for="(item, index) in items" :key="index" :id="'news-item-' + index">
+                <h2 class="accordion-header" :id="'heading' + index">
+                  <button :class="['accordion-button ', index !== 0 ? 'collapsed' : '']" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + index" :aria-expanded="index === 0" :aria-controls="'collapse' + index">
+                    {{ item.title || 'Nova Notícia' }}
+                  </button>
+                </h2>
+                <div :id="'collapse' + index" :class="['accordion-collapse', 'collapse', index === 0 ? 'show' : '']" :aria-labelledby="'heading' + index" data-bs-parent="#newsAccordion">
+                  <div class="accordion-body">
+                    <form action="#" method="POST" @submit.prevent>
+                      <span v-if="item.recuperate" v-text="item.recuperate" class="fw-bold d-block mb-3 text-muted"></span>
+                      <div>
+                        <div class="d-flex gap-2 mb-3">
+                          <div class="form-group w-50">
+                            <label class="form-label mb-1 text-muted" :for="'title' + index">Título</label>
+                            <input v-model="item.title" :id="'title' + index" type="text" class="form-control" placeholder="Título" required @input="eventListenerInput">
+                          </div>
+                          <div class="form-group w-50">
+                            <label class="form-label mb-1 text-muted" :for="'resume' + index">Subtítulo</label>
+                            <input v-model="item.resume" :id="'resume' + index" type="text" class="form-control" placeholder="Subtítulo ou resumo" required @input="eventListenerInput">
+                          </div>
+                        </div>
+                        <div class="d-flex gap-2 mb-3">
+                          <div class="form-group w-50">
+                            <label class="form-label mb-1 text-muted" :for="'img' + index">URL da Imagem</label>
+                            <input v-model="item.img" :id="'img' + index" type="text" list="newsImagesList" class="form-control" placeholder="/news/marcopolo-44117.png" @input="eventListenerInput">
+                          </div>
+                          <div class="form-group w-50">
+                            <label class="form-label mb-1 text-muted" :for="'publishDate' + index">Data de publicação</label>
+                            <input v-model="item.publishDate" :id="'publishDate' + index" type="datetime-local" class="form-control" required @input="eventListenerInput">
+                          </div>
+                        </div>
+                        <div class="d-flex gap-2 mb-3">
+                          <div class="form-check">
+                            <input v-model="item.fixed" class="form-check-input" type="checkbox" role="switch" :id="'fixed' + index">
+                            <label class="form-check-label text-muted" :for="'fixed' + index">Fixar notícia no topo</label>
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label class="form-label mb-0 text-muted">Parágrafos do conteúdo</label>
+                          </div>
+                          <div v-for="(p, pIdx) in item.content" :key="pIdx" class="d-flex gap-2 mb-2">
+                            <textarea :id="'news-' + index + '-paragraph-' + pIdx" v-model="item.content[pIdx]" class="form-control" rows="2" :placeholder="'Parágrafo #' + (pIdx + 1)" required @input="eventListenerInput"></textarea>
+                            <button tabindex="-1" v-if="item.content.length > 1" @click="removerParagrafo(item, pIdx)" type="button" class="btn btn-danger btn-sm align-self-start" title="Remover parágrafo">×</button>
+                          </div>
+                          <button type="button" class="btn btn-sm btn-secondary" @click="adicionarParagrafo(item, index)">Adicionar parágrafo</button>
+                        </div>
+                        <div class="d-flex gap-1 mt-4 mb-0">
+                          <button @click="removerItem(index)" type="button" class="btn btn-danger">Remover item</button>
+                          <button @click="copiarItemIndividual(index)" type="button" class="btn btn-primary">Copiar item</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br><br>
+            <hr>
+            <h2 class="text-body-tertiary mb-4">JSON</h2>
+            <pre class="bg-body-secondary rounded p-2 overflow-y-scroll font-monospace" style="max-height: 400px"><code>const news = {{ jsonCode }};
+export default news;</code></pre>
+          </main>
+        </div>
+        
+        <datalist id="newsImagesList">
+          <option value="/news/busao-0800.png"></option>
+          <option value="/news/carnaval.jpg"></option>
+          <option value="/news/ferias.jpg"></option>
+          <option value="/news/marcopolo-44115.png"></option>
+          <option value="/news/marcopolo-44117.png"></option>
+          <option value="/news/neobus-44069.jpg"></option>
+          <option value="/news/neobus-44089.jpg"></option>
+          <option value="/news/neobus-44099.png"></option>
+          <option value="/news/neobus-44101.jpg"></option>
+          <option value="/news/neobus-44115.jpg"></option>
+          <option value="/news/neobus-M28.png"></option>
+          <option value="/news/soberania-brasil-gov-br.jpg"></option>
+        </datalist>
+      </div>`,
+    data() {
+      return {
+        items: newsDefault,
+        previewIndex: 0,
+        previewMode: 'article'
+      };
+    },
+    computed: {
+      previewItem() {
+        return this.items[this.previewIndex] || this.items[0];
+      },
+      jsonCode() {
+        const cleanItems = this.items.map(item => {
+          const {recuperate, class: cls, ...clean} = item;
+          return {
+            ...clean,
+            publishDate: clean.publishDate.includes('-03:00') ? clean.publishDate : `${clean.publishDate}:00-03:00`
+          };
+        });
+        return JSON.stringify(cleanItems, null, 2);
+      }
+    },
+    methods: {
+      adicionarItem() {
+        this.items.push({
+          title: "",
+          resume: "",
+          img: "",
+          publishDate: `${new Date().toISOString().split('T')[0]}T00:00`,
+          fixed: false,
+          content: [""]
+        });
+      },
+      removerItem(index) {
+        if (this.items.length <= 1) {
+          alert('É necessário manter pelo menos uma notícia');
+          return;
+        }
+        this.items.splice(index, 1);
+        if (this.previewIndex >= this.items.length) {
+          this.previewIndex = Math.max(0, this.items.length - 1);
+        }
+      },
+      adicionarParagrafo(item, index) {
+        item.content.push("");
+        const newParagraphIndex = item.content.length - 1;
+        setTimeout(() => {
+          const targetInput = document.getElementById(`news-${index}-paragraph-${newParagraphIndex}`);
+          if (targetInput) {
+            targetInput.focus();
+          }
+        }, 500);
+      },
+      removerParagrafo(item, pIndex) {
+        if (item.content.length <= 1) {
+          alert("A notícia deve possuir ao menos um parágrafo");
+          return;
+        }
+        item.content.splice(pIndex, 1);
+      },
+      copiarItens() {
+        const hasEmptyField = this.items.some(item => {
+          if (item.title.trim() === '' || item.resume.trim() === '') {
+            alert('Preencha todos os campos obrigatórios');
+            return true;
+          }
+        });
+        
+        if (!hasEmptyField) {
+          const exportText = `const news = ${this.jsonCode};\nexport default news;`;
+          navigator.clipboard.writeText(exportText).then(() => {
+            alert('Copiado!');
+          }).catch((error) => {
+            alert('Erro ao copiar!');
+            console.error('Erro ao copiar: ', error);
+          });
+        }
+      },
+      copiarItemIndividual(index) {
+        const item = this.items[index];
+        const {recuperate, class: cls, ...clean} = item;
+        const single = {
+          ...clean,
+          publishDate: clean.publishDate.includes('-03:00') ? clean.publishDate : `${clean.publishDate}:00-03:00`
+        };
+        const exportText = `export default ${JSON.stringify(single, null, 2)};\n`;
+        navigator.clipboard.writeText(exportText).then(() => {
+          alert('Copiado!');
+        }).catch((error) => {
+          alert('Erro ao copiar!');
+          console.error('Erro ao copiar: ', error);
+        });
+      },
+      eventListenerInput(event) {
+        const value = event.target.value.trim();
+        const input = event.target;
+        if (value === '') {
+          input.classList.add('is-invalid');
+        } else {
+          input.classList.remove('is-invalid');
+        }
+      },
+      scrollToNews(index) {
+        this.previewIndex = index;
+        const newsItem = document.getElementById(`news-item-${index}`);
+        const collapseTarget = document.getElementById(`collapse${index}`);
+        
+        if (newsItem && collapseTarget) {
+          if (collapseTarget.classList.contains('show')) {
+            newsItem.scrollIntoView({behavior: 'smooth'});
+            return;
+          }
+          
+          const scrollOnceShown = () => {
+            newsItem.scrollIntoView({behavior: 'smooth'});
+            collapseTarget.removeEventListener('shown.bs.collapse', scrollOnceShown);
+          };
+          
+          collapseTarget.addEventListener('shown.bs.collapse', scrollOnceShown);
+          
+          const collapseInstance = bootstrap.Collapse.getOrCreateInstance(collapseTarget);
+          collapseInstance.show();
+        }
+      },
+    }
+  };
+  
+  const app = Vue.createApp({
+    components: {
+      vueapp
+    },
+  });
+  
+  Vue.nextTick(() => {
+    setTimeout(() => {
+      const inputTitle = document.querySelector('#title0');
+      if (inputTitle) inputTitle.focus();
+    }, 250);
+  });
+  
+  app.mount('#app');
+</script>
+
+</body>
+</html>
