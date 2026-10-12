@@ -21,8 +21,9 @@ const LineHeader = ({line}) => (
         )}
         <Weather/>
         <ListLineWarnings line_id={line.line_id}/>
-        <ShowHolidayInfo scope={line.scope}/>
+        <ShowHolidayInfo line={line} scope={line.scope}/>
       </Grid>
+
     </SeeMore>
   </section>
 );

@@ -47,9 +47,10 @@ export function getMovableHolidays(year) {
   if (!year) year = +moment().get("year");
   const easter = getEasterDate(year);
   return [
-    {name: "Carnaval", ...addDaysToDate(year, easter, -47)},
-    {name: "Sexta-feira Santa", ...addDaysToDate(year, easter, -2)},
-    {name: "Páscoa", ...easter},
-    {name: "Corpus Christi", ...addDaysToDate(year, easter, 60)}
+    {name: "Carnaval", scope: "national", scheduleTarget: "domingo", ...addDaysToDate(year, easter, -47)},
+    {name: "Sexta-feira Santa", scope: "national", scheduleTarget: "domingo", ...addDaysToDate(year, easter, -2)},
+    {name: "Páscoa", scope: "national", scheduleTarget: "domingo", ...easter},
+    {name: "Corpus Christi", scope: "national", scheduleTarget: "domingo", ...addDaysToDate(year, easter, 60)}
   ];
 }
+

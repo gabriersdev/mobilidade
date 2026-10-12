@@ -49,3 +49,20 @@ O processo de build do projeto é gerenciado pelo Vite, utilizando internamente 
 
 - **Cache Busting (Hashing):** Todos os assets e chunks gerados incluem um hash dinâmico em seus nomes (ex: `[name].[hash].js`). Isso garante que os navegadores baixem as versões mais recentes sempre que houver mudanças no código, enquanto mantêm o cache agressivo para os arquivos intactos.
 - **Code Splitting (Vendor Chunks):** Bibliotecas e dependências de terceiros maiores (como `react-bootstrap`, `bootstrap-icons`, `moment` e o conteúdo da pasta `node_modules`) são separadas de forma explícita da lógica da aplicação por meio da configuração `manualChunks`. Como essas bibliotecas são atualizadas com menos frequência, elas permanecem no cache do navegador por longos períodos em deploys sucessivos, melhorando substancialmente o tempo de carregamento da aplicação.
+
+## Subsistema de Calendário, Feriados e Exceções Operacionais
+
+A camada de inteligência temporal e de quadro de horários da aplicação é organizada de maneira modular sob `src/assets/holidays/` e consumida através de utilitários em `src/lib/holiday-utils.js`:
+
+- `src/assets/holidays/`:
+  - `national.js`: Feriados nacionais fixos e de abrangência universal.
+  - `state.js`: Feriados de nível estadual (ex: Minas Gerais).
+  - `regional.js`: Feriados municipais e metropolitanos estruturados por cidade (`city`) e linhas afetadas.
+  - `movable.js`: Algoritmo gregoriano anônimo para cálculo dinâmico da Páscoa, Carnaval, Sexta-feira Santa e Corpus Christi.
+  - `exceptions.js`: Sistema de dias operacionais atípicos (ex: turnos eleitorais) com prioridade máxima sobre o cálculo convencional de horários.
+  - `vacations.js`: Definições de períodos de férias escolares e de meio de ano.
+  - `index.js`: Ponto de agregação e normalização da coleção de feriados com metadados completos de escopo territorial e quadros alvos de operação.
+- `src/lib/holiday-utils.js`:
+  - Contém a função `isEventApplicableToLine`, responsável pelo casamento polimórfico entre linhas (por objeto `line`, cidade, origem/destino ou número) e eventos de calendário.
+  - Provê `getTodayHolidayData`, `getTodayExceptionData` e `getCurrentDayGroupName`.
+
