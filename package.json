@@ -11,7 +11,6 @@
     "dev": "vite",
     "local:build": "node scripts/sync-version.js && node scripts/sync-news.js && node scripts/register.build.js && vite build && node scripts/generate-sitemap.js && git add package.json && git add sitemap.xml && git commit -m \"build: build logging and sitemap generation\"",
     "build": "node scripts/sync-version.js && node scripts/sync-news.js && node scripts/register.build.js && vite build && node scripts/generate-sitemap.js",
-    "sync:news": "node scripts/sync-news.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
@@ -19,6 +18,7 @@
     "upgrade:deps": "npx npm-check-updates -i && npm install",
     "cypress": "npx cypress run",
     "sync:version": "git pull && node scripts/sync-version.js && git add package.json && git commit -m \"build: update version\"",
+    "sync:news": "node scripts/sync-news.js",
     "sitemap": "node scripts/generate-sitemap.js"
   },
   "compilerOptions": {
