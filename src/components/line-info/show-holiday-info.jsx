@@ -2,20 +2,49 @@ import Util from "../../lib/Util.jsx";
 import Alert from "../ui/alert/alert.jsx";
 import PropTypes from "prop-types";
 
-export default function ShowHolidayInfo({scope}) {
-  const data = Util.getTodayHolidayData(scope);
+export default function ShowHolidayInfo({line, scope}) {
+  const lineTarget = line || scope;
+  const data = Util.getTodayHolidayData(lineTarget);
   const vacation = Util.getTodayVacationData();
   
   if (data) {
+    const targetSchedule = data.scheduleTarget === "sábado"
+      ? "sábado"
+      : data.scheduleTarget === "dia útil atípico"
+        ? "dia útil atípico"
+        : "domingo e feriado";
+
+    let message;
+    if (data.scope === "municipal") {
+      message = (
+        <p className={"m-0"}>
+          Feriado municipal ({data.city || "local"}): hoje é {data.name}! As linhas <b>municipais</b> operam no horário de {targetSchedule}.
+        </p>
+      );
+    } else if (data.scope === "metropolitan") {
+      message = (
+        <p className={"m-0"}>
+          Feriado metropolitano: hoje é {data.name}! As linhas <b>metropolitanas</b> operam no horário de {targetSchedule}.
+        </p>
+      );
+    } else if (data.scope === "state") {
+      message = (
+        <p className={"m-0"}>
+          Feriado estadual: hoje é {data.name}! As linhas operam no horário de {targetSchedule}.
+        </p>
+      );
+    } else {
+      message = (
+        <p className={"m-0"}>
+          Feriado nacional: hoje é {data.name}! As linhas operam no horário de {targetSchedule}.
+        </p>
+      );
+    }
+
     return (
       <Alert variant={"warning"} dismissible margin={"m-0"}>
         <div className={"d-flex flex-column gap-1"}>
-          {/*TODO - para o caso em que o feriado for apenas MUNICIPAL*/}
-          <div className={"d-none"}><p className={"m-0"}>Feriado: hoje é {data.name}! As linhas {<b>municipais</b>} operam no horário de domingo e feriado.</p></div>
-          {/*TODO - para o caso em que o feriado for apenas em B.HTE (linhas metropolitanas)*/}
-          <div className={"d-none"}><p className={"m-0"}>Feriado: hoje é {data.name}! As linhas {<b>metropolitanas</b>} operam no horário de sábado.</p></div>
-          {/*TODO - para o caso em que o feriado for Nacional ou para o sistema INTEIRO*/}
-          <p className={"m-0"}>Feriado: hoje é {data.name}! As linhas operam no horário de domingo e feriado.</p>
+          {message}
         </div>
       </Alert>
     );
@@ -35,5 +64,7 @@ export default function ShowHolidayInfo({scope}) {
 }
 
 ShowHolidayInfo.propTypes = {
-  scope: PropTypes.number.isRequired
-}
+  line: PropTypes.object,
+  scope: PropTypes.any
+};
+

@@ -1,7 +1,7 @@
 {
   "name": "mobilidade",
   "private": true,
-  "version": "1.44.0",
+  "version": "1.44.1",
   "type": "module",
   "homepage": "https://gabriersdev.github.io/mobilidade",
   "engines": {
@@ -9,8 +9,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "local:build": "node scripts/sync-version.js && node scripts/register.build.js && vite build && node scripts/generate-sitemap.js && git add package.json && git add sitemap.xml && git commit -m \"build: build logging and sitemap generation\"",
-    "build": "node scripts/sync-version.js && node scripts/register.build.js && vite build && node scripts/generate-sitemap.js",
+    "local:build": "node scripts/sync-version.js && node scripts/sync-news.js && node scripts/register.build.js && vite build && node scripts/generate-sitemap.js && git add package.json && git add sitemap.xml && git commit -m \"build: build logging and sitemap generation\"",
+    "build": "node scripts/sync-version.js && node scripts/sync-news.js && node scripts/register.build.js && vite build && node scripts/generate-sitemap.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
@@ -18,6 +18,7 @@
     "upgrade:deps": "npx npm-check-updates -i && npm install",
     "cypress": "npx cypress run",
     "sync:version": "git pull && node scripts/sync-version.js && git add package.json && git commit -m \"build: update version\"",
+    "sync:news": "node scripts/sync-news.js",
     "sitemap": "node scripts/generate-sitemap.js"
   },
   "compilerOptions": {
@@ -42,7 +43,7 @@
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.2",
     "downshift": "^9.4.0",
-    "framer-motion": "^14.0.0",
+    "framer-motion": "^14.1.0",
     "html-react-parser": "^6.1.8",
     "leaflet": "^1.9.4",
     "moment": "^2.31.0",
@@ -53,10 +54,10 @@
     "react-input-mask": "^2.0.4",
     "react-leaflet": "^5.0.0",
     "react-router-dom": "^7.18.4",
-    "rolldown": "1.2.12",
+    "rolldown": "1.2.13",
     "semantic-release": "^25.0.9",
     "socket.io-client": "^4.8.4",
-    "vercel": "^63.1.0"
+    "vercel": "^63.1.2"
   },
   "devDependencies": {
     "@eslint/compat": "^2.1.1",
@@ -64,9 +65,9 @@
     "@eslint/js": "^10.0.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "@typescript-eslint/eslint-plugin": "^8.71.0",
-    "@typescript-eslint/parser": "^8.71.0",
-    "@vitejs/plugin-react": "^6.1.1",
+    "@typescript-eslint/eslint-plugin": "^8.71.1",
+    "@typescript-eslint/parser": "^8.71.1",
+    "@vitejs/plugin-react": "^6.1.2",
     "chalk": "^6.0.1",
     "cypress": "^16.1.1",
     "eslint": "^10.12.0",
@@ -88,7 +89,7 @@
     "undici": "^6.23.0",
     "esbuild": "^0.28.1",
     "path-to-regexp": "^6.3.0",
-    "rolldown": "1.2.12",
+    "rolldown": "1.2.13",
     "diff": "^8.0.3",
     "got": "^11.8.5",
     "tar": "^7.5.21",
