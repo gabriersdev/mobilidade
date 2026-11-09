@@ -4,6 +4,7 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
 ## [Unreleased]
 ### Adicionado
+- **Script SQL de Linhas do TCS**: Criado o script transacional `scripts/insert-tcs-lines.sql` para inserção das 16 linhas municipais do Transporte Coletivo Suplementar (TCS) de Sabará (`S01` a `S15`, incluindo a divisão `S11A` e `S11B`) e seus 463 horários de partida na base `bus_system`, com vínculo automático à tabela `fare_history`.
 - **Sincronização de Notícias**: Criado o script `scripts/sync-news.js` que lê dinamicamente todos os módulos em `src/assets/news/*.js` e gera `public/news-management/news.json`, eliminando a necessidade de manter notícias hardcoded nas ferramentas de gestão estáticas. Integrado ao pipeline com o script `npm run sync:news`.
 - **Gerenciador de Notícias**: Criada a ferramenta em `public/news-management/index.html` com Vue 3 e Bootstrap 5.3 puro, permitindo visualização, edição, gerenciamento de parágrafos, exportação de arquivos individuais (`.js`) ou da coleção inteira e pré-visualização em tempo real nos formatos Artigo e Card.
 - **Exceções de Operação**: Adicionado um sistema isolado em `src/assets/holidays/exceptions.js` que permite sobrescrever a classificação de um dia de operação específico (ex: "dia útil atípico"), dando total prioridade de escopo sobre as funções padrões de feriados e cálculo do dia da semana (`holiday-utils.js`).

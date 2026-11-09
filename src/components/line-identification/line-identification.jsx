@@ -37,7 +37,7 @@ const LineIdentification = () => {
   
   const hasIntegration = line?.has_integration === 1 ? "Possui integração" : "Não possui integração";
   
-  const fare = line && parseFloat(line.fare) === 0 ? "Não informado" : Util.formatMoney(line?.fare)?.replace("R$", "BRL");
+  const fare = line && parseFloat(line.fare) === 0 ? "Gratuito" : Util.formatMoney(line?.fare)?.replace("R$", "BRL");
   
   const countDepartureTimes = line?.count_departure_times || 0;
   const reportContact = line?.report_contact;
