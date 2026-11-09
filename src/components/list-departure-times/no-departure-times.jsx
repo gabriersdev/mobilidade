@@ -1,36 +1,36 @@
 import {useContext} from "react";
 import {TimeContext} from "./departure-time-context.jsx";
+import {ThemeContext} from "../ui/theme-context/theme-context-obj.js";
 import Alert from "../ui/alert/alert.jsx";
-import Util from "../../lib/Util.jsx"
+import Util from "../../lib/Util.jsx";
 
 import moment from "moment";
 import PropTypes from "prop-types";
 import {dateConfigs} from "@/assets/resources.js";
 
 moment.locale(dateConfigs.lang);
-const getCurrentDayGroupName = () => Util.getCurrentDayGroupName();
 
 /**
  * Componente isolado para exibir o alerta de "nenhum horário de partida".
- * Ele lê defaultEventKey diretamente do TimeContext para garantir que
- * reaja às alterações de estado (evita que a string fique memorizada e
- * não atualize quando o contexto mudar).
+ * Lê o defaultEventKey específico do sentido atual para evitar conflito entre
+ * sentidos com quadros de dias diferentes.
  *
  * Props:
  * - isFirst: boolean (exibe o alerta apenas para o primeiro item)
  */
-const NoDepartureTimes = ({isFirst}) => {
-  const {defaultEventKey} = useContext(TimeContext);
-  
-  // Só renderiza para o primeiro item (mesma lógica anterior)
+function NoDepartureTimes({isFirst}) {
+  const {defaultEventKey, defaultEventKeys} = useContext(TimeContext);
+  const {direction, scope} = useContext(ThemeContext) || {};
+
   if (!isFirst) return null;
-  
-  const currentDayName = getCurrentDayGroupName()[0];
-  
-  const show = Array.isArray(defaultEventKey) && defaultEventKey.length === 0;
-  
+
+  const currentDayName = Util.getCurrentDayGroupName(scope)[0];
+  const directionDefaultEventKey = defaultEventKeys?.[direction] ?? defaultEventKey;
+
+  const show = Array.isArray(directionDefaultEventKey) && directionDefaultEventKey.length === 0;
+
   if (!show) return null;
-  
+
   return (
     <Alert variant={"warning"} dismissible={true}>
       <p className={"m-0 p-0"}>
@@ -48,7 +48,7 @@ const NoDepartureTimes = ({isFirst}) => {
       </p>
     </Alert>
   );
-};
+}
 
 NoDepartureTimes.propTypes = {
   isFirst: PropTypes.oneOfType([PropTypes.object, PropTypes.bool, PropTypes.number])

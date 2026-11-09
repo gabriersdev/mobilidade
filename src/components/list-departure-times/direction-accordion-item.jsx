@@ -6,18 +6,21 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import DirectionTitle from '../list-departure-points/direction-title.jsx';
 
-const DirectionAccordionItem = ({
-                                  direction,
-                                  departure_location,
-                                  destination_location,
-                                  eventKey,
-                                  departureTimes,
-                                  sortedDays,
-                                  observations,
-                                  type,
-                                  scope,
-                                }) => {
-  
+function DirectionAccordionItem({
+  direction,
+  departure_location,
+  destination_location,
+  eventKey,
+  departureTimes,
+  sortedDays,
+  observations,
+  type,
+  scope,
+}) {
+  const directionDepartureTimes = departureTimes.filter(
+    (item) => item.direction === direction
+  );
+
   return (
     <AccordionItem
       title={
@@ -31,7 +34,7 @@ const DirectionAccordionItem = ({
     >
       <ThemeContext.Provider
         value={{
-          departureTimes,
+          departureTimes: directionDepartureTimes,
           uniqueDaysForDirection: sortedDays,
           index: eventKey,
           direction,
@@ -55,7 +58,7 @@ const DirectionAccordionItem = ({
           </span>
           </OverlayTrigger>
           <span className="text-body-secondary line-clamp-1 text-small">
-          {departureTimes.length.toLocaleString()} horários de partidas neste sentido.
+          {directionDepartureTimes.length.toLocaleString()} horários de partidas neste sentido.
         </span>
         </div>
       </ThemeContext.Provider>

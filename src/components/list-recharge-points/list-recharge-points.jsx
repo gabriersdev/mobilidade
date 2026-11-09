@@ -2,89 +2,114 @@ import '@/components/list-recharge-points/list-recharge-points.css';
 
 import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
-import {FormGroup, FormLabel, FormSelect} from "react-bootstrap";
+import {FormGroup, FormLabel, FormSelect, Placeholder} from "react-bootstrap";
 
 import apiClient from "@/assets/axios-config.js";
-import Grid from "@/components/ui/grid/grid.jsx";
-import Card from "@/components/ui/card/card.jsx";
+import Alert from "@/components/ui/alert/alert.jsx";
 import ListPoints from "@/components/list-recharge-points/list-points.jsx";
 import AnimatedComponents from "@/components/ui/animated-component/animated-components.jsx";
 import {RechargePointsContext} from "@/components/list-recharge-points/recharge-points-context.jsx";
 import OffCanvasRechargePoints from "@/components/list-recharge-points/off-canvas-recharge-points.jsx";
 
-const ListRechargePoints = ({id_company, company_name}) => {
+function ListRechargePoints({id_company}) {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
-  
+
   useEffect(() => {
-    const searchRechargePoints = async () => {
+    const controller = new AbortController();
+    let isCancelled = false;
+
+    async function searchRechargePoints() {
+      if (!id_company) {
+        setData([]);
+        setError(null);
+        setIsLoaded(false);
+        return;
+      }
+
       setIsLoaded(true);
       setError(null);
       setData([]);
       try {
-        const response = await apiClient.post(`/recharge_points/`, {id_company: id_company}); // URL completa da sua API
-        setData(response.data);
-      } catch (error) {
-        console.error('Erro ao buscar dados:', error);
-        setError(error);
+        const response = await apiClient.post(
+          `/recharge_points/`,
+          {id_company: id_company},
+          {signal: controller.signal}
+        );
+        if (!isCancelled) {
+          setData(Array.isArray(response.data) ? response.data : []);
+        }
+      } catch (err) {
+        if (!isCancelled && err.code !== 'ERR_CANCELED') {
+          console.error('Erro ao buscar dados:', err);
+          setError(err);
+        }
       } finally {
-        setIsLoaded(false);
+        if (!isCancelled) {
+          setIsLoaded(false);
+        }
       }
     }
-    
-    searchRechargePoints().then(() => {
-    });
+
+    searchRechargePoints();
+
+    return () => {
+      isCancelled = true;
+      controller.abort();
+    };
   }, [id_company]);
-  
+
   if (isLoaded) {
     return (
       <AnimatedComponents>
-        <Grid>
-          <Card title="Carregando" subtitle="Aguarde...">Estamos conectando ao banco de dados. Esse processo geralmente é
-            rápido. Por favor, aguarde alguns instantes.</Card>
-        </Grid>
+        <Placeholder as="div" animation="glow" className="mt-3">
+          <Placeholder xs={12} className="mb-2"/>
+          <Placeholder xs={10} className="mb-2"/>
+          <Placeholder xs={8}/>
+        </Placeholder>
       </AnimatedComponents>
-    )
-  } else if (error) {
-    console.log(error)
-    return (
-      <AnimatedComponents>
-        <Grid>
-          <Card title="Erro" subtitle="Não foi possível carregar os pontos de recarga">Houve um erro ao carregar os pontos
-            de recarga. Por favor, tente novamente mais tarde.</Card>
-        </Grid>
-      </AnimatedComponents>
-    )
-  } else if (data.length === 0) {
-    return (
-      <AnimatedComponents>
-        <Grid>
-          <Card title="Opa!"
-                subtitle={`Nenhum ponto de recarga encontrado`}>{`Não há pontos de recarga cadastrados para a concessionária ${company_name}.`}</Card>
-        </Grid>
-      </AnimatedComponents>
-    )
-  } else {
-    return (<>
-      <RechargePointsContext>
-        <AnimatedComponents>
-          <OffCanvasRechargePoints/>
-          <FormGroup className={"mb-4 gap-1 flex-wrap d-none"}>
-            <FormLabel column={"sm"} htmlFor={"#city-recharge"} className={"fs-6 text-body-tertiary pe-1"}>Na cidade de</FormLabel>
-            <FormSelect style={{width: "min(100%, 300px)", background: "inherit !important"}} id={"city-recharge"} disabled={true} className={"p-0 m-0 border-0 bg-body"}>
-              <option value={"1"} defaultValue={"1"}>Sabará</option>
-            </FormSelect>
-          </FormGroup>
-          <ListPoints data={data}/>
-        </AnimatedComponents>
-      </RechargePointsContext>
-    </>)
+    );
   }
+
+  if (error) {
+    return (
+      <AnimatedComponents>
+        <Alert variant={"danger"}>
+          <span>Não foi possível carregar os pontos de recarga. Tente novamente mais tarde.</span>
+        </Alert>
+      </AnimatedComponents>
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <AnimatedComponents>
+        <Alert variant={"info"}>
+          <span>Não localizamos pontos de recarga para esta linha.</span>
+        </Alert>
+      </AnimatedComponents>
+    );
+  }
+
+  return (
+    <RechargePointsContext>
+      <AnimatedComponents>
+        <OffCanvasRechargePoints/>
+        <FormGroup className={"mb-4 gap-1 flex-wrap d-none"}>
+          <FormLabel column={"sm"} htmlFor={"#city-recharge"} className={"fs-6 text-body-tertiary pe-1"}>Na cidade de</FormLabel>
+          <FormSelect style={{width: "min(100%, 300px)", background: "inherit !important"}} id={"city-recharge"} disabled={true} className={"p-0 m-0 border-0 bg-body"}>
+            <option value={"1"} defaultValue={"1"}>Sabará</option>
+          </FormSelect>
+        </FormGroup>
+        <ListPoints data={data}/>
+      </AnimatedComponents>
+    </RechargePointsContext>
+  );
 }
 
 ListRechargePoints.propTypes = {
-  id_company: PropTypes.number.isRequired, company_name: PropTypes.string.isRequired,
-}
+  id_company: PropTypes.number,
+};
 
 export default ListRechargePoints;
