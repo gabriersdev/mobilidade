@@ -43,7 +43,7 @@
     "bootstrap": "^5.3.9",
     "bootstrap-icons": "^1.13.2",
     "downshift": "^9.5.0",
-    "framer-motion": "^14.13.0",
+    "framer-motion": "^14.14.0",
     "html-react-parser": "^6.1.8",
     "leaflet": "^1.9.4",
     "moment": "^2.31.0",
