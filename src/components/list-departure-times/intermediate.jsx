@@ -15,16 +15,13 @@ export default function Intermediate(
   }
 ) {
   const departureTimes = data.toSorted((a, b) => a.day - b.day);
-  const uniqueDirections = [
+  const directionsToRender = [
     ...new Set(departureTimes.map((item) => item.direction)),
-  ];
-  
-  if (!departure_location || !uniqueDirections) {
+  ].sort((a, b) => a - b);
+
+  if (!departure_location || directionsToRender.length === 0) {
     return <div>Organizando horários...</div>;
   }
-  
-  const directionsToRender =
-    uniqueDirections[0] === 2 ? uniqueDirections.toReversed() : uniqueDirections;
   
   return (
     <Accordion defaultEventKey={['0']} id="departure-times-data">

@@ -6,7 +6,8 @@ import {TimeContext} from "./departure-time-context.jsx";
 import DepartureTimeIndicator from "./departure-time-indicator.jsx";
 
 const TableRow = ({ row, directionName, direction, dayName, tableIndex, type }) => {
-  const { defaultEventKey, handlePointClick } = useContext(TimeContext);
+  const { defaultEventKey, defaultEventKeys, handlePointClick } = useContext(TimeContext);
+  const directionDefaultEventKey = defaultEventKeys?.[direction] ?? defaultEventKey;
   const bootstrapBGColors = data.bootstrap.bg.colors;
   
   return (
@@ -36,7 +37,7 @@ const TableRow = ({ row, directionName, direction, dayName, tableIndex, type }) 
             <DepartureTimeIndicator
               departureTime={item.departureTime}
               tableIndex={tableIndex}
-              defaultEventKey={defaultEventKey}
+              defaultEventKey={directionDefaultEventKey}
               type={type}
             />
             
