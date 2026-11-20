@@ -55,7 +55,7 @@
     "react-leaflet": "^5.0.0",
     "react-router-dom": "^7.18.4",
     "rolldown": "1.2.13",
-    "semantic-release": "^25.0.9",
+    "semantic-release": "^26.0.1",
     "socket.io-client": "^4.8.4",
     "vercel": "^65.16.0"
   },
