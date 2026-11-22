@@ -41,7 +41,7 @@ const news = [
 ];
 
 const returnNews = news.map((n, i) => {
-  return {...n, ["id"]: i}
+  return {...n, ["id"]: i};
 });
 
 export default returnNews;

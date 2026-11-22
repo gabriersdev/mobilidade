@@ -9,4 +9,4 @@ export default {
     "<>As <Link to={\"/lines/4990\"}>viagens da linha</Link> partem da Rua José Rodrigues dos Santos - em frente ao n.º 883 e esquina com a Rua Bem-te-vi às 05h20, 07h40, 15h00 e 17h30.</>",
     "<><Link to={\"/lines/4990\"}>Consulte as informações da linha clicando aqui.</Link></>"
   ]
-}
+};
