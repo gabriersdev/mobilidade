@@ -5,7 +5,7 @@
     "resume": "Os horários foram transferidos para a linha 4991. Veja o que muda para os passageiros.",
     "img": "",
     "publishDate": "2025-06-02T00:00",
-    "publishDateRaw": "2025-06-02T00:00:00.000-03:00",
+    "publishDateRaw": "2025-06-02T00:00:00-03:00",
     "fixed": false,
     "content": [
       "Os passageiros que usavam a linha 4992, Sabará ⇄ Terminal São Gabriel Via Av. José Cândido da Silveira acordaram na manhã dessa segunda (02/05) com a notícia que a linha havia sido suspensa",
@@ -20,7 +20,7 @@
     "resume": "Durante os dias 15 à 17 de julho, eventos ocorrem na cidade em comemoração ao Aniversário de Sabará",
     "img": "",
     "publishDate": "2025-06-29T00:00",
-    "publishDateRaw": "2025-06-29T00:00:00.000-03:00",
+    "publishDateRaw": "2025-06-29T00:00:00-03:00",
     "fixed": false,
     "content": [
       "Em comemoração ao aniversário da cidade, todas as linhas operadas pela Vinscol e as linhas 4970, 4986, 4987 e 4991, operadas pela Viação Cuiabá têm o itinerário alterado, deixando de passar pelo centro histórico e Avenida Perimetral e parte da Avenida Prefeito Victor Fantini, passando pela Avenida Central.",
@@ -33,7 +33,7 @@
     "resume": "Confira o calendário dos eventos do Aniversário de Sabará 2025",
     "img": "/news/marcopolo-44117.png",
     "publishDate": "2025-07-05T00:00",
-    "publishDateRaw": "2025-07-05T00:00:00.000-03:00",
+    "publishDateRaw": "2025-07-05T00:00:00-03:00",
     "fixed": false,
     "content": [
       "Durante as datas listadas abaixo os ônibus operados pela Vinscol não passarão pelo Centro Histórico. Está previsto para que, entre os dias 12 e 20 de julho, todas as linha da Vinscol e as linhas 4986, 4987, 4988 e 4991 operadas pela viação Cuiabá não passarão pela Av. Perimetral e parte da Av. Prefeito Victor Fantini, sendo parte do itinerário transferido para a Av. Central.",
@@ -54,7 +54,7 @@
     "resume": "A linha começa a operar hoje (14/07/2025) e atende os passageiros desses bairros.",
     "img": "/news/neobus-44089.jpg",
     "publishDate": "2025-07-14T00:00",
-    "publishDateRaw": "2025-07-14T00:00:00.000-03:00",
+    "publishDateRaw": "2025-07-14T00:00:00-03:00",
     "fixed": false,
     "content": [
       "Uma nova linha foi criada para atender os passageiros que moram nos bairros Paciência e Adelmolândia. A linha 4990 passou a operar na manhã dessa segunda-feira (14/07).",
@@ -68,7 +68,7 @@
     "resume": "Durante o feriado de 07 de setembro (domingo) todas as linhas operadas pela Vinscol não passarão pelo centro Histórico.",
     "img": "/news/neobus-44101.jpg",
     "publishDate": "2025-08-30T00:00",
-    "publishDateRaw": "2025-08-30T00:00:00.000-03:00",
+    "publishDateRaw": "2025-08-30T00:00:00-03:00",
     "fixed": false,
     "content": [
       "No domingo, feriado de 07 de setembro todas as linhas operadas pela Vinscol não passarão pelo centro Histórico, em razão das comemorações e desfiles no Centro, seguindo viagem pela Av. Prefeito Victor Fantini e Av. Perimetral, sem entrar na Praça da Getúlio Vargas (Matriz), durante todo o dia, no sentido ida e volta.",
@@ -81,7 +81,7 @@
     "resume": "Durante as vésperas (24 e 31) e os feriados (25/12 e 01/01), os quadros de horários das linhas mudam.",
     "img": "/news/neobus-44115.jpg",
     "publishDate": "2025-11-30T00:00",
-    "publishDateRaw": "2025-11-30T00:00:00.000-03:00",
+    "publishDateRaw": "2025-11-30T00:00:00-03:00",
     "fixed": false,
     "content": [
       "<>Nesses dias, geralmente até as 12 ou 14 horas, as linhas operam no quadro de horários do dia corrente e depois no quadro de horários de feriado (geralmente o mesmo de domingo). Para evitar qualquer transtorno causado por informações incorretas, optamos, nas vésperas de feriados, definir todas as linhas com o horário de partida de domingo e/ou feriados. Nos dias (25 e 01/01) os horários de partidas para todas as linhas também serão de domingo e/ou feriados. <Link to={\"/lines\"}>Consulte os horários das linhas aqui.</Link>"
@@ -93,7 +93,7 @@
     "resume": "Governo do estado autorizou reajuste que começa a valer no dia 09/01/2026. O reajuste superou qualquer um dos reajustes entre 2021 e 2025. A média em reais para as linhas de Sabará foi de R$ 0,80 centavos.",
     "img": "/news/neobus-44069.jpg",
     "publishDate": "2026-01-06T00:00",
-    "publishDateRaw": "2026-01-06T00:00:00.000-03:00",
+    "publishDateRaw": "2026-01-06T00:00:00-03:00",
     "fixed": false,
     "content": [
       "11 meses depois de começar a distribuir 850 ônibus para serem usados pelas companhias da RMBH, o Governo do estado de Minas Gerais autorizou um reajuste escorchante para as linhas do sistema metropolitano: intermunicipais, metropolitanos bairros, MOVE metropolitano, executivos e executivos rodoviários.",
@@ -108,7 +108,7 @@
     "resume": "Confira as alterações nos quadros de horários das linhas municipais e intermunicipais durante o feriado de Carnaval.",
     "img": "/news/carnaval.jpg",
     "publishDate": "2026-02-13T00:00",
-    "publishDateRaw": "2026-02-13T00:00:00.000-03:00",
+    "publishDateRaw": "2026-02-13T00:00:00-03:00",
     "fixed": false,
     "content": [
       "Durante o feriado de Carnaval, o transporte coletivo terá alterações em seus quadros de horários. A medida visa adequar a oferta de viagens à demanda de passageiros, que costuma reduzir neste período.",
@@ -123,7 +123,7 @@
     "resume": "Confira como será o funcionamento das linhas de ônibus no feriado de 03 de abril.",
     "img": "/news/marcopolo-44117.png",
     "publishDate": "2026-03-27T00:00",
-    "publishDateRaw": "2026-03-27T00:00:00.000-03:00",
+    "publishDateRaw": "2026-03-27T00:00:00-03:00",
     "fixed": false,
     "content": [
       "No feriado de Sexta-feira da Paixão, celebrado em 03 de abril, as linhas de ônibus municipais e metropolitanas operarão com o quadro de horários de domingos e feriados.",
@@ -138,7 +138,7 @@
     "resume": "Veja como ficam os horários de ônibus durante o feriado de Tiradentes, 21 de abril.",
     "img": "/news/neobus-44099.png",
     "publishDate": "2026-04-10T00:00",
-    "publishDateRaw": "2026-04-10T00:00:00.000-03:00",
+    "publishDateRaw": "2026-04-10T00:00:00-03:00",
     "fixed": false,
     "content": [
       "Na terça-feira, 21 de abril, é celebrado o feriado de Tiradentes. Durante este dia, o quadro de horários das linhas de ônibus municipais e metropolitanas será equivalente ao de domingos e feriados.",
@@ -153,8 +153,8 @@
     "resume": "Campanha defende a PEC 25/23 para criar o Sistema Único de Mobilidade, propondo um modelo de financiamento que garante transporte gratuito sem criar novos impostos.",
     "img": "/news/busao-0800.png",
     "publishDate": "2026-05-25T00:00",
-    "publishDateRaw": "2026-05-25T00:00:00.000-03:00",
-    "fixed": true,
+    "publishDateRaw": "2026-05-25T00:00:00-03:00",
+    "fixed": false,
     "content": [
       "Uma mobilização liderada pela organização Nossas está pressionando o Congresso Nacional pelo avanço da Proposta de Emenda à Constituição (PEC) 25/23, de autoria da deputada Luiza Erundina. O projeto propõe a criação do Sistema Único de Mobilidade (SUM), estruturado aos moldes do SUS, para implementar a Tarifa Zero em todo o país. Atualmente, a atenção está voltada para o presidente da CCJ, deputado Leur Lomanto Jr., de quem se exige a inclusão da matéria na pauta do dia para dar início à comissão especial que debaterá o mérito do texto.",
       "A viabilidade financeira do projeto baseia-se em um estudo da Universidade de Brasília (UnB), que demonstra ser possível custear o transporte gratuito em todas as 706 cidades brasileiras com mais de 50 mil habitantes. A estratégia consiste na reformulação do sistema do Vale-Transporte atual, eliminando a necessidade de novos impostos. Com essa mudança, as empresas concessionárias deixariam de receber por passageiro integrado — lógica que hoje incentiva a superlotação — e passariam a ser remuneradas puramente pelo serviço prestado, permitindo exigir mais frequência e qualidade nas linhas.",
@@ -169,7 +169,7 @@
     "resume": "Veja como ficam os horários de ônibus durante o feriado de 04/06.",
     "img": "/news/marcopolo-44117.png",
     "publishDate": "2026-05-28T00:00",
-    "publishDateRaw": "2026-05-28T00:00:00.000-03:00",
+    "publishDateRaw": "2026-05-28T00:00:00-03:00",
     "fixed": false,
     "content": [
       "Na quinta-feira, 04 de junho, devido ao feriado, o quadro de horários das linhas de ônibus municipais e metropolitanas será equivalente ao de domingos e feriados.",
@@ -185,7 +185,7 @@
     "resume": "Na tarde da segunda-feira (29/06), têm jogo do Brasil na Copa do Mundo. Confira as mudanças no quadro de horários das linhas.",
     "img": "/news/soberania-brasil-gov-br.jpg",
     "publishDate": "2026-06-28T00:00",
-    "publishDateRaw": "2026-06-28T00:00:00.000-03:00",
+    "publishDateRaw": "2026-06-28T00:00:00-03:00",
     "fixed": false,
     "content": [
       "As linhas metropolitanas operarão até as 12h no quadro de horários de dia útil atípico e, a partir, das 12h01, quadro de horário de sábados.",
@@ -199,7 +199,7 @@
     "resume": "Saiba das mudanças no itinerário das linhas durante as comemorações do aniversário e quadro de horários",
     "img": "/news/marcopolo-44115.png",
     "publishDate": "2026-07-05T00:00",
-    "publishDateRaw": "2026-07-05T00:00:00.000-03:00",
+    "publishDateRaw": "2026-07-05T00:00:00-03:00",
     "fixed": false,
     "content": [
       "Durante os dias 16 e 20/07, as linhas de ônibus operadas pela Vinscol, a linha metropolitana 4986 e as linhas operadas pela Prefeitura de Sabará não passarão pelo Centro Histórico. Está previsto para que essas linhas, além da 4970, 4987, 4988 e 4991 passem entre as 08h e 04h não passem pela Av. Perimetral e parte da Av. Prefeito Victor Fantini, sendo o itinerário transferido para a Av. Central (a avenida que cruza a Lagoa da Reta).",
@@ -213,14 +213,14 @@
     "resume": "As linhas metropolitanas, entre os dias 11/07 e 02/08 operam no quadro de horários de férias",
     "img": "/news/ferias.jpg",
     "publishDate": "2026-07-10T00:00",
-    "publishDateRaw": "2026-07-10T00:00:00.000-03:00",
+    "publishDateRaw": "2026-07-10T00:00:00-03:00",
     "fixed": false,
     "content": [
       "As linhas metropolitanas operam entre os dias 11/07 e 02/08 no quadro de horários de férias. Há redução das partidas e maior intervalo entre as viagens.",
       "<>As reduções variaram bastante entre as linhas, mas chegaram até 30% (é o caso da <Link to={\"/lines/20\"}>linha 4987</Link>).<>",
       "<>Para verificar os horários da linha metropolitana de seu interesse, <Link to={\"/search/?term=metropolitano\"}>acesse a nossa página de pesquisa</Link>.</>",
       "Não foi anunciada mudança no quadro de horários das linhas municipais, nem aquelas que passaram a ser operadas pela Prefeitura Municipal.",
-      "<>Notícia relacionada à <Link to={\"/news/15\"}>Remoção dos horários de partida e informações para todas as linhas municipais</Link></>"
+      "<>Notícia relacionada à <Link to={\"/news/15\"}>Remoção dos horários de partida e informaçÕes para todas as linhas municipais</Link></>"
     ]
   },
   {
@@ -261,6 +261,20 @@
     "content": [
       "As operações da empresa Viação Nossa Senhora da Conceição encerrarão em 20 de outubro. O Transporte Coletivo Suplementar (TCS), mantido pela Prefeitura de Sabará, assumirá temporariamente todo o Transporte Público Municipal até que uma nova concessão seja firmada entre a Prefeitura da cidade e uma empresa privada, no esquema de PPP.",
       "Por aqui, a partir de 20 de outubro, todas as linhas anteriormente operadas pela VINSCOL serão desativadas no sistema, enquanto as linhas do TCS serão cadastradas e ativadas, com seus respectivos quadros de horários, observações, itinerários e pontos de parada. Embora ainda de forma imprecisa, será possível acompanhar as partidas e a aproximação de vans e ônibus do TCS nos pontos de parada cadastrados no sistema."
+    ]
+  },
+  {
+    "id": 18,
+    "title": "Retorno da operação da Linha 4990",
+    "resume": "Após um período de quase um ano e meio suspensa, a linha volta a operação nesta terça-feira, 17 de novembro",
+    "img": "/news/marcopolo-44114.png",
+    "publishDate": "2026-11-17T00:00",
+    "publishDateRaw": "2026-11-17T00:00:00-03:00",
+    "fixed": false,
+    "content": [
+      "Suspensa desde 07 de agosto de 2025, a <><Link to={\"/lines/4990\"}>linha 4990 - Adelmolândia -> Belo Horizonte (atendimento Paciência)</Link></> volta a operar nesta terça (17). Após o encerramento das operações da VINSCOL no Transporte Público Municipal, no dia 20 de outubro, a linha retorna, com quatro horários de partida e funcionamento apenas em dias úteis. Ao todo, a linha ficou 497 dias suspensa, aguardando julgamento da liminar imposta pela VINSCOL - o que não ocorreu até o encerramento das operações da empresa.",
+      "<>As <Link to={\"/lines/4990\"}>viagens da linha</Link> partem da Rua José Rodrigues dos Santos - em frente ao n.º 883 e esquina com a Rua Bem-te-vi às 05h20, 07h40, 15h00 e 17h30.</>",
+      "<><Link to={\"/lines/4990\"}>Consulte as informações da linha clicando aqui.</Link></>"
     ]
   }
 ]
